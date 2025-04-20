@@ -22,8 +22,8 @@ class DiscordWebhookSender:
         self.BASE_DELAY = 0.2  # Base delay for exponential backoff
         self.TIMEOUT = 15  # Default timeout for requests
 
-    async def send_messages(self, messages: List[str], json_data) -> List[str]:
-
+    async def send_messages(self, messages: List[str], json_data, DO_TEST = False) -> List[str]:
+        if DO_TEST: return
         semaphore = asyncio.Semaphore(self.MAX_CONCURRENT)
         
         async with ClientSession(connector=TCPConnector(ssl=False)) as session:
