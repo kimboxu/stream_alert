@@ -73,7 +73,7 @@ def init_background_tasks():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
-    supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+    supabase = create_client(environ['supabase_url'], environ['supabase_key'])
     userStateData = supabase.table('userStateData').select("*").execute()
     userStateData = make_list_to_dict(userStateData.data)
     userStateData.index = userStateData["discordURL"]
@@ -81,7 +81,7 @@ def init_background_tasks():
     return userStateData
 
 def save_user_data(discordWebhooksURL, username):
-    supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+    supabase = create_client(environ['supabase_url'], environ['supabase_key'])
     supabase.table('userStateData').upsert({
         "discordURL": discordWebhooksURL, 
         "username": username,
@@ -201,7 +201,7 @@ def get_user_settings():
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
     
     # Supabase에서 사용자 설정 가져오기
-    supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+    supabase = create_client(environ['supabase_url'], environ['supabase_key'])
     result = supabase.table('userStateData').select('*').eq('discordURL', discordWebhooksURL).execute()
     
     if not result.data:
@@ -265,7 +265,7 @@ def save_user_settings():
     update_data["chat_user_json"] = loads(update_data["chat_user_json"].replace('\"', '"'))
     
     # Supabase에 설정 업데이트
-    supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+    supabase = create_client(environ['supabase_url'], environ['supabase_key'])
     result = supabase.table('userStateData').upsert(update_data).execute()
     
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
@@ -274,7 +274,7 @@ def save_user_settings():
 def get_streamers():
     try:
         # Supabase 연결
-        supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+        supabase = create_client(environ['supabase_url'], environ['supabase_key'])
         
         # 아프리카TV 스트리머 정보 가져오기
         afreecaIDList = supabase.table('afreecaIDList').select("*").execute()
@@ -329,7 +329,7 @@ def register_fcm_token():
     
     try:
         # Supabase에 FCM 토큰 저장
-        supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+        supabase = create_client(environ['supabase_url'], environ['supabase_key'])
         
         # 기존 사용자 확인
         result = supabase.table('userStateData').select('*').eq('discordURL', discord_webhook_url).execute()
@@ -386,7 +386,7 @@ def get_notifications():
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
     
     # Supabase에서 사용자 설정 가져오기
-    supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+    supabase = create_client(environ['supabase_url'], environ['supabase_key'])
     result = supabase.table('userStateData').select('*').eq('discordURL', discordWebhooksURL).execute()
     
     if not result.data:
@@ -452,7 +452,7 @@ def mark_notifications_read():
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
     
     # Supabase에서 사용자 설정 가져오기
-    supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+    supabase = create_client(environ['supabase_url'], environ['supabase_key'])
     result = supabase.table('userStateData').select('*').eq('discordURL', discordWebhooksURL).execute()
     
     if not result.data:
@@ -507,7 +507,7 @@ def clear_notifications():
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
     
     # Supabase에서 알림 목록 초기화
-    supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+    supabase = create_client(environ['supabase_url'], environ['supabase_key'])
     supabase.table('userStateData').update({
         'notifications': []
     }).eq('discordURL', discordWebhooksURL).execute()
@@ -531,7 +531,7 @@ def remove_fcm_token():
     
     try:
         # Supabase에서 FCM 토큰 제거
-        supabase = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+        supabase = create_client(environ['supabase_url'], environ['supabase_key'])
         
         # 기존 사용자 확인
         result = supabase.table('userStateData').select('*').eq('discordURL', discord_webhook_url).execute()
@@ -570,7 +570,7 @@ def remove_fcm_token():
 def get_supabase_client():
     """애플리케이션 컨텍스트에서 Supabase 클라이언트를 가져오거나 생성합니다."""
     if not hasattr(g, 'supabase_client'):
-        g.supabase_client = create_client(environ['SUPABASE_URL'], environ['SUPABASE_KEY'])
+        g.supabase_client = create_client(environ['supabase_url'], environ['supabase_key'])
     return g.supabase_client
 
 async def send_push_notification(messages: List[str], json_data):
