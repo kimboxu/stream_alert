@@ -5,7 +5,7 @@ from base import make_list_to_dict
 from flask_cors import CORS
 import asyncio
 import threading
-from json import loads
+from json import loads, dumps
 from supabase import create_client
 from dotenv import load_dotenv
 import firebase_admin
@@ -269,7 +269,7 @@ def save_user_settings():
     result = supabase.table('userStateData').upsert(update_data).execute()
     supabase.table('date_update').upsert({
 			"idx": 0,
-			field: True
+			"user_date": True
 		}).execute()
     
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
@@ -636,7 +636,6 @@ async def send_push_notification(messages: List[str], json_data):
         return False
 
 async def post_msg_to_flutter(user_data, json_data):
-    
     # 토큰 목록 가져오기
     existing_tokens = user_data.get('fcm_tokens', '')
     if not existing_tokens:
@@ -650,12 +649,28 @@ async def post_msg_to_flutter(user_data, json_data):
     for token in tokens_list:
         try:
             # 메시지 데이터 준비
+            notification_data = {
+                "title": json_data.get("username", "알림"),
+                "body": json_data.get("content", "새 메시지가 있습니다"),
+            }
+            
+            # 기본 데이터 필드
+            data_fields = {
+                "username": json_data.get("username", "알림"),
+                "content": json_data.get("content", "새 메시지가 있습니다"),
+                "avatar_url": json_data.get("avatar_url", ""),
+                "timestamp": datetime.now().isoformat(),
+            }
+            
+            # embeds 데이터가 있으면 추가 (Discord와 동일한 형식)
+            if "embeds" in json_data and json_data["embeds"]:
+                # FCM은 모든 데이터 필드가 문자열이어야 함
+                data_fields["embeds"] = dumps(json_data["embeds"])
+            
+            # 메시지 객체 생성
             message = messaging.Message(
-                notification=messaging.Notification(
-                    title=json_data.get("username", "알림"),
-                    body=json_data.get("content", "새 메시지가 있습니다"),
-                ),
-                data={k: str(v) for k, v in json_data.items() if isinstance(v, (str, int, float, bool))},
+                notification=messaging.Notification(**notification_data),
+                data={k: str(v) for k, v in data_fields.items()},
                 token=token,
                 android=messaging.AndroidConfig(
                     priority='high',

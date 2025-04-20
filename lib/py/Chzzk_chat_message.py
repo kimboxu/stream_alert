@@ -304,8 +304,8 @@ class chzzk_chat_message:
                 
                 asyncio.create_task(send_push_notification(list_of_urls, json_data))
                 message_sender = DiscordWebhookSender()
-                # webhook_task = asyncio.create_task(message_sender.send_messages(list_of_urls, json_data))
-                # webhook_task.add_done_callback(lambda t: self._handle_webhook_result(t))
+                webhook_task = asyncio.create_task(message_sender.send_messages(list_of_urls, json_data))
+                webhook_task.add_done_callback(lambda t: self._handle_webhook_result(t))
                 
                 print(f"{datetime.now()} post chat {self.print_msg(chat_data, chat_type)}")
         except Exception as e:
