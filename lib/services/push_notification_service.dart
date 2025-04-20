@@ -34,7 +34,7 @@ Future<void> _saveNotification(RemoteMessage message) async {
     final notificationData = {
       'id': message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString(),
       'username': message.notification?.title ?? message.data['username'] ?? '알림',
-      'content': message.notification?.body ?? message.data['content'] ?? '새 메시지가 있습니다',
+      'content': message.notification?.body ?? message.data['content'] ?? '',
       'avatar_url': message.data['avatar_url'] ?? '',
       'timestamp': DateTime.now().toIso8601String(),
       'read': false,

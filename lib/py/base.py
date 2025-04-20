@@ -679,7 +679,7 @@ async def saveNotificationsData(supabase, discord_webhook_url, json_data, user_d
         notification_item = {
             'id': notification_id,
             'username': json_data.get('username', '알림'),
-            'content': json_data.get('content', '새 메시지가 있습니다'),
+            'content': json_data.get('content', ''),
             'avatar_url': json_data.get('avatar_url', ''),
             'timestamp': notification_time,
             'read': False

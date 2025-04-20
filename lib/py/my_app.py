@@ -834,13 +834,13 @@ async def post_msg_to_flutter(user_data, json_data):
             # 메시지 데이터 준비
             notification_data = {
                 "title": json_data.get("username", "알림"),
-                "body": json_data.get("content", "새 메시지가 있습니다"),
+                "body": json_data.get("content", ""),
             }
 
             # 기본 데이터 필드
             data_fields = {
                 "username": json_data.get("username", "알림"),
-                "content": json_data.get("content", "새 메시지가 있습니다"),
+                "content": json_data.get("content", ""),
                 "avatar_url": json_data.get("avatar_url", ""),
                 "timestamp": datetime.now().isoformat(),
             }
