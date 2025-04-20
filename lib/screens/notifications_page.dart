@@ -116,10 +116,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
         'id': messageId,
         'username':
             message.notification?.title ?? message.data['username'] ?? '알림',
-        'content':
-            message.notification?.body ??
-            message.data['content'] ??
-            '새 메시지가 있습니다',
+        'content': message.notification?.body ?? message.data['content'] ?? '',
         'avatar_url': message.data['avatar_url'] ?? '',
         'timestamp': DateTime.now().toIso8601String(),
         'read': false,
@@ -203,61 +200,61 @@ class _NotificationsPageState extends State<NotificationsPage> {
     });
   }
 
-Future<void> _loadNotifications({bool refresh = false}) async {
-  setState(() {
-    _isLoading = true;
-  });
-
-  try {
-    // 새로고침이면 페이지 초기화
-    if (refresh) {
-      _currentPage = 1;
-      _hasMoreData = true;
-    }
-
-    final prefs = await SharedPreferences.getInstance();
-    final username = prefs.getString('username');
-    final discordWebhooksURL = prefs.getString('discordWebhooksURL');
-
-    if (username != null && discordWebhooksURL != null) {
-      final notifications = await ApiService.getNotifications(
-        username,
-        discordWebhooksURL,
-        page: _currentPage,
-        limit: _pageSize,
-      );
-
-      setState(() {
-        if (refresh) {
-          _notifications = notifications;
-        } else {
-          _notifications.addAll(notifications);
-        }
-
-        _isLoading = false;
-
-        // 오래된 메시지 순으로 정렬 (타임스탬프 오름차순)
-        _notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-
-        // 가져온 알림 수가 페이지 크기보다 작으면 더 이상 데이터가 없음
-        if (notifications.length < _pageSize) {
-          _hasMoreData = false;
-        }
-      });
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  } catch (e) {
-    if (kDebugMode) {
-      print('알림 로드 중 오류: $e');
-    }
+  Future<void> _loadNotifications({bool refresh = false}) async {
     setState(() {
-      _isLoading = false;
+      _isLoading = true;
     });
+
+    try {
+      // 새로고침이면 페이지 초기화
+      if (refresh) {
+        _currentPage = 1;
+        _hasMoreData = true;
+      }
+
+      final prefs = await SharedPreferences.getInstance();
+      final username = prefs.getString('username');
+      final discordWebhooksURL = prefs.getString('discordWebhooksURL');
+
+      if (username != null && discordWebhooksURL != null) {
+        final notifications = await ApiService.getNotifications(
+          username,
+          discordWebhooksURL,
+          page: _currentPage,
+          limit: _pageSize,
+        );
+
+        setState(() {
+          if (refresh) {
+            _notifications = notifications;
+          } else {
+            _notifications.addAll(notifications);
+          }
+
+          _isLoading = false;
+
+          // 오래된 메시지 순으로 정렬 (타임스탬프 오름차순)
+          _notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+          // 가져온 알림 수가 페이지 크기보다 작으면 더 이상 데이터가 없음
+          if (notifications.length < _pageSize) {
+            _hasMoreData = false;
+          }
+        });
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('알림 로드 중 오류: $e');
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
-}
 
   Future<void> _refreshNotifications() async {
     if (_isRefreshing) return;
@@ -317,51 +314,94 @@ Future<void> _loadNotifications({bool refresh = false}) async {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('받은 알림'),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.refresh),
-          onPressed: _isRefreshing ? null : _refreshNotifications,
-          tooltip: '알림 새로고침',
-        ),
-        // ... 기존 액션 버튼들
-      ],
-    ),
-    body: _isLoading
-      ? Center(child: CircularProgressIndicator())
-      : Stack(
-          children: [
-            RefreshIndicator(
-              onRefresh: _refreshNotifications,
-              child: _notifications.isEmpty
-                ? _buildEmptyNotifications()
-                : _buildNotificationsList(),
-            ),
-            // 새 메시지 있을 때 스크롤 다운 버튼 (선택적)
-            if (!_isNearBottom && _notifications.isNotEmpty)
-              Positioned(
-                right: 16,
-                bottom: 16,
-                child: FloatingActionButton(
-                  mini: true,
-                  backgroundColor: Colors.blue,
-                  child: Icon(Icons.arrow_downward),
-                  onPressed: () {
-                    _scrollController.animateTo(
-                      _scrollController.position.maxScrollExtent,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeOut,
-                    );
-                  },
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('받은 알림'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: _isRefreshing ? null : _refreshNotifications,
+            tooltip: '알림 새로고침',
+          ),
+          // ... 기존 액션 버튼들
+        ],
+      ),
+      body:
+          _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Stack(
+                children: [
+                  RefreshIndicator(
+                    onRefresh: _refreshNotifications,
+                    color: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).cardColor,
+                    child:
+                        _notifications.isEmpty
+                            ? _buildEmptyNotifications()
+                            : _buildNotificationsList(),
+                  ),
+                  // 새 메시지 있을 때 스크롤 다운 버튼 (선택적)
+                  if (!_isNearBottom && _notifications.isNotEmpty)
+                    Positioned(
+                      right: 16,
+                      bottom: 16,
+                      child: Material(
+                        elevation: 4,
+                        shadowColor: Colors.black26,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            _scrollController.animateTo(
+                              _scrollController.position.maxScrollExtent,
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.arrow_downward,
+                                  size: 16,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  '새 메시지',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
-          ],
-        ),
-  );
-}
+    );
+  }
+
+  // _buildEmptyNotifications 메서드 수정
   Widget _buildEmptyNotifications() {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return ListView(
       physics: AlwaysScrollableScrollPhysics(),
       children: [
@@ -371,16 +411,47 @@ Future<void> _loadNotifications({bool refresh = false}) async {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.notifications_off, size: 64, color: Colors.grey),
-                SizedBox(height: 16),
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: isDarkMode ? Colors.grey[800] : Colors.grey[200],
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.notifications_off_outlined,
+                    size: 40,
+                    color: isDarkMode ? Colors.grey[500] : Colors.grey[400],
+                  ),
+                ),
+                SizedBox(height: 24),
                 Text(
                   '받은 알림이 없습니다',
-                  style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: isDarkMode ? Colors.grey[300] : Colors.grey[700],
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  '스트리머 알림 설정을 확인해보세요',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isDarkMode ? Colors.grey[500] : Colors.grey[600],
+                  ),
                 ),
                 SizedBox(height: 24),
                 Text(
                   '아래로 당겨서 새로고침',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[400]),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: isDarkMode ? Colors.grey[600] : Colors.grey[500],
+                  ),
+                ),
+                Icon(
+                  Icons.keyboard_arrow_down,
+                  color: isDarkMode ? Colors.grey[600] : Colors.grey[500],
                 ),
               ],
             ),
@@ -428,6 +499,9 @@ Future<void> _loadNotifications({bool refresh = false}) async {
 
   // 날짜 구분선 위젯
   Widget _buildDateDivider(String dateStr) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     DateTime date = DateFormat('yyyy-MM-dd').parse(dateStr);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -450,100 +524,174 @@ Future<void> _loadNotifications({bool refresh = false}) async {
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8),
-      margin: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 12),
+      margin: EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          Expanded(child: Divider(color: Colors.grey[400], thickness: 0.5)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+          Expanded(
+            child: Divider(
+              color: isDarkMode ? Colors.grey[700] : Colors.grey[300],
+              thickness: 0.5,
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+            decoration: BoxDecoration(
+              color: isDarkMode ? Color(0xFF353535) : Colors.grey[200],
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: Text(
               displayText,
               style: TextStyle(
-                color: Colors.grey[600],
+                color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
-          Expanded(child: Divider(color: Colors.grey[400], thickness: 0.5)),
+          Expanded(
+            child: Divider(
+              color: isDarkMode ? Colors.grey[700] : Colors.grey[300],
+              thickness: 0.5,
+            ),
+          ),
         ],
       ),
     );
   }
+  // notifications_page.dart 파일의 _buildNotificationItem 메서드 수정
 
   Widget _buildNotificationItem(NotificationModel notification) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
+    // 카드 배경색 및 테두리 설정
+    final cardBgColor = isDarkMode ? Color(0xFF2D2D2D) : Colors.white;
+    final borderColor =
+        notification.color != 0
+            ? Color(notification.color)
+            : isDarkMode
+            ? Colors.grey[800]!
+            : Colors.grey[300]!;
+
     // 리치 알림(embeds가 있는 경우)
     if (notification.isRichNotification) {
-      return Card(
-        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        shape: RoundedRectangleBorder(
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: cardBgColor,
           borderRadius: BorderRadius.circular(8),
-          side:
-              notification.color != 0
-                  ? BorderSide(color: Color(notification.color), width: 2)
-                  : BorderSide.none,
+          border: Border.all(
+            color: borderColor,
+            width: notification.color != 0 ? 2 : 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 3,
+              offset: Offset(0, 1),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 상단바 (사용자명과 아바타)
-            ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              leading: CircleAvatar(
-                backgroundImage:
-                    notification.avatarUrl.isNotEmpty
-                        ? NetworkImage(notification.avatarUrl)
-                        : null,
-                radius: 16,
-                child:
-                    notification.avatarUrl.isEmpty
-                        ? Icon(Icons.person, size: 16)
-                        : null,
-              ),
-              title: Text(
-                notification.username,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
-              trailing: Text(
-                _formatTimestamp(notification.timestamp),
-                style: TextStyle(color: Colors.grey[600], fontSize: 12),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 10, 12, 4),
+              child: Row(
+                children: [
+                  // 아바타
+                  CircleAvatar(
+                    backgroundImage:
+                        notification.avatarUrl.isNotEmpty
+                            ? NetworkImage(notification.avatarUrl)
+                            : null,
+                    radius: 14,
+                    backgroundColor:
+                        isDarkMode ? Colors.grey[800] : Colors.grey[200],
+                    child:
+                        notification.avatarUrl.isEmpty
+                            ? Icon(
+                              Icons.person,
+                              size: 16,
+                              color:
+                                  isDarkMode
+                                      ? Colors.white70
+                                      : Colors.grey[700],
+                            )
+                            : null,
+                  ),
+                  SizedBox(width: 8),
+
+                  // 사용자명
+                  Expanded(
+                    child: Text(
+                      notification.username,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: isDarkMode ? Colors.white : Colors.black87,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+
+                  // 타임스탬프
+                  Text(
+                    _formatTimestamp(notification.timestamp),
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
             ),
-
-            // 제목이 있는 경우
-            if (notification.title.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
-                child: Text(
-                  notification.title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ),
 
             // 내용이 있는 경우
             if (notification.content.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
                 child: Text(
                   notification.content,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isDarkMode ? Colors.white70 : Colors.black87,
+                  ),
+                ),
+              ),
+
+            // 제목이 있는 경우
+            if (notification.title.isNotEmpty)
+              Container(
+                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                decoration: BoxDecoration(
+                  border: Border(
+                    left: BorderSide(
+                      color:
+                          notification.color != 0
+                              ? Color(notification.color)
+                              : theme.primaryColor,
+                      width: 3,
+                    ),
+                  ),
+                ),
+                child: Text(
+                  notification.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: isDarkMode ? Colors.white : Colors.black87,
+                  ),
                 ),
               ),
 
             // 필드가 있는 경우 (Discord의 필드처럼 표시)
             if (notification.fields != null)
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
                 child: _buildFields(notification.fields!),
               ),
 
@@ -552,15 +700,30 @@ Future<void> _loadNotifications({bool refresh = false}) async {
               Container(
                 constraints: BoxConstraints(maxHeight: 200),
                 width: double.infinity,
-                child: Image.network(
-                  notification.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder:
-                      (context, error, stackTrace) => Container(
-                        height: 100,
-                        color: Colors.grey[300],
-                        child: Center(child: Icon(Icons.broken_image)),
-                      ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
+                  ),
+                  child: Image.network(
+                    notification.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder:
+                        (context, error, stackTrace) => Container(
+                          height: 100,
+                          color:
+                              isDarkMode ? Colors.grey[800] : Colors.grey[200],
+                          child: Center(
+                            child: Icon(
+                              Icons.broken_image,
+                              color:
+                                  isDarkMode
+                                      ? Colors.white30
+                                      : Colors.grey[400],
+                            ),
+                          ),
+                        ),
+                  ),
                 ),
               ),
 
@@ -573,29 +736,53 @@ Future<void> _loadNotifications({bool refresh = false}) async {
                     if (notification.footerIconUrl.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
-                        child: Image.network(
-                          notification.footerIconUrl,
-                          width: 16,
-                          height: 16,
-                          errorBuilder:
-                              (context, error, stackTrace) =>
-                                  SizedBox(width: 16, height: 16),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            notification.footerIconUrl,
+                            width: 16,
+                            height: 16,
+                            errorBuilder:
+                                (context, error, stackTrace) =>
+                                    SizedBox(width: 16, height: 16),
+                          ),
                         ),
                       ),
                     Text(
                       notification.footerText,
-                      style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                      style: TextStyle(
+                        color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                        fontSize: 12,
+                      ),
                     ),
                   ],
                 ),
               ),
+
+            // 바닥 패딩
+            SizedBox(height: 4),
           ],
         ),
       );
     } else {
-      // 기존 기본 알림 표시 방식
-      return Card(
-        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      // 기본 알림 표시 방식
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: cardBgColor,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isDarkMode ? Colors.grey[800]! : Colors.grey[300]!,
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 3,
+              offset: Offset(0, 1),
+            ),
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
@@ -608,8 +795,15 @@ Future<void> _loadNotifications({bool refresh = false}) async {
                         ? NetworkImage(notification.avatarUrl)
                         : null,
                 radius: 20,
+                backgroundColor:
+                    isDarkMode ? Colors.grey[800] : Colors.grey[200],
                 child:
-                    notification.avatarUrl.isEmpty ? Icon(Icons.person) : null,
+                    notification.avatarUrl.isEmpty
+                        ? Icon(
+                          Icons.person,
+                          color: isDarkMode ? Colors.white70 : Colors.grey[700],
+                        )
+                        : null,
               ),
               SizedBox(width: 12),
               // 알림 내용 - Expanded 위젯으로 감싸 넘침 방지
@@ -618,14 +812,16 @@ Future<void> _loadNotifications({bool refresh = false}) async {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // 사용자 이름을 Flexible로 감싸 공간을 효율적으로 사용
-                        Flexible(
+                        Expanded(
                           child: Text(
                             notification.username,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 15,
+                              color: isDarkMode ? Colors.white : Colors.black87,
                             ),
                             // 넘칠 경우 말줄임표 표시
                             overflow: TextOverflow.ellipsis,
@@ -636,7 +832,10 @@ Future<void> _loadNotifications({bool refresh = false}) async {
                         Text(
                           _formatTimestamp(notification.timestamp),
                           style: TextStyle(
-                            color: Colors.grey[600],
+                            color:
+                                isDarkMode
+                                    ? Colors.grey[400]
+                                    : Colors.grey[600],
                             fontSize: 12,
                           ),
                         ),
@@ -646,7 +845,10 @@ Future<void> _loadNotifications({bool refresh = false}) async {
                     // 메시지 내용도 넘침 방지
                     Text(
                       notification.content,
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: isDarkMode ? Colors.white70 : Colors.black87,
+                      ),
                       // 내용이 너무 길면 2줄까지만 표시
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
