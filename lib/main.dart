@@ -5,11 +5,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'screens/login_page.dart';
 import 'services/push_notification_service.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 
 void main() async {
   // Flutter 바인딩 초기화
   WidgetsFlutterBinding.ensureInitialized();
+
+  await initializeDateFormatting('ko_KR', null);
   
   try {
     // Firebase 초기화

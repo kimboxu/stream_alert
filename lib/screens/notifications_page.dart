@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+
 import '../models/notification_model.dart';
 import '../services/push_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -25,6 +25,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
   bool _isLoadingMore = false;
   bool _hasMoreData = true;
   bool _isRefreshing = false;
+  bool _autoScrollEnabled = false;
+  bool _isNearBottom = true;
   int _currentPage = 1;
   final int _pageSize = 50;
   late ScrollController _scrollController;
@@ -37,13 +39,29 @@ class _NotificationsPageState extends State<NotificationsPage> {
     _scrollController.addListener(_scrollListener);
     _loadNotifications(refresh: true);
     _setupMessageListener();
+
+    // 노티피케이션을 받더라도 자동 스크롤 방지 설정
+    _autoScrollEnabled = false;
   }
 
   void _scrollListener() {
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200) {
-      if (!_isLoadingMore && _hasMoreData) {
-        _loadMoreNotifications();
+    // 현재 스크롤 위치가 하단에서 얼마나 떨어져 있는지 확인
+    if (_scrollController.hasClients) {
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      final currentScroll = _scrollController.position.pixels;
+
+      // 하단에서 100픽셀 이내면 하단으로 간주
+      _isNearBottom = (maxScroll - currentScroll) < 100;
+
+      // 하단 가까이 있을 때만 자동 스크롤 활성화
+      _autoScrollEnabled = _isNearBottom;
+
+      // 무한 스크롤 로직 - 상단에 가까워지면 더 많은 데이터 로드
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200) {
+        if (!_isLoadingMore && _hasMoreData) {
+          _loadMoreNotifications();
+        }
       }
     }
   }
@@ -129,20 +147,38 @@ class _NotificationsPageState extends State<NotificationsPage> {
           _notifications.add(newNotification);
         }
 
-        // 정렬 (오래된 알림이 위에, 최신 알림이 아래에 오도록)
+        // 정렬 (최신 알림이 아래에 오도록)
         _notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
       });
 
-      // 스크롤을 맨 아래로 이동
-      Future.delayed(Duration(milliseconds: 100), () {
-        if (_scrollController.hasClients) {
+      // 자동 스크롤이 활성화된 경우에만 하단으로 스크롤
+      if (_autoScrollEnabled && _scrollController.hasClients) {
+        Future.delayed(Duration(milliseconds: 100), () {
           _scrollController.animateTo(
             _scrollController.position.maxScrollExtent,
             duration: Duration(milliseconds: 300),
             curve: Curves.easeOut,
           );
-        }
-      });
+        });
+      } else if (!_isNearBottom && _scrollController.hasClients) {
+        // 새 메시지 알림 UI 표시 (옵션)
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('새 알림이 도착했습니다'),
+            duration: Duration(seconds: 2),
+            action: SnackBarAction(
+              label: '보기',
+              onPressed: () {
+                _scrollController.animateTo(
+                  _scrollController.position.maxScrollExtent,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeOut,
+                );
+              },
+            ),
+          ),
+        );
+      }
     } catch (e) {
       if (kDebugMode) {
         print('새 알림 추가 중 오류: $e');
@@ -167,58 +203,61 @@ class _NotificationsPageState extends State<NotificationsPage> {
     });
   }
 
-  Future<void> _loadNotifications({bool refresh = false}) async {
-    setState(() {
-      _isLoading = true;
-    });
+Future<void> _loadNotifications({bool refresh = false}) async {
+  setState(() {
+    _isLoading = true;
+  });
 
-    try {
-      // 새로고침이면 페이지 초기화
-      if (refresh) {
-        _currentPage = 1;
-        _hasMoreData = true;
-      }
+  try {
+    // 새로고침이면 페이지 초기화
+    if (refresh) {
+      _currentPage = 1;
+      _hasMoreData = true;
+    }
 
-      final prefs = await SharedPreferences.getInstance();
-      final username = prefs.getString('username');
-      final discordWebhooksURL = prefs.getString('discordWebhooksURL');
+    final prefs = await SharedPreferences.getInstance();
+    final username = prefs.getString('username');
+    final discordWebhooksURL = prefs.getString('discordWebhooksURL');
 
-      if (username != null && discordWebhooksURL != null) {
-        final notifications = await ApiService.getNotifications(
-          username,
-          discordWebhooksURL,
-          page: _currentPage,
-          limit: _pageSize,
-        );
+    if (username != null && discordWebhooksURL != null) {
+      final notifications = await ApiService.getNotifications(
+        username,
+        discordWebhooksURL,
+        page: _currentPage,
+        limit: _pageSize,
+      );
 
-        setState(() {
-          if (refresh) {
-            _notifications = notifications;
-          } else {
-            _notifications.addAll(notifications);
-          }
+      setState(() {
+        if (refresh) {
+          _notifications = notifications;
+        } else {
+          _notifications.addAll(notifications);
+        }
 
-          _isLoading = false;
+        _isLoading = false;
 
-          // 가져온 알림 수가 페이지 크기보다 작으면 더 이상 데이터가 없음
-          if (notifications.length < _pageSize) {
-            _hasMoreData = false;
-          }
-        });
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('알림 로드 중 오류: $e');
-      }
+        // 오래된 메시지 순으로 정렬 (타임스탬프 오름차순)
+        _notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+        // 가져온 알림 수가 페이지 크기보다 작으면 더 이상 데이터가 없음
+        if (notifications.length < _pageSize) {
+          _hasMoreData = false;
+        }
+      });
+    } else {
       setState(() {
         _isLoading = false;
       });
     }
+  } catch (e) {
+    if (kDebugMode) {
+      print('알림 로드 중 오류: $e');
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
+}
 
   Future<void> _refreshNotifications() async {
     if (_isRefreshing) return;
@@ -246,161 +285,82 @@ class _NotificationsPageState extends State<NotificationsPage> {
     }
   }
 
-  Future<void> _clearAllNotifications() async {
-    // 확인 대화상자 표시
-    final confirm =
-        await showDialog<bool>(
-          context: context,
-          builder:
-              (context) => AlertDialog(
-                title: Text('모든 알림 삭제'),
-                content: Text('모든 알림을 삭제하시겠습니까?'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(false),
-                    child: Text('취소'),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(true),
-                    child: Text('삭제'),
-                  ),
-                ],
-              ),
-        ) ??
-        false;
-
-    if (confirm) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setStringList('notifications', []);
-
-      // 서버에서도 알림 삭제 요청 (서버 측 구현 필요)
-      // - ApiService.clearNotifications() 같은 메서드 구현 가능
-
-      setState(() {
-        _notifications = [];
-      });
-
-      ScaffoldMessenger.of(
-        // ignore: use_build_context_synchronously
-        context,
-      ).showSnackBar(SnackBar(content: Text('모든 알림이 삭제되었습니다')));
-    }
-  }
-
   String _formatTimestamp(DateTime timestamp) {
     final now = DateTime.now();
-    final difference = now.difference(timestamp);
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(Duration(days: 1));
+    final messageDate = DateTime(
+      timestamp.year,
+      timestamp.month,
+      timestamp.day,
+    );
 
-    if (difference.inDays > 0) {
-      // 하루 이상 지났으면 날짜 표시
-      return DateFormat('yyyy.MM.dd HH:mm').format(timestamp);
-    } else if (difference.inHours > 0) {
-      // 시간 단위 표시
-      return '${difference.inHours}시간 전';
-    } else if (difference.inMinutes > 0) {
-      // 분 단위 표시
-      return '${difference.inMinutes}분 전';
+    // 메시지 시간 형식 설정 (오전/오후 표시)
+    String timeFormat = DateFormat('a h:mm').format(timestamp);
+    timeFormat = timeFormat.replaceFirst('AM', '오전').replaceFirst('PM', '오후');
+
+    // 날짜 비교
+    if (messageDate == today) {
+      // 오늘 메시지
+      return timeFormat;
+    } else if (messageDate == yesterday) {
+      // 어제 메시지
+      return '어제 $timeFormat';
+    } else if (now.difference(timestamp).inDays < 7) {
+      // 일주일 이내 메시지
+      return '${DateFormat('E', 'ko_KR').format(timestamp)} $timeFormat';
     } else {
-      // 방금 전
-      return '방금 전';
+      // 그 외 메시지 (년-월-일 형식)
+      return '${DateFormat('yyyy-MM-dd (E)', 'ko_KR').format(timestamp)} $timeFormat';
     }
-  }
-
-  // NotificationsPage 클래스 내에 추가
-  Future<void> _generateTestNotifications() async {
-    final prefs = await SharedPreferences.getInstance();
-    final List<String> testNotifications = [];
-
-    // 샘플 아바타 URL 및 사용자명
-    final avatars = [
-      'https://ui-avatars.com/api/?name=Big+Head&background=random',
-      'https://ui-avatars.com/api/?name=Park+Dong&background=random',
-      'https://ui-avatars.com/api/?name=Kim+Ppang&background=random',
-    ];
-
-    final usernames = ['빅헤드', '파크성', '김뽕'];
-
-    // 샘플 메시지
-    final messages = [
-      '뱅온했습니다!',
-      '안녕하세요 빅헤드입니다.',
-      '방제가 변경되었습니다: 오늘은 롤 한판 고?',
-      'VOD가 업로드되었습니다: 어제의 방송 하이라이트',
-      '새로운 영상이 업로드되었습니다: 우왁굳 레전드 플레이 모음.zip',
-      '거기있는너! 에이펙스 좋아하잖아',
-      '방송 종료했습니다. 내일 뵐게요!',
-    ];
-
-    // 현재 시간
-    final now = DateTime.now();
-
-    // 테스트 알림 10개 생성
-    for (int i = 0; i < 10; i++) {
-      final randomUserIndex = i % usernames.length;
-      final randomMsgIndex = i % messages.length;
-
-      final notificationData = {
-        'id': 'test-${DateTime.now().millisecondsSinceEpoch}-$i',
-        'username': usernames[randomUserIndex],
-        'content': messages[randomMsgIndex],
-        'avatar_url': avatars[randomUserIndex],
-        'timestamp': now.subtract(Duration(minutes: i * 30)).toIso8601String(),
-        'read': false,
-      };
-
-      testNotifications.add(jsonEncode(notificationData));
-    }
-
-    // 저장
-    await prefs.setStringList('notifications', testNotifications);
-
-    // UI 업데이트
-    await _loadNotifications();
-
-    // 안내 메시지 표시
-    ScaffoldMessenger.of(
-      // ignore: use_build_context_synchronously
-      context,
-    ).showSnackBar(SnackBar(content: Text('테스트 알림이 생성되었습니다')));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('받은 알림'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: _isRefreshing ? null : _refreshNotifications,
-            tooltip: '알림 새로고침',
-          ),
-          if (kDebugMode)
-            IconButton(
-              icon: Icon(Icons.science),
-              onPressed: _generateTestNotifications,
-              tooltip: '테스트 알림 생성',
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('받은 알림'),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.refresh),
+          onPressed: _isRefreshing ? null : _refreshNotifications,
+          tooltip: '알림 새로고침',
+        ),
+        // ... 기존 액션 버튼들
+      ],
+    ),
+    body: _isLoading
+      ? Center(child: CircularProgressIndicator())
+      : Stack(
+          children: [
+            RefreshIndicator(
+              onRefresh: _refreshNotifications,
+              child: _notifications.isEmpty
+                ? _buildEmptyNotifications()
+                : _buildNotificationsList(),
             ),
-          IconButton(
-            icon: Icon(Icons.delete_sweep),
-            onPressed: _notifications.isEmpty ? null : _clearAllNotifications,
-            tooltip: '모든 알림 삭제',
-          ),
-        ],
-      ),
-      body:
-          _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : RefreshIndicator(
-                onRefresh: _refreshNotifications,
-                child:
-                    _notifications.isEmpty
-                        ? _buildEmptyNotifications()
-                        : _buildNotificationsList(),
+            // 새 메시지 있을 때 스크롤 다운 버튼 (선택적)
+            if (!_isNearBottom && _notifications.isNotEmpty)
+              Positioned(
+                right: 16,
+                bottom: 16,
+                child: FloatingActionButton(
+                  mini: true,
+                  backgroundColor: Colors.blue,
+                  child: Icon(Icons.arrow_downward),
+                  onPressed: () {
+                    _scrollController.animateTo(
+                      _scrollController.position.maxScrollExtent,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    );
+                  },
+                ),
               ),
-    );
-  }
-
+          ],
+        ),
+  );
+}
   Widget _buildEmptyNotifications() {
     return ListView(
       physics: AlwaysScrollableScrollPhysics(),
@@ -431,77 +391,340 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 
   Widget _buildNotificationsList() {
-    return ListView.builder(
+    // 날짜별로 메시지 그룹화
+    Map<String, List<NotificationModel>> groupedNotifications = {};
+
+    for (var notification in _notifications) {
+      final date = DateFormat('yyyy-MM-dd').format(notification.timestamp);
+      if (!groupedNotifications.containsKey(date)) {
+        groupedNotifications[date] = [];
+      }
+      groupedNotifications[date]!.add(notification);
+    }
+
+    // 날짜 오름차순 정렬
+    List<String> sortedDates =
+        groupedNotifications.keys.toList()..sort((a, b) => a.compareTo(b));
+
+    // 최종 위젯 리스트 생성 (날짜 구분선 포함)
+    List<Widget> allWidgets = [];
+
+    for (String date in sortedDates) {
+      // 날짜 구분선 추가
+      allWidgets.add(_buildDateDivider(date));
+
+      // 해당 날짜의 알림 추가
+      for (var notification in groupedNotifications[date]!) {
+        allWidgets.add(_buildNotificationItem(notification));
+      }
+    }
+
+    return ListView(
       controller: _scrollController,
       physics: AlwaysScrollableScrollPhysics(),
-      itemCount: _notifications.length,
-      itemBuilder: (context, index) {
-        final notification = _notifications[index];
-        return _buildNotificationItem(notification);
-      },
+      children: allWidgets,
+    );
+  }
+
+  // 날짜 구분선 위젯
+  Widget _buildDateDivider(String dateStr) {
+    DateTime date = DateFormat('yyyy-MM-dd').parse(dateStr);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(Duration(days: 1));
+    final messageDate = DateTime(date.year, date.month, date.day);
+
+    String displayText;
+
+    // 날짜 비교
+    if (messageDate == today) {
+      displayText = '오늘';
+    } else if (messageDate == yesterday) {
+      displayText = '어제';
+    } else if (now.difference(date).inDays < 7) {
+      // 일주일 이내
+      displayText = DateFormat('EEEE', 'ko_KR').format(date); // 요일 전체 이름
+    } else {
+      // 그 외 (년-월-일 형식)
+      displayText = DateFormat('yyyy년 M월 d일 EEEE', 'ko_KR').format(date);
+    }
+
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 8),
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Expanded(child: Divider(color: Colors.grey[400], thickness: 0.5)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              displayText,
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(child: Divider(color: Colors.grey[400], thickness: 0.5)),
+        ],
+      ),
     );
   }
 
   Widget _buildNotificationItem(NotificationModel notification) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
+    // 리치 알림(embeds가 있는 경우)
+    if (notification.isRichNotification) {
+      return Card(
+        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side:
+              notification.color != 0
+                  ? BorderSide(color: Color(notification.color), width: 2)
+                  : BorderSide.none,
+        ),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 아바타 이미지
-            CircleAvatar(
-              backgroundImage:
-                  notification.avatarUrl.isNotEmpty
-                      ? NetworkImage(notification.avatarUrl)
-                      : null,
-              radius: 20,
-              child: notification.avatarUrl.isEmpty ? Icon(Icons.person) : null,
+            // 상단바 (사용자명과 아바타)
+            ListTile(
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              leading: CircleAvatar(
+                backgroundImage:
+                    notification.avatarUrl.isNotEmpty
+                        ? NetworkImage(notification.avatarUrl)
+                        : null,
+                radius: 16,
+                child:
+                    notification.avatarUrl.isEmpty
+                        ? Icon(Icons.person, size: 16)
+                        : null,
+              ),
+              title: Text(
+                notification.username,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
+              trailing: Text(
+                _formatTimestamp(notification.timestamp),
+                style: TextStyle(color: Colors.grey[600], fontSize: 12),
+              ),
             ),
-            SizedBox(width: 12),
-            // 알림 내용 - Expanded 위젯으로 감싸 넘침 방지
-            Expanded(
+
+            // 제목이 있는 경우
+            if (notification.title.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                child: Text(
+                  notification.title,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+
+            // 내용이 있는 경우
+            if (notification.content.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                child: Text(
+                  notification.content,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+
+            // 필드가 있는 경우 (Discord의 필드처럼 표시)
+            if (notification.fields != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                child: _buildFields(notification.fields!),
+              ),
+
+            // 이미지가 있는 경우
+            if (notification.imageUrl.isNotEmpty)
+              Container(
+                constraints: BoxConstraints(maxHeight: 200),
+                width: double.infinity,
+                child: Image.network(
+                  notification.imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder:
+                      (context, error, stackTrace) => Container(
+                        height: 100,
+                        color: Colors.grey[300],
+                        child: Center(child: Icon(Icons.broken_image)),
+                      ),
+                ),
+              ),
+
+            // 푸터가 있는 경우
+            if (notification.footerText.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  children: [
+                    if (notification.footerIconUrl.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Image.network(
+                          notification.footerIconUrl,
+                          width: 16,
+                          height: 16,
+                          errorBuilder:
+                              (context, error, stackTrace) =>
+                                  SizedBox(width: 16, height: 16),
+                        ),
+                      ),
+                    Text(
+                      notification.footerText,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      );
+    } else {
+      // 기존 기본 알림 표시 방식
+      return Card(
+        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 아바타 이미지
+              CircleAvatar(
+                backgroundImage:
+                    notification.avatarUrl.isNotEmpty
+                        ? NetworkImage(notification.avatarUrl)
+                        : null,
+                radius: 20,
+                child:
+                    notification.avatarUrl.isEmpty ? Icon(Icons.person) : null,
+              ),
+              SizedBox(width: 12),
+              // 알림 내용 - Expanded 위젯으로 감싸 넘침 방지
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        // 사용자 이름을 Flexible로 감싸 공간을 효율적으로 사용
+                        Flexible(
+                          child: Text(
+                            notification.username,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                            // 넘칠 경우 말줄임표 표시
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          _formatTimestamp(notification.timestamp),
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    // 메시지 내용도 넘침 방지
+                    Text(
+                      notification.content,
+                      style: TextStyle(fontSize: 15),
+                      // 내용이 너무 길면 2줄까지만 표시
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
+  // 필드 처리를 위한 새로운 메서드 추가
+  Widget _buildFields(dynamic fields) {
+    try {
+      List<Widget> fieldWidgets = [];
+
+      if (fields is List) {
+        // fields가 리스트인 경우 (Discord 형식)
+        for (var field in fields) {
+          if (field is Map &&
+              field.containsKey('name') &&
+              field.containsKey('value')) {
+            fieldWidgets.add(
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      field['name']?.toString() ?? '',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Text(
+                      field['value']?.toString() ?? '',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+        }
+      } else if (fields is Map) {
+        // fields가 맵인 경우
+        fields.forEach((key, value) {
+          fieldWidgets.add(
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      // 사용자 이름을 Flexible로 감싸 공간을 효율적으로 사용
-                      Flexible(
-                        child: Text(
-                          notification.username,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                          // 넘칠 경우 말줄임표 표시
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        _formatTimestamp(notification.timestamp),
-                        style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 4),
-                  // 메시지 내용도 넘침 방지
                   Text(
-                    notification.content,
-                    style: TextStyle(fontSize: 15),
-                    // 내용이 너무 길면 2줄까지만 표시
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                    key,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
+                  Text(value?.toString() ?? '', style: TextStyle(fontSize: 14)),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: fieldWidgets,
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print('필드 처리 중 오류: $e');
+      }
+      return SizedBox.shrink();
+    }
   }
 }

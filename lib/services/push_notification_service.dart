@@ -40,10 +40,22 @@ Future<void> _saveNotification(RemoteMessage message) async {
       'read': false,
     };
 
-    // 추가 데이터가 있으면 병합
-    if (message.data.isNotEmpty) {
-      notificationData.addAll(Map<String, dynamic>.from(message.data));
+    // embeds 데이터가 있으면 추가
+    if (message.data.containsKey('embeds')) {
+      try {
+        notificationData['embeds'] = json.decode(message.data['embeds']);
+      } catch (e) {
+        // 문자열이 아닌 경우 그대로 사용
+        notificationData['embeds'] = message.data['embeds'];
+      }
     }
+
+    // 그 외 추가 데이터 병합
+    message.data.forEach((key, value) {
+      if (!notificationData.containsKey(key)) {
+        notificationData[key] = value;
+      }
+    });
 
     // 알림 목록에 추가
     notifications.add(jsonEncode(notificationData));
@@ -61,7 +73,6 @@ Future<void> _saveNotification(RemoteMessage message) async {
     }
   }
 }
-
 class PushNotificationService {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _localNotifications = FlutterLocalNotificationsPlugin();
@@ -278,22 +289,22 @@ class PushNotificationService {
   }
 
   // 포그라운드 메시지 처리
-  void _handleForegroundMessage(RemoteMessage message) async {
-    if (kDebugMode) {
-      print('포그라운드 메시지 수신: ${message.notification?.title}');
-      print('데이터: ${message.data}');
-    }
-
-    // 알림 저장
-    await _saveNotification(message);
-
-    // 알림 데이터에서 정보 추출
-    final title = message.notification?.title ?? message.data['username'] ?? '알림';
-    final body = message.notification?.body ?? message.data['content'] ?? '';
-
-    // 로컬 알림으로 표시
-    _showLocalNotification(title, body, message.data);
+void _handleForegroundMessage(RemoteMessage message) async {
+  if (kDebugMode) {
+    print('포그라운드 메시지 수신: ${message.notification?.title}');
+    print('데이터: ${message.data}');
   }
+
+  // 알림 저장
+  await _saveNotification(message);
+
+  // 알림 데이터에서 정보 추출
+  final title = message.notification?.title ?? message.data['username'] ?? '알림';
+  final body = message.notification?.body ?? message.data['content'] ?? '';
+
+  // 로컬 알림으로 표시 (간단한 방식)
+  _showLocalNotification(title, body, message.data);
+}
 
   // 로컬 알림 표시
   Future<void> _showLocalNotification(
