@@ -1,0 +1,525 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+// ignore: depend_on_referenced_packages
+import 'package:http/http.dart' as http;
+import 'package:stream_alert/models/notification_model.dart';
+import '../models/streamer_data.dart';
+import '../models/cafe_data.dart';
+import '../models/chzzk_video.dart';
+import '../models/youtube_data.dart';
+import '../utils/cache_helper.dart';
+import '../utils/url_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class ApiService {
+  // static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
+  static const String baseUrl = 'http://192.168.0.4:5000'; // 오라클 서버 주소
+
+  // FCM 토큰 등록 메서드
+  static Future<bool> registerFcmToken(
+    String username,
+    String discordWebhooksURL,
+    String fcmToken,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/register_fcm_token'),
+        body: {
+          'username': username,
+          'discordWebhooksURL': discordWebhooksURL,
+          'fcm_token': fcmToken,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('FCM 토큰 등록 성공');
+        }
+        return true;
+      } else {
+        if (kDebugMode) {
+          print('FCM 토큰 등록 실패: ${response.statusCode}, ${response.body}');
+        }
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('FCM 토큰 등록 중 오류: $e');
+      }
+      return false;
+    }
+  }
+
+  // FCM 토큰 제거 메서드 (로그아웃 시 호출)
+  static Future<bool> removeToken(
+    String username,
+    String discordWebhooksURL,
+    String fcmToken,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/remove_fcm_token'),
+        body: {
+          'username': username,
+          'discordWebhooksURL': discordWebhooksURL,
+          'fcm_token': fcmToken,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('FCM 토큰 제거 성공');
+        }
+        return true;
+      } else {
+        if (kDebugMode) {
+          print('FCM 토큰 제거 실패: ${response.statusCode}');
+        }
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('FCM 토큰 제거 중 오류: $e');
+      }
+      return false;
+    }
+  }
+
+  // 서버에서 알림 가져오기
+
+  static Future<List<NotificationModel>> getNotifications(
+    String username,
+    String discordWebhooksURL, {
+    int page = 1,
+    int limit = 50,
+  }) async {
+    try {
+      final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
+        discordWebhooksURL,
+      );
+
+      final response = await http
+          .get(
+            Uri.parse(
+              '$baseUrl/get_notifications?username=$username&discordWebhooksURL=$normalizedWebhookUrl&page=$page&limit=$limit',
+            ),
+          )
+          .timeout(Duration(seconds: 15)); // 타임아웃 설정
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+
+        if (data['status'] == 'success' && data['notifications'] is List) {
+          // JSON 배열을 NotificationModel 객체 목록으로 변환
+          final notifications =
+              (data['notifications'] as List)
+                  .map(
+                    (item) => NotificationModel.fromJson(
+                      Map<String, dynamic>.from(item),
+                    ),
+                  )
+                  .toList();
+
+          // 시간순 정렬
+          notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+          return notifications;
+        }
+        return [];
+      } else {
+        if (kDebugMode) {
+          print('알림 가져오기 실패: ${response.statusCode}, ${response.body}');
+        }
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('알림 가져오기 중 오류: $e');
+      }
+      return [];
+    }
+  }
+
+  // 알림 읽음 표시 메서드
+  static Future<bool> markNotificationsAsRead(
+    String username,
+    String discordWebhooksURL,
+    List<String> notificationIds,
+  ) async {
+    try {
+      final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
+        discordWebhooksURL,
+      );
+
+      final response = await http.post(
+        Uri.parse('$baseUrl/mark_notifications_read'),
+        body: {
+          'username': username,
+          'discordWebhooksURL': normalizedWebhookUrl,
+          'notification_ids': json.encode(notificationIds),
+        },
+      );
+
+      return response.statusCode == 200;
+    } catch (e) {
+      if (kDebugMode) {
+        print('알림 읽음 표시 중 오류: $e');
+      }
+      return false;
+    }
+  }
+
+  // 알림 전체 삭제 메서드
+  static Future<bool> clearAllNotifications(
+    String username,
+    String discordWebhooksURL,
+  ) async {
+    try {
+      final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
+        discordWebhooksURL,
+      );
+
+      final response = await http.post(
+        Uri.parse('$baseUrl/clear_notifications'),
+        body: {
+          'username': username,
+          'discordWebhooksURL': normalizedWebhookUrl,
+        },
+      );
+
+      return response.statusCode == 200;
+    } catch (e) {
+      if (kDebugMode) {
+        print('알림 삭제 중 오류: $e');
+      }
+      return false;
+    }
+  }
+
+  static Future<Map<String, dynamic>> getUserSettings(
+    String username,
+    String discordWebhooksURL,
+  ) async {
+    final response = await http.get(
+      Uri.parse(
+        '$baseUrl/get_user_settings?username=$username&discordWebhooksURL=$discordWebhooksURL',
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('설정을 불러오는데 실패했습니다: ${response.statusCode}');
+    }
+  }
+
+  static Future<Map<String, dynamic>> getStreamers({
+    int maxRetries = 3,
+    bool useCache = true,
+    bool forceRefresh = false,
+  }) async {
+    if (useCache && !forceRefresh) {
+      final cachedData = await CacheHelper.getCachedStreamerData();
+      if (cachedData != null) {
+        return cachedData;
+      }
+    }
+
+    int attempt = 0;
+    Exception? lastException;
+
+    while (attempt < maxRetries) {
+      try {
+        if (kDebugMode && attempt > 0) {
+          if (kDebugMode) {
+            print('스트리머 데이터 가져오기 시도 ${attempt + 1}/$maxRetries');
+          }
+        }
+
+        final response = await http
+            .get(
+              Uri.parse('$baseUrl/get_streamers'),
+              headers: {'Cache-Control': 'no-cache', 'Pragma': 'no-cache'},
+            )
+            .timeout(
+              Duration(seconds: 10),
+              onTimeout: () {
+                throw TimeoutException('서버 응답 시간이 너무 깁니다.');
+              },
+            );
+
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+
+          // 응답 검증
+          if (data == null ||
+              (!data.containsKey('afreecaStreamers') &&
+                  !data.containsKey('chzzkStreamers'))) {
+            throw Exception('서버 응답이 유효하지 않습니다.');
+          }
+
+          // 3. 성공한 응답을 캐시에 저장
+          if (useCache) {
+            CacheHelper.cacheStreamerData(data);
+          }
+
+          return data;
+        } else {
+          throw Exception('스트리머 정보를 불러오는데 실패했습니다: ${response.statusCode}');
+        }
+      } catch (e) {
+        attempt++;
+        lastException = e is Exception ? e : Exception(e.toString());
+
+        if (kDebugMode) {
+          print('스트리머 데이터 가져오기 실패 (시도 $attempt): $e');
+        }
+
+        if (attempt < maxRetries) {
+          // 지수 백오프 전략 적용
+          await Future.delayed(Duration(seconds: 1 * (1 << (attempt - 1))));
+        }
+      }
+    }
+
+    // 4. 모든 시도가 실패한 경우
+    if (useCache) {
+      // 마지막 시도 - 캐시 확인 (만료 무시)
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        final cachedString = prefs.getString('cached_streamer_data');
+
+        if (cachedString != null && cachedString.isNotEmpty) {
+          final cachedData = json.decode(cachedString);
+          if (kDebugMode) {
+            print('네트워크 실패, 만료된 캐시 사용');
+          }
+          return cachedData['data'];
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print('만료된 캐시 접근 실패: $e');
+        }
+      }
+    }
+
+    throw lastException ?? Exception('스트리머 정보를 가져오는 데 실패했습니다.');
+  }
+
+  static Future<bool> saveUserSettings(Map<String, dynamic> data) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/save_user_settings'),
+      body: data,
+    );
+
+    return response.statusCode == 200;
+  }
+
+  // 푸시 알림 설정 저장 메서드
+  static Future<bool> savePushNotificationSettings(
+    String username,
+    String discordWebhooksURL,
+    Map<String, bool> notificationSettings,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/save_push_settings'),
+        body: {
+          'username': username,
+          'discordWebhooksURL': discordWebhooksURL,
+          'notification_settings': json.encode(notificationSettings),
+        },
+      );
+
+      return response.statusCode == 200;
+    } catch (e) {
+      if (kDebugMode) {
+        print('푸시 알림 설정 저장 중 오류: $e');
+      }
+      return false;
+    }
+  }
+
+  // 기존 메서드들...
+  static List<StreamerData> parseStreamers(Map<String, dynamic> data) {
+    List<StreamerData> streamers = [];
+
+    try {
+      // Parse AfreecaTV streamers
+      List<dynamic> afreecaStreamers = data['afreecaStreamers'] ?? [];
+      for (var streamer in afreecaStreamers) {
+        if (streamer is Map &&
+            streamer.containsKey('channelName') &&
+            streamer.containsKey('channelID')) {
+          streamers.add(
+            StreamerData(
+              name: streamer['channelName'] ?? '이름 없음',
+              platform: 'afreeca',
+              channelID: streamer['channelID'] ?? '',
+              profileImageUrl: streamer['profile_image'] ?? '',
+            ),
+          );
+        }
+      }
+
+      // Parse Chzzk streamers
+      List<dynamic> chzzkStreamers = data['chzzkStreamers'] ?? [];
+      for (var streamer in chzzkStreamers) {
+        if (streamer is Map &&
+            streamer.containsKey('channelName') &&
+            streamer.containsKey('channelID')) {
+          streamers.add(
+            StreamerData(
+              name: streamer['channelName'] ?? '이름 없음',
+              platform: 'chzzk',
+              channelID: streamer['channelID'] ?? '',
+              profileImageUrl: streamer['profile_image'] ?? '',
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('스트리머 데이터 파싱 중 오류: $e');
+      }
+    }
+
+    return streamers;
+  }
+
+  static List<CafeData> parseCafeData(Map<String, dynamic> data) {
+    // 기존 구현 유지
+    List<CafeData> cafeDataList = [];
+    List<dynamic> cafeStreamers = data['cafeStreamers'] ?? [];
+
+    for (var cafeStreamer in cafeStreamers) {
+      try {
+        CafeData cafe = CafeData.fromJson(cafeStreamer);
+        cafeDataList.add(cafe);
+      } catch (e) {
+        if (kDebugMode) {
+          print('Error parsing cafe data: $e');
+        }
+      }
+    }
+
+    return cafeDataList;
+  }
+
+  static List<ChzzkVideo> parseChzzkVideo(Map<String, dynamic> data) {
+    // 기존 구현 유지
+    List<ChzzkVideo> chzzkVideoList = [];
+    List<dynamic> chzzkVideoStreamers = data['chzzkVideoStreamers'] ?? [];
+
+    for (var chzzkVideoStreamer in chzzkVideoStreamers) {
+      try {
+        ChzzkVideo chzzkVideo = ChzzkVideo.fromJson(chzzkVideoStreamer);
+        chzzkVideoList.add(chzzkVideo);
+      } catch (e) {
+        if (kDebugMode) {
+          print('Error parsing chzzk video data: $e');
+        }
+      }
+    }
+
+    return chzzkVideoList;
+  }
+
+  static List<YoutubeData> parseYoutubeData(Map<String, dynamic> data) {
+    // 기존 구현 유지
+    List<YoutubeData> result = [];
+    List<dynamic> youtubeStreamers = data['youtubeStreamers'] ?? [];
+
+    Map<String, List<Map<String, dynamic>>> channelIdToYoutubeData = {};
+
+    for (var youtubeStreamer in youtubeStreamers) {
+      String channelID = youtubeStreamer['channelID'] ?? '';
+
+      if (channelID.isNotEmpty) {
+        if (!channelIdToYoutubeData.containsKey(channelID)) {
+          channelIdToYoutubeData[channelID] = [];
+        }
+        channelIdToYoutubeData[channelID]!.add(youtubeStreamer);
+      }
+    }
+
+    channelIdToYoutubeData.forEach((channelID, channelDataList) {
+      try {
+        String channelName = channelDataList.first['channelName'] ?? '';
+
+        Map<String, List<String>> youtubeDict = {};
+        youtubeDict[channelID] = [];
+
+        for (var data in channelDataList) {
+          String dataChannelName = data['channelName'] ?? '';
+          if (dataChannelName.isNotEmpty) {
+            youtubeDict[channelID]!.add(dataChannelName);
+          }
+        }
+
+        YoutubeData youtube = YoutubeData(
+          channelID: channelID,
+          channelName: channelName,
+          youtubeNameDict: youtubeDict,
+        );
+
+        result.add(youtube);
+      } catch (e) {
+        if (kDebugMode) {
+          print('Error processing YouTube data for channelID $channelID: $e');
+        }
+      }
+    });
+
+    return result;
+  }
+
+  static Future<Map<String, dynamic>> login(
+    String username,
+    String discordWebhooksURL,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/login'),
+        body: {'username': username, 'discordWebhooksURL': discordWebhooksURL},
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        Map<String, dynamic> errorData = json.decode(response.body);
+        throw Exception(errorData['message'] ?? '로그인 실패!');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('로그인 오류: $e');
+      }
+      throw Exception('로그인 중 오류가 발생했습니다: $e');
+    }
+  }
+
+  static Future<Map<String, dynamic>> register(
+    String username,
+    String discordWebhooksURL,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/register'),
+        body: {'username': username, 'discordWebhooksURL': discordWebhooksURL},
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        Map<String, dynamic> errorData = json.decode(response.body);
+        throw Exception(errorData['message'] ?? '회원가입 실패!');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('회원가입 오류: $e');
+      }
+      throw Exception('회원가입 중 오류가 발생했습니다: $e');
+    }
+  }
+}

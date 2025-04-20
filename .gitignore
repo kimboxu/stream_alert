@@ -1,0 +1,29 @@
+# Flutter 빌드/캐시 디렉토리
+build/
+.dart_tool/
+.packages
+.pub-cache/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+
+# Android 관련
+android/.gradle/
+android/captures/
+android/local.properties
+android/app/google-services.json
+
+# IDE 설정 관련
+*.iml
+.idea/
+.vscode/
+
+# 환경 파일
+.env
+firebase.json
+
+# 로그 및 임시 파일
+*.log
+*.tmp
+*.swp
+*.DS_Store

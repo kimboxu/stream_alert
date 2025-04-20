@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>방송 알림 설정</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #202124;
+            text-align: center;
+        }
+
+        #userList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .user {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .user:hover {
+            transform: scale(1.05);
+        }
+
+        .user img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .user p {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #202124;
+        }
+
+        #notificationSettings {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .notification-option span {
+            font-size: 16px;
+            color: #202124;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        #saveAllNotifications {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #saveAllNotifications:hover {
+            background-color: #1557b0;
+        }
+
+        .chat-users {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .chat-user {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .chat-user label {
+            margin-left: 5px;
+        }
+
+        #webhookInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .clickable-setting {
+            cursor: pointer;
+        }
+
+        .clickable-setting:hover {
+            background-color: #e8e8e8;
+        }
+
+        #submitWebhook {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #submitWebhook:hover {
+            background-color: #1557b0;
+        }
+
+        .loading {
+            display: inline-block;
+            margin-left: 8px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-message {
+            color: #d93025;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .success-message {
+            color: #188038;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>방송 알림 설정</h1>
+    <div id="webhookInputContainer">
+        <input type="text" autocomplete="off" id="webhookInput" placeholder="Discord 웹훅 URL을 입력하세요">
+        <button id="submitWebhook">설정 시작</button>
+        <div id="webhookMessage"></div>
+    </div>
+    <div id="settingsContainer" style="display: none;">
+        <div id="userList"></div>
+        <div id="notificationSettings"></div>
+        <button id="saveAllNotifications">모든 알림 설정 저장</button>
+        <div id="saveMessage"></div>
+    </div>
+
+    <script>
+        // 전역 변수 및 상수 선언
+        let userSettings = {};
+        const webhookInputContainer = document.getElementById("webhookInputContainer");
+        const settingsContainer = document.getElementById("settingsContainer");
+        const webhookInput = document.getElementById("webhookInput");
+        const submitWebhookBtn = document.getElementById("submitWebhook");
+        const saveAllNotificationsBtn = document.getElementById("saveAllNotifications");
+        const userList = document.getElementById("userList");
+        const notificationSettings = document.getElementById("notificationSettings");
+        const webhookMessage = document.getElementById("webhookMessage");
+        const saveMessage = document.getElementById("saveMessage");
+
+        // 스트리머 정보
+        const users = [
+            //{ 
+            //    name: "김챠멜", 
+            //    image: "https://stimg.afreecatv.com/LOGO/al/alsdudtjdud1/alsdudtjdud1.jpg",
+            //    additionalSettings: ["채팅 알림", "카페 알림", "유튜브 알림"],
+            //    chatUsers: ["김챠멜", "마왕0216", "우왁굳", "마다옴_", "니즈__","재수피기"],
+            //    channelList: ["김챠멜", "롱챠멜"],
+            //    cafeList: ["김챠멜"]
+            //},
+            //{ 
+            //    name: "마왕0216", 
+            //    image: "https://profile.img.afreecatv.com/LOGO/ma/mawang0216/mawang0216.jpg",
+            //    additionalSettings: ["채팅 알림", "카페 알림", "유튜브 알림"],
+            //    chatUsers: ["김챠멜", "마왕0216", "우왁굳", "마다옴_", "니즈__","재수피기"],
+            //    channelList: ["MaWang 마왕", "마왕의 심연", "마왕의 다시보기"],
+            //    cafeList: ["마왕0216"]
+            //},
+            //{ 
+            //    name: "우왁굳", 
+            //    image: "https://profile.img.afreecatv.com/LOGO/ec/ecvhao/ecvhao.jpg",
+            //    additionalSettings: ["채팅 알림", "카페 알림", "유튜브 알림"],
+            //    chatUsers: ["우왁굳", "아이네","징버거","릴파","주르르","고세구","비챤"],
+            //    channelList: ["우왁굳의 게임방송", "왁타버스 WAKTAVERSE", "우왁굳의 풀업로두", "우왁굳의 반찬가게"],
+            //    cafeList: ["우왁굳", "아이네","징버거","릴파","주르르","고세구","비챤"]
+            //},
+            { 
+                name: "빅헤드", 
+                image: "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+                additionalSettings: ["채팅 알림", "카페 알림", "유튜브 알림", "치지직 VOD 알림"],
+                chatUsers: ["양아지", "빅헤드", "치킨쿤", "마뫄", "수이수이"],
+                channelList: ["빅헤드", "숏헤드", "두번째 빅헤드 (다시보기)"],
+                cafeList: ["빅헤드"]
+            },
+            { 
+                name: "양아지", 
+                image: "https://nng-phinf.pstatic.net/MjAyNDA0MjRfMTI5/MDAxNzEzOTUwMzk4NDEx.xa4Wb4RPbTyOf7r3j6wycvQBwG5Akz8HtXpOMp7vnL4g.dOu9fO4j3awKBX82sPyWd13W7bhdzzRqjo6eB9015_8g.PNG/2_%286%29.png",
+                additionalSettings: ["채팅 알림", "카페 알림", "유튜브 알림", "치지직 VOD 알림"],
+                chatUsers: ["빅헤드", "양아지"],
+                channelList: ["양아지", "양아지 다시보기"],
+                cafeList: ["양아지"]
+            },
+        ];
+
+        /**
+         * 사용자 목록을 화면에 표시합니다.
+         */
+        function showUsers() {
+            userList.innerHTML = "";
+            users.forEach(user => {
+                const userElement = document.createElement("div");
+                userElement.className = "user";
+                userElement.innerHTML = `
+                    <img src="${user.image}" alt="${user.name}">
+                    <p>${user.name}</p>
+                `;
+                userElement.addEventListener('click', () => showNotificationSettings(user));
+                userList.appendChild(userElement);
+            });
+        }
+
+        /**
+         * 선택한 사용자의 알림 설정을 화면에 표시합니다.
+         * @param {Object} user - 사용자 정보
+         */
+        function showNotificationSettings(user) {
+            console.log(`${user.name} 스트리머 알림 설정 표시`);
+
+            let settingsHTML = `
+                <h2>${user.name} 알림 설정</h2>
+                <div class="notification-option clickable-setting">
+                    <label for="startNotification_${user.name}">
+                        <span>방송 시작 알림</span>
+                        <input type="checkbox" id="startNotification_${user.name}">
+                    </label>
+                </div>
+                <div class="notification-option clickable-setting">
+                    <label for="titleChangeNotification_${user.name}">
+                        <span>방송제목 변경 알림</span>
+                        <input type="checkbox" id="titleChangeNotification_${user.name}">
+                    </label>
+                </div>
+                <div class="notification-option clickable-setting">
+                    <label for="endNotification_${user.name}">
+                        <span>방송 종료 알림</span>
+                        <input type="checkbox" id="endNotification_${user.name}">
+                    </label>
+                </div>
+            `;
+
+            // 추가 설정들을 동적으로 생성
+            user.additionalSettings.forEach(setting => {
+                const settingId = setting.replace(/ /g, '_');
+                if (setting === "채팅 알림" || setting === "유튜브 알림" || setting === "카페 알림") {
+                    settingsHTML += `
+                        <div class="notification-option clickable-setting" onclick="toggleAdditionalSettings('${user.name}', '${setting}')">
+                            <span>${setting}</span>
+                            <button id="${settingId}_${user.name}">설정</button>
+                        </div>
+                    `;
+                }
+                if (setting === "치지직 VOD 알림") {
+                    settingsHTML += `
+                        <div class="notification-option clickable-setting">
+                            <label for="VOD_${user.name}">
+                                <span>${setting}</span>
+                                <input type="checkbox" id="VOD_${user.name}">
+                            </label>
+                        </div>
+                    `;
+                }
+
+                // 채팅 알림에 대한 특별한 처리
+                if (setting === "채팅 알림") {
+                    settingsHTML += `
+                        <div id="채팅_알림Users_${user.name}" class="chat-users" style="display: none;">
+                            <h3>채팅 알림 받을 사용자</h3>
+                            ${user.chatUsers.map(chatUser => `
+                                <div class="chat-user">
+                                    <input type="checkbox" id="chatUser_${user.channelID}_${chatUser}">
+                                    <label for="chatUser_${user.channelID}_${chatUser}">${chatUser}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+                if (setting === "유튜브 알림") {
+                    settingsHTML += `
+                        <div id="유튜브_알림Users_${user.name}" class="chat-users" style="display: none;">
+                            <h3>유튜브 알림 받을 채널</h3>
+                            ${user.channelList.map(channel => `
+                                <div class="chat-user">
+                                    <input type="checkbox" id="youtubeUser_${user.channelID}_${channel}">
+                                    <label for="youtubeUser_${user.channelID}_${channel}">${channel}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+                if (setting === "카페 알림") {
+                    settingsHTML += `
+                        <div id="카페_알림Users_${user.name}" class="chat-users" style="display: none;">
+                            <h3>${user.name} 카페 알림 받을 사용자</h3>
+                            ${user.cafeList.map(cafe => `
+                                <div class="chat-user">
+                                    <input type="checkbox" id="cafeUser_${user.channelID}_${cafe}">
+                                    <label for="cafeUser_${user.channelID}_${cafe}">${cafe}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            });
+
+            notificationSettings.innerHTML = settingsHTML;
+
+            // 저장된 설정 불러오기 및 적용
+            loadUserSettings2(user);
+
+            // 설정 변경 시 저장
+            const checkboxes = notificationSettings.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => saveUserSettings(user));
+            });
+        }
+
+        /**
+         * 사용자 설정을 저장합니다.
+         * @param {Object} user - 사용자 정보
+         */
+        function saveUserSettings(user) {
+            console.log(`${user.name} 스트리머 설정 저장`);
+
+            const settings = {
+                startNotification: document.getElementById(`startNotification_${user.name}`).checked,
+                titleChangeNotification: document.getElementById(`titleChangeNotification_${user.name}`).checked,
+                endNotification: document.getElementById(`endNotification_${user.name}`).checked,
+                VOD: document.getElementById(`VOD_${user.name}`) ? document.getElementById(`VOD_${user.name}`).checked : false,
+            };
+
+            // 채팅 알림 설정
+            settings.chatUsers = {};
+            user.chatUsers.forEach(chatUser => {
+                const checkbox = document.getElementById(`chatUser_${user.channelID}_${chatUser}`);
+                if (checkbox) {
+                    settings.chatUsers[chatUser] = checkbox.checked;
+                }
+            });
+
+            // 유튜브 알림 설정
+            settings.channelList = {};
+            user.channelList.forEach(channel => {
+                const checkbox = document.getElementById(`youtubeUser_${user.channelID}_${channel}`);
+                if (checkbox) {
+                    settings.channelList[channel] = checkbox.checked;
+                }
+            });
+
+            // 카페 알림 설정
+            settings.cafeList = {};
+            user.cafeList.forEach(cafe => {
+                const checkbox = document.getElementById(`cafeUser_${user.channelID}_${cafe}`);
+                if (checkbox) {
+                    settings.cafeList[cafe] = checkbox.checked;
+                }
+            });
+
+            userSettings[user.name] = settings;
+            console.log('현재 저장된 설정:', userSettings);
+        }
+        /**
+         * 추가 설정을 토글합니다.
+         * @param {string} userName - 사용자 이름
+         * @param {string} setting - 설정 이름
+         */
+        function toggleAdditionalSettings(userName, setting) {
+            const settingId = setting.replace(/ /g, '_');
+            const additionalSettingsDiv = document.getElementById(`${settingId}Users_${userName}`);
+
+            if (additionalSettingsDiv) {
+                additionalSettingsDiv.style.display = additionalSettingsDiv.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        /**
+         * 체크박스 상태를 토글합니다.
+         * @param {string} id - 체크박스 ID
+         */
+        function toggleCheckbox(id) {
+            const checkbox = document.getElementById(id);
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+
+                // 설정 저장 트리거
+                const idParts = id.split('_');
+                if (idParts.length >= 2) {
+                    const userName = idParts[1];
+                    const user = users.find(u => u.name === userName);
+                    if (user) {
+                        saveUserSettings(user);
+                    }
+                }
+            }
+        }
+
+        // 이벤트 위임을 사용하여 동적으로 생성된 요소에 대한 클릭 이벤트 처리
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.classList.contains('clickable-setting')) {
+                if (e.target.querySelector('button')) {
+                    const buttonId = e.target.querySelector('button').id;
+                    const idParts = buttonId.split('_');
+                    if (idParts.length >= 2) {
+                        const userName = idParts[1];
+                        const setting = e.target.querySelector('span').textContent;
+                        toggleAdditionalSettings(userName, setting);
+                    }
+                } else if (e.target.querySelector('input[type="checkbox"]')) {
+                    const checkboxId = e.target.querySelector('input[type="checkbox"]').id;
+                    toggleCheckbox(checkboxId);
+                }
+            }
+        });
+
+        /**
+         * 웹훅 URL을 정규화합니다.
+         * @param {string} url - 웹훅 URL
+         * @returns {string} - 정규화된 URL
+         */
+        function normalizeWebhookUrl(url) {
+            if (url.startsWith("https://discordapp.com/api/webhooks/")) {
+                return url.replace("https://discordapp.com/api/webhooks/", "https://discord.com/api/webhooks/");
+            }
+            return url;
+        }
+
+        /**
+         * 웹훅 제출 버튼 클릭 이벤트 처리
+         */
+        submitWebhookBtn.addEventListener("click", () => {
+            let webhookUrl = webhookInput.value.trim();
+
+            // 웹훅 URL 유효성 검사
+            if (!webhookUrl.includes("https://discord.com/api/webhooks/") &&
+                !webhookUrl.includes("https://discordapp.com/api/webhooks/")) {
+                webhookMessage.innerHTML = '<div class="error-message">유효한 디스코드 웹훅 주소를 입력하세요<br>https://discord.com/api/webhooks..............</div>';
+                return;
+            }
+
+            // 로딩 표시
+            submitWebhookBtn.disabled = true;
+            submitWebhookBtn.innerHTML = '설정 불러오는 중... <span class="loading"></span>';
+            webhookMessage.innerHTML = '';
+
+            webhookUrl = normalizeWebhookUrl(webhookUrl);
+            loadUserSettings1(webhookUrl);
+        });
+
+/**
+ * 서버에서 설정을 로드합니다.
+ * @param {string} webhookUrl - 웹훅 URL
+ */
+ function loadUserSettings1(webhookUrl) {
+    // 로딩 상태 표시
+    submitWebhookBtn.disabled = true;
+    submitWebhookBtn.innerHTML = '설정 불러오는 중... <span class="loading"></span>';
+    webhookMessage.innerHTML = '';
+    
+    console.log('설정을 로드하는 중...', webhookUrl);
+    
+    fetch('/get_notifications', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ webhook_url: webhookUrl }),
+    })
+    .then(response => {
+        console.log('서버 응답 상태:', response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log('서버에서 받은 설정 데이터:', data);
+        
+        if (data.settings) {
+            userSettings = data.settings;
+            console.log('불러온 userSettings:', userSettings);
+            
+            // 디버깅: 설정 상세 내용 출력
+            for (const userName in userSettings) {
+                console.log(`${userName}의 설정:`, userSettings[userName]);
+                console.log(`  방송 시작 알림:`, userSettings[userName].startNotification);
+                console.log(`  방제 변경 알림:`, userSettings[userName].titleChangeNotification);
+                console.log(`  방송 종료 알림:`, userSettings[userName].endNotification);
+                console.log(`  VOD 알림:`, userSettings[userName].VOD);
+                
+                if (userSettings[userName].channelList) {
+                    console.log(`  유튜브 채널 설정:`, userSettings[userName].channelList);
+                }
+                
+                if (userSettings[userName].chatUsers) {
+                    console.log(`  채팅 사용자 설정:`, userSettings[userName].chatUsers);
+                }
+                
+                if (userSettings[userName].cafeList) {
+                    console.log(`  카페 설정:`, userSettings[userName].cafeList);
+                }
+            }
+            
+            webhookInputContainer.style.display = 'none';
+            settingsContainer.style.display = 'block';
+            showUsers();
+            
+            // 성공 메시지 표시
+            saveMessage.innerHTML = '<div class="success-message">저장된 설정을 불러왔습니다!</div>';
+        } else {
+            console.log('저장된 설정이 없습니다.');
+            userSettings = {};
+            webhookInputContainer.style.display = 'none';
+            settingsContainer.style.display = 'block';
+            showUsers();
+            
+            // 안내 메시지 표시
+            saveMessage.innerHTML = '<div class="info-message">이전에 저장된 설정이 없습니다. 새로 설정해주세요.</div>';
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        webhookMessage.innerHTML = '<div class="error-message">설정을 불러오는 중 오류가 발생했습니다.</div>';
+    })
+    .finally(() => {
+        // 로딩 상태 해제
+        submitWebhookBtn.disabled = false;
+        submitWebhookBtn.innerHTML = '설정 시작';
+    });
+}
+        /**
+         * 로드된 설정을 UI에 적용합니다.
+         * @param {Object} user - 사용자 정보
+         */
+        function loadUserSettings2(user) {
+            if (userSettings[user.name]) {
+                const settings = userSettings[user.name];
+                console.log(`${user.name} 설정 불러오기:`, settings);
+
+                // 기본 설정 적용
+                document.getElementById(`startNotification_${user.name}`).checked = settings.startNotification;
+                document.getElementById(`titleChangeNotification_${user.name}`).checked = settings.titleChangeNotification;
+                document.getElementById(`endNotification_${user.name}`).checked = settings.endNotification;
+
+                const vodCheckbox = document.getElementById(`VOD_${user.name}`);
+                if (vodCheckbox) vodCheckbox.checked = settings.VOD || false;
+
+                // 채팅 알림 설정 적용
+                if (settings.chatUsers) {
+                    Object.keys(settings.chatUsers).forEach(chatUser => {
+                        const checkbox = document.getElementById(`chatUser_${user.channelID}_${chatUser}`);
+                        if (checkbox) {
+                            checkbox.checked = settings.chatUsers[chatUser];
+                        }
+                    });
+                }
+
+                // 유튜브 알림 설정 적용
+                if (settings.channelList) {
+                    Object.keys(settings.channelList).forEach(channel => {
+                        const checkbox = document.getElementById(`youtubeUser_${user.channelID}_${channel}`);
+                        if (checkbox) {
+                            checkbox.checked = settings.channelList[channel];
+                        }
+                    });
+                }
+
+                // 카페 알림 설정 적용
+                if (settings.cafeList) {
+                    Object.keys(settings.cafeList).forEach(cafe => {
+                        const checkbox = document.getElementById(`cafeUser_${user.channelID}_${cafe}`);
+                        if (checkbox) {
+                            checkbox.checked = settings.cafeList[cafe];
+                        }
+                    });
+                }
+            }
+        }
+
+        /**
+         * 모든 알림 설정 저장 버튼 클릭 이벤트 처리
+         */
+        saveAllNotificationsBtn.addEventListener("click", () => {
+            let webhookUrl = webhookInput.value.trim();
+
+            // 웹훅 URL 유효성 검사
+            if (!webhookUrl.includes("https://discord.com/api/webhooks/") &&
+                !webhookUrl.includes("https://discordapp.com/api/webhooks/")) {
+                saveMessage.innerHTML = '<div class="error-message">유효한 디스코드 웹훅 주소를 입력하세요</div>';
+                return;
+            }
+
+            webhookUrl = normalizeWebhookUrl(webhookUrl);
+
+            // 버튼 비활성화 및 로딩 메시지 표시
+            saveAllNotificationsBtn.disabled = true;
+            saveAllNotificationsBtn.innerHTML = "설정을 저장 중 입니다. 잠시만 기다려 주세요. <span class='loading'></span>";
+            saveMessage.innerHTML = '';
+
+            fetch('/save_all_notifications', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    webhook_url: webhookUrl,
+                    settings: userSettings
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        saveMessage.innerHTML = '<div class="success-message">모든 알림 설정이 저장되었습니다.</div>';
+                    } else {
+                        saveMessage.innerHTML = '<div class="error-message">알림 설정 저장에 실패했습니다.</div>';
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    saveMessage.innerHTML = '<div class="error-message">알림 설정 저장 중 오류가 발생했습니다.</div>';
+                })
+                .finally(() => {
+                    // 버튼 재활성화 및 원래 텍스트로 복원
+                    saveAllNotificationsBtn.disabled = false;
+                    saveAllNotificationsBtn.innerHTML = "모든 알림 설정 저장";
+                });
+        });
+
+        // 페이지 로드 시 실행
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('페이지 로드 완료');
+        });
+    </script>
+</body>
+
+</html>
