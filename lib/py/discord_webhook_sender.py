@@ -135,7 +135,7 @@ def get_list_of_urls(DO_TEST, userStateData, name, channel_id, db_name):
     try:
         if DO_TEST:
             for _ in range(1):
-                result_urls.append(environ['errorPostBotURL'])
+                result_urls.append(environ['testPostBotURL'])
             return result_urls
         
         for discordWebhookURL in userStateData['discordURL']:
