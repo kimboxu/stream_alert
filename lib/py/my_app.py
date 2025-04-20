@@ -764,6 +764,25 @@ async def send_push_notification(messages: List[str], json_data):
         notification_id = str(uuid4())
         notification_time = datetime.now().isoformat()
 
+        # 메시지 데이터 준비
+        notification_data = {
+            "title": json_data.get("username", "알림"),
+            "body": json_data.get("content", ""),
+        }
+
+        # 기본 데이터 필드
+        data_fields = {
+            "username": json_data.get("username", "알림"),
+            "content": json_data.get("content", ""),
+            "avatar_url": json_data.get("avatar_url", ""),
+            "timestamp": notification_time,
+        }
+
+        # embeds 데이터가 있으면 추가 (Discord와 동일한 형식)
+        if "embeds" in json_data and json_data["embeds"]:
+            # FCM은 모든 데이터 필드가 문자열이어야 함
+            data_fields["embeds"] = dumps(json_data["embeds"])
+
         # 배치 처리를 위한 작업 목록
         tasks = []
 
@@ -792,16 +811,17 @@ async def send_push_notification(messages: List[str], json_data):
                         saveNotificationsData(
                             supabase,
                             discord_webhook_url,
-                            json_data,
                             user_data,
                             notification_id,
-                            notification_time,
+                            data_fields,
                         )
                     )
                 )
 
                 # Flutter 앱으로 메시지 전송 (Firebase 메시징)
-                asyncio.create_task(post_msg_to_flutter(user_data, json_data))
+                asyncio.create_task(
+                    post_msg_to_flutter(user_data, notification_data, data_fields)
+                )
 
             # 모든 작업이 완료될 때까지 대기 (선택적)
             # await asyncio.gather(*tasks)
@@ -816,7 +836,7 @@ async def send_push_notification(messages: List[str], json_data):
         return False
 
 
-async def post_msg_to_flutter(user_data, json_data):
+async def post_msg_to_flutter(user_data, notification_data, data_fields):
     # 토큰 목록 가져오기
     existing_tokens = user_data.get("fcm_tokens", "")
     if not existing_tokens:
@@ -831,24 +851,6 @@ async def post_msg_to_flutter(user_data, json_data):
     # 2. 개별 토큰에 메시지 전송
     for token in tokens_list:
         try:
-            # 메시지 데이터 준비
-            notification_data = {
-                "title": json_data.get("username", "알림"),
-                "body": json_data.get("content", ""),
-            }
-
-            # 기본 데이터 필드
-            data_fields = {
-                "username": json_data.get("username", "알림"),
-                "content": json_data.get("content", ""),
-                "avatar_url": json_data.get("avatar_url", ""),
-                "timestamp": datetime.now().isoformat(),
-            }
-
-            # embeds 데이터가 있으면 추가 (Discord와 동일한 형식)
-            if "embeds" in json_data and json_data["embeds"]:
-                # FCM은 모든 데이터 필드가 문자열이어야 함
-                data_fields["embeds"] = dumps(json_data["embeds"])
 
             # 메시지 객체 생성
             message = messaging.Message(

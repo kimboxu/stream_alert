@@ -673,18 +673,9 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 			asyncio.create_task(DiscordWebhookSender._log_error(f"error saving youtube data {e}"))
 			await asyncio.sleep(0.1)
 
-async def saveNotificationsData(supabase, discord_webhook_url, json_data, user_data, notification_id, notification_time):
+async def saveNotificationsData(supabase, discord_webhook_url, user_data, notification_id, data_fields):
     try:
-        # 알림 아이템 생성
-        notification_item = {
-            'id': notification_id,
-            'username': json_data.get('username', '알림'),
-            'content': json_data.get('content', ''),
-            'avatar_url': json_data.get('avatar_url', ''),
-            'timestamp': notification_time,
-            'read': False
-        }
-        
+
         # 기존 알림 목록 가져오기
         notifications = user_data.get('notifications', [])
         if not isinstance(notifications, list):
@@ -695,8 +686,7 @@ async def saveNotificationsData(supabase, discord_webhook_url, json_data, user_d
         
         # 이미 같은 ID의 알림이 있는지 확인
         if not any(n.get('id') == notification_id for n in notifications):
-            # 새 알림 추가
-            notifications.append(notification_item)
+            notifications.append(data_fields)
             
             # 최대 1000개까지만 유지 (오래된 알림 삭제)
             if len(notifications) > 1000:
