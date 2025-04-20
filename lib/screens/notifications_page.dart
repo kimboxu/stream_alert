@@ -333,8 +333,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 children: [
                   RefreshIndicator(
                     onRefresh: _refreshNotifications,
-                    color: Theme.of(context).primaryColor,
-                    backgroundColor: Theme.of(context).cardColor,
                     child:
                         _notifications.isEmpty
                             ? _buildEmptyNotifications()
@@ -588,7 +586,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withAlpha(13), // 0.05 × 255 = 약 13
               blurRadius: 3,
               offset: Offset(0, 1),
             ),
@@ -777,7 +775,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withAlpha(13),
               blurRadius: 3,
               offset: Offset(0, 1),
             ),

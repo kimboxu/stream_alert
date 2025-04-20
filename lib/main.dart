@@ -71,9 +71,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xFF5865F2),
         colorScheme: ColorScheme.dark(
           primary: Color(0xFF5865F2),
-          surface: Color(0xFF2F3136),
+          surface: Color(0xFF36393F),
           onSurface: Colors.white,
-          background: Color(0xFF36393F), // Discord 다크 테마 배경색과 유사
+          
         ),
         appBarTheme: AppBarTheme(
           color: Color(0xFF2F3136),
