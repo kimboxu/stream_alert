@@ -18,7 +18,7 @@ from discord_webhook_sender import DiscordWebhookSender
 
 class initVar:
 	load_dotenv()
-	DO_TEST = True
+	DO_TEST = False
 	
 	printCount 		= 100	#every 100 count, print count 
 	countTimeList = []
@@ -675,7 +675,6 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 
 async def saveNotificationsData(supabase, discord_webhook_url, user_data, notification_id, data_fields):
     try:
-
         # 기존 알림 목록 가져오기
         notifications = user_data.get('notifications', [])
         if not isinstance(notifications, list):
@@ -684,18 +683,28 @@ async def saveNotificationsData(supabase, discord_webhook_url, user_data, notifi
             except:
                 notifications = []
         
-        # 이미 같은 ID의 알림이 있는지 확인
-        if not any(n.get('id') == notification_id for n in notifications):
+        # notification_id 확인 - 이미 있는 알림인지 체크
+        is_duplicate = False
+        for idx, notification in enumerate(notifications):
+            # 동일한 ID의 알림이 있는지 확인
+            if notification.get('notification_id') == notification_id:
+                # 중복 발견 - 기존 항목 업데이트
+                notifications[idx] = data_fields
+                is_duplicate = True
+                break
+                
+        if not is_duplicate:
+            # 새 알림 추가
             notifications.append(data_fields)
             
-            # 최대 1000개까지만 유지 (오래된 알림 삭제)
-            if len(notifications) > 1000:
-                notifications = notifications[-1000:]
-            
-            # DB 업데이트 (배치 작업의 일부)
-            supabase.table('userStateData').update({
-                'notifications': notifications
-            }).eq('discordURL', discord_webhook_url).execute()
+        # 최대 1000개까지만 유지 (오래된 알림 삭제)
+        if len(notifications) > 1000:
+            notifications = notifications[-1000:]
+        
+        # DB 업데이트 (배치 작업의 일부)
+        supabase.table('userStateData').update({
+            'notifications': notifications
+        }).eq('discordURL', discord_webhook_url).execute()
 
     except Exception as e:
         print(f"알림 데이터 저장 중 오류: {e}")

@@ -752,7 +752,6 @@ def get_supabase_client():
         )
     return g.supabase_client
 
-
 async def send_push_notification(messages: List[str], json_data):
     # Firebase가 초기화되었는지 확인 (한 번만 호출됨)
     if not initialize_firebase():
@@ -772,6 +771,7 @@ async def send_push_notification(messages: List[str], json_data):
 
         # 기본 데이터 필드
         data_fields = {
+            "notification_id": notification_id,  # 고유 ID를 명시적으로 포함
             "username": json_data.get("username", "알림"),
             "content": json_data.get("content", ""),
             "avatar_url": json_data.get("avatar_url", ""),
@@ -812,7 +812,7 @@ async def send_push_notification(messages: List[str], json_data):
                             supabase,
                             discord_webhook_url,
                             user_data,
-                            notification_id,
+                            notification_id,  # 동일한 ID 전달
                             data_fields,
                         )
                     )
@@ -835,7 +835,6 @@ async def send_push_notification(messages: List[str], json_data):
         traceback.print_exc()
         return False
 
-
 async def post_msg_to_flutter(user_data, notification_data, data_fields):
     # 토큰 목록 가져오기
     existing_tokens = user_data.get("fcm_tokens", "")
@@ -851,11 +850,12 @@ async def post_msg_to_flutter(user_data, notification_data, data_fields):
     # 2. 개별 토큰에 메시지 전송
     for token in tokens_list:
         try:
-
+            message_data = {k: str(v) for k, v in data_fields.items()}
+            
             # 메시지 객체 생성
             message = messaging.Message(
                 notification=messaging.Notification(**notification_data),
-                data={k: str(v) for k, v in data_fields.items()},
+                data=message_data,  # 수정된 데이터 필드
                 token=token,
                 android=messaging.AndroidConfig(
                     priority="high",
@@ -871,7 +871,6 @@ async def post_msg_to_flutter(user_data, notification_data, data_fields):
 
         except Exception as e:
             print(f"토큰 {token} 메시지 전송 실패: {e}")
-
 
 if __name__ == "__main__":
 
