@@ -47,6 +47,7 @@ class getYoutubeJsonData:
 		self.twitchIDList = init_var.twitchIDList
 		self.youtubeChannelID = youtubeChannelID
 		self.youtubechannelName = init_var.youtubeData.loc[youtubeChannelID, 'channelName']
+		self.channel_id = init_var.youtubeData.loc[youtubeChannelID, 'channelID']
 
 	async def start(self):
 		try:
@@ -97,7 +98,7 @@ class getYoutubeJsonData:
 
 			for json_data in reversed(self.new_video_json_data_list):
 				if json_data is not None:
-					list_of_urls= get_list_of_urls(self.DO_TEST, self.userStateData, self.youtubechannelName, self.youtubeChannelID, "유튜브 알림")
+					list_of_urls= get_list_of_urls(self.DO_TEST, self.userStateData, self.youtubechannelName, self.channel_id, "유튜브 알림")
 
 					asyncio.create_task(send_push_notification(list_of_urls, json_data))
 					await DiscordWebhookSender().send_messages(list_of_urls, json_data)
