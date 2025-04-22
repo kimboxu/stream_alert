@@ -771,7 +771,7 @@ async def send_push_notification(messages: List[str], json_data):
 
         # 기본 데이터 필드
         data_fields = {
-            "notification_id": notification_id,  # 고유 ID를 명시적으로 포함
+            "id": notification_id,  # 고유 ID를 명시적으로 포함
             "username": json_data.get("username", "알림"),
             "content": json_data.get("content", ""),
             "avatar_url": json_data.get("avatar_url", ""),
