@@ -350,7 +350,8 @@ def save_user_settings():
     # Supabase에 설정 업데이트
     supabase = create_client(environ["supabase_url"], environ["supabase_key"])
     result = supabase.table("userStateData").upsert(update_data).execute()
-    supabase.table("date_update").upsert({"idx": 0, "user_date": True}).execute()
+    update_result = supabase.table("date_update").upsert({"idx": 0, "user_date": True}).execute()
+    print(f"Update result: {update_result}")
 
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
 
@@ -781,7 +782,7 @@ async def send_push_notification(messages: List[str], json_data):
         # embeds 데이터가 있으면 추가 (Discord와 동일한 형식)
         if "embeds" in json_data and json_data["embeds"]:
             # FCM은 모든 데이터 필드가 문자열이어야 함
-            data_fields["embeds"] = dumps(json_data["embeds"])
+            data_fields["embeds"] = json_data["embeds"]
 
         # 배치 처리를 위한 작업 목록
         tasks = []

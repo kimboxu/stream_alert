@@ -31,9 +31,29 @@ Future<void> _saveNotification(RemoteMessage message) async {
     final notifications = prefs.getStringList('notifications') ?? [];
 
     // 새 알림 데이터 생성
+    final String messageId =
+        message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString();
+
+    // 중복 검사 - 이미 같은 ID가 있는지 확인
+    bool isDuplicate = false;
+    for (var i = 0; i < notifications.length; i++) {
+      try {
+        final existingNotification = json.decode(notifications[i]);
+        if (existingNotification['id'] == messageId) {
+          isDuplicate = true;
+          // 기존 항목 업데이트 (대신 제거하고 새 항목 추가)
+          notifications.removeAt(i);
+          break;
+        }
+      } catch (e) {
+        // JSON 파싱 오류 무시
+      }
+    }
+
     final notificationData = {
-      'id': message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString(),
-      'username': message.notification?.title ?? message.data['username'] ?? '알림',
+      'id': messageId,
+      'username':
+          message.notification?.title ?? message.data['username'] ?? '알림',
       'content': message.notification?.body ?? message.data['content'] ?? '',
       'avatar_url': message.data['avatar_url'] ?? '',
       'timestamp': DateTime.now().toIso8601String(),
@@ -67,18 +87,29 @@ Future<void> _saveNotification(RemoteMessage message) async {
 
     // 저장
     await prefs.setStringList('notifications', notifications);
+
+    if (kDebugMode) {
+      if (isDuplicate) {
+        print('기존 알림 업데이트: $messageId');
+      } else {
+        print('새 알림 저장: $messageId');
+      }
+    }
   } catch (e) {
     if (kDebugMode) {
       print('알림 저장 중 오류: $e');
     }
   }
 }
+
 class PushNotificationService {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin _localNotifications = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _localNotifications =
+      FlutterLocalNotificationsPlugin();
 
   // 싱글톤 패턴
-  static final PushNotificationService _instance = PushNotificationService._internal();
+  static final PushNotificationService _instance =
+      PushNotificationService._internal();
 
   factory PushNotificationService() {
     return _instance;
@@ -108,11 +139,15 @@ class PushNotificationService {
       }
 
       // 백그라운드 핸들러 설정
-      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+      FirebaseMessaging.onBackgroundMessage(
+        _firebaseMessagingBackgroundHandler,
+      );
 
       // 안드로이드용 로컬 알림 설정
-      const AndroidInitializationSettings androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-      const DarwinInitializationSettings iosSettings = DarwinInitializationSettings();
+      const AndroidInitializationSettings androidSettings =
+          AndroidInitializationSettings('@mipmap/ic_launcher');
+      const DarwinInitializationSettings iosSettings =
+          DarwinInitializationSettings();
       const InitializationSettings initSettings = InitializationSettings(
         android: androidSettings,
         iOS: iosSettings,
@@ -138,7 +173,9 @@ class PushNotificationService {
       );
 
       await _localNotifications
-          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >()
           ?.createNotificationChannel(channel);
 
       // 포그라운드 메시지 처리
@@ -185,33 +222,39 @@ class PushNotificationService {
     final prefs = await SharedPreferences.getInstance();
     final username = prefs.getString('username');
     final discordWebhooksURL = prefs.getString('discordWebhooksURL');
-    
+
     List<NotificationModel> notifications = [];
 
     if (username != null && discordWebhooksURL != null) {
       try {
         // 서버에서 알림 가져오기
-        notifications = await ApiService.getNotifications(username, discordWebhooksURL);
-        
+        notifications = await ApiService.getNotifications(
+          username,
+          discordWebhooksURL,
+        );
+
         if (notifications.isNotEmpty) {
           // 가져온 알림을 로컬에 저장
-          final notificationsJson = notifications.map((notification) => 
-            jsonEncode(notification.toJson())).toList();
-          
+          final notificationsJson =
+              notifications
+                  .map((notification) => jsonEncode(notification.toJson()))
+                  .toList();
+
           await prefs.setStringList('notifications', notificationsJson);
-          
+
           // 읽지 않은 알림 개수 확인
-          final unreadCount = notifications.where((n) => n.read == false).length;
+          final unreadCount =
+              notifications.where((n) => n.read == false).length;
           if (unreadCount > 0) {
             // 읽지 않은 알림이 있으면 로컬 알림으로 표시 (선택적)
             // await _showLocalNotification('읽지 않은 알림', '읽지 않은 알림이 $unreadCount개 있습니다.', {});
           }
-          
+
           if (kDebugMode) {
             print('서버에서 ${notifications.length}개의 알림을 로드했습니다.');
           }
         }
-        
+
         return notifications;
       } catch (e) {
         if (kDebugMode) {
@@ -219,16 +262,17 @@ class PushNotificationService {
         }
       }
     }
-    
+
     // 로컬에 저장된 알림 반환
     final localNotificationsJson = prefs.getStringList('notifications') ?? [];
-    final localNotifications = localNotificationsJson
-        .map((json) => NotificationModel.fromJson(jsonDecode(json)))
-        .toList();
-    
+    final localNotifications =
+        localNotificationsJson
+            .map((json) => NotificationModel.fromJson(jsonDecode(json)))
+            .toList();
+
     // 시간 순으로 정렬
     localNotifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-    
+
     return localNotifications;
   }
 
@@ -269,15 +313,15 @@ class PushNotificationService {
       final prefs = await SharedPreferences.getInstance();
       final username = prefs.getString('username');
       final discordWebhooksURL = prefs.getString('discordWebhooksURL');
-      
+
       if (username != null && discordWebhooksURL != null) {
         // 서버에 토큰 제거 요청 메서드 호출 (구현 필요)
         // await ApiService.removeToken(username, discordWebhooksURL);
       }
-      
+
       // 로컬 알림 목록 삭제
       await prefs.remove('notifications');
-      
+
       if (kDebugMode) {
         print('FCM 토큰 및 알림 데이터 제거 완료');
       }
@@ -289,22 +333,23 @@ class PushNotificationService {
   }
 
   // 포그라운드 메시지 처리
-void _handleForegroundMessage(RemoteMessage message) async {
-  if (kDebugMode) {
-    print('포그라운드 메시지 수신: ${message.notification?.title}');
-    print('데이터: ${message.data}');
+  void _handleForegroundMessage(RemoteMessage message) async {
+    if (kDebugMode) {
+      print('포그라운드 메시지 수신: ${message.notification?.title}');
+      print('데이터: ${message.data}');
+    }
+
+    // 알림 저장
+    await _saveNotification(message);
+
+    // 알림 데이터에서 정보 추출
+    final title =
+        message.notification?.title ?? message.data['username'] ?? '알림';
+    final body = message.notification?.body ?? message.data['content'] ?? '';
+
+    // 로컬 알림으로 표시 (간단한 방식)
+    _showLocalNotification(title, body, message.data);
   }
-
-  // 알림 저장
-  await _saveNotification(message);
-
-  // 알림 데이터에서 정보 추출
-  final title = message.notification?.title ?? message.data['username'] ?? '알림';
-  final body = message.notification?.body ?? message.data['content'] ?? '';
-
-  // 로컬 알림으로 표시 (간단한 방식)
-  _showLocalNotification(title, body, message.data);
-}
 
   // 로컬 알림 표시
   Future<void> _showLocalNotification(
@@ -312,14 +357,15 @@ void _handleForegroundMessage(RemoteMessage message) async {
     String body,
     Map<String, dynamic> data,
   ) async {
-    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-      'high_importance_channel',
-      '스트리머 알림',
-      channelDescription: '스트리머 관련 알림을 받습니다.',
-      importance: Importance.high,
-      priority: Priority.high,
-      showWhen: true,
-    );
+    const AndroidNotificationDetails androidDetails =
+        AndroidNotificationDetails(
+          'high_importance_channel',
+          '스트리머 알림',
+          channelDescription: '스트리머 관련 알림을 받습니다.',
+          importance: Importance.high,
+          priority: Priority.high,
+          showWhen: true,
+        );
 
     const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
       presentAlert: true,
