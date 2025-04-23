@@ -13,8 +13,8 @@ import '../utils/url_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
-  // static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
+  // static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
+  static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
 
   // FCM 토큰 등록 메서드
   static Future<bool> registerFcmToken(
