@@ -669,14 +669,13 @@ class chzzk_chat_message:
         print(f"Unknown gift subscription type: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
-    def _handle_unknown_chat(self, chat_data, extras):
-        asyncio.create_task(DiscordWebhookSender._log_error(f"Unknown _handle_unknown_chat: "))
+    def _handle_unknown_chat(self, chat_data, chat_type, extras):
+        asyncio.create_task(DiscordWebhookSender._log_error(f"Unknown _handle_unknown_chat: {chat_type}"))
         print(f"Unknown _handle_unknown_chat: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
-    def _handle_unknown(self, chat_data, extras):
-        asyncio.create_task(DiscordWebhookSender._log_error(f"Unknown _handle_unknowne: {self.get_msgTypeCode(chat_data)}"))
-        asyncio.create_task(DiscordWebhookSender._log_error(f"Unknown _handle_unknowne: "))
+    def _handle_unknown(self, chat_data, chat_type, extras):
+        asyncio.create_task(DiscordWebhookSender._log_error(f"Unknown _handle_unknowne: {self.get_msgTypeCode(chat_data)}.{chat_type}"))
         print(f"Unknown _handle_unknowne: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
