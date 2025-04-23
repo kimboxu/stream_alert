@@ -293,6 +293,7 @@ def get_user_settings():
 
 @app.route("/save_user_settings", methods=["POST"])
 def save_user_settings():
+    print("save_user_settings start")
     # JSON 데이터 처리
     if request.is_json:
         data = request.get_json()
@@ -348,11 +349,18 @@ def save_user_settings():
     )
 
     # Supabase에 설정 업데이트
-    supabase = create_client(environ["supabase_url"], environ["supabase_key"])
-    result = supabase.table("userStateData").upsert(update_data).execute()
-    print(f" result: {result}")
-    update_result = supabase.table("date_update").upsert({"idx": 0, "user_date": True}).execute()
-    print(f"Update result: {update_result}")
+    try:
+        supabase = create_client(environ["supabase_url"], environ["supabase_key"])
+        result = supabase.table("userStateData").upsert(update_data).execute()
+        print(f" result: {result}")
+    
+        print(f"Attempting to update user_date flag...")
+        update_result = supabase.table("date_update").upsert({"idx": 0, "user_date": True}).execute()
+        print(f"Update result: {update_result}")
+    except Exception as e:
+        print(f"Error updating user_date flag: {e}")
+        import traceback
+        print(traceback.format_exc())
 
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
 
