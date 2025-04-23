@@ -350,7 +350,7 @@ def save_user_settings():
     # Supabase에 설정 업데이트
     supabase = create_client(environ["supabase_url"], environ["supabase_key"])
     result = supabase.table("userStateData").upsert(update_data).execute()
-    supabase.table("date_update").upsert({"idx": 0, "user_date": True}).execute()
+    update_result = supabase.table("date_update").upsert({"idx": 0, "user_date": True}).execute()
 
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
 
