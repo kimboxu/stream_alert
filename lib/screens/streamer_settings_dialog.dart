@@ -224,7 +224,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
         ),
         if (isChzzk)
           buildExpandableUsersList(
-            "치지직 채팅 필터",
+            "채팅 필터",
             widget.availableChzzkChatUsers,
             _selectedChzzkChatUsers,
             (userName, selected) {
@@ -245,7 +245,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
           ),
         if (isAfreeca)
           buildExpandableUsersList(
-            "아프리카 채팅 필터",
+            "채팅 필터",
             widget.availableAfreecaChatUsers,
             _selectedAfreecaChatUsers,
             (userName, selected) {

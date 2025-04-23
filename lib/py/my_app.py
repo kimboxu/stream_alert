@@ -354,7 +354,58 @@ def save_user_settings():
 
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
 
+@app.route("/update_username", methods=["POST"])
+def update_username():
+    # JSON 데이터 처리
+    if request.is_json:
+        data = request.get_json()
+    else:
+        # form-data 처리
+        data = request.form
 
+    old_username = data.get("oldUsername")
+    discord_webhooks_url = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
+    new_username = data.get("newUsername")
+
+    if not old_username or not discord_webhooks_url or not new_username:
+        return (
+            jsonify(
+                {
+                    "status": "error",
+                    "message": "필수 정보가 누락되었습니다",
+                }
+            ),
+            400,
+        )
+
+    # 사용자 확인
+    if discord_webhooks_url in app.userStateData.index:
+        db_username = app.userStateData.loc[discord_webhooks_url, "username"]
+        if db_username != old_username:
+            return jsonify({"status": "error", "message": "인증 실패"}), 401
+    else:
+        return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
+
+    try:
+        # 사용자 이름 업데이트
+        supabase = create_client(environ["supabase_url"], environ["supabase_key"])
+        supabase.table("userStateData").update({"username": new_username}).eq(
+            "discordURL", discord_webhooks_url
+        ).execute()
+
+        # 앱 객체의 캐시도 업데이트
+        app.userStateData.loc[discord_webhooks_url, "username"] = new_username
+
+        return jsonify({"status": "success", "message": "사용자 이름이 변경되었습니다"})
+    except Exception as e:
+        print(f"사용자 이름 변경 중 오류: {e}")
+        return (
+            jsonify(
+                {"status": "error", "message": f"사용자 이름 변경 중 오류 발생: {str(e)}"}
+            ),
+            500,
+        )
+    
 @app.route("/get_streamers", methods=["GET"])
 def get_streamers():
     try:
@@ -405,7 +456,6 @@ def get_streamers():
             ),
             500,
         )
-
 
 # FCM 토큰 등록 엔드포인트
 @app.route("/register_fcm_token", methods=["POST"])
@@ -478,9 +528,7 @@ def register_fcm_token():
             500,
         )
 
-
 # 알림 가져오기 엔드포인트
-# 알림 가져오기 엔드포인트 개선 (페이지네이션 적용)
 @app.route("/get_notifications", methods=["GET"])
 def get_notifications():
     discordWebhooksURL = request.args.get("discordWebhooksURL")
@@ -554,7 +602,6 @@ def get_notifications():
             },
         }
     )
-
 
 # 알림 읽음 표시 엔드포인트
 @app.route("/mark_notifications_read", methods=["POST"])
@@ -742,7 +789,6 @@ def remove_fcm_token():
             ),
             500,
         )
-
 
 def get_supabase_client():
     """애플리케이션 컨텍스트에서 Supabase 클라이언트를 가져오거나 생성합니다."""

@@ -522,4 +522,36 @@ class ApiService {
       throw Exception('회원가입 중 오류가 발생했습니다: $e');
     }
   }
+
+  static Future<bool> updateUsername(
+    String oldUsername,
+    String discordWebhooksURL,
+    String newUsername,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/update_username'),
+        body: {
+          'oldUsername': oldUsername,
+          'discordWebhooksURL': discordWebhooksURL,
+          'newUsername': newUsername,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        if (kDebugMode) {
+          print('사용자 이름 변경 실패: ${response.statusCode}, ${response.body}');
+        }
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('사용자 이름 변경 중 오류: $e');
+      }
+      return false;
+    }
+  }
+
 }

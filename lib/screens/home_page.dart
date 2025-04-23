@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'notification_settings_page.dart';
 import 'notifications_page.dart';
+import 'settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/url_helper.dart';
 import '../services/push_notification_service.dart';
@@ -50,6 +51,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     await pushService.loadNotificationsFromServer();
   }
 
+  // home_page.dart 파일의 build 메서드에 버튼 추가
   @override
   Widget build(BuildContext context) {
     final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
@@ -124,6 +126,38 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   textStyle: TextStyle(fontSize: 16),
                   minimumSize: Size(250, 50),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // 새로 추가한 설정 버튼
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => SettingsPage(
+                            username: widget.username,
+                            discordWebhooksURL: normalizedWebhookUrl,
+                          ),
+                    ),
+                  );
+
+                  // 사용자 이름이 변경되었으면 업데이트
+                  if (result != null && result is String) {
+                    setState(() {
+                      // 홈페이지 상태 업데이트
+                    });
+                  }
+                },
+                icon: Icon(Icons.settings_applications),
+                label: const Text('앱 설정'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  textStyle: TextStyle(fontSize: 16),
+                  minimumSize: Size(250, 50),
+                  backgroundColor: Colors.teal,
                 ),
               ),
               SizedBox(height: 20),

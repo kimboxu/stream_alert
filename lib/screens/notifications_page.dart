@@ -33,7 +33,7 @@ class _NotificationsPageState extends State<NotificationsPage>
   bool _loadFailed = false;
   bool _isOffline = false;
   int _currentPage = 1;
-  final int _pageSize = 100;
+  final int _pageSize = 50;
 
   // 스크롤 관련 변수
   final ScrollController _scrollController = ScrollController();

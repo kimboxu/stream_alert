@@ -66,7 +66,7 @@ class DiscordNotificationWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Text(
-                  notification.content,
+                  _processEmoji(notification.content), // 이모지 처리 함수 적용
                   style: TextStyle(
                     color: isDarkMode ? Colors.white70 : Colors.black87,
                   ),
@@ -170,14 +170,11 @@ class DiscordNotificationWidget extends StatelessWidget {
               // 제목
               if (notification.title.isNotEmpty)
                 Padding(
-                  padding: const EdgeInsets.only(
-                    right: 80.0,
-                    bottom: 8.0,
-                  ), // ★ 썸네일 너비만큼 right padding
+                  padding: const EdgeInsets.only(right: 80.0, bottom: 8.0),
                   child: InkWell(
                     onTap: () => _launchUrl(notification.url),
                     child: Text(
-                      notification.title,
+                      _processEmoji(notification.title), // 이모지 처리 함수 적용
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color:
@@ -191,7 +188,7 @@ class DiscordNotificationWidget extends StatelessWidget {
                 ),
               if (notification.description.isNotEmpty)
                 Text(
-                  notification.description,
+                  _processEmoji(notification.description), // 이모지 처리 함수 적용
                   style: TextStyle(
                     color: isDarkMode ? Colors.white70 : Colors.black87,
                   ),
@@ -256,7 +253,7 @@ class DiscordNotificationWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      field['name']?.toString() ?? '',
+                      _processEmoji(field['name']!.toString()),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: isDarkMode ? Colors.white : Colors.black87,
@@ -285,6 +282,7 @@ class DiscordNotificationWidget extends StatelessWidget {
   }
 
   // 푸터 위젯
+  // 푸터 위젯
   Widget _buildFooter(BuildContext context, bool isDarkMode) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -303,7 +301,7 @@ class DiscordNotificationWidget extends StatelessWidget {
               ),
             ),
           Text(
-            notification.footerText,
+            "${notification.footerText} • ${_formatTimestamp(notification.timestamp)}",
             style: TextStyle(
               color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
               fontSize: 12,
@@ -355,5 +353,28 @@ class DiscordNotificationWidget extends StatelessWidget {
       // 그 외 메시지 (년-월-일 형식)
       return '${DateFormat('yyyy-MM-dd (E)', 'ko_KR').format(timestamp)} $timeFormat';
     }
+  }
+
+  String _processEmoji(String text) {
+    // 이모지 매핑 정의
+    final Map<String, String> emojiMap = {
+      ':busts_in_silhouette:': '👥',
+      // 더 많은 이모지 추가 가능
+      ':heart:': '❤️',
+      ':thumbsup:': '👍',
+      ':thumbsdown:': '👎',
+      ':smile:': '😊',
+      ':laughing:': '😆',
+      ':joy:': '😂',
+      // 등등...
+    };
+
+    // 모든 이모지 코드를 실제 이모지로 대체
+    String processedText = text;
+    emojiMap.forEach((code, emoji) {
+      processedText = processedText.replaceAll(code, emoji);
+    });
+
+    return processedText;
   }
 }
