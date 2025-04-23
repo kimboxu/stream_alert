@@ -22,14 +22,27 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  // 현재 사용자 이름을 저장할 상태 변수 추가
+  String _currentUsername = '';
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
+    // 초기 사용자 이름 설정
+    _currentUsername = widget.username;
+
     // 앱이 시작될 때 알림 새로고침
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _refreshNotifications();
+    });
+  }
+
+  // 사용자 이름 업데이트 메서드
+  void updateUsername(String newUsername) {
+    setState(() {
+      _currentUsername = newUsername;
     });
   }
 
@@ -76,7 +89,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
               SizedBox(height: 20),
               Text(
-                '${widget.username}님 환영합니다!',
+                '$_currentUsername님 환영합니다!',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
@@ -138,7 +151,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     MaterialPageRoute(
                       builder:
                           (context) => SettingsPage(
-                            username: widget.username,
+                            username: _currentUsername,
                             discordWebhooksURL: normalizedWebhookUrl,
                           ),
                     ),
@@ -147,7 +160,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   // 사용자 이름이 변경되었으면 업데이트
                   if (result != null && result is String) {
                     setState(() {
-                      // 홈페이지 상태 업데이트
+                      updateUsername(result); // 사용자 이름 업데이트
                     });
                   }
                 },

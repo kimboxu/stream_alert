@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../services/api_service.dart';
 import '../utils/url_helper.dart';
 import '../main.dart';
-import '../theme_provider.dart';
 
 class SettingsPage extends StatefulWidget {
   final String username;

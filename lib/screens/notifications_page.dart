@@ -998,6 +998,8 @@ class _NotificationsPageState extends State<NotificationsPage>
         return '카페 알림';
       case NotificationType.streamStart:
         return '뱅온 알림';
+      case NotificationType.streamChange:
+        return '방제 변경 알림';
       case NotificationType.streamEnd:
         return '방종 알림';
       case NotificationType.chat:

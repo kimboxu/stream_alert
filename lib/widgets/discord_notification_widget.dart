@@ -171,20 +171,36 @@ class DiscordNotificationWidget extends StatelessWidget {
               if (notification.title.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(right: 80.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () => _launchUrl(notification.url),
-                    child: Text(
-                      _processEmoji(notification.title), // 이모지 처리 함수 적용
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color:
-                            isDarkMode
-                                ? Colors.lightBlue[300]
-                                : Colors.blue[700],
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                  child:
+                      notification.url.isNotEmpty
+                          ? InkWell(
+                            // URL이 있을 때만 InkWell 적용
+                            onTap: () => _launchUrl(notification.url),
+                            child: Text(
+                              _processEmoji(notification.title),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isDarkMode
+                                        ? Colors.lightBlue[300]
+                                        : Colors.blue[700],
+                                fontSize: 16,
+                              ),
+                            ),
+                          )
+                          : Text(
+                            // URL이 없을 때는 일반 텍스트로 표시하고 색상도 변경
+                            _processEmoji(notification.title),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  isDarkMode
+                                      ? Colors.grey[300]
+                                      : Colors
+                                          .grey[800], // 링크가 아닌 일반 텍스트 색상으로 변경
+                              fontSize: 16,
+                            ),
+                          ),
                 ),
               if (notification.description.isNotEmpty)
                 Text(

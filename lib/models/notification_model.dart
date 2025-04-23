@@ -212,11 +212,13 @@ class NotificationModel {
       return NotificationType.youtube;
     } else if (username.contains('카페 알림') || footerText == 'cafe') {
       return NotificationType.cafe;
-    } else if (username.contains('뱅온 알림')) {
+    } else if (title.trim().endsWith('뱅온!')) {
       return NotificationType.streamStart;
-    } else if (username.contains('방송 종료')) {
+    } else if (title.trim().endsWith('방제 변경')) {
+      return NotificationType.streamChange;
+    } else if (title.trim().endsWith('방송 종료')) {
       return NotificationType.streamEnd;
-    } else if (username.contains('채팅')) {
+    } else if (username.contains('>>')) {
       return NotificationType.chat;
     } else {
       return NotificationType.general;
@@ -231,6 +233,8 @@ class NotificationModel {
       case NotificationType.cafe:
         return Icons.article;
       case NotificationType.streamStart:
+        return Icons.live_tv;
+      case NotificationType.streamChange:
         return Icons.live_tv;
       case NotificationType.streamEnd:
         return Icons.tv_off;
@@ -252,6 +256,8 @@ class NotificationModel {
         return Colors.green[700]!;
       case NotificationType.streamStart:
         return Colors.blue;
+      case NotificationType.streamChange:
+        return Colors.blue;
       case NotificationType.streamEnd:
         return Colors.orange;
       case NotificationType.chat:
@@ -267,6 +273,7 @@ enum NotificationType {
   youtube,     // 유튜브 알림
   cafe,        // 카페 알림
   streamStart, // 뱅온 알림
+  streamChange, // 방제 변경 알림
   streamEnd,   // 방종 알림
   chat,        // 채팅 알림
   general      // 일반 알림
