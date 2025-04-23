@@ -538,7 +538,7 @@ class chzzk_chat_message:
                 "일반후원": self._handle_donation,
                 "구독": self._handle_subscription,
                 "구독선물": self._handle_gift_subscription,
-                "채팅": self._handle_unknown_chat
+                "채팅": self._handle_chat
             }
             
             handler = handlers.get(msg_type_code, self._handle_unknown)
@@ -573,8 +573,6 @@ class chzzk_chat_message:
         formatter = message_formats.get(msg_type, message_formats["default"])
         return formatter()
 
-
-    
     def _handle_donation(self, chat_data, chat_type, extras):
         donation_type = extras.get('donationType')
         
@@ -669,10 +667,14 @@ class chzzk_chat_message:
         print(f"Unknown gift subscription type: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
-    def _handle_unknown_chat(self, chat_data, chat_type, extras):
-        asyncio.create_task(DiscordWebhookSender._log_error(f"Unknown _handle_unknown_chat: {chat_type}"))
-        print(f"Unknown _handle_unknown_chat: {chat_data}")
-        return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
+    def _handle_chat(self, chat_data, chat_type, extras):
+        return self.format_message(
+            '채팅', 
+            chat_type, 
+            self.get_nickname(chat_data), 
+            chat_data['msg'], 
+            chat_data['msgTime']
+        )
 
     def _handle_unknown(self, chat_data, chat_type, extras):
         asyncio.create_task(DiscordWebhookSender._log_error(f"Unknown _handle_unknowne: {self.get_msgTypeCode(chat_data)}.{chat_type}"))
