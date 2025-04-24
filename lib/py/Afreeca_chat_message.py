@@ -18,7 +18,7 @@ class afreecaChatData:
     sock: websockets.connect = None
     afreeca_chat_msg_List: list = field(default_factory=list)  
     processed_messages: list = field(default_factory=list)
-    last_chat_time: datetime = field(default_factory=datetime.now)
+    last_chat_time: str = ""
     channel_id: str = ""
     channel_name: str = ""
     BNO: str = ""
@@ -106,7 +106,7 @@ class afreeca_chat_message:
                     await DiscordWebhookSender._log_error(f"Error cancelling task for {self.data.channel_id}: {cancel_error}")
 
     async def connect(self):
-            self.data.last_chat_time = datetime.now()
+            self.data.last_chat_time= datetime.now().isoformat()
             CONNECT_PACKET = f'{self.ESC}000100000600{self.F*3}16{self.F}'
             JOIN_PACKET = f'{self.ESC}0002{self.calculate_byte_size(self.CHATNO):06}00{self.F}{self.CHATNO}{self.F*5}'
             
@@ -141,13 +141,13 @@ class afreeca_chat_message:
     
     async def _receive_messages(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            return (self.check_live_state_close() and base.if_last_chat(self.data.last_chat_time) 
+            return (self.check_live_state_close() and base.if_after_time(self.data.last_chat_time) 
                     or self.init.chat_json[self.data.channel_id])
         
         message_buffer = []
         buffer_size = 5 
         buffer_timeout = 0.05
-        last_buffer_flush = datetime.now()
+        last_buffer_flush= datetime.now().isoformat()
 
         while True:
             try:
@@ -160,12 +160,12 @@ class afreeca_chat_message:
                     break
 
                 raw_message = await asyncio.wait_for(self.data.sock.recv(), timeout=1)
-                self.data.last_chat_time = datetime.now()
+                self.data.last_chat_time= datetime.now().isoformat()
                 # await message_queue.put(raw_message)
 
                 message_buffer.append(raw_message)
                 
-                if len(message_buffer) >= buffer_size or base.if_last_chat(last_buffer_flush, sec=buffer_timeout):
+                if len(message_buffer) >= buffer_size or base.if_after_time(last_buffer_flush, sec=buffer_timeout):
                     for msg in message_buffer:
                         await message_queue.put(msg)
                     message_buffer.clear()

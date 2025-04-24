@@ -854,7 +854,6 @@ class _NotificationsPageState extends State<NotificationsPage>
   }
 
   // 알림 목록 위젯
-// 알림 목록 위젯 수정 - 오류 메시지를 상단에 표시
 Widget _buildNotificationsList() {
   final filteredNotifications = _filteredNotifications;
 
@@ -864,7 +863,6 @@ Widget _buildNotificationsList() {
 
   // 알림 목록에 날짜 구분선 추가
   final List<dynamic> itemsWithDateDividers = [];
-  DateTime? previousDate;
 
   // 알림을 순회하며 날짜 구분선 추가
   for (int i = 0; i < filteredNotifications.length; i++) {
@@ -1060,46 +1058,6 @@ Widget _buildNotificationsList() {
             ),
           ),
         ),
-        
-        // 새 메시지 알림 배너 (하단에 표시)
-        if (_hasNewMessage && !_isNearBottom)
-          GestureDetector(
-            onTap: () {
-              if (_scrollController.hasClients) {
-                _scrollController.animateTo(
-                  0, // 최신 메시지 위치
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.easeOut,
-                );
-                setState(() {
-                  _hasNewMessage = false;
-                  _newMessageCount = 0;
-                });
-              }
-            },
-            child: Container(
-              color: Theme.of(context).primaryColor,
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      _newMessageCount > 0
-                          ? '새 알림 $_newMessageCount개가 있습니다'
-                          : '새 알림이 있습니다',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(Icons.arrow_downward, color: Colors.white),
-                  ],
-                ),
-              ),
-            ),
-          ),
       ],
     ),
   );

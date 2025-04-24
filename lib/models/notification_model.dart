@@ -4,6 +4,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 /// 향상된 알림 모델 클래스
 /// 디스코드 웹훅 형식의 알림 데이터를 처리하기 위한 모델
 class NotificationModel {
@@ -27,6 +28,9 @@ class NotificationModel {
   final String authorName;
   final String authorUrl;
   final String authorIconUrl;  // 추가: 작성자 아이콘 URL
+  
+  // 원본 임베드 데이터 저장 (추가)
+  final Map<String, dynamic>? embedData;
 
   /// 생성자
   NotificationModel({
@@ -48,6 +52,7 @@ class NotificationModel {
     this.authorName = '',
     this.authorUrl = '',
     this.authorIconUrl = '',  // 추가
+    this.embedData,  // 추가: 원본 임베드 데이터
   });
 
   /// JSON으로부터 객체 생성
@@ -60,6 +65,7 @@ class NotificationModel {
 
     // embeds 파싱 처리
     List<dynamic>? embedsList;
+    Map<String, dynamic>? originalEmbed;
     if (json['embeds'] != null) {
       try {
         if (json['embeds'] is String) {
@@ -88,6 +94,7 @@ class NotificationModel {
     if (embedsList != null && embedsList.isNotEmpty) {
       if (embedsList.first is Map) {
         embed = Map<String, dynamic>.from(embedsList.first);
+        originalEmbed = embed; // 원본 임베드 데이터 저장
         if (kDebugMode) {
           print('첫 번째 embed: $embed');
         }
@@ -128,7 +135,10 @@ class NotificationModel {
       description: embed?['description'] ?? '',
       authorName: embed?['author']?['name'] ?? '',
       authorUrl: embed?['author']?['url'] ?? '',
-      authorIconUrl: authorIconUrl ?? '',  // 추가된 필드
+      authorIconUrl: authorIconUrl ?? '',
+      
+      // 원본 임베드 데이터 저장 (추가)
+      embedData: originalEmbed,
     );
   }
 

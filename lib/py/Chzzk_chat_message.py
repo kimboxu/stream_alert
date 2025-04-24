@@ -7,7 +7,7 @@ from urllib.parse import unquote
 from json import loads, dumps, JSONDecodeError
 from dataclasses import dataclass, field
 from cmd_type import CHZZK_CHAT_CMD, CHZZK_DONATION_CMD
-from base import  getChzzkCookie, if_last_chat, initVar, get_message, change_chat_join_state, save_airing_data, if_after_time, discordBotDataVars, userDataVar
+from base import  getChzzkCookie, initVar, get_message, change_chat_join_state, save_airing_data, if_after_time, discordBotDataVars, userDataVar
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
 from my_app import send_push_notification
 
@@ -15,7 +15,7 @@ from my_app import send_push_notification
 class ChzzkChatData:
     sock: websockets.connect = None
     chzzk_chat_msg_List: list = field(default_factory=list)
-    last_chat_time: datetime = field(default_factory=datetime.now)
+    last_chat_time: str = ""
     sid: str = ""
     cid: str = ""
     accessToken: str = ""
@@ -88,13 +88,13 @@ class chzzk_chat_message:
 
     async def _message_receiver(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            return ((self.check_live_state_close() and if_last_chat(self.data.last_chat_time)) 
+            return ((self.check_live_state_close() and if_after_time(self.data.last_chat_time)) 
                     or self.init.chat_json[self.data.channel_id])
         json_loads = loads
         message_buffer = []
         buffer_size = 5 
         buffer_timeout = 0.05
-        last_buffer_flush = datetime.now()
+        last_buffer_flush= datetime.now().isoformat()
 
         while True:
 
@@ -110,13 +110,13 @@ class chzzk_chat_message:
 
                 raw_message = await asyncio.wait_for(self.data.sock.recv(), timeout=0.5)
                 
-                self.data.last_chat_time = datetime.now()
+                self.data.last_chat_time= datetime.now().isoformat()
                 parsed_message = json_loads(raw_message)
                 # await message_queue.put(parsed_message)
 
                 message_buffer.append(parsed_message)
                 
-                if len(message_buffer) >= buffer_size or if_last_chat(last_buffer_flush, sec=buffer_timeout):
+                if len(message_buffer) >= buffer_size or if_after_time(last_buffer_flush, sec=buffer_timeout):
                     for msg in message_buffer:
                         await message_queue.put(msg)
                     message_buffer.clear()
@@ -369,7 +369,7 @@ class chzzk_chat_message:
             messageTime = chzzk_chat_list[-1].get('messageTime') or chzzk_chat_list[-1].get('msgTime')
         except Exception as e: print(f"test messageTime {e}")
 
-        self.data.last_chat_time = datetime.fromtimestamp(messageTime/1000)
+        self.data.last_chat_time = datetime.fromtimestamp(messageTime/1000).isoformat()
 
         asyncio.create_task(DiscordWebhookSender._log_error(f"{self.data.channel_id} 연결 완료 {self.data.cid}", webhook_url=environ['chat_post_url']))
 

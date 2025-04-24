@@ -302,7 +302,6 @@ class PushNotificationService {
   // 토큰 서버에 등록
   Future<void> _updateTokenToServer(String token) async {
     try {
-      // SharedPreferences에서 사용자 정보 가져오기
       final prefs = await SharedPreferences.getInstance();
       final username = prefs.getString('username');
       final discordWebhooksURL = prefs.getString('discordWebhooksURL');
@@ -322,28 +321,124 @@ class PushNotificationService {
     }
   }
 
+  // FCM 토큰 등록
   Future<void> registerToken() async {
-    final fcmToken = await _messaging.getToken();
-    if (fcmToken != null) {
-      await _updateTokenToServer(fcmToken);
+    try {
+      // 먼저 토큰 가져오기
+      final fcmToken = await _messaging.getToken();
+      if (fcmToken != null) {
+        if (kDebugMode) {
+          print('FCM 토큰: $fcmToken');
+        }
+        await _updateTokenToServer(fcmToken);
+
+        // 로컬에 현재 토큰 저장
+        await _saveCurrentToken(fcmToken);
+      }
+
+      // 토큰 갱신 시 핸들러 등록
+      _messaging.onTokenRefresh.listen(_handleTokenRefresh);
+    } catch (e) {
+      if (kDebugMode) {
+        print('FCM 토큰 등록 중 오류: $e');
+      }
+    }
+  }
+
+  // 토큰 갱신 처리 함수 (새로 추가)
+  Future<void> _handleTokenRefresh(String newToken) async {
+    try {
+      if (kDebugMode) {
+        print('FCM 토큰 갱신됨: $newToken');
+      }
+
+      // 이전 토큰과 새 토큰이 다른지 확인
+      final oldToken = await _getCurrentToken();
+      if (oldToken != null && oldToken != newToken) {
+        // 이전 토큰 제거 요청 (선택적)
+        await _removeTokenFromServer(oldToken);
+      }
+
+      // 새 토큰 등록
+      await _updateTokenToServer(newToken);
+      await _saveCurrentToken(newToken);
+    } catch (e) {
+      if (kDebugMode) {
+        print('토큰 갱신 처리 중 오류: $e');
+      }
+    }
+  }
+
+  // 현재 토큰 로컬 저장소에 저장 (새로 추가)
+  Future<void> _saveCurrentToken(String token) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('fcm_token', token);
+    } catch (e) {
+      if (kDebugMode) {
+        print('토큰 저장 중 오류: $e');
+      }
+    }
+  }
+
+  // 현재 토큰 로컬 저장소에서 가져오기 (새로 추가)
+  Future<String?> _getCurrentToken() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getString('fcm_token');
+    } catch (e) {
+      if (kDebugMode) {
+        print('토큰 가져오기 중 오류: $e');
+      }
+      return null;
+    }
+  }
+
+  // 서버에서 특정 토큰 제거 (새로 추가)
+  Future<void> _removeTokenFromServer(String token) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final username = prefs.getString('username');
+      final discordWebhooksURL = prefs.getString('discordWebhooksURL');
+
+      if (username != null && discordWebhooksURL != null) {
+        // 서버에 특정 토큰 제거 요청
+        await ApiService.removeSpecificToken(
+          username,
+          discordWebhooksURL,
+          token,
+        );
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('서버에서 토큰 제거 중 오류: $e');
+      }
     }
   }
 
   // 로그아웃 시 토큰 제거
   Future<void> removeToken() async {
     try {
+      // 현재 기기의 토큰 가져오기
+      final fcmToken = await _getCurrentToken();
+
       // 서버에 토큰 제거 요청
       final prefs = await SharedPreferences.getInstance();
       final username = prefs.getString('username');
       final discordWebhooksURL = prefs.getString('discordWebhooksURL');
 
-      if (username != null && discordWebhooksURL != null) {
-        // 서버에 토큰 제거 요청 메서드 호출 (구현 필요)
-        // await ApiService.removeToken(username, discordWebhooksURL);
+      if (username != null && discordWebhooksURL != null && fcmToken != null) {
+        // 특정 토큰만 제거하는 API 호출
+        await ApiService.removeSpecificToken(
+          username,
+          discordWebhooksURL,
+          fcmToken,
+        );
       }
 
       // 로컬 알림 목록 삭제
       await prefs.remove('notifications');
+      await prefs.remove('fcm_token');
 
       if (kDebugMode) {
         print('FCM 토큰 및 알림 데이터 제거 완료');

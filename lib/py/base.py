@@ -349,12 +349,14 @@ def changeUTCtime(time_str):
     time -= timedelta(hours=9)
     return time.isoformat()
 
+def changeGMTtime(time_str):
+    time = datetime.fromisoformat(time_str)
+    time += timedelta(hours=9)
+    return time.isoformat()
+
 def if_after_time(time_str, sec=300):  # 지금 시간이 이전 시간보다 SEC초 만큼 지났는지 확인
     time = datetime.fromisoformat(time_str) + timedelta(seconds=sec)
     return time <= datetime.now()
-
-def if_last_chat(last_chat_time: datetime, sec = 300): #마지막 채팅을 읽어온지 sec초가 지났다면 True
-	return (last_chat_time + timedelta(seconds=sec)) <= datetime.now()
 
 # async def timer(time): 
 # 	await asyncio.sleep(time)  # time 초 대기

@@ -297,9 +297,25 @@ class DiscordNotificationWidget extends StatelessWidget {
     return fieldWidgets;
   }
 
-  // 푸터 위젯
-  // 푸터 위젯
+  // 푸터 위젯 - 변경된 부분
   Widget _buildFooter(BuildContext context, bool isDarkMode) {
+    // 타임스탬프 찾기 시도 - 임베드의 timestamp 사용
+    DateTime? embedTimestamp;
+
+    // 먼저 임베드 데이터에서 timestamp 필드 직접 찾기
+    if (notification.embedData != null &&
+        notification.embedData!.containsKey('timestamp')) {
+      try {
+        String timestampStr = notification.embedData!['timestamp'].toString();
+        embedTimestamp = DateTime.parse(timestampStr);
+      } catch (e) {
+        print('임베드 타임스탬프 파싱 오류: $e');
+      }
+    }
+
+    // 임베드 타임스탬프가 있으면 사용, 없으면 알림 타임스탬프 사용
+    final displayTimestamp = embedTimestamp ?? notification.timestamp;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -317,7 +333,8 @@ class DiscordNotificationWidget extends StatelessWidget {
               ),
             ),
           Text(
-            "${notification.footerText} • ${_formatTimestamp(notification.timestamp)}",
+            // 수정된 부분: 임베드 타임스탬프 또는 알림 타임스탬프 사용
+            "${notification.footerText} • ${_formatTimestamp(displayTimestamp)}",
             style: TextStyle(
               color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
               fontSize: 12,

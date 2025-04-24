@@ -14,8 +14,8 @@ import '../utils/url_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  // static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
-  static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
+  static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
+  // static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
 
   // FCM 토큰 등록 메서드
   static Future<bool> registerFcmToken(
@@ -89,192 +89,202 @@ class ApiService {
 
   // 서버에서 알림 가져오기
 
-static Future<Map<String, dynamic>> getNotifications(
-  String username,
-  String discordWebhooksURL, {
-  int page = 1,
-  int limit = 50,
-  int retryCount = 3,  // 재시도 횟수
-}) async {
-  int attempts = 0;
-  
-  while (attempts < retryCount) {
-    attempts++;
-    try {
-      final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
-        discordWebhooksURL,
-      );
+  static Future<Map<String, dynamic>> getNotifications(
+    String username,
+    String discordWebhooksURL, {
+    int page = 1,
+    int limit = 50,
+    int retryCount = 3, // 재시도 횟수
+  }) async {
+    int attempts = 0;
 
-      if (kDebugMode && attempts > 1) {
-        if (kDebugMode) {
-          print('알림 가져오기 시도 $attempts/$retryCount');
-        }
-      }
-
-      final client = http.Client();
-      
+    while (attempts < retryCount) {
+      attempts++;
       try {
-        final response = await client.get(
-          Uri.parse(
-            '$baseUrl/get_notifications?username=$username&discordWebhooksURL=$normalizedWebhookUrl&page=$page&limit=$limit',
-          ),
-        ).timeout(Duration(seconds: 15)); // 타임아웃 설정
-        
-        // 요청 성공 시 결과 반환
-        if (response.statusCode == 200) {
-          final Map<String, dynamic> data = json.decode(response.body);
+        final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
+          discordWebhooksURL,
+        );
 
-          if (data['status'] == 'success') {
-            // JSON 배열을 NotificationModel 객체 목록으로 변환
-            final notifications = (data['notifications'] as List? ?? [])
-                .map(
-                  (item) => NotificationModel.fromJson(
-                    Map<String, dynamic>.from(item),
-                  ),
-                )
-                .toList();
+        if (kDebugMode && attempts > 1) {
+          if (kDebugMode) {
+            print('알림 가져오기 시도 $attempts/$retryCount');
+          }
+        }
 
-            // 시간순 정렬
-            notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+        final client = http.Client();
 
-            return {
-              'success': true,
-              'notifications': notifications,
-              'hasMore': data['has_more'] ?? notifications.isNotEmpty, // 서버에서 더 많은 데이터가 있는지 여부
-            };
-          } else if (data['status'] == 'empty') {
-            // 데이터가 없는 경우 (페이지가 비어있음)
+        try {
+          final response = await client
+              .get(
+                Uri.parse(
+                  '$baseUrl/get_notifications?username=$username&discordWebhooksURL=$normalizedWebhookUrl&page=$page&limit=$limit',
+                ),
+              )
+              .timeout(Duration(seconds: 15)); // 타임아웃 설정
+
+          // 요청 성공 시 결과 반환
+          if (response.statusCode == 200) {
+            final Map<String, dynamic> data = json.decode(response.body);
+
+            if (data['status'] == 'success') {
+              // JSON 배열을 NotificationModel 객체 목록으로 변환
+              final notifications =
+                  (data['notifications'] as List? ?? [])
+                      .map(
+                        (item) => NotificationModel.fromJson(
+                          Map<String, dynamic>.from(item),
+                        ),
+                      )
+                      .toList();
+
+              // 시간순 정렬
+              notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+              return {
+                'success': true,
+                'notifications': notifications,
+                'hasMore':
+                    data['has_more'] ??
+                    notifications.isNotEmpty, // 서버에서 더 많은 데이터가 있는지 여부
+              };
+            } else if (data['status'] == 'empty') {
+              // 데이터가 없는 경우 (페이지가 비어있음)
+              return {
+                'success': true,
+                'notifications': <NotificationModel>[],
+                'hasMore': false,
+              };
+            } else {
+              // 기타 상태 코드
+              if (kDebugMode) {
+                print(
+                  '알림 가져오기 실패: 상태 - ${data['status']}, 메시지 - ${data['message'] ?? "알 수 없는 오류"}',
+                );
+              }
+
+              // 마지막 시도가 아닌 경우 재시도
+              if (attempts < retryCount) {
+                await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
+                continue;
+              }
+
+              return {
+                'success': false,
+                'error': '서버 오류: ${data['message'] ?? "알 수 없는 오류"}',
+                'errorType': 'server',
+              };
+            }
+          } else if (response.statusCode == 404) {
+            // 404는 데이터가 없는 경우로 처리
             return {
               'success': true,
               'notifications': <NotificationModel>[],
               'hasMore': false,
             };
           } else {
-            // 기타 상태 코드
             if (kDebugMode) {
-              print('알림 가져오기 실패: 상태 - ${data['status']}, 메시지 - ${data['message'] ?? "알 수 없는 오류"}');
+              print(
+                '알림 가져오기 실패 (시도 $attempts/$retryCount): ${response.statusCode}, ${response.body}',
+              );
             }
-            
+
             // 마지막 시도가 아닌 경우 재시도
             if (attempts < retryCount) {
               await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
               continue;
             }
-            
+
             return {
               'success': false,
-              'error': '서버 오류: ${data['message'] ?? "알 수 없는 오류"}',
+              'error': '서버 응답 오류: ${response.statusCode}',
               'errorType': 'server',
+              'attemptsCount': attempts,
             };
           }
-        } else if (response.statusCode == 404) {
-          // 404는 데이터가 없는 경우로 처리
-          return {
-            'success': true,
-            'notifications': <NotificationModel>[],
-            'hasMore': false,
-          };
-        } else {
-          if (kDebugMode) {
-            print('알림 가져오기 실패 (시도 $attempts/$retryCount): ${response.statusCode}, ${response.body}');
-          }
-          
-          // 마지막 시도가 아닌 경우 재시도
-          if (attempts < retryCount) {
-            await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
-            continue;
-          }
-          
-          return {
-            'success': false,
-            'error': '서버 응답 오류: ${response.statusCode}',
-            'errorType': 'server',
-            'attemptsCount': attempts,
-          };
+        } finally {
+          client.close(); // 항상 클라이언트 연결 닫기
         }
-      } finally {
-        client.close(); // 항상 클라이언트 연결 닫기
+      } on TimeoutException {
+        if (kDebugMode) {
+          print('알림 가져오기 타임아웃 (시도 $attempts/$retryCount)');
+        }
+
+        // 마지막 시도가 아닌 경우 재시도
+        if (attempts < retryCount) {
+          await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
+          continue;
+        }
+
+        return {
+          'success': false,
+          'error': '서버 응답 시간 초과',
+          'errorType': 'network',
+          'attemptsCount': attempts,
+        };
+      } on SocketException {
+        if (kDebugMode) {
+          print('알림 가져오기 중 네트워크 오류 (시도 $attempts/$retryCount)');
+        }
+
+        // 마지막 시도가 아닌 경우 재시도
+        if (attempts < retryCount) {
+          await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
+          continue;
+        }
+
+        return {
+          'success': false,
+          'error': '네트워크 연결 오류',
+          'errorType': 'network',
+          'attemptsCount': attempts,
+        };
+      } on http.ClientException catch (e) {
+        if (kDebugMode) {
+          print('HTTP 클라이언트 오류 (시도 $attempts/$retryCount): $e');
+        }
+
+        // 마지막 시도가 아닌 경우 재시도
+        if (attempts < retryCount) {
+          await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
+          continue;
+        }
+
+        return {
+          'success': false,
+          'error': '네트워크 연결이 끊어졌습니다',
+          'errorType': 'network',
+          'errorDetails': e.toString(),
+          'attemptsCount': attempts,
+        };
+      } catch (e) {
+        if (kDebugMode) {
+          print('알림 가져오기 중 기타 오류 (시도 $attempts/$retryCount): $e');
+        }
+
+        // 마지막 시도가 아닌 경우 재시도
+        if (attempts < retryCount) {
+          await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
+          continue;
+        }
+
+        return {
+          'success': false,
+          'error': '알림 가져오기 중 오류: $e',
+          'errorType': 'unknown',
+          'attemptsCount': attempts,
+        };
       }
-    } on TimeoutException {
-      if (kDebugMode) {
-        print('알림 가져오기 타임아웃 (시도 $attempts/$retryCount)');
-      }
-      
-      // 마지막 시도가 아닌 경우 재시도
-      if (attempts < retryCount) {
-        await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
-        continue;
-      }
-      
-      return {
-        'success': false,
-        'error': '서버 응답 시간 초과',
-        'errorType': 'network',
-        'attemptsCount': attempts,
-      };
-    } on SocketException {
-      if (kDebugMode) {
-        print('알림 가져오기 중 네트워크 오류 (시도 $attempts/$retryCount)');
-      }
-      
-      // 마지막 시도가 아닌 경우 재시도
-      if (attempts < retryCount) {
-        await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
-        continue;
-      }
-      
-      return {
-        'success': false,
-        'error': '네트워크 연결 오류',
-        'errorType': 'network',
-        'attemptsCount': attempts,
-      };
-    } on http.ClientException catch (e) {
-      if (kDebugMode) {
-        print('HTTP 클라이언트 오류 (시도 $attempts/$retryCount): $e');
-      }
-      
-      // 마지막 시도가 아닌 경우 재시도
-      if (attempts < retryCount) {
-        await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
-        continue;
-      }
-      
-      return {
-        'success': false,
-        'error': '네트워크 연결이 끊어졌습니다',
-        'errorType': 'network',
-        'errorDetails': e.toString(),
-        'attemptsCount': attempts,
-      };
-    } catch (e) {
-      if (kDebugMode) {
-        print('알림 가져오기 중 기타 오류 (시도 $attempts/$retryCount): $e');
-      }
-      
-      // 마지막 시도가 아닌 경우 재시도
-      if (attempts < retryCount) {
-        await Future.delayed(Duration(seconds: 1 * attempts)); // 지수 백오프
-        continue;
-      }
-      
-      return {
-        'success': false,
-        'error': '알림 가져오기 중 오류: $e',
-        'errorType': 'unknown',
-        'attemptsCount': attempts,
-      };
     }
+
+    // 모든 시도가 실패한 경우
+    return {
+      'success': false,
+      'error': '여러 번 시도했으나 알림을 가져올 수 없습니다',
+      'errorType': 'network',
+      'attemptsCount': attempts,
+    };
   }
-  
-  // 모든 시도가 실패한 경우
-  return {
-    'success': false,
-    'error': '여러 번 시도했으나 알림을 가져올 수 없습니다',
-    'errorType': 'network',
-    'attemptsCount': attempts,
-  };
-}
+
   // 알림 읽음 표시 메서드
   static Future<bool> markNotificationsAsRead(
     String username,
@@ -683,6 +693,41 @@ static Future<Map<String, dynamic>> getNotifications(
     } catch (e) {
       if (kDebugMode) {
         print('사용자 이름 변경 중 오류: $e');
+      }
+      return false;
+    }
+  }
+
+  // 특정 FCM 토큰만 제거하는 API 메서드 (새로 추가)
+  static Future<bool> removeSpecificToken(
+    String username,
+    String discordWebhooksURL,
+    String fcmToken,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/remove_specific_token'),
+        body: {
+          'username': username,
+          'discordWebhooksURL': discordWebhooksURL,
+          'fcm_token': fcmToken,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('특정 FCM 토큰 제거 성공');
+        }
+        return true;
+      } else {
+        if (kDebugMode) {
+          print('특정 FCM 토큰 제거 실패: ${response.statusCode}, ${response.body}');
+        }
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('특정 FCM 토큰 제거 중 오류: $e');
       }
       return false;
     }
