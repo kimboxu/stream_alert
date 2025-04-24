@@ -228,52 +228,75 @@ class PushNotificationService {
     if (username != null && discordWebhooksURL != null) {
       try {
         // 서버에서 알림 가져오기
-        notifications = await ApiService.getNotifications(
+        final result = await ApiService.getNotifications(
           username,
           discordWebhooksURL,
         );
 
-        if (notifications.isNotEmpty) {
-          // 가져온 알림을 로컬에 저장
-          final notificationsJson =
-              notifications
-                  .map((notification) => jsonEncode(notification.toJson()))
-                  .toList();
+        // 성공적으로 데이터를 가져온 경우에만 처리
+        if (result['success']) {
+          notifications = result['notifications'];
 
-          await prefs.setStringList('notifications', notificationsJson);
+          if (notifications.isNotEmpty) {
+            // 가져온 알림을 로컬에 저장
+            final notificationsJson =
+                notifications
+                    .map((notification) => jsonEncode(notification.toJson()))
+                    .toList();
 
-          // 읽지 않은 알림 개수 확인
-          final unreadCount =
-              notifications.where((n) => n.read == false).length;
-          if (unreadCount > 0) {
-            // 읽지 않은 알림이 있으면 로컬 알림으로 표시 (선택적)
-            // await _showLocalNotification('읽지 않은 알림', '읽지 않은 알림이 $unreadCount개 있습니다.', {});
+            await prefs.setStringList('notifications', notificationsJson);
+
+            // 읽지 않은 알림 개수 확인
+            final unreadCount =
+                notifications.where((n) => n.read == false).length;
+            if (unreadCount > 0) {
+              // 읽지 않은 알림이 있으면 로컬 알림으로 표시 (선택적)
+              // await _showLocalNotification('읽지 않은 알림', '읽지 않은 알림이 $unreadCount개 있습니다.', {});
+            }
+
+            if (kDebugMode) {
+              print('서버에서 ${notifications.length}개의 알림을 로드했습니다.');
+            }
+          }
+        } else {
+          if (kDebugMode) {
+            print('서버에서 알림 가져오기 실패: ${result['error']}');
           }
 
-          if (kDebugMode) {
-            print('서버에서 ${notifications.length}개의 알림을 로드했습니다.');
+          // 네트워크 오류가 아닌 경우, 로컬 데이터 사용
+          if (result['errorType'] != 'network') {
+            // 로컬에 저장된 알림을 로드
+            final localNotificationsJson =
+                prefs.getStringList('notifications') ?? [];
+            notifications =
+                localNotificationsJson
+                    .map((json) => NotificationModel.fromJson(jsonDecode(json)))
+                    .toList();
+
+            notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
           }
         }
-
-        return notifications;
       } catch (e) {
         if (kDebugMode) {
-          print('서버에서 알림 가져오기 오류: $e');
+          print('서버에서 알림 가져오기 예상치 못한 오류: $e');
         }
       }
     }
 
-    // 로컬에 저장된 알림 반환
-    final localNotificationsJson = prefs.getStringList('notifications') ?? [];
-    final localNotifications =
-        localNotificationsJson
-            .map((json) => NotificationModel.fromJson(jsonDecode(json)))
-            .toList();
+    // 아직 알림이 로드되지 않았다면 로컬 데이터 사용
+    if (notifications.isEmpty) {
+      // 로컬에 저장된 알림 반환
+      final localNotificationsJson = prefs.getStringList('notifications') ?? [];
+      notifications =
+          localNotificationsJson
+              .map((json) => NotificationModel.fromJson(jsonDecode(json)))
+              .toList();
 
-    // 시간 순으로 정렬
-    localNotifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+      // 시간 순으로 정렬
+      notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+    }
 
-    return localNotifications;
+    return notifications;
   }
 
   // 토큰 서버에 등록

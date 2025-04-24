@@ -52,6 +52,10 @@ class _NotificationsPageState extends State<NotificationsPage>
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
+  // 오류 관리를 위한 상태 변수
+  bool _showErrorMessage = false;
+  String _errorMessage = '';
+
   @override
   bool get wantKeepAlive => true; // 페이지 상태 유지
 
@@ -138,8 +142,12 @@ class _NotificationsPageState extends State<NotificationsPage>
       if (_isOffline) return;
 
       // 3. 서버에서 최신 데이터 로드
-      _loadServerNotifications();
-      _removeDuplicateNotifications();
+      await _loadServerNotifications();
+
+      // 4. 중복 제거 - 여기에서 명시적으로 호출
+      if (mounted) {
+        _removeDuplicateNotifications();
+      }
     } catch (e) {
       if (kDebugMode) {
         print('초기 알림 로드 중 오류: $e');
@@ -192,7 +200,7 @@ class _NotificationsPageState extends State<NotificationsPage>
       if (username == null || discordWebhooksURL == null) return;
 
       // 서버에서 알림 로드
-      final serverNotifications = await ApiService.getNotifications(
+      final result = await ApiService.getNotifications(
         username,
         discordWebhooksURL,
         page: 1,
@@ -201,34 +209,73 @@ class _NotificationsPageState extends State<NotificationsPage>
 
       if (!mounted) return;
 
-      // 중복 제거를 위한 ID 집합
-      final Set<String> uniqueIds = _notifications.map((n) => n.id).toSet();
-      final List<NotificationModel> newNotifications = [];
+      // 성공적으로 데이터를 가져온 경우에만 처리
+      if (result['success']) {
+        final List<NotificationModel> serverNotifications =
+            result['notifications'];
+        final bool hasMore = result['hasMore'];
 
-      // 중복 체크하고 새 항목만 추가
-      for (var notification in serverNotifications) {
-        if (!uniqueIds.contains(notification.id)) {
-          newNotifications.add(notification);
-          uniqueIds.add(notification.id); // 새 ID도 추가하여 후속 비교 시 중복 방지
+        // 중복 제거를 위한 ID 집합 및 내용 기반 키 세트 생성
+        final Set<String> uniqueIds = _notifications.map((n) => n.id).toSet();
+        final Set<String> uniqueContentKeys =
+            _notifications
+                .map(
+                  (n) =>
+                      '${n.username}${n.title}${n.content}${n.timestamp.year}${n.timestamp.month}${n.timestamp.day}${n.timestamp.hour}${n.timestamp.minute}',
+                )
+                .toSet();
+
+        final List<NotificationModel> newNotifications = [];
+
+        // 중복 체크하고 새 항목만 추가
+        for (var notification in serverNotifications) {
+          String contentKey =
+              '${notification.username}${notification.title}${notification.content}${notification.timestamp.year}${notification.timestamp.month}${notification.timestamp.day}${notification.timestamp.hour}${notification.timestamp.minute}';
+
+          if (!uniqueIds.contains(notification.id) &&
+              !uniqueContentKeys.contains(contentKey)) {
+            newNotifications.add(notification);
+            uniqueIds.add(notification.id);
+            uniqueContentKeys.add(contentKey);
+          }
         }
-      }
 
-      if (newNotifications.isNotEmpty) {
-        setState(() {
-          // 새 알림 추가하고 시간순 정렬
-          _notifications.addAll(newNotifications);
-          _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-          _currentPage = 1;
-          _hasMoreData = true;
-        });
+        if (newNotifications.isNotEmpty) {
+          setState(() {
+            // 새 알림 추가하고 시간순 정렬
+            _notifications.addAll(newNotifications);
+            _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+            _currentPage = 1;
+            _hasMoreData = hasMore; // 서버에서 받은 더 많은 데이터 존재 여부 설정
+          });
 
-        _removeDuplicateNotifications();
-        // 로컬에 저장
-        // _updateLocalNotifications(_notifications);
+          // 전체 중복 제거 다시 실행
+          _removeDuplicateNotifications();
+        } else {
+          // 새 알림이 없더라도 hasMoreData 업데이트
+          setState(() {
+            _hasMoreData = hasMore;
+          });
+        }
+      } else {
+        // 데이터 로드 실패
+        if (kDebugMode) {
+          print('서버 알림 로드 실패: ${result['error']}');
+        }
+
+        // 오류 메시지는 한 번만 설정
+        if (!_isOffline && result['errorType'] == 'network' && mounted) {
+          _setErrorMessage('알림을 새로고침하는 중 네트워크 오류가 발생했습니다');
+        }
       }
     } catch (e) {
       if (kDebugMode) {
-        print('서버 알림 로드 중 오류: $e');
+        print('서버 알림 로드 중 예상치 못한 오류: $e');
+      }
+
+      // 심각한 오류인 경우 한 번만 오류 메시지 설정
+      if (mounted && !_isOffline) {
+        _setErrorMessage('알림을 불러오는 중 오류가 발생했습니다');
       }
     }
   }
@@ -250,8 +297,18 @@ class _NotificationsPageState extends State<NotificationsPage>
       final discordWebhooksURL = prefs.getString('discordWebhooksURL');
 
       if (username != null && discordWebhooksURL != null) {
-        // 다음 페이지 데이터 가져오기
-        final newNotifications = await ApiService.getNotifications(
+        // 가장 오래된 알림의 타임스탬프 확인
+        DateTime? oldestTimestamp;
+        if (_notifications.isNotEmpty) {
+          // 정렬된 알림에서 첫 번째 항목이 가장 오래된 알림
+          oldestTimestamp = _notifications.first.timestamp;
+          if (kDebugMode) {
+            print('가장 오래된 알림 시간: $oldestTimestamp');
+          }
+        }
+
+        // 다음 페이지 데이터 가져오기 (oldestTimestamp 이전 데이터 요청)
+        final result = await ApiService.getNotifications(
           username,
           discordWebhooksURL,
           page: _currentPage + 1, // 다음 페이지 요청
@@ -260,46 +317,83 @@ class _NotificationsPageState extends State<NotificationsPage>
 
         if (!mounted) return;
 
-        if (newNotifications.isEmpty) {
-          // 더 이상 데이터가 없으면 hasMoreData를 false로 설정
-          setState(() {
-            _hasMoreData = false;
-            _isLoadingMore = false;
-          });
-        } else {
-          // 중복 체크를 위한 ID Set 생성
-          final existingIds = _notifications.map((n) => n.id).toSet();
+        // 결과 처리
+        if (result['success']) {
+          // 성공적으로 데이터를 가져온 경우
+          final List<NotificationModel> newNotifications =
+              result['notifications'];
+          final bool hasMore = result['hasMore'];
 
-          // 중복되지 않은 항목만 필터링
-          final uniqueNotifications =
-              newNotifications
-                  .where(
-                    (notification) => !existingIds.contains(notification.id),
-                  )
-                  .toList();
-
-          if (uniqueNotifications.isEmpty) {
-            // 모든 항목이 중복이면 다음 페이지로 넘어감
-            _currentPage++; // 페이지 증가
+          if (newNotifications.isEmpty) {
+            // 더 이상 데이터가 없는 경우
             setState(() {
+              _hasMoreData = hasMore;
               _isLoadingMore = false;
             });
-            // 재귀적으로 다음 페이지 데이터 로드
-            _loadOlderMessages();
-            return;
-          }
+          } else {
+            // 중복 체크를 위한 ID Set 생성
+            final existingIds = _notifications.map((n) => n.id).toSet();
 
+            // 중복되지 않은 항목만 필터링
+            final uniqueNotifications =
+                newNotifications
+                    .where(
+                      (notification) => !existingIds.contains(notification.id),
+                    )
+                    .toList();
+
+            if (uniqueNotifications.isEmpty) {
+              // 모든 항목이 중복이면 다음 페이지로 넘어감
+              _currentPage++; // 페이지 증가
+              setState(() {
+                _isLoadingMore = false;
+              });
+              // 더 많은 데이터가 있으면 재귀적으로 다음 페이지 데이터 로드
+              if (hasMore) {
+                _loadOlderMessages();
+              }
+              return;
+            }
+
+            // 새로 가져온 알림의 가장 오래된 시간 확인 (로깅용)
+            if (kDebugMode && uniqueNotifications.isNotEmpty) {
+              DateTime oldestNewTime = uniqueNotifications
+                  .map((n) => n.timestamp)
+                  .reduce((a, b) => a.isBefore(b) ? a : b);
+              print('새로 가져온 가장 오래된 알림 시간: $oldestNewTime');
+            }
+
+            setState(() {
+              // 고유 항목을 기존 목록 앞에 추가 (더 오래된 메시지)
+              _notifications.insertAll(0, uniqueNotifications);
+
+              // 시간순 재정렬 (최신순) - 항상 정확한 순서를 보장
+              _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+              _currentPage++; // 페이지 증가
+              _isLoadingMore = false;
+              _hasMoreData = hasMore; // 서버에서 받은 더 많은 데이터 존재 여부 설정
+            });
+
+            _removeDuplicateNotifications();
+          }
+        } else {
+          // 오류가 발생한 경우
           setState(() {
-            // 고유 항목을 기존 목록 앞에 추가 (더 오래된 메시지)
-            _notifications.insertAll(0, uniqueNotifications);
-            _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-            _currentPage++; // 페이지 증가
             _isLoadingMore = false;
+            _loadFailed = true;
+
+            // 네트워크 오류인 경우 더 많은 데이터가 있을 수 있으므로 hasMoreData 유지
+            if (result['errorType'] == 'network') {
+              // hasMoreData는 현재 상태 유지
+            } else {
+              // 서버 오류나 알 수 없는 오류는 더 이상 데이터가 없는 것으로 처리
+              _hasMoreData = false;
+            }
           });
 
-          _removeDuplicateNotifications();
-          // 백그라운드에서 로컬 저장 처리
-          // _updateLocalNotifications(_notifications);
+          // 오류 메시지는 한 번만 설정
+          _setErrorMessage(result['error'] ?? '이전 알림을 불러오는 중 오류가 발생했습니다');
         }
       } else {
         // 사용자 정보가 없는 경우
@@ -309,9 +403,9 @@ class _NotificationsPageState extends State<NotificationsPage>
         });
       }
     } catch (e) {
-      // API 호출 오류 처리
+      // API 호출 자체에서 오류가 발생한 경우
       if (kDebugMode) {
-        print('더 많은 알림 로드 중 오류: $e');
+        print('더 많은 알림 로드 중 예상치 못한 오류: $e');
       }
 
       setState(() {
@@ -324,19 +418,8 @@ class _NotificationsPageState extends State<NotificationsPage>
         await _checkConnectivity();
       } catch (_) {}
 
-      // 오프라인이 아니면 스낵바 표시
-      if (!_isOffline && mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('이전 알림을 불러오는 중 오류가 발생했습니다'),
-            action: SnackBarAction(
-              label: '다시 시도',
-              onPressed: () => _loadOlderMessages(),
-            ),
-            duration: const Duration(seconds: 4),
-          ),
-        );
-      }
+      // 오류 메시지는 한 번만 설정
+      _setErrorMessage('예상치 못한 오류가 발생했습니다: $e');
     }
   }
 
@@ -771,83 +854,279 @@ class _NotificationsPageState extends State<NotificationsPage>
   }
 
   // 알림 목록 위젯
-  Widget _buildNotificationsList() {
-    final filteredNotifications = _filteredNotifications;
+// 알림 목록 위젯 수정 - 오류 메시지를 상단에 표시
+Widget _buildNotificationsList() {
+  final filteredNotifications = _filteredNotifications;
 
-    if (filteredNotifications.isEmpty) {
-      return _buildEmptyState();
+  if (filteredNotifications.isEmpty) {
+    return _buildEmptyState();
+  }
+
+  // 알림 목록에 날짜 구분선 추가
+  final List<dynamic> itemsWithDateDividers = [];
+  DateTime? previousDate;
+
+  // 알림을 순회하며 날짜 구분선 추가
+  for (int i = 0; i < filteredNotifications.length; i++) {
+    final notification = filteredNotifications[i];
+    final currentDate = DateTime(
+      notification.timestamp.year,
+      notification.timestamp.month,
+      notification.timestamp.day,
+    );
+
+    // 알림 추가
+    itemsWithDateDividers.add(notification);
+
+    // 다음 알림과 날짜 비교
+    final bool isLastItem = i == filteredNotifications.length - 1;
+
+    // 이전 날짜와 현재 날짜가 다르면 구분선 추가
+    if (isLastItem ||
+        currentDate.day !=
+            DateTime(
+              filteredNotifications[i + 1].timestamp.year,
+              filteredNotifications[i + 1].timestamp.month,
+              filteredNotifications[i + 1].timestamp.day,
+            ).day) {
+      itemsWithDateDividers.add(currentDate); // 날짜 구분선
     }
+  }
 
-    return RefreshIndicator(
-      onRefresh: _refreshNotifications,
-      child: NotificationListener<ScrollNotification>(
-        onNotification: (scrollNotification) {
-          if (scrollNotification is OverscrollNotification &&
-              scrollNotification.overscroll < 0 &&
-              _scrollController.position.pixels >=
-                  _scrollController.position.maxScrollExtent - 20) {
-            if (!_isLoadingMore &&
-                _hasMoreData &&
-                !_loadFailed &&
-                !_isOffline) {
-              _loadOlderMessages();
-            }
-          }
-          return false;
-        },
-        child: ListView.builder(
-          controller: _scrollController,
-          physics: const AlwaysScrollableScrollPhysics(),
-          reverse: true, // 최신 메시지를 하단에 표시
-          itemCount:
-              filteredNotifications.length +
-              (_isLoadingMore ? 1 : 0) +
-              (_loadFailed ? 1 : 0),
-          itemBuilder: (context, index) {
-            // 로딩 인디케이터 (리스트 상단)
-            if (_isLoadingMore && index == 0) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(child: CircularProgressIndicator()),
-              );
-            }
-
-            // 로드 실패 메시지 (리스트 상단)
-            if (_loadFailed && index == 0) {
-              return Card(
-                margin: EdgeInsets.all(8),
-                color: Colors.red[100],
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
+  return RefreshIndicator(
+    onRefresh: _refreshNotifications,
+    child: Column(
+      children: [
+        // 상단에 오류 메시지 표시 - 로딩 인디케이터처럼 상단에 고정
+        if (_showErrorMessage && _errorMessage.isNotEmpty)
+          Card(
+            margin: EdgeInsets.all(8),
+            color: Colors.red[100],
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.error_outline, color: Colors.red),
+                      SizedBox(width: 8),
+                      Expanded(child: Text(_errorMessage)),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  OutlinedButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        _showErrorMessage = false;
+                        _errorMessage = '';
+                      });
+                      _loadOlderMessages();
+                    },
+                    icon: Icon(Icons.refresh),
+                    label: Text('이전 알림 다시 불러오기'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.red[700],
+                      side: BorderSide(color: Colors.red[300]!),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        
+        // 데이터 로딩 중 표시
+        if (_isLoadingMore && !_loadFailed)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(child: CircularProgressIndicator()),
+          ),
+        
+        // 로드 실패 메시지 (오류 배너가 표시되지 않을 때)
+        if (_loadFailed && !_showErrorMessage)
+          Card(
+            margin: EdgeInsets.all(8),
+            color: Colors.red[100],
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  Row(
                     children: [
                       Icon(Icons.error_outline, color: Colors.red),
                       SizedBox(width: 8),
                       Expanded(child: Text('이전 알림을 불러오는데 실패했습니다')),
-                      TextButton(
-                        onPressed: _loadOlderMessages,
-                        child: Text('다시 시도'),
-                      ),
                     ],
                   ),
-                ),
-              );
-            }
+                  SizedBox(height: 8),
+                  OutlinedButton.icon(
+                    onPressed: _loadOlderMessages,
+                    icon: Icon(Icons.refresh),
+                    label: Text('이전 알림 다시 불러오기'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.red[700],
+                      side: BorderSide(color: Colors.red[300]!),
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    '또는 위로 스크롤하여 새로고침',
+                    style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+        // 알림 목록
+        Expanded(
+          child: NotificationListener<ScrollNotification>(
+            onNotification: (scrollNotification) {
+              // 최상단에서 위로 스크롤하는 경우 더 오래된 데이터 로드
+              if (scrollNotification is OverscrollNotification &&
+                  scrollNotification.overscroll > 0 && // 양수는 상단으로 오버스크롤
+                  _scrollController.position.pixels <= 0) {
+                // 이미 최상단에 있는 경우
 
-            // 알림 항목 인덱스 계산
-            final itemIndex = _isLoadingMore || _loadFailed ? index - 1 : index;
-            if (itemIndex < 0 || itemIndex >= filteredNotifications.length) {
-              return SizedBox.shrink();
-            }
+                if (!_isLoadingMore && _hasMoreData && !_isOffline) {
+                  // 로드 실패 상태였다면 초기화
+                  if (_loadFailed) {
+                    setState(() {
+                      _loadFailed = false;
+                    });
+                  }
 
-            // 알림 항목
-            final notification = filteredNotifications[itemIndex];
-            return DiscordNotificationWidget(
-              notification: notification,
-              onTap: () => _handleNotificationTap(notification),
-            );
-          },
+                  // 오래된 데이터 로드
+                  _loadOlderMessages();
+                }
+                return true; // 이벤트 처리 완료
+              }
+
+              // 기존 스크롤 로직 - 이미 70%에 도달했을 때 자동 로드
+              if (scrollNotification is ScrollUpdateNotification &&
+                  !_isLoadingMore &&
+                  _hasMoreData &&
+                  !_loadFailed &&
+                  !_isOffline) {
+                if (_scrollController.position.pixels >=
+                    _scrollController.position.maxScrollExtent * 0.7) {
+                  _loadOlderMessages();
+                }
+              }
+
+              return false;
+            },
+            child: ListView.builder(
+              controller: _scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              reverse: true, // 최신 메시지를 하단에 표시
+              itemCount: itemsWithDateDividers.length,
+              itemBuilder: (context, index) {
+                // 더 이상 데이터가 없는 경우 메시지 표시
+                if (!_hasMoreData && index == 0) {
+                  return Container(
+                    padding: EdgeInsets.all(16),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '더 이상 알림이 없습니다',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  );
+                }
+
+                // 아이템 인덱스 계산
+                final itemIndex = index;
+                if (itemIndex < 0 || itemIndex >= itemsWithDateDividers.length) {
+                  return SizedBox.shrink();
+                }
+                
+                // 현재 아이템 가져오기
+                final item = itemsWithDateDividers[itemIndex];
+
+                // 날짜 구분선인 경우
+                if (item is DateTime) {
+                  return _buildDateDivider(item);
+                }
+
+                // 알림 항목인 경우
+                final notification = item as NotificationModel;
+                return DiscordNotificationWidget(
+                  notification: notification,
+                  onTap: () => _handleNotificationTap(notification),
+                );
+              },
+            ),
+          ),
         ),
+        
+        // 새 메시지 알림 배너 (하단에 표시)
+        if (_hasNewMessage && !_isNearBottom)
+          GestureDetector(
+            onTap: () {
+              if (_scrollController.hasClients) {
+                _scrollController.animateTo(
+                  0, // 최신 메시지 위치
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeOut,
+                );
+                setState(() {
+                  _hasNewMessage = false;
+                  _newMessageCount = 0;
+                });
+              }
+            },
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      _newMessageCount > 0
+                          ? '새 알림 $_newMessageCount개가 있습니다'
+                          : '새 알림이 있습니다',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(Icons.arrow_downward, color: Colors.white),
+                  ],
+                ),
+              ),
+            ),
+          ),
+      ],
+    ),
+  );
+}
+  // 날짜 구분선 위젯
+  Widget _buildDateDivider(DateTime date) {
+    String dateText = '${date.year}년 ${date.month}월 ${date.day}일';
+
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Row(
+        children: [
+          Expanded(child: Divider(color: Colors.grey[400])),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              dateText,
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
+          ),
+          Expanded(child: Divider(color: Colors.grey[400])),
+        ],
       ),
     );
   }
@@ -890,6 +1169,43 @@ class _NotificationsPageState extends State<NotificationsPage>
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         children: [
+          // 오류가 있는 경우 상단에 한 번만 표시
+          if (_showErrorMessage && _errorMessage.isNotEmpty)
+            Card(
+              margin: EdgeInsets.all(8),
+              color: Colors.red[100],
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.error_outline, color: Colors.red),
+                        SizedBox(width: 8),
+                        Expanded(child: Text(_errorMessage)),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          _showErrorMessage = false;
+                          _errorMessage = '';
+                        });
+                        _refreshNotifications();
+                      },
+                      icon: Icon(Icons.refresh),
+                      label: Text('이전 알림 다시 불러오기'),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.red[700],
+                        side: BorderSide(color: Colors.red[300]!),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.7,
             child: Center(
@@ -944,6 +1260,16 @@ class _NotificationsPageState extends State<NotificationsPage>
     );
   }
 
+  // 오류 메시지 설정 함수
+  void _setErrorMessage(String message) {
+    if (!mounted) return;
+
+    setState(() {
+      _showErrorMessage = true;
+      _errorMessage = message;
+    });
+  }
+
   // 알림 필터 다이얼로그
   void _showFilterDialog() {
     showDialog(
@@ -959,6 +1285,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                   _buildFilterOption(NotificationType.youtube, '유튜브 알림'),
                   _buildFilterOption(NotificationType.cafe, '카페 알림'),
                   _buildFilterOption(NotificationType.streamStart, '뱅온 알림'),
+                  _buildFilterOption(NotificationType.streamChange, '방제 변경 알림'),
                   _buildFilterOption(NotificationType.streamEnd, '방종 알림'),
                   _buildFilterOption(NotificationType.chat, '채팅 알림'),
                 ],
