@@ -94,7 +94,7 @@ class NotificationModel {
     if (embedsList != null && embedsList.isNotEmpty) {
       if (embedsList.first is Map) {
         embed = Map<String, dynamic>.from(embedsList.first);
-        originalEmbed = embed; // 원본 임베드 데이터 저장
+        originalEmbed = Map<String, dynamic>.from(embed); // 원본 임베드 데이터 저장
         if (kDebugMode) {
           print('첫 번째 embed: $embed');
         }
@@ -161,6 +161,13 @@ class NotificationModel {
       if (description.isNotEmpty) embed['description'] = description; 
       if (url.isNotEmpty) embed['url'] = url;
       if (color != 0) embed['color'] = color;
+      
+      // timestamp 필드 추가 (원본 임베드에서 가져오거나 현재 timestamp 사용)
+      if (embedData != null && embedData!.containsKey('timestamp')) {
+        embed['timestamp'] = embedData!['timestamp'];
+      } else {
+        embed['timestamp'] = timestamp.toIso8601String();
+      }
 
       // 작성자 정보가 있는 경우
       if (authorName.isNotEmpty) {
