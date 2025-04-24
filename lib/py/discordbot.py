@@ -101,6 +101,8 @@ async def generic_chat(init: base.initVar, platform_name: str, message_class):
 async def main():
     state = StateManager.get_instance()
     init = await state.initialize()
+    from my_app import initialize_firebase
+    initialize_firebase(False)
 
     test = [
         asyncio.create_task(main_loop(init)),
