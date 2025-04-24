@@ -106,7 +106,9 @@ static Future<Map<String, dynamic>> getNotifications(
       );
 
       if (kDebugMode && attempts > 1) {
-        print('알림 가져오기 시도 $attempts/$retryCount');
+        if (kDebugMode) {
+          print('알림 가져오기 시도 $attempts/$retryCount');
+        }
       }
 
       final client = http.Client();
