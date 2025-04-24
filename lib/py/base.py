@@ -697,9 +697,9 @@ async def saveNotificationsData(supabase, discord_webhook_url, user_data, notifi
             # 새 알림 추가
             notifications.append(data_fields)
             
-        # 최대 1000개까지만 유지 (오래된 알림 삭제)
-        if len(notifications) > 1000:
-            notifications = notifications[-1000:]
+        # 최대 10000개까지만 유지 (오래된 알림 삭제)
+        if len(notifications) > 10000:
+            notifications = notifications[-10000:]
         
         # DB 업데이트 (배치 작업의 일부)
         supabase.table('userStateData').update({
