@@ -879,14 +879,17 @@ def get_supabase_client():
 async def send_push_notification(messages: List[str], json_data, firebase_initialized_globally = True):
     # 전역 변수 사용
 
+    # Firebase가 초기화되었는지 확인 (한 번만 호출됨)
+    if not (firebase_initialized_globally := initialize_firebase(firebase_initialized_globally)):
+        print("Firebase 초기화 실패")
+        return
+    
+
     if not firebase_initialized_globally:
         print("Firebase가 초기화되지 않았습니다. 푸시 알림을 보낼 수 없습니다.")
         return
     
-    # Firebase가 초기화되었는지 확인 (한 번만 호출됨)
-    if not initialize_firebase(firebase_initialized_globally):
-        print("Firebase 초기화 실패")
-        return
+
 
     try:
         # 알림 고유 ID 및 시간 미리 생성 (모든 작업에서 공유)
@@ -913,8 +916,9 @@ async def send_push_notification(messages: List[str], json_data, firebase_initia
         if "embeds" in json_data and json_data["embeds"]:
             # FCM은 모든 데이터 필드가 문자열이어야 함
             data_fields["embeds"] = json_data["embeds"]
-            if "timestamp" in json_data["embeds"] and json_data["embeds"]["timestamp"]:
-                json_data["embeds"]["timestamp"] = changeGMTtime(json_data["embeds"]["timestamp"])
+            if "timestamp" in json_data["embeds"][0] and json_data["embeds"][0]["timestamp"]:
+                json_data["embeds"][0]["timestamp"] = changeGMTtime(json_data["embeds"][0]["timestamp"])
+
 
         # 배치 처리를 위한 작업 목록
         tasks = []
@@ -1174,8 +1178,7 @@ if __name__ == "__main__":
         print("FCM 토큰 정리 작업이 완료되었습니다.")
     # App initialization
     with app.app_context():
-        app.init_var = init_background_tasks()
-
+        app.userStateData = init_background_tasks()
     
 
     app.run(host="0.0.0.0", port=5000, debug=False)
