@@ -274,8 +274,8 @@ class chzzk_chat_message:
                     print(f"{datetime.now()} {message}")
 
                 #chzzk_chatFilter에 없는 사람 채팅은 제거
-                # if nickname not in [*self.init.chzzk_chatFilter["channelName"]]:
-                #     continue
+                if not self.init.DO_TEST and nickname not in [*self.init.chzzk_chatFilter["channelName"]]:
+                    continue
 
                 # self.data.chzzk_chat_msg_List.append([chat_data, chat_type])
                 task = asyncio.create_task(self._post_chat(chat_data, chat_type))
