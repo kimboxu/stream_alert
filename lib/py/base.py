@@ -685,7 +685,7 @@ async def saveNotificationsData(supabase, discord_webhook_url, user_data, notifi
             except:
                 notifications = []
         
-        # notification_id 확인 - 이미 있는 알림인지 체크
+        # id 확인 - 이미 있는 알림인지 체크
         is_duplicate = False
         for idx, notification in enumerate(notifications):
             # 동일한 ID의 알림이 있는지 확인
