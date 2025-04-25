@@ -1,11 +1,17 @@
 import ssl 
-import base
+from base import (
+    initVar,
+    change_chat_join_state,
+    if_after_time,
+    get_message,
+    afreeca_getLink,
+    afreeca_getChannelOffStateData,
+)
 import certifi
 import asyncio
 import websockets
 from time import time
 from os import environ
-from json import loads
 from requests import post
 from datetime import datetime
 from supabase import create_client
@@ -14,7 +20,7 @@ from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_c
 from my_app import send_push_notification
 
 @dataclass
-class afreecaChatData:
+class AfreecaChatData:
     sock: websockets.connect = None
     afreeca_chat_msg_List: list = field(default_factory=list)  
     processed_messages: list = field(default_factory=list)
@@ -25,7 +31,7 @@ class afreecaChatData:
     BID: str = ""
     
 class afreeca_chat_message:
-    def __init__(self, init_var: base.initVar, channel_id):
+    def __init__(self, init_var: initVar, channel_id):
         self.init = init_var
 
         self.ssl_context = self.create_ssl_context()
@@ -33,7 +39,7 @@ class afreeca_chat_message:
         self.ESC = "\x1b\t"
         self.PING_PACKET = f'{self.ESC}000000000100{self.F}'
         channel_name = self.init.afreecaIDList.loc[channel_id, 'channelName']
-        self.data = afreecaChatData(channel_id = channel_id, channel_name = channel_name)
+        self.data = AfreecaChatData(channel_id = channel_id, channel_name = channel_name)
         self.post_chat_semaphore = asyncio.Semaphore(5)
         self.tasks = []
         # self.stream_end_time = {}  # 각 스트리머의 방송 종료 시간을 저장할 딕셔너리
@@ -49,7 +55,7 @@ class afreeca_chat_message:
     async def start(self):
         while True:
             if self.init.chat_json[self.data.channel_id]: 
-                await base.change_chat_join_state(self.init.chat_json, self.data.channel_id, False)
+                await change_chat_join_state(self.init.chat_json, self.data.channel_id, False)
 
             if self.check_live_state_close() or await self.check_is_passwordDict():
                 await asyncio.sleep(5)
@@ -73,7 +79,7 @@ class afreeca_chat_message:
                 await self._connect_and_run()
             except Exception as e:
                 await DiscordWebhookSender._log_error(f"error in chat manager afreeca: {e}")
-                await base.change_chat_join_state(self.init.chat_json, self.data.channel_id)
+                await change_chat_join_state(self.init.chat_json, self.data.channel_id)
             finally:
                 await self._cleanup_tasks()
 
@@ -141,7 +147,7 @@ class afreeca_chat_message:
     
     async def _receive_messages(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            return (self.check_live_state_close() and base.if_after_time(self.data.last_chat_time) 
+            return (self.check_live_state_close() and if_after_time(self.data.last_chat_time) 
                     or self.init.chat_json[self.data.channel_id])
         
         message_buffer = []
@@ -165,7 +171,7 @@ class afreeca_chat_message:
 
                 message_buffer.append(raw_message)
                 
-                if len(message_buffer) >= buffer_size or base.if_after_time(last_buffer_flush, sec=buffer_timeout):
+                if len(message_buffer) >= buffer_size or if_after_time(last_buffer_flush, sec=buffer_timeout):
                     for msg in message_buffer:
                         await message_queue.put(msg)
                     message_buffer.clear()
@@ -284,9 +290,9 @@ class afreeca_chat_message:
 
     async def _get_user_info(self, user_id):
         #유저 정보 가져오기
-        stateData = await base.get_message("afreeca", base.afreeca_getLink(user_id))
+        stateData = await get_message("afreeca", afreeca_getLink(user_id))
         user_nick = stateData['station']['user_nick']
-        _, _, profile_image = base.afreeca_getChannelOffStateData(stateData, stateData["station"]["user_id"])
+        _, _, profile_image = afreeca_getChannelOffStateData(stateData, stateData["station"]["user_id"])
         return user_nick, profile_image
 
     def _process_new_message(self, chat):
@@ -351,7 +357,7 @@ class afreeca_chat_message:
         return 1
 
     async def check_is_passwordDict(self):
-        stateData = await base.get_message("afreeca", base.afreeca_getLink(self.init.afreecaIDList["afreecaID"][self.data.channel_id]))
+        stateData = await get_message("afreeca", afreeca_getLink(self.init.afreecaIDList["afreecaID"][self.data.channel_id]))
         return stateData['broad'].get('is_password',{False})
     
     def check_live_state_close(self):

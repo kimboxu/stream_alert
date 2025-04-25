@@ -1,4 +1,4 @@
-import base
+
 import asyncio
 from random import randint
 from datetime import datetime
@@ -6,6 +6,14 @@ from os import remove, environ
 from requests import post, get
 from urllib.request import urlretrieve
 from discord_webhook_sender import DiscordWebhookSender
+from base import (
+	twitch_getChannelOffStateData,
+	get_message,
+	getTwitchHeaders,
+	save_airing_data,
+	save_profile_data,
+	changeUTCtime,
+)
 
 class twitch_live_message():
 
@@ -18,16 +26,16 @@ class twitch_live_message():
 		await self.postLiveMSG(init)
 
 	async def addMSGList(self, init): #if online, send to message
-		headers = base.getTwitchHeaders()
+		headers = getTwitchHeaders()
 		for _ in range(10):
-			try: list_of_offState_twitchID = await base.get_message(self.getTwitchDataList(init), "twitch"); break
+			try: list_of_offState_twitchID = await get_message(self.getTwitchDataList(init), "twitch"); break
 			except: await asyncio.sleep(0.1)
 		try:
 			for offState_twitchID in list_of_offState_twitchID:
 				for offState, twitchID, TF in offState_twitchID:
 					# if offState.status_code != 200: continue
 					if not TF: continue
-					live, title, thumbnail_url = base.twitch_getChannelOffStateData(offState["data"], twitchID)
+					live, title, thumbnail_url = twitch_getChannelOffStateData(offState["data"], twitchID)
 					if ((self.ifChangeTitle(init, title, twitchID)) or self.turnOnline(init, live, twitchID)) and init.ifPostLiveCountEnd[twitchID] == 0: #on air or the change title
 						message = self.getMessage(init, title, twitchID)
 						# self.onAirChat(init, twitchID, message) #if trun on air send chat 
@@ -35,8 +43,8 @@ class twitch_live_message():
 						old_title = init.twitch_titleData.loc[twitchID,'title1']
 						self.onLineTitle(init, title, twitchID, message)  #broadcast state update
 						init.iflivePostList["twitch"].append((twitchID, live, message, title, old_title, json))
-						await base.save_airing_data(init, 'twitch', twitchID) # save data
-						await base.save_profile_data(init, 'twitch', twitchID)
+						await save_airing_data(init, 'twitch', twitchID) # save data
+						await save_profile_data(init, 'twitch', twitchID)
 						if message == "뱅온!": init.ifPostLiveCountStart[twitchID] = init.ifPostLiveCountNum
 						init.changeTitle[twitchID] = init.ifPostLiveCountNum
 					elif self.turnOffline(init, live, twitchID) and init.ifPostLiveCountStart[twitchID] == 0: 
@@ -46,7 +54,7 @@ class twitch_live_message():
 						old_title = init.twitch_titleData.loc[twitchID,'title1']
 						self.offLineTitle(init, twitchID)
 						init.iflivePostList["twitch"].append((twitchID, live, message, title, old_title, json))
-						await base.save_airing_data(init, 'twitch', twitchID)
+						await save_airing_data(init, 'twitch', twitchID)
 						init.ifPostLiveCountEnd[twitchID] = init.ifPostLiveCountNum
 						init.changeTitle[twitchID] = init.ifPostLiveCountNum
 		except: 
@@ -63,19 +71,19 @@ class twitch_live_message():
 					print(f"{datetime.now()} 이전 방제: {old_title}")
 					print(f"{datetime.now()} 현재 방제: {title}")
 				_, list_of_urls = self.make_online_list_of_urls(init, twitchID, message, json)
-				# if message == "뱅온!": asyncio.create_task(base.async_post_message(onair_list_of_urls))
+				# if message == "뱅온!": asyncio.create_task(async_post_message(onair_list_of_urls))
 				asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls))
-				# asyncio.create_task(base.async_post_message(list_of_urls))
+				# asyncio.create_task(async_post_message(list_of_urls))
 			elif message in ["뱅종"]: 
 				print(f"{datetime.now()} offLine {init.twitchIDList.loc[twitchID, 'channelName']}")
 				list_of_urls = self.make_offline_list_of_urls(init, twitchID, json)
 				asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls))
-				# asyncio.create_task(base.async_post_message(list_of_urls))
+				# asyncio.create_task(async_post_message(list_of_urls))
 		except: asyncio.create_task(DiscordWebhookSender._log_error("postLiveMSG"));init.iflivePostList["twitch"] = []
 
 	def getTwitchDataList(self, init):
 		list_of_offState = []
-		headers = base.getTwitchHeaders()
+		headers = getTwitchHeaders()
 		for twitchID in init.twitchIDList["channelID"]:
 			channelName = self.getChatFilterName(init, twitchID)
 			list_of_offState.append([(self.getOffStateLink(channelName), headers), twitchID])
@@ -150,7 +158,7 @@ class twitch_live_message():
 				"url": url, \
 				"image": {"url": thumbnail},
 				"footer": { "text": f"뱅온 시간", "inline": True, "icon_url": "https://url.kr/x79ipj" },
-				"timestamp": base.changeUTCtime(started_at)}]}
+				"timestamp": changeUTCtime(started_at)}]}
 	
 	# def get_online_titleChange_state_json(self, init, twitchID, message, title, url, started_at, thumbnail, viewer_count):
 	# 	return {"username": init.twitchIDList.loc[twitchID, 'channelName'], "avatar_url": init.twitchIDList.loc[twitchID, 'channel_thumbnail'],\
@@ -241,14 +249,14 @@ class twitch_live_message():
 	def turnOffline(self, init, live, twitchID): return not live and init.twitch_titleData.loc[twitchID,'live_state'] == "OPEN" #turn offline
 
 	# def onAirChat(self, init, twitchID, message): #if trun on air send chat
-	# 	if twitchID =="charmel"    and message == "뱅온!": print("send hi"); base.send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 챠하" + "\r\n", init)
-	# 	if twitchID =="mawang0216" and message == "뱅온!": print("send hi"); base.send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 마하" + "\r\n", init)
-	# 	if twitchID =="bighead033" and message == "뱅온!": print("send hi"); base.send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 빅하" + "\r\n", init)
-	# 	if twitchID =="bercellion" and message == "뱅온!": print("send hi"); base.send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 베하" + "\r\n", init)
-	# 	if twitchID =="kdaomm"     and message == "뱅온!": print("send hi"); base.send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 마하" + "\r\n", init)
+	# 	if twitchID =="charmel"    and message == "뱅온!": print("send hi"); send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 챠하" + "\r\n", init)
+	# 	if twitchID =="mawang0216" and message == "뱅온!": print("send hi"); send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 마하" + "\r\n", init)
+	# 	if twitchID =="bighead033" and message == "뱅온!": print("send hi"); send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 빅하" + "\r\n", init)
+	# 	if twitchID =="bercellion" and message == "뱅온!": print("send hi"); send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 베하" + "\r\n", init)
+	# 	if twitchID =="kdaomm"     and message == "뱅온!": print("send hi"); send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 마하" + "\r\n", init)
 	# def offAirChat(self, init, twitchID): #if trun off air send chat
 
-	# 	if twitchID =="charmel"   : print("send bye"); base.send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : charme15BYE charme15BYE" + "\r\n", init)
-	# 	if twitchID =="mawang0216": print("send bye"); base.send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 마바" + "\r\n", init)
-	# 	if twitchID =="bighead033": print("send bye"); base.send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 빅바" + "\r\n", init)
+	# 	if twitchID =="charmel"   : print("send bye"); send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : charme15BYE charme15BYE" + "\r\n", init)
+	# 	if twitchID =="mawang0216": print("send bye"); send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 마바" + "\r\n", init)
+	# 	if twitchID =="bighead033": print("send bye"); send(init.sockDict["twitch"],f"PRIVMSG #{twitchID} : 빅바" + "\r\n", init)
 

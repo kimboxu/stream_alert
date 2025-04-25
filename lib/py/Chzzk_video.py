@@ -1,7 +1,7 @@
 import asyncio
 from datetime import datetime
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
-from base import changeUTCtime, get_message, iconLinkData, initVar, chzzk_saveVideoData
+from base import (changeUTCtime, get_message, iconLinkData, initVar, chzzk_saveVideoData)
 from my_app import send_push_notification
 
 

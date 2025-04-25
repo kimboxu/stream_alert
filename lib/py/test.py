@@ -58,15 +58,15 @@ extras = json.loads(chat_data['extras'])
 p = json.loads(unquote(profile_data))
 
 from discord_webhook_sender import DiscordWebhookSender
-import base
+from base_with_cache import (initVar, userDataVar, discordBotDataVars)
 from os import environ
 from supabase import create_client
 import asyncio
 async def main():
     supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-    init = base.initVar()
-    await base.discordBotDataVars(init)
-    await base.userDataVar(init, supabase)
+    init = initVar()
+    await discordBotDataVars(init)
+    await userDataVar(init, supabase)
     await asyncio.sleep(1)
     thumbnail_url = environ['default_thumbnail']
 

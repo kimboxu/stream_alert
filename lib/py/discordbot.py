@@ -1,9 +1,9 @@
 from os import environ
-import base
+# import base
+from base import userDataVar, fCount, fSleep, initVar
 import asyncio
 from time import time
 from datetime import datetime
-from supabase import create_client
 from shared_state import StateManager
 from Twitch_live_message import twitch_live_message
 # from Chzzk_live_message import chzzk_live_message
@@ -17,11 +17,11 @@ from discord_webhook_sender import DiscordWebhookSender
 
 from live_message import chzzk_live_message, afreeca_live_message
 
-async def main_loop(init: base.initVar):
+async def main_loop(init: initVar):
 
     while True:
         try:
-            if init.count % 2 == 0: await base.userDataVar(init)
+            if init.count % 2 == 0: await userDataVar(init)
 
             cafe_tasks = [asyncio.create_task(getCafePostTitle(init, channel_id).start()) for channel_id in init.cafeData["channelID"]]
             chzzk_video_tasks = [asyncio.create_task(chzzk_video(init, channel_id).start()) for channel_id in init.chzzkIDList["channelID"]]
@@ -36,14 +36,14 @@ async def main_loop(init: base.initVar):
             ]
 
             await asyncio.gather(*tasks)
-            await base.fSleep(init)
-            base.fCount(init)
+            await fSleep(init)
+            fCount(init)
 
         except Exception as e:
             asyncio.create_task(DiscordWebhookSender._log_error(f"Error in main loop: {str(e)}"))
             await asyncio.sleep(1)
 
-async def youtube_task(init):
+async def youtube_task(init: initVar):
     await asyncio.sleep(2)
 
     developer_keys = environ['developerKeyList'].split(",")
@@ -72,7 +72,7 @@ async def youtube_task(init):
             print(f"{datetime.now()} YouTube 작업 오류: {e}")
             await asyncio.sleep(3)
 
-async def generic_chat(init: base.initVar, platform_name: str, message_class):
+async def generic_chat(init: initVar, platform_name: str, message_class):
     await asyncio.sleep(3)
     
     tasks = {}  # 채널 ID별 실행 중인 task를 관리할 딕셔너리

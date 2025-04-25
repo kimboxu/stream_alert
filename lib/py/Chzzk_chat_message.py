@@ -7,7 +7,17 @@ from urllib.parse import unquote
 from json import loads, dumps, JSONDecodeError
 from dataclasses import dataclass, field
 from cmd_type import CHZZK_CHAT_CMD, CHZZK_DONATION_CMD
-from base import  getChzzkCookie, initVar, get_message, change_chat_join_state, save_airing_data, if_after_time, discordBotDataVars, userDataVar
+
+from base import  (
+    initVar,
+    getChzzkCookie, 
+    get_message, 
+    change_chat_join_state,
+    save_airing_data, 
+    if_after_time, 
+    discordBotDataVars, 
+    userDataVar)
+
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
 from my_app import send_push_notification
 
@@ -24,7 +34,7 @@ class ChzzkChatData:
     channel_name: str = ""
 
 class chzzk_chat_message:
-    def __init__(self, init_var: initVar, channel_id):
+    def __init__(self, init_var, channel_id):
         self.init = init_var
         channel_name = init_var.chzzkIDList.loc[channel_id, 'channelName']
         self.state_update_time = init_var.chzzk_titleData.loc[channel_id, 'state_update_time']
@@ -738,7 +748,9 @@ async def generic_chat(init: initVar, platform_name: str, message_class):
             await asyncio.sleep(1)
 
 async def main():
-    init = initVar()
+    from shared_state import StateManager
+    state = StateManager.get_instance()
+    init = await state.initialize()
     await discordBotDataVars(init)
     await userDataVar(init)
     await asyncio.sleep(1)

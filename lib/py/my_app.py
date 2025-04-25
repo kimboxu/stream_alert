@@ -1,10 +1,8 @@
-from os import environ, path
+from os import environ
 from flask import Flask, request, jsonify, render_template, g
-from typing import List, Tuple, Optional, Dict, Any
 from base import make_list_to_dict
 from flask_cors import CORS
 import asyncio
-import threading
 from json import loads, dumps
 from supabase import create_client
 from dotenv import load_dotenv
@@ -12,8 +10,6 @@ import firebase_admin
 from firebase_admin import credentials, messaging
 from datetime import datetime, timezone
 import pandas as pd
-from base import saveNotificationsData, changeGMTtime
-from uuid import uuid4
 
 import time
 from notification_service import (
@@ -100,7 +96,6 @@ def init_background_tasks():
     loop.close()
     return userStateData
 
-
 def save_user_data(discordWebhooksURL, username):
     supabase = create_client(environ["supabase_url"], environ["supabase_key"])
     supabase.table("userStateData").upsert(
@@ -110,14 +105,12 @@ def save_user_data(discordWebhooksURL, username):
         }
     ).execute()
 
-
 def normalize_discord_webhook_url(webhook_url: str) -> str:
     if webhook_url is None:
         return None
     return webhook_url.replace(
         "https://discordapp.com/api/webhooks/", "https://discord.com/api/webhooks/"
     )
-
 
 @app.before_request
 def initialize_app():
@@ -752,7 +745,6 @@ def mark_notifications_read():
 
     return jsonify({"status": "success", "message": "알림이 읽음으로 표시되었습니다"})
 
-
 # 알림 전체 삭제 엔드포인트
 @app.route("/clear_notifications", methods=["POST"])
 def clear_notifications():
@@ -792,7 +784,6 @@ def clear_notifications():
     ).execute()
 
     return jsonify({"status": "success", "message": "모든 알림이 삭제되었습니다"})
-
 
 # FCM 토큰 제거 엔드포인트 (로그아웃 시 사용)
 @app.route("/remove_fcm_token", methods=["POST"])
