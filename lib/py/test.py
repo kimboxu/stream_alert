@@ -76,10 +76,10 @@ if __name__ == "__main__":
 print(((datetime.now()+ timedelta(seconds=300)))<= datetime.now())
 
 
-
+test_url = "https://discord.com/api/webhooks/1365183976964231168/F4EOYSoxp0Al6F4sOouVv6mVVhsuo-Za_kZ5aoHKmC8CmzJxVTW1B90_kouAQpG7mT3z"
 from discord_webhook_sender import DiscordWebhookSender
 async def main ():
-    await asyncio.create_task(DiscordWebhookSender().send_messages([]))
+    await asyncio.create_task(DiscordWebhookSender().send_messages([test_url], {}))
     # await DiscordWebhookSender()._log_error("test")
     # asyncio.create_task(DiscordWebhookSender()._log_error("test"))
 
