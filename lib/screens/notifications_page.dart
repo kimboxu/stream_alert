@@ -887,6 +887,11 @@ class _NotificationsPageState extends State<NotificationsPage>
     // 알림 목록에 날짜 구분선 추가
     final List<dynamic> itemsWithDateDividers = [];
 
+    // "더 이상 알림이 없습니다" 메시지를 리스트 상단에 추가 (조건부)
+    if (!_hasMoreData) {
+      itemsWithDateDividers.add("NO_MORE_NOTIFICATIONS"); // 특별한 타입으로 표시
+    }
+
     // 알림을 순회하며 날짜 구분선 추가
     for (int i = 0; i < filteredNotifications.length; i++) {
       final notification = filteredNotifications[i];
@@ -1042,8 +1047,18 @@ class _NotificationsPageState extends State<NotificationsPage>
                 reverse: true, // 최신 메시지를 하단에 표시
                 itemCount: itemsWithDateDividers.length,
                 itemBuilder: (context, index) {
-                  // 더 이상 데이터가 없는 경우 메시지 표시
-                  if (!_hasMoreData && index == 0) {
+                  // 아이템 인덱스 계산
+                  final itemIndex = index;
+                  if (itemIndex < 0 ||
+                      itemIndex >= itemsWithDateDividers.length) {
+                    return SizedBox.shrink();
+                  }
+
+                  // 현재 아이템 가져오기
+                  final item = itemsWithDateDividers[itemIndex];
+
+                  // "더 이상 알림이 없습니다" 특별 메시지 표시
+                  if (item == "NO_MORE_NOTIFICATIONS") {
                     return Container(
                       padding: EdgeInsets.all(16),
                       alignment: Alignment.center,
@@ -1056,16 +1071,6 @@ class _NotificationsPageState extends State<NotificationsPage>
                       ),
                     );
                   }
-
-                  // 아이템 인덱스 계산
-                  final itemIndex = index;
-                  if (itemIndex < 0 ||
-                      itemIndex >= itemsWithDateDividers.length) {
-                    return SizedBox.shrink();
-                  }
-
-                  // 현재 아이템 가져오기
-                  final item = itemsWithDateDividers[itemIndex];
 
                   // 날짜 구분선인 경우
                   if (item is DateTime) {
