@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -450,15 +451,25 @@ class PushNotificationService {
     }
   }
 
+  final StreamController<NotificationModel> _notificationStreamController =
+      StreamController<NotificationModel>.broadcast();
+  Stream<NotificationModel> get notificationStream =>
+      _notificationStreamController.stream;
+
   // 포그라운드 메시지 처리
   void _handleForegroundMessage(RemoteMessage message) async {
     if (kDebugMode) {
-      print('포그라운드 메시지 수신: ${message.notification?.title}');
       print('데이터: ${message.data}');
     }
 
     // 알림 저장
     await _saveNotification(message);
+
+    // NotificationModel로 변환
+    final notification = _convertMessageToNotification(message);
+
+    // 스트림에 알림 추가
+    _notificationStreamController.add(notification);
 
     // 알림 데이터에서 정보 추출
     final title =
@@ -467,6 +478,49 @@ class PushNotificationService {
 
     // 로컬 알림으로 표시 (간단한 방식)
     _showLocalNotification(title, body, message.data);
+  }
+
+  // RemoteMessage를 NotificationModel로 변환하는 메서드
+  NotificationModel _convertMessageToNotification(RemoteMessage message) {
+    // 새 알림 데이터 생성
+    final String messageId =
+        message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString();
+
+    // 기본 데이터 생성
+    Map<String, dynamic> notificationData = {
+      'id': messageId,
+      'username':
+          message.notification?.title ?? message.data['username'] ?? '알림',
+      'content': message.notification?.body ?? message.data['content'] ?? '',
+      'avatar_url': message.data['avatar_url'] ?? '',
+      'timestamp': DateTime.now().toIso8601String(),
+      'read': false,
+    };
+
+    // embeds 데이터가 있으면 추가
+    if (message.data.containsKey('embeds')) {
+      try {
+        if (message.data['embeds'] is String) {
+          notificationData['embeds'] = jsonDecode(message.data['embeds']);
+        } else {
+          notificationData['embeds'] = message.data['embeds'];
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print('embeds 데이터 파싱 오류: $e');
+        }
+      }
+    }
+
+    // 추가 데이터 병합
+    message.data.forEach((key, value) {
+      if (!notificationData.containsKey(key)) {
+        notificationData[key] = value;
+      }
+    });
+
+    // NotificationModel로 변환하여 반환
+    return NotificationModel.fromJson(notificationData);
   }
 
   // 로컬 알림 표시

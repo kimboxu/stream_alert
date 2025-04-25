@@ -496,7 +496,7 @@ def saveURLData(
 
     except Exception as e:
         logger.error(f"URL 데이터 저장 중 오류 발생: {str(e)}", exc_info=True)
-        asyncio.create_task(DiscordWebhookSender()._log_error(f"error saving URL {e}"))
+        asyncio.create_task(DiscordWebhookSender._log_error(f"error saving URL {e}"))
 
 
 def extract_discord_urls(data_list) -> List[str]:

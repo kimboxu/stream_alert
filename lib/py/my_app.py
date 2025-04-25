@@ -15,10 +15,18 @@ import pandas as pd
 from base import saveNotificationsData, changeGMTtime
 from uuid import uuid4
 
+import time
+from notification_service import (
+    new_send_push_notification, 
+    init_notification_system, 
+    initialize_firebase
+)
+
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
+app.notification_cache = None
 CORS(app)  # 크로스 오리진 요청 허용
 
 def initialize_firebase(firebase_initialized_globally):
@@ -114,7 +122,6 @@ def normalize_discord_webhook_url(webhook_url: str) -> str:
 @app.before_request
 def initialize_app():
     app.userStateData = init_background_tasks()
-
 
 @app.route("/", methods=["GET"])
 def index():
@@ -498,9 +505,6 @@ def register_fcm_token():
         # 사용자 데이터 가져오기
         user_data = result.data[0]
 
-        # 유효하지 않은 토큰 정리 (비동기 작업 생성)
-        asyncio.create_task(cleanup_invalid_fcm_tokens(user_data))
-
         # 기존 토큰 목록 가져오기
         existing_tokens = user_data.get("fcm_tokens", "")
         if existing_tokens:
@@ -531,8 +535,7 @@ def register_fcm_token():
                 {"status": "error", "message": f"토큰 등록 중 오류 발생: {str(e)}"}
             ),
             500,
-        )
-    
+        )   
 # 유효하지 않은 토큰 제거 함수
 async def cleanup_invalid_fcm_tokens(user_data: dict) -> tuple[bool, int]:
     """
@@ -876,138 +879,31 @@ def get_supabase_client():
         )
     return g.supabase_client
 
-async def send_push_notification(messages: List[str], json_data, firebase_initialized_globally = True):
-    # 전역 변수 사용
-
-    # Firebase가 초기화되었는지 확인 (한 번만 호출됨)
-    if not (firebase_initialized_globally := initialize_firebase(firebase_initialized_globally)):
-        print("Firebase 초기화 실패")
-        return
+# 기존 send_push_notification 함수를 이 함수로 대체
+async def send_push_notification(messages, json_data, firebase_initialized_globally=True):
+    """
+    푸시 알림을 전송하는 개선된 함수
     
-
-    if not firebase_initialized_globally:
-        print("Firebase가 초기화되지 않았습니다. 푸시 알림을 보낼 수 없습니다.")
-        return
+    Args:
+        messages: 웹훅 URL 목록
+        json_data: 알림 데이터
+        firebase_initialized_globally: Firebase 초기화 상태
+    """
+    start_time = time.time()
     
-
-
-    try:
-        # 알림 고유 ID 및 시간 미리 생성 (모든 작업에서 공유)
-        notification_id = str(uuid4())
-        notification_time = datetime.now(timezone.utc).isoformat()
-        notification_time = changeGMTtime(notification_time)
-
-        # 메시지 데이터 준비
-        notification_data = {
-            "title": json_data.get("username", "알림"),
-            "body": json_data.get("content", ""),
-        }
-
-        # 기본 데이터 필드
-        data_fields = {
-            "id": notification_id,  # 고유 ID를 명시적으로 포함
-            "username": json_data.get("username", "알림"),
-            "content": json_data.get("content", ""),
-            "avatar_url": json_data.get("avatar_url", ""),
-            "timestamp": notification_time,
-        }
-
-        # embeds 데이터가 있으면 추가 (Discord와 동일한 형식)
-        if "embeds" in json_data and json_data["embeds"]:
-            # FCM은 모든 데이터 필드가 문자열이어야 함
-            data_fields["embeds"] = json_data["embeds"]
-            if "timestamp" in json_data["embeds"][0] and json_data["embeds"][0]["timestamp"]:
-                json_data["embeds"][0]["timestamp"] = changeGMTtime(json_data["embeds"][0]["timestamp"])
-
-
-        # 배치 처리를 위한 작업 목록
-        tasks = []
-
-        # Supabase 클라이언트 한 번만 생성
-        with app.app_context():
-            supabase = get_supabase_client()
-
-            # 병렬 처리를 위한 작업들 준비
-            for discord_webhook_url in messages:
-                # 기존 사용자 확인
-                result = (
-                    supabase.table("userStateData")
-                    .select("*")
-                    .eq("discordURL", discord_webhook_url)
-                    .execute()
-                )
-                if not result.data:
-                    continue  # 사용자 없음
-
-                # 사용자 데이터
-                user_data = result.data[0]
-
-                # 알림 데이터 저장 작업 생성 (비동기 작업으로 추가)
-                tasks.append(
-                    asyncio.create_task(
-                        saveNotificationsData(
-                            supabase,
-                            discord_webhook_url,
-                            user_data,
-                            notification_id,  # 동일한 ID 전달
-                            data_fields,
-                        )
-                    )
-                )
-
-                # Flutter 앱으로 메시지 전송 (Firebase 메시징)
-                asyncio.create_task(
-                    post_msg_to_flutter(user_data, notification_data, data_fields)
-                )
-
-            # 모든 작업이 완료될 때까지 대기 (선택적)
-            # await asyncio.gather(*tasks)
-
-        return True
-
-    except Exception as e:
-        print(f"알림 전송 중 오류 발생: {e}")
-        import traceback
-
-        traceback.print_exc()
-        return False
-
-async def post_msg_to_flutter(user_data, notification_data, data_fields):
-    # 토큰 목록 가져오기
-    existing_tokens = user_data.get("fcm_tokens", "")
-    if not existing_tokens:
-        return
-
-    tokens_list = [
-        token.strip() for token in existing_tokens.split(",") if token.strip()
-    ]
-    if not tokens_list:
-        return
-
-    # 2. 개별 토큰에 메시지 전송
-    for token in tokens_list:
-        try:
-            message_data = {k: str(v) for k, v in data_fields.items()}
-            
-            # 메시지 객체 생성
-            message = messaging.Message(
-                notification=messaging.Notification(**notification_data),
-                data=message_data,  # 수정된 데이터 필드
-                token=token,
-                android=messaging.AndroidConfig(
-                    priority="high",
-                    notification=messaging.AndroidNotification(
-                        channel_id="high_importance_channel",
-                        priority="high",
-                    ),
-                ),
-            )
-
-            # 메시지 전송
-            messaging.send(message, dry_run=False)
-
-        except Exception as e:
-            print(f"토큰 {token} 메시지 전송 실패: {e}")
+    # 성능 측정을 위한 기본 정보 로깅
+    recipient_count = len(messages)
+    print(f"푸시 알림 전송 시작: {recipient_count}명 대상")
+    
+    # 실제 알림 전송 함수 호출
+    result = await new_send_push_notification(messages, json_data, firebase_initialized_globally)
+    
+    # 성능 측정 결과 로깅
+    end_time = time.time()
+    duration = end_time - start_time
+    print(f"푸시 알림 전송 완료: {duration:.2f}초 소요 (결과: {'성공' if result else '실패'})")
+    
+    return result
 
 # 시작 시 한 번만 실행할 FCM 토큰 정리 함수
 async def one_time_fcm_token_cleanup():
@@ -1179,6 +1075,6 @@ if __name__ == "__main__":
     # App initialization
     with app.app_context():
         app.userStateData = init_background_tasks()
+        app.notification_cache = init_notification_system()  # 알림 캐시 초기화
     
-
     app.run(host="0.0.0.0", port=5000, debug=False)
