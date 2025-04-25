@@ -60,8 +60,8 @@ class DiscordWebhookSender:
                     if response.status == 404:
                         await self._handle_404_error(url)
                     
-                    if attempt == self.MAX_RETRIES - 1:
-                        await self._handle_persistent_failure(url, e)
+                    # if attempt == self.MAX_RETRIES - 1:
+                    #     await self._handle_persistent_failure(url, e)
                     
                     # Exponential backoff
                     await asyncio.sleep(self.BASE_DELAY * (2 ** attempt))
