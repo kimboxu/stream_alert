@@ -1,3 +1,4 @@
+
 from os import environ
 from flask import Flask, request, jsonify, render_template, g
 from base import make_list_to_dict
@@ -6,16 +7,21 @@ import asyncio
 from json import loads, dumps
 from supabase import create_client
 from dotenv import load_dotenv
-import firebase_admin
-from firebase_admin import credentials, messaging
 from datetime import datetime, timezone
 import pandas as pd
+from firebase_admin import credentials, messaging
+from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
 
 import time
 from notification_service import (
-    new_send_push_notification, 
     init_notification_system, 
-    initialize_firebase
+    initialize_firebase,
+    cached_send_push_notification,
+    notification_cache,
+    cleanup_all_invalid_tokens,
+    clear_notification_cache ,
+    get_supabase_client 
 )
 
 # Load environment variables from .env file
@@ -24,66 +30,6 @@ load_dotenv()
 app = Flask(__name__)
 app.notification_cache = None
 CORS(app)  # 크로스 오리진 요청 허용
-
-def initialize_firebase(firebase_initialized_globally):
-    """Firebase 초기화 함수"""
-    
-    # 이미 전역 변수에서 초기화 완료 확인됨
-    if firebase_initialized_globally:
-        return True
-        
-    try:
-        # 이미 초기화되었는지 확인
-        firebase_admin.get_app()
-        print("Firebase 앱이 이미 초기화되어 있습니다.")
-        firebase_initialized_globally = True
-        return True
-    except ValueError:
-        # 초기화되지 않은 경우에만 초기화 진행
-        try:
-            # 환경 변수에서 Firebase 인증 정보 가져오기
-            cred_dict = {
-                "type": environ.get("FIREBASE_TYPE"),
-                "project_id": environ.get("FIREBASE_PROJECT_ID"),
-                "private_key_id": environ.get("FIREBASE_PRIVATE_KEY_ID"),
-                "private_key": environ.get("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
-                "client_email": environ.get("FIREBASE_CLIENT_EMAIL"),
-                "client_id": environ.get("FIREBASE_CLIENT_ID"),
-                "auth_uri": environ.get("FIREBASE_AUTH_URI"),
-                "token_uri": environ.get("FIREBASE_TOKEN_URI"),
-                "auth_provider_x509_cert_url": environ.get(
-                    "FIREBASE_AUTH_PROVIDER_X509_CERT_URL"
-                ),
-                "client_x509_cert_url": environ.get("FIREBASE_CLIENT_X509_CERT_URL"),
-                "universe_domain": environ.get("FIREBASE_UNIVERSE_DOMAIN"),
-            }
-
-            # 인증 정보 생성
-            cred = credentials.Certificate(cred_dict)
-
-            # 프로젝트 ID 가져오기
-            project_id = cred.project_id or environ.get("FIREBASE_PROJECT_ID")
-
-            if not project_id:
-                print("Firebase 프로젝트 ID를 찾을 수 없습니다.")
-                return False
-
-            # Firebase 앱 초기화 (한 번만 호출)
-            firebase_admin.initialize_app(
-                cred,
-                {
-                    "projectId": project_id,
-                },
-            )
-
-            print(f"Firebase 앱이 프로젝트 ID '{project_id}'로 성공적으로 초기화되었습니다.")
-            firebase_initialized_globally = True
-            return True
-        except Exception as e:
-            print(f"Firebase 초기화 중 오류 발생: {e}")
-            import traceback
-            traceback.print_exc()  # 자세한 오류 출력
-            return False
 
 def init_background_tasks():
     loop = asyncio.new_event_loop()
@@ -354,6 +300,9 @@ def save_user_settings():
     result = supabase.table("userStateData").upsert(update_data).execute()
     update_result = supabase.table("date_update").upsert({"idx": 0, "user_date": True}).execute()
 
+    # 캐시 무효화
+    notification_cache.invalidate(discordWebhooksURL)
+
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
 
 @app.route("/update_username", methods=["POST"])
@@ -479,7 +428,7 @@ def register_fcm_token():
 
     try:
         # Supabase에 FCM 토큰 저장
-        supabase = create_client(environ["supabase_url"], environ["supabase_key"])
+        supabase = get_supabase_client()
 
         # 기존 사용자 확인
         result = (
@@ -498,26 +447,36 @@ def register_fcm_token():
         # 사용자 데이터 가져오기
         user_data = result.data[0]
 
-        # 기존 토큰 목록 가져오기
-        existing_tokens = user_data.get("fcm_tokens", "")
-        if existing_tokens:
-            tokens_list = existing_tokens.split(",")
-            # 중복 방지
-            if fcm_token not in tokens_list:
-                tokens_list.append(fcm_token)
-            tokens_str = ",".join(tokens_list)
-        else:
-            tokens_str = fcm_token
+        # 기존 토큰 목록 가져오기 (JSON 배열로 저장)
+        existing_tokens = user_data.get("fcm_tokens", [])
+        
+        # 데이터베이스에서 JSON 배열로 저장되지 않은 경우 변환
+        if not isinstance(existing_tokens, list):
+            try:
+                if isinstance(existing_tokens, str) and existing_tokens:
+                    # 문자열로 저장된 경우 파싱 시도
+                    existing_tokens = [t.strip() for t in existing_tokens.split(",") if t.strip()]
+                else:
+                    existing_tokens = []
+            except Exception:
+                existing_tokens = []
+        
+        # 중복 방지
+        if fcm_token not in existing_tokens:
+            existing_tokens.append(fcm_token)
 
-        # 토큰 목록 업데이트
+        # 업데이트
         update_data = {
-            "fcm_tokens": tokens_str,
+            "fcm_tokens": existing_tokens,  # JSON 배열로 저장
             "last_token_update": datetime.now().isoformat(),
         }
 
         supabase.table("userStateData").update(update_data).eq(
             "discordURL", discord_webhook_url
         ).execute()
+        
+        # 캐시 무효화
+        notification_cache.invalidate(discord_webhook_url)
 
         return jsonify({"status": "success", "message": "FCM 토큰이 등록되었습니다"})
 
@@ -528,7 +487,7 @@ def register_fcm_token():
                 {"status": "error", "message": f"토큰 등록 중 오류 발생: {str(e)}"}
             ),
             500,
-        )   
+        )
 # 유효하지 않은 토큰 제거 함수
 async def cleanup_invalid_fcm_tokens(user_data: dict) -> tuple[bool, int]:
     """
@@ -541,13 +500,24 @@ async def cleanup_invalid_fcm_tokens(user_data: dict) -> tuple[bool, int]:
         tuple[bool, int]: (변경 여부, 제거된 토큰 수)
     """
     try:
-        # 기존 토큰 목록 가져오기
-        existing_tokens = user_data.get("fcm_tokens", "")
-        if not existing_tokens:
+        # JSON 배열로 저장된 FCM 토큰 가져오기
+        fcm_tokens = user_data.get("fcm_tokens", [])
+        
+        # 데이터베이스에서 JSON 배열로 저장되지 않은 경우 변환
+        if not isinstance(fcm_tokens, list):
+            try:
+                if isinstance(fcm_tokens, str) and fcm_tokens:
+                    # 문자열로 저장된 경우 파싱 시도
+                    fcm_tokens = [t.strip() for t in fcm_tokens.split(",") if t.strip()]
+                else:
+                    fcm_tokens = []
+            except Exception:
+                fcm_tokens = []
+                
+        if not fcm_tokens:
             return False, 0  # 토큰이 없으면 처리할 것이 없음
             
-        tokens_list = existing_tokens.split(",")
-        original_count = len(tokens_list)
+        original_count = len(fcm_tokens)
         
         if original_count == 0:
             return False, 0
@@ -557,13 +527,13 @@ async def cleanup_invalid_fcm_tokens(user_data: dict) -> tuple[bool, int]:
         
         # Firebase Admin SDK는 bulk validation API를 제공하지 않으므로
         # 개별적으로 각 토큰 검증
-        for token in tokens_list:
+        for token in fcm_tokens:
             if not token.strip():  # 빈 토큰 제거
                 invalid_tokens.append(token)
                 continue
                 
             try:
-                # 테스트 메시지 생성 (실제로 보내지 않음)
+                # 테스트 메시지 생성
                 message = messaging.Message(
                     data={'validate': 'true'},
                     token=token
@@ -579,15 +549,14 @@ async def cleanup_invalid_fcm_tokens(user_data: dict) -> tuple[bool, int]:
                     invalid_tokens.append(token)
         
         # 유효하지 않은 토큰 제거
-        valid_tokens = [token for token in tokens_list if token not in invalid_tokens and token.strip()]
+        valid_tokens = [token for token in fcm_tokens if token not in invalid_tokens and token.strip()]
         
         # 변경 사항이 있는지 확인
         if len(valid_tokens) == original_count:
             return False, 0  # 변경 없음
             
-        # 토큰 목록 업데이트
-        updated_tokens_str = ",".join(valid_tokens)
-        user_data["fcm_tokens"] = updated_tokens_str
+        # 토큰 목록 업데이트 - JSON 배열로 저장
+        user_data["fcm_tokens"] = valid_tokens
         
         # 변경 사항 반환
         return True, len(invalid_tokens)
@@ -595,7 +564,6 @@ async def cleanup_invalid_fcm_tokens(user_data: dict) -> tuple[bool, int]:
     except Exception as e:
         print(f"토큰 정리 중 오류 발생: {e}")
         return False, 0
-
 # 알림 가져오기 엔드포인트
 @app.route("/get_notifications", methods=["GET"])
 def get_notifications():
@@ -862,15 +830,6 @@ def remove_fcm_token():
             500,
         )
 
-def get_supabase_client():
-    """애플리케이션 컨텍스트에서 Supabase 클라이언트를 가져오거나 생성합니다."""
-    if not hasattr(g, "supabase_client"):
-        g.supabase_client = create_client(
-            environ["supabase_url"], environ["supabase_key"]
-        )
-    return g.supabase_client
-
-# 기존 send_push_notification 함수를 이 함수로 대체
 async def send_push_notification(messages, json_data, firebase_initialized_globally=True):
     """
     푸시 알림을 전송하는 개선된 함수
@@ -886,8 +845,8 @@ async def send_push_notification(messages, json_data, firebase_initialized_globa
     recipient_count = len(messages)
     print(f"푸시 알림 전송 시작: {recipient_count}명 대상")
     
-    # 실제 알림 전송 함수 호출
-    result = await new_send_push_notification(messages, json_data, firebase_initialized_globally)
+    # 캐시를 활용한 알림 전송 함수 호출
+    result = await cached_send_push_notification(messages, json_data, firebase_initialized_globally)
     
     # 성능 측정 결과 로깅
     end_time = time.time()
@@ -895,6 +854,31 @@ async def send_push_notification(messages, json_data, firebase_initialized_globa
     print(f"푸시 알림 전송 완료: {duration:.2f}초 소요 (결과: {'성공' if result else '실패'})")
     
     return result
+
+# 예약 작업 설정 함수 추가
+def setup_scheduled_tasks():
+    """주기적인 백그라운드 작업 설정"""
+    scheduler = BackgroundScheduler()
+    
+    # 알림 캐시를 15분마다 비워 최신 데이터 유지
+    scheduler.add_job(
+        func=clear_notification_cache,
+        trigger="interval",
+        minutes=15
+    )
+    
+    # 유효하지 않은 FCM 토큰을 매일 정리 (트래픽이 적은 시간에)
+    scheduler.add_job(
+        func=lambda: asyncio.run(cleanup_all_invalid_tokens()),
+        trigger="cron",
+        hour=3,  # 새벽 3시
+        minute=0
+    )
+    
+    scheduler.start()
+    
+    # 앱 종료 시 스케줄러 종료
+    atexit.register(lambda: scheduler.shutdown())
 
 # 시작 시 한 번만 실행할 FCM 토큰 정리 함수
 async def one_time_fcm_token_cleanup():
@@ -905,7 +889,7 @@ async def one_time_fcm_token_cleanup():
         print(f"{datetime.now()} FCM 토큰 일회성 정리 시작")
         
         # Supabase 클라이언트 생성
-        supabase = create_client(environ["supabase_url"], environ["supabase_key"])
+        supabase = get_supabase_client()
         
         # 모든 사용자 데이터 가져오기
         result = supabase.table("userStateData").select("*").execute()
@@ -926,9 +910,9 @@ async def one_time_fcm_token_cleanup():
             changed, removed_count = await cleanup_invalid_fcm_tokens(user_data)
             
             if changed:
-                # Supabase 업데이트
+                # Supabase 업데이트 - JSON 배열로 저장
                 update_data = {
-                    "fcm_tokens": user_data["fcm_tokens"],
+                    "fcm_tokens": user_data["fcm_tokens"],  # 이미 JSON 배열 형식
                     "last_token_update": datetime.now().isoformat(),
                 }
                 
@@ -943,6 +927,8 @@ async def one_time_fcm_token_cleanup():
         
     except Exception as e:
         print(f"토큰 정리 중 오류 발생: {e}")
+        import traceback
+        traceback.print_exc()
 
 @app.route("/remove_specific_token", methods=["POST"])
 def remove_specific_token():
@@ -1063,6 +1049,10 @@ if __name__ == "__main__":
         # FCM 토큰 정리 작업 실행 (한 번만)
         asyncio.run(one_time_fcm_token_cleanup())
         print("FCM 토큰 정리 작업이 완료되었습니다.")
+
+    # 예약 작업 설정 (추가됨)
+    setup_scheduled_tasks()
+
     # App initialization
     with app.app_context():
         app.userStateData = init_background_tasks()
