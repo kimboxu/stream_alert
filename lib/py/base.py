@@ -347,7 +347,7 @@ def cafe_params(cafeNum, page_num):
 def changeUTCtime(time_str):
     time = datetime.fromisoformat(time_str)
     time -= timedelta(hours=9)
-    return time.isoformat()
+    return time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 def changeGMTtime(time_str):
     time = datetime.fromisoformat(time_str)

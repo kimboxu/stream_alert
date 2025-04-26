@@ -319,8 +319,6 @@ async def cached_send_push_notification(messages, json_data, firebase_initialize
         # embeds 추가 (있는 경우)
         if "embeds" in json_data and json_data["embeds"]:
             data_fields["embeds"] = json_data["embeds"]
-            if json_data["embeds"][0].get("timestamp"):
-                data_fields["embeds"][0]["timestamp"] = changeGMTtime(json_data["embeds"][0]["timestamp"])
         
         # Supabase 클라이언트 가져오기
         supabase = get_supabase_client()
