@@ -488,7 +488,7 @@ class chzzk_chat_message:
         elif isinstance(profile_data, str):
             profile_data = unquote(profile_data)
             profile_data = loads(profile_data)
-        if not profile_data and nickname not in  ["익명의 후원자", "알 수 없음"]: 
+        if not profile_data and nickname not in  ["익명의 후원자", "(알 수 없음)"]: 
             asyncio.create_task(DiscordWebhookSender._log_error(f"test get_profile_data"))
             print(f"test get_profile_data.{self.data.channel_name}.{chat_data}")
         return profile_data
