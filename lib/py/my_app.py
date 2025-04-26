@@ -66,7 +66,6 @@ def initialize_app():
 def index():
     return jsonify({"message": "서버가 정상적으로 실행 중입니다."})
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -123,7 +122,6 @@ def login():
             ),
             401,
         )
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -184,7 +182,6 @@ def register():
             401,
         )
 
-
 @app.route("/get_user_settings", methods=["GET"])
 def get_user_settings():
     discordWebhooksURL = request.args.get("discordWebhooksURL")
@@ -237,7 +234,6 @@ def get_user_settings():
     settings["chat_user_json"] = str(settings["chat_user_json"])
 
     return jsonify({"status": "success", "settings": settings})
-
 
 @app.route("/save_user_settings", methods=["POST"])
 def save_user_settings():

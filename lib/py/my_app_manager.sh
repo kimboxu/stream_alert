@@ -13,7 +13,7 @@ check_app() {
 # Function to start the app using gunicorn
 start_app() {
     echo "Starting my_app using gunicorn..."
-    nohup gunicorn -w 4 -b 0.0.0.0:5000 $APP_MODULE >> $LOG_FILE 2>&1 &
+    nohup gunicorn -w 2 -b 0.0.0.0:5000 $APP_MODULE >> $LOG_FILE 2>&1 &
     echo "my_app started with PID: $!"
 }
 
