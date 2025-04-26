@@ -79,11 +79,11 @@ tasks.withType<KotlinCompile> {
 }
 
 // 📌 빌드 경고 무시 설정
-tasks.withType<JavaCompile>().configureEach {
+tasks.withType<JavaCompile> {
     options.compilerArgs.addAll(
         listOf(
             "-Xlint:-options",
-            "-Xlint:-deprecation",
+            "-Xlint:-deprecation", 
             "-Xlint:-unchecked"
         )
     )
