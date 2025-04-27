@@ -75,6 +75,8 @@ class _NotificationsPageState extends State<NotificationsPage>
   }
 
   void _onNewNotification(NotificationModel notification) {
+    if (!mounted) return;
+    
     setState(() {
       // 중복 검사
       final existingIndex = _notifications.indexWhere(
