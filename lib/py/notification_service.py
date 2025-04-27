@@ -198,7 +198,7 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
             last_db_save = init.userStateData.loc[webhook_url].get('last_db_save_time')
             save_to_db = False
             
-            # 마지막 저장 시간이 없거나 일정 시간(예: 5분)이 지났으면 DB에 저장
+            # 마지막 저장 시간이 없거나 일정 시간(예: 15초)이 지났으면 DB에 저장
             
             if last_db_save is None or if_after_time(init.userStateData.loc[webhook_url, 'last_db_save_time'], 15):
                 save_to_db = True
@@ -216,11 +216,11 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
                                   'last_db_save_time': init.userStateData.loc[webhook_url, 'last_db_save_time']})
                               .execute()
                     )
-                    print(f"알림을 DB에 저장함 - URL: {webhook_url[:20]}...")
+                    print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url[:20]}...")
                 except Exception as e:
-                    print(f"알림 저장 중 오류: {e} - URL: {webhook_url[:20]}...")
+                    print(f"{datetime.now()} 알림 저장 중 오류: {e} - URL: {webhook_url[:20]}...")
             else:
-                # print(f"알림을 로컬에만 저장 (DB 저장 건너뜀) - URL: {webhook_url[:20]}...")
+                # print(f"{datetime.now()} 알림을 로컬에만 저장 (DB 저장 건너뜀) - URL: {webhook_url[:20]}...")
                 pass
 
 # init에서 사용자 정보 추출 (개선된 버전)
