@@ -7,211 +7,14 @@ from typing import List, Dict, Any
 from firebase_admin import messaging, credentials, get_app, initialize_app
 from concurrent.futures import ThreadPoolExecutor
 from json import loads, dumps
-from flask import current_app, g
 from supabase import create_client
+from base import changeGMTtime, initVar, if_after_time
+from shared_state import StateManager
 
 # 전역 설정 및 상수
 FCM_BATCH_SIZE = 10  # 배치당 처리할 FCM 토큰 수
 FCM_BATCH_TIMEOUT = 10  # 배치 처리 타임아웃(초)
 NOTIFICATION_SAVE_TIMEOUT = 10  # 알림 저장 타임아웃(초)
-CACHE_TTL = 300  # 캐시 유효 시간(초)
-
-# 캐시 클래스
-class NotificationCache:
-    """
-    사용자 데이터와 알림을 캐싱하여 데이터베이스 조회를 최소화합니다.
-    """
-    def __init__(self, cache_ttl=CACHE_TTL):
-        self.user_cache = {}  # 웹훅 URL -> 사용자 데이터
-        self.cache_ttl = cache_ttl
-        self.last_update = {}  # 웹훅 URL -> 마지막 업데이트 시간
-    
-    def get_user_data(self, webhook_url):
-        """캐시된 사용자 데이터를 반환합니다."""
-        now = datetime.now().timestamp()
-        if webhook_url in self.user_cache and now - self.last_update.get(webhook_url, 0) < self.cache_ttl:
-            return self.user_cache[webhook_url]
-        return None
-    
-    def set_user_data(self, webhook_url, user_data):
-        """사용자 데이터를 캐시에 저장합니다."""
-        self.user_cache[webhook_url] = user_data
-        self.last_update[webhook_url] = datetime.now().timestamp()
-    
-    def invalidate(self, webhook_url=None):
-        """
-        특정 URL 또는 모든 캐시를 무효화합니다.
-        """
-        if webhook_url:
-            if webhook_url in self.user_cache:
-                del self.user_cache[webhook_url]
-            if webhook_url in self.last_update:
-                del self.last_update[webhook_url]
-        else:
-            self.user_cache = {}
-            self.last_update = {}
-
-# 전역 캐시 인스턴스
-notification_cache = NotificationCache()
-
-# Supabase 클라이언트 가져오기
-def get_supabase_client():
-    """애플리케이션 컨텍스트에서 Supabase 클라이언트를 가져오거나 생성합니다."""
-    try:
-        # Flask 애플리케이션 컨텍스트가 있는 경우
-        from flask import g, current_app
-        if hasattr(current_app, "_get_current_object") and hasattr(g, "_get_flashed_messages"):
-            if not hasattr(g, 'supabase_client'):
-                g.supabase_client = create_client(environ.get('supabase_url'), environ.get('supabase_key'))
-            return g.supabase_client
-    except (RuntimeError, ImportError):
-        pass
-    
-    # Flask 애플리케이션 컨텍스트가 없거나 접근할 수 없는 경우, 
-    # 직접 클라이언트 생성
-    return create_client(environ.get('supabase_url'), environ.get('supabase_key'))
-
-# FCM 메시지 전송 함수
-def send_fcm_message(token, notification_data, data_fields):
-    """
-    개별 FCM 토큰에 메시지를 전송합니다.
-    """
-    try:
-        # FCM은 모든 데이터 필드가 문자열이어야 함
-        message_data = {k: str(v) if not isinstance(v, (list, dict)) else str(v) for k, v in data_fields.items()}
-        
-        # 메시지 객체 생성
-        message = messaging.Message(
-            notification=messaging.Notification(**notification_data),
-            data=message_data,
-            token=token,
-            android=messaging.AndroidConfig(
-                priority="high",
-                notification=messaging.AndroidNotification(
-                    channel_id="high_importance_channel",
-                    priority="high",
-                ),
-            ),
-        )
-
-        # 메시지 전송 및 결과 로깅
-        result = messaging.send(message, dry_run=False)
-        print(f"FCM 메시지 전송 성공: {token[:15]}... 결과: {result}")
-        return result
-    except messaging.UnregisteredError:
-        print(f"FCM 토큰 등록 취소됨 (앱 제거): {token[:15]}...")
-        return None
-    except messaging.InvalidArgumentError as e:
-        print(f"FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token[:15]}...): {e}")
-        return None
-    except Exception as e:
-        print(f"FCM 메시지 전송 실패 (토큰: {token[:15]}...): {e}")
-        return None
-
-# FCM 메시지 배치 전송 함수
-async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, batch_size=FCM_BATCH_SIZE):
-    """
-    여러 FCM 토큰에 동일한 메시지를 배치로 전송합니다.
-    
-    Args:
-        tokens: FCM 토큰 목록
-        notification_data: 알림 데이터
-        data_fields: 데이터 필드
-        batch_size: 한 번에 처리할 토큰 수
-    """
-    if not tokens:
-        return []
-    
-    all_results = []
-    
-    # 토큰을 배치 크기로 분할
-    batches = [tokens[i:i+batch_size] for i in range(0, len(tokens), batch_size)]
-    
-    for batch in batches:
-        batch_tasks = []
-        for token in batch:
-            task = asyncio.to_thread(send_fcm_message, token, notification_data, data_fields)
-            batch_tasks.append(task)
-            
-        # 배치 단위로 병렬 처리하되 타임아웃 설정
-        try:
-            batch_results = await asyncio.wait_for(
-                asyncio.gather(*batch_tasks, return_exceptions=True),
-                timeout=FCM_BATCH_TIMEOUT
-            )
-            all_results.extend(batch_results)
-        except asyncio.TimeoutError:
-            print(f"배치 FCM 메시지 전송 시간 초과 (배치 크기: {len(batch)})")
-            # 타임아웃된 배치에 대한 결과는 None으로 처리
-            all_results.extend([None] * len(batch))
-    
-    return all_results
-
-# 배치 알림 저장 함수
-async def batch_save_notifications(supabase, user_data_map, notification_id, data_fields):
-    """
-    여러 사용자의 알림을 일괄 처리합니다.
-    
-    Args:
-        supabase: Supabase 클라이언트
-        user_data_map: 웹훅 URL을 키로, 사용자 데이터를 값으로 하는 딕셔너리
-        notification_id: 알림 고유 ID
-        data_fields: 알림 데이터 필드
-    """
-    # 일괄 업데이트를 위한 작업 배열
-    updates = []
-    
-    for webhook_url, user_data in user_data_map.items():
-        # 기존 알림 목록 가져오기
-        notifications = user_data.get('notifications', [])
-        if not isinstance(notifications, list):
-            try:
-                notifications = loads(notifications)
-            except:
-                notifications = []
-        
-        # 알림 추가 (이미 있는 알림 체크)
-        notification_exists = False
-        for idx, notification in enumerate(notifications):
-            if notification.get('id') == notification_id:
-                # 중복 알림 업데이트
-                notifications[idx] = data_fields
-                notification_exists = True
-                break
-                
-        if not notification_exists:
-            # 새 알림 추가
-            notifications.append(data_fields)
-            
-        # 최대 알림 수 제한 (최신 10000개만 유지)
-        if len(notifications) > 10000:
-            notifications = notifications[-10000:]
-        
-        # 업데이트 작업 추가
-        updates.append({
-            'webhook_url': webhook_url,
-            'notifications': notifications
-        })
-    
-    # 일괄 업데이트 수행
-    for update in updates:
-        try:
-            # 비동기로 실행하되 에러 처리 추가
-            await asyncio.to_thread(
-                lambda: supabase.table('userStateData')
-                  .update({'notifications': update['notifications']})
-                  .eq('discordURL', update['webhook_url'])
-                  .execute()
-            )
-        except Exception as e:
-            print(f"알림 저장 중 오류: {e} - URL: {update['webhook_url'][:20]}...")
-            continue
-
-# GMT 시간 변경 함수 (기존 base.py의 함수)
-def changeGMTtime(time_str):
-    time = datetime.fromisoformat(time_str)
-    time += timedelta(hours=9)
-    return time.isoformat()
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -271,30 +74,207 @@ def initialize_firebase(firebase_initialized_globally=False):
             traceback.print_exc()
             return False
 
-# 캐시를 활용한 최적화된 푸시 알림 전송 함수
-async def cached_send_push_notification(messages, json_data, firebase_initialized_globally=False):
+# FCM 메시지 전송 함수
+def send_fcm_message(token, notification_data, data_fields):
     """
-    캐싱 기능을 사용하여 Supabase 쿼리를 최소화한 푸시 알림 전송 함수
+    개별 FCM 토큰에 메시지를 전송합니다.
+    """
+    try:
+        # FCM은 모든 데이터 필드가 문자열이어야 함
+        message_data = {k: str(v) if not isinstance(v, (list, dict)) else dumps(v) for k, v in data_fields.items()}
+        
+        # 메시지 객체 생성
+        message = messaging.Message(
+            notification=messaging.Notification(**notification_data),
+            data=message_data,
+            token=token,
+            android=messaging.AndroidConfig(
+                priority="high",
+                notification=messaging.AndroidNotification(
+                    channel_id="high_importance_channel",
+                    priority="high",
+                ),
+            ),
+        )
+
+        # 메시지 전송 및 결과 로깅
+        result = messaging.send(message, dry_run=False)
+        # print(f"FCM 메시지 전송 성공: {token[:15]}... 결과: {result}")
+        return result
+    except messaging.UnregisteredError:
+        print(f"FCM 토큰 등록 취소됨 (앱 제거): {token[:15]}...")
+        return None
+    except messaging.InvalidArgumentError as e:
+        print(f"FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token[:15]}...): {e}")
+        return None
+    except Exception as e:
+        print(f"FCM 메시지 전송 실패 (토큰: {token[:15]}...): {e}")
+        return None
+
+# FCM 메시지 배치 전송 함수
+async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, batch_size=FCM_BATCH_SIZE):
+    """
+    여러 FCM 토큰에 동일한 메시지를 배치로 전송합니다.
     
     Args:
-        messages: 웹훅 URL 목록
+        tokens: FCM 토큰 목록
+        notification_data: 알림 데이터
+        data_fields: 데이터 필드
+        batch_size: 한 번에 처리할 토큰 수
+    """
+    if not tokens:
+        return []
+    
+    all_results = []
+    
+    # 토큰을 배치 크기로 분할
+    batches = [tokens[i:i+batch_size] for i in range(0, len(tokens), batch_size)]
+    
+    for batch in batches:
+        batch_tasks = []
+        for token in batch:
+            task = asyncio.to_thread(send_fcm_message, token, notification_data, data_fields)
+            batch_tasks.append(task)
+            
+        # 배치 단위로 병렬 처리하되 타임아웃 설정
+        try:
+            batch_results = await asyncio.wait_for(
+                asyncio.gather(*batch_tasks, return_exceptions=True),
+                timeout=FCM_BATCH_TIMEOUT
+            )
+            all_results.extend(batch_results)
+        except asyncio.TimeoutError:
+            print(f"배치 FCM 메시지 전송 시간 초과 (배치 크기: {len(batch)})")
+            # 타임아웃된 배치에 대한 결과는 None으로 처리
+            all_results.extend([None] * len(batch))
+    
+    return all_results
+
+# 배치 알림 저장 함수
+async def batch_save_notifications(init: initVar, user_data_map, notification_id, data_fields):
+    """
+    여러 사용자의 알림을 일괄 처리하고 init 변수에만 먼저 업데이트하고,
+    DB 저장은 조건부로 실행합니다.
+    
+    Args:
+        init: initVar 객체
+        user_data_map: 웹훅 URL을 키로, 사용자 데이터를 값으로 하는 딕셔너리
+        notification_id: 알림 고유 ID
+        data_fields: 알림 데이터 필드
+    """
+    
+    for webhook_url, user_data in user_data_map.items():
+        # 기존 알림 목록 가져오기
+        notifications = user_data.get('notifications', [])
+        if not isinstance(notifications, list):
+            try:
+                notifications = loads(notifications)
+            except:
+                notifications = []
+        
+        # 알림 추가 (이미 있는 알림 체크)
+        notification_exists = False
+        for idx, notification in enumerate(notifications):
+            if notification.get('id') == notification_id:
+                # 중복 알림 업데이트
+                notifications[idx] = data_fields
+                notification_exists = True
+                break
+                
+        if not notification_exists:
+            # 새 알림 추가
+            notifications.append(data_fields)
+            
+        # 최대 알림 수 제한 (최신 10000개만 유지)
+        if len(notifications) > 10000:
+            notifications = notifications[-10000:]
+        
+        # 메모리의 init.userStateData 업데이트 (웹훅 URL이 인덱스에 있는 경우)
+        if webhook_url in init.userStateData.index:
+            # 로컬 데이터는 항상 업데이트
+            init.userStateData.loc[webhook_url, 'notifications'] = notifications
+            
+            # DB 저장 결정을 위한 마지막 저장 시간 확인
+            last_db_save = init.userStateData.loc[webhook_url].get('last_db_save_time')
+            save_to_db = False
+            
+            # 마지막 저장 시간이 없거나 일정 시간(예: 5분)이 지났으면 DB에 저장
+            
+            if last_db_save is None or (isinstance(last_db_save, datetime) and 
+                                        if_after_time(init.userStateData.loc[webhook_url, 'last_db_save_time'], 15)):
+                save_to_db = True
+                init.userStateData.loc[webhook_url, 'last_db_save_time'] = datetime.now().isoformat()
+            
+            # DB에 저장이 필요한 경우만 저장 실행
+            if save_to_db:
+                try:
+                    # 비동기로 실행하되 에러 처리 추가
+                    await asyncio.to_thread(
+                        lambda: init.supabase.table('userStateData')
+                              .upsert({
+                                  'discordURL': webhook_url, 
+                                  'notifications': init.userStateData.loc[webhook_url, 'notifications'],
+                                  'last_db_save_time': init.userStateData.loc[webhook_url, 'last_db_save_time']})
+                              .execute()
+                    )
+                    print(f"알림을 DB에 저장함 - URL: {webhook_url[:20]}...")
+                except Exception as e:
+                    print(f"알림 저장 중 오류: {e} - URL: {webhook_url[:20]}...")
+            else:
+                # print(f"알림을 로컬에만 저장 (DB 저장 건너뜀) - URL: {webhook_url[:20]}...")
+                pass
+
+# init에서 사용자 정보 추출 (개선된 버전)
+def get_user_data_from_init(init: initVar, webhook_url):
+    """
+    init 변수에서 주어진 webhook_url에 해당하는 사용자 데이터를 반환합니다.
+    
+    Args:
+        init: initVar 객체
+        webhook_url: 사용자의 디스코드 웹훅 URL
+        
+    Returns:
+        dict: 사용자 데이터 객체
+    """
+    try:
+        if webhook_url in init.userStateData.index:
+            # 인덱스 기반으로 사용자 데이터 가져오기
+            user_data = init.userStateData.loc[webhook_url].to_dict()
+            return user_data
+        return None
+    except Exception as e:
+        print(f"init에서 사용자 데이터 추출 오류: {e}")
+        return None
+
+# 푸시 알림 전송 함수 (init 기반으로 개선)
+async def send_push_notification(webhook_urls, json_data, firebase_initialized_globally=True):
+    """
+    푸시 알림을 전송하는 함수 (init 객체 활용)
+    
+    Args:
+        init: initVar 객체 
+        webhook_urls: 웹훅 URL 목록
         json_data: 알림 데이터
         firebase_initialized_globally: Firebase 초기화 상태
     
     Returns:
         bool: 성공 여부
     """
+    # init 객체 가져오기
+    state_manager = StateManager.get_instance()
+    init = state_manager.get_init()
+
+    # 성능 측정 시작
+    start_time = datetime.now()
+    recipient_count = len(webhook_urls)
+    # print(f"푸시 알림 전송 시작: {recipient_count}명 대상")
+    
     # Firebase 초기화 확인
     if not initialize_firebase(firebase_initialized_globally):
         print("Firebase 초기화 실패")
         return False
         
     try:
-        # 성능 측정 시작
-        start_time = datetime.now()
-        total_users = len(messages)
-        cache_hits = 0
-        
         # 알림 ID와 시간 생성 (한 번만)
         notification_id = str(uuid4())
         notification_time = datetime.now(timezone.utc).isoformat()
@@ -320,49 +300,30 @@ async def cached_send_push_notification(messages, json_data, firebase_initialize
         if "embeds" in json_data and json_data["embeds"]:
             data_fields["embeds"] = json_data["embeds"]
         
-        # Supabase 클라이언트 가져오기
-        supabase = get_supabase_client()
+        # init에서 사용자 데이터 수집
+        all_users = {}
+        missing_users = []
         
-        # 각 웹훅 URL에 대해 캐시 확인
-        cached_users = {}
-        urls_to_fetch = []
-        
-        for webhook_url in messages:
-            cached_data = notification_cache.get_user_data(webhook_url)
-            if cached_data:
-                cached_users[webhook_url] = cached_data
-                cache_hits += 1
+        for webhook_url in webhook_urls:
+            user_data = get_user_data_from_init(init, webhook_url)
+            if user_data:
+                all_users[webhook_url] = user_data
             else:
-                urls_to_fetch.append(webhook_url)
+                missing_users.append(webhook_url)
         
-        # 캐시되지 않은 사용자만 Supabase에서 가져오기 (가능하면 일괄 처리)
-        fetched_users = {}
-        if urls_to_fetch:
+        # 누락된 사용자가 있으면 Supabase에서 직접 가져오기
+        if missing_users and missing_users:
             try:
                 # IN 연산자로 일괄 조회
-                result = supabase.table("userStateData").select("*").in_("discordURL", urls_to_fetch).execute()
+                result = init.supabase.table("userStateData").select("*").in_("discordURL", missing_users).execute()
                 
                 # 결과 처리
                 for user_data in result.data:
                     webhook_url = user_data.get("discordURL")
                     if webhook_url:
-                        fetched_users[webhook_url] = user_data
-                        # 캐시 업데이트
-                        notification_cache.set_user_data(webhook_url, user_data)
+                        all_users[webhook_url] = user_data
             except Exception as e:
-                print(f"일괄 사용자 데이터 조회 실패: {e}")
-                # 개별 조회로 대체
-                for url in urls_to_fetch:
-                    try:
-                        result = supabase.table("userStateData").select("*").eq("discordURL", url).execute()
-                        if result.data:
-                            fetched_users[url] = result.data[0]
-                            notification_cache.set_user_data(url, result.data[0])
-                    except Exception as e2:
-                        print(f"개별 사용자 조회 실패 ({url}): {e2}")
-        
-        # 캐시된 사용자와 새로 가져온 사용자 결합
-        all_users = {**cached_users, **fetched_users}
+                print(f"누락된 사용자 데이터 조회 실패: {e}")
         
         # 알림 처리 (배치로)
         notification_tasks = []
@@ -374,14 +335,15 @@ async def cached_send_push_notification(messages, json_data, firebase_initialize
         for batch in user_batches:
             batch_dict = {url: data for url, data in batch}
             task = asyncio.create_task(
-                batch_save_notifications(supabase, batch_dict, notification_id, data_fields)
+                batch_save_notifications(init, batch_dict, notification_id, data_fields)
             )
             notification_tasks.append(task)
         
         # FCM 토큰 처리 및 메시지 전송
         for webhook_url, user_data in all_users.items():
-            # JSON 배열로 저장된 FCM 토큰 가져오기
+            # FCM 토큰 가져오기
             fcm_tokens = user_data.get("fcm_tokens", [])
+            
             # 리스트가 아닌 경우(이전 문자열 형식) 처리
             if not isinstance(fcm_tokens, list):
                 try:
@@ -429,8 +391,7 @@ async def cached_send_push_notification(messages, json_data, firebase_initialize
                              for user_data in all_users.values() 
                              if isinstance(user_data.get("fcm_tokens"), list))
         
-        print(f"푸시 알림 전송 완료: {len(all_users)}/{total_users}명 사용자, {fcm_token_count}개 토큰, "
-              f"{cache_hits}개 캐시 적중, {duration:.2f}초 소요")
+        # print(f"푸시 알림 전송 완료: {len(all_users)}/{recipient_count}명 사용자, {fcm_token_count}개 토큰, {duration:.2f}초 소요")
         
         return True
         
@@ -441,7 +402,7 @@ async def cached_send_push_notification(messages, json_data, firebase_initialize
         return False
 
 # FCM 토큰 유효성 검사 함수
-async def cleanup_invalid_fcm_token(token):
+async def validate_fcm_token(token):
     """
     FCM 토큰이 유효한지 확인
     
@@ -504,7 +465,7 @@ async def cleanup_user_tokens(user_data):
     original_count = len(fcm_tokens)
     
     # 각 토큰 검사
-    validation_tasks = [cleanup_invalid_fcm_token(token) for token in fcm_tokens]
+    validation_tasks = [validate_fcm_token(token) for token in fcm_tokens]
     validation_results = await asyncio.gather(*validation_tasks)
     
     # 유효한 토큰만 필터링
@@ -517,103 +478,111 @@ async def cleanup_user_tokens(user_data):
     # 업데이트된 토큰 목록 반환
     return True, valid_tokens
 
-# 모든 사용자의 유효하지 않은 FCM 토큰 정리 함수 (스케줄러에서 호출)
+# 모든 사용자의 유효하지 않은 FCM 토큰 정리 함수
 async def cleanup_all_invalid_tokens():
     """
-    모든 사용자의 유효하지 않은 FCM 토큰을 정리하는 예약 작업
+    모든 사용자의 유효하지 않은 FCM 토큰을 정리하는 함수
     """
+    
+    
     print(f"{datetime.now()} FCM 토큰 정리 시작")
     start_time = datetime.now()
     
     try:
-        # Supabase 클라이언트 가져오기
-        from flask import current_app
-        with current_app.app_context():
-            supabase = get_supabase_client()
+        # init 객체 가져오기
+        state_manager = StateManager.get_instance()
+        init = state_manager.get_init()
+        
+        if not init or init.userStateData.empty:
+            print("init 객체가 초기화되지 않았거나 사용자 데이터가 없습니다")
             
-            # FCM 토큰이 있는 모든 사용자 가져오기
-            result = supabase.table("userStateData").select("*").not_.is_("fcm_tokens", "null").execute()
+            # Supabase에서 직접 데이터 가져오기
+            supabase = create_client(environ.get('supabase_url'), environ.get('supabase_key'))
+            result = supabase.table("userStateData").select("*").execute()
             
             if not result.data:
                 print("FCM 토큰이 있는 사용자가 없습니다")
                 return
                 
-            # 사용자를 배치로 처리
-            batch_size = 10
-            user_batches = [result.data[i:i+batch_size] for i in range(0, len(result.data), batch_size)]
-            
-            total_users = len(result.data)
-            updated_users = 0
-            removed_tokens = 0
-            
-            for batch in user_batches:
-                for user_data in batch:
-                    if not user_data.get("fcm_tokens"):
-                        continue
-                    
-                    # JSON 배열로 저장된 FCM 토큰 가져오기
-                    fcm_tokens = user_data.get("fcm_tokens", [])
-                    
-                    # 현재 토큰 수 계산
-                    if isinstance(fcm_tokens, list):
-                        current_count = len(fcm_tokens)
-                    elif isinstance(fcm_tokens, str):
-                        current_count = len([t for t in fcm_tokens.split(",") if t.strip()])
-                    else:
-                        current_count = 0
-                    
-                    # 토큰 정리
-                    changed, new_tokens = await cleanup_user_tokens(user_data)
-                    
-                    if changed:
-                        # 새 토큰 수
-                        new_count = len(new_tokens)
-                        tokens_removed = current_count - new_count
-                        
-                        # 데이터베이스 업데이트
-                        update_data = {
-                            "fcm_tokens": new_tokens,  # JSON 배열로 저장
-                            "last_token_update": datetime.now().isoformat()
-                        }
-                        
-                        supabase.table("userStateData").update(update_data).eq(
-                            "discordURL", user_data.get("discordURL")
-                        ).execute()
-                        
-                        # 통계 업데이트
-                        updated_users += 1
-                        removed_tokens += tokens_removed
-                        
-                        # 이 사용자의 캐시 무효화
-                        notification_cache.invalidate(user_data.get("discordURL"))
+            # 직접 처리
+            for user_data in result.data:
+                # FCM 토큰 가져오기
+                fcm_tokens = user_data.get("fcm_tokens", [])
                 
-            # 요약 로깅
-            end_time = datetime.now()
-            duration = (end_time - start_time).total_seconds()
-            print(f"{datetime.now()} FCM 토큰 정리 완료: {total_users}명 확인, "
-                  f"{updated_users}명 업데이트, {removed_tokens}개 토큰 제거, "
-                  f"{duration:.2f}초 소요")
+                if not fcm_tokens:
+                    continue
+                
+                # 토큰 정리
+                changed, new_tokens = await cleanup_user_tokens(user_data)
+                
+                if changed:
+                    # 데이터베이스 업데이트
+                    webhook_url = user_data.get("discordURL")
+                    update_data = {
+                        "fcm_tokens": new_tokens,
+                        "last_token_update": datetime.now().isoformat()
+                    }
+                    
+                    supabase.table("userStateData").update(update_data).eq(
+                        "discordURL", webhook_url
+                    ).execute()
+            
+            return
+                
+        # 사용자를 배치로 처리
+        total_users = len(init.userStateData)
+        updated_users = 0
+        removed_tokens = 0
+        
+        # 데이터프레임의 각 행을 사전으로 변환하여 처리
+        for webhook_url, user_row in init.userStateData.iterrows():
+            # 사전으로 변환
+            user_data = user_row.to_dict()
+            
+            if not user_data.get("fcm_tokens"):
+                continue
+            
+            # FCM 토큰 가져오기
+            fcm_tokens = user_data.get("fcm_tokens", [])
+            
+            # 현재 토큰 수 계산
+            if isinstance(fcm_tokens, list):
+                current_count = len(fcm_tokens)
+            elif isinstance(fcm_tokens, str):
+                current_count = len([t for t in fcm_tokens.split(",") if t.strip()])
+            else:
+                current_count = 0
+            
+            # 토큰 정리
+            changed, new_tokens = await cleanup_user_tokens(user_data)
+            
+            if changed:
+                # 새 토큰 수
+                new_count = len(new_tokens)
+                tokens_removed = current_count - new_count
+                
+                # 데이터베이스 업데이트
+                update_data = {
+                    "fcm_tokens": new_tokens,  # JSON 배열로 저장
+                    "last_token_update": datetime.now().isoformat()
+                }
+                
+                init.supabase.table("userStateData").update(update_data).eq(
+                    "discordURL", webhook_url
+                ).execute()
+                
+                # 통계 업데이트
+                updated_users += 1
+                removed_tokens += tokens_removed
+                
+        # 요약 로깅
+        end_time = datetime.now()
+        duration = (end_time - start_time).total_seconds()
+        print(f"{datetime.now()} FCM 토큰 정리 완료: {total_users}명 확인, "
+              f"{updated_users}명 업데이트, {removed_tokens}개 토큰 제거, "
+              f"{duration:.2f}초 소요")
             
     except Exception as e:
         print(f"FCM 토큰 정리 오류: {e}")
         import traceback
         traceback.print_exc()
-
-# 캐시 초기화 함수
-def clear_notification_cache():
-    """주기적으로 호출하여 캐시를 비웁니다"""
-    global notification_cache
-    notification_cache.invalidate()
-    print(f"{datetime.now()} 알림 캐시가 초기화되었습니다")
-
-# 알림 시스템 초기화 함수
-def init_notification_system():
-    """
-    알림 시스템 초기화 함수
-    - 캐시 초기화
-    """
-    global notification_cache
-    notification_cache = NotificationCache()
-    
-    print("알림 시스템이 초기화되었습니다.")
-    return notification_cache

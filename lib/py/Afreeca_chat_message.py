@@ -277,7 +277,7 @@ class afreeca_chat_message:
                 list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, nickname, self.data.channel_id, "chat_user_json")
 
                 asyncio.create_task(send_push_notification(list_of_urls, json_data))
-                asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
+                asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data, DO_TEST = self.init.DO_TEST))
             
                 print(f"{datetime.now()} post chat [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
 
