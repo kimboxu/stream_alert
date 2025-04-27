@@ -72,7 +72,7 @@ def initialize_firebase(firebase_initialized_globally=False):
             return False
 
 # FCM 메시지 전송 함수
-def send_fcm_message(token, notification_data, data_fields):
+async def send_fcm_message(token, notification_data, data_fields):
     """
     개별 FCM 토큰에 메시지를 전송합니다.
     """
@@ -100,9 +100,11 @@ def send_fcm_message(token, notification_data, data_fields):
         return result
     except messaging.UnregisteredError:
         print(f"FCM 토큰 등록 취소됨 (앱 제거): {token[:15]}...")
+        await validate_fcm_token(token)
         return None
     except messaging.InvalidArgumentError as e:
         print(f"FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token[:15]}...): {e}")
+        await validate_fcm_token(token)
         return None
     except Exception as e:
         print(f"FCM 메시지 전송 실패 (토큰: {token[:15]}...): {e}")
@@ -130,7 +132,7 @@ async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, bat
     for batch in batches:
         batch_tasks = []
         for token in batch:
-            task = asyncio.to_thread(send_fcm_message, token, notification_data, data_fields)
+            task = asyncio.to_thread(await send_fcm_message, token, notification_data, data_fields)
             batch_tasks.append(task)
             
         # 배치 단위로 병렬 처리하되 타임아웃 설정
