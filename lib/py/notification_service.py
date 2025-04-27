@@ -274,7 +274,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
     try:
         # 알림 ID와 시간 생성 (한 번만)
         notification_id = str(uuid4())
-        notification_time = datetime.now(timezone.utc).isoformat()
+        notification_time = datetime.now().isoformat()
         notification_time = changeGMTtime(notification_time)
         
         # 알림 데이터 준비
