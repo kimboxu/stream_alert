@@ -356,8 +356,8 @@ class PushNotificationService {
       // 이전 토큰과 새 토큰이 다른지 확인
       final oldToken = await _getCurrentToken();
       if (oldToken != null && oldToken != newToken) {
-        // 이전 토큰 제거 요청 (선택적)
-        await _removeTokenFromServer(oldToken);
+        // 이전 토큰 제거
+        await removeToken();
       }
 
       // 새 토큰 등록
@@ -395,29 +395,7 @@ class PushNotificationService {
     }
   }
 
-  // 서버에서 특정 토큰 제거 (새로 추가)
-  Future<void> _removeTokenFromServer(String token) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final username = prefs.getString('username');
-      final discordWebhooksURL = prefs.getString('discordWebhooksURL');
-
-      if (username != null && discordWebhooksURL != null) {
-        // 서버에 특정 토큰 제거 요청
-        await ApiService.removeSpecificToken(
-          username,
-          discordWebhooksURL,
-          token,
-        );
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('서버에서 토큰 제거 중 오류: $e');
-      }
-    }
-  }
-
-  // 로그아웃 시 토큰 제거
+  // 토큰 제거
   Future<void> removeToken() async {
     try {
       // 현재 기기의 토큰 가져오기
@@ -430,7 +408,7 @@ class PushNotificationService {
 
       if (username != null && discordWebhooksURL != null && fcmToken != null) {
         // 특정 토큰만 제거하는 API 호출
-        await ApiService.removeSpecificToken(
+        await ApiService.removeToken(
           username,
           discordWebhooksURL,
           fcmToken,

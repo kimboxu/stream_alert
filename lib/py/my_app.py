@@ -10,14 +10,14 @@ from datetime import datetime, timezone
 import pandas as pd
 from firebase_admin import credentials, messaging
 from shared_state import StateManager
-from apscheduler.schedulers.background import BackgroundScheduler
-import atexit
 
 from base import update_flag
 
 from notification_service import (
     initialize_firebase,
     cleanup_all_invalid_tokens,
+    setup_scheduled_tasks,
+    save_tokens,
 )
 
 # Load environment variables from .env file
@@ -31,13 +31,15 @@ def init_background_tasks():
     asyncio.set_event_loop(loop)
     
     # StateManager를 사용해 데이터 가져오기
-    state_manager = StateManager.get_instance()
-    init = loop.run_until_complete(state_manager.initialize())
+    state = StateManager.get_instance()
+    init = state.get_init()
+    if init is None: init = loop.run_until_complete(state.initialize())
     loop.close()
     return init
 
 def save_user_data(discordWebhooksURL, username):
     # DB에 저장
+    app.init.userStateData.loc[discordWebhooksURL, "username"] = username
     app.init.supabase.table("userStateData").upsert(
         {
             "discordURL": discordWebhooksURL,
@@ -54,10 +56,6 @@ def normalize_discord_webhook_url(webhook_url: str) -> str:
     return webhook_url.replace(
         "https://discordapp.com/api/webhooks/", "https://discord.com/api/webhooks/"
     )
-
-@app.before_request
-def initialize_app():
-    app.init = init_background_tasks()
 
 @app.route("/", methods=["GET"])
 def index():
@@ -295,10 +293,10 @@ def update_username():
         data = request.form
 
     old_username = data.get("oldUsername")
-    discord_webhooks_url = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
+    discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
     new_username = data.get("newUsername")
 
-    if not old_username or not discord_webhooks_url or not new_username:
+    if not old_username or not discordWebhooksURL or not new_username:
         return (
             jsonify(
                 {
@@ -310,20 +308,15 @@ def update_username():
         )
 
     # 사용자 확인
-    if discord_webhooks_url in app.init.userStateData.index:
-        db_username = app.init.userStateData.loc[discord_webhooks_url, "username"]
+    if discordWebhooksURL in app.init.userStateData.index:
+        db_username = app.init.userStateData.loc[discordWebhooksURL, "username"]
         if db_username != old_username:
             return jsonify({"status": "error", "message": "인증 실패"}), 401
     else:
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
 
     try:
-        # 사용자 이름 업데이트
-        app.init.userStateData.loc[discord_webhooks_url, "username"] = new_username
-
-        app.init.supabase.table("userStateData").update({"username": app.init.userStateData.loc[discord_webhooks_url, "username"]}).eq(
-            "discordURL", discord_webhooks_url
-        ).execute()
+        save_user_data(discordWebhooksURL, new_username)
 
         return jsonify({"status": "success", "message": "사용자 이름이 변경되었습니다"})
     except Exception as e:
@@ -347,30 +340,6 @@ def get_streamers():
         chzzk_chatFilter = app.init.chzzk_chatFilter.to_dict('records')
         afreeca_chatFilter = app.init.afreeca_chatFilter.to_dict('records')
 
-        # # Supabase 연결
-        # supabase = create_client(environ["supabase_url"], environ["supabase_key"])
-
-        # # 아프리카TV 스트리머 정보 가져오기
-        # afreecaIDList = supabase.table("afreecaIDList").select("*").execute()
-
-        # # 치지직 스트리머 정보 가져오기
-        # chzzkIDList = supabase.table("chzzkIDList").select("*").execute()
-
-        # # 카페 정보 가져오기
-        # cafeData = supabase.table("cafeData").select("*").execute()
-        # chzzk_video = supabase.table("chzzk_video").select("*").execute()
-        # youtubeData = supabase.table("youtubeData").select("*").execute()
-        # chzzk_chatFilter = supabase.table("chzzk_chatFilter").select("*").execute()
-        # afreeca_chatFilter = supabase.table("afreeca_chatFilter").select("*").execute()
-
-        # afreecaIDList = afreecaIDList.data
-        # chzzkIDList = chzzkIDList.data
-        # cafeData = cafeData.data
-        # chzzk_video = chzzk_video.data
-        # youtubeData = youtubeData.data
-        # chzzk_chatFilter = chzzk_chatFilter.data
-        # afreeca_chatFilter = afreeca_chatFilter.data
-
         return jsonify(
             {
                 "status": "success",
@@ -391,80 +360,6 @@ def get_streamers():
                     "status": "error",
                     "message": f"스트리머 정보를 가져오는데 실패했습니다: {str(e)}",
                 }
-            ),
-            500,
-        )
-
-# FCM 토큰 등록 엔드포인트
-@app.route("/register_fcm_token", methods=["POST"])
-def register_fcm_token():
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    username = data.get("username")
-    discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
-    fcm_token = data.get("fcm_token")
-
-    if not username or not discordWebhooksURL or not fcm_token:
-        return (
-            jsonify({"status": "error", "message": "필수 정보가 누락되었습니다"}),
-            400,
-        )
-
-    try:
-        # Supabase에 FCM 토큰 저장
-
-        # 기존 사용자 확인
-        if discordWebhooksURL not in app.init.userStateData.index:
-            return (
-                jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}),
-                404,
-            )
-
-        # 사용자 데이터 가져오기
-        user_data = app.init.userStateData.loc[discordWebhooksURL]
-
-        # 기존 토큰 목록 가져오기 (JSON 배열로 저장)
-        existing_tokens = user_data.get("fcm_tokens", [])
-        
-        # 데이터베이스에서 JSON 배열로 저장되지 않은 경우 변환
-        if not isinstance(existing_tokens, list):
-            try:
-                if isinstance(existing_tokens, str) and existing_tokens:
-                    # 문자열로 저장된 경우 파싱 시도
-                    existing_tokens = [t.strip() for t in existing_tokens.split(",") if t.strip()]
-                else:
-                    existing_tokens = []
-            except Exception:
-                existing_tokens = []
-        
-        # 중복 방지
-        if fcm_token not in existing_tokens:
-            existing_tokens.append(fcm_token)
-
-        last_token_update = datetime.now().isoformat()
-        app.init.userStateData.loc[discordWebhooksURL, "fcm_tokens"] = existing_tokens
-        app.init.userStateData.loc[discordWebhooksURL, "last_token_update"] = last_token_update
-
-        # 업데이트
-        update_data = {
-            "fcm_tokens": app.init.userStateData.loc[discordWebhooksURL, "fcm_tokens"],
-            "last_token_update": app.init.userStateData.loc[discordWebhooksURL, "last_token_update"],
-        }
-
-        app.init.supabase.table("userStateData").update(update_data).eq(
-            "discordURL", discordWebhooksURL
-        ).execute()
-
-        return jsonify({"status": "success", "message": "FCM 토큰이 등록되었습니다"})
-
-    except Exception as e:
-        print(f"FCM 토큰 등록 중 오류: {e}")
-        return (
-            jsonify(
-                {"status": "error", "message": f"토큰 등록 중 오류 발생: {str(e)}"}
             ),
             500,
         )
@@ -506,11 +401,6 @@ def get_notifications():
 
     # 알림 내역 추출
     notifications = user_data.get("notifications", [])
-    if not isinstance(notifications, list):
-        try:
-            notifications = loads(notifications)
-        except:
-            notifications = []
 
     # 전체 알림 수
     total_count = len(notifications)
@@ -580,12 +470,7 @@ def mark_notifications_read():
     user_data = app.init.userStateData.loc[discordWebhooksURL]
 
     # 알림 내역 추출
-    notifications = user_data.get("notifications", "[]")
-    if not isinstance(notifications, list):
-        try:
-            notifications = loads(notifications)
-        except:
-            notifications = []
+    notifications = user_data.get("notifications", [])
 
     # 읽음 표시 업데이트
     updated_notifications = []
@@ -594,12 +479,7 @@ def mark_notifications_read():
             notification["read"] = True
         updated_notifications.append(notification)
 
-    app.init.userStateData.loc[discordWebhooksURL, "notifications"] = updated_notifications
-
-    # 업데이트된 알림 저장
-    app.init.supabase.table("userStateData").update({"notifications": app.init.userStateData.loc[discordWebhooksURL, "notifications"]}).eq(
-        "discordURL", discordWebhooksURL
-    ).execute()
+    save_notifications(app.init, discordWebhooksURL, updated_notifications)
 
     return jsonify({"status": "success", "message": "알림이 읽음으로 표시되었습니다"})
 
@@ -635,240 +515,15 @@ def clear_notifications():
     else:
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
 
-    # Supabase에서 알림 목록 초기화
-    supabase = create_client(environ["supabase_url"], environ["supabase_key"])
-    supabase.table("userStateData").update({"notifications": []}).eq(
-        "discordURL", discordWebhooksURL
-    ).execute()
+    save_user_data(discordWebhooksURL, username)
+
+    
 
     return jsonify({"status": "success", "message": "모든 알림이 삭제되었습니다"})
 
-# FCM 토큰 제거 엔드포인트 (로그아웃 시 사용)
-@app.route("/remove_fcm_token", methods=["POST"])
-def remove_fcm_token():
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    username = data.get("username")
-    discord_webhook_url = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
-    
-    # fcm_token 파라미터는 이제 선택적입니다
-    fcm_token = data.get("fcm_token")
-
-    if not username or not discord_webhook_url:
-        return (
-            jsonify({"status": "error", "message": "필수 정보가 누락되었습니다"}),
-            400,
-        )
-
-    try:
-        # Supabase 연결
-        supabase = create_client(environ["supabase_url"], environ["supabase_key"])
-
-        # 기존 사용자 확인
-        result = (
-            supabase.table("userStateData")
-            .select("*")
-            .eq("discordURL", discord_webhook_url)
-            .execute()
-        )
-
-        if not result.data:
-            return (
-                jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}),
-                404,
-            )
-
-        # 사용자 데이터 가져오기
-        user_data = result.data[0]
-
-        # 특정 토큰만 제거할지, 모든 토큰을 제거할지 결정
-        if fcm_token:
-            # 특정 토큰만 제거
-            existing_tokens = user_data.get("fcm_tokens", "")
-            if existing_tokens:
-                tokens_list = existing_tokens.split(",")
-                if fcm_token in tokens_list:
-                    tokens_list.remove(fcm_token)
-                tokens_str = ",".join(tokens_list)
-            else:
-                tokens_str = ""
-        else:
-            # 모든 토큰 제거
-            tokens_str = ""
-
-        # 업데이트
-        update_data = {
-            "fcm_tokens": tokens_str,
-            "last_token_update": datetime.now().isoformat(),
-        }
-
-        supabase.table("userStateData").update(update_data).eq(
-            "discordURL", discord_webhook_url
-        ).execute()
-
-        return jsonify({"status": "success", "message": "FCM 토큰이 제거되었습니다"})
-
-    except Exception as e:
-        print(f"FCM 토큰 제거 중 오류: {e}")
-        return (
-            jsonify(
-                {"status": "error", "message": f"토큰 제거 중 오류 발생: {str(e)}"}
-            ),
-            500,
-        )
-
-# 예약 작업 설정 함수 추가
-def setup_scheduled_tasks():
-    """주기적인 백그라운드 작업 설정"""
-    scheduler = BackgroundScheduler()
-    
-    # 유효하지 않은 FCM 토큰을 매일 정리 (트래픽이 적은 시간에)
-    scheduler.add_job(
-        func=lambda: asyncio.run(cleanup_all_invalid_tokens()),
-        trigger="cron",
-        hour=3,  # 새벽 3시
-        minute=0
-    )
-    
-    scheduler.start()
-    
-    # 앱 종료 시 스케줄러 종료
-    atexit.register(lambda: scheduler.shutdown())
-
-# 유효하지 않은 토큰 제거 함수
-async def cleanup_invalid_fcm_tokens(user_data: dict) -> tuple[bool, int]:
-    """
-    유효하지 않은 FCM 토큰을 식별하고 제거합니다.
-    
-    Args:
-        user_data: 사용자 정보를 담고 있는 딕셔너리
-    
-    Returns:
-        tuple[bool, int]: (변경 여부, 제거된 토큰 수)
-    """
-    try:
-        # JSON 배열로 저장된 FCM 토큰 가져오기
-        fcm_tokens = user_data.get("fcm_tokens", [])
-        
-        # 데이터베이스에서 JSON 배열로 저장되지 않은 경우 변환
-        if not isinstance(fcm_tokens, list):
-            try:
-                if isinstance(fcm_tokens, str) and fcm_tokens:
-                    # 문자열로 저장된 경우 파싱 시도
-                    fcm_tokens = [t.strip() for t in fcm_tokens.split(",") if t.strip()]
-                else:
-                    fcm_tokens = []
-            except Exception:
-                fcm_tokens = []
-                
-        if not fcm_tokens:
-            return False, 0  # 토큰이 없으면 처리할 것이 없음
-            
-        original_count = len(fcm_tokens)
-        
-        if original_count == 0:
-            return False, 0
-            
-        # 유효하지 않은 토큰 식별
-        invalid_tokens = []
-        
-        # Firebase Admin SDK는 bulk validation API를 제공하지 않으므로
-        # 개별적으로 각 토큰 검증
-        for token in fcm_tokens:
-            if not token.strip():  # 빈 토큰 제거
-                invalid_tokens.append(token)
-                continue
-                
-            try:
-                # 테스트 메시지 생성
-                message = messaging.Message(
-                    data={'validate': 'true'},
-                    token=token
-                )
-                # dry_run=True로 설정하여 실제로 메시지를 보내지 않고 유효성만 확인
-                messaging.send(message, dry_run=True)
-            except Exception as e:
-                # 알 수 없는 오류 로깅
-                print(f"토큰 검증 중 오류: {token[:10]}...: {str(e)}")
-                # FirebaseError, UnregisteredError 등의 오류가 발생하면 토큰 제거
-                if ('unregistered' in str(e).lower() or 'invalid' in str(e).lower() or 'requested entity was not found' in str(e).lower()
-                    or 'the registration token is not a valid fcm registration token' in str(e).lower()):
-                    invalid_tokens.append(token)
-        
-        # 유효하지 않은 토큰 제거
-        valid_tokens = [token for token in fcm_tokens if token not in invalid_tokens and token.strip()]
-        
-        # 변경 사항이 있는지 확인
-        if len(valid_tokens) == original_count:
-            return False, 0  # 변경 없음
-            
-        # 토큰 목록 업데이트 - JSON 배열로 저장
-        user_data["fcm_tokens"] = valid_tokens
-        
-        # 변경 사항 반환
-        return True, len(invalid_tokens)
-        
-    except Exception as e:
-        print(f"토큰 정리 중 오류 발생: {e}")
-        return False, 0
-
-# 시작 시 한 번만 실행할 FCM 토큰 정리 함수
-async def one_time_fcm_token_cleanup():
-    """
-    애플리케이션 시작 시 한 번만 실행되는 FCM 토큰 정리 함수
-    """
-    try:
-        print(f"{datetime.now()} FCM 토큰 일회성 정리 시작")
-
-        # StateManager를 사용해 데이터 가져오기
-        state = StateManager.get_instance()
-        init = await state.initialize()
-        
-        # 모든 사용자 데이터 가져오기
-        result = init.supabase.table("userStateData").select("*").execute()
-        
-        if not result.data:
-            print("정리할 사용자 데이터가 없습니다")
-            return
-            
-        total_users = len(result.data)
-        cleaned_users = 0
-        total_removed_tokens = 0
-        
-        for user_data in result.data:
-            discord_url = user_data.get("discordURL")
-            if not discord_url:
-                continue
-                
-            changed, removed_count = await cleanup_invalid_fcm_tokens(user_data)
-            
-            if changed:
-                # Supabase 업데이트 - JSON 배열로 저장
-                update_data = {
-                    "fcm_tokens": user_data["fcm_tokens"],  # 이미 JSON 배열 형식
-                    "last_token_update": datetime.now().isoformat(),
-                }
-                
-                init.supabase.table("userStateData").update(update_data).eq(
-                    "discordURL", discord_url
-                ).execute()
-                
-                cleaned_users += 1
-                total_removed_tokens += removed_count
-        
-        print(f"{datetime.now()} FCM 토큰 정리 완료: {cleaned_users}/{total_users} 사용자, {total_removed_tokens}개 토큰 제거")
-        
-    except Exception as e:
-        print(f"토큰 정리 중 오류 발생: {e}")
-        import traceback
-        traceback.print_exc()
-
-@app.route("/remove_specific_token", methods=["POST"])
-def remove_specific_token():
-    """특정 FCM 토큰만 제거하는 엔드포인트"""
+# FCM 토큰 등록 엔드포인트
+@app.route("/register_fcm_token", methods=["POST"])
+def register_fcm_token():
     if request.is_json:
         data = request.get_json()
     else:
@@ -885,6 +540,8 @@ def remove_specific_token():
         )
 
     try:
+        # Supabase에 FCM 토큰 저장
+
         # 기존 사용자 확인
         if discordWebhooksURL not in app.init.userStateData.index:
             return (
@@ -895,43 +552,78 @@ def remove_specific_token():
         # 사용자 데이터 가져오기
         user_data = app.init.userStateData.loc[discordWebhooksURL]
 
-        # 기존 토큰 목록 가져오기
-        existing_tokens = user_data.get("fcm_tokens", [])
-        if not existing_tokens:
-            return jsonify({"status": "success", "message": "제거할 토큰이 없습니다"})
+        # 기존 토큰 목록 가져오기 (JSON 배열로 저장)
+        tokens = user_data.get("fcm_tokens", [])
+          
+        # 중복 방지
+        if fcm_token not in tokens:
+            tokens.append(fcm_token)
 
-        
-        # 특정 토큰이 목록에 있는지 확인
-        if fcm_token not in existing_tokens:
-            return jsonify({"status": "success", "message": "해당 토큰이 존재하지 않습니다"})
-            
-        # 토큰 제거
-        existing_tokens.remove(fcm_token)
+        save_tokens(app.init, discordWebhooksURL, tokens)
 
-        last_token_update = datetime.now().isoformat()
-        app.init.userStateData.loc[discordWebhooksURL, "fcm_tokens"] = existing_tokens
-        app.init.userStateData.loc[discordWebhooksURL, "last_token_update"] = last_token_update
-
-        # 업데이트
-        update_data = {
-            "fcm_tokens": app.init.userStateData.loc[discordWebhooksURL, "fcm_tokens"],
-            "last_token_update": app.init.userStateData.loc[discordWebhooksURL, "last_token_update"],
-        }
-
-        app.init.supabase.table("userStateData").update(update_data).eq(
-            "discordURL", discordWebhooksURL
-        ).execute()
-
-        return jsonify({"status": "success", "message": "토큰이 성공적으로 제거되었습니다"})
+        return jsonify({"status": "success", "message": "FCM 토큰이 등록되었습니다"})
 
     except Exception as e:
-        print(f"특정 토큰 제거 중 오류: {e}")
+        print(f"FCM 토큰 등록 중 오류: {e}")
+        return (
+            jsonify(
+                {"status": "error", "message": f"토큰 등록 중 오류 발생: {str(e)}"}
+            ),
+            500,
+        )
+
+# FCM 토큰 제거 엔드포인트 (로그아웃 시 사용)
+@app.route("/remove_fcm_token", methods=["POST"])
+def remove_fcm_token():
+    if request.is_json:
+        data = request.get_json()
+    else:
+        data = request.form
+
+    username = data.get("username")
+    discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
+    
+    # fcm_token 파라미터는 이제 선택적입니다
+    fcm_token = data.get("fcm_token")
+
+    if not username or not discordWebhooksURL:
+        return (
+            jsonify({"status": "error", "message": "필수 정보가 누락되었습니다"}),
+            400,
+        )
+
+    try:
+
+        # 사용자 데이터 가져오기
+        user_data = app.init.userStateData.loc[discordWebhooksURL]
+
+        tokens = user_data.get("fcm_tokens", [])
+        # 특정 토큰만 제거할지, 모든 토큰을 제거할지 결정
+        if fcm_token in tokens:
+            tokens.remove(fcm_token)
+
+        save_tokens(app.init, discordWebhooksURL, tokens)
+
+        return jsonify({"status": "success", "message": "FCM 토큰이 제거되었습니다"})
+
+    except Exception as e:
+        print(f"FCM 토큰 제거 중 오류: {e}")
         return (
             jsonify(
                 {"status": "error", "message": f"토큰 제거 중 오류 발생: {str(e)}"}
             ),
             500,
         )
+
+def save_notifications(init, discordWebhooksURL, notifications):
+    init.userStateData.loc[discordWebhooksURL, "notifications"] = notifications
+
+    # 업데이트된 알림 저장
+    init.supabase.table("userStateData").update({"notifications": init.userStateData.loc[discordWebhooksURL, "notifications"]}).eq(
+        "discordURL", discordWebhooksURL
+    ).execute()
+
+    asyncio.run(update_flag('user_date', True))
 
 if __name__ == "__main__":
 
@@ -943,7 +635,7 @@ if __name__ == "__main__":
             print("경고: Firebase 초기화에 실패했습니다. 푸시 알림 기능이 작동하지 않을 수 있습니다.")
 
         # FCM 토큰 정리 작업 실행 (한 번만)
-        asyncio.run(one_time_fcm_token_cleanup())
+        asyncio.run(cleanup_all_invalid_tokens())
         print("FCM 토큰 정리 작업이 완료되었습니다.")
 
     # 예약 작업 설정 (추가됨)

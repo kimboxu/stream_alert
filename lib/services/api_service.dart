@@ -698,38 +698,4 @@ class ApiService {
     }
   }
 
-  // 특정 FCM 토큰만 제거하는 API 메서드 (새로 추가)
-  static Future<bool> removeSpecificToken(
-    String username,
-    String discordWebhooksURL,
-    String fcmToken,
-  ) async {
-    try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/remove_specific_token'),
-        body: {
-          'username': username,
-          'discordWebhooksURL': discordWebhooksURL,
-          'fcm_token': fcmToken,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        if (kDebugMode) {
-          print('특정 FCM 토큰 제거 성공');
-        }
-        return true;
-      } else {
-        if (kDebugMode) {
-          print('특정 FCM 토큰 제거 실패: ${response.statusCode}, ${response.body}');
-        }
-        return false;
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('특정 FCM 토큰 제거 중 오류: $e');
-      }
-      return false;
-    }
-  }
 }

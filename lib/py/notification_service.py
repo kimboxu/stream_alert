@@ -10,6 +10,8 @@ from json import loads, dumps
 from supabase import create_client
 from base import changeGMTtime, initVar, if_after_time
 from shared_state import StateManager
+from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -255,8 +257,9 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         bool: 성공 여부
     """
     # init 객체 가져오기
-    state_manager = StateManager.get_instance()
-    init = state_manager.get_init()
+    state = StateManager.get_instance()
+    init = state.get_init()
+    if init is None: init = await state.initialize()
 
     # 성능 측정 시작
     start_time = datetime.now()
@@ -276,14 +279,14 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         
         # 알림 데이터 준비
         notification_data = {
-            "title": json_data.get("username", "알림"),
+            "title": json_data.get("username", "(알 수 없음)"),
             "body": json_data.get("content", ""),
         }
         
         # 데이터 필드 준비
         data_fields = {
             "id": notification_id,
-            "username": json_data.get("username", "알림"),
+            "username": json_data.get("username", "(알 수 없음)"),
             "content": json_data.get("content", ""),
             "avatar_url": json_data.get("avatar_url", ""),
             "timestamp": notification_time,
@@ -442,17 +445,6 @@ async def cleanup_user_tokens(user_data):
     """
     fcm_tokens = user_data.get('fcm_tokens', [])
     
-    # JSON 배열로 저장된 FCM 토큰 가져오기
-    if not isinstance(fcm_tokens, list):
-        try:
-            if isinstance(fcm_tokens, str) and fcm_tokens:
-                # 문자열로 저장된 경우 파싱 시도
-                fcm_tokens = [t.strip() for t in fcm_tokens.split(",") if t.strip()]
-            else:
-                fcm_tokens = []
-        except Exception:
-            fcm_tokens = []
-    
     if not fcm_tokens:
         return False, []
     
@@ -484,45 +476,11 @@ async def cleanup_all_invalid_tokens():
     
     try:
         # init 객체 가져오기
-        state_manager = StateManager.get_instance()
-        init = state_manager.get_init()
-        
-        if not init or init.userStateData.empty:
-            print("init 객체가 초기화되지 않았거나 사용자 데이터가 없습니다")
-            
-            # Supabase에서 직접 데이터 가져오기
-            supabase = create_client(environ.get('supabase_url'), environ.get('supabase_key'))
-            result = supabase.table("userStateData").select("*").execute()
-            
-            if not result.data:
-                print("FCM 토큰이 있는 사용자가 없습니다")
-                return
-                
-            # 직접 처리
-            for user_data in result.data:
-                # FCM 토큰 가져오기
-                fcm_tokens = user_data.get("fcm_tokens", [])
-                
-                if not fcm_tokens:
-                    continue
-                
-                # 토큰 정리
-                changed, new_tokens = await cleanup_user_tokens(user_data)
-                
-                if changed:
-                    # 데이터베이스 업데이트
-                    webhook_url = user_data.get("discordURL")
-                    update_data = {
-                        "fcm_tokens": new_tokens,
-                        "last_token_update": datetime.now().isoformat()
-                    }
-                    
-                    supabase.table("userStateData").update(update_data).eq(
-                        "discordURL", webhook_url
-                    ).execute()
-            
-            return
-                
+        state = StateManager.get_instance()
+        init = state.get_init()
+
+        if init is None: init = await state.initialize()
+                           
         # 사용자를 배치로 처리
         total_users = len(init.userStateData)
         updated_users = 0
@@ -540,12 +498,7 @@ async def cleanup_all_invalid_tokens():
             fcm_tokens = user_data.get("fcm_tokens", [])
             
             # 현재 토큰 수 계산
-            if isinstance(fcm_tokens, list):
-                current_count = len(fcm_tokens)
-            elif isinstance(fcm_tokens, str):
-                current_count = len([t for t in fcm_tokens.split(",") if t.strip()])
-            else:
-                current_count = 0
+            current_count = len(fcm_tokens)
             
             # 토큰 정리
             changed, new_tokens = await cleanup_user_tokens(user_data)
@@ -555,15 +508,7 @@ async def cleanup_all_invalid_tokens():
                 new_count = len(new_tokens)
                 tokens_removed = current_count - new_count
                 
-                # 데이터베이스 업데이트
-                update_data = {
-                    "fcm_tokens": new_tokens,  # JSON 배열로 저장
-                    "last_token_update": datetime.now().isoformat()
-                }
-                
-                init.supabase.table("userStateData").update(update_data).eq(
-                    "discordURL", webhook_url
-                ).execute()
+                save_tokens(init, webhook_url, new_tokens)
                 
                 # 통계 업데이트
                 updated_users += 1
@@ -580,3 +525,33 @@ async def cleanup_all_invalid_tokens():
         print(f"FCM 토큰 정리 오류: {e}")
         import traceback
         traceback.print_exc()
+
+# 예약 작업 설정 함수 추가
+def setup_scheduled_tasks():
+    """주기적인 백그라운드 작업 설정"""
+    scheduler = BackgroundScheduler()
+    
+    # 유효하지 않은 FCM 토큰을 매일 정리 (트래픽이 적은 시간에)
+    scheduler.add_job(
+        func=lambda: asyncio.run(cleanup_all_invalid_tokens()),
+        trigger="cron",
+        hour=3,  # 새벽 3시
+        minute=0
+    )
+    
+    scheduler.start()
+    
+    # 앱 종료 시 스케줄러 종료
+    atexit.register(lambda: scheduler.shutdown())
+
+def save_tokens(init, discordWebhooksURL, existing_tokens):
+    #토큰 저장
+    last_token_update = datetime.now().isoformat()
+    init.userStateData.loc[discordWebhooksURL, "fcm_tokens"] = existing_tokens
+    init.userStateData.loc[discordWebhooksURL, "last_token_update"] = last_token_update
+
+    init.supabase.table("userStateData").upsert({
+        "discordURL": discordWebhooksURL,
+        "fcm_tokens": init.userStateData.loc[discordWebhooksURL, "fcm_tokens"],
+        "last_token_update": last_token_update,
+    }).execute()
