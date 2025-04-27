@@ -100,7 +100,8 @@ async def generic_chat(init: initVar, platform_name: str, message_class):
 
 async def main():
     state = StateManager.get_instance()
-    init = await state.initialize()
+    init = state.get_init()
+    if init is None: init = await state.initialize()
     from my_app import initialize_firebase
     initialize_firebase(False)
 
