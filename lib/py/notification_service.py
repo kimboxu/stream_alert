@@ -11,8 +11,6 @@ from supabase import create_client
 from base import changeGMTtime, initVar, if_after_time
 from shared_state import StateManager
 
-NOTIFICATION_SAVE_TIMEOUT 
-
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
     """Firebase 초기화 함수"""
@@ -109,7 +107,7 @@ def send_fcm_message(token, notification_data, data_fields):
         return None
 
 # FCM 메시지 배치 전송 함수
-async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, batch_size=FCM_BATCH_SIZE):
+async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, batch_size=10):
     """
     여러 FCM 토큰에 동일한 메시지를 배치로 전송합니다.
     
