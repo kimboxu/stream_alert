@@ -11,10 +11,7 @@ from supabase import create_client
 from base import changeGMTtime, initVar, if_after_time
 from shared_state import StateManager
 
-# 전역 설정 및 상수
-FCM_BATCH_SIZE = 10  # 배치당 처리할 FCM 토큰 수
-FCM_BATCH_TIMEOUT = 10  # 배치 처리 타임아웃(초)
-NOTIFICATION_SAVE_TIMEOUT = 10  # 알림 저장 타임아웃(초)
+NOTIFICATION_SAVE_TIMEOUT 
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -140,7 +137,7 @@ async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, bat
         try:
             batch_results = await asyncio.wait_for(
                 asyncio.gather(*batch_tasks, return_exceptions=True),
-                timeout=FCM_BATCH_TIMEOUT
+                timeout=10
             )
             all_results.extend(batch_results)
         except asyncio.TimeoutError:
@@ -368,7 +365,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             try:
                 await asyncio.wait_for(
                     asyncio.gather(*fcm_tasks, return_exceptions=True),
-                    timeout=FCM_BATCH_TIMEOUT
+                    timeout=10
                 )
             except asyncio.TimeoutError:
                 print(f"일부 FCM 메시지 작업 시간 초과 ({len(fcm_tasks)}개 배치)")
@@ -378,7 +375,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             try:
                 await asyncio.wait_for(
                     asyncio.gather(*notification_tasks, return_exceptions=True),
-                    timeout=NOTIFICATION_SAVE_TIMEOUT
+                    timeout=10
                 )
             except asyncio.TimeoutError:
                 print(f"일부 알림 저장 작업 시간 초과 ({len(notification_tasks)}개 배치)")
