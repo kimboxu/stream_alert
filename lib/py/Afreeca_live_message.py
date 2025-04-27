@@ -6,7 +6,7 @@ from requests import post
 from os import remove, environ
 from urllib.request import urlretrieve
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
-from my_app import send_push_notification
+from notification_service import send_push_notification
 
 class afreeca_live_message():
 	def __init__(self, init_var: base.initVar, channel_id):

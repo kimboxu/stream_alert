@@ -7,7 +7,7 @@ from requests import post
 from urllib.request import urlretrieve
 from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
-from my_app import send_push_notification
+from notification_service import send_push_notification
 
 from typing import List, Tuple, Dict, Any
 from base import (

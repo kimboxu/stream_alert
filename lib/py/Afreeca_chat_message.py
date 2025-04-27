@@ -17,7 +17,7 @@ from datetime import datetime
 from supabase import create_client
 from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
-from my_app import send_push_notification
+from notification_service import send_push_notification
 
 @dataclass
 class AfreecaChatData:
@@ -239,14 +239,14 @@ class afreeca_chat_message:
 
         # print(f"{datetime.now()} [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
 
-        if user_id not in [*self.init.afreeca_chatFilter["channelID"]]: 
+        if not self.init.DO_TEST and user_id not in [*self.init.afreeca_chatFilter["channelID"]]: 
             return
         
         user_nick, profile_image = await self._get_user_info(user_id)
         if nickname != user_nick:
             return
         
-        if nickname != self.init.afreeca_chatFilter.loc[user_id, "channelName"]: 
+        if not self.init.DO_TEST and nickname != self.init.afreeca_chatFilter.loc[user_id, "channelName"]: 
             asyncio.create_task(self.afreeca_name_save(user_id, nickname))
 
         # 메시지 중복 체크

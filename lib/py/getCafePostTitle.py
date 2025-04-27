@@ -17,7 +17,7 @@ from base import (
     afreeca_getLink, 
     saveCafeData)
 
-from my_app import send_push_notification
+from notification_service import send_push_notification
 
 @dataclass
 class CafePostData:

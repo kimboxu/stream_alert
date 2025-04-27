@@ -19,7 +19,7 @@ from base import  (
     userDataVar)
 
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
-from my_app import send_push_notification
+from notification_service import send_push_notification
 
 @dataclass
 class ChzzkChatData:

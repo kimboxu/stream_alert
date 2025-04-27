@@ -6,7 +6,7 @@ from googleapiclient.errors import HttpError, Error
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from base import subjectReplace, iconLinkData, initVar, get_message, saveYoutubeData
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
-from my_app import send_push_notification
+from notification_service import send_push_notification
 
 from dataclasses import dataclass
 from typing import List, Optional
