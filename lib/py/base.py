@@ -349,11 +349,6 @@ def changeUTCtime(time_str):
     time -= timedelta(hours=9)
     return time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
-def changeGMTtime(time_str):
-    time = datetime.fromisoformat(time_str)
-    time += timedelta(hours=9)
-    return time.isoformat()
-
 def if_after_time(time_str, sec=300):  # 지금 시간이 이전 시간보다 SEC초 만큼 지났는지 확인, 지났으면 true
     time = datetime.fromisoformat(time_str) + timedelta(seconds=sec)
     return time <= datetime.now()

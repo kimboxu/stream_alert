@@ -8,7 +8,7 @@ from firebase_admin import messaging, credentials, get_app, initialize_app
 from concurrent.futures import ThreadPoolExecutor
 from json import loads, dumps
 from supabase import create_client
-from base import changeGMTtime, initVar, if_after_time
+from base import initVar, if_after_time
 from shared_state import StateManager
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
@@ -277,7 +277,6 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         # 알림 ID와 시간 생성 (한 번만)
         notification_id = str(uuid4())
         notification_time = datetime.now().astimezone().isoformat()
-        notification_time = changeGMTtime(notification_time)
         
         # 알림 데이터 준비
         notification_data = {
