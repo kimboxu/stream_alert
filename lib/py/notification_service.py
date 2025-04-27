@@ -12,6 +12,7 @@ from base import changeGMTtime, initVar, if_after_time
 from shared_state import StateManager
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
+from base import update_flag
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -201,7 +202,7 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
             
             if last_db_save is None or if_after_time(init.userStateData.loc[webhook_url, 'last_db_save_time'], 15):
                 save_to_db = True
-                init.userStateData.loc[webhook_url, 'last_db_save_time'] = datetime.now().isoformat()
+                init.userStateData.loc[webhook_url, 'last_db_save_time'] = datetime.now().astimezone().isoformat()
             
             # DB에 저장이 필요한 경우만 저장 실행
             if save_to_db:
@@ -222,7 +223,7 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
                 # print(f"{datetime.now()} 알림을 로컬에만 저장 (DB 저장 건너뜀) - URL: {webhook_url[:20]}...")
                 pass
 
-# init에서 사용자 정보 추출 (개선된 버전)
+# init에서 사용자 정보 추출
 def get_user_data_from_init(init: initVar, webhook_url):
     """
     init 변수에서 주어진 webhook_url에 해당하는 사용자 데이터를 반환합니다.
@@ -244,13 +245,12 @@ def get_user_data_from_init(init: initVar, webhook_url):
         print(f"init에서 사용자 데이터 추출 오류: {e}")
         return None
 
-# 푸시 알림 전송 함수 (init 기반으로 개선)
+# 푸시 알림 전송 함수
 async def send_push_notification(webhook_urls, json_data, firebase_initialized_globally=True):
     """
-    푸시 알림을 전송하는 함수 (init 객체 활용)
+    fcm_tokens_data만 사용하여 푸시 알림을 전송하는 함수
     
     Args:
-        init: initVar 객체 
         webhook_urls: 웹훅 URL 목록
         json_data: 알림 데이터
         firebase_initialized_globally: Firebase 초기화 상태
@@ -266,7 +266,6 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
     # 성능 측정 시작
     start_time = datetime.now()
     recipient_count = len(webhook_urls)
-    # print(f"푸시 알림 전송 시작: {recipient_count}명 대상")
     
     # Firebase 초기화 확인
     if not initialize_firebase(firebase_initialized_globally):
@@ -311,7 +310,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
                 missing_users.append(webhook_url)
         
         # 누락된 사용자가 있으면 Supabase에서 직접 가져오기
-        if missing_users and missing_users:
+        if missing_users:
             try:
                 # IN 연산자로 일괄 조회
                 result = init.supabase.table("userStateData").select("*").in_("discordURL", missing_users).execute()
@@ -338,21 +337,23 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             )
             notification_tasks.append(task)
         
-        # FCM 토큰 처리 및 메시지 전송
+        # FCM 토큰 처리 및 메시지 전송 - 간소화된 방식
         for webhook_url, user_data in all_users.items():
-            # FCM 토큰 가져오기
-            fcm_tokens = user_data.get("fcm_tokens", [])
+            # 개선된 형식의 토큰 데이터 가져오기
+            tokens_data = user_data.get("fcm_tokens_data", [])
             
-            # 리스트가 아닌 경우(이전 문자열 형식) 처리
-            if not isinstance(fcm_tokens, list):
-                try:
-                    if isinstance(fcm_tokens, str) and fcm_tokens:
-                        # 문자열로 저장된 경우 파싱 시도
-                        fcm_tokens = [t.strip() for t in fcm_tokens.split(",") if t.strip()]
-                    else:
-                        fcm_tokens = []
-                except Exception:
-                    fcm_tokens = []
+            if not tokens_data or not isinstance(tokens_data, list):
+                continue
+                
+            # 토큰만 추출 (중복 없이)
+            fcm_tokens = []
+            seen_tokens = set()
+            
+            for item in tokens_data:
+                token = item.get("token")
+                if token and token not in seen_tokens:
+                    fcm_tokens.append(token)
+                    seen_tokens.add(token)
             
             if not fcm_tokens:
                 continue
@@ -386,11 +387,6 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         # 성능 보고
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
-        fcm_token_count = sum(len(user_data.get("fcm_tokens", [])) 
-                             for user_data in all_users.values() 
-                             if isinstance(user_data.get("fcm_tokens"), list))
-        
-        # print(f"푸시 알림 전송 완료: {len(all_users)}/{recipient_count}명 사용자, {fcm_token_count}개 토큰, {duration:.2f}초 소요")
         
         return True
         
@@ -399,7 +395,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         import traceback
         traceback.print_exc()
         return False
-
+    
 # FCM 토큰 유효성 검사 함수
 async def validate_fcm_token(token):
     """
@@ -469,10 +465,8 @@ async def cleanup_user_tokens(user_data):
 # 모든 사용자의 유효하지 않은 FCM 토큰 정리 함수
 async def cleanup_all_invalid_tokens():
     """
-    모든 사용자의 유효하지 않은 FCM 토큰을 정리하는 함수
+    모든 사용자의 유효하지 않은 토큰을 정리하는 함수 (간소화)
     """
-    
-    
     print(f"{datetime.now()} FCM 토큰 정리 시작")
     start_time = datetime.now()
     
@@ -493,24 +487,24 @@ async def cleanup_all_invalid_tokens():
             # 사전으로 변환
             user_data = user_row.to_dict()
             
-            if not user_data.get("fcm_tokens"):
+            # fcm_tokens_data 확인
+            tokens_data = user_data.get("fcm_tokens_data", [])
+            if not tokens_data or not isinstance(tokens_data, list):
                 continue
             
-            # FCM 토큰 가져오기
-            fcm_tokens = user_data.get("fcm_tokens", [])
-            
             # 현재 토큰 수 계산
-            current_count = len(fcm_tokens)
+            current_count = len(tokens_data)
             
             # 토큰 정리
-            changed, new_tokens = await cleanup_user_tokens(user_data)
+            changed, new_tokens_data = await cleanup_user_tokens(user_data)
             
             if changed:
                 # 새 토큰 수
-                new_count = len(new_tokens)
+                new_count = len(new_tokens_data)
                 tokens_removed = current_count - new_count
                 
-                save_tokens(init, webhook_url, new_tokens)
+                # 저장
+                save_tokens_data(init, webhook_url, new_tokens_data)
                 
                 # 통계 업데이트
                 updated_users += 1
@@ -527,7 +521,6 @@ async def cleanup_all_invalid_tokens():
         print(f"FCM 토큰 정리 오류: {e}")
         import traceback
         traceback.print_exc()
-
 # 예약 작업 설정 함수 추가
 def setup_scheduled_tasks():
     """주기적인 백그라운드 작업 설정"""
@@ -546,14 +539,28 @@ def setup_scheduled_tasks():
     # 앱 종료 시 스케줄러 종료
     atexit.register(lambda: scheduler.shutdown())
 
-def save_tokens(init, discordWebhooksURL, existing_tokens):
-    #토큰 저장
-    last_token_update = datetime.now().isoformat()
-    init.userStateData.loc[discordWebhooksURL, "fcm_tokens"] = existing_tokens
+# 토큰 데이터 저장 함수
+def save_tokens_data(init, discordWebhooksURL, tokens_data):
+    """
+    토큰 데이터를 저장하는 함수
+    
+    Args:
+        init: 초기화 객체
+        discordWebhooksURL: 디스코드 웹훅 URL
+        tokens_data: 토큰 데이터 리스트
+    """
+    last_token_update = datetime.now().astimezone().isoformat()
+    
+    # fcm_tokens_data만 저장
+    init.userStateData.loc[discordWebhooksURL, "fcm_tokens_data"] = tokens_data
     init.userStateData.loc[discordWebhooksURL, "last_token_update"] = last_token_update
 
+    # Supabase에 저장
     init.supabase.table("userStateData").upsert({
         "discordURL": discordWebhooksURL,
-        "fcm_tokens": init.userStateData.loc[discordWebhooksURL, "fcm_tokens"],
+        "fcm_tokens_data": tokens_data,
         "last_token_update": last_token_update,
     }).execute()
+    
+    # 사용자 데이터 변경 플래그 설정
+    asyncio.run(update_flag('user_date', True))

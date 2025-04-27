@@ -17,7 +17,7 @@ from notification_service import (
     initialize_firebase,
     cleanup_all_invalid_tokens,
     setup_scheduled_tasks,
-    save_tokens,
+    save_tokens_data,
 )
 
 # Load environment variables from .env file
@@ -532,6 +532,7 @@ def register_fcm_token():
     username = data.get("username")
     discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
     fcm_token = data.get("fcm_token")
+    device_id = data.get("device_id")  # 기기 식별자
 
     if not username or not discordWebhooksURL or not fcm_token:
         return (
@@ -539,9 +540,11 @@ def register_fcm_token():
             400,
         )
 
-    try:
-        # Supabase에 FCM 토큰 저장
+    # 기기 식별자가 없는 경우 기본값 생성
+    if not device_id:
+        device_id = f"unknown_{fcm_token[:8]}"
 
+    try:
         # 기존 사용자 확인
         if discordWebhooksURL not in app.init.userStateData.index:
             return (
@@ -549,17 +552,66 @@ def register_fcm_token():
                 404,
             )
 
-        # 사용자 데이터 가져오기
+        # 현재 사용자의 데이터 가져오기
         user_data = app.init.userStateData.loc[discordWebhooksURL]
 
-        # 기존 토큰 목록 가져오기 (JSON 배열로 저장)
-        tokens = user_data.get("fcm_tokens", [])
-          
-        # 중복 방지
-        if fcm_token not in tokens:
-            tokens.append(fcm_token)
-
-        save_tokens(app.init, discordWebhooksURL, tokens)
+        # 토큰 데이터 형식 확인 및 초기화
+        tokens_data = user_data.get("fcm_tokens_data", [])
+        if not isinstance(tokens_data, list):
+            tokens_data = []
+            
+        # 같은 기기가 다른 계정에 로그인하는 경우 처리
+        for other_webhook_url in app.init.userStateData.index:
+            # 현재 사용자는 건너뛰기
+            if other_webhook_url == discordWebhooksURL:
+                continue
+                
+            other_user_data = app.init.userStateData.loc[other_webhook_url]
+            other_tokens_data = other_user_data.get("fcm_tokens_data", [])
+            
+            if not isinstance(other_tokens_data, list) or not other_tokens_data:
+                continue
+                
+            # 이 기기 ID를 가진 토큰이 있는지 확인
+            has_this_device = any(token_item.get("device_id") == device_id for token_item in other_tokens_data)
+            
+            if has_this_device:
+                # 이 기기 ID를 제외한 다른 토큰만 유지
+                updated_tokens = [item for item in other_tokens_data if item.get("device_id") != device_id]
+                
+                # 다른 사용자의 토큰 목록 업데이트
+                if len(updated_tokens) != len(other_tokens_data):
+                    save_tokens_data(app.init, other_webhook_url, updated_tokens)
+                    print(f"다른 사용자({other_webhook_url[:10]}...)에서 기기 ID({device_id})를 가진 토큰을 제거했습니다.")
+        
+        # 현재 사용자의 토큰 데이터 업데이트
+        # 같은 기기 ID를 가진 기존 토큰 찾기
+        existing_device = False
+        current_time = datetime.now().isoformat()
+        
+        for i, token_data in enumerate(tokens_data):
+            if token_data.get("device_id") == device_id:
+                # 같은 기기 ID가 있으면 토큰 업데이트
+                existing_device = True
+                tokens_data[i] = {
+                    "token": fcm_token,
+                    "device_id": device_id,
+                    "updated_at": current_time,
+                    "registered_at": token_data.get("registered_at", current_time)
+                }
+                break
+        
+        # 같은 기기 ID가 없으면 새로 추가
+        if not existing_device:
+            tokens_data.append({
+                "token": fcm_token,
+                "device_id": device_id,
+                "registered_at": current_time,
+                "updated_at": current_time
+            })
+        
+        # 토큰 데이터 저장
+        save_tokens_data(app.init, discordWebhooksURL, tokens_data)
 
         return jsonify({"status": "success", "message": "FCM 토큰이 등록되었습니다"})
 
@@ -571,8 +623,8 @@ def register_fcm_token():
             ),
             500,
         )
-
-# FCM 토큰 제거 엔드포인트 (로그아웃 시 사용)
+    
+# FCM 토큰 제거 엔드포인트
 @app.route("/remove_fcm_token", methods=["POST"])
 def remove_fcm_token():
     if request.is_json:
@@ -582,9 +634,8 @@ def remove_fcm_token():
 
     username = data.get("username")
     discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
-    
-    # fcm_token 파라미터는 이제 선택적입니다
     fcm_token = data.get("fcm_token")
+    device_id = data.get("device_id")  # 기기 ID 추가
 
     if not username or not discordWebhooksURL:
         return (
@@ -593,16 +644,29 @@ def remove_fcm_token():
         )
 
     try:
-
         # 사용자 데이터 가져오기
         user_data = app.init.userStateData.loc[discordWebhooksURL]
+        
+        # 토큰 데이터 형식 확인
+        tokens_data = user_data.get("fcm_tokens_data", [])
+        if not isinstance(tokens_data, list):
+            tokens_data = []
 
-        tokens = user_data.get("fcm_tokens", [])
-        # 특정 토큰만 제거할지, 모든 토큰을 제거할지 결정
-        if fcm_token in tokens:
-            tokens.remove(fcm_token)
+        # 제거 방식 결정 (기기 ID로 제거 또는 토큰으로 제거)
+        original_count = len(tokens_data)
+        if device_id:
+            # 기기 ID로 제거
+            tokens_data = [item for item in tokens_data if item.get("device_id") != device_id]
+        elif fcm_token:
+            # 특정 토큰 제거
+            tokens_data = [item for item in tokens_data if item.get("token") != fcm_token]
+        else:
+            # 기기 ID나 토큰 정보가 없으면 모든 토큰 제거
+            tokens_data = []
 
-        save_tokens(app.init, discordWebhooksURL, tokens)
+        # 변경사항이 있으면 저장
+        if len(tokens_data) != original_count:
+            save_tokens_data(app.init, discordWebhooksURL, tokens_data)
 
         return jsonify({"status": "success", "message": "FCM 토큰이 제거되었습니다"})
 
