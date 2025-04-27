@@ -200,8 +200,7 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
             
             # 마지막 저장 시간이 없거나 일정 시간(예: 5분)이 지났으면 DB에 저장
             
-            if last_db_save is None or (isinstance(last_db_save, datetime) and 
-                                        if_after_time(init.userStateData.loc[webhook_url, 'last_db_save_time'], 15)):
+            if last_db_save is None or if_after_time(init.userStateData.loc[webhook_url, 'last_db_save_time'], 15):
                 save_to_db = True
                 init.userStateData.loc[webhook_url, 'last_db_save_time'] = datetime.now().isoformat()
             
