@@ -359,17 +359,20 @@ class DiscordNotificationWidget extends StatelessWidget {
 
   // 시간 포맷팅 함수
   String _formatTimestamp(DateTime timestamp) {
+    // UTC 타임스탬프를 로컬 시간으로 변환
+    final localTimestamp = timestamp.toLocal();
+
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(Duration(days: 1));
     final messageDate = DateTime(
-      timestamp.year,
-      timestamp.month,
-      timestamp.day,
+      localTimestamp.year,
+      localTimestamp.month,
+      localTimestamp.day,
     );
 
     // 메시지 시간 형식 설정 (오전/오후 표시)
-    String timeFormat = DateFormat('a h:mm').format(timestamp);
+    String timeFormat = DateFormat('a h:mm').format(localTimestamp);
     timeFormat = timeFormat.replaceFirst('AM', '오전').replaceFirst('PM', '오후');
 
     // 날짜 비교
@@ -379,12 +382,12 @@ class DiscordNotificationWidget extends StatelessWidget {
     } else if (messageDate == yesterday) {
       // 어제 메시지
       return '어제 $timeFormat';
-    } else if (now.difference(timestamp).inDays < 7) {
+    } else if (now.difference(localTimestamp).inDays < 7) {
       // 일주일 이내 메시지
-      return '${DateFormat('E', 'ko_KR').format(timestamp)} $timeFormat';
+      return '${DateFormat('E', 'ko_KR').format(localTimestamp)} $timeFormat';
     } else {
       // 그 외 메시지 (년-월-일 형식)
-      return '${DateFormat('yyyy-MM-dd (E)', 'ko_KR').format(timestamp)} $timeFormat';
+      return '${DateFormat('yyyy-MM-dd (E)', 'ko_KR').format(localTimestamp)} $timeFormat';
     }
   }
 
