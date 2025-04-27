@@ -18,7 +18,7 @@ from discord_webhook_sender import DiscordWebhookSender
 
 class initVar:
 	load_dotenv()
-	DO_TEST = True
+	DO_TEST = False
 	
 	printCount 		= 100	#every 100 count, print count 
 	countTimeList = []
