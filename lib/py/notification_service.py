@@ -133,7 +133,8 @@ async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, bat
     for batch in batches:
         batch_tasks = []
         for token in batch:
-            task = asyncio.to_thread(await send_fcm_message, token, notification_data, data_fields)
+            # 수정된 부분: await 없이 코루틴 객체 직접 생성
+            task = asyncio.create_task(send_fcm_message(token, notification_data, data_fields))
             batch_tasks.append(task)
             
         # 배치 단위로 병렬 처리하되 타임아웃 설정

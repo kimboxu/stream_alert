@@ -22,6 +22,7 @@ class ApiService {
     String username,
     String discordWebhooksURL,
     String fcmToken,
+    String deviceId,
   ) async {
     try {
       final response = await http.post(
@@ -30,6 +31,7 @@ class ApiService {
           'username': username,
           'discordWebhooksURL': discordWebhooksURL,
           'fcm_token': fcmToken,
+          'device_id': deviceId,
         },
       );
 
@@ -57,6 +59,7 @@ class ApiService {
     String username,
     String discordWebhooksURL,
     String fcmToken,
+    String deviceId, // device_id 파라미터 추가
   ) async {
     try {
       final response = await http.post(
@@ -65,6 +68,7 @@ class ApiService {
           'username': username,
           'discordWebhooksURL': discordWebhooksURL,
           'fcm_token': fcmToken,
+          'device_id': deviceId,
         },
       );
 
@@ -88,7 +92,6 @@ class ApiService {
   }
 
   // 서버에서 알림 가져오기
-
   static Future<Map<String, dynamic>> getNotifications(
     String username,
     String discordWebhooksURL, {
@@ -697,5 +700,4 @@ class ApiService {
       return false;
     }
   }
-
 }

@@ -8,6 +8,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/api_service.dart';
 import '../models/notification_model.dart';
+import 'package:device_info_plus/device_info_plus.dart'; // 추가 필요한 패키지
+import 'package:uuid/uuid.dart'; // 고유 ID 생성용 패키지 추가
 
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
@@ -108,6 +110,9 @@ class PushNotificationService {
   final FlutterLocalNotificationsPlugin _localNotifications =
       FlutterLocalNotificationsPlugin();
 
+  final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
+  String? _deviceId;
+
   // 싱글톤 패턴
   static final PushNotificationService _instance =
       PushNotificationService._internal();
@@ -117,6 +122,58 @@ class PushNotificationService {
   }
 
   PushNotificationService._internal();
+
+  Future<String> getDeviceId() async {
+    if (_deviceId != null) {
+      return _deviceId!;
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+
+    // 저장된 기기 ID가 있는지 확인
+    _deviceId = prefs.getString('device_id');
+
+    // 없으면 새로 생성
+    if (_deviceId == null) {
+      _deviceId = await _generateDeviceId();
+      // 생성한 ID를 저장
+      await prefs.setString('device_id', _deviceId!);
+    }
+
+    return _deviceId!;
+  }
+
+  // 기기 고유 ID 생성 함수
+  Future<String> _generateDeviceId() async {
+    String deviceId = '';
+
+    try {
+      // 플랫폼별 기기 정보 수집
+      if (Platform.isAndroid) {
+        final androidInfo = await _deviceInfo.androidInfo;
+        // 안드로이드는 ANDROID_ID를 기반으로 고유 ID 생성
+        deviceId = androidInfo.id;
+      } else if (Platform.isIOS) {
+        final iosInfo = await _deviceInfo.iosInfo;
+        // iOS는 identifierForVendor를 기반으로 고유 ID 생성
+        deviceId = iosInfo.identifierForVendor ?? '';
+      }
+
+      // 기기 정보가 없거나 비어있으면 UUID 생성
+      if (deviceId.isEmpty) {
+        deviceId = const Uuid().v4();
+      }
+
+      // 해시처리나 접두사 추가
+      return 'device_${deviceId.hashCode.abs()}';
+    } catch (e) {
+      if (kDebugMode) {
+        print('기기 ID 생성 중 오류: $e');
+      }
+      // 오류 발생 시 랜덤 UUID 반환
+      return 'fallback_${const Uuid().v4()}';
+    }
+  }
 
   // 알림 초기화
   Future<void> initialize() async {
@@ -308,8 +365,16 @@ class PushNotificationService {
       final discordWebhooksURL = prefs.getString('discordWebhooksURL');
 
       if (username != null && discordWebhooksURL != null) {
-        // 서버에 토큰 등록
-        await ApiService.registerFcmToken(username, discordWebhooksURL, token);
+        // 기기 ID 가져오기
+        final deviceId = await getDeviceId();
+
+        // 서버에 토큰 등록 (기기 ID 포함)
+        await ApiService.registerFcmToken(
+          username,
+          discordWebhooksURL,
+          token,
+          deviceId,
+        );
       } else {
         if (kDebugMode) {
           print('토큰 등록을 위한 사용자 정보가 없습니다.');
@@ -406,18 +471,23 @@ class PushNotificationService {
       final username = prefs.getString('username');
       final discordWebhooksURL = prefs.getString('discordWebhooksURL');
 
+      // 기기 ID 가져오기
+      final deviceId = await getDeviceId();
+
       if (username != null && discordWebhooksURL != null && fcmToken != null) {
-        // 특정 토큰만 제거하는 API 호출
+        // 특정 토큰과 기기 ID로 제거하는 API 호출
         await ApiService.removeToken(
           username,
           discordWebhooksURL,
           fcmToken,
+          deviceId,
         );
       }
 
       // 로컬 알림 목록 삭제
       await prefs.remove('notifications');
       await prefs.remove('fcm_token');
+      // 기기 ID는 유지 (앱 삭제 후 재설치에도 동일한 기기 인식을 위해)
 
       if (kDebugMode) {
         print('FCM 토큰 및 알림 데이터 제거 완료');
