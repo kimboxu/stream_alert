@@ -54,7 +54,7 @@ class chzzk_video:
         # 비디오 데이터 처리 및 저장
         json_data = self.getChzzk_video_json(stateData)
         self._update_videoNo_list(self.chzzk_video.loc[self.chzzk_id, 'VOD_json'], videoNo)
-        self.chzzk_video.loc[self.chzzk_id, 'VOD_json']["publishDate"] = publishDate
+        self.chzzk_video.loc[self.chzzk_id, 'VOD_json']["publishDate"] = changeUTCtime(publishDate)
 
         self.video_alarm_List.append((json_data, videoTitle))
         await chzzk_saveVideoData(self.chzzk_video, self.chzzk_id)
@@ -64,7 +64,7 @@ class chzzk_video:
         old_publishDate = self.chzzk_video.loc[self.chzzk_id, 'VOD_json']["publishDate"]
         videoNo_list = self.chzzk_video.loc[self.chzzk_id, 'VOD_json']["videoNo_list"]
 
-        if (publishDate <= old_publishDate or 
+        if (changeUTCtime(publishDate) <= old_publishDate or 
             videoNo in videoNo_list):
             return False
 
