@@ -15,7 +15,9 @@ from base import (
     iconLinkData, 
     chzzk_getLink, 
     afreeca_getLink, 
-    saveCafeData)
+    saveCafeData,
+    log_error,
+    )
 
 from notification_service import send_push_notification
 
@@ -43,7 +45,7 @@ class getCafePostTitle:
             await self.postCafe()
                 
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"error cafe {self.channel_id}.{e}"))
+            asyncio.create_task(log_error(f"error cafe {self.channel_id}.{e}"))
 
     async def getCafeDataDic(self):
         BASE_URL = f"https://apis.naver.com/cafe-web/cafe2/ArticleListV2dot1.json,{str(self.cafeData.loc[self.channel_id, 'cafeNum'])}"
@@ -58,7 +60,7 @@ class getCafePostTitle:
         try:
             self._process_article_list(response, cafe_name_dict, max_ref_article, update_time, cafe_json_ref_articles)
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"게시글 처리 중 오류 발생: {e}"))
+            asyncio.create_task(log_error(f"게시글 처리 중 오류 발생: {e}"))
 
         return
 
@@ -142,7 +144,7 @@ class getCafePostTitle:
             await saveCafeData(self.cafeData, self.channel_id)
             
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"error postCafe {e}"))
+            asyncio.create_task(log_error(f"error postCafe {e}"))
             self.message_list.clear()
 
     async def create_cafe_json(self, post_data: CafePostData) -> dict:
@@ -225,7 +227,7 @@ class getCafePostTitle:
 
         except Exception as e:
             error_msg = f"카페 썸네일 가져오기 실패 (작성자: {writerNickname}, 플랫폼: {platform if 'platform' in locals() else 'unknown'}): {str(e)}"
-            asyncio.create_task(DiscordWebhookSender._log_error(error_msg))
+            asyncio.create_task(log_error(error_msg))
             
             # 오류 발생 시 기존 썸네일 반환
             return current_thumbnail if 'current_thumbnail' in locals() else None

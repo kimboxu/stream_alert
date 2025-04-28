@@ -1,7 +1,7 @@
 import asyncio
 from datetime import datetime
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
-from base import (changeUTCtime, get_message, iconLinkData, initVar, chzzk_saveVideoData)
+from base import (changeUTCtime, get_message, iconLinkData, initVar, chzzk_saveVideoData, log_error)
 from notification_service import send_push_notification
 
 
@@ -35,7 +35,7 @@ class chzzk_video:
             await self._process_video_data(stateData)
 
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"error get stateData chzzk video.{self.chzzk_id}.{e}."))
+            asyncio.create_task(log_error(f"error get stateData chzzk video.{self.chzzk_id}.{e}."))
 
     def _should_process_video(self, stateData):
         return stateData and stateData["code"] == 200
@@ -87,7 +87,7 @@ class chzzk_video:
             asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
 
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"postLiveMSG {e}"))
+            asyncio.create_task(log_error(f"postLiveMSG {e}"))
 
     def getChzzk_video_json(self, stateData):
         videoNo, videoTitle, publishDate, thumbnailImageUrl, videoCategoryValue = self.getChzzkState(stateData)

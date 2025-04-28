@@ -1,14 +1,13 @@
 import os
 import asyncio
 import logging
-from base import make_list_to_dict
+from base import make_list_to_dict, log_error
 import pandas as pd
 from time import sleep
 from requests import post
 from typing import Dict, Any, List, Optional
 from supabase import create_client, Client
 from flask import Flask, request, jsonify, render_template
-from discord_webhook_sender import DiscordWebhookSender
 
 app = Flask(__name__)
 
@@ -496,7 +495,7 @@ def saveURLData(
 
     except Exception as e:
         logger.error(f"URL 데이터 저장 중 오류 발생: {str(e)}", exc_info=True)
-        asyncio.create_task(DiscordWebhookSender._log_error(f"error saving URL {e}"))
+        asyncio.create_task(log_error(f"error saving URL {e}"))
 
 
 def extract_discord_urls(data_list) -> List[str]:
@@ -543,7 +542,7 @@ def firstMessage(webhook_url: str, settings: Dict[str, Any], supabase: Client) -
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(
-        DiscordWebhookSender._log_error(log_msg, webhook_url=developer_webhook_url)
+        log_error(log_msg, webhook_url=developer_webhook_url)
     )
     loop.close()
 

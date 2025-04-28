@@ -27,6 +27,7 @@ from base import (
     afreeca_getChannelOffStateData,
     fCount,
     fSleep,
+    log_error,
 )
 
 
@@ -96,7 +97,7 @@ class base_live_message:
 
         except Exception as e:
             error_msg = f"error get state_data {self.platform_name} live {e}.{self.channel_id}"
-            asyncio.create_task(DiscordWebhookSender._log_error(error_msg))
+            asyncio.create_task(log_error(error_msg))
             await update_flag('user_date', True)
 
     def _update_title_if_needed(self):
@@ -260,7 +261,7 @@ class chzzk_live_message(base_live_message):
             return state_data and state_data["code"] == 200
         except Exception as e:
             if len(state_data) > 200: state_data = state_data[:200]
-            asyncio.create_task(DiscordWebhookSender._log_error(f"{datetime.now()} _is_valid_state_data.{self.channel_id}.{e}.{state_data}"))
+            asyncio.create_task(log_error(f"{datetime.now()} _is_valid_state_data.{self.channel_id}.{e}.{state_data}"))
             return False
 
     def _get_stream_data(self, state_data):
@@ -367,7 +368,7 @@ class chzzk_live_message(base_live_message):
                         remove(self.image_path)
                         # print(f"파일 삭제 성공: {self.image_path}")  # 디버깅 필요시 활성화
                 except Exception as delete_error:
-                    asyncio.create_task(DiscordWebhookSender._log_error(f"{datetime.now()} Error deleting thumbnail: {delete_error}"))
+                    asyncio.create_task(log_error(f"{datetime.now()} Error deleting thumbnail: {delete_error}"))
                 
                 # 썸네일 URL 추출
                 frontIndex = thumbnail.text.index('"proxy_url"')
@@ -376,7 +377,7 @@ class chzzk_live_message(base_live_message):
                 return thumbnail[frontIndex:thumbnail.index(".png") + 4]
             return None
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
+            asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
             return None
 
     def saveImage(self, state_data): 
@@ -668,7 +669,7 @@ async def main_loop(init):
             fCount(init)
 
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"Error in main loop: {str(e)}"))
+            asyncio.create_task(log_error(f"Error in main loop: {str(e)}"))
             await asyncio.sleep(1)
 
 async def main():

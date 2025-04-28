@@ -1,6 +1,6 @@
 from os import environ
 # import base
-from base import userDataVar, fCount, fSleep, initVar
+from base import userDataVar, fCount, fSleep, initVar, log_error
 import asyncio
 from time import time
 from datetime import datetime
@@ -13,7 +13,6 @@ from Afreeca_chat_message import afreeca_chat_message
 from Chzzk_video import chzzk_video
 from getCafePostTitle import getCafePostTitle
 from getYoutubeJsonData import getYoutubeJsonData
-from discord_webhook_sender import DiscordWebhookSender
 
 from live_message import chzzk_live_message, afreeca_live_message
 
@@ -40,7 +39,7 @@ async def main_loop(init: initVar):
             fCount(init)
 
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"Error in main loop: {str(e)}"))
+            asyncio.create_task(log_error(f"Error in main loop: {str(e)}"))
             await asyncio.sleep(1)
 
 async def youtube_task(init: initVar):
@@ -95,7 +94,7 @@ async def generic_chat(init: initVar, platform_name: str, message_class):
         
         except Exception as e:
             print(f"{datetime.now()} error {platform_name}_chatf {e}")
-            await asyncio.create_task(DiscordWebhookSender._log_error(f"Error in {platform_name}_chatf: {str(e)}"))
+            await asyncio.create_task(log_error(f"Error in {platform_name}_chatf: {str(e)}"))
             await asyncio.sleep(1)
 
 async def main():

@@ -42,62 +42,8 @@ class iconLinkData:
 	youtube_icon: str = environ['YOUTUBE_ICON']
 	cafe_icon: str = environ['CAFE_ICON']
 
-class AsyncLogger:
-	def __init__(self, bot_url, max_workers=3):
-		self.bot_url = bot_url
-		self.log_queue = Queue()
-		self.executor = ThreadPoolExecutor(max_workers=max_workers)
-		self.loop = asyncio.get_event_loop()
-		self._stop_event = asyncio.Event()
-
-	async def start_logging(self):
-		"""로깅 프로세스 시작"""
-		self._stop_event.clear()
-		await self.loop.run_in_executor(
-			self.executor, 
-			self._process_log_queue
-		)
-
-	def _process_log_queue(self):
-		"""백그라운드 스레드에서 로그 큐 처리"""
-		while not self._stop_event.is_set():
-			try:
-				# 0.1초마다 큐 확인
-				if not self.log_queue.empty():
-					message = self.log_queue.get(timeout=0.1)
-					asyncio.run(self._send_log(message))
-			except Exception as e:
-				print(f"Logging queue processing error: {e}")
-
-	async def _send_log(self, message):
-		"""로그 메시지 비동기 전송"""
-		max_retries = 3
-		for attempt in range(max_retries):
-			try:
-				async with aiohttp.ClientSession() as session:
-					data = {'content': message, "username": "error alarm"}
-					async with session.post(
-						self.bot_url, 
-						json=data, 
-						timeout=aiohttp.ClientTimeout(total=5)
-					) as response:
-						if response.status == 429:
-							retry_after = float(response.headers.get('Retry-After', 1))
-							await asyncio.sleep(retry_after)
-							continue
-						return
-			except Exception as e:
-				print(f"Log sending attempt {attempt + 1} failed: {e}")
-				await asyncio.sleep(0.5 * (2 ** attempt))
-
-	def enqueue_log(self, message):
-		"""로그 메시지 큐에 추가"""
-		self.log_queue.put(message)
-
-	async def stop(self):
-		"""로깅 프로세스 정지"""
-		self._stop_event.set()
-		self.executor.shutdown(wait=True)
+async def log_error(message, webhook_url = environ.get('errorPostBotURL')):
+    await DiscordWebhookSender._log_error(message, webhook_url)
 
 async def userDataVar(init: initVar):
 	try:
@@ -136,7 +82,7 @@ async def userDataVar(init: initVar):
 		if "EOF occurred in violation of protocol" in str(e):
 			error_details += "\nSSL connection error occurred"
 			
-		asyncio.create_task(DiscordWebhookSender._log_error(error_details))
+		asyncio.create_task(log_error(error_details))
 
 async def load_user_state_data(init: initVar):
 	# 사용자 상태 데이터 로드
@@ -158,26 +104,6 @@ async def update_flag(field, value):
 			field: value
 		}).execute()
 	)
-
-# async def cached_query(supabase, table, query_func, cache_key, ttl=60):
-# 	# 메모리 캐시 초기화
-# 	_cache = {}
-# 	_cache_expiry = {}
-# 	"""캐싱 메커니즘이 있는 쿼리 실행"""
-# 	now = datetime.now()
-	
-# 	# 캐시가 유효한지 확인
-# 	if cache_key in _cache and _cache_expiry[cache_key] > now:
-# 		return _cache[cache_key]
-	
-# 	# 캐시가 없거나 만료된 경우 쿼리 실행
-# 	result = await asyncio.to_thread(query_func)
-	
-# 	# 결과 캐싱
-# 	_cache[cache_key] = result
-# 	_cache_expiry[cache_key] = now + ttl
-	
-# 	return result
 
 async def discordBotDataVars(init: initVar):
 	while True:
@@ -228,7 +154,7 @@ async def discordBotDataVars(init: initVar):
 			break
 			
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error((f"Error in discordBotDataVars: {e}")))
+			asyncio.create_task(log_error((f"Error in discordBotDataVars: {e}")))
 			if init.count != 0: break
 			await asyncio.sleep(0.1)
 
@@ -328,22 +254,6 @@ def cafe_params(cafeNum, page_num):
 			'search.page': str(page_num)
 		}
 
-# async def should_terminate(sock, ID):
-# 	try:
-# 		await asyncio.sleep(300)  # 5분 대기
-		
-# 		if not sock.closed:
-# 			await sock.close()
-# 		print(f"{datetime.now()} {ID}: 방송 종료 5분 경과, 연결 종료")
-		
-# 	except asyncio.CancelledError:
-# 		# 태스크가 취소된 경우 정상적으로 종료
-# 		raise
-# 	except Exception as e:
-# 		print(f"{datetime.now()} error should_terminate {e}")
-	
-# 	return "CLOSE"
-
 def changeUTCtime(time_str):
     time = datetime.fromisoformat(time_str)
     time -= timedelta(hours=9)
@@ -355,10 +265,6 @@ def if_after_time(time_str, sec=300):  # 지금 시간이 이전 시간보다 SE
 		return time <= datetime.now()
 	except Exception as e: 
 		return time <= datetime.now().astimezone()
-
-# async def timer(time): 
-# 	await asyncio.sleep(time)  # time 초 대기
-# 	return "CLOSE"
 
 def chzzk_getLink(uid: str): 
 	return f"https://api.chzzk.naver.com/service/v2/channels/{uid}/live-detail"
@@ -467,7 +373,7 @@ async def get_message(platform, link):
 				if response.status_code != 200:
 					error_msg = f"API 요청 실패: {response.status_code} - {platform}, {formatted_url}"
 					# 에러 로깅은 유지하되 재시도 수행
-					if retry_count >= max_retries: asyncio.create_task(DiscordWebhookSender._log_error(f"{error_msg} (시도 {retry_count+1}/{max_retries})"))
+					if retry_count >= max_retries: asyncio.create_task(log_error(f"{error_msg} (시도 {retry_count+1}/{max_retries})"))
 					
 					# 서버 오류(5xx)의 경우만 재시도
 					if 500 <= response.status_code < 600:
@@ -491,7 +397,7 @@ async def get_message(platform, link):
 				retry_count += 1
 				error_type = type(e).__name__
 				error_msg = f"API 요청 타임아웃/연결 오류 (시도 {retry_count}/{max_retries}): {platform} - {error_type}: {str(e)}"
-				if retry_count >= max_retries: asyncio.create_task(DiscordWebhookSender._log_error(error_msg))
+				if retry_count >= max_retries: asyncio.create_task(log_error(error_msg))
 				# else: print(error_msg)
 
 				# 연결 종료 에러의 경우 추가 대기 시간 부여
@@ -508,7 +414,7 @@ async def get_message(platform, link):
 			except SSLError as ssl_err:
 				retry_count += 1
 				error_msg = f"SSL Error (시도 {retry_count}/{max_retries}): {platform} - {str(ssl_err)}"
-				if retry_count >= max_retries: asyncio.create_task(DiscordWebhookSender._log_error(error_msg))
+				if retry_count >= max_retries: asyncio.create_task(log_error(error_msg))
 				# else: print(error_msg)
 				
 				if retry_count < max_retries:
@@ -522,12 +428,12 @@ async def get_message(platform, link):
 			except Exception as e:
 				# 기타 예외는 바로 반환
 				error_msg = f"error get_message: {platform} - {str(e)}"
-				asyncio.create_task(DiscordWebhookSender._log_error(error_msg))
+				asyncio.create_task(log_error(error_msg))
 				return {}
 		
 	except Exception as e:
 		error_msg = f"error get_message2: {platform} - {str(e)}"
-		asyncio.create_task(DiscordWebhookSender._log_error(error_msg))
+		asyncio.create_task(log_error(error_msg))
 		return {}
 	
 def twitch_getChannelOffStateData(offStateList, twitchID):
@@ -541,7 +447,7 @@ def twitch_getChannelOffStateData(offStateList, twitchID):
 				)
 		return None, None, None
 	except Exception as e:
-		asyncio.create_task(DiscordWebhookSender._log_error(f"error getChannelOffStateData twitch {e}"))
+		asyncio.create_task(log_error(f"error getChannelOffStateData twitch {e}"))
 		return None, None, None
 
 def chzzk_getChannelOffStateData(stateData, chzzkID, profile_image = ""):
@@ -554,7 +460,7 @@ def chzzk_getChannelOffStateData(stateData, chzzkID, profile_image = ""):
 			)
 		return None, None, profile_image
 	except Exception as e: 
-		asyncio.create_task(DiscordWebhookSender._log_error(f"error getChannelOffStateData chzzk {e}"))
+		asyncio.create_task(log_error(f"error getChannelOffStateData chzzk {e}"))
 		return None, None, profile_image
 
 def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image = ""):
@@ -568,7 +474,7 @@ def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image = ""):
 			return live, title, profile_image
 		return None, None, profile_image
 	except Exception as e: 
-		asyncio.create_task(DiscordWebhookSender._log_error(f"error getChannelOffStateData afreeca {e}"))
+		asyncio.create_task(log_error(f"error getChannelOffStateData afreeca {e}"))
 
 async def save_airing_data(titleData, platform: str, id_):
 	
@@ -590,7 +496,7 @@ async def save_airing_data(titleData, platform: str, id_):
 			supabase.table(table_name).upsert(data_func).execute()
 			break
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error saving profile data {e}"))
+			asyncio.create_task(log_error(f"error saving profile data {e}"))
 			await asyncio.sleep(0.1)
 
 async def save_profile_data(IDList, platform: str, id):
@@ -608,7 +514,7 @@ async def save_profile_data(IDList, platform: str, id):
 			supabase.table(table_name).upsert(data_func).execute()
 			break
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error saving profile data {e}"))
+			asyncio.create_task(log_error(f"error saving profile data {e}"))
 			await asyncio.sleep(0.1)
 
 async def change_chat_join_state(chat_json, channel_id, chat_rejoin = True):
@@ -619,7 +525,7 @@ async def change_chat_join_state(chat_json, channel_id, chat_rejoin = True):
 			supabase.table('date_update').upsert({"idx": 0, "chat_json": chat_json}).execute()
 			break
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"echange_chat_join_state {e}"))
+			asyncio.create_task(log_error(f"echange_chat_join_state {e}"))
 			await asyncio.sleep(0.1)
 	
 async def chzzk_saveVideoData(chzzk_video, _id): #save profile data
@@ -633,7 +539,7 @@ async def chzzk_saveVideoData(chzzk_video, _id): #save profile data
 			supabase.table('chzzk_video').upsert(data).execute()
 			break
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error saving profile data {e}"))
+			asyncio.create_task(log_error(f"error saving profile data {e}"))
 			await asyncio.sleep(0.1)
 
 async def saveCafeData(cafeData, _id):
@@ -651,7 +557,7 @@ async def saveCafeData(cafeData, _id):
 			supabase.table('cafeData').upsert(cafe_data).execute()
 			break
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error save cafe time {e}"))
+			asyncio.create_task(log_error(f"error save cafe time {e}"))
 			await asyncio.sleep(0.1)
 
 async def saveYoutubeData(youtubeData, youtubeChannelID):
@@ -670,7 +576,7 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 			supabase.table('youtubeData').upsert(data).execute()
 			break
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error saving youtube data {e}"))
+			asyncio.create_task(log_error(f"error saving youtube data {e}"))
 			await asyncio.sleep(0.1)
 
 async def saveNotificationsData(supabase, discord_webhook_url, user_data, notification_id, data_fields):

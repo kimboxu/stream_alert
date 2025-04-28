@@ -4,7 +4,7 @@ from datetime import datetime
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError, Error
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
-from base import subjectReplace, iconLinkData, initVar, get_message, saveYoutubeData
+from base import subjectReplace, iconLinkData, initVar, get_message, saveYoutubeData, log_error
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from notification_service import send_push_notification
 
@@ -57,7 +57,7 @@ class getYoutubeJsonData:
 	
 		except Exception as e:
 			if "RetryError" not in str(e):
-				asyncio.create_task(DiscordWebhookSender._log_error(f"error Youtube {self.youtubeChannelID}: {str(e)}"))
+				asyncio.create_task(log_error(f"error Youtube {self.youtubeChannelID}: {str(e)}"))
 			
 	async def check_youtube(self):
 		youtube_build = self.get_youtube_build()
@@ -119,17 +119,17 @@ class getYoutubeJsonData:
 			return youtube_build
 		except HttpError as e:
 			# HTTP 관련 오류 (403 Forbidden, 429 Too Many Requests 등)
-			asyncio.create_task(DiscordWebhookSender._log_error(f"YouTube API HTTP 오류: {e.resp.status} {e.content}"))
+			asyncio.create_task(log_error(f"YouTube API HTTP 오류: {e.resp.status} {e.content}"))
 			if e.resp.status in [403, 429]:
-				asyncio.create_task(DiscordWebhookSender._log_error("API 키 할당량이 초과되었거나 권한이 없습니다."))
+				asyncio.create_task(log_error("API 키 할당량이 초과되었거나 권한이 없습니다."))
 			return None
 		except Error as e:
 			# Google API 클라이언트 관련 오류
-			asyncio.create_task(DiscordWebhookSender._log_error(f"Google API 클라이언트 오류: {e}"))
+			asyncio.create_task(log_error(f"Google API 클라이언트 오류: {e}"))
 			return None
 		except Exception as e:
 			# 기타 예상치 못한 오류
-			asyncio.create_task(DiscordWebhookSender._log_error(f"YouTube API build 오류: {e}"))
+			asyncio.create_task(log_error(f"YouTube API build 오류: {e}"))
 			return None
 
 	@retry(stop=stop_after_attempt(5), 
@@ -157,7 +157,7 @@ class getYoutubeJsonData:
 			print(f"{datetime.now()} Channel response timeout for {self.youtubeChannelID}")
 			raise
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error channel_response {e}"))
+			asyncio.create_task(log_error(f"error channel_response {e}"))
 			return
 
 	@retry(stop=stop_after_attempt(5), 
@@ -187,7 +187,7 @@ class getYoutubeJsonData:
 			print(f"{datetime.now()} Search response timeout for {self.youtubeChannelID}")
 			raise
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error search_response {e}"))
+			asyncio.create_task(log_error(f"error search_response {e}"))
 			return
 
 	def check_item(self, channel_response):
@@ -316,7 +316,7 @@ class getYoutubeJsonData:
 			return subjectReplace(description.split('\n')[0])
 			
 		except Exception as e:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error youtube getDescription {e}"))
+			asyncio.create_task(log_error(f"error youtube getDescription {e}"))
 			return ""
 
 	def get_user_data(self):
@@ -341,7 +341,7 @@ class getYoutubeJsonData:
 				continue
 				
 		if username is None or avatar_url is None:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"Channel information not found for channelID: {channelID}"))
+			asyncio.create_task(log_error(f"Channel information not found for channelID: {channelID}"))
 
 		return username, avatar_url
 
@@ -376,7 +376,7 @@ class getYoutubeJsonData:
 	async def get_youtube_thumbnail_url(self):
 		response = await get_message("youtube", f"https://www.youtube.com/@{self.youtubeChannelID}")
 		if not response:
-			asyncio.create_task(DiscordWebhookSender._log_error(f"error Youtube get_youtube_thumbnail_url.{self.youtubeChannelID}:"))
+			asyncio.create_task(log_error(f"error Youtube get_youtube_thumbnail_url.{self.youtubeChannelID}:"))
 			return
 		start_idx = response.find("https://yt3.googleusercontent.com")
 		end_str = "no-rj"

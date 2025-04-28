@@ -7,7 +7,6 @@ from datetime import datetime
 from dotenv import load_dotenv
 from base import initVar, discordBotDataVars, userDataVar, fCount, fSleep
 from shared_state import StateManager
-from discord_webhook_sender import DiscordWebhookSender
 from Twitch_live_message import twitch_live_message
 from Chzzk_chat_message import chzzk_chat_message
 from Afreeca_chat_message import afreeca_chat_message
@@ -16,6 +15,7 @@ from getCafePostTitle import getCafePostTitle
 from getYoutubeJsonData import getYoutubeJsonData
 from live_message import chzzk_live_message, afreeca_live_message
 from notification_service import initialize_firebase, cleanup_all_invalid_tokens, setup_scheduled_tasks
+from base import log_error
 
 # 비동기 이벤트 루프를 중첩해서 사용할 수 있도록 설정
 nest_asyncio.apply()
@@ -65,7 +65,7 @@ async def main_loop(init: initVar):
             fCount(init)
 
         except Exception as e:
-            asyncio.create_task(DiscordWebhookSender._log_error(f"Error in main loop: {str(e)}"))
+            asyncio.create_task(log_error(f"Error in main loop: {str(e)}"))
             await asyncio.sleep(1)
 
 # 유튜브 작업 함수
@@ -122,7 +122,7 @@ async def generic_chat(init: initVar, platform_name: str, message_class):
         
         except Exception as e:
             print(f"{datetime.now()} error {platform_name}_chatf {e}")
-            await asyncio.create_task(DiscordWebhookSender._log_error(f"Error in {platform_name}_chatf: {str(e)}"))
+            await asyncio.create_task(log_error(f"Error in {platform_name}_chatf: {str(e)}"))
             await asyncio.sleep(1)
 
 # 디스코드 봇 작업 실행 함수
