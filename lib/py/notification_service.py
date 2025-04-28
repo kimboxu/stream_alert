@@ -154,16 +154,16 @@ async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, bat
 # 배치 알림 저장 함수
 async def batch_save_notifications(init: initVar, user_data_map, notification_id, data_fields):
     """
-    여러 사용자의 알림을 일괄 처리하고 init 변수에만 먼저 업데이트하고,
-    DB 저장은 조건부로 실행합니다.
-    
+    여러 사용자의 알림을 일괄 처리하고 init 변수(메모리)에만 먼저 업데이트,
+    DB 저장은 조건부(중복/지연)로 실행합니다.
+
     Args:
         init: initVar 객체
         user_data_map: 웹훅 URL을 키로, 사용자 데이터를 값으로 하는 딕셔너리
         notification_id: 알림 고유 ID
         data_fields: 알림 데이터 필드
     """
-    
+
     for webhook_url, user_data in user_data_map.items():
         # 기존 알림 목록 가져오기
         notifications = user_data.get('notifications', [])
@@ -172,42 +172,40 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
                 notifications = loads(notifications)
             except:
                 notifications = []
-        
-        # 알림 추가 (이미 있는 알림 체크)
+
+        # 이미 같은 ID의 알림이 있으면 업데이트, 없으면 추가
         notification_exists = False
         for idx, notification in enumerate(notifications):
             if notification.get('id') == notification_id:
-                # 중복 알림 업데이트
-                notifications[idx] = data_fields
+                notifications[idx] = data_fields  # 중복 알림이면 업데이트
                 notification_exists = True
                 break
-                
+
         if not notification_exists:
-            # 새 알림 추가
-            notifications.append(data_fields)
-            
-        # 최대 알림 수 제한 (최신 10000개만 유지)
-        if len(notifications) > 10000:
-            notifications = notifications[-10000:]
-        
-        # 메모리의 init.userStateData 업데이트 (웹훅 URL이 인덱스에 있는 경우)
+            notifications.append(data_fields)  # 새 알림 추가
+
+        # 알림 개수 제한 (최신 1000개만 유지)
+        if len(notifications) > 1000:
+            notifications = notifications[-1000:]
+
+        # 메모리(init.userStateData) 업데이트 (웹훅 URL이 인덱스에 있는 경우만)
         if webhook_url in init.userStateData.index:
-            # 로컬 데이터는 항상 업데이트
+            # 로컬(메모리)에는 항상 즉시 반영
             init.userStateData.loc[webhook_url, 'notifications'] = notifications
-            
+
             # DB 저장 결정을 위한 마지막 저장 시간 확인
             last_db_save = init.userStateData.loc[webhook_url].get('last_db_save_time')
             save_to_db = False
-            
-            # 마지막 저장 시간이 없거나 일정 시간(예: 15초)이 지났으면 DB에 저장
-            if last_db_save is None or if_after_time(init.userStateData.loc[webhook_url, 'last_db_save_time'], 15):
+
+            # 마지막 저장 시간이 없거나, 15초 이상 경과했으면 DB에 저장
+            if last_db_save is None or if_after_time(init.userStateData.loc[webhook_url, 'last_db_save_time'], 300):
                 save_to_db = True
                 init.userStateData.loc[webhook_url, 'last_db_save_time'] = datetime.now().astimezone().isoformat()
-            
+
             # DB에 저장이 필요한 경우만 저장 실행
             if save_to_db:
                 try:
-                    # 비동기로 실행하되 에러 처리 추가
+                    # 비동기로 실행(메인 루프 블로킹 방지), 에러는 출력
                     await asyncio.to_thread(
                         lambda: init.supabase.table('userStateData')
                               .upsert({
@@ -222,6 +220,7 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
             else:
                 # print(f"{datetime.now()} 알림을 로컬에만 저장 (DB 저장 건너뜀) - URL: {webhook_url}")
                 pass
+
 
 # init에서 사용자 정보 추출
 def get_user_data_from_init(init: initVar, webhook_url):

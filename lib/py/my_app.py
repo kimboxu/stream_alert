@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, render_template, g
 from base import make_list_to_dict, initVar
 from flask_cors import CORS
 import asyncio
+import signal
 from json import loads, dumps
 from supabase import create_client
 from dotenv import load_dotenv
@@ -698,6 +699,35 @@ def save_notifications(init, discordWebhooksURL, notifications):
 
     # asyncio.run(update_flag('user_date', True))
 
+async def force_save_all(init):
+    # 모든 userStateData를 supabase에 upsert (비동기)
+    for webhook_url in init.userStateData.index:
+        try:
+            await asyncio.to_thread(
+                lambda: init.supabase.table('userStateData')
+                    .upsert({
+                        'discordURL': webhook_url,
+                        'notifications': init.userStateData.loc[webhook_url, 'notifications'],
+                        'last_db_save_time': datetime.now().astimezone().isoformat()
+                    })
+                    .execute()
+            )
+        except Exception as e:
+            print(f"[종료시 저장오류] {webhook_url}: {e}")
+
+# SIGTERM/SIGINT 핸들러 등록
+
+def graceful_shutdown_handler(signum, frame):
+    print("서버 종료 감지! 모든 데이터를 DB에 저장합니다...")
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(force_save_all(app.init))
+        print("[완료] 서버 종료 전 모든 데이터를 DB에 저장했습니다.")
+    except Exception as e:
+        print(f"[종료시 저장실패] {e}")
+    import sys
+    sys.exit(0)
+
 if __name__ == "__main__":
 
     # Only initialize once for the main process, not the reloader
@@ -717,5 +747,8 @@ if __name__ == "__main__":
     # App initialization
     with app.app_context():
         app.init = init_background_tasks()
+        # 안전 종료 핸들러 등록 (init 생성 후)
+        signal.signal(signal.SIGTERM, graceful_shutdown_handler)
+        signal.signal(signal.SIGINT, graceful_shutdown_handler)
     
     app.run(host="0.0.0.0", port=5000, debug=False)

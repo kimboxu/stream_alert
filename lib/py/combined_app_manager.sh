@@ -21,9 +21,14 @@ start_app() {
 kill_app() {
     pid=$(pgrep -f "python3 $APP_SCRIPT")
     if [ -n "$pid" ]; then
-        echo "Killing combined app (PID: $pid)..."
-        kill -9 $pid
-        echo "Combined app killed"
+        echo "Stopping combined app (PID: $pid)..."
+        kill $pid  # 우선 정상 종료 시도(SIGTERM)
+        sleep 3
+        if ps -p $pid > /dev/null; then
+            echo "프로세스가 아직 종료되지 않았으므로 강제 종료합니다. (kill -9)"
+            kill -9 $pid
+        fi
+        echo "Combined app stopped"
         return 0
     else
         echo "Combined app is not running"
