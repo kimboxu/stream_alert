@@ -889,11 +889,6 @@ class _NotificationsPageState extends State<NotificationsPage>
     // 알림 목록에 날짜 구분선 추가
     final List<dynamic> itemsWithDateDividers = [];
 
-    // "더 이상 알림이 없습니다" 메시지를 리스트 상단에 추가 (조건부)
-    if (!_hasMoreData) {
-      itemsWithDateDividers.add("NO_MORE_NOTIFICATIONS"); // 특별한 타입으로 표시
-    }
-
     // 알림을 순회하며 날짜 구분선 추가
     for (int i = 0; i < filteredNotifications.length; i++) {
       final notification = filteredNotifications[i];
@@ -919,6 +914,11 @@ class _NotificationsPageState extends State<NotificationsPage>
               ).day) {
         itemsWithDateDividers.add(currentDate); // 날짜 구분선
       }
+    }
+
+    // "더 이상 알림이 없습니다" 메시지를 리스트 상단에 추가 (조건부)
+    if (!_hasMoreData) {
+      itemsWithDateDividers.add("NO_MORE_NOTIFICATIONS"); // 특별한 타입으로 표시
     }
 
     return RefreshIndicator(
