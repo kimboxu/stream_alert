@@ -350,8 +350,11 @@ def changeUTCtime(time_str):
     return time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 def if_after_time(time_str, sec=300):  # 지금 시간이 이전 시간보다 SEC초 만큼 지났는지 확인, 지났으면 true
-    time = datetime.fromisoformat(time_str) + timedelta(seconds=sec)
-    return time <= datetime.now()
+	try:
+		time = datetime.fromisoformat(time_str) + timedelta(seconds=sec)
+		return time <= datetime.now()
+	except Exception as e: 
+		return time <= datetime.now().astimezone()
 
 # async def timer(time): 
 # 	await asyncio.sleep(time)  # time 초 대기
