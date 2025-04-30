@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart'; // 추가된 패키지
 
 import '../models/notification_model.dart';
 import '../services/api_service.dart';
@@ -36,12 +37,19 @@ class _NotificationsPageState extends State<NotificationsPage>
   int _currentPage = 1;
   final int _pageSize = 50;
 
-  // 스크롤 관련 변수
-  final ScrollController _scrollController = ScrollController();
-  final bool _autoScrollEnabled = false;
+  // 스크롤 관련 변수 - ItemScrollController로 변경
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create(); // 추가: 아이템 위치 리스너
+
   bool _isNearBottom = true;
   bool _hasNewMessage = false;
   int _newMessageCount = 0;
+
+  // 최하단으로부터 몇 개의 메시지까지를 하단으로 간주할지 설정
+  final int _bottomThreshold = 10;
+  final int _autoScrollThreshold = 3; // 자동 스크롤을 위한 하단 근접 임계값
+  bool _autoScrollEnabled = false;
 
   // 타이머 관리
   Timer? _debounceTimer;
@@ -63,20 +71,39 @@ class _NotificationsPageState extends State<NotificationsPage>
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_scrollListener);
+
+    // 아이템 위치 리스너 설정
+    _itemPositionsListener.itemPositions.addListener(_updateScrollPosition);
 
     // 오프라인 상태 확인
     _checkConnectivity().then((_) {
       _loadFirstNotifications();
     });
 
-    _setupMessageListener();
-    PushNotificationService().notificationStream.listen(_onNewNotification);
+    // 기존 두 라인을 하나의 통합된 알림 수신 시스템으로 변경
+    // _setupMessageListener();
+    // PushNotificationService().notificationStream.listen(_onNewNotification);
+
+    // 통합된 알림 수신 시스템으로 변경
+    _setupNotificationReceiver();
   }
 
-  void _onNewNotification(NotificationModel notification) {
+  // 2. 새로운 통합 알림 수신 메서드 추가
+  void _setupNotificationReceiver() {
+    // PushNotificationService의 notificationStream만 사용
+    PushNotificationService().notificationStream.listen((notification) {
+      // 약간의 딜레이를 추가하여 비슷한 시간에 들어오는 메시지들이 한꺼번에 처리되도록 함
+      Future.delayed(const Duration(milliseconds: 50), () {
+        if (!mounted) return;
+        _handleNewNotification(notification);
+      });
+    });
+  }
+
+  // 3. 통합된 알림 처리 메서드 추가
+  void _handleNewNotification(NotificationModel notification) {
     if (!mounted) return;
-    
+
     setState(() {
       // 중복 검사
       final existingIndex = _notifications.indexWhere(
@@ -89,19 +116,153 @@ class _NotificationsPageState extends State<NotificationsPage>
         _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
       }
 
-      if (!_isNearBottom) {
+      _removeDuplicateNotifications();
+
+      if (!_autoScrollEnabled) {
         _hasNewMessage = true;
         _newMessageCount++;
       }
     });
+
+    if (kDebugMode) {
+      print('새 메시지 수신: 매우 하단 여부: $_autoScrollEnabled');
+    }
+
+    // 자동 스크롤 로직
+    if (_autoScrollEnabled && _itemScrollController.isAttached && mounted) {
+      Future.delayed(const Duration(milliseconds: 200), () {
+        if (mounted && _itemScrollController.isAttached) {
+          _itemScrollController.scrollTo(
+            index: 0, // 최신 메시지 위치
+            duration: const Duration(milliseconds: 300),
+          );
+        }
+      });
+    }
   }
+
+  // 스크롤 위치에 따라 상태 업데이트
+  void _updateScrollPosition() {
+    if (!mounted || _itemPositionsListener.itemPositions.value.isEmpty) return;
+
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer?.cancel(); // 기존 타이머 취소
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 100), () {
+      if (!mounted) return;
+
+      try {
+        // 현재 보이는 아이템 위치들 가져오기
+        final positions = _itemPositionsListener.itemPositions.value;
+
+        if (positions.isEmpty) return;
+
+        // 보이는 아이템 중 가장 작은 인덱스 (가장 최근 메시지)
+        final int smallestIndex = positions
+            .where((ItemPosition position) => position.itemTrailingEdge > 0)
+            .map((ItemPosition position) => position.index)
+            .reduce((int min, int index) => index < min ? index : min);
+
+        // 메시지 갯수 기준으로 하단 여부 판단
+        final bool isNearBottom =
+            smallestIndex < _bottomThreshold; // 일반 하단 여부 (_bottomThreshold=10)
+        final bool isVeryNearBottom =
+            smallestIndex <
+            _autoScrollThreshold; // 자동 스크롤용 하단 여부 (_autoScrollThreshold=3)
+
+        if (kDebugMode) {
+          print(
+            '현재 인덱스: $smallestIndex, 하단 여부: $isNearBottom, 매우 하단 여부: $isVeryNearBottom',
+          );
+        }
+
+        // 상태가 변경되었을 때만 setState 호출하여 성능 최적화
+        if (isNearBottom != _isNearBottom ||
+            isVeryNearBottom != _autoScrollEnabled) {
+          setState(() {
+            _isNearBottom = isNearBottom;
+            _autoScrollEnabled = isVeryNearBottom;
+
+            if (_autoScrollEnabled) {
+              _hasNewMessage = false;
+              _newMessageCount = 0;
+            }
+          });
+        }
+
+        // 무한 스크롤 로직
+        if (!_isLoadingMore && _hasMoreData && mounted) {
+          final totalItems = _getTotalItemsWithDividers();
+
+          if (smallestIndex >= totalItems * 0.7) {
+            _loadOlderMessages();
+          }
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print('스크롤 위치 읽기 오류: $e');
+        }
+      }
+    });
+    // 생성된 타이머를 목록에 추가
+    _activeTimers.add(_debounceTimer!);
+  }
+
+  // 전체 아이템 수 계산 (날짜 구분선 포함)
+  int _getTotalItemsWithDividers() {
+    final filteredNotifications = _filteredNotifications;
+
+    if (filteredNotifications.isEmpty) {
+      return 0;
+    }
+
+    // 날짜 구분선 개수 추정 - 날짜별로 그룹화
+    final Set<DateTime> uniqueDates = {};
+    for (var notification in filteredNotifications) {
+      final date = DateTime(
+        notification.timestamp.year,
+        notification.timestamp.month,
+        notification.timestamp.day,
+      );
+      uniqueDates.add(date);
+    }
+
+    // 알림 개수 + 날짜 구분선 개수 + "더 이상 알림이 없습니다" 메시지(조건부)
+    return filteredNotifications.length +
+        uniqueDates.length +
+        (_hasMoreData ? 0 : 1);
+  }
+
+  // void _onNewNotification(NotificationModel notification) {
+  //   if (!mounted) return;
+
+  //   setState(() {
+  //     // 중복 검사
+  //     final existingIndex = _notifications.indexWhere(
+  //       (n) => n.id == notification.id,
+  //     );
+  //     if (existingIndex != -1) {
+  //       _notifications[existingIndex] = notification;
+  //     } else {
+  //       _notifications.add(notification);
+  //       _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+  //     }
+
+  //     _removeDuplicateNotifications();
+
+  //     if (!_isNearBottom) {
+  //       _hasNewMessage = true;
+  //       _newMessageCount++;
+  //     }
+  //   });
+  // }
 
   @override
   void dispose() {
     _cleanupTimers();
-    _messageSubscription?.cancel();
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
+    // _messageSubscription?.cancel(); // 이 라인은 제거 또는 주석 처리
+    _itemPositionsListener.itemPositions.removeListener(_updateScrollPosition);
     _searchController.dispose();
     super.dispose();
   }
@@ -134,14 +295,17 @@ class _NotificationsPageState extends State<NotificationsPage>
     _activeTimers.clear();
   }
 
-  // FCM 메시지 리스너 설정
-  void _setupMessageListener() {
-    _messageSubscription = FirebaseMessaging.onMessage.listen((
-      RemoteMessage message,
-    ) {
-      _addNewNotification(message);
-    });
-  }
+  // // FCM 메시지 리스너 설정
+  // void _setupMessageListener() {
+  //   _messageSubscription = FirebaseMessaging.onMessage.listen((
+  //     RemoteMessage message,
+  //   ) {
+  //     // 약간의 딜레이를 추가하여 비슷한 시간에 들어오는 메시지들이 한꺼번에 처리되도록 함
+  //     Future.delayed(Duration(milliseconds: 50), () {
+  //       _addNewNotification(message);
+  //     });
+  //   });
+  // }
 
   // 초기 데이터 로드 (로컬+서버)
   Future<void> _loadFirstNotifications() async {
@@ -447,56 +611,6 @@ class _NotificationsPageState extends State<NotificationsPage>
     }
   }
 
-  // 스크롤 리스너
-  void _scrollListener() {
-    // 스크롤 리스너에 디바운싱 적용
-    if (_debounceTimer?.isActive ?? false) {
-      _debounceTimer?.cancel(); // 기존 타이머 취소
-    }
-
-    _debounceTimer = Timer(const Duration(milliseconds: 100), () {
-      if (!mounted) return;
-
-      try {
-        // 현재 스크롤 위치 확인
-        if (_scrollController.hasClients) {
-          final maxScroll = _scrollController.position.maxScrollExtent;
-          final currentScroll = _scrollController.position.pixels;
-
-          // reverse: true 리스트에서는 스크롤 값이 0에 가까울수록 하단(최신 메시지)
-          // 일정 값 이하면 하단으로 간주
-          bool isNearBottom = currentScroll < 50; // 50픽셀 이하일 때 하단으로 간주
-
-          // 상태가 변경되었을 때만 setState 호출하여 성능 최적화
-          if (isNearBottom != _isNearBottom && mounted) {
-            setState(() {
-              _isNearBottom = isNearBottom;
-              if (isNearBottom) {
-                _hasNewMessage = false;
-                _newMessageCount = 0;
-              }
-            });
-          }
-
-          // 무한 스크롤 로직 - 스크롤 위치가 일정 지점을 넘어가면 더 많은 데이터 로드
-          if (!_isLoadingMore && _hasMoreData && mounted) {
-            if (currentScroll >= maxScroll * 0.7) {
-              // 70% 지점에서 데이터 로드 시작
-              _loadOlderMessages();
-            }
-          }
-        }
-      } catch (e) {
-        // 스크롤 위치 읽기 오류 처리
-        if (kDebugMode) {
-          print('스크롤 위치 읽기 오류: $e');
-        }
-      }
-    });
-    // 생성된 타이머를 목록에 추가
-    _activeTimers.add(_debounceTimer!);
-  }
-
   // 로컬에 알림 저장
   Future<void> _updateLocalNotifications(
     List<NotificationModel> notifications,
@@ -590,77 +704,81 @@ class _NotificationsPageState extends State<NotificationsPage>
   }
 
   // 새 메시지 알림 추가
-  void _addNewNotification(RemoteMessage message) async {
-    if (!mounted) return;
+  // void _addNewNotification(RemoteMessage message) async {
+  //   if (!mounted) return;
 
-    try {
-      // 새 알림 데이터 생성
-      final String messageId =
-          message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString();
+  //   try {
+  //     // 새 알림 데이터 생성
+  //     final String messageId =
+  //         message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString();
 
-      final notificationData = {
-        'id': messageId,
-        'username':
-            message.notification?.title ?? message.data['username'] ?? '알림',
-        'content': message.notification?.body ?? message.data['content'] ?? '',
-        'avatar_url': message.data['avatar_url'] ?? '',
-        'timestamp': DateTime.now().toIso8601String(),
-        'read': false,
-      };
+  //     final notificationData = {
+  //       'id': messageId,
+  //       'username':
+  //           message.notification?.title ?? message.data['username'] ?? '알림',
+  //       'content': message.notification?.body ?? message.data['content'] ?? '',
+  //       'avatar_url': message.data['avatar_url'] ?? '',
+  //       'timestamp': DateTime.now().toIso8601String(),
+  //       'read': false,
+  //     };
 
-      // 추가 데이터가 있으면 병합
-      message.data.forEach((key, value) {
-        if (key != 'read') {
-          notificationData[key] = value;
-        }
-      });
-      // 알림 객체 생성
-      final newNotification = NotificationModel.fromJson(notificationData);
+  //     // 추가 데이터가 있으면 병합
+  //     message.data.forEach((key, value) {
+  //       if (key != 'read') {
+  //         notificationData[key] = value;
+  //       }
+  //     });
 
-      // 중복 확인
-      final existingIndex = _notifications.indexWhere(
-        (n) => n.id == newNotification.id,
-      );
+  //     // 알림 객체 생성
+  //     final newNotification = NotificationModel.fromJson(notificationData);
 
-      setState(() {
-        if (existingIndex != -1) {
-          // 기존 알림이 있으면 업데이트
-          _notifications[existingIndex] = newNotification;
-        } else {
-          // 새 알림 추가 - 최신 메시지를 목록 끝에 추가
-          _notifications.add(newNotification);
-          // 정렬
-          _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-        }
-        _removeDuplicateNotifications();
-        // 로컬에도 저장
-        // _updateLocalNotifications(_notifications);
-      });
+  //     // 중복 확인
+  //     final existingIndex = _notifications.indexWhere(
+  //       (n) => n.id == newNotification.id,
+  //     );
 
-      // 자동 스크롤이 활성화된 경우에만 하단으로 스크롤
-      if (_autoScrollEnabled && _scrollController.hasClients && mounted) {
-        Future.delayed(Duration(milliseconds: 100), () {
-          if (_scrollController.hasClients) {
-            _scrollController.animateTo(
-              0, // 역방향 리스트뷰에서는 0이 최하단(최신 메시지)
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeOut,
-            );
-          }
-        });
-      } else if (!_isNearBottom && _scrollController.hasClients && mounted) {
-        // 새 메시지 알림 UI 표시 - 새 메시지가 왔고 현재 하단에 있지 않을 때 표시
-        setState(() {
-          _hasNewMessage = true;
-          _newMessageCount++;
-        });
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('새 알림 추가 중 오류: $e');
-      }
-    }
-  }
+  //     setState(() {
+  //       if (existingIndex != -1) {
+  //         // 기존 알림이 있으면 업데이트
+  //         _notifications[existingIndex] = newNotification;
+  //       } else {
+  //         // 새 알림 추가 - 최신 메시지를 목록 끝에 추가
+  //         _notifications.add(newNotification);
+  //         // 정렬
+  //         _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+  //       }
+
+  //       // 중복 제거 함수
+  //       _removeDuplicateNotifications();
+  //     });
+
+  //     if (kDebugMode) {
+  //       print('새 메시지 수신: 매우 하단 여부: $_autoScrollEnabled');
+  //     }
+
+  //     // _autoScrollEnabled 상태를 기준으로 자동 스크롤 결정
+  //     if (_autoScrollEnabled && _itemScrollController.isAttached && mounted) {
+  //       Future.delayed(Duration(milliseconds: 200), () {
+  //         if (mounted && _itemScrollController.isAttached) {
+  //           _itemScrollController.scrollTo(
+  //             index: 0, // 최신 메시지 위치
+  //             duration: Duration(milliseconds: 300),
+  //           );
+  //         }
+  //       });
+  //     } else if (!_isNearBottom && mounted) {
+  //       // 하단에 있지 않을 때 새 메시지 알림 표시
+  //       setState(() {
+  //         _hasNewMessage = true;
+  //         _newMessageCount++;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     if (kDebugMode) {
+  //       print('새 알림 추가 중 오류: $e');
+  //     }
+  //   }
+  // }
 
   // 알림 필터링
   List<NotificationModel> get _filteredNotifications {
@@ -814,40 +932,53 @@ class _NotificationsPageState extends State<NotificationsPage>
             ),
 
             // 새 메시지 알림 배너 (하단에 표시)
-            if (_hasNewMessage && !_isNearBottom)
-              GestureDetector(
-                onTap: () {
-                  if (_scrollController.hasClients) {
-                    _scrollController.animateTo(
-                      0, // 최신 메시지 위치
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeOut,
-                    );
-                    setState(() {
-                      _hasNewMessage = false;
-                      _newMessageCount = 0;
-                    });
-                  }
-                },
-                child: Container(
-                  color: Theme.of(context).primaryColor,
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          _newMessageCount > 0
-                              ? '새 알림 $_newMessageCount개가 있습니다'
-                              : '새 알림이 있습니다',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
+            if (_hasNewMessage && !_autoScrollEnabled)
+              AnimatedOpacity(
+                opacity: (_hasNewMessage && !_autoScrollEnabled) ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                child: IgnorePointer(
+                  ignoring: !(_hasNewMessage && !_autoScrollEnabled),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (_itemScrollController.isAttached) {
+                        _itemScrollController.scrollTo(
+                          index: 0, // 최신 메시지 위치
+                          duration: const Duration(milliseconds: 300),
+                        );
+                        setState(() {
+                          _hasNewMessage = false;
+                          _newMessageCount = 0;
+                        });
+                      }
+                    },
+                    child: Container(
+                      color: Theme.of(context).primaryColor,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 16,
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              _newMessageCount > 99
+                                  ? '새 알림 99+개가 있습니다'
+                                  : '새 알림 $_newMessageCount개가 있습니다',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(
+                              Icons.arrow_downward,
+                              color: Colors.white,
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 8),
-                        Icon(Icons.arrow_downward, color: Colors.white),
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -860,11 +991,10 @@ class _NotificationsPageState extends State<NotificationsPage>
               ? null
               : FloatingActionButton(
                 onPressed: () {
-                  if (_scrollController.hasClients) {
-                    _scrollController.animateTo(
-                      0, // 최신 메시지(하단)으로 이동
+                  if (_itemScrollController.isAttached) {
+                    _itemScrollController.scrollTo(
+                      index: 0, // 최신 메시지(하단)으로 이동
                       duration: Duration(milliseconds: 300),
-                      curve: Curves.easeOut,
                     );
                     setState(() {
                       _hasNewMessage = false;
@@ -876,9 +1006,8 @@ class _NotificationsPageState extends State<NotificationsPage>
                 child: Icon(Icons.arrow_downward),
               ),
     );
-  }
+  } // 알림 목록 위젯
 
-  // 알림 목록 위젯
   Widget _buildNotificationsList() {
     final filteredNotifications = _filteredNotifications;
 
@@ -1005,46 +1134,50 @@ class _NotificationsPageState extends State<NotificationsPage>
               ),
             ),
 
-          // 알림 목록
+          // 알림 목록 - ScrollablePositionedList로 변경
           Expanded(
             child: NotificationListener<ScrollNotification>(
               onNotification: (scrollNotification) {
                 // 최상단에서 위로 스크롤하는 경우 더 오래된 데이터 로드
                 if (scrollNotification is OverscrollNotification &&
-                    scrollNotification.overscroll > 0 && // 양수는 상단으로 오버스크롤
-                    _scrollController.position.pixels <= 0) {
-                  // 이미 최상단에 있는 경우
+                    scrollNotification.overscroll > 0) {
+                  // 양수는 상단으로 오버스크롤
 
-                  if (!_isLoadingMore && _hasMoreData && !_isOffline) {
-                    // 로드 실패 상태였다면 초기화
-                    if (_loadFailed) {
-                      setState(() {
-                        _loadFailed = false;
-                      });
+                  // 이미 최상단에 있는 경우 - ScrollablePositionedList는 직접 확인이 어려우므로
+                  // _itemPositionsListener의 값을 통해 간접적으로 확인해야 함
+                  final positions = _itemPositionsListener.itemPositions.value;
+                  if (positions.isNotEmpty) {
+                    // 보이는 아이템 중 가장 작은 인덱스가 0에 가까우면 최상단으로 간주
+                    final int smallestIndex = positions
+                        .map((ItemPosition position) => position.index)
+                        .reduce(
+                          (int min, int index) => index < min ? index : min,
+                        );
+
+                    if (smallestIndex <= 3 &&
+                        !_isLoadingMore &&
+                        _hasMoreData &&
+                        !_isOffline) {
+                      // 로드 실패 상태였다면 초기화
+                      if (_loadFailed) {
+                        setState(() {
+                          _loadFailed = false;
+                        });
+                      }
+
+                      // 오래된 데이터 로드
+                      _loadOlderMessages();
+                      return true; // 이벤트 처리 완료
                     }
-
-                    // 오래된 데이터 로드
-                    _loadOlderMessages();
-                  }
-                  return true; // 이벤트 처리 완료
-                }
-
-                // 기존 스크롤 로직 - 이미 70%에 도달했을 때 자동 로드
-                if (scrollNotification is ScrollUpdateNotification &&
-                    !_isLoadingMore &&
-                    _hasMoreData &&
-                    !_loadFailed &&
-                    !_isOffline) {
-                  if (_scrollController.position.pixels >=
-                      _scrollController.position.maxScrollExtent * 0.7) {
-                    _loadOlderMessages();
                   }
                 }
 
                 return false;
               },
-              child: ListView.builder(
-                controller: _scrollController,
+              child: ScrollablePositionedList.builder(
+                // ScrollablePositionedList 컨트롤러 설정
+                itemScrollController: _itemScrollController,
+                itemPositionsListener: _itemPositionsListener,
                 physics: const AlwaysScrollableScrollPhysics(),
                 reverse: true, // 최신 메시지를 하단에 표시
                 itemCount: itemsWithDateDividers.length,
@@ -1092,7 +1225,7 @@ class _NotificationsPageState extends State<NotificationsPage>
         ],
       ),
     );
-  }
+  } // 빈 상태 위젯
 
   // 날짜 구분선 위젯
   Widget _buildDateDivider(DateTime date) {
@@ -1121,7 +1254,6 @@ class _NotificationsPageState extends State<NotificationsPage>
     );
   }
 
-  // 빈 상태 위젯
   Widget _buildEmptyState() {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
@@ -1156,96 +1288,106 @@ class _NotificationsPageState extends State<NotificationsPage>
 
     return RefreshIndicator(
       onRefresh: _refreshNotifications,
-      child: ListView(
+      child: ScrollablePositionedList.builder(
+        // 빈 상태에서도 ScrollablePositionedList 사용
+        itemScrollController: _itemScrollController,
+        itemPositionsListener: _itemPositionsListener,
         physics: const AlwaysScrollableScrollPhysics(),
-        children: [
-          // 오류가 있는 경우 상단에 한 번만 표시
-          if (_showErrorMessage && _errorMessage.isNotEmpty)
-            Card(
-              margin: EdgeInsets.all(8),
-              color: Colors.red[100],
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Row(
+        itemCount: 1, // 빈 상태는 1개 아이템으로 처리
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              // 오류가 있는 경우 상단에 한 번만 표시
+              if (_showErrorMessage && _errorMessage.isNotEmpty)
+                Card(
+                  margin: EdgeInsets.all(8),
+                  color: Colors.red[100],
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
                       children: [
-                        Icon(Icons.error_outline, color: Colors.red),
-                        SizedBox(width: 8),
-                        Expanded(child: Text(_errorMessage)),
+                        Row(
+                          children: [
+                            Icon(Icons.error_outline, color: Colors.red),
+                            SizedBox(width: 8),
+                            Expanded(child: Text(_errorMessage)),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        OutlinedButton.icon(
+                          onPressed: () {
+                            setState(() {
+                              _showErrorMessage = false;
+                              _errorMessage = '';
+                            });
+                            _refreshNotifications();
+                          },
+                          icon: Icon(Icons.refresh),
+                          label: Text('이전 알림 다시 불러오기'),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.red[700],
+                            side: BorderSide(color: Colors.red[300]!),
+                          ),
+                        ),
                       ],
                     ),
-                    SizedBox(height: 8),
-                    OutlinedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          _showErrorMessage = false;
-                          _errorMessage = '';
-                        });
-                        _refreshNotifications();
-                      },
-                      icon: Icon(Icons.refresh),
-                      label: Text('이전 알림 다시 불러오기'),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.red[700],
-                        side: BorderSide(color: Colors.red[300]!),
+                  ),
+                ),
+
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          color:
+                              isDarkMode ? Colors.grey[800] : Colors.grey[200],
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(iconData, size: 40, color: iconColor),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 24),
+                      Text(
+                        mainMessage,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: iconColor,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        subMessage,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color:
+                              isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 24),
+                      ElevatedButton.icon(
+                        onPressed: _refreshNotifications,
+                        icon: Icon(Icons.refresh),
+                        label: Text('새로고침'),
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.7,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: isDarkMode ? Colors.grey[800] : Colors.grey[200],
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(iconData, size: 40, color: iconColor),
-                  ),
-                  SizedBox(height: 24),
-                  Text(
-                    mainMessage,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: iconColor,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    subMessage,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 24),
-                  ElevatedButton.icon(
-                    onPressed: _refreshNotifications,
-                    icon: Icon(Icons.refresh),
-                    label: Text('새로고침'),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }
