@@ -90,21 +90,38 @@ class DiscordNotificationWidget extends StatelessWidget {
       child: Row(
         children: [
           // 아바타
-          CircleAvatar(
-            backgroundImage:
-                notification.avatarUrl.isNotEmpty
-                    ? NetworkImage(notification.avatarUrl)
-                    : null,
-            radius: 14,
-            backgroundColor: isDarkMode ? Colors.grey[800] : Colors.grey[200],
-            child:
-                notification.avatarUrl.isEmpty
-                    ? Icon(
-                      Icons.person,
-                      size: 16,
-                      color: isDarkMode ? Colors.white70 : Colors.grey[700],
-                    )
-                    : null,
+          Container(
+            width: 28,
+            height: 28,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isDarkMode ? Colors.grey[800] : Colors.grey[200],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(14),
+              child:
+                  notification.avatarUrl.isNotEmpty
+                      ? Image.network(
+                        notification.avatarUrl,
+                        fit: BoxFit.cover,
+                        width: 28,
+                        height: 28,
+                        errorBuilder:
+                            (context, error, stackTrace) => Icon(
+                              Icons.person,
+                              size: 16,
+                              color:
+                                  isDarkMode
+                                      ? Colors.white70
+                                      : Colors.grey[700],
+                            ),
+                      )
+                      : Icon(
+                        Icons.person,
+                        size: 16,
+                        color: isDarkMode ? Colors.white70 : Colors.grey[700],
+                      ),
+            ),
           ),
           SizedBox(width: 8),
 
@@ -135,169 +152,316 @@ class DiscordNotificationWidget extends StatelessWidget {
   }
 
   // 리치 알림 위젯 (임베드)
-  // 리치 알림 전체를 Stack으로 감싸고
   Widget _buildRichNotification(
     BuildContext context,
     bool isDarkMode,
     Color borderColor,
   ) {
-    return Stack(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8.0),
-          margin: const EdgeInsets.fromLTRB(8, 4, 8, 8),
-          decoration: BoxDecoration(
-            border: Border(left: BorderSide(color: borderColor, width: 4)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // 작성자, 제목, 설명, 필드
-              if (notification.authorName.isNotEmpty) ...[
-                InkWell(
-                  onTap: () => _launchUrl(notification.authorUrl),
-                  child: Text(
-                    notification.authorName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: isDarkMode ? Colors.grey[300] : Colors.grey[700],
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 6),
-              ],
-              // 제목
-              if (notification.title.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(right: 80.0, bottom: 8.0),
-                  child:
-                      notification.url.isNotEmpty
-                          ? InkWell(
-                            // URL이 있을 때만 InkWell 적용
-                            onTap: () => _launchUrl(notification.url),
-                            child: Text(
-                              _processEmoji(notification.title),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color:
-                                    isDarkMode
-                                        ? Colors.lightBlue[300]
-                                        : Colors.blue[700],
-                                fontSize: 16,
-                              ),
-                            ),
-                          )
-                          : Text(
-                            // URL이 없을 때는 일반 텍스트로 표시하고 색상도 변경
-                            _processEmoji(notification.title),
+    // 이미지 영역을 위한 고정 비율 상수 (유튜브 임베드에 맞춤)
+    const double embedImageRatio = 16 / 9; // 16:9 비율 (유튜브 표준)
+    const double thumbnailSize = 80.0; // 썸네일 크기
+    const double youtubeEmbedHeight = 220.0; // 유튜브 임베드 높이
+    const double generalEmbedHeight = 180.0; // 일반 임베드 최소 높이
+
+    // 유튜브 임베드 여부 확인
+    bool isYouTube =
+        notification.footerText.contains('YouTube') ||
+        notification.url.contains('youtube.com') ||
+        notification.url.contains('youtu.be') ||
+        (notification.embedData != null &&
+            notification.embedData.toString().contains('youtube'));
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(8, 4, 8, 8),
+      decoration: BoxDecoration(
+        border: Border(left: BorderSide(color: borderColor, width: 4)),
+        borderRadius: BorderRadius.circular(3),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 메인 컨텐츠 영역 (썸네일 공간 확보)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 텍스트 콘텐츠 영역 (썸네일이 있을 경우 공간 확보)
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 작성자 정보
+                      if (notification.authorName.isNotEmpty) ...[
+                        InkWell(
+                          onTap: () => _launchUrl(notification.authorUrl),
+                          child: Text(
+                            notification.authorName,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                               color:
                                   isDarkMode
                                       ? Colors.grey[300]
-                                      : Colors
-                                          .grey[800], // 링크가 아닌 일반 텍스트 색상으로 변경
-                              fontSize: 16,
+                                      : Colors.grey[700],
+                              fontSize: 14,
                             ),
                           ),
-                ),
-              if (notification.description.isNotEmpty)
-                Text(
-                  _processEmoji(notification.description), // 이모지 처리 함수 적용
-                  style: TextStyle(
-                    color: isDarkMode ? Colors.white70 : Colors.black87,
+                        ),
+                        SizedBox(height: 6),
+                      ],
+
+                      // 제목 (썸네일이 있는 경우 우측 여백 확보)
+                      if (notification.title.isNotEmpty)
+                        Padding(
+                          padding:
+                              notification.thumbnailUrl.isNotEmpty
+                                  ? EdgeInsets.only(
+                                    right: thumbnailSize + 10.0,
+                                    bottom: 8.0,
+                                  )
+                                  : EdgeInsets.only(bottom: 8.0),
+                          child:
+                              notification.url.isNotEmpty
+                                  ? InkWell(
+                                    onTap: () => _launchUrl(notification.url),
+                                    child: Text(
+                                      _processEmoji(notification.title),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            isDarkMode
+                                                ? Colors.lightBlue[300]
+                                                : Colors.blue[700],
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  )
+                                  : Text(
+                                    _processEmoji(notification.title),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          isDarkMode
+                                              ? Colors.grey[300]
+                                              : Colors.grey[800],
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                        ),
+
+                      // 설명
+                      if (notification.description.isNotEmpty)
+                        Padding(
+                          padding:
+                              notification.thumbnailUrl.isNotEmpty
+                                  ? EdgeInsets.only(right: thumbnailSize + 10.0)
+                                  : EdgeInsets.zero,
+                          child: Text(
+                            _processEmoji(notification.description),
+                            style: TextStyle(
+                              color:
+                                  isDarkMode ? Colors.white70 : Colors.black87,
+                            ),
+                          ),
+                        ),
+
+                      // 필드 목록
+                      if (notification.fields != null)
+                        ...notification.fields!.map((field) {
+                          if (field is Map &&
+                              field.containsKey('name') &&
+                              field.containsKey('value')) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _processEmoji(field['name']!.toString()),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          isDarkMode
+                                              ? Colors.white
+                                              : Colors.black87,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Text(
+                                    _processEmoji(
+                                      field['value']?.toString() ?? '',
+                                    ),
+                                    style: TextStyle(
+                                      color:
+                                          isDarkMode
+                                              ? Colors.white70
+                                              : Colors.black87,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          return SizedBox.shrink();
+                        }).toList(),
+                    ],
                   ),
                 ),
-              if (notification.fields != null)
-                ..._buildFields(notification.fields, isDarkMode),
-              if (notification.imageUrl.isNotEmpty) ...[
-                SizedBox(height: 8),
-                ClipRRect(
+
+                // 썸네일 영역 (고정 크기)
+                if (notification.thumbnailUrl.isNotEmpty)
+                  Container(
+                    width: thumbnailSize,
+                    height: thumbnailSize,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.grey[300], // 로딩 배경색
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.network(
+                        notification.thumbnailUrl,
+                        fit: BoxFit.cover,
+                        width: thumbnailSize,
+                        height: thumbnailSize,
+                        errorBuilder:
+                            (context, error, stackTrace) => Container(
+                              width: thumbnailSize,
+                              height: thumbnailSize,
+                              color: Colors.grey[400],
+                              child: Center(
+                                child: Icon(
+                                  Icons.broken_image,
+                                  color: Colors.grey[200],
+                                ),
+                              ),
+                            ),
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value:
+                                  loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                              strokeWidth: 2,
+                              color: Colors.grey[500],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+
+          // 메인 이미지 영역 (고정 비율 유지)
+          if (notification.imageUrl.isNotEmpty)
+            Container(
+              width: double.infinity,
+              // 유튜브 임베드인 경우 더 큰 고정 높이 사용
+              constraints: BoxConstraints(
+                minHeight: isYouTube ? youtubeEmbedHeight : generalEmbedHeight,
+                maxHeight: isYouTube ? youtubeEmbedHeight : 300,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey[300], // 로딩 배경색
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: AspectRatio(
+                aspectRatio: embedImageRatio,
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
                   child: Image.network(
                     notification.imageUrl,
                     fit: BoxFit.cover,
                     errorBuilder:
-                        (context, error, stackTrace) =>
-                            Container(height: 120, color: Colors.grey),
+                        (context, error, stackTrace) => Container(
+                          color: Colors.grey[400],
+                          child: Center(
+                            child: Icon(
+                              Icons.broken_image,
+                              color: Colors.grey[200],
+                              size: 40,
+                            ),
+                          ),
+                        ),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value:
+                              loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                          strokeWidth: 2,
+                          color: Colors.grey[500],
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ],
-              if (notification.footerText.isNotEmpty)
-                _buildFooter(context, isDarkMode),
-            ],
-          ),
-        ),
-        // 썸네일을 오른쪽 상단에 고정
-        if (notification.thumbnailUrl.isNotEmpty)
-          Positioned(
-            top: 12,
-            right: 12,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Image.network(
-                notification.thumbnailUrl,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
-                errorBuilder:
-                    (context, error, stackTrace) =>
-                        Container(width: 60, height: 60, color: Colors.grey),
               ),
             ),
-          ),
-      ],
-    );
-  }
 
-  // 필드 목록 위젯
-  List<Widget> _buildFields(dynamic fields, bool isDarkMode) {
-    List<Widget> fieldWidgets = [];
-
-    try {
-      if (fields is List) {
-        // 리스트 형태일 경우
-        for (var field in fields) {
-          if (field is Map &&
-              field.containsKey('name') &&
-              field.containsKey('value')) {
-            fieldWidgets.add(
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _processEmoji(field['name']!.toString()),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: isDarkMode ? Colors.white : Colors.black87,
-                        fontSize: 14,
+          // 푸터 영역
+          if (notification.footerText.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  if (notification.footerIconUrl.isNotEmpty) ...[
+                    Container(
+                      width: 16,
+                      height: 16,
+                      margin: const EdgeInsets.only(right: 8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        shape: BoxShape.circle,
                       ),
-                    ),
-                    Text(
-                      field['value']?.toString() ?? '',
-                      style: TextStyle(
-                        color: isDarkMode ? Colors.white70 : Colors.black87,
-                        fontSize: 14,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          notification.footerIconUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder:
+                              (context, error, stackTrace) => SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: Icon(
+                                  Icons.image,
+                                  size: 12,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                        ),
                       ),
                     ),
                   ],
-                ),
+                  Expanded(
+                    child: Text(
+                      // 임베드 타임스탬프 또는 알림 타임스탬프 사용
+                      "${notification.footerText} • ${_formatTimestamp(notification.timestamp)}",
+                      style: TextStyle(
+                        color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                        fontSize: 12,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
-            );
-          }
-        }
-      }
-    } catch (e) {
-      print('필드 처리 중 오류: $e');
-    }
-
-    return fieldWidgets;
+            ),
+        ],
+      ),
+    );
   }
 
-  // 푸터 위젯 - 변경된 부분
+  // 푸터 위젯
   Widget _buildFooter(BuildContext context, bool isDarkMode) {
     // 타임스탬프 찾기 시도 - 임베드의 timestamp 사용
     DateTime? embedTimestamp;
@@ -325,19 +489,30 @@ class DiscordNotificationWidget extends StatelessWidget {
               width: 16,
               height: 16,
               margin: const EdgeInsets.only(right: 8.0),
-              child: Image.network(
-                notification.footerIconUrl,
-                errorBuilder:
-                    (context, error, stackTrace) =>
-                        SizedBox(width: 16, height: 16),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                shape: BoxShape.circle,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  notification.footerIconUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder:
+                      (context, error, stackTrace) =>
+                          Icon(Icons.image, size: 12, color: Colors.grey[400]),
+                ),
               ),
             ),
-          Text(
-            // 수정된 부분: 임베드 타임스탬프 또는 알림 타임스탬프 사용
-            "${notification.footerText} • ${_formatTimestamp(displayTimestamp)}",
-            style: TextStyle(
-              color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
-              fontSize: 12,
+          Expanded(
+            child: Text(
+              // 수정된 부분: 임베드 타임스탬프 또는 알림 타임스탬프 사용
+              "${notification.footerText} • ${_formatTimestamp(displayTimestamp)}",
+              style: TextStyle(
+                color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                fontSize: 12,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],

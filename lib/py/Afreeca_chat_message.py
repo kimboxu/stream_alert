@@ -17,7 +17,7 @@ from requests import post
 from datetime import datetime
 from supabase import create_client
 from dataclasses import dataclass, field
-from discord_webhook_sender import get_list_of_urls, get_chat_json_data
+from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
 from notification_service import send_push_notification
 
 @dataclass
