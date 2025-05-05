@@ -1,7 +1,6 @@
-// login_page.dart
-import 'package:flutter/foundation.dart';
+// ignore_for_file: library_private_types_in_public_api, depend_on_referenced_packages, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,13 +8,12 @@ import 'register_page.dart';
 import 'home_page.dart';
 import '../services/api_service.dart';
 import '../services/push_notification_service.dart';
-import '../utils/url_helper.dart'; // URL 헬퍼 추가
+import '../utils/url_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -39,8 +37,8 @@ class _LoginPageState extends State<LoginPage> {
     final username = prefs.getString('username');
     final discordWebhooksURL = prefs.getString('discordWebhooksURL');
 
+    // 저장된 로그인 정보가 있으면 홈 화면으로 이동
     if (username != null && discordWebhooksURL != null) {
-      // 저장된 로그인 정보가 있으면 홈 화면으로 이동
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -50,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   username: username,
                   discordWebhooksURL: UrlHelper.normalizeDiscordWebhookUrl(
                     discordWebhooksURL,
-                  ), // URL 정규화 적용
+                  ),
                 ),
           ),
         );
@@ -82,10 +80,9 @@ class _LoginPageState extends State<LoginPage> {
           'discordWebhooksURL': normalizedWebhookUrl, // 정규화된 URL 사용
         },
       );
-      if (kDebugMode) {
-        print('응답 상태 코드: ${response.statusCode}');
-        print('응답 본문: ${response.body}');
-      }
+
+      debugPrint('응답 상태 코드: ${response.statusCode}');
+      debugPrint('응답 본문: ${response.body}');
 
       Map<String, dynamic> responseData = json.decode(response.body);
 
@@ -103,11 +100,9 @@ class _LoginPageState extends State<LoginPage> {
         // 푸시 알림 초기화 및 서버 알림 가져오기
         final pushService = PushNotificationService();
         await pushService.registerToken();
-        await pushService.loadNotificationsFromServer();
 
         // 로그인 성공 시 홈 화면으로 이동
         Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
             builder:
@@ -125,9 +120,8 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       setState(() {
-        if (kDebugMode) {
-          print('예외 발생: $e');
-        }
+        debugPrint('예외 발생: $e');
+
         _message = '연결 오류: $e';
         _isError = true;
       });

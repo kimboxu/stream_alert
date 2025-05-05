@@ -1,12 +1,9 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/notification_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../models/notification_model.dart';
 
 /// 디스코드 스타일의 알림 위젯
-/// NotificationModel을 입력받아 디스코드와 유사한 UI로 표시합니다.
 class DiscordNotificationWidget extends StatelessWidget {
   final NotificationModel notification;
   final Function()? onTap; // 알림 클릭 시 콜백
@@ -72,11 +69,6 @@ class DiscordNotificationWidget extends StatelessWidget {
                   ),
                 ),
               ),
-
-            // 푸터 (아직 미구현된 경우)
-            if (notification.footerText.isNotEmpty &&
-                !notification.isRichNotification)
-              _buildFooter(context, isDarkMode),
           ],
         ),
       ),
@@ -157,19 +149,11 @@ class DiscordNotificationWidget extends StatelessWidget {
     bool isDarkMode,
     Color borderColor,
   ) {
-    // 이미지 영역을 위한 고정 비율 상수 (유튜브 임베드에 맞춤)
-    const double embedImageRatio = 16 / 9; // 16:9 비율 (유튜브 표준)
+    // 이미지 영역을 위한 고정 비율 상수
+    const double embedImageRatio = 16 / 9; // 16:9 비율
     const double thumbnailSize = 80.0; // 썸네일 크기
-    const double youtubeEmbedHeight = 220.0; // 유튜브 임베드 높이
-    const double generalEmbedHeight = 180.0; // 일반 임베드 최소 높이
-
-    // 유튜브 임베드 여부 확인
-    bool isYouTube =
-        notification.footerText.contains('YouTube') ||
-        notification.url.contains('youtube.com') ||
-        notification.url.contains('youtu.be') ||
-        (notification.embedData != null &&
-            notification.embedData.toString().contains('youtube'));
+    const double embedHeightMin = 180.0; // 임베드 최소 높이
+    const double embedHeightMax = 300.0; // 임베드 최소 높이
 
     return Container(
       margin: const EdgeInsets.fromLTRB(8, 4, 8, 8),
@@ -180,13 +164,13 @@ class DiscordNotificationWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 메인 컨텐츠 영역 (썸네일 공간 확보)
+          // 메인 컨텐츠 영역
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 텍스트 콘텐츠 영역 (썸네일이 있을 경우 공간 확보)
+                // 텍스트 콘텐츠 영역
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -364,11 +348,11 @@ class DiscordNotificationWidget extends StatelessWidget {
               width: double.infinity,
               // 유튜브 임베드인 경우 더 큰 고정 높이 사용
               constraints: BoxConstraints(
-                minHeight: isYouTube ? youtubeEmbedHeight : generalEmbedHeight,
-                maxHeight: isYouTube ? youtubeEmbedHeight : 300,
+                minHeight: embedHeightMin,
+                maxHeight: embedHeightMax,
               ),
               decoration: BoxDecoration(
-                color: Colors.grey[300], // 로딩 배경색
+                color: Colors.grey[800], // 로딩 배경색
                 borderRadius: BorderRadius.circular(4),
               ),
               child: AspectRatio(
@@ -445,7 +429,7 @@ class DiscordNotificationWidget extends StatelessWidget {
                   Expanded(
                     child: Text(
                       // 임베드 타임스탬프 또는 알림 타임스탬프 사용
-                      "${notification.footerText} • ${_formatTimestamp(notification.timestamp)}",
+                      "${notification.footerText} • ${_formatTimestamp(_getEmbedTimestamp())}",
                       style: TextStyle(
                         color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
                         fontSize: 12,
@@ -461,63 +445,21 @@ class DiscordNotificationWidget extends StatelessWidget {
     );
   }
 
-  // 푸터 위젯
-  Widget _buildFooter(BuildContext context, bool isDarkMode) {
-    // 타임스탬프 찾기 시도 - 임베드의 timestamp 사용
+  // 임베드 타임스탬프 추출 메서드
+  DateTime _getEmbedTimestamp() {
     DateTime? embedTimestamp;
-
-    // 먼저 임베드 데이터에서 timestamp 필드 직접 찾기
+    // 임베드 데이터에서 타임스탬프 찾기
     if (notification.embedData != null &&
         notification.embedData!.containsKey('timestamp')) {
       try {
         String timestampStr = notification.embedData!['timestamp'].toString();
         embedTimestamp = DateTime.parse(timestampStr);
       } catch (e) {
-        print('임베드 타임스탬프 파싱 오류: $e');
+        debugPrint('임베드 타임스탬프 파싱 오류: $e');
       }
     }
-
     // 임베드 타임스탬프가 있으면 사용, 없으면 알림 타임스탬프 사용
-    final displayTimestamp = embedTimestamp ?? notification.timestamp;
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          if (notification.footerIconUrl.isNotEmpty)
-            Container(
-              width: 16,
-              height: 16,
-              margin: const EdgeInsets.only(right: 8.0),
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                shape: BoxShape.circle,
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  notification.footerIconUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder:
-                      (context, error, stackTrace) =>
-                          Icon(Icons.image, size: 12, color: Colors.grey[400]),
-                ),
-              ),
-            ),
-          Expanded(
-            child: Text(
-              // 수정된 부분: 임베드 타임스탬프 또는 알림 타임스탬프 사용
-              "${notification.footerText} • ${_formatTimestamp(displayTimestamp)}",
-              style: TextStyle(
-                color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
-                fontSize: 12,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
+    return embedTimestamp ?? notification.timestamp;
   }
 
   // URL 실행 함수
@@ -528,7 +470,7 @@ class DiscordNotificationWidget extends StatelessWidget {
       final uri = Uri.parse(url);
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {
-      print('🚫 URL 실행 중 오류: $e');
+      debugPrint('🚫 URL 실행 중 오류: $e');
     }
   }
 
@@ -557,9 +499,6 @@ class DiscordNotificationWidget extends StatelessWidget {
     } else if (messageDate == yesterday) {
       // 어제 메시지
       return '어제 $timeFormat';
-    } else if (now.difference(localTimestamp).inDays < 7) {
-      // 일주일 이내 메시지
-      return '${DateFormat('E', 'ko_KR').format(localTimestamp)} $timeFormat';
     } else {
       // 그 외 메시지 (년-월-일 형식)
       return '${DateFormat('yyyy-MM-dd (E)', 'ko_KR').format(localTimestamp)} $timeFormat';
@@ -570,14 +509,12 @@ class DiscordNotificationWidget extends StatelessWidget {
     // 이모지 매핑 정의
     final Map<String, String> emojiMap = {
       ':busts_in_silhouette:': '👥',
-      // 더 많은 이모지 추가 가능
       ':heart:': '❤️',
       ':thumbsup:': '👍',
       ':thumbsdown:': '👎',
       ':smile:': '😊',
       ':laughing:': '😆',
       ':joy:': '😂',
-      // 등등...
     };
 
     // 모든 이모지 코드를 실제 이모지로 대체

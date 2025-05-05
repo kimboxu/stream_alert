@@ -1,17 +1,17 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/api_service.dart';
-import '../utils/url_helper.dart'; // URL 헬퍼 추가
+import '../utils/url_helper.dart';
 import 'home_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _RegisterPageState createState() => _RegisterPageState();
 }
 
@@ -30,14 +30,13 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
-      // Discord 웹훅 URL 정규화
       final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(_webhookController.text);
       
       final response = await http.post(
         Uri.parse('${ApiService.baseUrl}/register'),
         body: {
           'username': _usernameController.text,
-          'discordWebhooksURL': normalizedWebhookUrl, // 정규화된 URL 사용
+          'discordWebhooksURL': normalizedWebhookUrl,
         },
       );
 
@@ -49,15 +48,13 @@ class _RegisterPageState extends State<RegisterPage> {
           _isError = false;
         });
         
-        // 회원가입 성공 시 로그인 정보 저장 (정규화된 URL 저장)
+        // 회원가입 성공 시 로그인 정보 저장
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('username', _usernameController.text);
         await prefs.setString('discordWebhooksURL', normalizedWebhookUrl);
         
         // 회원가입 성공 시 홈 화면으로 이동
-        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
             builder: (context) => HomePage(

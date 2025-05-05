@@ -21,13 +21,9 @@ class CacheHelper {
       };
       await prefs.setString(_streamerDataKey, json.encode(cacheData));
 
-      if (kDebugMode) {
-        print('스트리머 데이터가 캐시에 저장되었습니다.');
-      }
+      debugPrint('스트리머 데이터가 캐시에 저장되었습니다.');
     } catch (e) {
-      if (kDebugMode) {
-        print('캐시 저장 실패: $e');
-      }
+      debugPrint('캐시 저장 실패: $e');
     }
   }
 
@@ -47,21 +43,17 @@ class CacheHelper {
 
       // 캐시 만료 여부 확인
       if (DateTime.now().difference(cachedTime) > _cacheValidity) {
-        if (kDebugMode) {
-          print('캐시가 만료되었습니다.');
-        }
+        debugPrint('캐시가 만료되었습니다.');
+
         return null;
       }
 
-      if (kDebugMode) {
-        print('캐시된 스트리머 데이터를 사용합니다.');
-      }
+      debugPrint('캐시된 스트리머 데이터를 사용합니다.');
 
       return cachedData['data'];
     } catch (e) {
-      if (kDebugMode) {
-        print('캐시 불러오기 실패: $e');
-      }
+      debugPrint('캐시 불러오기 실패: $e');
+
       return null;
     }
   }
@@ -88,15 +80,13 @@ class CacheHelper {
         if (imageData != null) {
           _memoryImageCache[url] = imageData;
 
-          if (kDebugMode) {
-            print('이미지 캐시 히트: $url');
-          }
+          debugPrint('이미지 캐시 히트: $url');
 
           return imageData;
         }
       }
 
-      // 3. 이미지 처리를 위해 ImageUtils 사용 (기존 방식 유지)
+      // 3. 이미지 처리를 위해 ImageUtils 사용
       final processedImage = await ImageUtils.fetchAndProcessImage(url);
 
       if (processedImage != null) {
@@ -106,16 +96,12 @@ class CacheHelper {
         // 디스크에도 저장 (Base64 인코딩)
         await prefs.setString(cacheKey, base64Encode(processedImage));
 
-        if (kDebugMode) {
-          print('이미지 처리 및 캐싱 완료: $url');
-        }
+        debugPrint('이미지 처리 및 캐싱 완료: $url');
 
         return processedImage;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('이미지 처리/캐싱 오류: $url - $e');
-      }
+      debugPrint('이미지 처리/캐싱 오류: $url - $e');
     }
 
     return null;
@@ -123,9 +109,7 @@ class CacheHelper {
 
   // 여러 이미지 미리 로드
   static Future<void> preloadImages(List<String> urls) async {
-    if (kDebugMode) {
-      print('${urls.length}개의 이미지 미리 로드 시작');
-    }
+    debugPrint('${urls.length}개의 이미지 미리 로드 시작');
 
     int successCount = 0;
 
@@ -137,16 +121,12 @@ class CacheHelper {
             successCount++;
           }
         } catch (e) {
-          if (kDebugMode) {
-            print('이미지 미리 로드 실패: $url - $e');
-          }
+          debugPrint('이미지 미리 로드 실패: $url - $e');
         }
       }
     }
 
-    if (kDebugMode) {
-      print('이미지 미리 로드 완료: $successCount/${urls.length}개 성공');
-    }
+    debugPrint('이미지 미리 로드 완료: $successCount/${urls.length}개 성공');
   }
 
   // URL을 캐시 키로 변환
@@ -176,13 +156,9 @@ class CacheHelper {
         }
       }
 
-      if (kDebugMode) {
-        print('모든 캐시가 삭제되었습니다.');
-      }
+      debugPrint('모든 캐시가 삭제되었습니다.');
     } catch (e) {
-      if (kDebugMode) {
-        print('캐시 삭제 실패: $e');
-      }
+      debugPrint('캐시 삭제 실패: $e');
     }
   }
 }

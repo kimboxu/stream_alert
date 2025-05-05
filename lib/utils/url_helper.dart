@@ -17,7 +17,7 @@ class UrlHelper {
            url.startsWith('https://discordapp.com/api/webhooks/');
   }
   
-  /// URL에서 불필요한 공백을 제거하고, 앞뒤 공백을 정리합니다.
+  /// URL에서 불필요한 공백을 제거하고, 앞뒤 공백을 정리
   static String cleanUrl(String url) {
     return url.trim();
   }
