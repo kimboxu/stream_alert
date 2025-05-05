@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/streamer_data.dart';
@@ -637,4 +638,21 @@ class ApiService {
       return false;
     }
   }
+
+  // 외부 URL 실행(하이퍼 링크)
+static Future<bool> launchExternalUrl(String url) async {
+  if (url.isEmpty) return false;
+
+  try {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      return true;
+    }
+    return false;
+  } catch (e) {
+    debugPrint('URL 실행 중 오류: $e');
+    return false;
+  }
+}
 }
