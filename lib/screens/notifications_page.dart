@@ -1,5 +1,4 @@
-// lib/screens/notifications_page.dart 개선 버전
-// ignore_for_file: avoid_print
+// ignore_for_file: library_private_types_in_public_api, unnecessary_import
 
 import 'dart:async';
 import 'dart:convert';
@@ -8,20 +7,23 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart'; // 추가된 패키지
+
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../models/notification_model.dart';
 import '../services/api_service.dart';
 import '../services/push_notification_service.dart';
 import '../widgets/discord_notification_widget.dart';
 
+enum LoadDirection {
+  newer, // 최신 알림 로드 (첫 페이지)
+  older, // 과거 알림 로드 (다음 페이지)
+}
+
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _NotificationsPageState createState() => _NotificationsPageState();
 }
 
@@ -37,10 +39,10 @@ class _NotificationsPageState extends State<NotificationsPage>
   int _currentPage = 1;
   final int _pageSize = 50;
 
-  // 스크롤 관련 변수 - ItemScrollController로 변경
+  // 스크롤 관련 변수
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
-      ItemPositionsListener.create(); // 추가: 아이템 위치 리스너
+      ItemPositionsListener.create();
 
   bool _isNearBottom = true;
   bool _hasNewMessage = false;
@@ -51,10 +53,9 @@ class _NotificationsPageState extends State<NotificationsPage>
   final int _autoScrollThreshold = 3; // 자동 스크롤을 위한 하단 근접 임계값
   bool _autoScrollEnabled = false;
 
-  // 타이머 관리
+  //
   Timer? _debounceTimer;
   final List<Timer> _activeTimers = [];
-  StreamSubscription<RemoteMessage>? _messageSubscription;
 
   // 필터 관련 변수
   NotificationType? _selectedFilter;
@@ -80,17 +81,11 @@ class _NotificationsPageState extends State<NotificationsPage>
       _loadFirstNotifications();
     });
 
-    // 기존 두 라인을 하나의 통합된 알림 수신 시스템으로 변경
-    // _setupMessageListener();
-    // PushNotificationService().notificationStream.listen(_onNewNotification);
-
-    // 통합된 알림 수신 시스템으로 변경
     _setupNotificationReceiver();
   }
 
-  // 2. 새로운 통합 알림 수신 메서드 추가
+  // 알림 수신 메서드
   void _setupNotificationReceiver() {
-    // PushNotificationService의 notificationStream만 사용
     PushNotificationService().notificationStream.listen((notification) {
       // 약간의 딜레이를 추가하여 비슷한 시간에 들어오는 메시지들이 한꺼번에 처리되도록 함
       Future.delayed(const Duration(milliseconds: 50), () {
@@ -100,22 +95,11 @@ class _NotificationsPageState extends State<NotificationsPage>
     });
   }
 
-  // 3. 통합된 알림 처리 메서드 추가
   void _handleNewNotification(NotificationModel notification) {
     if (!mounted) return;
 
     setState(() {
-      // 중복 검사
-      final existingIndex = _notifications.indexWhere(
-        (n) => n.id == notification.id,
-      );
-      if (existingIndex != -1) {
-        _notifications[existingIndex] = notification;
-      } else {
-        _notifications.add(notification);
-        _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-      }
-
+      _notifications.add(notification);
       _removeDuplicateNotifications();
 
       if (!_autoScrollEnabled) {
@@ -124,19 +108,15 @@ class _NotificationsPageState extends State<NotificationsPage>
       }
     });
 
-    if (kDebugMode) {
-      print('새 메시지 수신: 매우 하단 여부: $_autoScrollEnabled');
-    }
+    debugPrint('새 메시지 수신: 매우 하단 여부: $_autoScrollEnabled');
 
     // 자동 스크롤 로직
     if (_autoScrollEnabled && _itemScrollController.isAttached && mounted) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        if (mounted && _itemScrollController.isAttached) {
-          _itemScrollController.scrollTo(
-            index: 0, // 최신 메시지 위치
-            duration: const Duration(milliseconds: 300),
-          );
-        }
+      Future.delayed(const Duration(milliseconds: 100), () {
+        _itemScrollController.scrollTo(
+          index: 0, // 최신 메시지 위치
+          duration: const Duration(milliseconds: 200),
+        );
       });
     }
   }
@@ -171,11 +151,9 @@ class _NotificationsPageState extends State<NotificationsPage>
             smallestIndex <
             _autoScrollThreshold; // 자동 스크롤용 하단 여부 (_autoScrollThreshold=3)
 
-        if (kDebugMode) {
-          print(
-            '현재 인덱스: $smallestIndex, 하단 여부: $isNearBottom, 매우 하단 여부: $isVeryNearBottom',
-          );
-        }
+        debugPrint(
+          '현재 인덱스: $smallestIndex, 하단 여부: $isNearBottom, 매우 하단 여부: $isVeryNearBottom',
+        );
 
         // 상태가 변경되었을 때만 setState 호출하여 성능 최적화
         if (isNearBottom != _isNearBottom ||
@@ -200,9 +178,7 @@ class _NotificationsPageState extends State<NotificationsPage>
           }
         }
       } catch (e) {
-        if (kDebugMode) {
-          print('스크롤 위치 읽기 오류: $e');
-        }
+        debugPrint('스크롤 위치 읽기 오류: $e');
       }
     });
     // 생성된 타이머를 목록에 추가
@@ -234,37 +210,22 @@ class _NotificationsPageState extends State<NotificationsPage>
         (_hasMoreData ? 0 : 1);
   }
 
-  // void _onNewNotification(NotificationModel notification) {
-  //   if (!mounted) return;
-
-  //   setState(() {
-  //     // 중복 검사
-  //     final existingIndex = _notifications.indexWhere(
-  //       (n) => n.id == notification.id,
-  //     );
-  //     if (existingIndex != -1) {
-  //       _notifications[existingIndex] = notification;
-  //     } else {
-  //       _notifications.add(notification);
-  //       _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-  //     }
-
-  //     _removeDuplicateNotifications();
-
-  //     if (!_isNearBottom) {
-  //       _hasNewMessage = true;
-  //       _newMessageCount++;
-  //     }
-  //   });
-  // }
-
   @override
   void dispose() {
     _cleanupTimers();
-    // _messageSubscription?.cancel(); // 이 라인은 제거 또는 주석 처리
     _itemPositionsListener.itemPositions.removeListener(_updateScrollPosition);
     _searchController.dispose();
     super.dispose();
+  }
+
+  // 모든 타이머 정리
+  void _cleanupTimers() {
+    for (final timer in _activeTimers) {
+      if (timer.isActive) {
+        timer.cancel();
+      }
+    }
+    _activeTimers.clear();
   }
 
   // 네트워크 연결 상태 확인
@@ -284,71 +245,6 @@ class _NotificationsPageState extends State<NotificationsPage>
     }
   }
 
-  // 모든 타이머 정리
-  void _cleanupTimers() {
-    _debounceTimer?.cancel();
-    for (final timer in _activeTimers) {
-      if (timer.isActive) {
-        timer.cancel();
-      }
-    }
-    _activeTimers.clear();
-  }
-
-  // // FCM 메시지 리스너 설정
-  // void _setupMessageListener() {
-  //   _messageSubscription = FirebaseMessaging.onMessage.listen((
-  //     RemoteMessage message,
-  //   ) {
-  //     // 약간의 딜레이를 추가하여 비슷한 시간에 들어오는 메시지들이 한꺼번에 처리되도록 함
-  //     Future.delayed(Duration(milliseconds: 50), () {
-  //       _addNewNotification(message);
-  //     });
-  //   });
-  // }
-
-  // 초기 데이터 로드 (로컬+서버)
-  Future<void> _loadFirstNotifications() async {
-    setState(() {
-      _isLoading = true;
-      _loadFailed = false;
-    });
-
-    try {
-      // 1. 먼저 로컬 데이터 로드
-      List<NotificationModel> localNotifications =
-          await _getLocalNotifications();
-
-      if (mounted) {
-        setState(() {
-          _notifications = localNotifications;
-          _isLoading = false;
-        });
-      }
-
-      // 2. 네트워크 연결 확인
-      if (_isOffline) return;
-
-      // 3. 서버에서 최신 데이터 로드
-      await _loadServerNotifications();
-
-      // 4. 중복 제거 - 여기에서 명시적으로 호출
-      if (mounted) {
-        _removeDuplicateNotifications();
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('초기 알림 로드 중 오류: $e');
-      }
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _loadFailed = true;
-        });
-      }
-    }
-  }
-
   // 로컬 데이터 로드
   Future<List<NotificationModel>> _getLocalNotifications() async {
     try {
@@ -364,239 +260,169 @@ class _NotificationsPageState extends State<NotificationsPage>
               .map((json) => NotificationModel.fromJson(jsonDecode(json)))
               .toList();
 
-      // 시간순 정렬
+      // 시간순 정렬(최근 메시지가 앞으로)
       localNotifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
       return localNotifications;
     } catch (e) {
-      if (kDebugMode) {
-        print('로컬 알림 로드 중 오류: $e');
-      }
+      debugPrint('로컬 알림 로드 중 오류: $e');
+
       return [];
     }
   }
 
-  // 서버에서 알림 로드
-  Future<void> _loadServerNotifications() async {
+  Future<void> _loadNotifications({
+    required LoadDirection direction,
+    bool isRefreshing = false,
+  }) async {
+    // 로딩 상태 설정
     if (_isOffline) return;
+    if (direction == LoadDirection.newer) {
+      if (isRefreshing) {
+        if (_isRefreshing) return;
+        setState(() {
+          _isRefreshing = true;
+        });
+      } else {
+        if (_isLoading) return;
+        setState(() {
+          _isLoading = true;
+          _loadFailed = false;
+        });
+      }
+    } else {
+      // LoadDirection.older
+      if (_isLoadingMore) return;
+      setState(() {
+        _isLoadingMore = true;
+        _loadFailed = false;
+      });
+    }
 
     try {
+      // 요청할 페이지 번호 결정
+      int pageToLoad = direction == LoadDirection.newer ? 1 : _currentPage + 1;
+
+      // 서버에서 알림 로드
       final prefs = await SharedPreferences.getInstance();
       final username = prefs.getString('username');
       final discordWebhooksURL = prefs.getString('discordWebhooksURL');
 
-      if (username == null || discordWebhooksURL == null) return;
+      if (username == null || discordWebhooksURL == null) {
+        setState(() {
+          _isLoading = false;
+          _isRefreshing = false;
+          _isLoadingMore = false;
+          _loadFailed = true;
+        });
+        return;
+      }
 
-      // 서버에서 알림 로드
+      // 서버 API 호출
       final result = await ApiService.getNotifications(
         username,
         discordWebhooksURL,
-        page: 1,
+        page: pageToLoad,
         limit: _pageSize,
       );
 
       if (!mounted) return;
 
-      // 성공적으로 데이터를 가져온 경우에만 처리
+      setState(() {
+        _isLoading = false;
+        _isRefreshing = false;
+        _isLoadingMore = false;
+      });
+
+      // 결과 처리
       if (result['success']) {
-        final List<NotificationModel> serverNotifications =
+        final List<NotificationModel> newNotifications =
             result['notifications'];
         final bool hasMore = result['hasMore'];
 
-        // 중복 제거를 위한 ID 집합 및 내용 기반 키 세트 생성
-        final Set<String> uniqueIds = _notifications.map((n) => n.id).toSet();
-        final Set<String> uniqueContentKeys =
-            _notifications
-                .map(
-                  (n) =>
-                      '${n.username}${n.title}${n.content}${n.timestamp.year}${n.timestamp.month}${n.timestamp.day}${n.timestamp.hour}${n.timestamp.minute}',
-                )
-                .toSet();
-
-        final List<NotificationModel> newNotifications = [];
-
-        // 중복 체크하고 새 항목만 추가
-        for (var notification in serverNotifications) {
-          String contentKey =
-              '${notification.username}${notification.title}${notification.content}${notification.timestamp.year}${notification.timestamp.month}${notification.timestamp.day}${notification.timestamp.hour}${notification.timestamp.minute}';
-
-          if (!uniqueIds.contains(notification.id) &&
-              !uniqueContentKeys.contains(contentKey)) {
-            newNotifications.add(notification);
-            uniqueIds.add(notification.id);
-            uniqueContentKeys.add(contentKey);
-          }
-        }
-
-        if (newNotifications.isNotEmpty) {
-          setState(() {
-            // 새 알림 추가하고 시간순 정렬
-            _notifications.addAll(newNotifications);
-            _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-            _currentPage = 1;
-            _hasMoreData = hasMore; // 서버에서 받은 더 많은 데이터 존재 여부 설정
-          });
-
-          // 전체 중복 제거 다시 실행
-          _removeDuplicateNotifications();
-        } else {
-          // 새 알림이 없더라도 hasMoreData 업데이트
-          setState(() {
-            _hasMoreData = hasMore;
-          });
-        }
-      } else {
-        // 데이터 로드 실패
-        if (kDebugMode) {
-          print('서버 알림 로드 실패: ${result['error']}');
-        }
-
-        // 오류 메시지는 한 번만 설정
-        if (!_isOffline && result['errorType'] == 'network' && mounted) {
-          _setErrorMessage('알림을 새로고침하는 중 네트워크 오류가 발생했습니다');
-        }
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('서버 알림 로드 중 예상치 못한 오류: $e');
-      }
-
-      // 심각한 오류인 경우 한 번만 오류 메시지 설정
-      if (mounted && !_isOffline) {
-        _setErrorMessage('알림을 불러오는 중 오류가 발생했습니다');
-      }
-    }
-  }
-
-  // 과거 알림 로드 (스크롤 시)
-  Future<void> _loadOlderMessages() async {
-    // 이미 로딩 중이거나 오프라인이면 실행하지 않음
-    if (_isLoadingMore || _isOffline) return;
-
-    setState(() {
-      _isLoadingMore = true;
-      _loadFailed = false;
-    });
-
-    try {
-      // 사용자 정보 가져오기
-      final prefs = await SharedPreferences.getInstance();
-      final username = prefs.getString('username');
-      final discordWebhooksURL = prefs.getString('discordWebhooksURL');
-
-      if (username != null && discordWebhooksURL != null) {
-        // 가장 오래된 알림의 타임스탬프 확인
-        DateTime? oldestTimestamp;
-        if (_notifications.isNotEmpty) {
-          // 정렬된 알림에서 첫 번째 항목이 가장 오래된 알림
-          oldestTimestamp = _notifications.first.timestamp;
-          if (kDebugMode) {
-            print('가장 오래된 알림 시간: $oldestTimestamp');
-          }
-        }
-
-        // 다음 페이지 데이터 가져오기 (oldestTimestamp 이전 데이터 요청)
-        final result = await ApiService.getNotifications(
-          username,
-          discordWebhooksURL,
-          page: _currentPage + 1, // 다음 페이지 요청
-          limit: _pageSize,
-        );
-
-        if (!mounted) return;
-
-        // 결과 처리
-        if (result['success']) {
-          // 성공적으로 데이터를 가져온 경우
-          final List<NotificationModel> newNotifications =
-              result['notifications'];
-          final bool hasMore = result['hasMore'];
-
-          if (newNotifications.isEmpty) {
-            // 더 이상 데이터가 없는 경우
-            setState(() {
-              _hasMoreData = hasMore;
-              _isLoadingMore = false;
-            });
-          } else {
-            // 중복 체크를 위한 ID Set 생성
-            final existingIds = _notifications.map((n) => n.id).toSet();
-
-            // 중복되지 않은 항목만 필터링
-            final uniqueNotifications =
-                newNotifications
-                    .where(
-                      (notification) => !existingIds.contains(notification.id),
-                    )
-                    .toList();
-
-            if (uniqueNotifications.isEmpty) {
-              // 모든 항목이 중복이면 다음 페이지로 넘어감
-              _currentPage++; // 페이지 증가
-              setState(() {
-                _isLoadingMore = false;
-              });
-              // 더 많은 데이터가 있으면 재귀적으로 다음 페이지 데이터 로드
-              if (hasMore) {
-                _loadOlderMessages();
-              }
-              return;
-            }
-
-            // 새로 가져온 알림의 가장 오래된 시간 확인 (로깅용)
-            if (kDebugMode && uniqueNotifications.isNotEmpty) {
-              DateTime oldestNewTime = uniqueNotifications
-                  .map((n) => n.timestamp)
-                  .reduce((a, b) => a.isBefore(b) ? a : b);
-              print('새로 가져온 가장 오래된 알림 시간: $oldestNewTime');
-            }
-
-            setState(() {
-              // 고유 항목을 기존 목록 앞에 추가 (더 오래된 메시지)
-              _notifications.insertAll(0, uniqueNotifications);
-
-              // 시간순 재정렬 (최신순) - 항상 정확한 순서를 보장
-              _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-
-              _currentPage++; // 페이지 증가
-              _isLoadingMore = false;
-              _hasMoreData = hasMore; // 서버에서 받은 더 많은 데이터 존재 여부 설정
-            });
-
-            _removeDuplicateNotifications();
-          }
-        } else {
-          // 오류가 발생한 경우
-          setState(() {
-            _isLoadingMore = false;
-            _loadFailed = true;
-
-            // 네트워크 오류인 경우 더 많은 데이터가 있을 수 있으므로 hasMoreData 유지
-            if (result['errorType'] == 'network') {
-              // hasMoreData는 현재 상태 유지
-            } else {
-              // 서버 오류나 알 수 없는 오류는 더 이상 데이터가 없는 것으로 처리
-              _hasMoreData = false;
-            }
-          });
-
-          // 오류 메시지는 한 번만 설정
-          _setErrorMessage(result['error'] ?? '이전 알림을 불러오는 중 오류가 발생했습니다');
-        }
-      } else {
-        // 사용자 정보가 없는 경우
         setState(() {
-          _isLoadingMore = false;
-          _loadFailed = true;
+          // 새 알림이 있는 경우에만 알림 목록 업데이트
+          if (newNotifications.isNotEmpty) {
+            if (direction == LoadDirection.newer) {
+              // 최신 알림은 기존 목록에 추가
+              _notifications.addAll(newNotifications);
+              _currentPage = 1;
+            } else {
+              // 과거 알림은 목록 앞에 삽입
+              _notifications.insertAll(0, newNotifications);
+              _currentPage++;
+            }
+          }
+
+          _hasMoreData = hasMore;
         });
+
+        // 새 알림이 있는 경우에만 중복 제거
+        if (newNotifications.isNotEmpty) {
+          // 로그 출력
+          if (direction == LoadDirection.older) {
+            final oldestNewTime = newNotifications
+                .map((n) => n.timestamp)
+                .reduce((a, b) => a.isBefore(b) ? a : b);
+            debugPrint('새로 가져온 가장 오래된 알림 시간: $oldestNewTime');
+          }
+
+          // 중복 제거
+          _removeDuplicateNotifications();
+        }
+      } else {
+        // 오류가 발생한 경우
+        final String errorType = result['errorType'] ?? 'unknown';
+        final String serverError = result['error'] ?? '알림을 불러오는 중 오류가 발생했습니다';
+
+        // 디버그 로깅
+        debugPrint('알림 로드 오류: type=$errorType, message=$serverError');
+
+        setState(() {
+          _loadFailed = true;
+
+          // 네트워크 오류가 아니고 과거 알림 로드인 경우에만 더 이상 데이터가 없음으로 설정
+          if (errorType != 'network' && direction == LoadDirection.older) {
+            _hasMoreData = false;
+          }
+        });
+
+        // 상황에 맞는 사용자 친화적 오류 메시지 결정
+        String userMessage;
+
+        if (direction == LoadDirection.newer) {
+          // 최신 알림 로드 중 오류
+          if (!_isOffline && errorType == 'network') {
+            userMessage = '알림을 새로고침하는 중 네트워크 오류가 발생했습니다';
+          } else {
+            userMessage = '알림을 불러오는 중 오류가 발생했습니다';
+          }
+        } else {
+          // 과거 알림 로드 중 오류
+          switch (errorType) {
+            case 'network':
+              userMessage = '이전 알림을 불러오는 중 네트워크 연결 오류가 발생했습니다';
+              break;
+            case 'auth':
+              userMessage = '인증 정보가 만료되었습니다. 다시 로그인해주세요';
+              break;
+            case 'server':
+              userMessage = '서버에서 오류가 발생했습니다. 잠시 후 다시 시도해주세요';
+              break;
+            default:
+              userMessage = serverError; // 서버에서 제공한 오류 메시지 사용
+          }
+        }
+
+        _setErrorMessage(userMessage);
       }
     } catch (e) {
-      // API 호출 자체에서 오류가 발생한 경우
-      if (kDebugMode) {
-        print('더 많은 알림 로드 중 예상치 못한 오류: $e');
-      }
+      debugPrint('알림 로드 중 예상치 못한 오류: $e');
 
+      // 로딩 상태 해제 및 오류 상태 설정
       setState(() {
+        _isLoading = false;
+        _isRefreshing = false;
         _isLoadingMore = false;
         _loadFailed = true;
       });
@@ -606,9 +432,35 @@ class _NotificationsPageState extends State<NotificationsPage>
         await _checkConnectivity();
       } catch (_) {}
 
-      // 오류 메시지는 한 번만 설정
+      // 오류 메시지 표시
       _setErrorMessage('예상치 못한 오류가 발생했습니다: $e');
     }
+  }
+
+  //초기 데이터 로드 (로컬+서버)
+  Future<void> _loadFirstNotifications() async {
+    List<NotificationModel> localNotifications = await _getLocalNotifications();
+
+    if (mounted) {
+      setState(() {
+        _notifications = localNotifications;
+        _isLoading = false;
+      });
+    }
+
+    // 서버에서 최신 데이터 로드
+    await _loadNotifications(direction: LoadDirection.newer);
+  }
+
+  Future<void> _loadOlderMessages() async {
+    await _loadNotifications(direction: LoadDirection.older);
+  }
+
+  Future<void> _refreshNotifications() async {
+    await _loadNotifications(
+      direction: LoadDirection.newer,
+      isRefreshing: true,
+    );
   }
 
   // 로컬에 알림 저장
@@ -624,48 +476,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
       await prefs.setStringList('notifications', notificationsJson);
     } catch (e) {
-      if (kDebugMode) {
-        print('알림 로컬 저장 중 오류: $e');
-      }
-    }
-  }
-
-  // 알림 리프레시
-  Future<void> _refreshNotifications() async {
-    if (_isRefreshing) return;
-
-    setState(() {
-      _isRefreshing = true;
-    });
-
-    try {
-      await _checkConnectivity();
-
-      if (_isOffline) {
-        setState(() {
-          _isRefreshing = false;
-        });
-        return;
-      }
-
-      // 서버에서 최신 데이터 가져오기
-      await _loadServerNotifications();
-
-      // 중복 알림 제거
-      _removeDuplicateNotifications();
-
-      setState(() {
-        _isRefreshing = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isRefreshing = false;
-        _loadFailed = true;
-      });
-
-      if (kDebugMode) {
-        print('새로고침 중 오류: $e');
-      }
+      debugPrint('알림 로컬 저장 중 오류: $e');
     }
   }
 
@@ -690,9 +501,9 @@ class _NotificationsPageState extends State<NotificationsPage>
           ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
     if (_notifications.length != deduplicatedList.length) {
-      if (kDebugMode) {
-        print('중복 알림 ${_notifications.length - deduplicatedList.length}개 제거됨');
-      }
+      debugPrint(
+        '중복 알림 ${_notifications.length - deduplicatedList.length}개 제거됨',
+      );
 
       setState(() {
         _notifications = deduplicatedList;
@@ -702,83 +513,6 @@ class _NotificationsPageState extends State<NotificationsPage>
       _updateLocalNotifications(deduplicatedList);
     }
   }
-
-  // 새 메시지 알림 추가
-  // void _addNewNotification(RemoteMessage message) async {
-  //   if (!mounted) return;
-
-  //   try {
-  //     // 새 알림 데이터 생성
-  //     final String messageId =
-  //         message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString();
-
-  //     final notificationData = {
-  //       'id': messageId,
-  //       'username':
-  //           message.notification?.title ?? message.data['username'] ?? '알림',
-  //       'content': message.notification?.body ?? message.data['content'] ?? '',
-  //       'avatar_url': message.data['avatar_url'] ?? '',
-  //       'timestamp': DateTime.now().toIso8601String(),
-  //       'read': false,
-  //     };
-
-  //     // 추가 데이터가 있으면 병합
-  //     message.data.forEach((key, value) {
-  //       if (key != 'read') {
-  //         notificationData[key] = value;
-  //       }
-  //     });
-
-  //     // 알림 객체 생성
-  //     final newNotification = NotificationModel.fromJson(notificationData);
-
-  //     // 중복 확인
-  //     final existingIndex = _notifications.indexWhere(
-  //       (n) => n.id == newNotification.id,
-  //     );
-
-  //     setState(() {
-  //       if (existingIndex != -1) {
-  //         // 기존 알림이 있으면 업데이트
-  //         _notifications[existingIndex] = newNotification;
-  //       } else {
-  //         // 새 알림 추가 - 최신 메시지를 목록 끝에 추가
-  //         _notifications.add(newNotification);
-  //         // 정렬
-  //         _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-  //       }
-
-  //       // 중복 제거 함수
-  //       _removeDuplicateNotifications();
-  //     });
-
-  //     if (kDebugMode) {
-  //       print('새 메시지 수신: 매우 하단 여부: $_autoScrollEnabled');
-  //     }
-
-  //     // _autoScrollEnabled 상태를 기준으로 자동 스크롤 결정
-  //     if (_autoScrollEnabled && _itemScrollController.isAttached && mounted) {
-  //       Future.delayed(Duration(milliseconds: 200), () {
-  //         if (mounted && _itemScrollController.isAttached) {
-  //           _itemScrollController.scrollTo(
-  //             index: 0, // 최신 메시지 위치
-  //             duration: Duration(milliseconds: 300),
-  //           );
-  //         }
-  //       });
-  //     } else if (!_isNearBottom && mounted) {
-  //       // 하단에 있지 않을 때 새 메시지 알림 표시
-  //       setState(() {
-  //         _hasNewMessage = true;
-  //         _newMessageCount++;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     if (kDebugMode) {
-  //       print('새 알림 추가 중 오류: $e');
-  //     }
-  //   }
-  // }
 
   // 알림 필터링
   List<NotificationModel> get _filteredNotifications {
@@ -810,7 +544,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // AutomaticKeepAliveClientMixin 요구사항
+    super.build(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -1045,16 +779,15 @@ class _NotificationsPageState extends State<NotificationsPage>
       }
     }
 
-    // "더 이상 알림이 없습니다" 메시지를 리스트 상단에 추가 (조건부)
     if (!_hasMoreData) {
-      itemsWithDateDividers.add("NO_MORE_NOTIFICATIONS"); // 특별한 타입으로 표시
+      itemsWithDateDividers.add("NO_MORE_NOTIFICATIONS");
     }
 
     return RefreshIndicator(
       onRefresh: _refreshNotifications,
       child: Column(
         children: [
-          // 상단에 오류 메시지 표시 - 로딩 인디케이터처럼 상단에 고정
+          // 상단에 오류 메시지 표시
           if (_showErrorMessage && _errorMessage.isNotEmpty)
             Card(
               margin: EdgeInsets.all(8),
@@ -1098,7 +831,7 @@ class _NotificationsPageState extends State<NotificationsPage>
               child: Center(child: CircularProgressIndicator()),
             ),
 
-          // 로드 실패 메시지 (오류 배너가 표시되지 않을 때)
+          // 로드 실패 메시지
           if (_loadFailed && !_showErrorMessage)
             Card(
               margin: EdgeInsets.all(8),
@@ -1134,7 +867,7 @@ class _NotificationsPageState extends State<NotificationsPage>
               ),
             ),
 
-          // 알림 목록 - ScrollablePositionedList로 변경
+          // 알림 목록
           Expanded(
             child: NotificationListener<ScrollNotification>(
               onNotification: (scrollNotification) {
@@ -1143,18 +876,17 @@ class _NotificationsPageState extends State<NotificationsPage>
                     scrollNotification.overscroll > 0) {
                   // 양수는 상단으로 오버스크롤
 
-                  // 이미 최상단에 있는 경우 - ScrollablePositionedList는 직접 확인이 어려우므로
-                  // _itemPositionsListener의 값을 통해 간접적으로 확인해야 함
+                  // 이미 최상단에 있는 경우
                   final positions = _itemPositionsListener.itemPositions.value;
                   if (positions.isNotEmpty) {
-                    // 보이는 아이템 중 가장 작은 인덱스가 0에 가까우면 최상단으로 간주
-                    final int smallestIndex = positions
+                    // 보이는 아이템 중 가장 큰 인덱스를 최상단으로 간주
+                    final int largestIndex = positions
                         .map((ItemPosition position) => position.index)
                         .reduce(
-                          (int min, int index) => index < min ? index : min,
+                          (int max, int index) => index > max ? index : max,
                         );
 
-                    if (smallestIndex <= 3 &&
+                    if (largestIndex >= 3 &&
                         !_isLoadingMore &&
                         _hasMoreData &&
                         !_isOffline) {
@@ -1167,7 +899,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
                       // 오래된 데이터 로드
                       _loadOlderMessages();
-                      return true; // 이벤트 처리 완료
+                      return true;
                     }
                   }
                 }
@@ -1175,14 +907,12 @@ class _NotificationsPageState extends State<NotificationsPage>
                 return false;
               },
               child: ScrollablePositionedList.builder(
-                // ScrollablePositionedList 컨트롤러 설정
                 itemScrollController: _itemScrollController,
                 itemPositionsListener: _itemPositionsListener,
                 physics: const AlwaysScrollableScrollPhysics(),
                 reverse: true, // 최신 메시지를 하단에 표시
                 itemCount: itemsWithDateDividers.length,
                 itemBuilder: (context, index) {
-                  // 아이템 인덱스 계산
                   final itemIndex = index;
                   if (itemIndex < 0 ||
                       itemIndex >= itemsWithDateDividers.length) {
@@ -1192,7 +922,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                   // 현재 아이템 가져오기
                   final item = itemsWithDateDividers[itemIndex];
 
-                  // "더 이상 알림이 없습니다" 특별 메시지 표시
+                  // "더 이상 알림이 없습니다" 메시지 표시
                   if (item == "NO_MORE_NOTIFICATIONS") {
                     return Container(
                       padding: EdgeInsets.all(16),
@@ -1225,7 +955,7 @@ class _NotificationsPageState extends State<NotificationsPage>
         ],
       ),
     );
-  } // 빈 상태 위젯
+  }
 
   // 날짜 구분선 위젯
   Widget _buildDateDivider(DateTime date) {
@@ -1289,7 +1019,6 @@ class _NotificationsPageState extends State<NotificationsPage>
     return RefreshIndicator(
       onRefresh: _refreshNotifications,
       child: ScrollablePositionedList.builder(
-        // 빈 상태에서도 ScrollablePositionedList 사용
         itemScrollController: _itemScrollController,
         itemPositionsListener: _itemPositionsListener,
         physics: const AlwaysScrollableScrollPhysics(),
@@ -1297,7 +1026,7 @@ class _NotificationsPageState extends State<NotificationsPage>
         itemBuilder: (context, index) {
           return Column(
             children: [
-              // 오류가 있는 경우 상단에 한 번만 표시
+              // 오류가 있는 경우 상단에 표시
               if (_showErrorMessage && _errorMessage.isNotEmpty)
                 Card(
                   margin: EdgeInsets.all(8),
@@ -1444,6 +1173,7 @@ class _NotificationsPageState extends State<NotificationsPage>
           _selectedFilter = value;
         });
         Navigator.pop(context);
+        _showFilterDialog();
       },
     );
   }
@@ -1474,7 +1204,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     setState(() {
       final index = _notifications.indexWhere((n) => n.id == notification.id);
       if (index != -1) {
-        // 읽음 상태 변경 (서버에도 업데이트 필요)
+        // 읽음 상태 변경
         final updatedNotification = NotificationModel(
           id: notification.id,
           username: notification.username,
@@ -1482,7 +1212,6 @@ class _NotificationsPageState extends State<NotificationsPage>
           avatarUrl: notification.avatarUrl,
           timestamp: notification.timestamp,
           read: true,
-          // 다른 속성들도 복사
           title: notification.title,
           imageUrl: notification.imageUrl,
           thumbnailUrl: notification.thumbnailUrl,
@@ -1498,28 +1227,40 @@ class _NotificationsPageState extends State<NotificationsPage>
 
         _notifications[index] = updatedNotification;
 
-        // 로컬에도 저장
+        // 로컬에 저장
         _updateLocalNotifications(_notifications);
+
+        // 서버에 읽음 상태 업데이트
+        // _markNotificationAsReadOnServer(notification.id);
       }
     });
 
     // URL이 있으면 열기
     if (notification.url.isNotEmpty) {
-      _launchUrl(notification.url);
+      ApiService.launchExternalUrl(notification.url);
     }
   }
 
-  // URL 실행
-  void _launchUrl(String url) async {
-    if (url.isEmpty) return;
+  // 서버에 알림 읽음 상태 업데이트하는 메서드
+  // Future<void> _markNotificationAsReadOnServer(String notificationId) async {
+  //   try {
+  //     final prefs = await SharedPreferences.getInstance();
+  //     final username = prefs.getString('username');
+  //     final discordWebhooksURL = prefs.getString('discordWebhooksURL');
 
-    try {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      }
-    } catch (e) {
-      print('URL 실행 중 오류: $e');
-    }
-  }
+  //     if (username != null && discordWebhooksURL != null) {
+  //       // ApiService의 markNotificationsAsRead 함수 호출
+  //       await ApiService.markNotificationsAsRead(
+  //         username,
+  //         discordWebhooksURL,
+  //         [notificationId], // 단일 알림 ID를 리스트로 전달
+  //       );
+  //     }
+  //   } catch (e) {
+  //
+  //       debugPrint('서버에 알림 읽음 상태 업데이트 중 오류: $e');
+  //
+  //   }
+  // }
+
 }
