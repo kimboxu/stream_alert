@@ -1,17 +1,19 @@
+
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
-import 'package:stream_alert/models/notification_model.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/streamer_data.dart';
 import '../models/cafe_data.dart';
 import '../models/chzzk_video.dart';
 import '../models/youtube_data.dart';
+import '../models/notification_model.dart';
 import '../utils/cache_helper.dart';
 import '../utils/url_helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   // static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
@@ -36,20 +38,17 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        if (kDebugMode) {
-          print('FCM 토큰 등록 성공');
-        }
+        debugPrint('FCM 토큰 등록 성공');
+
         return true;
       } else {
-        if (kDebugMode) {
-          print('FCM 토큰 등록 실패: ${response.statusCode}, ${response.body}');
-        }
+        debugPrint('FCM 토큰 등록 실패: ${response.statusCode}, ${response.body}');
+
         return false;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('FCM 토큰 등록 중 오류: $e');
-      }
+      debugPrint('FCM 토큰 등록 중 오류: $e');
+
       return false;
     }
   }
@@ -59,7 +58,7 @@ class ApiService {
     String username,
     String discordWebhooksURL,
     String fcmToken,
-    String deviceId, // device_id 파라미터 추가
+    String deviceId,
   ) async {
     try {
       final response = await http.post(
@@ -73,20 +72,17 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        if (kDebugMode) {
-          print('FCM 토큰 제거 성공');
-        }
+        debugPrint('FCM 토큰 제거 성공');
+
         return true;
       } else {
-        if (kDebugMode) {
-          print('FCM 토큰 제거 실패: ${response.statusCode}');
-        }
+        debugPrint('FCM 토큰 제거 실패: ${response.statusCode}');
+
         return false;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('FCM 토큰 제거 중 오류: $e');
-      }
+      debugPrint('FCM 토큰 제거 중 오류: $e');
+
       return false;
     }
   }
@@ -108,10 +104,8 @@ class ApiService {
           discordWebhooksURL,
         );
 
-        if (kDebugMode && attempts > 1) {
-          if (kDebugMode) {
-            print('알림 가져오기 시도 $attempts/$retryCount');
-          }
+        if (attempts > 1) {
+          debugPrint('알림 가져오기 시도 $attempts/$retryCount');
         }
 
         final client = http.Client();
@@ -159,11 +153,10 @@ class ApiService {
               };
             } else {
               // 기타 상태 코드
-              if (kDebugMode) {
-                print(
-                  '알림 가져오기 실패: 상태 - ${data['status']}, 메시지 - ${data['message'] ?? "알 수 없는 오류"}',
-                );
-              }
+
+              debugPrint(
+                '알림 가져오기 실패: 상태 - ${data['status']}, 메시지 - ${data['message'] ?? "알 수 없는 오류"}',
+              );
 
               // 마지막 시도가 아닌 경우 재시도
               if (attempts < retryCount) {
@@ -185,11 +178,9 @@ class ApiService {
               'hasMore': false,
             };
           } else {
-            if (kDebugMode) {
-              print(
-                '알림 가져오기 실패 (시도 $attempts/$retryCount): ${response.statusCode}, ${response.body}',
-              );
-            }
+            debugPrint(
+              '알림 가져오기 실패 (시도 $attempts/$retryCount): ${response.statusCode}, ${response.body}',
+            );
 
             // 마지막 시도가 아닌 경우 재시도
             if (attempts < retryCount) {
@@ -208,9 +199,7 @@ class ApiService {
           client.close(); // 항상 클라이언트 연결 닫기
         }
       } on TimeoutException {
-        if (kDebugMode) {
-          print('알림 가져오기 타임아웃 (시도 $attempts/$retryCount)');
-        }
+        debugPrint('알림 가져오기 타임아웃 (시도 $attempts/$retryCount)');
 
         // 마지막 시도가 아닌 경우 재시도
         if (attempts < retryCount) {
@@ -225,9 +214,7 @@ class ApiService {
           'attemptsCount': attempts,
         };
       } on SocketException {
-        if (kDebugMode) {
-          print('알림 가져오기 중 네트워크 오류 (시도 $attempts/$retryCount)');
-        }
+        debugPrint('알림 가져오기 중 네트워크 오류 (시도 $attempts/$retryCount)');
 
         // 마지막 시도가 아닌 경우 재시도
         if (attempts < retryCount) {
@@ -242,9 +229,7 @@ class ApiService {
           'attemptsCount': attempts,
         };
       } on http.ClientException catch (e) {
-        if (kDebugMode) {
-          print('HTTP 클라이언트 오류 (시도 $attempts/$retryCount): $e');
-        }
+        debugPrint('HTTP 클라이언트 오류 (시도 $attempts/$retryCount): $e');
 
         // 마지막 시도가 아닌 경우 재시도
         if (attempts < retryCount) {
@@ -260,9 +245,7 @@ class ApiService {
           'attemptsCount': attempts,
         };
       } catch (e) {
-        if (kDebugMode) {
-          print('알림 가져오기 중 기타 오류 (시도 $attempts/$retryCount): $e');
-        }
+        debugPrint('알림 가져오기 중 기타 오류 (시도 $attempts/$retryCount): $e');
 
         // 마지막 시도가 아닌 경우 재시도
         if (attempts < retryCount) {
@@ -310,9 +293,8 @@ class ApiService {
 
       return response.statusCode == 200;
     } catch (e) {
-      if (kDebugMode) {
-        print('알림 읽음 표시 중 오류: $e');
-      }
+      debugPrint('알림 읽음 표시 중 오류: $e');
+
       return false;
     }
   }
@@ -337,9 +319,8 @@ class ApiService {
 
       return response.statusCode == 200;
     } catch (e) {
-      if (kDebugMode) {
-        print('알림 삭제 중 오류: $e');
-      }
+      debugPrint('알림 삭제 중 오류: $e');
+
       return false;
     }
   }
@@ -378,10 +359,8 @@ class ApiService {
 
     while (attempt < maxRetries) {
       try {
-        if (kDebugMode && attempt > 0) {
-          if (kDebugMode) {
-            print('스트리머 데이터 가져오기 시도 ${attempt + 1}/$maxRetries');
-          }
+        if (attempt > 0) {
+          debugPrint('스트리머 데이터 가져오기 시도 ${attempt + 1}/$maxRetries');
         }
 
         final response = await http
@@ -402,7 +381,12 @@ class ApiService {
           // 응답 검증
           if (data == null ||
               (!data.containsKey('afreecaStreamers') &&
-                  !data.containsKey('chzzkStreamers'))) {
+                  !data.containsKey('chzzkStreamers') &&
+                  !data.containsKey('cafeStreamers') &&
+                  !data.containsKey('chzzkVideoStreamers') &&
+                  !data.containsKey('youtubeStreamers') &&
+                  !data.containsKey('chzzkChatFilter') &&
+                  !data.containsKey('afreecaChatFilter'))) {
             throw Exception('서버 응답이 유효하지 않습니다.');
           }
 
@@ -419,9 +403,7 @@ class ApiService {
         attempt++;
         lastException = e is Exception ? e : Exception(e.toString());
 
-        if (kDebugMode) {
-          print('스트리머 데이터 가져오기 실패 (시도 $attempt): $e');
-        }
+        debugPrint('스트리머 데이터 가져오기 실패 (시도 $attempt): $e');
 
         if (attempt < maxRetries) {
           // 지수 백오프 전략 적용
@@ -439,15 +421,13 @@ class ApiService {
 
         if (cachedString != null && cachedString.isNotEmpty) {
           final cachedData = json.decode(cachedString);
-          if (kDebugMode) {
-            print('네트워크 실패, 만료된 캐시 사용');
-          }
+
+          debugPrint('네트워크 실패, 만료된 캐시 사용');
+
           return cachedData['data'];
         }
       } catch (e) {
-        if (kDebugMode) {
-          print('만료된 캐시 접근 실패: $e');
-        }
+        debugPrint('만료된 캐시 접근 실패: $e');
       }
     }
 
@@ -463,37 +443,10 @@ class ApiService {
     return response.statusCode == 200;
   }
 
-  // 푸시 알림 설정 저장 메서드
-  static Future<bool> savePushNotificationSettings(
-    String username,
-    String discordWebhooksURL,
-    Map<String, bool> notificationSettings,
-  ) async {
-    try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/save_push_settings'),
-        body: {
-          'username': username,
-          'discordWebhooksURL': discordWebhooksURL,
-          'notification_settings': json.encode(notificationSettings),
-        },
-      );
-
-      return response.statusCode == 200;
-    } catch (e) {
-      if (kDebugMode) {
-        print('푸시 알림 설정 저장 중 오류: $e');
-      }
-      return false;
-    }
-  }
-
-  // 기존 메서드들...
   static List<StreamerData> parseStreamers(Map<String, dynamic> data) {
     List<StreamerData> streamers = [];
 
     try {
-      // Parse AfreecaTV streamers
       List<dynamic> afreecaStreamers = data['afreecaStreamers'] ?? [];
       for (var streamer in afreecaStreamers) {
         if (streamer is Map &&
@@ -501,7 +454,7 @@ class ApiService {
             streamer.containsKey('channelID')) {
           streamers.add(
             StreamerData(
-              name: streamer['channelName'] ?? '이름 없음',
+              name: streamer['channelName'] ?? '(알 수 없음)',
               platform: 'afreeca',
               channelID: streamer['channelID'] ?? '',
               profileImageUrl: streamer['profile_image'] ?? '',
@@ -510,7 +463,6 @@ class ApiService {
         }
       }
 
-      // Parse Chzzk streamers
       List<dynamic> chzzkStreamers = data['chzzkStreamers'] ?? [];
       for (var streamer in chzzkStreamers) {
         if (streamer is Map &&
@@ -518,7 +470,7 @@ class ApiService {
             streamer.containsKey('channelID')) {
           streamers.add(
             StreamerData(
-              name: streamer['channelName'] ?? '이름 없음',
+              name: streamer['channelName'] ?? '(알 수 없음)',
               platform: 'chzzk',
               channelID: streamer['channelID'] ?? '',
               profileImageUrl: streamer['profile_image'] ?? '',
@@ -527,16 +479,13 @@ class ApiService {
         }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('스트리머 데이터 파싱 중 오류: $e');
-      }
+      debugPrint('스트리머 데이터 파싱 중 오류: $e');
     }
 
     return streamers;
   }
 
   static List<CafeData> parseCafeData(Map<String, dynamic> data) {
-    // 기존 구현 유지
     List<CafeData> cafeDataList = [];
     List<dynamic> cafeStreamers = data['cafeStreamers'] ?? [];
 
@@ -545,9 +494,7 @@ class ApiService {
         CafeData cafe = CafeData.fromJson(cafeStreamer);
         cafeDataList.add(cafe);
       } catch (e) {
-        if (kDebugMode) {
-          print('Error parsing cafe data: $e');
-        }
+        debugPrint('Error parsing cafe data: $e');
       }
     }
 
@@ -555,7 +502,6 @@ class ApiService {
   }
 
   static List<ChzzkVideo> parseChzzkVideo(Map<String, dynamic> data) {
-    // 기존 구현 유지
     List<ChzzkVideo> chzzkVideoList = [];
     List<dynamic> chzzkVideoStreamers = data['chzzkVideoStreamers'] ?? [];
 
@@ -564,9 +510,7 @@ class ApiService {
         ChzzkVideo chzzkVideo = ChzzkVideo.fromJson(chzzkVideoStreamer);
         chzzkVideoList.add(chzzkVideo);
       } catch (e) {
-        if (kDebugMode) {
-          print('Error parsing chzzk video data: $e');
-        }
+        debugPrint('Error parsing chzzk video data: $e');
       }
     }
 
@@ -574,7 +518,6 @@ class ApiService {
   }
 
   static List<YoutubeData> parseYoutubeData(Map<String, dynamic> data) {
-    // 기존 구현 유지
     List<YoutubeData> result = [];
     List<dynamic> youtubeStreamers = data['youtubeStreamers'] ?? [];
 
@@ -613,9 +556,7 @@ class ApiService {
 
         result.add(youtube);
       } catch (e) {
-        if (kDebugMode) {
-          print('Error processing YouTube data for channelID $channelID: $e');
-        }
+        debugPrint('Error processing YouTube data for channelID $channelID: $e');
       }
     });
 
@@ -639,9 +580,8 @@ class ApiService {
         throw Exception(errorData['message'] ?? '로그인 실패!');
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('로그인 오류: $e');
-      }
+      debugPrint('로그인 오류: $e');
+
       throw Exception('로그인 중 오류가 발생했습니다: $e');
     }
   }
@@ -663,9 +603,8 @@ class ApiService {
         throw Exception(errorData['message'] ?? '회원가입 실패!');
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('회원가입 오류: $e');
-      }
+      debugPrint('회원가입 오류: $e');
+
       throw Exception('회원가입 중 오류가 발생했습니다: $e');
     }
   }
@@ -688,15 +627,13 @@ class ApiService {
       if (response.statusCode == 200) {
         return true;
       } else {
-        if (kDebugMode) {
-          print('사용자 이름 변경 실패: ${response.statusCode}, ${response.body}');
-        }
+        debugPrint('사용자 이름 변경 실패: ${response.statusCode}, ${response.body}');
+
         return false;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('사용자 이름 변경 중 오류: $e');
-      }
+      debugPrint('사용자 이름 변경 중 오류: $e');
+
       return false;
     }
   }

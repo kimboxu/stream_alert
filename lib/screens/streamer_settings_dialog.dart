@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import '../models/streamer_data.dart';
 import '../models/cafe_data.dart';
@@ -50,7 +52,6 @@ class StreamerSettingsDialog extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _StreamerSettingsDialogState createState() => _StreamerSettingsDialogState();
 }
 
@@ -81,6 +82,24 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
   bool _isCafePanelExpanded = false;
   bool _isChzzkChatPanelExpanded = false;
   bool _isAfreecaChatPanelExpanded = false;
+
+  // 플랫폼 이름 매핑
+  static const Map<String, String> _platformNames = {
+    'afreeca': '아프리카TV',
+    'chzzk': '치지직',
+  };
+
+  // 패널 최대 너비
+  final double _maxPanelWidth = 400.0;
+
+  // 각 패널의 아이콘 설정
+  final Map<String, IconData> _panelIcons = {
+    'notification': Icons.notifications_none,
+    'chzzkVod': Icons.video_library_outlined,
+    'youtube': Icons.play_circle_outline,
+    'cafe': Icons.article_outlined,
+    'chat': Icons.chat_bubble_outline,
+  };
 
   @override
   void initState() {
@@ -121,7 +140,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
               children: [
                 Text(widget.streamer.name),
                 Text(
-                  widget.streamer.platform == 'afreeca' ? '아프리카TV' : '치지직',
+                  _getPlatformName(widget.streamer.platform),
                   style: TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ],
@@ -129,32 +148,35 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
           ),
         ],
       ),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 알림 설정 (ExpansionTile로 변경)
-            buildExpandableNotificationSettings(),
+      content: SizedBox(
+        width: _maxPanelWidth,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 알림 설정
+              buildExpandableNotificationSettings(),
 
-            // 치지직 VOD 설정 (ExpansionTile로 변경)
-            if (widget.chzzkVideo != null &&
-                widget.chzzkVideo!.channelID.isNotEmpty)
-              buildExpandableChzzkVideoSettings(),
+              // 치지직 VOD 설정
+              if (widget.chzzkVideo != null &&
+                  widget.chzzkVideo!.channelID.isNotEmpty)
+                buildExpandableChzzkVideoSettings(),
 
-            // 유튜브 알림 설정 (ExpansionTile로 변경)
-            if (widget.youtubeData != null &&
-                widget.youtubeData!.channelName.isNotEmpty)
-              buildExpandableYoutubeSettings(),
+              // 유튜브 알림 설정
+              if (widget.youtubeData != null &&
+                  widget.youtubeData!.channelName.isNotEmpty)
+                buildExpandableYoutubeSettings(),
 
-            // 카페 설정
-            if (widget.cafeData != null &&
-                widget.cafeData!.channelName.isNotEmpty)
-              buildExpandableCafeSettings(),
+              // 카페 설정
+              if (widget.cafeData != null &&
+                  widget.cafeData!.channelName.isNotEmpty)
+                buildExpandableCafeSettings(),
 
-            // 채팅 필터 설정
-            buildExpandableChatFilterSettings(),
-          ],
+              // 채팅 필터 설정
+              buildExpandableChatFilterSettings(),
+            ],
+          ),
         ),
       ),
       actions: [
@@ -184,7 +206,50 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
-  // 알림 설정 섹션을 확장 가능한 패널로 변환
+  // 패널 타이틀 빌더
+  Widget buildPanelTitle({
+    required String title,
+    required IconData icon,
+    Widget? chip,
+    Widget? subtitle,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 18.0, color: Theme.of(context).primaryColor),
+            SizedBox(width: 8),
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            if (chip != null) SizedBox(width: 8),
+            if (chip != null) chip,
+          ],
+        ),
+        if (subtitle != null)
+          Padding(padding: const EdgeInsets.only(top: 4.0), child: subtitle),
+      ],
+    );
+  }
+
+  // 카운트 표시 칩 빌더
+  Widget buildCountChip(int count, String label) {
+    return Chip(
+      label: Text(
+        '$count$label',
+        style: TextStyle(fontSize: 10, color: Colors.white),
+      ),
+      backgroundColor: Theme.of(context).primaryColor,
+      padding: EdgeInsets.zero,
+      labelPadding: EdgeInsets.symmetric(horizontal: 4),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    );
+  }
+
   Widget buildExpandableNotificationSettings() {
     // 선택된 알림 설정 개수 계산
     int selectedCount = _settings.entries.where((entry) => entry.value).length;
@@ -192,25 +257,11 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 4.0),
       child: ExpansionTile(
-        title: Row(
-          children: [
-            Text(
-              '알림 설정',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            SizedBox(width: 8),
-            if (selectedCount > 0)
-              Chip(
-                label: Text(
-                  '$selectedCount개 선택됨',
-                  style: TextStyle(fontSize: 10, color: Colors.white),
-                ),
-                backgroundColor: Theme.of(context).primaryColor,
-                padding: EdgeInsets.zero,
-                labelPadding: EdgeInsets.symmetric(horizontal: 4),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-          ],
+        title: buildPanelTitle(
+          title: '알림 설정',
+          icon: _panelIcons['notification']!,
+          chip:
+              selectedCount > 0 ? buildCountChip(selectedCount, '개 선택됨') : null,
         ),
         initiallyExpanded: _isNotificationPanelExpanded,
         onExpansionChanged: (isExpanded) {
@@ -234,7 +285,6 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
-  // 치지직 VOD 설정을 확장 가능한 패널로 변환
   Widget buildExpandableChzzkVideoSettings() {
     // 선택되었는지 확인
     final bool isSelected = _selectedChzzkVideoUsers.contains(
@@ -244,25 +294,10 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 4.0),
       child: ExpansionTile(
-        title: Row(
-          children: [
-            Text(
-              '치지직 VOD',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            SizedBox(width: 8),
-            if (isSelected)
-              Chip(
-                label: Text(
-                  '활성화됨',
-                  style: TextStyle(fontSize: 10, color: Colors.white),
-                ),
-                backgroundColor: Theme.of(context).primaryColor,
-                padding: EdgeInsets.zero,
-                labelPadding: EdgeInsets.symmetric(horizontal: 4),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-          ],
+        title: buildPanelTitle(
+          title: '치지직 VOD',
+          icon: _panelIcons['chzzkVod']!,
+          chip: isSelected ? buildCountChip(1, '개 활성화됨') : null,
         ),
         initiallyExpanded: _isChzzkVodPanelExpanded,
         onExpansionChanged: (isExpanded) {
@@ -295,7 +330,6 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
-  // 유튜브 알림 설정을 확장 가능한 패널로 변환
   Widget buildExpandableYoutubeSettings() {
     // 선택된 유튜브 채널 개수 계산
     int selectedCount = 0;
@@ -313,25 +347,11 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 4.0),
       child: ExpansionTile(
-        title: Row(
-          children: [
-            Text(
-              '유튜브 알림',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            SizedBox(width: 8),
-            if (selectedCount > 0)
-              Chip(
-                label: Text(
-                  '$selectedCount개 선택됨',
-                  style: TextStyle(fontSize: 10, color: Colors.white),
-                ),
-                backgroundColor: Theme.of(context).primaryColor,
-                padding: EdgeInsets.zero,
-                labelPadding: EdgeInsets.symmetric(horizontal: 4),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-          ],
+        title: buildPanelTitle(
+          title: '유튜브 알림',
+          icon: _panelIcons['youtube']!,
+          chip:
+              selectedCount > 0 ? buildCountChip(selectedCount, '개 선택됨') : null,
         ),
         initiallyExpanded: _isYoutubePanelExpanded,
         onExpansionChanged: (isExpanded) {
@@ -388,50 +408,26 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
             )
             .toList();
 
-    // 모든 항목이 선택되었는지 확인
-    final bool areAllSelected =
-        _selectedCafeUsers.isNotEmpty &&
-        filteredCafeUsers.every((user) => _selectedCafeUsers.contains(user));
-
-    // 모든 항목이 선택 해제되었는지 확인
-    final bool areAllDeselected =
-        _selectedCafeUsers.isEmpty ||
-        filteredCafeUsers.every((user) => !_selectedCafeUsers.contains(user));
-
     // 선택된 사용자 수
     final int selectedCount = _selectedCafeUsers.length;
 
     return Card(
       margin: EdgeInsets.symmetric(vertical: 4.0),
       child: ExpansionTile(
-        title: Wrap(
-          spacing: 8.0,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            // 아이콘 추가
-            Icon(
-              Icons.article_outlined,
-              size: 18.0,
-              color: Theme.of(context).primaryColor,
-            ),
-            // 제목
-            Text(
-              '카페 알림 설정',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-          ],
+        title: buildPanelTitle(
+          title: '카페 알림 설정',
+          icon: _panelIcons['cafe']!,
+          subtitle:
+              selectedCount > 0
+                  ? Text(
+                    '선택된 사용자: $selectedCount명',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  )
+                  : null,
         ),
-        // 부제목으로 선택된 사용자 수 표시
-        subtitle:
-            selectedCount > 0
-                ? Text(
-                  '선택된 사용자: $selectedCount명',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                )
-                : null,
         initiallyExpanded: _isCafePanelExpanded,
         onExpansionChanged: (isExpanded) {
           setState(() {
@@ -439,122 +435,54 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
           });
         },
         children: [
-          // 검색 필드
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _cafeSearchController,
-              decoration: InputDecoration(
-                hintText: '카페 회원 검색...',
-                prefixIcon: Icon(Icons.search),
-                suffixIcon:
-                    _cafeSearchQuery.isNotEmpty
-                        ? IconButton(
-                          icon: Icon(Icons.clear),
-                          onPressed: () {
-                            _cafeSearchController.clear();
-                            setState(() {
-                              _cafeSearchQuery = '';
-                            });
-                          },
-                        )
-                        : null,
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 12.0,
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _cafeSearchQuery = value;
-                });
-              },
-            ),
+          buildSearchField(
+            controller: _cafeSearchController,
+            hintText: '카페 회원 검색...',
+            searchQuery: _cafeSearchQuery,
+            onChanged: (value) {
+              setState(() {
+                _cafeSearchQuery = value;
+              });
+            },
           ),
 
           // 모두 선택/해제 버튼
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton.icon(
-                  icon: Icon(
-                    areAllDeselected
-                        ? Icons.check_box
-                        : Icons.check_box_outline_blank,
-                    color:
-                        areAllDeselected
-                            ? Theme.of(context).primaryColor
-                            : null,
-                  ),
-                  label: Text('모두 해제'),
-                  onPressed: () {
-                    setState(() {
-                      _selectedCafeUsers.clear();
-                    });
-                  },
+          buildSelectionButtons(
+            onSelectAll: () {
+              setState(() {
+                _selectedCafeUsers.addAll(filteredCafeUsers);
+              });
+            },
+            onDeselectAll: () {
+              setState(() {
+                _selectedCafeUsers.clear();
+              });
+            },
+            areAllSelected:
+                _selectedCafeUsers.isNotEmpty &&
+                filteredCafeUsers.every(
+                  (user) => _selectedCafeUsers.contains(user),
                 ),
-                TextButton.icon(
-                  icon: Icon(
-                    areAllSelected
-                        ? Icons.check_box
-                        : Icons.check_box_outline_blank,
-                    color:
-                        areAllSelected ? Theme.of(context).primaryColor : null,
-                  ),
-                  label: Text('모두 선택'),
-                  onPressed: () {
-                    setState(() {
-                      _selectedCafeUsers.addAll(filteredCafeUsers);
-                    });
-                  },
+            areAllDeselected:
+                _selectedCafeUsers.isEmpty ||
+                filteredCafeUsers.every(
+                  (user) => !_selectedCafeUsers.contains(user),
                 ),
-              ],
-            ),
           ),
 
           // 사용자 목록
-          Container(
-            constraints: BoxConstraints(
-              maxHeight: 200, // 최대 높이 제한
-            ),
-            child: Scrollbar(
-              child: SingleChildScrollView(
-                child:
-                    filteredCafeUsers.isNotEmpty
-                        ? Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children:
-                              filteredCafeUsers.map((user) {
-                                final bool isSelected = _selectedCafeUsers
-                                    .contains(user);
-                                return CheckboxListTile(
-                                  title: Text(user),
-                                  value: isSelected,
-                                  onChanged: (selected) {
-                                    setState(() {
-                                      if (selected ?? false) {
-                                        _selectedCafeUsers.add(user);
-                                      } else {
-                                        _selectedCafeUsers.remove(user);
-                                      }
-                                    });
-                                  },
-                                  dense: true,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 16.0,
-                                  ),
-                                );
-                              }).toList(),
-                        )
-                        : Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text('검색 결과가 없습니다.'),
-                        ),
-              ),
-            ),
+          buildScrollableUserList(
+            users: filteredCafeUsers,
+            selectedUsers: _selectedCafeUsers,
+            onToggle: (userName, selected) {
+              setState(() {
+                if (selected) {
+                  _selectedCafeUsers.add(userName);
+                } else {
+                  _selectedCafeUsers.remove(userName);
+                }
+              });
+            },
           ),
         ],
       ),
@@ -565,266 +493,244 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     final bool isChzzk = widget.streamer.platform == 'chzzk';
     final bool isAfreeca = widget.streamer.platform == 'afreeca';
 
-    // If neither platform is applicable, return empty container
     if (!isChzzk && !isAfreeca) return Container();
 
     // 선택된 사용자 수 계산
     int selectedCount = 0;
+    List<String> availableUsers = [];
+    Set<String> selectedUsers = {};
+    TextEditingController searchController = TextEditingController();
+    String searchQuery = '';
+
     if (isChzzk) {
       selectedCount = _selectedChzzkChatUsers.length;
+      availableUsers = widget.availableChzzkChatUsers;
+      selectedUsers = _selectedChzzkChatUsers;
+      searchController = _chzzkChatSearchController;
+      searchQuery = _chzzkChatSearchQuery;
     } else if (isAfreeca) {
       selectedCount = _selectedAfreecaChatUsers.length;
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Card(
-          margin: EdgeInsets.symmetric(vertical: 4.0),
-          child: ExpansionTile(
-            title: Wrap(
-              spacing: 8.0,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                // 아이콘 추가
-                Icon(
-                  Icons.chat_bubble_outline,
-                  size: 18.0,
-                  color: Theme.of(context).primaryColor,
-                ),
-                // 제목
-                Text(
-                  '채팅 필터',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ],
-            ),
-            // 부제목으로 선택된 사용자 수 표시 (제목 옆에 칩으로 표시하는 대신)
-            subtitle:
-                selectedCount > 0
-                    ? Text(
-                      '선택된 사용자: $selectedCount명',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    )
-                    : null,
-            initiallyExpanded:
-                isChzzk
-                    ? _isChzzkChatPanelExpanded
-                    : _isAfreecaChatPanelExpanded,
-            onExpansionChanged: (isExpanded) {
-              setState(() {
-                if (isChzzk) {
-                  _isChzzkChatPanelExpanded = isExpanded;
-                } else if (isAfreeca) {
-                  _isAfreecaChatPanelExpanded = isExpanded;
-                }
-              });
-            },
-            children: [
-              if (isChzzk)
-                buildUsersList(
-                  widget.availableChzzkChatUsers,
-                  _selectedChzzkChatUsers,
-                  (userName, selected) {
-                    setState(() {
-                      if (selected) {
-                        _selectedChzzkChatUsers.add(userName);
-                      } else {
-                        _selectedChzzkChatUsers.remove(userName);
-                      }
-                    });
-                  },
-                  _chzzkChatSearchController,
-                  _chzzkChatSearchQuery,
-                  (query) => setState(() => _chzzkChatSearchQuery = query),
-                ),
-              if (isAfreeca)
-                buildUsersList(
-                  widget.availableAfreecaChatUsers,
-                  _selectedAfreecaChatUsers,
-                  (userName, selected) {
-                    setState(() {
-                      if (selected) {
-                        _selectedAfreecaChatUsers.add(userName);
-                      } else {
-                        _selectedAfreecaChatUsers.remove(userName);
-                      }
-                    });
-                  },
-                  _afreecaChatSearchController,
-                  _afreecaChatSearchQuery,
-                  (query) => setState(() => _afreecaChatSearchQuery = query),
-                ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  // 사용자 목록 빌더 - 중복 코드 단순화
-  Widget buildUsersList(
-    List<String> allUsers,
-    Set<String> selectedUsers,
-    Function(String, bool) onToggle,
-    TextEditingController searchController,
-    String searchQuery,
-    Function(String) onSearchChanged,
-  ) {
-    if (allUsers.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-        child: Text('이용 가능한 사용자가 없습니다.'),
-      );
+      availableUsers = widget.availableAfreecaChatUsers;
+      selectedUsers = _selectedAfreecaChatUsers;
+      searchController = _afreecaChatSearchController;
+      searchQuery = _afreecaChatSearchQuery;
     }
 
     // 검색어로 필터링된 사용자 목록
     final List<String> filteredUsers =
-        allUsers
+        availableUsers
             .where(
               (user) => user.toLowerCase().contains(searchQuery.toLowerCase()),
             )
             .toList();
 
-    // 선택된 사용자 수와 필터링된 전체 사용자 수
-    final int selectedCount = selectedUsers.length;
-    final int totalFilteredCount = filteredUsers.length;
-
-    // 모든 항목이 선택되었는지 확인
-    final bool areAllSelected =
-        selectedCount >= totalFilteredCount &&
-        filteredUsers.every((user) => selectedUsers.contains(user));
-
-    // 모든 항목이 선택 해제되었는지 확인
-    final bool areAllDeselected =
-        selectedUsers.isEmpty ||
-        filteredUsers.every((user) => !selectedUsers.contains(user));
-
-    return Column(
-      children: [
-        // 검색 필드
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-          child: TextField(
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 4.0),
+      child: ExpansionTile(
+        title: buildPanelTitle(
+          title: '채팅 필터',
+          icon: _panelIcons['chat']!,
+          subtitle:
+              selectedCount > 0
+                  ? Text(
+                    '선택된 사용자: $selectedCount명',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  )
+                  : null,
+        ),
+        initiallyExpanded:
+            isChzzk ? _isChzzkChatPanelExpanded : _isAfreecaChatPanelExpanded,
+        onExpansionChanged: (isExpanded) {
+          setState(() {
+            if (isChzzk) {
+              _isChzzkChatPanelExpanded = isExpanded;
+            } else if (isAfreeca) {
+              _isAfreecaChatPanelExpanded = isExpanded;
+            }
+          });
+        },
+        children: [
+          // 검색 필드
+          buildSearchField(
             controller: searchController,
-            style: TextStyle(fontSize: 14.0),
-            decoration: InputDecoration(
-              hintText: '사용자 검색...',
-              hintStyle: TextStyle(fontSize: 14.0),
-              prefixIcon: Icon(Icons.search, size: 18.0),
-              suffixIcon:
-                  searchQuery.isNotEmpty
-                      ? IconButton(
-                        icon: Icon(Icons.clear, size: 18.0),
-                        onPressed: () {
-                          searchController.clear();
-                          onSearchChanged('');
-                        },
-                        padding: EdgeInsets.zero,
-                        constraints: BoxConstraints(
-                          minWidth: 32,
-                          minHeight: 32,
-                        ),
-                      )
-                      : null,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 4.0,
-                horizontal: 8.0,
-              ),
-              isDense: true,
-            ),
-            onChanged: onSearchChanged,
+            hintText: '사용자 검색...',
+            searchQuery: searchQuery,
+            onChanged: (value) {
+              setState(() {
+                if (isChzzk) {
+                  _chzzkChatSearchQuery = value;
+                } else {
+                  _afreecaChatSearchQuery = value;
+                }
+              });
+            },
           ),
-        ),
 
-        // 모두 선택/해제 버튼
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton.icon(
-                icon: Icon(
-                  areAllDeselected
-                      ? Icons.check_box
-                      : Icons.check_box_outline_blank,
-                  color:
-                      areAllDeselected ? Theme.of(context).primaryColor : null,
-                ),
-                label: Text('모두 해제'),
-                onPressed: () {
-                  setState(() {
-                    selectedUsers.clear();
-                  });
-                },
-              ),
-              TextButton.icon(
-                icon: Icon(
-                  areAllSelected
-                      ? Icons.check_box
-                      : Icons.check_box_outline_blank,
-                  color: areAllSelected ? Theme.of(context).primaryColor : null,
-                ),
-                label: Text('모두 선택'),
-                onPressed: () {
-                  setState(() {
-                    selectedUsers.addAll(filteredUsers);
-                  });
-                },
-              ),
-            ],
+          // 모두 선택/해제 버튼
+          buildSelectionButtons(
+            onSelectAll: () {
+              setState(() {
+                selectedUsers.addAll(filteredUsers);
+              });
+            },
+            onDeselectAll: () {
+              setState(() {
+                selectedUsers.clear();
+              });
+            },
+            areAllSelected:
+                selectedUsers.isNotEmpty &&
+                filteredUsers.every((user) => selectedUsers.contains(user)),
+            areAllDeselected:
+                selectedUsers.isEmpty ||
+                filteredUsers.every((user) => !selectedUsers.contains(user)),
           ),
-        ),
 
-        // 사용자 목록
-        Container(
-          constraints: BoxConstraints(
-            maxHeight: 200, // 최대 높이 제한
+          // 사용자 목록
+          buildScrollableUserList(
+            users: filteredUsers,
+            selectedUsers: selectedUsers,
+            onToggle: (userName, selected) {
+              setState(() {
+                if (selected) {
+                  selectedUsers.add(userName);
+                } else {
+                  selectedUsers.remove(userName);
+                }
+              });
+            },
           ),
-          child: Scrollbar(
-            child: SingleChildScrollView(
-              child:
-                  filteredUsers.isNotEmpty
-                      ? Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children:
-                            filteredUsers.map((user) {
-                              final bool isSelected = selectedUsers.contains(
-                                user,
-                              );
-                              return CheckboxListTile(
-                                title: Text(user),
-                                value: isSelected,
-                                onChanged:
-                                    (selected) =>
-                                        onToggle(user, selected ?? false),
-                                dense: true,
-                                contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                ),
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                visualDensity: VisualDensity(
-                                  horizontal: -4,
-                                  vertical: -4,
-                                ),
-                              );
-                            }).toList(),
-                      )
-                      : Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text('검색 결과가 없습니다.'),
-                      ),
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
+  }
+
+  // 검색 필드 위젯
+  Widget buildSearchField({
+    required TextEditingController controller,
+    required String hintText,
+    required String searchQuery,
+    required Function(String) onChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+      child: TextField(
+        controller: controller,
+        style: TextStyle(fontSize: 14.0),
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(fontSize: 14.0),
+          prefixIcon: Icon(Icons.search, size: 18.0),
+          suffixIcon:
+              searchQuery.isNotEmpty
+                  ? IconButton(
+                    icon: Icon(Icons.clear, size: 18.0),
+                    onPressed: () {
+                      controller.clear();
+                      onChanged('');
+                    },
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(minWidth: 32, minHeight: 32),
+                  )
+                  : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          isDense: true,
+        ),
+        onChanged: onChanged,
+      ),
+    );
+  }
+
+  // 선택 버튼 위젯
+  Widget buildSelectionButtons({
+    required VoidCallback onSelectAll,
+    required VoidCallback onDeselectAll,
+    required bool areAllSelected,
+    required bool areAllDeselected,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextButton.icon(
+            icon: Icon(
+              areAllDeselected
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank,
+              color: areAllDeselected ? Theme.of(context).primaryColor : null,
+            ),
+            label: Text('모두 해제'),
+            onPressed: onDeselectAll,
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            ),
+          ),
+          TextButton.icon(
+            icon: Icon(
+              areAllSelected ? Icons.check_box : Icons.check_box_outline_blank,
+              color: areAllSelected ? Theme.of(context).primaryColor : null,
+            ),
+            label: Text('모두 선택'),
+            onPressed: onSelectAll,
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 스크롤 가능한 사용자 목록 위젯
+  Widget buildScrollableUserList({
+    required List<String> users,
+    required Set<String> selectedUsers,
+    required Function(String, bool) onToggle,
+  }) {
+    return Container(
+      constraints: BoxConstraints(maxHeight: 200),
+      child: Scrollbar(
+        child: SingleChildScrollView(
+          child:
+              users.isNotEmpty
+                  ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children:
+                        users.map((user) {
+                          final bool isSelected = selectedUsers.contains(user);
+                          return CheckboxListTile(
+                            title: Text(user),
+                            value: isSelected,
+                            onChanged:
+                                (selected) => onToggle(user, selected ?? false),
+                            dense: true,
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                            ),
+                            controlAffinity: ListTileControlAffinity.leading,
+                            visualDensity: VisualDensity(
+                              horizontal: -2,
+                              vertical: -2,
+                            ),
+                          );
+                        }).toList(),
+                  )
+                  : Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text('검색 결과가 없습니다.'),
+                  ),
+        ),
+      ),
+    );
+  }
+
+  // 플랫폼 이름 가져오는 메서드
+  String _getPlatformName(String platform) {
+    return _platformNames[platform.toLowerCase()] ?? platform;
   }
 }

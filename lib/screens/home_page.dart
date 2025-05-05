@@ -1,9 +1,11 @@
+// ignore_for_file: unnecessary_import, use_build_context_synchronously
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'notification_settings_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'notifications_page.dart';
 import 'settings_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/url_helper.dart';
 import '../services/push_notification_service.dart';
 
@@ -22,12 +24,13 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  // 현재 사용자 이름을 저장할 상태 변수 추가
+  // 사용자 이름 상태 변수
   String _currentUsername = '';
 
   @override
   void initState() {
     super.initState();
+    // 생명주기 변화 감지
     WidgetsBinding.instance.addObserver(this);
 
     // 초기 사용자 이름 설정
@@ -64,7 +67,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     await pushService.loadNotificationsFromServer();
   }
 
-  // home_page.dart 파일의 build 메서드에 버튼 추가
   @override
   Widget build(BuildContext context) {
     final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
@@ -96,7 +98,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               Text(
                 '스트리머 알림 설정을 관리하거나 로그아웃할 수 있습니다.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                style: TextStyle(fontSize: 15, color: Colors.grey[600]),
               ),
               SizedBox(height: 40),
 
@@ -143,7 +145,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
               SizedBox(height: 20),
 
-              // 새로 추가한 설정 버튼
               ElevatedButton.icon(
                 onPressed: () async {
                   final result = await Navigator.push(
@@ -160,7 +161,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   // 사용자 이름이 변경되었으면 업데이트
                   if (result != null && result is String) {
                     setState(() {
-                      updateUsername(result); // 사용자 이름 업데이트
+                      updateUsername(result);
                     });
                   }
                 },
@@ -179,7 +180,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 onPressed: () async {
                   bool confirm = await _showLogoutConfirmDialog(context);
                   if (confirm) {
-                    // ignore: use_build_context_synchronously
                     _logout(context);
                   }
                 },
@@ -233,14 +233,10 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
       await prefs.remove('notifications');
 
       // 로그인 화면으로 이동
-      // ignore: use_build_context_synchronously
       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     } catch (e) {
-      if (kDebugMode) {
-        print('로그아웃 중 오류: $e');
-      }
+        debugPrint('로그아웃 중 오류: $e');
       // 오류가 발생해도 로그인 화면으로 이동
-      // ignore: use_build_context_synchronously
       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     }
   }

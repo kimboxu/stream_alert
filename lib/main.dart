@@ -1,7 +1,6 @@
-// main.dart 파일 수정
+// main.dart
 
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
-
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, unnecessary_import
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,10 +16,6 @@ void main() async {
 
   await initializeDateFormatting('ko_KR', null);
 
-  // 사용자 테마 모드 설정 로드
-  final prefs = await SharedPreferences.getInstance();
-  final themeMode = prefs.getString('theme_mode') ?? 'system';
-
   try {
     // Firebase 초기화
     await Firebase.initializeApp(
@@ -30,18 +25,14 @@ void main() async {
     // 푸시 알림 서비스 초기화
     await PushNotificationService().initialize();
   } catch (e) {
-    if (kDebugMode) {
-      print('앱 초기화 중 오류: $e');
-    }
+      debugPrint('앱 초기화 중 오류: $e');
   }
 
-  runApp(MyApp(initialThemeMode: themeMode));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  final String initialThemeMode;
-
-  const MyApp({super.key, this.initialThemeMode = 'system'});
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -109,7 +100,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         // 라이트 테마
         primarySwatch: Colors.blue,
-        primaryColor: Color(0xFF5865F2), // Discord 색상과 유사
+        primaryColor: Color(0xFF5865F2),
         appBarTheme: AppBarTheme(
           color: Color(0xFF5865F2),
           elevation: 0,
@@ -133,7 +124,7 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       darkTheme: ThemeData(
-        // 다크 테마 - 원래대로 복원
+        // 다크 테마
         brightness: Brightness.dark,
         primaryColor: Color(0xFF5865F2),
         colorScheme: ColorScheme.dark(

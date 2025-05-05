@@ -1,12 +1,10 @@
-// lib/models/notification_model.dart 개선 버전
-// ignore_for_file: avoid_print
+// ignore_for_file: unnecessary_import
 
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// 향상된 알림 모델 클래스
-/// 디스코드 웹훅 형식의 알림 데이터를 처리하기 위한 모델
+/// 알림 모델 클래스
 class NotificationModel {
   final String id;
   final String username;
@@ -27,9 +25,9 @@ class NotificationModel {
   final String description;
   final String authorName;
   final String authorUrl;
-  final String authorIconUrl;  // 추가: 작성자 아이콘 URL
-  
-  // 원본 임베드 데이터 저장 (추가)
+  final String authorIconUrl;
+
+  // 원본 임베드 데이터 저장
   final Map<String, dynamic>? embedData;
 
   /// 생성자
@@ -51,16 +49,16 @@ class NotificationModel {
     this.description = '',
     this.authorName = '',
     this.authorUrl = '',
-    this.authorIconUrl = '',  // 추가
-    this.embedData,  // 추가: 원본 임베드 데이터
+    this.authorIconUrl = '',
+    this.embedData,
   });
 
   /// JSON으로부터 객체 생성
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     // embeds 디버깅 출력 (개발 모드에서만)
-    if (kDebugMode && json['embeds'] != null) {
-      print('원본 embeds 데이터: ${json['embeds']}');
-      print('embeds 타입: ${json['embeds'].runtimeType}');
+    if (json['embeds'] != null) {
+      debugPrint('원본 embeds 데이터: ${json['embeds']}');
+      debugPrint('embeds 타입: ${json['embeds'].runtimeType}');
     }
 
     // embeds 파싱 처리
@@ -71,21 +69,17 @@ class NotificationModel {
         if (json['embeds'] is String) {
           // 문자열로 받은 경우 JSON 파싱
           embedsList = jsonDecode(json['embeds']);
-          if (kDebugMode) {
-            print('문자열에서 파싱된 embeds: $embedsList');
-          }
+
+          debugPrint('문자열에서 파싱된 embeds: $embedsList');
         } else if (json['embeds'] is List) {
           // 이미 리스트인 경우 그대로 사용
           embedsList = json['embeds'];
-          if (kDebugMode) {
-            print('리스트로 받은 embeds: $embedsList');
-          }
+
+          debugPrint('리스트로 받은 embeds: $embedsList');
         }
       } catch (e) {
-        if (kDebugMode) {
-          print('Embeds 파싱 오류: $e');
-          print('파싱 시도한 데이터: ${json['embeds']}');
-        }
+        debugPrint('Embeds 파싱 오류: $e');
+        debugPrint('파싱 시도한 데이터: ${json['embeds']}');
       }
     }
 
@@ -95,15 +89,16 @@ class NotificationModel {
       if (embedsList.first is Map) {
         embed = Map<String, dynamic>.from(embedsList.first);
         originalEmbed = Map<String, dynamic>.from(embed); // 원본 임베드 데이터 저장
-        if (kDebugMode) {
-          print('첫 번째 embed: $embed');
-        }
+
+        debugPrint('첫 번째 embed: $embed');
       }
     }
 
     // embed에서 author 정보 추출
     String? authorIconUrl;
-    if (embed != null && embed['author'] != null && embed['author']['icon_url'] != null) {
+    if (embed != null &&
+        embed['author'] != null &&
+        embed['author']['icon_url'] != null) {
       authorIconUrl = embed['author']['icon_url'];
     }
 
@@ -136,8 +131,8 @@ class NotificationModel {
       authorName: embed?['author']?['name'] ?? '',
       authorUrl: embed?['author']?['url'] ?? '',
       authorIconUrl: authorIconUrl ?? '',
-      
-      // 원본 임베드 데이터 저장 (추가)
+
+      // 원본 임베드 데이터 저장
       embedData: originalEmbed,
     );
   }
@@ -158,10 +153,10 @@ class NotificationModel {
       Map<String, dynamic> embed = {};
 
       if (title.isNotEmpty) embed['title'] = title;
-      if (description.isNotEmpty) embed['description'] = description; 
+      if (description.isNotEmpty) embed['description'] = description;
       if (url.isNotEmpty) embed['url'] = url;
       if (color != 0) embed['color'] = color;
-      
+
       // timestamp 필드 추가 (원본 임베드에서 가져오거나 현재 timestamp 사용)
       if (embedData != null && embedData!.containsKey('timestamp')) {
         embed['timestamp'] = embedData!['timestamp'];
@@ -222,7 +217,7 @@ class NotificationModel {
   String toString() {
     return 'NotificationModel(id: $id, username: $username, title: $title, isRich: $isRichNotification)';
   }
-  
+
   /// 알림 유형 분류 (유튜브, 카페, 일반 등)
   NotificationType get type {
     if (username.contains('유튜브 알림') || footerText == 'YouTube') {
@@ -241,7 +236,7 @@ class NotificationModel {
       return NotificationType.general;
     }
   }
-  
+
   /// 알림 타입에 맞는 아이콘 반환
   IconData get typeIcon {
     switch (type) {
@@ -258,14 +253,14 @@ class NotificationModel {
       case NotificationType.chat:
         return Icons.chat;
       case NotificationType.general:
-      return Icons.notifications;
+        return Icons.notifications;
     }
   }
-  
+
   /// 알림 타입에 맞는 색상 반환
   Color get typeColor {
     if (color != 0) return Color(color);
-    
+
     switch (type) {
       case NotificationType.youtube:
         return Colors.red;
@@ -280,18 +275,18 @@ class NotificationModel {
       case NotificationType.chat:
         return Colors.purple;
       case NotificationType.general:
-      return Colors.grey;
+        return Colors.grey;
     }
   }
 }
 
 /// 알림 유형 열거
 enum NotificationType {
-  youtube,     // 유튜브 알림
-  cafe,        // 카페 알림
+  youtube, // 유튜브 알림
+  cafe, // 카페 알림
   streamStart, // 뱅온 알림
   streamChange, // 방제 변경 알림
-  streamEnd,   // 방종 알림
-  chat,        // 채팅 알림
-  general      // 일반 알림
+  streamEnd, // 방종 알림
+  chat, // 채팅 알림
+  general, // 일반 알림
 }

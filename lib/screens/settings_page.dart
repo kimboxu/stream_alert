@@ -141,7 +141,7 @@ Future<void> _saveThemeMode(String mode) async {
                     activeColor: Theme.of(context).primaryColor,
                     onChanged: (value) {
                       _saveThemeMode(value!);
-                      // 변경 후 즉시 효과를 보기 위해 Provider나 상태관리 도구를 사용할 수도 있음
+                      // 변경 후 즉시 효과를 보기 위해
                       MyApp.of(context)?.setThemeMode(ThemeMode.light);
                     },
                   ),
