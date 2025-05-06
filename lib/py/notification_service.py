@@ -184,9 +184,9 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
         if not notification_exists:
             notifications.append(data_fields)  # 새 알림 추가
 
-        # 알림 개수 제한 (최신 1000개만 유지)
-        if len(notifications) > 1000:
-            notifications = notifications[-1000:]
+        # 알림 개수 제한 (최신 10000개만 유지)
+        if len(notifications) > 10000:
+            notifications = notifications[-10000:]
 
         # 메모리(init.userStateData) 업데이트 (웹훅 URL이 인덱스에 있는 경우만)
         if webhook_url in init.userStateData.index:
