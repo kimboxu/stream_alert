@@ -204,10 +204,12 @@ class _NotificationsPageState extends State<NotificationsPage>
     // 날짜 구분선 개수 추정 - 날짜별로 그룹화
     final Set<DateTime> uniqueDates = {};
     for (var notification in filteredNotifications) {
+      // 로컬 시간대로 변환
+      final localDateTime = notification.timestamp.toLocal();
       final date = DateTime(
-        notification.timestamp.year,
-        notification.timestamp.month,
-        notification.timestamp.day,
+        localDateTime.year,
+        localDateTime.month,
+        localDateTime.day,
       );
       uniqueDates.add(date);
     }
@@ -623,10 +625,14 @@ class _NotificationsPageState extends State<NotificationsPage>
     // 알림을 순회하며 날짜 구분선 추가
     for (int i = 0; i < filteredNotifications.length; i++) {
       final notification = filteredNotifications[i];
+
+      // 타임스탬프를 로컬 시간대로 변환
+      final localDateTime = notification.timestamp.toLocal();
+
       final currentDate = DateTime(
-        notification.timestamp.year,
-        notification.timestamp.month,
-        notification.timestamp.day,
+        localDateTime.year,
+        localDateTime.month,
+        localDateTime.day,
       );
 
       // 알림 추가
@@ -639,9 +645,9 @@ class _NotificationsPageState extends State<NotificationsPage>
       if (isLastItem ||
           currentDate.day !=
               DateTime(
-                filteredNotifications[i + 1].timestamp.year,
-                filteredNotifications[i + 1].timestamp.month,
-                filteredNotifications[i + 1].timestamp.day,
+                filteredNotifications[i + 1].timestamp.toLocal().year,
+                filteredNotifications[i + 1].timestamp.toLocal().month,
+                filteredNotifications[i + 1].timestamp.toLocal().day,
               ).day) {
         itemsWithDateDividers.add(currentDate); // 날짜 구분선
       }
