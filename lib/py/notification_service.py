@@ -244,6 +244,34 @@ def get_user_data_from_init(init: initVar, webhook_url):
         print(f"init에서 사용자 데이터 추출 오류: {e}")
         return None
 
+def get_notification_data(json_data):
+    # 알림 데이터 준비 부분 수정
+    notification_data = {
+    "title": json_data.get("username", "(알 수 없음)"),
+    "body": "",
+    }
+
+    body = json_data.get("content", "")
+
+    # embeds 데이터가 있으면 확인
+    if "embeds" in json_data and json_data["embeds"]:
+        try:
+            embeds = json_data["embeds"]
+
+            if isinstance(embeds, list) and embeds and isinstance(embeds[0], dict):
+                if "title" in embeds[0] and embeds[0]["title"]:
+                    body = embeds[0]["title"]
+                elif "description" in embeds[0] and embeds[0]["description"]:
+                    body = embeds[0]["description"]
+        except Exception as e:
+            print(f"embeds 데이터 파싱 오류: {e}")
+    if not body:
+        body = "새 알림이 도착했습니다"
+
+    # 업데이트된 body 설정
+    notification_data["body"] = body
+    return notification_data
+
 # 푸시 알림 전송 함수
 async def send_push_notification(webhook_urls, json_data, firebase_initialized_globally=True):
     """
@@ -277,10 +305,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         notification_time = datetime.now().astimezone().isoformat()
         
         # 알림 데이터 준비
-        notification_data = {
-            "title": json_data.get("username", "(알 수 없음)"),
-            "body": json_data.get("content", ""),
-        }
+        notification_data = get_notification_data(json_data)
         
         # 데이터 필드 준비
         data_fields = {

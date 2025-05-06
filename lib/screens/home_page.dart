@@ -64,7 +64,11 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   Future<void> _refreshNotifications() async {
     final pushService = PushNotificationService();
-    await pushService.loadNotificationsFromServer();
+    await pushService.loadNotifications(
+      direction: LoadDirection.newer,
+      pageSize: 50,
+      currentPage: 1,
+    );
   }
 
   @override
@@ -235,7 +239,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
       // 로그인 화면으로 이동
       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     } catch (e) {
-        debugPrint('로그아웃 중 오류: $e');
+      debugPrint('로그아웃 중 오류: $e');
       // 오류가 발생해도 로그인 화면으로 이동
       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     }
