@@ -136,7 +136,7 @@ class ApiService {
                       .toList();
 
               // 시간순 정렬
-              notifications.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+              notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
               return {
                 'success': true,
