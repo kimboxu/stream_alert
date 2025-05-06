@@ -1,12 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, unnecessary_import
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -14,11 +12,6 @@ import '../models/notification_model.dart';
 import '../services/api_service.dart';
 import '../services/push_notification_service.dart';
 import '../widgets/discord_notification_widget.dart';
-
-enum LoadDirection {
-  newer, // 최신 알림 로드 (첫 페이지)
-  older, // 과거 알림 로드 (다음 페이지)
-}
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -33,7 +26,6 @@ class _NotificationsPageState extends State<NotificationsPage>
   bool _isLoading = true;
   bool _isLoadingMore = false;
   bool _hasMoreData = true;
-  bool _isRefreshing = false;
   bool _loadFailed = false;
   bool _isOffline = false;
   int _currentPage = 1;
@@ -66,12 +58,17 @@ class _NotificationsPageState extends State<NotificationsPage>
   bool _showErrorMessage = false;
   String _errorMessage = '';
 
+  late final AppLifecycleListener _lifecycleListener;
+
   @override
   bool get wantKeepAlive => true; // 페이지 상태 유지
 
   @override
   void initState() {
     super.initState();
+
+    // 생명주기 리스너 설정
+    _lifecycleListener = AppLifecycleListener(onStateChange: _onStateChanged);
 
     // 아이템 위치 리스너 설정
     _itemPositionsListener.itemPositions.addListener(_updateScrollPosition);
@@ -84,10 +81,20 @@ class _NotificationsPageState extends State<NotificationsPage>
     _setupNotificationReceiver();
   }
 
+  // 앱 상태 변경 처리
+  void _onStateChanged(AppLifecycleState state) {
+    debugPrint('앱 상태 변경: $state');
+    if (state == AppLifecycleState.resumed) {
+      debugPrint('앱이 포그라운드로 돌아옴');
+
+      _loadFirstNotifications();
+    }
+  }
+
   // 알림 수신 메서드
   void _setupNotificationReceiver() {
+    // 알림 스트림 리스너
     PushNotificationService().notificationStream.listen((notification) {
-      // 약간의 딜레이를 추가하여 비슷한 시간에 들어오는 메시지들이 한꺼번에 처리되도록 함
       Future.delayed(const Duration(milliseconds: 50), () {
         if (!mounted) return;
         _handleNewNotification(notification);
@@ -100,6 +107,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
     setState(() {
       _notifications.add(notification);
+      _notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
       _removeDuplicateNotifications();
 
       if (!_autoScrollEnabled) {
@@ -212,6 +220,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
   @override
   void dispose() {
+    _lifecycleListener.dispose();
     _cleanupTimers();
     _itemPositionsListener.itemPositions.removeListener(_updateScrollPosition);
     _searchController.dispose();
@@ -245,53 +254,16 @@ class _NotificationsPageState extends State<NotificationsPage>
     }
   }
 
-  // 로컬 데이터 로드
-  Future<List<NotificationModel>> _getLocalNotifications() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final localNotificationsJson = prefs.getStringList('notifications') ?? [];
-
-      if (localNotificationsJson.isEmpty) {
-        return [];
-      }
-
-      List<NotificationModel> localNotifications =
-          localNotificationsJson
-              .map((json) => NotificationModel.fromJson(jsonDecode(json)))
-              .toList();
-
-      // 시간순 정렬(최근 메시지가 앞으로)
-      localNotifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-
-      return localNotifications;
-    } catch (e) {
-      debugPrint('로컬 알림 로드 중 오류: $e');
-
-      return [];
-    }
-  }
-
-  Future<void> _loadNotifications({
-    required LoadDirection direction,
-    bool isRefreshing = false,
-  }) async {
-    // 로딩 상태 설정
+  Future<void> _loadNotifications({required LoadDirection direction}) async {
+    // 중복 호출 방지
     if (_isOffline) return;
     if (direction == LoadDirection.newer) {
-      if (isRefreshing) {
-        if (_isRefreshing) return;
-        setState(() {
-          _isRefreshing = true;
-        });
-      } else {
-        if (_isLoading) return;
-        setState(() {
-          _isLoading = true;
-          _loadFailed = false;
-        });
-      }
+      if (_isLoading) return;
+      setState(() {
+        _isLoading = true;
+        _loadFailed = false;
+      });
     } else {
-      // LoadDirection.older
       if (_isLoadingMore) return;
       setState(() {
         _isLoadingMore = true;
@@ -299,147 +271,68 @@ class _NotificationsPageState extends State<NotificationsPage>
       });
     }
 
-    try {
-      // 요청할 페이지 번호 결정
-      int pageToLoad = direction == LoadDirection.newer ? 1 : _currentPage + 1;
+    // 서비스 호출
+    final result = await PushNotificationService().loadNotifications(
+      direction: direction,
+      currentPage: _currentPage,
+      pageSize: _pageSize,
+    );
 
-      // 서버에서 알림 로드
-      final prefs = await SharedPreferences.getInstance();
-      final username = prefs.getString('username');
-      final discordWebhooksURL = prefs.getString('discordWebhooksURL');
+    if (!mounted) return;
 
-      if (username == null || discordWebhooksURL == null) {
-        setState(() {
-          _isLoading = false;
-          _isRefreshing = false;
-          _isLoadingMore = false;
-          _loadFailed = true;
-        });
-        return;
-      }
+    // 로딩 상태 해제
+    setState(() {
+      _isLoading = false;
+      _isLoadingMore = false;
+    });
 
-      // 서버 API 호출
-      final result = await ApiService.getNotifications(
-        username,
-        discordWebhooksURL,
-        page: pageToLoad,
-        limit: _pageSize,
-      );
-
-      if (!mounted) return;
+    // 결과 처리
+    if (result['success']) {
+      final List<NotificationModel> newNotifications = result['notifications'];
+      final bool hasMore = result['hasMore'];
+      final int updatedPage = result['currentPage'];
 
       setState(() {
-        _isLoading = false;
-        _isRefreshing = false;
-        _isLoadingMore = false;
-      });
-
-      // 결과 처리
-      if (result['success']) {
-        final List<NotificationModel> newNotifications =
-            result['notifications'];
-        final bool hasMore = result['hasMore'];
-
-        setState(() {
-          // 새 알림이 있는 경우에만 알림 목록 업데이트
-          if (newNotifications.isNotEmpty) {
-            if (direction == LoadDirection.newer) {
-              // 최신 알림은 기존 목록에 추가
-              _notifications.addAll(newNotifications);
-              _currentPage = 1;
-            } else {
-              // 과거 알림은 목록 앞에 삽입
-              _notifications.insertAll(0, newNotifications);
-              _currentPage++;
-            }
-          }
-
-          _hasMoreData = hasMore;
-        });
-
-        // 새 알림이 있는 경우에만 중복 제거
         if (newNotifications.isNotEmpty) {
-          // 로그 출력
-          if (direction == LoadDirection.older) {
-            final oldestNewTime = newNotifications
-                .map((n) => n.timestamp)
-                .reduce((a, b) => a.isBefore(b) ? a : b);
-            debugPrint('새로 가져온 가장 오래된 알림 시간: $oldestNewTime');
+          if (direction == LoadDirection.newer) {
+            // 최신 알림은 기존 목록에 추가
+            _notifications.addAll(newNotifications);
+            _currentPage = 1;
+          } else {
+            // 과거 알림은 목록 앞에 삽입
+            _notifications.insertAll(0, newNotifications);
+            _currentPage = updatedPage;
           }
+        }
 
-          // 중복 제거
+        _hasMoreData = hasMore;
+
+        // 중복 제거
+        if (newNotifications.isNotEmpty) {
           _removeDuplicateNotifications();
         }
-      } else {
-        // 오류가 발생한 경우
-        final String errorType = result['errorType'] ?? 'unknown';
-        final String serverError = result['error'] ?? '알림을 불러오는 중 오류가 발생했습니다';
+      });
+    } else {
+      // 오류 처리
+      setState(() {
+        _loadFailed = true;
 
-        // 디버그 로깅
-        debugPrint('알림 로드 오류: type=$errorType, message=$serverError');
-
-        setState(() {
-          _loadFailed = true;
-
-          // 네트워크 오류가 아니고 과거 알림 로드인 경우에만 더 이상 데이터가 없음으로 설정
-          if (errorType != 'network' && direction == LoadDirection.older) {
-            _hasMoreData = false;
-          }
-        });
-
-        // 상황에 맞는 사용자 친화적 오류 메시지 결정
-        String userMessage;
-
-        if (direction == LoadDirection.newer) {
-          // 최신 알림 로드 중 오류
-          if (!_isOffline && errorType == 'network') {
-            userMessage = '알림을 새로고침하는 중 네트워크 오류가 발생했습니다';
-          } else {
-            userMessage = '알림을 불러오는 중 오류가 발생했습니다';
-          }
-        } else {
-          // 과거 알림 로드 중 오류
-          switch (errorType) {
-            case 'network':
-              userMessage = '이전 알림을 불러오는 중 네트워크 연결 오류가 발생했습니다';
-              break;
-            case 'auth':
-              userMessage = '인증 정보가 만료되었습니다. 다시 로그인해주세요';
-              break;
-            case 'server':
-              userMessage = '서버에서 오류가 발생했습니다. 잠시 후 다시 시도해주세요';
-              break;
-            default:
-              userMessage = serverError; // 서버에서 제공한 오류 메시지 사용
-          }
+        // 네트워크 오류인 경우 오프라인 상태 설정
+        if (result['errorType'] == 'network') {
+          _isOffline = true;
         }
 
-        _setErrorMessage(userMessage);
-      }
-    } catch (e) {
-      debugPrint('알림 로드 중 예상치 못한 오류: $e');
-
-      // 로딩 상태 해제 및 오류 상태 설정
-      setState(() {
-        _isLoading = false;
-        _isRefreshing = false;
-        _isLoadingMore = false;
-        _loadFailed = true;
+        // 오류 메시지 설정
+        _setErrorMessage(result['error']);
       });
-
-      // 네트워크 연결 확인
-      try {
-        await _checkConnectivity();
-      } catch (_) {}
-
-      // 오류 메시지 표시
-      _setErrorMessage('예상치 못한 오류가 발생했습니다: $e');
     }
   }
 
-  //초기 데이터 로드 (로컬+서버)
+  // 초기 데이터 로드 (로컬+서버)
   Future<void> _loadFirstNotifications() async {
-    List<NotificationModel> localNotifications = await _getLocalNotifications();
+    // 로컬 알림 먼저 로드
+    List<NotificationModel> localNotifications =
+        await PushNotificationService().getLocalNotifications();
 
     if (mounted) {
       setState(() {
@@ -454,30 +347,6 @@ class _NotificationsPageState extends State<NotificationsPage>
 
   Future<void> _loadOlderMessages() async {
     await _loadNotifications(direction: LoadDirection.older);
-  }
-
-  Future<void> _refreshNotifications() async {
-    await _loadNotifications(
-      direction: LoadDirection.newer,
-      isRefreshing: true,
-    );
-  }
-
-  // 로컬에 알림 저장
-  Future<void> _updateLocalNotifications(
-    List<NotificationModel> notifications,
-  ) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final notificationsJson =
-          notifications
-              .map((notification) => jsonEncode(notification.toJson()))
-              .toList();
-
-      await prefs.setStringList('notifications', notificationsJson);
-    } catch (e) {
-      debugPrint('알림 로컬 저장 중 오류: $e');
-    }
   }
 
   // 중복 알림 제거
@@ -510,7 +379,7 @@ class _NotificationsPageState extends State<NotificationsPage>
       });
 
       // 로컬에 저장
-      _updateLocalNotifications(deduplicatedList);
+      PushNotificationService().updateLocalNotifications(deduplicatedList);
     }
   }
 
@@ -559,8 +428,7 @@ class _NotificationsPageState extends State<NotificationsPage>
           // 새로고침 아이콘
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed:
-                (_isRefreshing || _isLoading) ? null : _refreshNotifications,
+            onPressed: (_isLoading) ? null : _loadFirstNotifications,
             tooltip: '알림 새로고침',
           ),
         ],
@@ -645,7 +513,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                       onPressed: () async {
                         await _checkConnectivity();
                         if (!_isOffline) {
-                          _refreshNotifications();
+                          _loadFirstNotifications();
                         }
                       },
                       style: TextButton.styleFrom(
@@ -784,7 +652,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     }
 
     return RefreshIndicator(
-      onRefresh: _refreshNotifications,
+      onRefresh: _loadFirstNotifications,
       child: Column(
         children: [
           // 상단에 오류 메시지 표시
@@ -1017,7 +885,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     }
 
     return RefreshIndicator(
-      onRefresh: _refreshNotifications,
+      onRefresh: _loadFirstNotifications,
       child: ScrollablePositionedList.builder(
         itemScrollController: _itemScrollController,
         itemPositionsListener: _itemPositionsListener,
@@ -1049,7 +917,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                               _showErrorMessage = false;
                               _errorMessage = '';
                             });
-                            _refreshNotifications();
+                            _loadFirstNotifications();
                           },
                           icon: Icon(Icons.refresh),
                           label: Text('이전 알림 다시 불러오기'),
@@ -1100,7 +968,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                       ),
                       SizedBox(height: 24),
                       ElevatedButton.icon(
-                        onPressed: _refreshNotifications,
+                        onPressed: _loadFirstNotifications,
                         icon: Icon(Icons.refresh),
                         label: Text('새로고침'),
                         style: ElevatedButton.styleFrom(
@@ -1228,7 +1096,7 @@ class _NotificationsPageState extends State<NotificationsPage>
         _notifications[index] = updatedNotification;
 
         // 로컬에 저장
-        _updateLocalNotifications(_notifications);
+        PushNotificationService().updateLocalNotifications(_notifications);
 
         // 서버에 읽음 상태 업데이트
         // _markNotificationAsReadOnServer(notification.id);
@@ -1262,5 +1130,4 @@ class _NotificationsPageState extends State<NotificationsPage>
   //
   //   }
   // }
-
 }

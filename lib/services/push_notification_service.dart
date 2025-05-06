@@ -11,6 +11,11 @@ import 'package:uuid/uuid.dart'; // 고유 ID 생성용 패키지
 import '../services/api_service.dart';
 import '../models/notification_model.dart';
 
+enum LoadDirection {
+  newer, // 최신 알림 로드 (첫 페이지)
+  older, // 과거 알림 로드 (다음 페이지)
+}
+
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -27,28 +32,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> _saveNotification(RemoteMessage message) async {
   try {
     final prefs = await SharedPreferences.getInstance();
-
-    // 기존 알림 목록 가져오기
     final notifications = prefs.getStringList('notifications') ?? [];
 
-    // 중복 검사 - 이미 같은 ID가 있는지 확인
-    bool isDuplicate = false;
-    for (var i = 0; i < notifications.length; i++) {
-      try {
-        final existingNotification = json.decode(notifications[i]);
-        if (existingNotification['id'] == message.data['id']) {
-          isDuplicate = true;
-          // 기존 항목 업데이트
-          notifications.removeAt(i);
-          break;
-        }
-      } catch (e) {
-        // JSON 파싱 오류 무시
-      }
-    }
-
+    // 메시지에서 NotificationModel 생성
     final notificationData = {
-      'id': message.data['id'],
+      'id':
+          message.data['id'] ??
+          DateTime.now().millisecondsSinceEpoch.toString(),
       'username':
           message.notification?.title ?? message.data['username'] ?? '알림',
       'content': message.notification?.body ?? message.data['content'] ?? '',
@@ -62,34 +52,24 @@ Future<void> _saveNotification(RemoteMessage message) async {
       try {
         notificationData['embeds'] = json.decode(message.data['embeds']);
       } catch (e) {
-        // 문자열이 아닌 경우 그대로 사용
         notificationData['embeds'] = message.data['embeds'];
       }
     }
 
-    // 그 외 추가 데이터 병합
     message.data.forEach((key, value) {
       if (!notificationData.containsKey(key)) {
         notificationData[key] = value;
       }
     });
 
-    // 알림 목록에 추가
-    notifications.add(jsonEncode(notificationData));
-
-    // 최대 100개까지만 저장 (오래된 알림은 삭제)
-    if (notifications.length > 100) {
-      notifications.removeRange(0, notifications.length - 100);
-    }
+    final newNotification = NotificationModel.fromJson(notificationData);
 
     // 저장
-    await prefs.setStringList('notifications', notifications);
-
-    if (isDuplicate) {
-      debugPrint('기존 알림 업데이트: ${message.data['id']}');
-    } else {
-      debugPrint('새 알림 저장: ${message.data['id']}');
-    }
+    await PushNotificationService()._processAndSaveNotifications(
+      notifications,
+      newNotification: newNotification,
+    );
+    debugPrint('새 알림 저장: ${message.data['id']}');
   } catch (e) {
     debugPrint('알림 저장 중 오류: $e');
   }
@@ -106,6 +86,11 @@ class PushNotificationService {
   // 싱글톤 패턴
   static final PushNotificationService _instance =
       PushNotificationService._internal();
+
+  // 상태 관리를 위한 StreamController 확장
+  final StreamController<String> _appStateStreamController =
+      StreamController<String>.broadcast();
+  Stream<String> get appStateStream => _appStateStreamController.stream;
 
   factory PushNotificationService() {
     return _instance;
@@ -190,7 +175,7 @@ class PushNotificationService {
 
       // 안드로이드용 로컬 알림 설정
       const AndroidInitializationSettings androidSettings =
-          AndroidInitializationSettings('@mipmap/ic_launcher');
+          AndroidInitializationSettings('@mipmap/launcher_icon');
       const DarwinInitializationSettings iosSettings =
           DarwinInitializationSettings();
       const InitializationSettings initSettings = InitializationSettings(
@@ -232,6 +217,7 @@ class PushNotificationService {
           debugPrint('앱이 종료된 상태에서 알림 클릭: ${message.data}');
 
           _saveNotification(message);
+          _appStateStreamController.add('app_opened_from_terminated');
         }
       });
 
@@ -240,6 +226,7 @@ class PushNotificationService {
         debugPrint('백그라운드 상태에서 알림 클릭: ${message.data}');
 
         _saveNotification(message);
+        _appStateStreamController.add('app_opened_from_background');
       });
 
       // 토큰 갱신 리스너
@@ -257,69 +244,237 @@ class PushNotificationService {
     }
   }
 
-  // 서버에서 알림 가져오기
-  Future<List<NotificationModel>> loadNotificationsFromServer() async {
-    final prefs = await SharedPreferences.getInstance();
-    final username = prefs.getString('username');
-    final discordWebhooksURL = prefs.getString('discordWebhooksURL');
+  Future<List> _processAndSaveNotifications(
+    List<dynamic> notifications, {
+    NotificationModel? newNotification,
+  }) async {
+    try {
+      List<NotificationModel> notificationModels = [];
 
-    List<NotificationModel> notifications = [];
-
-    if (username != null && discordWebhooksURL != null) {
-      try {
-        final result = await ApiService.getNotifications(
-          username,
-          discordWebhooksURL,
-        );
-
-        // 성공적으로 데이터를 가져온 경우에만 처리
-        if (result['success']) {
-          notifications = result['notifications'];
-
-          if (notifications.isNotEmpty) {
-            // 가져온 알림을 로컬에 저장
-            final notificationsJson =
-                notifications
-                    .map((notification) => jsonEncode(notification.toJson()))
-                    .toList();
-
-            await prefs.setStringList('notifications', notificationsJson);
-
-            // 읽지 않은 알림 개수 확인
-            final unreadCount =
-                notifications.where((n) => n.read == false).length;
-            if (unreadCount > 0) {
-              // 읽지 않은 알림이 있으면 로컬 알림으로 표시
-              // await _showLocalNotification(
-              //   '읽지 않은 알림',
-              //   '읽지 않은 알림이 $unreadCount개 있습니다.',
-              //   {},
-              // );
-            }
-
-            debugPrint('서버에서 ${notifications.length}개의 알림을 로드했습니다.');
+      for (var notification in notifications) {
+        if (notification is String) {
+          try {
+            notificationModels.add(
+              NotificationModel.fromJson(jsonDecode(notification)),
+            );
+          } catch (e) {
+            debugPrint('알림 변환 중 오류: $e');
           }
+        } else if (notification is NotificationModel) {
+          notificationModels.add(notification);
+        }
+      }
+
+      if (newNotification != null) {
+        notificationModels.add(newNotification);
+      }
+
+      final Map<String, NotificationModel> uniqueNotifications = {};
+      for (var notification in notificationModels) {
+        if (!uniqueNotifications.containsKey(notification.id) ||
+            notification.timestamp.isAfter(
+              uniqueNotifications[notification.id]!.timestamp,
+            )) {
+          uniqueNotifications[notification.id] = notification;
+        }
+      }
+
+      final List<NotificationModel> sortedList =
+          uniqueNotifications.values.toList()
+            ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+      final List<NotificationModel> limitedList =
+          sortedList.length > 100 ? sortedList.sublist(0, 100) : sortedList;
+
+      final prefs = await SharedPreferences.getInstance();
+      final notificationsJson =
+          limitedList
+              .map((notification) => jsonEncode(notification.toJson()))
+              .toList();
+
+      await prefs.setStringList('notifications', notificationsJson);
+
+      debugPrint('알림 저장 완료: 총 ${limitedList.length}개');
+      return limitedList;
+    } catch (e) {
+      debugPrint('알림 처리 및 저장 중 오류: $e');
+      return [];
+    }
+  }
+
+  // 서버에서 알림 로드
+  Future<Map<String, dynamic>> loadNotifications({
+    required LoadDirection direction,
+    int? pageSize,
+    int? currentPage,
+  }) async {
+    // 결과 맵 초기화
+    Map<String, dynamic> result = {
+      'success': false,
+      'notifications': <NotificationModel>[],
+      'hasMore': false,
+      'errorType': '',
+      'error': '',
+      'currentPage': currentPage ?? 1,
+    };
+
+    try {
+      // 오프라인 상태 확인
+      try {
+        final connectivityResult = await InternetAddress.lookup('google.com');
+        if (connectivityResult.isEmpty ||
+            connectivityResult[0].rawAddress.isEmpty) {
+          result['errorType'] = 'network';
+          result['error'] = '인터넷 연결이 없습니다';
+          return result;
+        }
+      } on SocketException catch (_) {
+        result['errorType'] = 'network';
+        result['error'] = '인터넷 연결이 없습니다';
+        return result;
+      }
+
+      // 요청할 페이지 번호 결정
+      int pageToLoad =
+          direction == LoadDirection.newer ? 1 : (currentPage ?? 1) + 1;
+      int limit = pageSize ?? 50;
+
+      // 사용자 정보 가져오기
+      final prefs = await SharedPreferences.getInstance();
+      final username = prefs.getString('username');
+      final discordWebhooksURL = prefs.getString('discordWebhooksURL');
+
+      if (username == null || discordWebhooksURL == null) {
+        result['errorType'] = 'auth';
+        result['error'] = '사용자 정보가 없습니다';
+        return result;
+      }
+
+      // 서버 API 호출
+      final apiResult = await ApiService.getNotifications(
+        username,
+        discordWebhooksURL,
+        page: pageToLoad,
+        limit: limit,
+      );
+
+      // 결과 처리
+      if (apiResult['success']) {
+        final List<NotificationModel> newNotifications =
+            apiResult['notifications'];
+        final bool hasMore = apiResult['hasMore'];
+
+        result['success'] = true;
+        result['notifications'] = newNotifications;
+        result['hasMore'] = hasMore;
+
+        // 페이지 번호 업데이트
+        if (direction == LoadDirection.newer) {
+          result['currentPage'] = 1;
         } else {
-          debugPrint('서버에서 알림 가져오기 실패: ${result['error']}');
+          result['currentPage'] = pageToLoad;
+        }
 
-          // 네트워크 오류가 아닌 경우, 로컬 데이터 사용
-          if (result['errorType'] != 'network') {
-            // 로컬에 저장된 알림을 로드
-            final localNotificationsJson =
-                prefs.getStringList('notifications') ?? [];
-            notifications =
-                localNotificationsJson
-                    .map((json) => NotificationModel.fromJson(jsonDecode(json)))
-                    .toList();
+        // 가져온 알림이 있다면 로컬에 저장 (최신 데이터 로드 시에만)
+        if (newNotifications.isNotEmpty && direction == LoadDirection.newer) {
+          await updateLocalNotifications(newNotifications);
 
-            notifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+          // 읽지 않은 알림 개수 확인
+          final unreadCount =
+              newNotifications.where((n) => n.read == false).length;
+          if (unreadCount > 0) {
+            debugPrint('읽지 않은 알림이 $unreadCount개 있습니다');
           }
         }
-      } catch (e) {
-        debugPrint('서버에서 알림 가져오기 예상치 못한 오류: $e');
+
+        debugPrint('서버에서 ${newNotifications.length}개의 알림을 로드했습니다.');
+      } else {
+        // 오류가 발생한 경우
+        final String errorType = apiResult['errorType'] ?? 'unknown';
+        final String serverError =
+            apiResult['error'] ?? '알림을 불러오는 중 오류가 발생했습니다';
+
+        result['errorType'] = errorType;
+        result['error'] = serverError;
+
+        // 네트워크 오류가 아니고 과거 알림 로드인 경우에만 더 이상 데이터가 없음으로 취급
+        if (errorType != 'network' && direction == LoadDirection.older) {
+          result['hasMore'] = false;
+        }
+
+        debugPrint('알림 로드 오류: type=$errorType, message=$serverError');
+
+        // 네트워크 오류가 아닌 경우, 로컬 데이터 반환
+        if (errorType != 'network' && direction == LoadDirection.newer) {
+          final localNotifications = await getLocalNotifications();
+          result['notifications'] = localNotifications;
+          result['success'] =
+              localNotifications.isNotEmpty; // 로컬 데이터가 있으면 성공으로 간주
+        }
+      }
+    } catch (e) {
+      debugPrint('알림 로드 중 예상치 못한 오류: $e');
+      result['errorType'] = 'unknown';
+      result['error'] = '예상치 못한 오류가 발생했습니다: $e';
+
+      // 오류 발생 시 로컬 데이터 반환 (최신 데이터 로드 시에만)
+      if (direction == LoadDirection.newer) {
+        final localNotifications = await getLocalNotifications();
+        result['notifications'] = localNotifications;
+        result['success'] =
+            localNotifications.isNotEmpty; // 로컬 데이터가 있으면 성공으로 간주
       }
     }
-    return notifications;
+
+    return result;
+  }
+
+  // 로컬에 알림 저장 및 업데이트
+  Future<void> updateLocalNotifications(
+    List<NotificationModel> notifications,
+  ) async {
+    try {
+      if (notifications.isEmpty) return;
+
+      final prefs = await SharedPreferences.getInstance();
+      final localNotificationsJson = prefs.getStringList('notifications') ?? [];
+
+      //저장
+      await _processAndSaveNotifications([
+        ...localNotificationsJson,
+        ...notifications,
+      ]);
+
+      debugPrint('로컬 알림 업데이트 완료');
+    } catch (e) {
+      debugPrint('알림 로컬 저장 중 오류: $e');
+    }
+  }
+
+  // 로컬 데이터 로드
+  Future<List<NotificationModel>> getLocalNotifications() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.reload();
+      final localNotificationsJson = prefs.getStringList('notifications') ?? [];
+
+      if (localNotificationsJson.isEmpty) {
+        return [];
+      }
+
+      List<NotificationModel> localNotifications =
+          localNotificationsJson
+              .map((json) => NotificationModel.fromJson(jsonDecode(json)))
+              .toList();
+
+      localNotifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+      return localNotifications;
+    } catch (e) {
+      debugPrint('로컬 알림 로드 중 오류: $e');
+
+      return [];
+    }
   }
 
   // 토큰 서버에 등록
@@ -464,18 +619,11 @@ class PushNotificationService {
     _notificationStreamController.add(notification);
 
     // 알림 데이터에서 정보 추출
-    final title =
-        message.notification?.title ?? message.data['username'] ?? 'anonymous';
-    var body = message.notification?.body ?? message.data['content'] ?? '';
-    if (body.isEmpty &&
-        message.data.containsKey('embeds') &&
-        message.data['embeds'] is Map &&
-        (message.data['embeds'] as Map).containsKey('title')) {
-      body = message.data['embeds']['title'];
-    }
+    // final title = message.notification?.title ?? '(알 수 없음)';
+    // var body = message.notification?.body ?? '';
 
     // 로컬 알림으로 표시
-    _showLocalNotification(title, body, message.data);
+    // _showLocalNotification(title, body, message.data);
   }
 
   // RemoteMessage를 NotificationModel로 변환하는 메서드
@@ -516,42 +664,42 @@ class PushNotificationService {
   }
 
   // 로컬 알림 표시
-  Future<void> _showLocalNotification(
-    String title,
-    String body,
-    Map<String, dynamic> data,
-  ) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
-          'high_importance_channel',
-          '스트리머 알림',
-          channelDescription: '스트리머 관련 알림을 받습니다.',
-          importance: Importance.high,
-          priority: Priority.high,
-          showWhen: true,
-        );
+  // Future<void> _showLocalNotification(
+  //   String title,
+  //   String body,
+  //   Map<String, dynamic> data,
+  // ) async {
+  //   const AndroidNotificationDetails androidDetails =
+  //       AndroidNotificationDetails(
+  //         'high_importance_channel',
+  //         '스트리머 알림',
+  //         channelDescription: '스트리머 관련 알림을 받습니다.',
+  //         importance: Importance.high,
+  //         priority: Priority.high,
+  //         showWhen: true,
+  //       );
 
-    const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
+  //   const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
+  //     presentAlert: true,
+  //     presentBadge: true,
+  //     presentSound: true,
+  //   );
 
-    const NotificationDetails notificationDetails = NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-    );
+  //   const NotificationDetails notificationDetails = NotificationDetails(
+  //     android: androidDetails,
+  //     iOS: iosDetails,
+  //   );
 
-    // 페이로드 설정
-    final String payload = jsonEncode(data);
-    await _localNotifications.show(
-      data.containsKey('id')
-          ? data['id'].hashCode.abs()
-          : DateTime.now().millisecondsSinceEpoch % 100000, // 유니크한 알림 ID,
-      title,
-      body,
-      notificationDetails,
-      payload: payload,
-    );
-  }
+  //   // 페이로드 설정
+  //   final String payload = jsonEncode(data);
+  //   await _localNotifications.show(
+  //     data.containsKey('id')
+  //         ? data['id'].hashCode.abs()
+  //         : DateTime.now().millisecondsSinceEpoch % 100000, // 유니크한 알림 ID,
+  //     title,
+  //     body,
+  //     notificationDetails,
+  //     payload: payload,
+  //   );
+  // }
 }
