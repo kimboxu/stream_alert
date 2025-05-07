@@ -224,6 +224,8 @@ class NotificationModel {
       return NotificationType.youtube;
     } else if (username.contains('카페 알림') || footerText == 'cafe') {
       return NotificationType.cafe;
+    } else if (description.endsWith('치지직 영상 업로드!')) {
+      return NotificationType.chzzkVOD;
     } else if (title.trim().endsWith('뱅온!')) {
       return NotificationType.streamStart;
     } else if (title.trim().endsWith('방제 변경')) {
@@ -236,54 +238,13 @@ class NotificationModel {
       return NotificationType.general;
     }
   }
-
-  /// 알림 타입에 맞는 아이콘 반환
-  IconData get typeIcon {
-    switch (type) {
-      case NotificationType.youtube:
-        return Icons.play_circle_filled;
-      case NotificationType.cafe:
-        return Icons.article;
-      case NotificationType.streamStart:
-        return Icons.live_tv;
-      case NotificationType.streamChange:
-        return Icons.live_tv;
-      case NotificationType.streamEnd:
-        return Icons.tv_off;
-      case NotificationType.chat:
-        return Icons.chat;
-      case NotificationType.general:
-        return Icons.notifications;
-    }
-  }
-
-  /// 알림 타입에 맞는 색상 반환
-  Color get typeColor {
-    if (color != 0) return Color(color);
-
-    switch (type) {
-      case NotificationType.youtube:
-        return Colors.red;
-      case NotificationType.cafe:
-        return Colors.green[700]!;
-      case NotificationType.streamStart:
-        return Colors.blue;
-      case NotificationType.streamChange:
-        return Colors.blue;
-      case NotificationType.streamEnd:
-        return Colors.orange;
-      case NotificationType.chat:
-        return Colors.purple;
-      case NotificationType.general:
-        return Colors.grey;
-    }
-  }
 }
 
 /// 알림 유형 열거
 enum NotificationType {
   youtube, // 유튜브 알림
   cafe, // 카페 알림
+  chzzkVOD, // 치지직 VOD 알림
   streamStart, // 뱅온 알림
   streamChange, // 방제 변경 알림
   streamEnd, // 방종 알림
