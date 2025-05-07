@@ -68,7 +68,8 @@ class getYoutubeJsonData:
 
 		# 응답이 없거나 items가 비어있는 경우 처리
 		if not self.check_item((channel_response)):
-			print(f"{datetime.now()} No valid response for channel {self.youtubeChannelID}")
+			asyncio.create_task(log_error(f"{datetime.now()} No valid response for channel {self.youtubeChannelID}"))
+			print(f"{datetime.now()} {channel_response}")
 			return
 
 		video_count = self.get_video_count(channel_response)
@@ -191,7 +192,7 @@ class getYoutubeJsonData:
 			return
 
 	def check_item(self, channel_response):
-		return channel_response or 'items' not in channel_response or not channel_response['items']
+		return channel_response or 'items' not in channel_response or channel_response['items']
 
 	def get_video_count(self, channel_response):
 		return int(channel_response['items'][0]['statistics']['videoCount'])
