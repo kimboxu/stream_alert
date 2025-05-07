@@ -1,12 +1,12 @@
-// ignore_for_file: library_private_types_in_public_api, unnecessary_import
+// ignore_for_file: library_private_types_in_public_api, unnecessary_import, deprecated_member_use
 
 import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../models/notification_model.dart';
 import '../services/api_service.dart';
@@ -49,8 +49,8 @@ class _NotificationsPageState extends State<NotificationsPage>
   Timer? _debounceTimer;
   final List<Timer> _activeTimers = [];
 
-  // 필터 관련 변수
-  NotificationType? _selectedFilter;
+  // 필터 관련 변수 - 중복 선택을 위해 Set 타입으로 변경
+  Set<NotificationType> _selectedFilters = {};
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
@@ -72,6 +72,17 @@ class _NotificationsPageState extends State<NotificationsPage>
 
     // 아이템 위치 리스너 설정
     _itemPositionsListener.itemPositions.addListener(_updateScrollPosition);
+
+    // 모든 필터 타입을 기본적으로 선택된 상태로 초기화
+    _selectedFilters = {
+      NotificationType.youtube,
+      NotificationType.cafe,
+      NotificationType.chzzkVOD,
+      NotificationType.streamStart,
+      NotificationType.streamChange,
+      NotificationType.streamEnd,
+      NotificationType.chat,
+    };
 
     // 오프라인 상태 확인
     _checkConnectivity().then((_) {
@@ -177,13 +188,39 @@ class _NotificationsPageState extends State<NotificationsPage>
           });
         }
 
-        // 무한 스크롤 로직
-        if (!_isLoadingMore && _hasMoreData && mounted) {
-          final totalItems = _getTotalItemsWithDividers();
+        // 무한 스크롤 로직 개선
+        final filteredNotifications = _filteredNotifications;
+        final itemsWithDividers = _getItemsWithDateDividers(
+          filteredNotifications,
+        );
+        final totalItems = itemsWithDividers.length;
 
-          if (smallestIndex >= totalItems * 0.7) {
-            _loadOlderMessages();
-          }
+        // 1. 보이는 항목이 너무 적을 경우 (10개 미만) 자동으로 더 로드
+        // 2. 상단에 접근한 경우 (위에서 30% 이내)에 로드
+        // 3. 필터링된 결과가 너무 적을 경우 (5개 미만)에도 더 로드
+        bool shouldLoadMore = false;
+
+        // 표시된 항목이 적은 경우 (필터링으로 인해)
+        if (filteredNotifications.length < 10 && _hasMoreData) {
+          shouldLoadMore = true;
+          debugPrint(
+            '필터링된 알림이 적어 추가 데이터 로드 (${filteredNotifications.length}개)',
+          );
+        }
+
+        // 스크롤 위치가 상단에 가까운 경우
+        final largestIndex = positions
+            .map((ItemPosition position) => position.index)
+            .reduce((int max, int index) => index > max ? index : max);
+
+        if (totalItems > 0 && largestIndex / totalItems > 0.7 && _hasMoreData) {
+          shouldLoadMore = true;
+          debugPrint('스크롤 위치 상단 근접 (${largestIndex / totalItems * 100}%)');
+        }
+
+        // 더 로드해야 하는 경우
+        if (shouldLoadMore && !_isLoadingMore && !_isLoading && !_loadFailed) {
+          _loadOlderMessages();
         }
       } catch (e) {
         debugPrint('스크롤 위치 읽기 오류: $e');
@@ -193,31 +230,52 @@ class _NotificationsPageState extends State<NotificationsPage>
     _activeTimers.add(_debounceTimer!);
   }
 
-  // 전체 아이템 수 계산 (날짜 구분선 포함)
-  int _getTotalItemsWithDividers() {
-    final filteredNotifications = _filteredNotifications;
+  // 날짜 구분선이 포함된 아이템 목록 계산
+  List<dynamic> _getItemsWithDateDividers(
+    List<NotificationModel> notifications,
+  ) {
+    final List<dynamic> itemsWithDateDividers = [];
 
-    if (filteredNotifications.isEmpty) {
-      return 0;
+    // 알림이 없는 경우 빈 목록 반환
+    if (notifications.isEmpty) {
+      return itemsWithDateDividers;
     }
 
-    // 날짜 구분선 개수 추정 - 날짜별로 그룹화
-    final Set<DateTime> uniqueDates = {};
-    for (var notification in filteredNotifications) {
-      // 로컬 시간대로 변환
+    // 알림을 순회하며 날짜 구분선 추가
+    for (int i = 0; i < notifications.length; i++) {
+      final notification = notifications[i];
+
+      // 타임스탬프를 로컬 시간대로 변환
       final localDateTime = notification.timestamp.toLocal();
-      final date = DateTime(
+      final currentDate = DateTime(
         localDateTime.year,
         localDateTime.month,
         localDateTime.day,
       );
-      uniqueDates.add(date);
+
+      // 알림 추가
+      itemsWithDateDividers.add(notification);
+
+      // 다음 알림과 날짜 비교
+      final bool isLastItem = i == notifications.length - 1;
+
+      // 이전 날짜와 현재 날짜가 다르면 구분선 추가
+      if (isLastItem ||
+          currentDate.day !=
+              DateTime(
+                notifications[i + 1].timestamp.toLocal().year,
+                notifications[i + 1].timestamp.toLocal().month,
+                notifications[i + 1].timestamp.toLocal().day,
+              ).day) {
+        itemsWithDateDividers.add(currentDate); // 날짜 구분선
+      }
     }
 
-    // 알림 개수 + 날짜 구분선 개수 + "더 이상 알림이 없습니다" 메시지(조건부)
-    return filteredNotifications.length +
-        uniqueDates.length +
-        (_hasMoreData ? 0 : 1);
+    if (!_hasMoreData) {
+      itemsWithDateDividers.add("NO_MORE_NOTIFICATIONS");
+    }
+
+    return itemsWithDateDividers;
   }
 
   @override
@@ -283,51 +341,52 @@ class _NotificationsPageState extends State<NotificationsPage>
     if (!mounted) return;
 
     // 로딩 상태 해제
-    setState(() {
-      _isLoading = false;
-      _isLoadingMore = false;
-    });
-
-    // 결과 처리
-    if (result['success']) {
-      final List<NotificationModel> newNotifications = result['notifications'];
-      final bool hasMore = result['hasMore'];
-      final int updatedPage = result['currentPage'];
+    //SchedulerBinding.instance.addPostFrameCallback, 현재 프레임이 완료된 후에 상대 업데이트
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
 
       setState(() {
-        if (newNotifications.isNotEmpty) {
-          if (direction == LoadDirection.newer) {
-            // 최신 알림은 기존 목록에 추가
-            _notifications.addAll(newNotifications);
-            _currentPage = 1;
-          } else {
-            // 과거 알림은 목록 앞에 삽입
-            _notifications.insertAll(0, newNotifications);
-            _currentPage = updatedPage;
+        _isLoading = false;
+        _isLoadingMore = false;
+
+        // 결과 처리
+        if (result['success']) {
+          final List<NotificationModel> newNotifications = result['notifications'];
+          final bool hasMore = result['hasMore'];
+          final int updatedPage = result['currentPage'];
+
+          if (newNotifications.isNotEmpty) {
+            if (direction == LoadDirection.newer) {
+              // 최신 알림은 기존 목록에 추가
+              _notifications.addAll(newNotifications);
+              _currentPage = 1;
+            } else {
+              // 과거 알림은 목록 앞에 삽입
+              _notifications.insertAll(0, newNotifications);
+              _currentPage = updatedPage;
+            }
           }
-        }
 
-        _hasMoreData = hasMore;
+          _hasMoreData = hasMore;
 
-        // 중복 제거
-        if (newNotifications.isNotEmpty) {
-          _removeDuplicateNotifications();
+          // 중복 제거
+          if (newNotifications.isNotEmpty) {
+            _removeDuplicateNotifications();
+          }
+        } else {
+          // 오류 처리
+          _loadFailed = true;
+
+          // 네트워크 오류인 경우 오프라인 상태 설정
+          if (result['errorType'] == 'network') {
+            _isOffline = true;
+          }
+
+          // 오류 메시지 설정
+          _setErrorMessage(result['error']);
         }
       });
-    } else {
-      // 오류 처리
-      setState(() {
-        _loadFailed = true;
-
-        // 네트워크 오류인 경우 오프라인 상태 설정
-        if (result['errorType'] == 'network') {
-          _isOffline = true;
-        }
-
-        // 오류 메시지 설정
-        _setErrorMessage(result['error']);
-      });
-    }
+    });
   }
 
   // 초기 데이터 로드 (로컬+서버)
@@ -387,30 +446,40 @@ class _NotificationsPageState extends State<NotificationsPage>
 
   // 알림 필터링
   List<NotificationModel> get _filteredNotifications {
-    return _notifications.where((notification) {
-      // 유형 필터 적용
-      if (_selectedFilter != null && notification.type != _selectedFilter) {
-        return false;
-      }
+    final filtered =
+        _notifications.where((notification) {
+          // 유형 필터 적용
+          if (_selectedFilters.isEmpty) {
+            return false; // 아무 필터도 선택되지 않았을 때 알림을 표시하지 않음
+          }
 
-      // 검색어 필터 적용
-      if (_searchQuery.isNotEmpty) {
-        return notification.username.toLowerCase().contains(
-              _searchQuery.toLowerCase(),
-            ) ||
-            notification.content.toLowerCase().contains(
-              _searchQuery.toLowerCase(),
-            ) ||
-            notification.title.toLowerCase().contains(
-              _searchQuery.toLowerCase(),
-            ) ||
-            notification.description.toLowerCase().contains(
-              _searchQuery.toLowerCase(),
-            );
-      }
+          if (!_selectedFilters.contains(notification.type)) {
+            return false; // 선택된 필터에 포함되지 않은 알림 제외
+          }
 
-      return true;
-    }).toList();
+          // 검색어 필터 적용
+          if (_searchQuery.isNotEmpty) {
+            return notification.username.toLowerCase().contains(
+                  _searchQuery.toLowerCase(),
+                ) ||
+                notification.content.toLowerCase().contains(
+                  _searchQuery.toLowerCase(),
+                ) ||
+                notification.title.toLowerCase().contains(
+                  _searchQuery.toLowerCase(),
+                ) ||
+                notification.description.toLowerCase().contains(
+                  _searchQuery.toLowerCase(),
+                );
+          }
+
+          return true;
+        }).toList();
+
+    // 항상 시간 순으로 정렬 (최신순)
+    filtered.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+    return filtered;
   }
 
   @override
@@ -472,30 +541,77 @@ class _NotificationsPageState extends State<NotificationsPage>
             ),
 
             // 필터 표시기
-            if (_selectedFilter != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
+            if (_selectedFilters.isNotEmpty)
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor.withOpacity(0.2),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('필터: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Chip(
-                      label: Text(_getFilterName(_selectedFilter!)),
-                      onDeleted: () {
-                        setState(() {
-                          _selectedFilter = null;
-                        });
-                      },
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.filter_list,
+                          size: 16,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          '필터',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+
+                        Expanded(
+                          child: Text(
+                            ' · ${_filteredNotifications.length}/${_notifications.length}개 표시',
+                            style: TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
+                        ),
+                      ],
                     ),
-                    Spacer(),
-                    if (_filteredNotifications.length != _notifications.length)
-                      Text(
-                        '${_filteredNotifications.length}/${_notifications.length}개 표시',
-                        style: TextStyle(color: Colors.grey),
+                    SizedBox(height: 8),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children:
+                            _selectedFilters.map((filterType) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 4.0),
+                                child: Chip(
+                                  label: Text(_getFilterName(filterType)),
+                                  labelStyle: TextStyle(fontSize: 12),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 6,
+                                    vertical: 0,
+                                  ),
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  onDeleted: () {
+                                    setState(() {
+                                      _selectedFilters.remove(filterType);
+                                    });
+                                  },
+                                ),
+                              );
+                            }).toList(),
                       ),
+                    ),
                   ],
                 ),
               ),
-
             // 오프라인 배너
             if (_isOffline)
               Container(
@@ -610,8 +726,9 @@ class _NotificationsPageState extends State<NotificationsPage>
                 child: Icon(Icons.arrow_downward),
               ),
     );
-  } // 알림 목록 위젯
+  }
 
+  // 알림 목록 위젯 수정
   Widget _buildNotificationsList() {
     final filteredNotifications = _filteredNotifications;
 
@@ -620,41 +737,13 @@ class _NotificationsPageState extends State<NotificationsPage>
     }
 
     // 알림 목록에 날짜 구분선 추가
-    final List<dynamic> itemsWithDateDividers = [];
+    final itemsWithDateDividers = _getItemsWithDateDividers(
+      filteredNotifications,
+    );
 
-    // 알림을 순회하며 날짜 구분선 추가
-    for (int i = 0; i < filteredNotifications.length; i++) {
-      final notification = filteredNotifications[i];
-
-      // 타임스탬프를 로컬 시간대로 변환
-      final localDateTime = notification.timestamp.toLocal();
-
-      final currentDate = DateTime(
-        localDateTime.year,
-        localDateTime.month,
-        localDateTime.day,
-      );
-
-      // 알림 추가
-      itemsWithDateDividers.add(notification);
-
-      // 다음 알림과 날짜 비교
-      final bool isLastItem = i == filteredNotifications.length - 1;
-
-      // 이전 날짜와 현재 날짜가 다르면 구분선 추가
-      if (isLastItem ||
-          currentDate.day !=
-              DateTime(
-                filteredNotifications[i + 1].timestamp.toLocal().year,
-                filteredNotifications[i + 1].timestamp.toLocal().month,
-                filteredNotifications[i + 1].timestamp.toLocal().day,
-              ).day) {
-        itemsWithDateDividers.add(currentDate); // 날짜 구분선
-      }
-    }
-
-    if (!_hasMoreData) {
-      itemsWithDateDividers.add("NO_MORE_NOTIFICATIONS");
+    // 로딩 더 많은 데이터 로딩 중일 때 마지막 아이템(상단)에 로딩 인디케이터 추가
+    if (_isLoadingMore && !_loadFailed) {
+      itemsWithDateDividers.add("LOADING_INDICATOR");
     }
 
     return RefreshIndicator(
@@ -696,13 +785,6 @@ class _NotificationsPageState extends State<NotificationsPage>
                   ],
                 ),
               ),
-            ),
-
-          // 데이터 로딩 중 표시
-          if (_isLoadingMore && !_loadFailed)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(child: CircularProgressIndicator()),
             ),
 
           // 로드 실패 메시지
@@ -750,34 +832,19 @@ class _NotificationsPageState extends State<NotificationsPage>
                     scrollNotification.overscroll > 0) {
                   // 양수는 상단으로 오버스크롤
 
-                  // 이미 최상단에 있는 경우
-                  final positions = _itemPositionsListener.itemPositions.value;
-                  if (positions.isNotEmpty) {
-                    // 보이는 아이템 중 가장 큰 인덱스를 최상단으로 간주
-                    final int largestIndex = positions
-                        .map((ItemPosition position) => position.index)
-                        .reduce(
-                          (int max, int index) => index > max ? index : max,
-                        );
-
-                    if (largestIndex >= 3 &&
-                        !_isLoadingMore &&
-                        _hasMoreData &&
-                        !_isOffline) {
-                      // 로드 실패 상태였다면 초기화
-                      if (_loadFailed) {
-                        setState(() {
-                          _loadFailed = false;
-                        });
-                      }
-
-                      // 오래된 데이터 로드
-                      _loadOlderMessages();
-                      return true;
+                  // 이미 최상단에 있고 로드 가능한 상태인 경우
+                  if (!_isLoadingMore && _hasMoreData && !_isOffline) {
+                    // 로드 실패 상태였다면 초기화
+                    if (_loadFailed) {
+                      setState(() {
+                        _loadFailed = false;
+                      });
                     }
+                    // 오래된 데이터 로드
+                    _loadOlderMessages();
+                    return true;
                   }
                 }
-
                 return false;
               },
               child: ScrollablePositionedList.builder(
@@ -795,6 +862,28 @@ class _NotificationsPageState extends State<NotificationsPage>
 
                   // 현재 아이템 가져오기
                   final item = itemsWithDateDividers[itemIndex];
+
+                  // 로딩 인디케이터 표시
+                  if (item == "LOADING_INDICATOR") {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(height: 8),
+                            Text(
+                              '이전 알림 불러오는 중...',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
 
                   // "더 이상 알림이 없습니다" 메시지 표시
                   if (item == "NO_MORE_NOTIFICATIONS") {
@@ -878,7 +967,7 @@ class _NotificationsPageState extends State<NotificationsPage>
       subMessage = '인터넷 연결이 없습니다. 연결 상태를 확인해주세요.';
       iconData = Icons.wifi_off;
       iconColor = Colors.amber[300]!;
-    } else if (_searchQuery.isNotEmpty || _selectedFilter != null) {
+    } else if (_searchQuery.isNotEmpty || _selectedFilters.isNotEmpty) {
       mainMessage = '검색 결과가 없습니다';
       subMessage = '다른 검색어나 필터를 시도해보세요';
       iconData = Icons.search_off;
@@ -1016,9 +1105,44 @@ class _NotificationsPageState extends State<NotificationsPage>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildFilterOption(null, '모든 알림'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            _selectedFilters = {
+                              NotificationType.youtube,
+                              NotificationType.cafe,
+                              NotificationType.chzzkVOD,
+                              NotificationType.streamStart,
+                              NotificationType.streamChange,
+                              NotificationType.streamEnd,
+                              NotificationType.chat,
+                            };
+                          });
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.select_all),
+                        label: Text('모두 선택'),
+                      ),
+                      TextButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            _selectedFilters.clear();
+                          });
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.clear_all),
+                        label: Text('모두 해제'),
+                      ),
+                    ],
+                  ),
+                  Divider(),
+                  // 필터 옵션들
                   _buildFilterOption(NotificationType.youtube, '유튜브 알림'),
                   _buildFilterOption(NotificationType.cafe, '카페 알림'),
+                  _buildFilterOption(NotificationType.chzzkVOD, '치지직 VOD 알림'),
                   _buildFilterOption(NotificationType.streamStart, '뱅온 알림'),
                   _buildFilterOption(NotificationType.streamChange, '방제 변경 알림'),
                   _buildFilterOption(NotificationType.streamEnd, '방종 알림'),
@@ -1029,7 +1153,7 @@ class _NotificationsPageState extends State<NotificationsPage>
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('닫기'),
+                child: Text('적용'),
               ),
             ],
           ),
@@ -1037,14 +1161,17 @@ class _NotificationsPageState extends State<NotificationsPage>
   }
 
   // 필터 옵션 위젯
-  Widget _buildFilterOption(NotificationType? type, String label) {
-    return RadioListTile<NotificationType?>(
+  Widget _buildFilterOption(NotificationType type, String label) {
+    return CheckboxListTile(
       title: Text(label),
-      value: type,
-      groupValue: _selectedFilter,
-      onChanged: (value) {
+      value: _selectedFilters.contains(type),
+      onChanged: (bool? selected) {
         setState(() {
-          _selectedFilter = value;
+          if (selected == true) {
+            _selectedFilters.add(type);
+          } else {
+            _selectedFilters.remove(type);
+          }
         });
         Navigator.pop(context);
         _showFilterDialog();
@@ -1059,6 +1186,8 @@ class _NotificationsPageState extends State<NotificationsPage>
         return '유튜브 알림';
       case NotificationType.cafe:
         return '카페 알림';
+      case NotificationType.chzzkVOD:
+        return '치지직 VOD 알림';
       case NotificationType.streamStart:
         return '뱅온 알림';
       case NotificationType.streamChange:
@@ -1097,6 +1226,8 @@ class _NotificationsPageState extends State<NotificationsPage>
           description: notification.description,
           authorName: notification.authorName,
           authorUrl: notification.authorUrl,
+          authorIconUrl: notification.authorIconUrl,
+          embedData: notification.embedData,
         );
 
         _notifications[index] = updatedNotification;
