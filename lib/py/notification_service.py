@@ -100,11 +100,11 @@ async def send_fcm_message(token, notification_data, data_fields):
         # print(f"FCM 메시지 전송 성공: {token[:15]}... 결과: {result}")
         return result
     except messaging.UnregisteredError:
-        print(f"FCM 토큰 등록 취소됨 (앱 제거): {token[:15]}...")
+        print(f"FCM 토큰 등록 취소됨 (앱 제거): {token}")
         remove_fcm_token(token)
         return None
     except messaging.InvalidArgumentError as e:
-        print(f"FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token[:15]}...): {e}")
+        print(f"FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token}): {e}")
         remove_fcm_token(token)
         return None
     except Exception as e:
