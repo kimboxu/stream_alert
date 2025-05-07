@@ -101,11 +101,11 @@ async def send_fcm_message(token, notification_data, data_fields):
         return result
     except messaging.UnregisteredError:
         print(f"FCM 토큰 등록 취소됨 (앱 제거): {token[:15]}...")
-        await validate_fcm_token(token)
+        remove_fcm_token(token)
         return None
     except messaging.InvalidArgumentError as e:
         print(f"FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token[:15]}...): {e}")
-        await validate_fcm_token(token)
+        remove_fcm_token(token)
         return None
     except Exception as e:
         print(f"FCM 메시지 전송 실패 (토큰: {token[:15]}...): {e}")
@@ -587,3 +587,30 @@ def save_tokens_data(init, discordWebhooksURL, tokens_data):
     
     # 사용자 데이터 변경 플래그 설정
     # asyncio.run(update_flag('user_date', True))
+
+def remove_fcm_token(token):
+
+    try:
+        state = StateManager.get_instance()
+        init = state.get_init()
+        for discordWebhooksURL in init.userStateData.index:
+            # 사용자 데이터 가져오기
+            user_data = init.userStateData.loc[discordWebhooksURL]
+            
+            # 토큰 데이터 형식 확인
+            tokens_data = user_data.get("fcm_tokens_data", [])
+            if not isinstance(tokens_data, list):
+                tokens_data = []
+
+            original_count = len(tokens_data)
+
+            tokens_data = [item for item in tokens_data if item.get("token") != token]
+
+            # 변경사항이 있으면 저장
+            if len(tokens_data) != original_count:
+                save_tokens_data(init, discordWebhooksURL, tokens_data)
+                break
+
+    except Exception as e:
+        print(f"FCM 토큰 제거 중 오류: {e}")
+        return
