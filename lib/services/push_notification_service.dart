@@ -31,14 +31,20 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 // 알림 임시 저장 함수 (백그라운드에서도 동작)
 Future<void> _saveNotification(RemoteMessage message) async {
   try {
+    // 중요 필드가 비어있으면 저장하지 않음
+    if (message.data['id'] == null ||
+        (message.notification?.title == null ||
+            message.data['username'] == null)) {
+      debugPrint('알림 데이터 부족: ${message.data}');
+      return;
+    }
+
     final prefs = await SharedPreferences.getInstance();
     final notifications = prefs.getStringList('notifications') ?? [];
 
     // 메시지에서 NotificationModel 생성
     final notificationData = {
-      'id':
-          message.data['id'] ??
-          DateTime.now().millisecondsSinceEpoch.toString(),
+      'id': message.data['id'],
       'username':
           message.notification?.title ?? message.data['username'] ?? '알림',
       'content': message.notification?.body ?? message.data['content'] ?? '',
@@ -166,6 +172,17 @@ class PushNotificationService {
           badge: true,
           sound: true,
         );
+      }
+
+      if (Platform.isAndroid) {
+        final authStatus = await _messaging.requestPermission(
+          alert: true,
+          badge: true,
+          sound: true,
+          provisional: false,
+        );
+
+        debugPrint('알림 권한 상태: ${authStatus.authorizationStatus}');
       }
 
       // 백그라운드 핸들러 설정
