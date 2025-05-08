@@ -192,7 +192,7 @@ class getYoutubeJsonData:
 			return
 
 	def check_item(self, channel_response):
-		return channel_response or 'items' not in channel_response or channel_response['items']
+		return channel_response and 'items' in channel_response and channel_response['items']
 
 	def get_video_count(self, channel_response):
 		return int(channel_response['items'][0]['statistics']['videoCount'])
