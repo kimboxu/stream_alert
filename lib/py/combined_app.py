@@ -1,11 +1,10 @@
 import asyncio
 import threading
 import nest_asyncio
-from flask import Flask
 from os import environ
 from datetime import datetime
 from dotenv import load_dotenv
-from base import initVar, discordBotDataVars, userDataVar, fCount, fSleep
+from base import initVar, userDataVar, fCount, fSleep
 from shared_state import StateManager
 from Twitch_live_message import twitch_live_message
 from Chzzk_chat_message import chzzk_chat_message
@@ -16,6 +15,7 @@ from getYoutubeJsonData import getYoutubeJsonData
 from live_message import chzzk_live_message, afreeca_live_message
 from notification_service import initialize_firebase, cleanup_all_invalid_tokens, setup_scheduled_tasks
 from base import log_error
+from supabase import create_client
 
 # 비동기 이벤트 루프를 중첩해서 사용할 수 있도록 설정
 nest_asyncio.apply()
@@ -46,6 +46,9 @@ async def main_loop(init: initVar):
         try:
             if init.count % 2 == 0: 
                 await userDataVar(init)
+
+            if init.count % 10800 == 0: 
+                init.supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 
             # 각 기능별 작업 생성
             cafe_tasks = [asyncio.create_task(getCafePostTitle(init, channel_id).start()) for channel_id in init.cafeData["channelID"]]
