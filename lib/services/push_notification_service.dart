@@ -10,6 +10,7 @@ import 'package:device_info_plus/device_info_plus.dart'; //디바이스 id 생�
 import 'package:uuid/uuid.dart'; // 고유 ID 생성용 패키지
 import '../services/api_service.dart';
 import '../models/notification_model.dart';
+import '../utils/navigation_helper.dart';
 
 enum LoadDirection {
   newer, // 최신 알림 로드 (첫 페이지)
@@ -33,7 +34,7 @@ Future<void> _saveNotification(RemoteMessage message) async {
   try {
     // 중요 필드가 비어있으면 저장하지 않음
     if (message.data['id'] == null ||
-        (message.notification?.title == null ||
+        (message.notification?.title == null &&
             message.data['username'] == null)) {
       debugPrint('알림 데이터 부족: ${message.data}');
       return;
@@ -68,13 +69,18 @@ Future<void> _saveNotification(RemoteMessage message) async {
       }
     });
 
+    // 알림 모델 생성
     final newNotification = NotificationModel.fromJson(notificationData);
 
-    // 저장
+    // PushNotificationService 인스턴스 저장 (백그라운드에서도 동작하도록)
     await PushNotificationService()._processAndSaveNotifications(
       notifications,
       newNotification: newNotification,
     );
+
+    // 알림이 백그라운드에서 왔는지 표시하는 플래그 저장
+    await prefs.setBool('notification_clicked', true);
+
     debugPrint('새 알림 저장: ${message.data['id']}');
   } catch (e) {
     debugPrint('알림 저장 중 오류: $e');
@@ -207,7 +213,8 @@ class PushNotificationService {
 
           debugPrint('알림 클릭됨: ${response.payload}');
 
-          //알림 클릭 시 특정 화면으로 이동하는 로직 추가 하기
+          //받은 알림 창으로 이동
+          NavigationHelper().navigateToNotificationsPage();
         },
       );
 
@@ -233,8 +240,12 @@ class PushNotificationService {
         if (message != null) {
           debugPrint('앱이 종료된 상태에서 알림 클릭: ${message.data}');
 
-          _saveNotification(message);
           _appStateStreamController.add('app_opened_from_terminated');
+
+          //앱이 충분히 초기화된 후 내비게이션 수행
+          Future.delayed(Duration(milliseconds: 500), () {
+            NavigationHelper().navigateToNotificationsPage();
+          });
         }
       });
 
@@ -242,8 +253,10 @@ class PushNotificationService {
       FirebaseMessaging.onMessageOpenedApp.listen((message) {
         debugPrint('백그라운드 상태에서 알림 클릭: ${message.data}');
 
-        _saveNotification(message);
         _appStateStreamController.add('app_opened_from_background');
+
+        //받은 알림 창으로 이동
+        NavigationHelper().navigateToNotificationsPage();
       });
 
       // 토큰 갱신 리스너

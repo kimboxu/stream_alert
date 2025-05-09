@@ -9,6 +9,7 @@ import 'home_page.dart';
 import '../services/api_service.dart';
 import '../services/push_notification_service.dart';
 import '../utils/url_helper.dart';
+import '../utils/navigation_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,32 +29,59 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _checkAutoLogin();
+    // 자동 로그인 체크
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAutoLogin();
+    });
   }
 
   // 자동 로그인 확인
   Future<void> _checkAutoLogin() async {
-    final prefs = await SharedPreferences.getInstance();
-    final username = prefs.getString('username');
-    final discordWebhooksURL = prefs.getString('discordWebhooksURL');
+    try {
+      final prefs = await SharedPreferences.getInstance();
 
-    // 저장된 로그인 정보가 있으면 홈 화면으로 이동
-    if (username != null && discordWebhooksURL != null) {
-      if (mounted) {
+      // 저장된 사용자 정보 가져오기
+      final savedUsername = prefs.getString('username');
+      final savedWebhookURL = prefs.getString('discordWebhooksURL');
+
+      // 백그라운드 알림 클릭 여부 확인
+      final notificationClicked =
+          prefs.getBool('notification_clicked') ?? false;
+
+      // 사용자 정보가 있으면 자동 로그인
+      if (savedUsername != null && savedWebhookURL != null) {
+        // 알림 클릭으로 앱이 시작된 경우 플래그 초기화
+        if (notificationClicked) {
+          await prefs.setBool('notification_clicked', false);
+        }
+
+        // 홈 페이지로 이동
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder:
                 (context) => HomePage(
-                  username: username,
-                  discordWebhooksURL: UrlHelper.normalizeDiscordWebhookUrl(
-                    discordWebhooksURL,
-                  ),
+                  username: savedUsername,
+                  discordWebhooksURL: savedWebhookURL,
                 ),
           ),
         );
+
+        // 알림 클릭으로 앱이 시작된 경우 알림 페이지로 추가 이동
+        if (notificationClicked) {
+          // 홈 페이지가 로드된 후에 알림 페이지로 이동
+          Future.delayed(Duration(milliseconds: 500), () {
+            NavigationHelper().navigateToNotificationsPage();
+          });
+        }
+      } else {
+        // 자동 로그인 불가능
+        setState(() {
+          _isCheckingAutologin = false;
+        });
       }
-    } else {
+    } catch (e) {
+      debugPrint('자동 로그인 확인 중 오류: $e');
       setState(() {
         _isCheckingAutologin = false;
       });
