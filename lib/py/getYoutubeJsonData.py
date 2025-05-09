@@ -68,7 +68,7 @@ class getYoutubeJsonData:
 
 		# 응답이 없거나 items가 비어있는 경우 처리
 		if not self.check_item((channel_response)):
-			asyncio.create_task(log_error(f"{datetime.now()} No valid response for channel {self.youtubeChannelID}"))
+			asyncio.create_task(log_error(f"No valid response for channel {self.youtubeChannelID}"))
 			print(f"{datetime.now()} {channel_response}")
 			return
 
@@ -146,7 +146,7 @@ class getYoutubeJsonData:
 						id=self.youtubeData.loc[self.youtubeChannelID, "channelCode"]
 					).execute
 				),
-				timeout=3
+				timeout=10
 			)
 			return channel_response
 		except HttpError as e:
