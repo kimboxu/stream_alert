@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'notifications_page.dart';
 import 'settings_page.dart';
 import '../utils/url_helper.dart';
+import '../utils/navigation_helper.dart';
 import '../services/push_notification_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,6 +39,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     // 앱이 시작될 때 알림 새로고침
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // 현재 컨텍스트 설정
+      NavigationHelper().setContext(context);
+
       _refreshNotifications();
     });
   }
@@ -73,6 +77,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // 매 빌드마다 컨텍스트 갱신
+    NavigationHelper().setContext(context);
     final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
       widget.discordWebhooksURL,
     );

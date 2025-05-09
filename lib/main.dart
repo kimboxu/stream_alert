@@ -5,10 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'firebase_options.dart';
 import 'screens/login_page.dart';
 import 'services/push_notification_service.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'utils/navigation_helper.dart';
 
 void main() async {
   // Flutter 바인딩 초기화
@@ -25,7 +26,7 @@ void main() async {
     // 푸시 알림 서비스 초기화
     await PushNotificationService().initialize();
   } catch (e) {
-      debugPrint('앱 초기화 중 오류: $e');
+    debugPrint('앱 초기화 중 오류: $e');
   }
 
   runApp(const MyApp());
@@ -156,6 +157,11 @@ class _MyAppState extends State<MyApp> {
       ),
       // 현재 테마 모드 적용
       themeMode: _themeMode,
+      //모든 화면의 컨텍스트 설정
+      builder: (context, child) {
+        NavigationHelper().setContext(context);
+        return child!;
+      },
       home: const LoginPage(),
     );
   }
