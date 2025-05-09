@@ -10,6 +10,7 @@ import 'firebase_options.dart';
 import 'screens/login_page.dart';
 import 'services/push_notification_service.dart';
 import 'utils/navigation_helper.dart';
+import 'utils/navigator_observer.dart';
 
 void main() async {
   // Flutter 바인딩 초기화
@@ -162,6 +163,7 @@ class _MyAppState extends State<MyApp> {
         NavigationHelper().setContext(context);
         return child!;
       },
+      navigatorObservers: [AppNavigatorObserver()],
       home: const LoginPage(),
     );
   }

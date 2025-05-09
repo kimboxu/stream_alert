@@ -209,7 +209,6 @@ class PushNotificationService {
       await _localNotifications.initialize(
         initSettings,
         onDidReceiveNotificationResponse: (NotificationResponse response) {
-          // 알림 클릭 시 처리
 
           debugPrint('알림 클릭됨: ${response.payload}');
 
