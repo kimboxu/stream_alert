@@ -47,7 +47,7 @@ async def main_loop(init: initVar):
             if init.count % 2 == 0: 
                 await userDataVar(init)
 
-            if init.count % 600 == 0: 
+            if init.count % 150 == 0: 
                 init.supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 
             # 각 기능별 작업 생성
