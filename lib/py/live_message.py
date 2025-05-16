@@ -1,5 +1,4 @@
 import asyncio
-from json import loads
 from typing import Dict
 from datetime import datetime
 from os import remove, environ, path
@@ -33,25 +32,34 @@ from base import (
 
 @dataclass
 class LiveData:
-    livePostList: list = field(default_factory=list)
-    live: str = ""
-    title: str = ""
-    view_count: int = 0
-    thumbnail_url: str = ""
-    profile_image: str = ""
+    """라이브 방송 데이터를 저장하는 데이터 클래스"""
+    livePostList: list = field(default_factory=list)  # 알림 메시지 리스트
+    live: str = ""                                    # 라이브 상태 ("OPEN", "CLOSE" 등)
+    title: str = ""                                   # 방송 제목
+    view_count: int = 0                               # 시청자 수
+    thumbnail_url: str = ""                           # 썸네일 URL
+    profile_image: str = ""                           # 프로필 이미지 URL
     start_at: Dict[str, str] = field(default_factory=lambda: {
-        "openDate": "2025-01-01 00:00:00",
-        "closeDate": "2025-01-01 00:00:00"
+        "openDate": "2025-01-01 00:00:00",           # 방송 시작 시간
+        "closeDate": "2025-01-01 00:00:00"           # 방송 종료 시간
     })
     state_update_time: Dict[str, str] = field(default_factory=lambda: {
-        "openDate": "2025-01-01T00:00:00",
-        "closeDate": "2025-01-01T00:00:00",
-        "titleChangeDate": "2025-01-01T00:00:00"
+        "openDate": "2025-01-01T00:00:00",           # 온라인 상태 업데이트 시간
+        "closeDate": "2025-01-01T00:00:00",           # 오프라인 상태 업데이트 시간
+        "titleChangeDate": "2025-01-01T00:00:00",    # 제목 변경 업데이트 시간
 })
     
-# 기본 라이브 메시지 클래스 - 공통 기능 포함
 class base_live_message:
+    """모든 스트리밍 플랫폼에 공통으로 사용되는 기본 클래스"""
     def __init__(self, init_var: initVar, channel_id, platform_name):
+        """
+        초기화 함수
+        
+        Args:
+            init_var: 초기화 변수들이 포함된 객체
+            channel_id: 채널 ID
+            platform_name: 플랫폼 이름 (chzzk 또는 afreeca)
+        """
         self.DO_TEST = init_var.DO_TEST
         self.userStateData = init_var.userStateData
         self.platform_name = platform_name
@@ -75,8 +83,10 @@ class base_live_message:
         await self.addMSGList()
         await self.postLive_message()
 
+    #방송 상태를 확인하고 상태 변경 시 메시지 리스트에 추가하는 함수
     async def addMSGList(self):
         try:
+            # 방송 상태 데이터 가져오기
             state_data = await self._get_state_data()
                 
             if not self._is_valid_state_data(state_data):
@@ -100,6 +110,7 @@ class base_live_message:
             asyncio.create_task(log_error(error_msg))
             await update_flag('user_date', True)
 
+    #방송 제목이 변경되었는지 확인하고 필요시 업데이트
     def _update_title_if_needed(self):
         if (if_after_time(self.data.state_update_time["titleChangeDate"]) and 
             self._get_old_title() != self._get_title()):
@@ -109,6 +120,7 @@ class base_live_message:
     def _get_channel_name(self):
         return self.id_list.loc[self.channel_id, 'channelName']
     
+    #메시지 전송
     async def postLive_message(self):
         try:
             if not self.data.livePostList:
@@ -118,6 +130,7 @@ class base_live_message:
             db_name = self._get_db_name(message)
             self._log_message(message)
 
+            # 웹훅 URL 목록 가져오기
             list_of_urls = get_list_of_urls(
                 self.DO_TEST, 
                 self.userStateData, 
@@ -126,6 +139,7 @@ class base_live_message:
                 db_name
             )
 
+            # 푸시 알림 및 메시지 전송
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
             asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
             await save_airing_data(self.title_data, self.platform_name, self.channel_id)
@@ -134,8 +148,8 @@ class base_live_message:
             print(f"postLiveMSG {e}")
             self.data.livePostList.clear()
     
+    #메시지 유형에 맞는 DB 이름 반환
     def _get_db_name(self, message):
-        """메시지에 맞는 DB 이름 반환"""
         if message == "뱅온!":
             return "뱅온 알림"
         elif message == "방제 변경":
@@ -144,8 +158,8 @@ class base_live_message:
             return "방종 알림"
         return "알림"
     
+    #메시지 로깅
     def _log_message(self, message):
-        """메시지 로깅"""
         now = datetime.now()
         if message == "뱅온!":
             print(f"{now} onLine {self.channel_name} {message}")
@@ -157,25 +171,31 @@ class base_live_message:
         elif message == "뱅종":
             print(f"{now} offLine {self.channel_name}")
     
+    #이전 방송 제목 반환
     def _get_old_title(self):
         return self.title_data.loc[self.channel_id,'title2']
     
+    #현재 방송 제목 반환
     def _get_title(self):
         return self.title_data.loc[self.channel_id,'title1']
 
+    #방송 시작 시 제목 업데이트
     def onLineTitle(self, message):
         if message == "뱅온!":
             self.title_data.loc[self.channel_id, 'live_state'] = "OPEN"
         self.title_data.loc[self.channel_id,'title2'] = self._get_title()
         self.title_data.loc[self.channel_id,'title1'] = self.data.title
 
+    #방송 시작 시간 업데이트
     def onLineTime(self, message):
         if message == "뱅온!":
             self.title_data.loc[self.channel_id,'update_time'] = self.getStarted_at("openDate")
 
+    #방송 종료 시 상태 업데이트
     def offLineTitle(self):
         self.title_data.loc[self.channel_id, 'live_state'] = "CLOSE"
 
+    #제목이 변경되었는지 확인
     def ifChangeTitle(self):
         return self.data.title not in [
             str(self._get_title()), 
@@ -183,10 +203,8 @@ class base_live_message:
         ]
 
     def getMessage(self) -> str:
-        # 각 플랫폼별 구현에서 정의 (상태 전환 체크 방식이 다름)
         raise NotImplementedError
     
-    # 서브클래스에서 구현해야 하는 메소드들
     async def _get_state_data(self):
         raise NotImplementedError
     
@@ -205,6 +223,7 @@ class base_live_message:
     def _should_process_offline_status(self):
         raise NotImplementedError
     
+    #온라인 상태 처리 (뱅온 또는 방제 변경)
     async def _handle_online_status(self, state_data):
         message = self.getMessage()
         json_data = await self.getOnAirJson(message, state_data)
@@ -216,10 +235,12 @@ class base_live_message:
 
         await save_profile_data(self.id_list, self.platform_name, self.channel_id)
 
+        # 상태 업데이트 시간 저장
         if message == "뱅온!": 
             self.title_data.loc[self.channel_id, 'state_update_time']["openDate"] = datetime.now().isoformat()
         self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
 
+    #프로필 이미지 변경 시 저장
     async def save_profile_image(self):
         if self.id_list.loc[self.channel_id, 'profile_image'] != self.data.profile_image:
             self.id_list.loc[self.channel_id, 'profile_image'] = self.data.profile_image
@@ -231,6 +252,7 @@ class base_live_message:
     async def _handle_offline_status(self, state_data):
         raise NotImplementedError
     
+    #시작/종료 시간 ISO 형식으로 반환
     def getStarted_at(self, status: str):
         time_str = self.data.start_at[status]
         time = datetime.strptime(time_str, '%Y-%m-%d %H:%M:%S')
@@ -247,15 +269,25 @@ class base_live_message:
 
 # 치지직 구현 클래스
 class chzzk_live_message(base_live_message):
+    """치지직 플랫폼 라이브 모니터링 클래스"""
     def __init__(self, init_var: initVar, chzzk_id):
+        """
+        초기화 함수
+        
+        Args:
+            init_var: 초기화 변수
+            chzzk_id: 치지직 채널 ID
+        """
         super().__init__(init_var, chzzk_id, "chzzk")
 
+    #치지직 채널 상태 데이터 가져오기
     async def _get_state_data(self):
         return await get_message(
             "chzzk", 
             chzzk_getLink(self.id_list.loc[self.channel_id, "channel_code"])
         )
     
+    #치지직 상태 데이터 유효성 검사
     def _is_valid_state_data(self, state_data):
         try:
             return state_data and state_data["code"] == 200
@@ -264,6 +296,7 @@ class chzzk_live_message(base_live_message):
             asyncio.create_task(log_error(f"{datetime.now()} _is_valid_state_data.{self.channel_id}.{e}.{state_data}"))
             return False
 
+    #치지직 스트림 데이터 추출
     def _get_stream_data(self, state_data):
         return chzzk_getChannelOffStateData(
             state_data["content"], 
@@ -271,20 +304,23 @@ class chzzk_live_message(base_live_message):
             self.id_list.loc[self.channel_id, 'profile_image']
         )
     
+    #치지직 스트림 정보 업데이트
     def _update_stream_info(self, stream_data, state_data):
         self.data.start_at["openDate"] = state_data['content']["openDate"]
         self.data.start_at["closeDate"] = state_data['content']["closeDate"]
         self.data.live, self.data.title, self.data.profile_image = stream_data
 
+    #치지직 온라인 상태 처리 여부 확인(온라인 상태인지 확인)
     def _should_process_online_status(self):
         return ((self.checkStateTransition("OPEN") or 
            (self.ifChangeTitle())) and
            if_after_time(self.data.state_update_time["closeDate"], sec=15))
 
+    #치지직 오프라인 상태 처리 여부 확인(오프라인인지 확인)
     def _should_process_offline_status(self):
         return (self.checkStateTransition("CLOSE") and 
           if_after_time(self.data.state_update_time["openDate"], sec=15))
-    
+   
     # async def _handle_online_status(self, state_data):
     #     message = self.getMessage()
     #     json_data = await self.getOnAirJson(message, state_data)
@@ -300,6 +336,7 @@ class chzzk_live_message(base_live_message):
     #         self.title_data.loc[self.channel_id, 'state_update_time']["openDate"] = datetime.now().isoformat()
     #     self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
 
+    #치지직 오프라인 상태 처리
     async def _handle_offline_status(self, state_data):
         message = "뱅종"
         json_data = await self.getOffJson(state_data, message)
@@ -312,23 +349,29 @@ class chzzk_live_message(base_live_message):
         self.title_data.loc[self.channel_id, 'state_update_time']["closeDate"] = datetime.now().isoformat()
         self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
     
+    #방송 종료 시간 업데이트
     def offLineTime(self):
         self.title_data.loc[self.channel_id,'update_time'] = self.getStarted_at("closeDate")
 
+    #치지직 채널 URL 생성
     def get_channel_url(self): 
         return f'https://chzzk.naver.com/live/{self.id_list.loc[self.channel_id, "channel_code"]}'
 
+    #치지직 시청자 수 가져오기
     def getViewer_count(self, state_data):
         self.data.view_count = state_data['content']['concurrentUserCount']
 
+    #상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self) -> str: 
         return "뱅온!" if (self.checkStateTransition("OPEN")) else "방제 변경"
     
+    #상태 전환 확인 (OPEN 또는 CLOSE)
     def checkStateTransition(self, target_state: str):
         if self.data.live != target_state or self.title_data.loc[self.channel_id, 'live_state'] != ("CLOSE" if target_state == "OPEN" else "OPEN"):
             return False
         return self.getStarted_at(("openDate" if target_state == "OPEN" else "closeDate")) > self.title_data.loc[self.channel_id, 'update_time']
     
+    #치지직 썸네일 이미지(실시간 방송 화면 이미지로 변환 후) 가져오기
     async def get_live_thumbnail_image(self, state_data, message):
         for count in range(20):
             time_difference = (datetime.now() - datetime.fromisoformat(self.title_data.loc[self.channel_id, 'update_time'])).total_seconds()
@@ -348,6 +391,7 @@ class chzzk_live_message(base_live_message):
         
         return thumbnail_image
     
+    #치지직 썸네일 이미지 처리
     def get_thumbnail_image(self, state_data): 
         try:
             if state_data['content']['liveImageUrl'] is not None:
@@ -380,9 +424,11 @@ class chzzk_live_message(base_live_message):
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
             return None
 
+    #이미지 파일로 저장
     def saveImage(self, state_data): 
         urlretrieve(self.getImageURL(state_data), self.image_path)
 
+    #치지직 이미지 URL 가져오기
     def getImageURL(self, state_data) -> str:
         link = state_data['content']['liveImageUrl']
         link = link.replace("{type", "")
@@ -390,8 +436,8 @@ class chzzk_live_message(base_live_message):
         self.data.thumbnail_url = link
         return link
     
+    #온라인 알림 메시지 JSON 생성
     async def getOnAirJson(self, message, state_data):
-
         if self.data.live == "CLOSE":
             return self.get_state_data_change_title_json(message)
         
@@ -403,6 +449,7 @@ class chzzk_live_message(base_live_message):
         
         return self.get_online_titleChange_state_json(message, thumbnail_url)
     
+    #뱅온 JSON 데이터 생성
     def get_online_state_json(self, message, thumbnail_url):
         return {"username": self.channel_name, "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
                 "embeds": [
@@ -418,6 +465,7 @@ class chzzk_live_message(base_live_message):
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
                 "timestamp": changeUTCtime(self.getStarted_at("openDate"))}]}
 
+    #온라인 상태에서의 방제 변경 JSON 데이터 생성
     def get_online_titleChange_state_json(self, message, thumbnail_url):
         return {"username": self.channel_name, "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
                 "embeds": [
@@ -433,7 +481,7 @@ class chzzk_live_message(base_live_message):
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
                 "timestamp": changeUTCtime(self.getStarted_at("openDate"))}]}
 
-		# return {"username": self.chzzkIDList.loc[chzzkID, 'channelName'], "avatar_url": self.chzzkIDList.loc[chzzkID, 'profile_image'],
+# return {"username": self.chzzkIDList.loc[chzzkID, 'channelName'], "avatar_url": self.chzzkIDList.loc[chzzkID, 'profile_image'],
 		# 		"embeds": [
 		# 			{"color": int(self.chzzkIDList.loc[chzzkID, 'channel_color']),
 		# 			"fields": [
@@ -447,6 +495,7 @@ class chzzk_live_message(base_live_message):
 		# 		"footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
 		# 		"timestamp": changeUTCtime(started_at)}]}
 
+    #오프라인 상태에서의 방제 변경 메시지 JSON 데이터 생성
     def get_state_data_change_title_json(self, message):
         return {"username": self.channel_name, "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
                 "embeds": [
@@ -458,6 +507,7 @@ class chzzk_live_message(base_live_message):
                     "footer": { "icon_url": iconLinkData().chzzk_icon },
                 "url": self.get_channel_url()}]}
 
+    #뱅종 JSON 데이터 생성
     async def getOffJson(self, state_data, message):
         thumbnail_url = await self.get_live_thumbnail_image(state_data, message)
         
@@ -471,22 +521,26 @@ class chzzk_live_message(base_live_message):
 
 # 아프리카 구현 클래스
 class afreeca_live_message(base_live_message):
+    """아프리카TV 플랫폼 라이브 모니터링 클래스"""
     def __init__(self, init_var: initVar, channel_id):
         super().__init__(init_var, channel_id, "afreeca")
 
+    #아프리카 채널 상태 데이터 가져오기
     async def _get_state_data(self):
         return await get_message(
             "afreeca", 
             afreeca_getLink(self.id_list.loc[self.channel_id, "afreecaID"])
         )
     
+    #아프리카 상태 데이터 유효성 검사
     def _is_valid_state_data(self, state_data):
         try:
             state_data["station"]["user_id"]
             return True
         except:
             return False
-    
+        
+    #아프리카 스트림 데이터 추출
     def _get_stream_data(self, state_data):
         return afreeca_getChannelOffStateData(
             state_data,
@@ -494,22 +548,26 @@ class afreeca_live_message(base_live_message):
             self.id_list.loc[self.channel_id, 'profile_image']
         )
     
+    #아프리카 스트림 정보 업데이트
     def _update_stream_info(self, stream_data, state_data):
         self.update_broad_no(state_data)
         self.data.start_at["openDate"] = state_data["station"]["broad_start"]
         self.data.live, self.data.title, self.data.profile_image = stream_data
         self.id_list.loc[self.channel_id, 'profile_image'] = self.data.profile_image
     
+    #방송 번호 업데이트(주소 링크에 사용될 번호)
     def update_broad_no(self, state_data):
         if state_data["broad"] and state_data["broad"]["broad_no"] != self.title_data.loc[self.channel_id, 'chatChannelId']:
             self.title_data.loc[self.channel_id, 'oldChatChannelId'] = self.title_data.loc[self.channel_id, 'chatChannelId']
             self.title_data.loc[self.channel_id, 'chatChannelId'] = state_data["broad"]["broad_no"]
     
+    #아프리카 온라인 상태 처리 여부 확인
     def _should_process_online_status(self):
         return ((self.turnOnline() or 
                 (self.data.title and self.ifChangeTitle())) and 
                 if_after_time(self.data.state_update_time["closeDate"], sec=15))
     
+    #아프리카 오프라인 상태 처리 여부 확인
     def _should_process_offline_status(self):
         return (self.turnOffline() and
                   if_after_time(self.data.state_update_time["openDate"], sec=15))
@@ -528,7 +586,8 @@ class afreeca_live_message(base_live_message):
     #     if message == "뱅온!": 
     #         self.title_data.loc[self.channel_id, 'state_update_time']["openDate"] = datetime.now().isoformat()
     #     self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
-    
+
+    #아프리카 오프라인 상태 처리
     async def _handle_offline_status(self, state_data=None):
         message = "뱅종"
         json_data = self.getOffJson()
@@ -540,25 +599,31 @@ class afreeca_live_message(base_live_message):
         self.title_data.loc[self.channel_id, 'state_update_time']["closeDate"] = datetime.now().isoformat()
         self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
     
+    #아프리카 채널 URL 생성
     def get_channel_url(self):
         afreecaID = self.id_list.loc[self.channel_id, "afreecaID"]
         bno = self.title_data.loc[self.channel_id, 'chatChannelId']
         return f"https://play.sooplive.co.kr/{afreecaID}/{bno}"
     
+    #아프리카 시청자 수 가져오기
     def getViewer_count(self, state_data):
         self.data.view_count = state_data['broad']['current_sum_viewer']
     
+    #상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self):
         return "뱅온!" if (self.turnOnline()) else "방제 변경"
     
+    #온라인으로 상태 변경되었는지 확인
     def turnOnline(self):
         now_time = self.getStarted_at("openDate")
         old_time = self.title_data.loc[self.channel_id,'update_time']
         return self.data.live == 1 and self.title_data.loc[self.channel_id,'live_state'] == "CLOSE" and now_time > old_time
     
+    #오프라인으로 상태 변경되었는지 확인
     def turnOffline(self):
         return self.data.live == 0 and self.title_data.loc[self.channel_id,'live_state'] == "OPEN"
     
+    #아프리카 썸네일 이미지 가져오기
     async def get_live_thumbnail_image(self, state_data, message=None):
         for count in range(40):
             thumbnail_image = self.get_thumbnail_image()
@@ -571,6 +636,7 @@ class afreeca_live_message(base_live_message):
 
         return thumbnail_image
     
+    #아프리카 썸네일 이미지 처리
     def get_thumbnail_image(self): 
         try:
             self.image_path = "explain.png"
@@ -601,20 +667,24 @@ class afreeca_live_message(base_live_message):
         except:
             return None
 
+    #이미지 파일로 저장
     def saveImage(self): 
         urlretrieve(self.getImageURL(), self.image_path)
 
+    #아프리카 이미지 URL 가져오기
     def getImageURL(self) -> str:
         link = f"https://liveimg.afreecatv.com/m/{self.title_data.loc[self.channel_id, 'chatChannelId']}"
         self.data.thumbnail_url = link
         return link
     
+    #온라인 알림 메시지 JSON 생성
     async def getOnAirJson(self, message, state_data):
         self.getViewer_count(state_data)
         thumbnail_url = await self.get_live_thumbnail_image(state_data)
 
         return self.get_online_state_json(message, thumbnail_url)
     
+    #뱅온 JSON 데이터 생성
     def get_online_state_json(self, message, thumbnail_url):
         return {"username": self.channel_name, "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
                 "embeds": [
@@ -629,7 +699,7 @@ class afreeca_live_message(base_live_message):
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().soop_icon },
                 "timestamp": changeUTCtime(self.getStarted_at("openDate"))}]}
     
-	# def get_online_titleChange_state_json(self, message, title, url, started_at, thumbnail):
+    # def get_online_titleChange_state_json(self, message, title, url, started_at, thumbnail):
 	# 	return {"username": self.channel_name, "avatar_url": self.afreecaIDList.loc[self.channel_id, 'profile_image'],\
 	# 			"embeds": [
 	# 				{"color": int(self.afreecaIDList.loc[self.channel_id, 'channel_color']),
@@ -642,20 +712,22 @@ class afreeca_live_message(base_live_message):
 	# 			"footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().soop_icon },
 	# 			"timestamp": changeUTCtime(started_at)}]}
 
-    def getOffJson(self): 
+    #뱅종 JSON 데이터 생성
+    def getOffJson(self):
         return {"username": self.channel_name, "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
                 "embeds": [
                     {"color": int(self.id_list.loc[self.channel_id, 'channel_color']),
                     "title": self.channel_name +" 방송 종료\n",
                     "footer": {"icon_url": iconLinkData().soop_icon},
                 }]}
- 
+ # 디버깅 용도 실행 함수
 async def main_loop(init):
 
     while True:
         try:
             if init.count % 2 == 0: await userDataVar(init)
 
+            # 치지직과 아프리카 스트리머들의 라이브 상태 확인 태스크 생성
             chzzk_live_tasks = [asyncio.create_task(chzzk_live_message(init, channel_id).start()) for channel_id in init.chzzkIDList["channelID"]]
             afreeca_live_tasks = [asyncio.create_task(afreeca_live_message(init, channel_id).start()) for channel_id in init.afreecaIDList["channelID"]]
             
@@ -664,6 +736,7 @@ async def main_loop(init):
                 *afreeca_live_tasks,
             ]
 
+            # 모든 태스크 실행
             await asyncio.gather(*tasks)
             await fSleep(init)
             fCount(init)
@@ -671,9 +744,9 @@ async def main_loop(init):
         except Exception as e:
             asyncio.create_task(log_error(f"Error in main loop: {str(e)}"))
             await asyncio.sleep(1)
-
+            
+#디버깅 용도 메인 함수
 async def main():
-    # Flet 앱 백그라운드에서 실행   
     from shared_state import StateManager
     state = StateManager.get_instance()
     init = await state.initialize()

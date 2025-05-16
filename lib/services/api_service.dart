@@ -1,9 +1,10 @@
 
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -98,6 +99,7 @@ class ApiService {
   }) async {
     int attempts = 0;
 
+    // 재시도 로직 - 네트워크 오류나 서버 장애 시 여러 번 시도
     while (attempts < retryCount) {
       attempts++;
       try {
@@ -112,6 +114,7 @@ class ApiService {
         final client = http.Client();
 
         try {
+          // 알림 요청 API 호출
           final response = await client
               .get(
                 Uri.parse(
@@ -153,7 +156,7 @@ class ApiService {
                 'hasMore': false,
               };
             } else {
-              // 기타 상태 코드
+              // 기타 상태
 
               debugPrint(
                 '알림 가져오기 실패: 상태 - ${data['status']}, 메시지 - ${data['message'] ?? "알 수 없는 오류"}',
@@ -326,6 +329,7 @@ class ApiService {
     }
   }
 
+  // 사용자 설정 가져오기
   static Future<Map<String, dynamic>> getUserSettings(
     String username,
     String discordWebhooksURL,
@@ -343,6 +347,7 @@ class ApiService {
     }
   }
 
+   // 스트리머 목록 가져오기
   static Future<Map<String, dynamic>> getStreamers({
     int maxRetries = 3,
     bool useCache = true,
@@ -391,7 +396,7 @@ class ApiService {
             throw Exception('서버 응답이 유효하지 않습니다.');
           }
 
-          // 3. 성공한 응답을 캐시에 저장
+          // 캐시에 저장
           if (useCache) {
             CacheHelper.cacheStreamerData(data);
           }
@@ -413,9 +418,9 @@ class ApiService {
       }
     }
 
-    // 4. 모든 시도가 실패한 경우
+    // 모든 시도가 실패한 경우
     if (useCache) {
-      // 마지막 시도 - 캐시 확인 (만료 무시)
+      // 마지막 시도 - 캐시 확인
       try {
         final prefs = await SharedPreferences.getInstance();
         final cachedString = prefs.getString('cached_streamer_data');
@@ -435,6 +440,7 @@ class ApiService {
     throw lastException ?? Exception('스트리머 정보를 가져오는 데 실패했습니다.');
   }
 
+  // 사용자 설정 저장
   static Future<bool> saveUserSettings(Map<String, dynamic> data) async {
     final response = await http.post(
       Uri.parse('$baseUrl/save_user_settings'),
@@ -444,10 +450,12 @@ class ApiService {
     return response.statusCode == 200;
   }
 
+  // 스트리머 데이터 파싱
   static List<StreamerData> parseStreamers(Map<String, dynamic> data) {
     List<StreamerData> streamers = [];
 
     try {
+      // 아프리카TV 스트리머 파싱
       List<dynamic> afreecaStreamers = data['afreecaStreamers'] ?? [];
       for (var streamer in afreecaStreamers) {
         if (streamer is Map &&
@@ -464,6 +472,7 @@ class ApiService {
         }
       }
 
+      // 치지직 스트리머 파싱
       List<dynamic> chzzkStreamers = data['chzzkStreamers'] ?? [];
       for (var streamer in chzzkStreamers) {
         if (streamer is Map &&
@@ -486,6 +495,7 @@ class ApiService {
     return streamers;
   }
 
+  // 카페 데이터 파싱
   static List<CafeData> parseCafeData(Map<String, dynamic> data) {
     List<CafeData> cafeDataList = [];
     List<dynamic> cafeStreamers = data['cafeStreamers'] ?? [];
@@ -502,6 +512,7 @@ class ApiService {
     return cafeDataList;
   }
 
+  // 치지직 VOD 데이터 파싱
   static List<ChzzkVideo> parseChzzkVideo(Map<String, dynamic> data) {
     List<ChzzkVideo> chzzkVideoList = [];
     List<dynamic> chzzkVideoStreamers = data['chzzkVideoStreamers'] ?? [];
@@ -518,6 +529,7 @@ class ApiService {
     return chzzkVideoList;
   }
 
+  // 유튜브 데이터 파싱
   static List<YoutubeData> parseYoutubeData(Map<String, dynamic> data) {
     List<YoutubeData> result = [];
     List<dynamic> youtubeStreamers = data['youtubeStreamers'] ?? [];
@@ -564,6 +576,7 @@ class ApiService {
     return result;
   }
 
+  // 로그인 API 호출
   static Future<Map<String, dynamic>> login(
     String username,
     String discordWebhooksURL,
@@ -587,6 +600,7 @@ class ApiService {
     }
   }
 
+  // 회원가입 API 호출
   static Future<Map<String, dynamic>> register(
     String username,
     String discordWebhooksURL,
@@ -610,6 +624,7 @@ class ApiService {
     }
   }
 
+  // 사용자 이름 변경 API 호출
   static Future<bool> updateUsername(
     String oldUsername,
     String discordWebhooksURL,

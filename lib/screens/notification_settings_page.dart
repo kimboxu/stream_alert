@@ -31,9 +31,11 @@ class NotificationSettingsPage extends StatefulWidget {
 }
 
 class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
+  // 상태 변수
   bool _isLoading = true;
   String _errorMessage = '';
 
+  // 재시도 관련 변수
   int _retryCount = 0;
   final int _maxRetries = 3;
 
@@ -43,11 +45,12 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   // 스트리머 데이터
   List<StreamerData> _streamers = [];
 
-  // 추가 데이터
+  // 추가 데이터 모델
   List<CafeData> _cafeData = [];
   List<ChzzkVideo> _chzzkVideo = [];
   List<YoutubeData> _youtubeData = [];
 
+  // 데이터 빠른 접근을 위한 맵
   final Map<String, CafeData> _cafeDataMap = {};
   final Map<String, ChzzkVideo> _chzzkVideoMap = {};
   final Map<String, YoutubeData> _youtubeDataMap = {};
@@ -65,12 +68,12 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
 
   // 선택된 스트리머 데이터
   final Map<String, Set<String>> _selectedStreamers = {
-    "뱅온 알림": {},
-    "방제 변경 알림": {},
-    "방종 알림": {},
+    "뱅온 알림": {}, // 방송 시작 알림
+    "방제 변경 알림": {}, // 방송 제목 변경 알림
+    "방종 알림": {}, // 방송 종료 알림
   };
 
-  // JSON 컨트롤러
+  // JSON 컨트롤러 - JSON 형식으로 데이터 관리
   final TextEditingController _chzzkVideoJsonController =
       TextEditingController();
   final TextEditingController _youtubeJsonController = TextEditingController();
@@ -83,6 +86,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     _loadSettings();
   }
 
+  // 설정 데이터 로드
   Future<void> _loadSettings() async {
     setState(() {
       _isLoading = true;
@@ -90,6 +94,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     });
 
     try {
+      // 사용자 설정과 스트리머 데이터 모두 로드
       await _fetchUserSettings();
       await _fetchStreamerData();
     } catch (e) {
@@ -103,13 +108,15 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     }
   }
 
+  // 사용자 설정 데이터 가져오기
   Future<void> _fetchUserSettings() async {
     try {
-      // Discord 웹훅 URL 정규화 확인
+      // Discord 웹훅 URL 정규화
       final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
         widget.discordWebhooksURL,
       );
 
+      // API 서비스를 통해 설정 가져오기
       final data = await ApiService.getUserSettings(
         widget.username,
         normalizedWebhookUrl,
@@ -153,7 +160,6 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     } catch (e) {
       setState(() {
         _errorMessage = '설정을 불러오는데 실패했습니다: $e';
-
         debugPrint('설정 불러오기 오류: $e');
         debugPrint('오류 스택 트레이스: ${StackTrace.current}');
       });
@@ -192,6 +198,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     return {};
   }
 
+  // 스트리머 데이터 가져오기
   Future<void> _fetchStreamerData() async {
     try {
       setState(() {
@@ -201,17 +208,21 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
         _errorMessage = '';
       });
 
+      // API에서 스트리머 데이터 가져오기
       final data = await ApiService.getStreamers();
 
-      // 스트리머 데이터 파싱
+      // 각 종류별 데이터 파싱
       _streamers = ApiService.parseStreamers(data);
       _cafeData = ApiService.parseCafeData(data);
       _chzzkVideo = ApiService.parseChzzkVideo(data);
       _youtubeData = ApiService.parseYoutubeData(data);
+
+      // 채팅 필터링 사용자 데이터 처리
       _processAvailableChatUsers(data);
       _initializeSelectedUsers();
       _parseSelectedJsons();
 
+      // 데이터 가공
       _processFetchedData();
 
       // 프로필 이미지 URL 수집
@@ -253,6 +264,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     });
   }
 
+  // 선택된 스트리머 파싱
   void _parseSelectedStreamers() {
     _selectedStreamers.forEach((key, value) {
       value.clear();
@@ -265,6 +277,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     });
   }
 
+  // 채팅 필터 사용자 처리
   void _processAvailableChatUsers(Map<String, dynamic> data) {
     if (data['chzzkChatFilter'] != null) {
       List chzzkChatFilterList = data['chzzkChatFilter'];
@@ -287,6 +300,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     }
   }
 
+  // 선택된 사용자 초기화
   void _initializeSelectedUsers() {
     for (var cafe in _cafeData) {
       _selectedCafeUsers[cafe.channelID] = {};
@@ -301,6 +315,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     }
   }
 
+  // JSON 설정 파싱
   void _parseSelectedJsons() {
     try {
       // 각 JSON을 파싱
@@ -456,6 +471,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     return null;
   }
 
+  // JSON 컨트롤러 업데이트 함수들
   void _updateCafeUserJson() {
     JsonHelper.updateJsonFromSelectedUsers(
       _selectedCafeUsers,
@@ -478,12 +494,14 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   }
 
   void _updateChatUserJson() {
+    // 여러 채팅 필터 설정을 하나의 JSON으로 병합
     JsonHelper.updateJsonFromMultipleSelectedUsers([
       _selectedChzzkChatUsers,
       _selectedAfreecaChatUsers,
     ], _chatJsonController);
   }
 
+  // 설정 저장
   Future<void> _saveSettings() async {
     setState(() {
       _isLoading = true;
@@ -496,7 +514,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
         widget.discordWebhooksURL,
       );
 
-      // Prepare settings data
+      // 저장할 설정 데이터 준비
       Map<String, dynamic> data = {
         'username': widget.username,
         'discordWebhooksURL': normalizedWebhookUrl, // 정규화된 URL 사용
@@ -504,7 +522,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
 
       // 기본 알림 설정을 텍스트로 변환
       _selectedStreamers.forEach((key, value) {
-        data[key] = value.join(', ');
+        data[key] = value.join(', '); // 스트리머 목록을 쉼표로 구분된 문자열로 변환
       });
 
       // 유튜브 알림 설정 저장
@@ -531,30 +549,36 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       debugPrint('카페 설정: ${data['cafe_user_json']}');
       debugPrint('채팅 필터: ${data['chat_user_json']}');
 
+      // API 서비스를 통해 서버에 저장
       bool success = await ApiService.saveUserSettings(data);
 
       if (success) {
+        // 성공 메시지 표시
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(const SnackBar(content: Text('설정이 저장되었습니다')));
       } else {
+        // 오류 메시지 표시
         setState(() {
           _errorMessage = '설정 저장에 실패했습니다';
         });
       }
     } catch (e) {
+      // 예외 처리
       setState(() {
         _errorMessage = '연결 오류: $e';
 
         debugPrint('설정 저장 중 오류: $e');
       });
     } finally {
+      // 로딩 상태 해제
       setState(() {
         _isLoading = false;
       });
     }
   }
 
+  // 데이터 처리 - 효율적인 접근을 위해 Map 구조로 변환
   void _processFetchedData() {
     // 기존 맵 초기화
     _cafeDataMap.clear();
@@ -575,13 +599,16 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     }
   }
 
+  // 스트리머 설정 다이얼로그 열기
   void _openStreamerSettings(StreamerData streamer) {
     String channelID = streamer.channelID;
 
+    // 스트리머 관련 데이터 가져오기
     CafeData? cafeData = _cafeDataMap[channelID];
     ChzzkVideo? chzzkVideo = _chzzkVideoMap[channelID];
     YoutubeData? youtubeData = _youtubeDataMap[channelID];
 
+    // 현재 선택된 사용자 목록 가져오기
     Set<String> selectedCafeUsers =
         _selectedCafeUsers[streamer.channelID] ?? {};
     Set<String> selectedChzzkVideoUsers =
@@ -593,6 +620,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     Set<String> selectedAfreecaChatUsers =
         _selectedAfreecaChatUsers[streamer.channelID] ?? {};
 
+    // 설정 다이얼로그 표시
     showDialog(
       context: context,
       builder:
@@ -615,6 +643,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
               });
             },
 
+            // 각종 데이터와 콜백 함수 전달
             cafeData: cafeData,
             chzzkVideo: chzzkVideo,
             youtubeData: youtubeData,
@@ -677,6 +706,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
             },
           ),
     ).then((_) {
+      // 다이얼로그 닫힌 후 JSON 설정 업데이트
       setState(() {
         _settings['유튜브 알림'] = _youtubeJsonController.text;
         _settings['치지직 VOD'] = _chzzkVideoJsonController.text;
@@ -692,6 +722,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       appBar: AppBar(
         title: Text('스트리머 알림 설정'),
         actions: [
+          // 저장 버튼
           IconButton(
             icon: Icon(Icons.save),
             onPressed: _isLoading ? null : _saveSettings,
@@ -702,15 +733,20 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     );
   }
 
+  // 데이터 다시 불러오기
   void _retryFetchData() {
     _retryCount = 0; // 재시도 카운트 초기화
     _fetchStreamerData(); // 데이터 다시 로드
   }
 
+  // 메인 화면 구성
   Widget _buildBody() {
+    // 로딩 중 상태
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
-    } else if (_errorMessage.isNotEmpty) {
+    }
+    // 오류 발생 상태
+    else if (_errorMessage.isNotEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -725,7 +761,9 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
           ],
         ),
       );
-    } else {
+    }
+    // 정상 상태
+    else {
       return ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -734,12 +772,14 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),
+          // 스트리머 그리드 위젯
           StreamerGrid(
             streamers: _streamers,
             selectedStreamers: _selectedStreamers,
             onStreamerTap: _openStreamerSettings,
           ),
           SizedBox(height: 24),
+          // 알림 설정 요약 위젯
           NotificationSummary(
             selectedStreamers: _selectedStreamers,
             selectedChzzkChatUsers: _selectedChzzkChatUsers,
@@ -750,11 +790,13 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
             allStreamers: _streamers,
           ),
           SizedBox(height: 20),
+          // 오류 메시지 표시
           if (_errorMessage.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: Text(_errorMessage, style: TextStyle(color: Colors.red)),
             ),
+          // 저장 버튼
           ElevatedButton(
             onPressed: _isLoading ? null : _saveSettings,
             child:

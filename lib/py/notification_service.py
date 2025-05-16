@@ -1,18 +1,15 @@
 import asyncio
 from os import environ
 from uuid import uuid4
-from datetime import datetime, timezone, timedelta
-from typing import List, Dict, Any
+from datetime import datetime
 
 from firebase_admin import messaging, credentials, get_app, initialize_app
-from concurrent.futures import ThreadPoolExecutor
 from json import loads, dumps
-from supabase import create_client
 from base import initVar, if_after_time
 from shared_state import StateManager
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
-from base import update_flag
+from base import update_flag, save_user_notifications
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -159,7 +156,7 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
 
     Args:
         init: initVar 객체
-        user_data_map: 웹훅 URL을 키로, 사용자 데이터를 값으로 하는 딕셔너리
+        user_data_map: 웹훅 URL을 키, 사용자 데이터를 값으로 하는 딕셔너리
         notification_id: 알림 고유 ID
         data_fields: 알림 데이터 필드
     """
@@ -204,23 +201,16 @@ async def batch_save_notifications(init: initVar, user_data_map, notification_id
 
             # DB에 저장이 필요한 경우만 저장 실행
             if save_to_db:
-                try:
-                    # 비동기로 실행(메인 루프 블로킹 방지), 에러는 출력
-                    await asyncio.to_thread(
-                        lambda: init.supabase.table('userStateData')
-                              .upsert({
-                                  'discordURL': webhook_url, 
-                                  'notifications': init.userStateData.loc[webhook_url, 'notifications'],
-                                  'last_db_save_time': init.userStateData.loc[webhook_url, 'last_db_save_time']})
-                              .execute()
-                    )
-                    print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url}")
-                except Exception as e:
-                    print(f"{datetime.now()} 알림 저장 중 오류: {e} - URL: {webhook_url}")
+                 # 분리한 함수를 호출하여 저장
+                await save_user_notifications(
+                    init.supabase,
+                    webhook_url,
+                    init.userStateData.loc[webhook_url, 'notifications'],
+                    init.userStateData.loc[webhook_url, 'last_db_save_time']
+                )
             else:
                 # print(f"{datetime.now()} 알림을 로컬에만 저장 (DB 저장 건너뜀) - URL: {webhook_url}")
                 pass
-
 
 # init에서 사용자 정보 추출
 def get_user_data_from_init(init: initVar, webhook_url):
@@ -544,7 +534,8 @@ async def cleanup_all_invalid_tokens():
         print(f"FCM 토큰 정리 오류: {e}")
         import traceback
         traceback.print_exc()
-# 예약 작업 설정 함수 추가
+
+# 예약 작업 설정 함수
 def setup_scheduled_tasks():
     """주기적인 백그라운드 작업 설정"""
     scheduler = BackgroundScheduler()
@@ -588,6 +579,7 @@ def save_tokens_data(init, discordWebhooksURL, tokens_data):
     # 사용자 데이터 변경 플래그 설정
     # asyncio.run(update_flag('user_date', True))
 
+#특정 토큰 삭제 함수
 def remove_fcm_token(token):
 
     try:

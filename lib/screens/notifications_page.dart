@@ -22,46 +22,53 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage>
     with AutomaticKeepAliveClientMixin {
+  // 알림 데이터
   List<NotificationModel> _notifications = [];
+
+  // 로딩 상태 관리
   bool _isLoading = true;
   bool _isLoadingMore = false;
   bool _hasMoreData = true;
   bool _loadFailed = false;
   bool _isOffline = false;
+
+  // 페이징 관련 변수
   int _currentPage = 1;
   final int _pageSize = 50;
 
-  // 스크롤 관련 변수
+  // 스크롤 관련 컨트롤러 및 리스너
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
 
+  // 스크롤 위치 관련 상태
   bool _isNearBottom = true;
   bool _hasNewMessage = false;
   int _newMessageCount = 0;
 
-  // 최하단으로부터 몇 개의 메시지까지를 하단으로 간주할지 설정
-  final int _bottomThreshold = 10;
-  final int _autoScrollThreshold = 3; // 자동 스크롤을 위한 하단 근접 임계값
+  // 하단 인식 관련 상수
+  final int _bottomThreshold = 10; // 하단 인식 임계값 (10개 메시지)
+  final int _autoScrollThreshold = 3; // 자동 스크롤 임계값 (3개 메시지)
   bool _autoScrollEnabled = false;
 
-  //
+  // 타이머 관리
   Timer? _debounceTimer;
   final List<Timer> _activeTimers = [];
 
-  // 필터 관련 변수 - 중복 선택을 위해 Set 타입으로 변경
-  Set<NotificationType> _selectedFilters = {};
+  // 필터 관련 변수
+  Set<NotificationType> _selectedFilters = {}; // 중복 선택을 위해 Set 타입
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
-  // 오류 관리를 위한 상태 변수
+  // 오류 관리
   bool _showErrorMessage = false;
   String _errorMessage = '';
 
+  // 앱 생명주기 리스너
   late final AppLifecycleListener _lifecycleListener;
 
   @override
-  bool get wantKeepAlive => true; // 페이지 상태 유지
+  bool get wantKeepAlive => true; // 페이지 상태 유지 (탭 전환 시)
 
   @override
   void initState() {
@@ -73,7 +80,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     // 아이템 위치 리스너 설정
     _itemPositionsListener.itemPositions.addListener(_updateScrollPosition);
 
-    // 모든 필터 타입을 기본적으로 선택된 상태로 초기화
+    // 기본 필터 설정 - 모든 유형 선택
     _selectedFilters = {
       NotificationType.youtube,
       NotificationType.cafe,
@@ -84,11 +91,12 @@ class _NotificationsPageState extends State<NotificationsPage>
       NotificationType.chat,
     };
 
-    // 오프라인 상태 확인
+    // 오프라인 상태 확인 후 알림 로드
     _checkConnectivity().then((_) {
       _loadFirstNotifications();
     });
 
+    // 실시간 알림 수신 설정
     _setupNotificationReceiver();
   }
 
@@ -102,7 +110,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     }
   }
 
-  // 알림 수신 메서드
+  // 알림 수신 설정
   void _setupNotificationReceiver() {
     // 알림 스트림 리스너
     PushNotificationService().notificationStream.listen((notification) {
@@ -113,6 +121,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     });
   }
 
+  // 새 알림 처리
   void _handleNewNotification(NotificationModel notification) {
     if (!mounted) return;
 
@@ -280,6 +289,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
   @override
   void dispose() {
+    // 자원 정리
     _lifecycleListener.dispose();
     _cleanupTimers();
     _itemPositionsListener.itemPositions.removeListener(_updateScrollPosition);
@@ -287,7 +297,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     super.dispose();
   }
 
-  // 모든 타이머 정리
+  // 타이머 정리
   void _cleanupTimers() {
     for (final timer in _activeTimers) {
       if (timer.isActive) {
@@ -314,6 +324,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     }
   }
 
+  // 알림 로드 - 방향에 따라 최신/과거 알림 처리
   Future<void> _loadNotifications({required LoadDirection direction}) async {
     // 중복 호출 방지
     if (_isOffline) return;
@@ -351,7 +362,8 @@ class _NotificationsPageState extends State<NotificationsPage>
 
         // 결과 처리
         if (result['success']) {
-          final List<NotificationModel> newNotifications = result['notifications'];
+          final List<NotificationModel> newNotifications =
+              result['notifications'];
           final bool hasMore = result['hasMore'];
           final int updatedPage = result['currentPage'];
 
@@ -406,6 +418,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     await _loadNotifications(direction: LoadDirection.newer);
   }
 
+// 이전(과거) 알림 로드
   Future<void> _loadOlderMessages() async {
     await _loadNotifications(direction: LoadDirection.older);
   }
@@ -450,11 +463,11 @@ class _NotificationsPageState extends State<NotificationsPage>
         _notifications.where((notification) {
           // 유형 필터 적용
           if (_selectedFilters.isEmpty) {
-            return false; // 아무 필터도 선택되지 않았을 때 알림을 표시하지 않음
+            return false; // 필터가 선택되지 않은 경우 표시하지 않음
           }
 
           if (!_selectedFilters.contains(notification.type)) {
-            return false; // 선택된 필터에 포함되지 않은 알림 제외
+            return false; // 선택되지 않은 유형의 알림 제외
           }
 
           // 검색어 필터 적용
@@ -476,7 +489,7 @@ class _NotificationsPageState extends State<NotificationsPage>
           return true;
         }).toList();
 
-    // 항상 시간 순으로 정렬 (최신순)
+    // 시간순 정렬 (최신순)
     filtered.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
     return filtered;
@@ -583,6 +596,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                       ],
                     ),
                     SizedBox(height: 8),
+                    // 선택된 필터 목록
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -643,7 +657,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                 ),
               ),
 
-            // 메인 컨텐츠 영역
+            // 알림 목록 (메인 컨텐츠)
             Expanded(
               child:
                   _isLoading
@@ -706,9 +720,10 @@ class _NotificationsPageState extends State<NotificationsPage>
           ],
         ),
       ),
+      // 하단으로 이동하는 플로팅 버튼
       floatingActionButton:
           _isNearBottom
-              ? null
+              ? null // 이미 하단에 있으면 버튼 숨김
               : FloatingActionButton(
                 onPressed: () {
                   if (_itemScrollController.isAttached) {
@@ -947,6 +962,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     );
   }
 
+// 빈 알림 상태 위젯
   Widget _buildEmptyState() {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;

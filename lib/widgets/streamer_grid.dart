@@ -3,9 +3,9 @@ import '../models/streamer_data.dart';
 import 'profile_image_widget.dart';
 
 class StreamerGrid extends StatelessWidget {
-  final List<StreamerData> streamers;
-  final Map<String, Set<String>> selectedStreamers;
-  final Function(StreamerData) onStreamerTap;
+  final List<StreamerData> streamers; // 표시할 스트리머 목록
+  final Map<String, Set<String>> selectedStreamers; // 선택된 스트리머 정보
+  final Function(StreamerData) onStreamerTap; // 스트리머 선택 시 콜백
 
   // UI 관련 상수 정의
   static const double _borderWidth = 1.0;
@@ -17,7 +17,7 @@ class StreamerGrid extends StatelessWidget {
   static const int _gridColumns = 3;
   static const double _childAspectRatio = 0.75;
 
-  // 플랫폼 이름 매핑
+  // 플랫폼 이름 매핑 (코드->표시명)
   static const Map<String, String> _platformNames = {
     'afreeca': '아프리카TV',
     'chzzk': '치지직',
@@ -32,22 +32,24 @@ class StreamerGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 고정된 그리드 레이아웃 구성
     return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true, // 부모 위젯의 높이에 맞춤
+      physics: const NeverScrollableScrollPhysics(), // 스크롤 비활성화
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: _gridColumns,
-        childAspectRatio: _childAspectRatio,
-        crossAxisSpacing: _itemSpacing,
-        mainAxisSpacing: _itemSpacing,
+        crossAxisCount: _gridColumns, // 한 행에 표시할 아이템 수
+        childAspectRatio: _childAspectRatio, // 아이템 가로/세로 비율
+        crossAxisSpacing: _itemSpacing, // 가로 간격
+        mainAxisSpacing: _itemSpacing, // 세로 간격
       ),
-      itemCount: streamers.length,
+      itemCount: streamers.length, // 아이템 수
       itemBuilder: (context, index) {
         final streamer = streamers[index];
 
         // 성능 최적화: 선택 검사 로직 개선
         final isSelected = _isStreamerSelected(streamer.name);
 
+        // 개별 스트리머 아이템 구성
         return _buildStreamerItem(context, streamer, isSelected);
       },
     );
@@ -115,7 +117,7 @@ class StreamerGrid extends StatelessWidget {
     );
   }
 
-  // 플랫폼 이름 가져오는 메서드
+  // 플랫폼 코드를 표시명으로 변환하는 메서드
   String _getPlatformName(String platform) {
     return _platformNames[platform.toLowerCase()] ?? platform;
   }

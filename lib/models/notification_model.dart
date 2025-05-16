@@ -4,28 +4,29 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// 알림 모델 클래스
+/// 알림 모델 클래스 - 다양한 유형의 알림을 표현
 class NotificationModel {
-  final String id;
-  final String username;
-  final String content;
-  final String avatarUrl;
-  final DateTime timestamp;
-  final bool read;
+  // 기본 알림 속성
+  final String id;           // 알림 고유 ID
+  final String username;     // 알림 발신자 이름
+  final String content;      // 알림 내용
+  final String avatarUrl;    // 발신자 아바타 이미지 URL
+  final DateTime timestamp;  // 알림 발생 시간
+  final bool read;           // 읽음 상태
 
-  // 리치 임베드 필드
-  final String title;
-  final String imageUrl;
-  final String thumbnailUrl;
-  final String url;
-  final int color;
-  final dynamic fields;
-  final String footerText;
-  final String footerIconUrl;
-  final String description;
-  final String authorName;
-  final String authorUrl;
-  final String authorIconUrl;
+  // 임베드 필드 (Discord 형식 임베드와 호환)
+  final String title;          // 임베드 제목
+  final String imageUrl;       // 큰 이미지 URL
+  final String thumbnailUrl;   // 썸네일 이미지 URL
+  final String url;            // 임베드 링크 URL
+  final int color;             // 임베드 색상 (RGB)
+  final dynamic fields;        // 임베드 필드 목록
+  final String footerText;     // 푸터 텍스트
+  final String footerIconUrl;  // 푸터 아이콘 URL
+  final String description;    // 임베드 설명
+  final String authorName;     // 작성자 이름
+  final String authorUrl;      // 작성자 URL
+  final String authorIconUrl;  // 작성자 아이콘 URL
 
   // 원본 임베드 데이터 저장
   final Map<String, dynamic>? embedData;
@@ -53,15 +54,15 @@ class NotificationModel {
     this.embedData,
   });
 
-  /// JSON으로부터 객체 생성
+  /// JSON으로부터 알림 객체 생성하는 팩토리 메서드
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
-    // embeds 디버깅 출력 (개발 모드에서만)
+    // embeds 디버깅 출력
     if (json['embeds'] != null) {
       debugPrint('원본 embeds 데이터: ${json['embeds']}');
       debugPrint('embeds 타입: ${json['embeds'].runtimeType}');
     }
 
-    // embeds 파싱 처리
+    // embeds 파싱 처리 - 문자열 또는 리스트 형태로 받을 수 있음
     List<dynamic>? embedsList;
     Map<String, dynamic>? originalEmbed;
     if (json['embeds'] != null) {
@@ -102,18 +103,19 @@ class NotificationModel {
       authorIconUrl = embed['author']['icon_url'];
     }
 
+    // NotificationModel 객체 생성 및 반환
     return NotificationModel(
       id:
           json['notification_id'] ??
           json['id'] ??
-          DateTime.now().millisecondsSinceEpoch.toString(),
+          DateTime.now().millisecondsSinceEpoch.toString(),  // ID 없으면 현재 시간 기반 생성
       username: json['username'] ?? '알림',
       content: json['content'] ?? '',
       avatarUrl: json['avatar_url'] ?? '',
       timestamp:
           json['timestamp'] != null
               ? DateTime.parse(json['timestamp'])
-              : DateTime.now(),
+              : DateTime.now(),  // 타임스탬프 없으면 현재 시간
       read: json['read'] ?? false,
 
       // embed 필드들 추출
@@ -137,8 +139,9 @@ class NotificationModel {
     );
   }
 
-  /// JSON으로 변환
+  /// 알림을 JSON으로 변환하는 메서드
   Map<String, dynamic> toJson() {
+    // 기본 JSON 데이터
     Map<String, dynamic> baseJson = {
       'id': id,
       'username': username,
@@ -148,7 +151,7 @@ class NotificationModel {
       'read': read,
     };
 
-    // embed 데이터가 있는 경우 추가
+    // 임베드인 경우 추가 데이터 구성
     if (isRichNotification) {
       Map<String, dynamic> embed = {};
 
@@ -195,13 +198,13 @@ class NotificationModel {
         }
       }
 
-      baseJson['embeds'] = [embed];
+      baseJson['embeds'] = [embed];  // 임베드 배열로 추가
     }
 
     return baseJson;
   }
 
-  /// 일반 알림인지 리치 알림(embed)인지 확인
+  /// 임베드 포함 여부 확인 getter
   bool get isRichNotification =>
       title.isNotEmpty ||
       imageUrl.isNotEmpty ||
@@ -218,36 +221,36 @@ class NotificationModel {
     return 'NotificationModel(id: $id, username: $username, title: $title, isRich: $isRichNotification)';
   }
 
-  /// 알림 유형 분류 (유튜브, 카페, 일반 등)
+  /// 알림 유형 분류 getter (유튜브, 카페, 일반 등)
   NotificationType get type {
     if (username.contains('유튜브 알림') || footerText == 'YouTube') {
-      return NotificationType.youtube;
+      return NotificationType.youtube;  // 유튜브 알림
     } else if (username.contains('카페 알림') || footerText == 'cafe') {
-      return NotificationType.cafe;
+      return NotificationType.cafe;  // 카페 알림
     } else if (description.endsWith('치지직 영상 업로드!')) {
-      return NotificationType.chzzkVOD;
+      return NotificationType.chzzkVOD;  // 치지직 VOD 알림
     } else if (title.trim().endsWith('뱅온!')) {
-      return NotificationType.streamStart;
+      return NotificationType.streamStart;  // 방송 시작 알림
     } else if (title.trim().endsWith('방제 변경')) {
-      return NotificationType.streamChange;
+      return NotificationType.streamChange;  // 방송 제목 변경 알림
     } else if (title.trim().endsWith('방송 종료')) {
-      return NotificationType.streamEnd;
+      return NotificationType.streamEnd;  // 방송 종료 알림
     } else if (username.contains('>>')) {
-      return NotificationType.chat;
+      return NotificationType.chat;  // 채팅 알림
     } else {
-      return NotificationType.general;
+      return NotificationType.general;  // 일반 알림
     }
   }
 }
 
-/// 알림 유형 열거
+/// 알림 유형 열거형
 enum NotificationType {
-  youtube, // 유튜브 알림
-  cafe, // 카페 알림
-  chzzkVOD, // 치지직 VOD 알림
-  streamStart, // 뱅온 알림
+  youtube,      // 유튜브 알림
+  cafe,         // 카페 알림
+  chzzkVOD,     // 치지직 VOD 알림
+  streamStart,  // 뱅온 알림
   streamChange, // 방제 변경 알림
-  streamEnd, // 방종 알림
-  chat, // 채팅 알림
-  general, // 일반 알림
+  streamEnd,    // 방종 알림
+  chat,         // 채팅 알림
+  general,      // 일반 알림
 }

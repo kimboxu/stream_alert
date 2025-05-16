@@ -1,8 +1,8 @@
-//네비게이션 상태 모니터링 및 추적
 import 'package:flutter/material.dart';
 import 'navigation_helper.dart';
 
 class AppNavigatorObserver extends NavigatorObserver {
+  // 새 화면으로 이동 시 호출
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
@@ -10,6 +10,7 @@ class AppNavigatorObserver extends NavigatorObserver {
     debugPrint('화면 이동: ${route.settings.name}');
   }
   
+  // 화면 뒤로가기 시 호출
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPop(route, previousRoute);
@@ -19,6 +20,7 @@ class AppNavigatorObserver extends NavigatorObserver {
     }
   }
   
+  // 화면 교체 시 호출
   @override
   void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
@@ -28,6 +30,7 @@ class AppNavigatorObserver extends NavigatorObserver {
     }
   }
   
+  // 화면 제거 시 호출
   @override
   void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didRemove(route, previousRoute);
@@ -37,6 +40,7 @@ class AppNavigatorObserver extends NavigatorObserver {
     }
   }
   
+  // 현재 경로 정보 업데이트
   void _updateCurrentRoute(Route<dynamic> route) {
     if (route.settings.name != null) {
       NavigationHelper().setCurrentRouteName(route.settings.name!);

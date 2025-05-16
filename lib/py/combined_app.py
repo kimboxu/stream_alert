@@ -6,7 +6,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from base import initVar, userDataVar, fCount, fSleep
 from shared_state import StateManager
-from Twitch_live_message import twitch_live_message
+# from Twitch_live_message import twitch_live_message
 from Chzzk_chat_message import chzzk_chat_message
 from Afreeca_chat_message import afreeca_chat_message
 from Chzzk_video import chzzk_video
@@ -44,11 +44,10 @@ def setup_flask_app():
 async def main_loop(init: initVar):
     while True:
         try:
+            # 2초마다 db에서 상태 정보 확인 및 처리
             if init.count % 2 == 0: 
                 await userDataVar(init)
 
-            if init.count % 150 == 0: 
-                init.supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 
             # 각 기능별 작업 생성
             cafe_tasks = [asyncio.create_task(getCafePostTitle(init, channel_id).start()) for channel_id in init.cafeData["channelID"]]

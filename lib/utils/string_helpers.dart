@@ -1,4 +1,5 @@
 class StringHelper {
+  // 내부 설정 키를 사용자용 표시 이름으로 변환하는 메서드
   static String getSettingDisplayName(String key) {
     switch (key) {
       case '뱅온 알림':
@@ -22,6 +23,7 @@ class StringHelper {
     }
   }
 
+  // 콤마로 구분된 문자열을 Set으로 파싱하는 메서드
   static Set<String> parseSelectedStrings(String settingsValue) {
     Set<String> result = {};
     if (settingsValue.isNotEmpty) {

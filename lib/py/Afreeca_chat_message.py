@@ -8,7 +8,7 @@ from base import (
     afreeca_getChannelOffStateData,
     log_error,
 )
-import certifi
+import certifi #SSL 인증서 검증용 라이브러리
 import asyncio
 import websockets
 from time import time
@@ -20,81 +20,109 @@ from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
 from notification_service import send_push_notification
 
+# 아프리카 채팅 데이터 클래스 정의
 @dataclass
 class AfreecaChatData:
-    sock: websockets.connect = None
-    afreeca_chat_msg_List: list = field(default_factory=list)  
-    processed_messages: list = field(default_factory=list)
-    last_chat_time: str = ""
-    channel_id: str = ""
-    channel_name: str = ""
-    BNO: str = ""
-    BID: str = ""
+    sock: websockets.connect = None         # 웹소켓 연결 객체
+    afreeca_chat_msg_List: list = field(default_factory=list)  # 채팅 메시지 리스트
+    processed_messages: list = field(default_factory=list)     # 처리된 메시지 리스트 (중복 방지용)
+    last_chat_time: str = ""                # 마지막 채팅 시간
+    channel_id: str = ""                    # 채널 ID
+    channel_name: str = ""                  # 채널 이름
+    BNO: str = ""                           # 방송 번호
+    BID: str = ""                           # 방송인 ID
     
+# 아프리카 채팅 메시지 처리 클래스
 class afreeca_chat_message:
     def __init__(self, init_var: initVar, channel_id):
         self.init = init_var
 
+        # SSL 컨텍스트 생성
         self.ssl_context = self.create_ssl_context()
-        self.F = "\x0c"
-        self.ESC = "\x1b\t"
-        self.PING_PACKET = f'{self.ESC}000000000100{self.F}'
+        
+        # 웹소켓 통신에 사용되는 특수 문자 정의
+        self.F = "\x0c"                                  # 구분자
+        self.ESC = "\x1b\t"                              # 이스케이프 시퀀스
+        self.PING_PACKET = f'{self.ESC}000000000100{self.F}'  # 핑 패킷 형식
+        
+        # 채널 이름 가져오기
         channel_name = self.init.afreecaIDList.loc[channel_id, 'channelName']
-        self.data = AfreecaChatData(channel_id = channel_id, channel_name = channel_name)
+        
+        # 채팅 데이터 객체 초기화
+        self.data = AfreecaChatData(channel_id=channel_id, channel_name=channel_name)
+        
+        # 동시 채팅 요청 제한을 위한 세마포어
         self.post_chat_semaphore = asyncio.Semaphore(5)
+        
+        # 비동기 태스크 관리 리스트
         self.tasks = []
-        # self.stream_end_time = {}  # 각 스트리머의 방송 종료 시간을 저장할 딕셔너리
 
+    # SSL 컨텍스트 생성
     @staticmethod
     def create_ssl_context():
-        ssl_context = ssl.create_default_context()
-        ssl_context.load_verify_locations(certifi.where())
-        ssl_context.check_hostname = False
-        ssl_context.verify_mode = ssl.CERT_NONE
+        ssl_context = ssl.create_default_context() # 기본 보안 설정이 적용된 SSL 컨텍스트 객체를 생성
+        ssl_context.load_verify_locations(certifi.where()) # 신뢰할 수 있는 인증서 파일의 경로를 반환
+        ssl_context.check_hostname = False #  인증서 확인 비활성화
+        ssl_context.verify_mode = ssl.CERT_NONE #서버 인증서 유효성 검증 비활성화
         return ssl_context
     
+    # 채팅 모니터링 시작
     async def start(self):
         while True:
+            # 채팅 참여 상태가 활성화되어 있으면 비활성화
             if self.init.chat_json[self.data.channel_id]: 
                 await change_chat_join_state(self.init.chat_json, self.data.channel_id, False)
 
+            # 방송이 종료되었거나 비밀번호가 설정된 경우 대기
             if self.check_live_state_close() or await self.check_is_passwordDict():
                 await asyncio.sleep(5)
                 continue
 
+            # 방송 정보 가져오기
             self.data.BNO = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
             self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
 
+            # 채널 상태 데이터 가져오기
             channel_data = self.afreeca_getChannelStateData()
             if_adult_channel, TITLE, thumbnail_url, self.CHDOMAIN, self.CHATNO, FTK, BJID, self.CHPT = channel_data
+            
+            # 방송 정보가 없으면 대기
             if TITLE is None: 
                 await asyncio.sleep(1)
                 continue
             
+            # 성인 채널인 경우 채팅을 확인 할 수 없기 때문에 건너뛰기
             adult_channel_state = -6
             if if_adult_channel == adult_channel_state:
                 await asyncio.sleep(5)
                 continue
             
             try:
+                # 웹소켓 연결 및 메시지 처리 실행
                 await self._connect_and_run()
             except Exception as e:
+                # 오류 발생 시 로그 기록
                 await log_error(f"error in chat manager afreeca", e)
                 await change_chat_join_state(self.init.chat_json, self.data.channel_id)
             finally:
+                # 실행 중인 태스크 정리
                 await self._cleanup_tasks()
 
+    # 웹소켓 연결 및 메시지 처리
     async def _connect_and_run(self):   
         self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
+        # 웹소켓 연결
         async with websockets.connect(f"wss://{self.CHDOMAIN}:{self.CHPT}/Websocket/{self.data.BID}",
                                 subprotocols=['chat'],
                                 ssl=self.ssl_context,
                                 ping_interval=None) as sock:
             self.data.sock = sock
 
+            # 채팅 채널에 연결
             await self.connect()
             message_queue = asyncio.Queue()
 
+            # 핑, 메시지 수신, 메시지 디코딩 태스크 생성 및 실행
             self.tasks = [
                 asyncio.create_task(self._ping()),
                 asyncio.create_task(self._receive_messages(message_queue)),
@@ -102,36 +130,48 @@ class afreeca_chat_message:
             ]
             await asyncio.gather(self.tasks[0], self.tasks[1])
 
+    # 실행 중인 태스크 정리
     async def _cleanup_tasks(self):
         for task in self.tasks:
             if task and not task.done() and not task.cancelled():
                 try:
                     task.cancel()
-                    # Optionally wait for task to actually cancel
                     await asyncio.wait([task], timeout=2)
                 except Exception as cancel_error:
                     await log_error(f"Error cancelling task for {self.data.channel_id}", cancel_error)
 
+    # 채팅 서버 연결
     async def connect(self):
-        self.data.last_chat_time= datetime.now().isoformat()
+        self.data.last_chat_time = datetime.now().isoformat()
+        # 연결 및 채널 참여 패킷 정의
         CONNECT_PACKET = f'{self.ESC}000100000600{self.F*3}16{self.F}'
         JOIN_PACKET = f'{self.ESC}0002{self.calculate_byte_size(self.CHATNO):06}00{self.F}{self.CHATNO}{self.F*5}'
         
+        # 연결 패킷 전송
         await self.data.sock.send(CONNECT_PACKET)
 
         chatChannelId = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
 
+        # 연결 완료 로그 기록
         asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {chatChannelId}", webhook_url=environ['chat_post_url']))
 
+        # 채널 참여 패킷 전송
         await asyncio.sleep(2)
         await self.data.sock.send(JOIN_PACKET)
 
+    # 바이트 크기 계산
+    @staticmethod
+    def calculate_byte_size(string):
+        return len(string.encode('utf-8')) + 6
+
+
+    #채팅창 연결이 해제되지 않게 주기적인 핑 전송
     async def _ping(self):
         ping_interval = 10
         
         try:
             while not self.data.sock.closed:
-                # Send ping message
+                # 핑 메시지 전송
                 await self.data.sock.send(self.PING_PACKET)
                 
                 try:
@@ -147,32 +187,40 @@ class afreeca_chat_message:
         
         print(f"{self.data.channel_id} chat pong 종료")
     
+    # 메시지 수신
     async def _receive_messages(self, message_queue: asyncio.Queue):
+        # 연결 종료 여부 확인 함수
         async def should_close_connection():
             return (self.check_live_state_close() and if_after_time(self.data.last_chat_time) 
                     or self.init.chat_json[self.data.channel_id])
         
+        # 메시지 버퍼링을 위한 변수들
         message_buffer = []
         buffer_size = 5 
         buffer_timeout = 0.05
-        last_buffer_flush= datetime.now().isoformat()
+        last_buffer_flush = datetime.now().isoformat()
 
         while True:
             try:
+                # 연결 종료 조건 확인
                 if await should_close_connection():
                     try: await self.data.sock.close()
                     except Exception: pass
 
+                # 소켓이 닫혔는지 확인
                 if self.data.sock.closed:
                     asyncio.create_task(log_error(f"{self.data.channel_id}: 연결 종료", webhook_url=environ['chat_post_url']))
                     break
 
+                # 메시지 수신
                 raw_message = await asyncio.wait_for(self.data.sock.recv(), timeout=1)
-                self.data.last_chat_time= datetime.now().isoformat()
+                self.data.last_chat_time = datetime.now().isoformat()
                 # await message_queue.put(raw_message)
 
+                # 메시지 버퍼에 추가
                 message_buffer.append(raw_message)
                 
+                # 버퍼가 가득 차거나 일정 시간이 지나면 메시지 큐에 추가
                 if len(message_buffer) >= buffer_size or if_after_time(last_buffer_flush, sec=buffer_timeout):
                     for msg in message_buffer:
                         await message_queue.put(msg)
@@ -180,6 +228,7 @@ class afreeca_chat_message:
                     last_buffer_flush = self.data.last_chat_time
                     
             except asyncio.TimeoutError:
+                # 타임아웃 시 버퍼 비우기
                 if message_buffer:
                     for msg in message_buffer:
                         await message_queue.put(msg)
@@ -188,31 +237,39 @@ class afreeca_chat_message:
                 continue
 
             except websockets.exceptions.ConnectionClosed:
+                # 연결 종료 시 로그 기록
                 asyncio.create_task(log_error(f"{self.data.channel_id}: 연결 비정상 종료"), webhook_url=environ['chat_post_url'])
                 try: await self.data.sock.close()
                 except Exception: pass
 
             except Exception as e: 
+                # 기타 예외 처리
                 asyncio.create_task(log_error(f"{self.data.channel_id} afreeca chat test except {e}"))
                 try: await self.data.sock.close()
                 except Exception: pass
 
+    # 메시지 디코딩 및 처리 
     async def _decode_message(self, message_queue: asyncio.Queue):
         processing_pool = []
         max_concurrent_processing = 10
 
         while True:
+            # 큐에서 메시지 가져오기
             bytes_data = await message_queue.get()
+            # 메시지 분할 및 디코딩
             parts = bytes_data.split(b'\x0c')
             messages = [part.decode('utf-8', errors='ignore') for part in parts]
 
             
             try:
+                # 메시지 처리 태스크 생성
                 task = asyncio.create_task(self._process_single_message(messages))
                 processing_pool.append(task)
                 
+                # 완료된 태스크 제거
                 processing_pool = [t for t in processing_pool if not t.done()]
                 
+                # 동시 처리 태스크 수 제한
                 if len(processing_pool) >= max_concurrent_processing:
                     _, pending = await asyncio.wait(
                         processing_pool, 
@@ -221,19 +278,23 @@ class afreeca_chat_message:
                     processing_pool = list(pending)
                 
             except Exception as e:
+                # 메시지 처리 오류 로그
                 asyncio.create_task(log_error(
                     f"Error processing message: {e}, {str(messages)}"
                 ))
             finally:
-                    # 큐 작업 완료 신호
+                # 큐 작업 완료 신호
                 message_queue.task_done()
         
+    # 단일 메시지 처리 
     async def _process_single_message(self, messages):
+        # 유효하지 않은 메시지 필터링
         if self._is_invalid_message(messages):
             if self.if_afreeca_chat(messages): 
                 asyncio.create_task(log_error(f"아프리카 chat recv messages {messages}", webhook_url=environ['chat_post_url']))
             return
         
+        # 메시지 정보 추출
         user_id, chat, nickname = messages[2], messages[1], messages[6]
         chat_type = "채팅"
 
@@ -241,22 +302,27 @@ class afreeca_chat_message:
 
         # print(f"{datetime.now()} [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
 
+        # 테스트 모드가 아니고 필터링된 채널이 아니면 무시
         if not self.init.DO_TEST and user_id not in [*self.init.afreeca_chatFilter["channelID"]]: 
             return
         
+        # 사용자 정보 가져오기
         user_nick, profile_image = await self._get_user_info(user_id)
         if nickname != user_nick:
             return
         
+        # 닉네임 불일치 처리
         if not self.init.DO_TEST and nickname != self.init.afreeca_chatFilter.loc[user_id, "channelName"]: 
             asyncio.create_task(self.afreeca_name_save(user_id, nickname))
 
-        # 메시지 중복 체크
+        # 메시지 중복 체크 및 처리
         self._process_new_message(chat)
         
+        # 채팅 메시지 포스팅
         asyncio.create_task(self._post_chat(nickname, chat, profile_image, chat_type))
 
-    async def afreeca_name_save(self, user_id, user_name): #save profile data
+    # 프로필 데이터 저장
+    async def afreeca_name_save(self, user_id, user_name): 
         supabase = create_client(environ['supabase_url'], environ['supabase_key'])
         data = {
             "channelID": user_id,
@@ -270,14 +336,17 @@ class afreeca_chat_message:
                 asyncio.create_task(log_error(f"error saving profile data {e}"))
                 await asyncio.sleep(0.1)
 
-    async def _post_chat(self, nickname, chat, profile_image, chat_type): #send to chatting message
+    # 채팅 메시지 전송
+    async def _post_chat(self, nickname, chat, profile_image, chat_type): 
         async with self.post_chat_semaphore:
             try:
-
+                # 채팅 데이터 생성
                 json_data = get_chat_json_data(nickname, chat, self.data.channel_name, profile_image)
-                                
+                
+                # 전송할 URL 목록 가져오기
                 list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, nickname, self.data.channel_id, "chat_user_json")
 
+                # 푸시 알림 및 디스코드 웹훅 전송
                 asyncio.create_task(send_push_notification(list_of_urls, json_data))
                 asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data, DO_TEST = self.init.DO_TEST))
             
@@ -286,17 +355,16 @@ class afreeca_chat_message:
             except Exception as e:
                 asyncio.create_task(log_error(f"error postChat: {str(e)}"))
  
-    @staticmethod
-    def calculate_byte_size(string):
-        return len(string.encode('utf-8')) + 6
 
+    # 유저 정보 가져오기
     async def _get_user_info(self, user_id):
-        #유저 정보 가져오기
+        
         stateData = await get_message("afreeca", afreeca_getLink(user_id))
         user_nick = stateData['station']['user_nick']
         _, _, profile_image = afreeca_getChannelOffStateData(stateData, stateData["station"]["user_id"])
         return user_nick, profile_image
 
+    # 새 메시지 처리  (중복 방지)
     def _process_new_message(self, chat):
         message_id = f"{chat}_{time()}"
         
@@ -308,18 +376,20 @@ class afreeca_chat_message:
         # 새 메시지 처리
         self.data.processed_messages.append(message_id)
         
-        # 메시지 리스트 크기 제한
+        # 메시지 리스트 크기 제한 (최근 20개만 유지)
         if len(self.data.processed_messages) > 20:
             self.data.processed_messages.pop(0)
 
+    # 메시지 유효성 검사 
     def _is_invalid_message(self, messages):
-        #메시지가 유효하지 않은지 확인
+        # 메시지가 유효하지 않은지 확인
         return (len(messages) < 7 or 
                 messages[1] in ['-1', '', '1'] or 
                 len(messages[2]) == 0 or 
                 messages[2] in ["1"] or 
                 ("fw" in messages[2]))
 
+    # 아프리카 채팅 메시지 체크 
     def if_afreeca_chat(self, messages):
         # 기본 제외 조건들을 리스트로 정의
         excluded_values = {'-1', '1', '', '0', '2', '4'}
@@ -358,10 +428,12 @@ class afreeca_chat_message:
                 
         return 1
 
+    # 비밀번호 설정 여부 확인 
     async def check_is_passwordDict(self):
         stateData = await get_message("afreeca", afreeca_getLink(self.init.afreecaIDList["afreecaID"][self.data.channel_id]))
         return stateData['broad'].get('is_password',{False})
     
+    # 방송 종료 여부 확인 
     def check_live_state_close(self):
         try:
             return self.init.afreeca_titleData.loc[self.data.channel_id, 'live_state'] == "CLOSE"
@@ -369,6 +441,7 @@ class afreeca_chat_message:
             asyncio.create_task(log_error(f"Error in check_live_state_close: {e}"))
             return True
     
+    # 채널 상태 데이터 가져오기 
     def afreeca_getChannelStateData(self):
         url = 'https://live.sooplive.co.kr/afreeca/player_live_api.php'
         data = {
@@ -383,18 +456,24 @@ class afreeca_chat_message:
             'stream_type': 'common',
             'quality': 'HD'}
         try:
+            # API 요청으로 채널 상태 데이터 가져오기
             response = post(f'{url}?bjid={self.data.BID}', data=data)
             res = response.json()
         except Exception as e:
             asyncio.create_task(log_error(f"error get player live {str(e)}"))
             return None, None, None, None, None, None, None, None
+        
+        # 방송 상태 및 제목 정보 추출
         live = res["CHANNEL"]["RESULT"]
         title = res["CHANNEL"]["TITLE"]
 
+        # 성인 채널 처리
         adult_channel_state = -6
-        if live == adult_channel_state:  # 연령제한 체널로 썸네일링크 못 읽을 경우
+        if live == adult_channel_state:  # 연령제한 채널로 썸네일링크 못 읽을 경우
             thumbnail_url = f"https://liveimg.afreecatv.com/m/{self.data.BNO}"
             return live, title, thumbnail_url, None, None, None, None, None
+        
+        # 방송 중인 경우 필요한 정보 추출
         if live:
             try: int(res['CHANNEL']['BNO'])
             except: 
@@ -408,6 +487,7 @@ class afreeca_chat_message:
             BJID = res["CHANNEL"]["BJID"]
             CHPT = str(int(res["CHANNEL"]["CHPT"]) + 1)
         else:
+            # 방송이 없는 경우 모든 값을 None으로 설정
             title = None
             thumbnail_url = None
             CHDOMAIN = None
@@ -417,4 +497,3 @@ class afreeca_chat_message:
             CHPT = None
 
         return live, title, thumbnail_url, CHDOMAIN, CHATNO, FTK, BJID, CHPT
-

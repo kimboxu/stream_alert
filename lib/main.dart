@@ -11,11 +11,14 @@ import 'screens/login_page.dart';
 import 'services/push_notification_service.dart';
 import 'utils/navigation_helper.dart';
 import 'utils/navigator_observer.dart';
+import 'utils/app_theme.dart';
 
+// 앱의 진입점
 void main() async {
-  // Flutter 바인딩 초기화
+  // Flutter 엔진과 위젯 바인딩 초기화
   WidgetsFlutterBinding.ensureInitialized();
 
+  // 한국어 날짜 형식 초기화
   await initializeDateFormatting('ko_KR', null);
 
   try {
@@ -26,10 +29,13 @@ void main() async {
 
     // 푸시 알림 서비스 초기화
     await PushNotificationService().initialize();
+    
+    debugPrint('앱 초기화 성공');
   } catch (e) {
-    debugPrint('앱 초기화 중 오류: $e');
+    debugPrint('앱 초기화 중 오류 발생: $e');
   }
 
+  // 앱 실행
   runApp(const MyApp());
 }
 
@@ -45,19 +51,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  // 기본 테마 모드 설정
   ThemeMode _themeMode = ThemeMode.system;
+  
+  static const String themePreferenceKey = 'theme_mode';
 
   @override
   void initState() {
     super.initState();
-    // 초기 테마 모드 설정
-    _setInitialThemeMode();
+    // 앱 시작시 저장된 테마 모드 불러오기
+    _loadSavedThemeMode();
   }
 
-  Future<void> _setInitialThemeMode() async {
+  // 저장된 테마 모드를 불러오는 메서드
+  Future<void> _loadSavedThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedMode = prefs.getString('theme_mode') ?? 'system';
+    final savedMode = prefs.getString(themePreferenceKey) ?? 'system';
 
+    // 저장된 값에 따라 테마 모드 설정
     setThemeMode(
       savedMode == 'light'
           ? ThemeMode.light
@@ -77,10 +88,12 @@ class _MyAppState extends State<MyApp> {
     _saveThemeMode(mode);
   }
 
+  // 테마 모드를 로컬 저장소에 저장하는 메서드
   Future<void> _saveThemeMode(ThemeMode mode) async {
     final prefs = await SharedPreferences.getInstance();
     String modeString;
 
+    // ThemeMode 열거형을 문자열로 변환
     switch (mode) {
       case ThemeMode.light:
         modeString = 'light';
@@ -92,78 +105,25 @@ class _MyAppState extends State<MyApp> {
         modeString = 'system';
     }
 
-    await prefs.setString('theme_mode', modeString);
+    // SharedPreferences에 저장
+    await prefs.setString(themePreferenceKey, modeString);
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '스트리머 알림 앱',
-      theme: ThemeData(
-        // 라이트 테마
-        primarySwatch: Colors.blue,
-        primaryColor: Color(0xFF5865F2),
-        appBarTheme: AppBarTheme(
-          color: Color(0xFF5865F2),
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.white),
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        cardTheme: CardTheme(
-          elevation: 1,
-          margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-            side: BorderSide(color: Colors.grey[300]!),
-          ),
-        ),
-        scaffoldBackgroundColor: Color(0xFFF5F5F5),
-        dividerColor: Colors.grey[300],
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      darkTheme: ThemeData(
-        // 다크 테마
-        brightness: Brightness.dark,
-        primaryColor: Color(0xFF5865F2),
-        colorScheme: ColorScheme.dark(
-          primary: Color(0xFF5865F2),
-          surface: Color(0xFF36393F),
-          onSurface: Colors.white,
-        ),
-        appBarTheme: AppBarTheme(
-          color: Color(0xFF2F3136),
-          elevation: 0,
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        cardTheme: CardTheme(
-          elevation: 0,
-          margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-            side: BorderSide(color: Colors.grey[800]!),
-          ),
-          color: Color(0xFF2D2D2D),
-        ),
-        scaffoldBackgroundColor: Color(0xFF36393F),
-        dividerColor: Colors.grey[800],
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      // 현재 테마 모드 적용
-      themeMode: _themeMode,
-      //모든 화면의 컨텍스트 설정
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: _themeMode,  // 현재 테마 모드 적용
+      // 전역 컨텍스트 설정
       builder: (context, child) {
         NavigationHelper().setContext(context);
         return child!;
       },
+      // 네비게이션 이벤트 관찰
       navigatorObservers: [AppNavigatorObserver()],
+      // 시작 화면
       home: const LoginPage(),
     );
   }
