@@ -17,24 +17,28 @@ from concurrent.futures import ThreadPoolExecutor
 from discord_webhook_sender import DiscordWebhookSender
 
 class initVar:
+	# 초기화 클래스: 프로그램의 기본 설정값과 상태를 관리함
 	load_dotenv()
 	DO_TEST = False
 	
-	printCount 		= 100	#every 100 count, print count 
+	printCount 		= 100	# 100회마다 카운트 출력
 	countTimeList = []
-	countTimeList.append(default_timer())	#nomal sleep time
-	countTimeList.append(default_timer())	#nomal sleep time
-	SEC 			= 1000000  #every 100000 count rejoin
+	countTimeList.append(default_timer())	# 실행 시간 측정용
+	countTimeList.append(default_timer())
+	SEC 			= 1000000  # 까지만 표시(넘어서면 0부터)
 	count 			= 0
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])  # Supabase DB 클라이언트
 
-	logging.getLogger('httpx').setLevel(logging.WARNING)
-	# 모든 로거의 레벨을 높이려면 다음과 같이 할 수 있습니다:
+	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
+
+	# 모든 로거의 레벨을 높이려면
 	# logging.getLogger().setLevel(logging.WARNING)
 	print("start!")
 
+# 각 플랫폼의 아이콘 URL을 저장하는 데이터 클래스
 @dataclass
 class iconLinkData:
+	
 	chzzk_icon: str = environ['CHZZK_ICON']
 	afreeca_icon: str = environ['AFREECA_ICON']
 	soop_icon: str = environ['SOOP_ICON']
@@ -42,9 +46,11 @@ class iconLinkData:
 	youtube_icon: str = environ['YOUTUBE_ICON']
 	cafe_icon: str = environ['CAFE_ICON']
 
+## 오류 로깅 함수: Discord 웹훅을 통해 오류 메시지 전송
 async def log_error(message, webhook_url = environ.get('errorPostBotURL')):
     await DiscordWebhookSender._log_error(message, webhook_url)
 
+# 사용자 데이터 업데이트 함수
 async def userDataVar(init: initVar):
 	try:
 		
@@ -68,7 +74,7 @@ async def userDataVar(init: initVar):
 			tasks.append(load_user_state_data(init))
 			
 		if update_data['all_date']:
-			tasks.append(discordBotDataVars(init))
+			tasks.append(DataBaseVars(init))
 			
 		# 모든 작업 기다리기
 		if tasks:
@@ -84,8 +90,8 @@ async def userDataVar(init: initVar):
 			
 		asyncio.create_task(log_error(error_details))
 
+## 사용자 상태 데이터 로드
 async def load_user_state_data(init: initVar):
-	# 사용자 상태 데이터 로드
 	userStateData = await asyncio.to_thread(
 		lambda: init.supabase.table('userStateData').select("*").execute()
 	)
@@ -95,8 +101,8 @@ async def load_user_state_data(init: initVar):
 	# 플래그 업데이트
 	await update_flag('user_date', False)
 
+# 비동기로 플래그 업데이트
 async def update_flag(field, value):
-	# 비동기로 플래그 업데이트
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	await asyncio.to_thread(
 		lambda: supabase.table('date_update').upsert({
@@ -105,7 +111,9 @@ async def update_flag(field, value):
 		}).execute()
 	)
 
-async def discordBotDataVars(init: initVar):
+## db 초기화 함수
+async def DataBaseVars(init: initVar):
+	
 	while True:
 		try:
 			
@@ -154,13 +162,15 @@ async def discordBotDataVars(init: initVar):
 			break
 			
 		except Exception as e:
-			asyncio.create_task(log_error((f"Error in discordBotDataVars: {e}")))
+			asyncio.create_task(log_error((f"Error in DataBaseVars: {e}")))
 			if init.count != 0: break
 			await asyncio.sleep(0.1)
 
+# db에서 데이터 가져오는 함수
 async def fetch_data(supabase, date_name):
 	return supabase.table(date_name).select("*").execute()
 
+# 리스트를 딕셔너리로 변환하는 함수
 def make_list_to_dict(data):
 	if not data:
 		return pd.DataFrame()
@@ -171,7 +181,8 @@ def make_list_to_dict(data):
 		for key in data[0].keys()
 	})
 
-def fCount(init: initVar): #function to count
+# 카운트 증가 및 주기적 출력 함수
+def fCount(init: initVar): 
 	if init.count >= init.SEC:
 		init.count = 0
 
@@ -179,7 +190,9 @@ def fCount(init: initVar): #function to count
 		printCount(init)
 	init.count += 1
 
+## 스레드 수행 시간 조절 함수(너무 빨리 돌지 않게 하기 위해)
 async def fSleep(init: initVar):
+	
 	current_time = default_timer()
 	init.countTimeList.append(current_time)
 	
@@ -194,11 +207,12 @@ async def fSleep(init: initVar):
 	await asyncio.sleep(sleepTime)
 	init.countTimeList[-1] += sleepTime
 
+# 온라인 채널이 있는지 여부 확인하는 함수
 def get_online_count(data, id_column="channelID"):
 	return sum(1 for channel_id in data[id_column] if data.loc[channel_id, "live_state"] == "OPEN")
 
+# 각 플랫폼의 온라인 카운트 계산
 def printCount(init: initVar):
-	# 각 플랫폼의 온라인 카운트 계산
 	online_counts = {
 		'twitch': get_online_count(init.twitch_titleData),
 		'chzzk': get_online_count(init.chzzk_titleData),
@@ -217,6 +231,7 @@ def printCount(init: initVar):
 	status_prefix = "All offLine, " if all_offline else ""
 	print(f"{status_prefix}{current_time} count {count} TIME {elapsed_time:.1f} SEC")
 
+# HTML 엔티티를 일반 문자로 변환하는 함수
 def subjectReplace(subject: str) -> str:
 	replacements = {
 		'&lt;': '<',
@@ -234,6 +249,7 @@ def subjectReplace(subject: str) -> str:
 	
 	return subject
 
+# 트위치 API 요청용 헤더 생성 함수(트위치 관련 기능들은 전부 현재는 사용 안함)
 def getTwitchHeaders(): 
 	twitch_Client_ID = environ['twitch_Client_ID']
 	twitch_Client_secret = environ['twitch_Client_secret']
@@ -243,9 +259,17 @@ def getTwitchHeaders():
 						twitch_Client_secret +
 						"&grant_type=client_credentials")
 	authorization = 'Bearer ' + loads(oauth_key.text)["access_token"]
-	return {'client-id': twitch_Client_ID, 'Authorization': authorization} #get headers 
-def getDefaultHeaders(): return {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'} #get headers 
-def getChzzkCookie(): return {'NID_AUT': environ['NID_AUT'],'NID_SES':environ['NID_SES']} 
+	return {'client-id': twitch_Client_ID, 'Authorization': authorization} # 헤더 반환
+
+# 기본 HTTP 요청 헤더 반환
+def getDefaultHeaders(): 
+	return {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
+
+# 치지직 사이트 접속용 쿠키 반환
+def getChzzkCookie(): 
+	return {'NID_AUT': environ['NID_AUT'],'NID_SES':environ['NID_SES']} 
+
+# 카페 검색 파라미터 설정 함수
 def cafe_params(cafeNum, page_num):
 	return {
 			'search.queryType': 'lastArticle',
@@ -254,24 +278,29 @@ def cafe_params(cafeNum, page_num):
 			'search.page': str(page_num)
 		}
 
+# ISO 시간을 UTC로 변환하는 함수 (한국시간 -9시간)
 def changeUTCtime(time_str):
     time = datetime.fromisoformat(time_str)
     time -= timedelta(hours=9)
     return time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
-def if_after_time(time_str, sec=300):  # 지금 시간이 이전 시간보다 SEC초 만큼 지났는지 확인, 지났으면 true
+# 지정된 시간 이후인지 확인하는 함수 (기본 300초/5분)
+def if_after_time(time_str, sec=300):  
 	try:
 		time = datetime.fromisoformat(time_str) + timedelta(seconds=sec)
 		return time <= datetime.now()
 	except Exception as e: 
 		return time <= datetime.now().astimezone()
 
+# 치지직 API URL 생성 함수
 def chzzk_getLink(uid: str): 
 	return f"https://api.chzzk.naver.com/service/v2/channels/{uid}/live-detail"
 
+# 아프리카 API URL 생성 함수
 def afreeca_getLink(afreeca_id: str): 
 	return f"https://chapi.sooplive.co.kr/api/{afreeca_id}/station"
 
+# 플랫폼별 API 요청 처리 함수
 async def get_message(platform, link):
 	# 미리 정의된 플랫폼별 API 요청 구성
 	platform_config = {
@@ -322,7 +351,7 @@ async def get_message(platform, link):
 		if platform == "chzzk":
 			headers = getDefaultHeaders()
 		elif platform == "twitch":
-			headers = getTwitchHeaders()  # 트위치 인증 헤더 (별도 구현 필요)
+			headers = getTwitchHeaders()  # 트위치 인증 헤더
 		else:
 			headers = getDefaultHeaders()
 			
@@ -339,7 +368,7 @@ async def get_message(platform, link):
 		formatted_url = link
 		if "url_formatter" in config:
 			if platform == "cafe":
-				BASE_URL, cafe_num = [*link.split(",")]  # 링크에서 카페 번호 추출 (가정)
+				BASE_URL, cafe_num = [*link.split(",")]  # 링크에서 카페 번호 추출
 				formatted_url = config["url_formatter"](BASE_URL, cafe_num)
 			else:
 				formatted_url = config["url_formatter"]
@@ -347,8 +376,8 @@ async def get_message(platform, link):
 		# 파라미터가 필요한 경우 추가
 		if config["needs_params"]:
 			if platform == "cafe":
-				page_num = 1  # 기본값 또는 파라미터로 전달 가능
-				cafe_num = link.split(",")[-1]  # 링크에서 카페 번호 추출 (가정)
+				page_num = 1  # 기본값
+				cafe_num = link.split(",")[-1]  # 링크에서 카페 번호 추출
 				request_kwargs["params"] = cafe_params(cafe_num, page_num)
 			elif platform == "chzzk":
 				# 치지직 파라미터 설정 (필요시)
@@ -435,7 +464,8 @@ async def get_message(platform, link):
 		error_msg = f"error get_message2: {platform} - {str(e)}"
 		asyncio.create_task(log_error(error_msg))
 		return {}
-	
+
+# 트위치 채널 상태 데이터 추출 함수
 def twitch_getChannelOffStateData(offStateList, twitchID):
 	try:
 		for offState in offStateList:
@@ -450,6 +480,7 @@ def twitch_getChannelOffStateData(offStateList, twitchID):
 		asyncio.create_task(log_error(f"error getChannelOffStateData twitch {e}"))
 		return None, None, None
 
+# 치지직 채널 상태 데이터 추출 함수
 def chzzk_getChannelOffStateData(stateData, chzzkID, profile_image = ""):
 	try:
 		if stateData["channel"]["channelId"]==chzzkID:
@@ -463,6 +494,7 @@ def chzzk_getChannelOffStateData(stateData, chzzkID, profile_image = ""):
 		asyncio.create_task(log_error(f"error getChannelOffStateData chzzk {e}"))
 		return None, None, profile_image
 
+# 아프리카 채널 상태 데이터 추출 함수
 def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image = ""):
 	try:
 		if stateData["station"]["user_id"] == afreeca_id: 
@@ -476,8 +508,8 @@ def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image = ""):
 	except Exception as e: 
 		asyncio.create_task(log_error(f"error getChannelOffStateData afreeca {e}"))
 
+# 방송 정보 데이터 저장 함수
 async def save_airing_data(titleData, platform: str, id_):
-	
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	table_name = platform + "_titleData"
 	data_func = {
@@ -491,7 +523,7 @@ async def save_airing_data(titleData, platform: str, id_):
 				"state_update_time": titleData.loc[id_, "state_update_time"],
 		}
 
-	for _ in range(3):
+	for _ in range(3):  # 최대 3번 시도
 		try:
 			supabase.table(table_name).upsert(data_func).execute()
 			break
@@ -499,9 +531,8 @@ async def save_airing_data(titleData, platform: str, id_):
 			asyncio.create_task(log_error(f"error saving profile data {e}"))
 			await asyncio.sleep(0.1)
 
+# 프로필 이미지 url 저장 함수
 async def save_profile_data(IDList, platform: str, id):
-	# Platform specific configurations
-
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	table_name = platform + "IDList"
 	data_func = {
@@ -509,7 +540,7 @@ async def save_profile_data(IDList, platform: str, id):
 			'profile_image': IDList.loc[id, 'profile_image']
 		}
 
-	for _ in range(3):
+	for _ in range(3):  # 최대 3번 시도
 		try:
 			supabase.table(table_name).upsert(data_func).execute()
 			break
@@ -517,10 +548,11 @@ async def save_profile_data(IDList, platform: str, id):
 			asyncio.create_task(log_error(f"error saving profile data {e}"))
 			await asyncio.sleep(0.1)
 
+# 채팅 연결 상태 변경 함수
 async def change_chat_join_state(chat_json, channel_id, chat_rejoin = True):
 	chat_json[channel_id] = chat_rejoin
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-	for _ in range(3):
+	for _ in range(3):  # 최대 3번 시도
 		try:
 			supabase.table('date_update').upsert({"idx": 0, "chat_json": chat_json}).execute()
 			break
@@ -528,13 +560,14 @@ async def change_chat_join_state(chat_json, channel_id, chat_rejoin = True):
 			asyncio.create_task(log_error(f"echange_chat_join_state {e}"))
 			await asyncio.sleep(0.1)
 	
-async def chzzk_saveVideoData(chzzk_video, _id): #save profile data
+# 치지직 비디오 데이터 저장 함수
+async def chzzk_saveVideoData(chzzk_video, _id): 
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	data = {
 		"channelID": _id,
 		'VOD_json': chzzk_video.loc[_id, 'VOD_json']
 	}
-	for _ in range(3):
+	for _ in range(3):  # 최대 3번 시도
 		try:
 			supabase.table('chzzk_video').upsert(data).execute()
 			break
@@ -542,24 +575,26 @@ async def chzzk_saveVideoData(chzzk_video, _id): #save profile data
 			asyncio.create_task(log_error(f"error saving profile data {e}"))
 			await asyncio.sleep(0.1)
 
+# 카페 데이터 저장 함수
 async def saveCafeData(cafeData, _id):
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 
-	cafe_data = {
+	data = {
 		"channelID": _id,
 		"update_time": int(cafeData.loc[_id, 'update_time']),
 		"cafe_json": cafeData.loc[_id, 'cafe_json'],
 		"cafeNameDict": cafeData.loc[_id, 'cafeNameDict']
 	}	
 		
-	for _ in range(3):
+	for _ in range(3):  # 최대 3번 시도
 		try:
-			supabase.table('cafeData').upsert(cafe_data).execute()
+			supabase.table('cafeData').upsert(data).execute()
 			break
 		except Exception as e:
 			asyncio.create_task(log_error(f"error save cafe time {e}"))
 			await asyncio.sleep(0.1)
 
+# 유튜브 데이터 저장 함수
 async def saveYoutubeData(youtubeData, youtubeChannelID):
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	data = {
@@ -571,7 +606,7 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 		'video_count_check': int(youtubeData.loc[youtubeChannelID, "video_count_check"]),
 	}
 
-	for _ in range(3):
+	for _ in range(3):  # 최대 3번 시도
 		try:
 			supabase.table('youtubeData').upsert(data).execute()
 			break
@@ -579,38 +614,23 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 			asyncio.create_task(log_error(f"error saving youtube data {e}"))
 			await asyncio.sleep(0.1)
 
-async def saveNotificationsData(supabase, discord_webhook_url, user_data, notification_id, data_fields):
-    try:
-        # 기존 알림 목록 가져오기
-        notifications = user_data.get('notifications', [])
-        if not isinstance(notifications, list):
-            try:
-                notifications = loads(notifications)
-            except:
-                notifications = []
-        
-        # id 확인 - 이미 있는 알림인지 체크
-        is_duplicate = False
-        for idx, notification in enumerate(notifications):
-            # 동일한 ID의 알림이 있는지 확인
-            if notification.get('id') == notification_id:
-                # 중복 발견 - 기존 항목 업데이트
-                notifications[idx] = data_fields
-                is_duplicate = True
-                break
-                
-        if not is_duplicate:
-            # 새 알림 추가
-            notifications.append(data_fields)
-            
-        # 최대 10000개까지만 유지 (오래된 알림 삭제)
-        if len(notifications) > 10000:
-            notifications = notifications[-10000:]
-        
-        # DB 업데이트 (배치 작업의 일부)
-        supabase.table('userStateData').update({
-            'notifications': notifications
-        }).eq('discordURL', discord_webhook_url).execute()
-
-    except Exception as e:
-        print(f"알림 데이터 저장 중 오류: {e}")
+# 사용자 알림 데이터 저장 함수
+async def save_user_notifications(supabase, webhook_url, notifications, last_db_save_time):
+    for _ in range(3):  # 최대 3번 시도
+        try:
+            await asyncio.to_thread(
+                lambda: supabase.table('userStateData')
+                    .upsert({
+                        'discordURL': webhook_url, 
+                        'notifications': notifications,
+                        'last_db_save_time': last_db_save_time
+                    })
+                    .execute()
+            )
+            print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url}")
+            return True
+        except Exception as e:
+            print(f"{datetime.now()} 알림 저장 중 오류: {e} - URL: {webhook_url}")
+            await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
+    
+    return False  # 모든 시도 실패

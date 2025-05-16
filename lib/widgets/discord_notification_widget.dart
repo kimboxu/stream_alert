@@ -5,7 +5,7 @@ import '../models/notification_model.dart';
 
 /// 디스코드 스타일의 알림 위젯
 class DiscordNotificationWidget extends StatelessWidget {
-  final NotificationModel notification;
+  final NotificationModel notification; // 표시할 알림 데이터
   final Function()? onTap; // 알림 클릭 시 콜백
 
   const DiscordNotificationWidget({
@@ -25,14 +25,17 @@ class DiscordNotificationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 현재 테마 정보 가져오기
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
 
     // 알림에 색상 정보가 있으면 사용, 없으면 기본 색상 사용
     final borderColor = parseColor(notification.color);
 
+    // 배경색 설정
     final cardBgColor = isDarkMode ? Color(0xFF2D2D2D) : Colors.white;
 
+    // 카드 형태의 알림 위젯 생성
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       elevation: 2,
@@ -40,12 +43,12 @@ class DiscordNotificationWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
           color: borderColor,
-          width: notification.isRichNotification ? 2 : 1,
+          width: notification.isRichNotification ? 2 : 1, // 리치 알림(임베드)은 더 두꺼운 테두리
         ),
       ),
       color: cardBgColor,
       child: InkWell(
-        onTap: onTap,
+        onTap: onTap, 
         borderRadius: BorderRadius.circular(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +66,7 @@ class DiscordNotificationWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Text(
-                  _processEmoji(notification.content), // 이모지 처리 함수 적용
+                  _processEmoji(notification.content), // 이모지 처리
                   style: TextStyle(
                     color: isDarkMode ? Colors.white70 : Colors.black87,
                   ),
@@ -505,6 +508,7 @@ class DiscordNotificationWidget extends StatelessWidget {
     }
   }
 
+  // 텍스트 내의 이모지 코드를 실제 이모지로 변환하는 메서드
   String _processEmoji(String text) {
     // 이모지 매핑 정의
     final Map<String, String> emojiMap = {

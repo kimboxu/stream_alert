@@ -19,12 +19,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // 입력 필드 컨트롤러
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _discordWebhooksURL = TextEditingController();
-  bool _isLoading = false;
-  bool _isCheckingAutologin = true;
-  String _message = '';
-  bool _isError = false;
+
+  // 상태 변수
+  bool _isLoading = false; // 로그인 진행 중 상태
+  bool _isCheckingAutologin = true; // 자동 로그인 확인 중 상태
+  String _message = ''; // 상태 메시지
+  bool _isError = false; // 오류 상태 여부
 
   @override
   void initState() {
@@ -88,7 +91,9 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+// 로그인 처리
   Future<void> _login() async {
+    // 로딩 상태 시작
     setState(() {
       _isLoading = true;
       _message = '';
@@ -101,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
         _discordWebhooksURL.text,
       );
 
+// 로그인 API 호출
       final response = await http.post(
         Uri.parse('${ApiService.baseUrl}/login'),
         body: {
@@ -115,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
       Map<String, dynamic> responseData = json.decode(response.body);
 
       if (response.statusCode == 200) {
+        // 성공 메시지 표시
         setState(() {
           _message = responseData['message'] ?? '로그인 성공!';
           _isError = false;
@@ -141,12 +148,14 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       } else {
+        // 오류 메시지 표시
         setState(() {
           _message = responseData['message'] ?? '로그인 실패!';
           _isError = true;
         });
       }
     } catch (e) {
+      // 예외 발생 시 오류 메시지
       setState(() {
         debugPrint('예외 발생: $e');
 
@@ -162,10 +171,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 자동 로그인 확인 중인 경우 로딩 화면 표시
     if (_isCheckingAutologin) {
       return Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
+// 로그인 화면 UI
     return Scaffold(
       appBar: AppBar(title: const Text('로그인')),
       body: Padding(
@@ -173,6 +184,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // 사용자 이름 입력 필드
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
@@ -181,15 +193,17 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 20),
+            // 디스코드 웹훅 URL 입력 필드
             TextField(
               controller: _discordWebhooksURL,
-              obscureText: true,
+              obscureText: true, // 비밀번호 처럼 표시
               decoration: const InputDecoration(
                 labelText: '디스코드 웹훅 URL',
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20),
+            // 메시지 표시 영역
             if (_message.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
@@ -201,6 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              // 로그인 버튼
             ElevatedButton(
               onPressed: _isLoading ? null : _login,
               child:
@@ -215,6 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                       )
                       : const Text('로그인'),
             ),
+            // 회원가입 버튼
             TextButton(
               onPressed: () {
                 Navigator.push(

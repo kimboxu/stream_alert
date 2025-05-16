@@ -11,8 +11,8 @@ import '../utils/navigation_helper.dart';
 import '../services/push_notification_service.dart';
 
 class HomePage extends StatefulWidget {
-  final String username;
-  final String discordWebhooksURL;
+  final String username; // 사용자 이름
+  final String discordWebhooksURL; // 디스코드 웹훅 URL
 
   const HomePage({
     super.key,
@@ -31,7 +31,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    // 생명주기 변화 감지
+    // 앱 생명주기 변화 감지를 위한 옵저버 등록
     WidgetsBinding.instance.addObserver(this);
 
     // 초기 사용자 이름 설정
@@ -55,17 +55,20 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    // 옵저버 해제
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    // 앱이 포그라운드로 돌아올 때마다 알림 새로고침
     if (state == AppLifecycleState.resumed) {
       _refreshNotifications();
     }
   }
 
+  // 알림 데이터 새로고침
   Future<void> _refreshNotifications() async {
     final pushService = PushNotificationService();
     await pushService.loadNotifications(
@@ -79,6 +82,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     // 매 빌드마다 컨텍스트 갱신
     NavigationHelper().setContext(context);
+    // Discord 웹훅 URL 정규화
     final normalizedWebhookUrl = UrlHelper.normalizeDiscordWebhookUrl(
       widget.discordWebhooksURL,
     );
@@ -94,6 +98,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // 프로필 아바타
               CircleAvatar(
                 radius: 40,
                 backgroundColor: Theme.of(context).primaryColor,
@@ -112,6 +117,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
               SizedBox(height: 40),
 
+              // 받은 알림 보기 버튼
               ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
@@ -132,6 +138,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
               SizedBox(height: 20),
 
+              // 스트리머 알림 설정 버튼
               ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
@@ -155,6 +162,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
               SizedBox(height: 20),
 
+              // 앱 설정 버튼
               ElevatedButton.icon(
                 onPressed: () async {
                   final result = await Navigator.push(
@@ -186,6 +194,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
               SizedBox(height: 20),
 
+              // 로그아웃 버튼
               OutlinedButton.icon(
                 onPressed: () async {
                   bool confirm = await _showLogoutConfirmDialog(context);
@@ -208,6 +217,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
+  // 로그아웃 확인 다이얼로그
   Future<bool> _showLogoutConfirmDialog(BuildContext context) async {
     return await showDialog<bool>(
           context: context,
@@ -230,6 +240,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         false;
   }
 
+// 로그아웃 처리 메서드
   void _logout(BuildContext context) async {
     try {
       // 알림 서비스에서 토큰 제거

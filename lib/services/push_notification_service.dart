@@ -93,13 +93,13 @@ class PushNotificationService {
       FlutterLocalNotificationsPlugin();
 
   final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
-  String? _deviceId;
+  String? _deviceId; // 캐시된 디바이스 ID
 
   // 싱글톤 패턴
   static final PushNotificationService _instance =
       PushNotificationService._internal();
 
-  // 상태 관리를 위한 StreamController 확장
+  // 앱 상태 변경 스트림
   final StreamController<String> _appStateStreamController =
       StreamController<String>.broadcast();
   Stream<String> get appStateStream => _appStateStreamController.stream;
@@ -110,6 +110,7 @@ class PushNotificationService {
 
   PushNotificationService._internal();
 
+  //디바이스 고유 ID 가져오기
   Future<String> getDeviceId() async {
     if (_deviceId != null) {
       return _deviceId!;
@@ -151,7 +152,7 @@ class PushNotificationService {
         deviceId = const Uuid().v4();
       }
 
-      // 해시처리나 접두사 추가
+      // 해시처리하여 개인정보 보호
       return 'device_${deviceId.hashCode.abs()}';
     } catch (e) {
       debugPrint('기기 ID 생성 중 오류: $e');
@@ -161,7 +162,7 @@ class PushNotificationService {
     }
   }
 
-  // 알림 초기화
+  // 알림 서비스 초기화
   Future<void> initialize() async {
     try {
       // Firebase 초기화는 main.dart에서 이미 했지만 혹시 모르니 추가
@@ -180,6 +181,7 @@ class PushNotificationService {
         );
       }
 
+      // 안드로이드 알림 권한 요청
       if (Platform.isAndroid) {
         final authStatus = await _messaging.requestPermission(
           alert: true,
@@ -206,6 +208,7 @@ class PushNotificationService {
         iOS: iosSettings,
       );
 
+      // 로컬 알림 클릭 핸들러 설정
       await _localNotifications.initialize(
         initSettings,
         onDidReceiveNotificationResponse: (NotificationResponse response) {
@@ -273,13 +276,16 @@ class PushNotificationService {
     }
   }
 
+  // 알림 목록 처리 및 저장
   Future<List> _processAndSaveNotifications(
     List<dynamic> notifications, {
     NotificationModel? newNotification,
   }) async {
     try {
+      // 문자열이나 모델 객체로부터 NotificationModel 목록 생성
       List<NotificationModel> notificationModels = [];
 
+      // 기존 알림 처리 (JSON 문자열 → 객체 변환)
       for (var notification in notifications) {
         if (notification is String) {
           try {
@@ -294,10 +300,12 @@ class PushNotificationService {
         }
       }
 
+      // 새 알림이 있으면 추가
       if (newNotification != null) {
         notificationModels.add(newNotification);
       }
 
+       // 중복 제거
       final Map<String, NotificationModel> uniqueNotifications = {};
       for (var notification in notificationModels) {
         if (!uniqueNotifications.containsKey(notification.id) ||
@@ -308,13 +316,16 @@ class PushNotificationService {
         }
       }
 
+      // 시간순 정렬
       final List<NotificationModel> sortedList =
           uniqueNotifications.values.toList()
             ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
+      // 최대 100개로 제한 (메모리 사용량 관리)
       final List<NotificationModel> limitedList =
           sortedList.length > 100 ? sortedList.sublist(0, 100) : sortedList;
 
+      // SharedPreferences에 JSON 형태로 저장
       final prefs = await SharedPreferences.getInstance();
       final notificationsJson =
           limitedList
@@ -404,7 +415,7 @@ class PushNotificationService {
           result['currentPage'] = pageToLoad;
         }
 
-        // 가져온 알림이 있다면 로컬에 저장 (최신 데이터 로드 시에만)
+        // 최신 데이터를 로드한 경우에만 로컬 저장소 업데이트
         if (newNotifications.isNotEmpty && direction == LoadDirection.newer) {
           await updateLocalNotifications(newNotifications);
 
@@ -418,7 +429,7 @@ class PushNotificationService {
 
         debugPrint('서버에서 ${newNotifications.length}개의 알림을 로드했습니다.');
       } else {
-        // 오류가 발생한 경우
+        // 오류 처리
         final String errorType = apiResult['errorType'] ?? 'unknown';
         final String serverError =
             apiResult['error'] ?? '알림을 불러오는 중 오류가 발생했습니다';
@@ -442,6 +453,7 @@ class PushNotificationService {
         }
       }
     } catch (e) {
+      // 예외 처리
       debugPrint('알림 로드 중 예상치 못한 오류: $e');
       result['errorType'] = 'unknown';
       result['error'] = '예상치 못한 오류가 발생했습니다: $e';
@@ -480,22 +492,24 @@ class PushNotificationService {
     }
   }
 
-  // 로컬 데이터 로드
+  // 로컬 저장소에서 알림 목록 가져오기
   Future<List<NotificationModel>> getLocalNotifications() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.reload();
+      await prefs.reload(); // 최신 데이터 보장
       final localNotificationsJson = prefs.getStringList('notifications') ?? [];
 
       if (localNotificationsJson.isEmpty) {
         return [];
       }
 
+      // JSON 문자열을 NotificationModel 객체로 변환
       List<NotificationModel> localNotifications =
           localNotificationsJson
               .map((json) => NotificationModel.fromJson(jsonDecode(json)))
               .toList();
 
+      // 시간순 정렬
       localNotifications.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
       return localNotifications;
@@ -629,6 +643,8 @@ class PushNotificationService {
     }
   }
 
+
+  // 새 알림 수신 시 이벤트 스트림 (UI에 실시간 알림 표시에 사용)
   final StreamController<NotificationModel> _notificationStreamController =
       StreamController<NotificationModel>.broadcast();
   Stream<NotificationModel> get notificationStream =>

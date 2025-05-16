@@ -10,22 +10,33 @@ import '../widgets/profile_image_widget.dart';
 import '../widgets/settings_item.dart';
 
 class StreamerSettingsDialog extends StatefulWidget {
+  // 스트리머 기본 정보
   final StreamerData streamer;
+
+  // 선택된 알림 설정
   final Map<String, bool> selectedSettings;
   final Function(Map<String, bool>) onSettingsChanged;
+
+  // 부가 데이터 모델
   final CafeData? cafeData;
   final ChzzkVideo? chzzkVideo;
   final YoutubeData? youtubeData;
+
+  // 선택된 사용자 목록
   final Set<String> selectedCafeUsers;
   final Set<String> selectedChzzkVideoUsers;
   final Set<String> selectedyoutubrUsers;
   final Set<String> selectedChzzkChatUsers;
   final Set<String> selectedAfreecaChatUsers;
+
+  // 콜백 함수
   final Function(Set<String>) onCafeUsersChanged;
   final Function(Set<String>) onChzzkVideoUsersChanged;
   final Function(Set<String>) onyoutubrUsersChanged;
   final Function(Set<String>) onChzzkChatUsersChanged;
   final Function(Set<String>) onAfreecaChatUsersChanged;
+
+  // 사용 가능한 채팅 사용자 목록
   final List<String> availableChzzkChatUsers;
   final List<String> availableAfreecaChatUsers;
 
@@ -56,6 +67,7 @@ class StreamerSettingsDialog extends StatefulWidget {
 }
 
 class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
+  // 설정 상태 변수
   late Map<String, bool> _settings;
   late Set<String> _selectedCafeUsers;
   late Set<String> _selectedChzzkVideoUsers;
@@ -63,7 +75,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
   late Set<String> _selectedChzzkChatUsers;
   late Set<String> _selectedAfreecaChatUsers;
 
-  // 검색 관련 컨트롤러들
+  // 검색 관련 컨트롤러
   final TextEditingController _cafeSearchController = TextEditingController();
   final TextEditingController _chzzkChatSearchController =
       TextEditingController();
@@ -75,8 +87,8 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
   String _chzzkChatSearchQuery = '';
   String _afreecaChatSearchQuery = '';
 
-  // 패널 확장 상태
-  bool _isNotificationPanelExpanded = true; // 처음에는 알림 설정 패널만 열어둠
+  // 패널 확장 상태 - 처음에는 알림 설정 패널만 열어둠
+  bool _isNotificationPanelExpanded = true;
   bool _isChzzkVodPanelExpanded = false;
   bool _isYoutubePanelExpanded = false;
   bool _isCafePanelExpanded = false;
@@ -104,6 +116,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
   @override
   void initState() {
     super.initState();
+    // 전달받은 상태 복사
     _settings = Map.from(widget.selectedSettings);
     _selectedCafeUsers = Set.from(widget.selectedCafeUsers);
     _selectedChzzkVideoUsers = Set.from(widget.selectedChzzkVideoUsers);
@@ -114,6 +127,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
 
   @override
   void dispose() {
+    // 컨트롤러 정리
     _cafeSearchController.dispose();
     _chzzkChatSearchController.dispose();
     _afreecaChatSearchController.dispose();
@@ -125,6 +139,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     return AlertDialog(
       title: Row(
         children: [
+          // 스트리머 프로필 이미지
           CircleAvatar(
             radius: 20,
             child: ProfileImageWidget(
@@ -155,37 +170,40 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 알림 설정
+              // 알림 설정 패널
               buildExpandableNotificationSettings(),
 
-              // 치지직 VOD 설정
+              // 치지직 VOD 설정 패널
               if (widget.chzzkVideo != null &&
                   widget.chzzkVideo!.channelID.isNotEmpty)
                 buildExpandableChzzkVideoSettings(),
 
-              // 유튜브 알림 설정
+              // 유튜브 알림 설정 패널
               if (widget.youtubeData != null &&
                   widget.youtubeData!.channelName.isNotEmpty)
                 buildExpandableYoutubeSettings(),
 
-              // 카페 설정
+              // 카페 설정 패널
               if (widget.cafeData != null &&
                   widget.cafeData!.channelName.isNotEmpty)
                 buildExpandableCafeSettings(),
 
-              // 채팅 필터 설정
+              // 채팅 필터 설정 패널
               buildExpandableChatFilterSettings(),
             ],
           ),
         ),
       ),
       actions: [
+        // 취소 버튼
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: Text('취소'),
         ),
+        // 저장 버튼
         TextButton(
           onPressed: () {
+            // 설정된 값을 콜백으로 전달
             widget.onSettingsChanged(_settings);
             widget.onCafeUsersChanged(_selectedCafeUsers);
             widget.onChzzkVideoUsersChanged(_selectedChzzkVideoUsers);
@@ -250,6 +268,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
+// 알림 설정 확장 패널
   Widget buildExpandableNotificationSettings() {
     // 선택된 알림 설정 개수 계산
     int selectedCount = _settings.entries.where((entry) => entry.value).length;
@@ -285,6 +304,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
+// 치지직 VOD 설정 확장 패널
   Widget buildExpandableChzzkVideoSettings() {
     // 선택되었는지 확인
     final bool isSelected = _selectedChzzkVideoUsers.contains(
@@ -330,6 +350,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
+// 유튜브 알림 설정 확장 패널
   Widget buildExpandableYoutubeSettings() {
     // 선택된 유튜브 채널 개수 계산
     int selectedCount = 0;
@@ -390,6 +411,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
+// 카페 설정 확장 패널
   Widget buildExpandableCafeSettings() {
     if (widget.cafeData == null || widget.cafeData!.cafeNameDict.isEmpty) {
       return Padding(
@@ -489,6 +511,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
+// 채팅 필터 설정 확장 패널
   Widget buildExpandableChatFilterSettings() {
     final bool isChzzk = widget.streamer.platform == 'chzzk';
     final bool isAfreeca = widget.streamer.platform == 'afreeca';

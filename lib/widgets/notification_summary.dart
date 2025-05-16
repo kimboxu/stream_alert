@@ -3,13 +3,14 @@ import '../utils/string_helpers.dart';
 import '../models/streamer_data.dart';
 
 class NotificationSummary extends StatelessWidget {
-  final Map<String, Set<String>> selectedStreamers;
-  final Map<String, Set<String>> selectedChzzkChatUsers;
-  final Map<String, Set<String>> selectedAfreecaChatUsers;
-  final Map<String, dynamic> youtubeAlarm;
-  final Map<String, dynamic> chzzkVod;
-  final Map<String, dynamic> cafeUserJson;
-  final List<StreamerData> allStreamers; // 추가: 스트리머 정보 목록
+  // 알림 설정 데이터
+  final Map<String, Set<String>> selectedStreamers; // 선택된 스트리머 정보
+  final Map<String, Set<String>> selectedChzzkChatUsers; // 치지직 채팅 필터링 사용자
+  final Map<String, Set<String>> selectedAfreecaChatUsers; // 아프리카 채팅 필터링 사용자
+  final Map<String, dynamic> youtubeAlarm; // 유튜브 알림 설정
+  final Map<String, dynamic> chzzkVod; // 치지직 VOD 알림 설정
+  final Map<String, dynamic> cafeUserJson; // 카페 알림 설정
+  final List<StreamerData> allStreamers; // 스트리머 정보 목록
 
   const NotificationSummary({
     super.key,
@@ -19,7 +20,7 @@ class NotificationSummary extends StatelessWidget {
     this.youtubeAlarm = const {},
     this.chzzkVod = const {},
     this.cafeUserJson = const {},
-    required this.allStreamers, // 스트리머 정보 필요
+    required this.allStreamers,
   });
 
   // 채널 ID로 스트리머 이름 찾기
@@ -34,6 +35,7 @@ class NotificationSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 모든 알림 설정을 요약한 카드 구성
     return Card(
       margin: EdgeInsets.all(8),
       child: Padding(
@@ -50,7 +52,7 @@ class NotificationSummary extends StatelessWidget {
             ...selectedStreamers.entries.map((entry) {
               return _buildSummaryItem(
                 context,
-                StringHelper.getSettingDisplayName(entry.key),
+                StringHelper.getSettingDisplayName(entry.key), // 설정 이름 변환
                 entry.value.isEmpty ? '설정 없음' : entry.value.join(', '),
               );
             }),
@@ -197,6 +199,7 @@ class NotificationSummary extends StatelessWidget {
     }
   }
 
+  // 섹션 제목 표시 위젯
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.only(top: 16, bottom: 8),
@@ -204,6 +207,7 @@ class NotificationSummary extends StatelessWidget {
     );
   }
 
+  // 요약 항목 표시 위젯
   Widget _buildSummaryItem(BuildContext context, String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),

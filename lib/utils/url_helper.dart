@@ -11,13 +11,13 @@ class UrlHelper {
     );
   }
   
-  /// URL이 Discord Webhook URL인지 확인
+  // URL이 Discord Webhook URL 형식인지 검증
   static bool isDiscordWebhookUrl(String url) {
     return url.startsWith('https://discord.com/api/webhooks/') || 
            url.startsWith('https://discordapp.com/api/webhooks/');
   }
   
-  /// URL에서 불필요한 공백을 제거하고, 앞뒤 공백을 정리
+  // URL 정리 (앞뒤 공백 제거)
   static String cleanUrl(String url) {
     return url.trim();
   }
