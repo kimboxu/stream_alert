@@ -16,7 +16,14 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.7.3'
-      
+          channel: 'stable'
+
+      - name: Update Dart SDK
+        run: |
+          flutter --version
+          cd $FLUTTER_ROOT/bin/cache/dart-sdk/bin
+          ./dart --version
+            
       - name: Install dependencies
         run: flutter pub get
       
