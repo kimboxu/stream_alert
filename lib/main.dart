@@ -130,7 +130,7 @@ class _MyAppState extends State<MyApp> {
         child: ClipRect(
           child: Container(
             constraints: BoxConstraints(
-              maxWidth: 480, // 모바일 앱 스타일 너비 (조정 가능)
+              maxWidth: 720, // 모바일 앱 스타일 너비 (조정 가능)
               maxHeight: double.infinity,
             ),
             child: app,
