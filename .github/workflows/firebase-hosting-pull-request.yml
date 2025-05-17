@@ -31,7 +31,9 @@ jobs:
         run: flutter pub get
       
       - name: Build Web
-        run: flutter build web --release
+        run: |
+          ls -la web/
+          flutter build web --release
       
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
