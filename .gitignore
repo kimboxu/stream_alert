@@ -7,6 +7,12 @@ build/
 .flutter-plugins-dependencies
 .metadata
 
+# Firebase 관련 디렉토리
+functions/
+web/
+firebase.json
+.firebaserc
+
 # Android 관련
 android/.gradle/
 android/captures/
@@ -20,7 +26,6 @@ android/app/google-services.json
 
 # 환경 파일
 .env
-firebase.json
 
 # 로그 및 임시 파일
 *.log
