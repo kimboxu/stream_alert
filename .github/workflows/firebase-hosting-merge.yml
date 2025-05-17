@@ -15,9 +15,9 @@ jobs:
       
       - name: Set execute permissions for scripts
         run: |
-          chmod +x bot_manager.sh
-          chmod +x combined_app_manager.sh
-          chmod +x my_app_manager.sh
+          chmod +x lib/py/bot_manager.sh
+          chmod +x lib/py/combined_app_manager.sh
+          chmod +x lib/py/my_app_manager.sh
       
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -35,17 +35,6 @@ jobs:
       
       - name: Build Web
         run: flutter build web --release
-      
-      # 만약 Firebase Functions를 사용하면 아래 단계 추가
-      # - name: Install Functions dependencies
-      #   if: hashFiles('functions/package.json') != ''
-      #   run: cd functions && npm ci
-      # 
-      # - name: Deploy Functions
-      #   if: hashFiles('functions/package.json') != ''
-      #   run: npx firebase-tools deploy --only functions
-      #   env:
-      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

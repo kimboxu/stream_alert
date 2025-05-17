@@ -17,9 +17,9 @@ jobs:
       
       - name: Set execute permissions for scripts
         run: |
-          chmod +x bot_manager.sh
-          chmod +x combined_app_manager.sh
-          chmod +x my_app_manager.sh
+          chmod +x lib/py/bot_manager.sh
+          chmod +x lib/py/combined_app_manager.sh
+          chmod +x lib/py/my_app_manager.sh
       
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
