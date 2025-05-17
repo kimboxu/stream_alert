@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:url_launcher/url_launcher.dart';
 import '../models/notification_model.dart';
 
@@ -43,12 +44,13 @@ class DiscordNotificationWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
           color: borderColor,
-          width: notification.isRichNotification ? 2 : 1, // 리치 알림(임베드)은 더 두꺼운 테두리
+          width:
+              notification.isRichNotification ? 2 : 1, // 리치 알림(임베드)은 더 두꺼운 테두리
         ),
       ),
       color: cardBgColor,
       child: InkWell(
-        onTap: onTap, 
+        onTap: onTap,
         borderRadius: BorderRadius.circular(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -528,5 +530,13 @@ class DiscordNotificationWidget extends StatelessWidget {
     });
 
     return processedText;
+  }
+
+  String _getProxyImageUrl(String url) {
+    if (kIsWeb && url.isNotEmpty) {
+      // 웹 환경에서만 CORS 프록시 추가
+      return 'https://cors-anywhere.herokuapp.com/$url';
+    }
+    return url;
   }
 }
