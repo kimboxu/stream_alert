@@ -140,7 +140,7 @@ class PushNotificationService {
       if (kIsWeb) {
         // 웹 환경에서는 브라우저 정보와 랜덤 UUID 조합으로 ID 생성
         final random = const Uuid().v4();
-        deviceId = 'web_${random}';
+        deviceId = 'web_$random';
       } else if (Platform.isAndroid) {
         final androidInfo = await _deviceInfo.androidInfo;
         deviceId = androidInfo.id;
@@ -371,18 +371,21 @@ class PushNotificationService {
 
     try {
       // 오프라인 상태 확인
-      try {
-        final connectivityResult = await InternetAddress.lookup('google.com');
-        if (connectivityResult.isEmpty ||
-            connectivityResult[0].rawAddress.isEmpty) {
+      if (kIsWeb) {
+      } else {
+        try {
+          final connectivityResult = await InternetAddress.lookup('google.com');
+          if (connectivityResult.isEmpty ||
+              connectivityResult[0].rawAddress.isEmpty) {
+            result['errorType'] = 'network';
+            result['error'] = '인터넷 연결이 없습니다';
+            return result;
+          }
+        } on SocketException catch (_) {
           result['errorType'] = 'network';
           result['error'] = '인터넷 연결이 없습니다';
           return result;
         }
-      } on SocketException catch (_) {
-        result['errorType'] = 'network';
-        result['error'] = '인터넷 연결이 없습니다';
-        return result;
       }
 
       // 요청할 페이지 번호 결정
