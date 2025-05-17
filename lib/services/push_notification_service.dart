@@ -137,17 +137,19 @@ class PushNotificationService {
 
     try {
       // 플랫폼별 기기 정보 수집
-      if (Platform.isAndroid) {
+      if (kIsWeb) {
+        // 웹 환경에서는 브라우저 정보와 랜덤 UUID 조합으로 ID 생성
+        final random = const Uuid().v4();
+        deviceId = 'web_${random}';
+      } else if (Platform.isAndroid) {
         final androidInfo = await _deviceInfo.androidInfo;
-        // 안드로이드는 ANDROID_ID를 기반으로 고유 ID 생성
         deviceId = androidInfo.id;
       } else if (Platform.isIOS) {
         final iosInfo = await _deviceInfo.iosInfo;
-        // iOS는 identifierForVendor를 기반으로 고유 ID 생성
         deviceId = iosInfo.identifierForVendor ?? '';
       }
 
-      // 기기 정보가 없거나 비어있으면 UUID 생성
+      // 기기 정보가 없으면 UUID 생성
       if (deviceId.isEmpty) {
         deviceId = const Uuid().v4();
       }
@@ -156,8 +158,6 @@ class PushNotificationService {
       return 'device_${deviceId.hashCode.abs()}';
     } catch (e) {
       debugPrint('기기 ID 생성 중 오류: $e');
-
-      // 오류 발생 시 랜덤 UUID 반환
       return 'fallback_${const Uuid().v4()}';
     }
   }
@@ -170,6 +170,18 @@ class PushNotificationService {
         await Firebase.initializeApp();
       } catch (e) {
         debugPrint('Firebase 이미 초기화됨: $e');
+      }
+
+      // 웹에서 알림 권한 요청
+      if (kIsWeb) {
+        final settings = await _messaging.getNotificationSettings();
+        if (settings.authorizationStatus != AuthorizationStatus.authorized) {
+          await _messaging.requestPermission(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+        }
       }
 
       // iOS 알림 권한 요청
@@ -212,7 +224,6 @@ class PushNotificationService {
       await _localNotifications.initialize(
         initSettings,
         onDidReceiveNotificationResponse: (NotificationResponse response) {
-
           debugPrint('알림 클릭됨: ${response.payload}');
 
           //받은 알림 창으로 이동
@@ -305,7 +316,7 @@ class PushNotificationService {
         notificationModels.add(newNotification);
       }
 
-       // 중복 제거
+      // 중복 제거
       final Map<String, NotificationModel> uniqueNotifications = {};
       for (var notification in notificationModels) {
         if (!uniqueNotifications.containsKey(notification.id) ||
@@ -642,7 +653,6 @@ class PushNotificationService {
       debugPrint('토큰 제거 중 오류: $e');
     }
   }
-
 
   // 새 알림 수신 시 이벤트 스트림 (UI에 실시간 알림 표시에 사용)
   final StreamController<NotificationModel> _notificationStreamController =

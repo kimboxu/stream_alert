@@ -25,7 +25,7 @@ from notification_service import (
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # 크로스 오리진 요청 허용
+CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]}})
 
 def init_background_tasks():
     loop = asyncio.new_event_loop()
