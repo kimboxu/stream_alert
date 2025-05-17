@@ -7,6 +7,7 @@ permissions:
   checks: write
   contents: read
   pull-requests: write
+
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -14,16 +15,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Set execute permissions for scripts
+        run: |
+          chmod +x bot_manager.sh
+          chmod +x combined_app_manager.sh
+          chmod +x my_app_manager.sh
+      
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.7.3'
+          flutter-version: '3.29.3'
           channel: 'stable'
-      - name: Update Dart SDK
-        run: |
-          flutter --version
-          cd $FLUTTER_ROOT/bin/cache/dart-sdk/bin
-          ./dart --version
       
       - name: Install dependencies
         run: flutter pub get

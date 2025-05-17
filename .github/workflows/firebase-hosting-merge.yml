@@ -6,39 +6,49 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - main
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
+      - name: Set execute permissions for scripts
+        run: |
+          chmod +x bot_manager.sh
+          chmod +x combined_app_manager.sh
+          chmod +x my_app_manager.sh
+      
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.7.3'
+          flutter-version: '3.29.3'
           channel: 'stable'
-
-      - name: Update Dart SDK
+      
+      - name: Verify Flutter version
         run: |
           flutter --version
-          cd $FLUTTER_ROOT/bin/cache/dart-sdk/bin
-          ./dart --version
-            
+          dart --version
+      
       - name: Install dependencies
         run: flutter pub get
       
       - name: Build Web
         run: flutter build web --release
       
-      - name: Install Functions dependencies
-        run: cd functions && npm ci
+      # 만약 Firebase Functions를 사용하면 아래 단계 추가
+      # - name: Install Functions dependencies
+      #   if: hashFiles('functions/package.json') != ''
+      #   run: cd functions && npm ci
+      # 
+      # - name: Deploy Functions
+      #   if: hashFiles('functions/package.json') != ''
+      #   run: npx firebase-tools deploy --only functions
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       
-      - name: Deploy Functions
-        run: npx firebase-tools deploy --only functions
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STREAMALERT_A07D2 }}'
