@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -27,12 +28,30 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>stream_alert</title>
   <link rel="manifest" href="manifest.json">
+  
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-messaging-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA7Y2JnRXZ-nO4h1KDBvL2IsfS9mkYtTMM",
+      authDomain: "streamalert-a07d2.firebaseapp.com",
+      projectId: "streamalert-a07d2",
+      storageBucket: "streamalert-a07d2.firebasestorage.app",
+      messagingSenderId: "280701318686",
+      appId: "1:280701318686:web:58495355e029a1257ca00f",
+      measurementId: "G-RW0D9Z0781"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
+
 <body>
   <script src="flutter_bootstrap.js" async></script>
 </body>
+
 </html>

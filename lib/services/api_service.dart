@@ -1,4 +1,3 @@
-
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:io';
@@ -19,7 +18,14 @@ import '../utils/url_helper.dart';
 
 class ApiService {
   // static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
-  static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
+  // static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
+  static String get baseUrl {
+    if (kIsWeb) {
+      return '/api'; // 또는 Firebase 함수 URL
+    } else {
+      return 'http://146.56.98.203:5000'; // 모바일 앱에서 직접 접근
+    }
+  }
 
   // FCM 토큰 등록 메서드
   static Future<bool> registerFcmToken(
@@ -347,7 +353,7 @@ class ApiService {
     }
   }
 
-   // 스트리머 목록 가져오기
+  // 스트리머 목록 가져오기
   static Future<Map<String, dynamic>> getStreamers({
     int maxRetries = 3,
     bool useCache = true,
@@ -569,7 +575,9 @@ class ApiService {
 
         result.add(youtube);
       } catch (e) {
-        debugPrint('Error processing YouTube data for channelID $channelID: $e');
+        debugPrint(
+          'Error processing YouTube data for channelID $channelID: $e',
+        );
       }
     });
 
@@ -655,19 +663,19 @@ class ApiService {
   }
 
   // 외부 URL 실행(하이퍼 링크)
-static Future<bool> launchExternalUrl(String url) async {
-  if (url.isEmpty) return false;
+  static Future<bool> launchExternalUrl(String url) async {
+    if (url.isEmpty) return false;
 
-  try {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-      return true;
+    try {
+      final uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      debugPrint('URL 실행 중 오류: $e');
+      return false;
     }
-    return false;
-  } catch (e) {
-    debugPrint('URL 실행 중 오류: $e');
-    return false;
   }
-}
 }
