@@ -80,6 +80,11 @@ flutter_launcher_icons:
   adaptive_icon_background: "#5C6BC0" # 배경색 (앱 아이콘의 배경색과 맞춤)
   adaptive_icon_foreground: "assets/icon/app_icon_foreground.png"
   remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/icon/app_icon.png"
+    background_color: "#5C6BC0"
+    theme_color: "#5C6BC0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
