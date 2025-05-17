@@ -29,7 +29,7 @@ void main() async {
 
     // 푸시 알림 서비스 초기화
     await PushNotificationService().initialize();
-    
+
     debugPrint('앱 초기화 성공');
   } catch (e) {
     debugPrint('앱 초기화 중 오류 발생: $e');
@@ -53,7 +53,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // 기본 테마 모드 설정
   ThemeMode _themeMode = ThemeMode.system;
-  
+
   static const String themePreferenceKey = 'theme_mode';
 
   @override
@@ -111,20 +111,35 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final app = MaterialApp(
       title: '스트리머 알림 앱',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: _themeMode,  // 현재 테마 모드 적용
-      // 전역 컨텍스트 설정
+      themeMode: _themeMode,
       builder: (context, child) {
         NavigationHelper().setContext(context);
         return child!;
       },
-      // 네비게이션 이벤트 관찰
       navigatorObservers: [AppNavigatorObserver()],
-      // 시작 화면
       home: const LoginPage(),
     );
+
+    // 웹에서는 최대 너비를 제한하는 컨테이너로 감싸기
+    if (kIsWeb) {
+      return Center(
+        child: ClipRect(
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: 480, // 모바일 앱 스타일 너비 (조정 가능)
+              maxHeight: double.infinity,
+            ),
+            child: app,
+          ),
+        ),
+      );
+    }
+
+    // 앱에서는 그대로 반환
+    return app;
   }
 }
