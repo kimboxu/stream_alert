@@ -21,7 +21,7 @@ class ApiService {
   // static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
   static String get baseUrl {
     if (kIsWeb) {
-      return '/api'; // 또는 Firebase 함수 URL
+      return 'https://cors-anywhere.herokuapp.com/http://146.56.98.203:5000'; // 또는 Firebase 함수 URL
     } else {
       return 'http://146.56.98.203:5000'; // 모바일 앱에서 직접 접근
     }
