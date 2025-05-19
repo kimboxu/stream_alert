@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, unnecessary_import, deprecated_member_use
+// ignore_for_file: library_private_types_in_public_api, unnecessary_import, deprecated_member_use, depend_on_referenced_packages
 
 import 'dart:async';
 import 'dart:io';
@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../models/notification_model.dart';
 import '../services/api_service.dart';
@@ -310,17 +312,63 @@ class _NotificationsPageState extends State<NotificationsPage>
   // 네트워크 연결 상태 확인
   Future<void> _checkConnectivity() async {
     try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        setState(() {
-          _isOffline = false;
-        });
+      if (kIsWeb) {
+        // 웹 환경에서는 HTTP 요청으로 연결 확인
+        try {
+          final response = await http.get(Uri.parse('https://google.com'));
+          setState(() {
+            // HTTP 응답 코드가 200-299 범위면 연결 성공으로 간주
+            _isOffline =
+                !(response.statusCode >= 200 && response.statusCode < 300);
+          });
+        } catch (e) {
+          // 요청 실패 시 오프라인으로 처리
+          setState(() {
+            _isOffline = true;
+            _loadFailed = true;
+          });
+          debugPrint('웹 연결 확인 중 오류: $e');
+        }
+      } else {
+        // 모바일/데스크톱 환경에서는 InternetAddress.lookup 사용
+        final result = await InternetAddress.lookup('google.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          setState(() {
+            _isOffline = false;
+          });
+        } else {
+          setState(() {
+            _isOffline = true;
+            _loadFailed = true;
+          });
+        }
       }
-    } on SocketException catch (_) {
+    } on SocketException catch (e) {
+      // 소켓 오류 처리
       setState(() {
         _isOffline = true;
         _loadFailed = true;
       });
+      debugPrint('소켓 연결 오류: $e');
+    } catch (e) {
+      // 기타 예외 처리
+      setState(() {
+        _isOffline = true;
+        _loadFailed = true;
+      });
+      debugPrint('연결 확인 중 예상치 못한 오류: $e');
+    }
+  }
+
+  // 웹 환경에서 사용할 연결 확인 함수
+  Future<bool> checkWebConnectivity() async {
+    try {
+      // 간단한 ping 또는 fetch 요청으로 대체
+      // 예시: HTTP 요청을 통한 연결 확인
+      final response = await http.get(Uri.parse('https://google.com'));
+      return response.statusCode >= 200 && response.statusCode < 300;
+    } catch (e) {
+      return false;
     }
   }
 
@@ -418,7 +466,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     await _loadNotifications(direction: LoadDirection.newer);
   }
 
-// 이전(과거) 알림 로드
+  // 이전(과거) 알림 로드
   Future<void> _loadOlderMessages() async {
     await _loadNotifications(direction: LoadDirection.older);
   }
@@ -962,7 +1010,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     );
   }
 
-// 빈 알림 상태 위젯
+  // 빈 알림 상태 위젯
   Widget _buildEmptyState() {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
