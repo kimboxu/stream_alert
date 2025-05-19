@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS
 import asyncio
 import signal
-from json import loads, dumps
+from json import loads
 from dotenv import load_dotenv
 from datetime import datetime
 import pandas as pd
