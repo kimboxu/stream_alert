@@ -426,16 +426,6 @@ def proxy_image():
             "message": f"이미지 프록시 처리 중 오류: {str(e)}"
         }), 500
 
-# CORS 프리플라이트 요청 처리
-@app.route("/proxy-image", methods=["OPTIONS"])
-def proxy_image_options():
-    headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-        'Access-Control-Max-Age': '86400',  # 24시간 캐싱
-    }
-    return '', 204, headers
 
 # 알림 가져오기 엔드포인트
 @app.route("/get_notifications", methods=["GET"])
