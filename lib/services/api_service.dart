@@ -35,7 +35,8 @@ class ApiService {
     }
 
     // 서버측 프록시를 통해 이미지 로드
-    return '$baseUrl/proxy-image?url=${Uri.encodeComponent(url)}';
+    return url;
+    // return '$baseUrl/proxy-image?url=${Uri.encodeComponent(url)}';
   }
 
   // FCM 토큰 등록 메서드
