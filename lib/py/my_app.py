@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS
 import asyncio
 import signal
-from json import loads
+from json import loads, dumps
 from dotenv import load_dotenv
 from datetime import datetime
 import pandas as pd
@@ -814,4 +814,4 @@ if __name__ == "__main__":
         signal.signal(signal.SIGTERM, graceful_shutdown_handler)
         signal.signal(signal.SIGINT, graceful_shutdown_handler)
     
-    app.run(host="0.0.0.0", port=5001, debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=False)
