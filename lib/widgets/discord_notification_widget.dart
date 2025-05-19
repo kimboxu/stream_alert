@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../models/notification_model.dart';
 
 /// 디스코드 스타일의 알림 위젯
@@ -98,19 +99,23 @@ class DiscordNotificationWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
               child:
                   notification.avatarUrl.isNotEmpty
-                      ? Image.network(
-                        notification.avatarUrl,
+                      ? CachedNetworkImage(
+                        imageUrl: notification.avatarUrl,
                         fit: BoxFit.cover,
                         width: 28,
                         height: 28,
-                        errorBuilder:
-                            (context, error, stackTrace) => Icon(
+                        errorWidget:
+                            (context, url, error) => Icon(
                               Icons.person,
                               size: 16,
                               color:
                                   isDarkMode
                                       ? Colors.white70
                                       : Colors.grey[700],
+                            ),
+                        placeholder:
+                            (context, url) => Center(
+                              child: CircularProgressIndicator(strokeWidth: 2),
                             ),
                       )
                       : Icon(
