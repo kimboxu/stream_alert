@@ -1,12 +1,14 @@
+import base64
 import asyncio
 from typing import Dict
 from datetime import datetime
 from os import remove, environ, path
-from requests import post
+from requests import post, get
 from urllib.request import urlretrieve
 from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
+from io import BytesIO
 
 from typing import List, Tuple, Dict, Any
 from base import (
@@ -223,6 +225,67 @@ class base_live_message:
     def _should_process_offline_status(self):
         raise NotImplementedError
     
+    # 썸네일 이미지를 Imgur에 업로드하는 공통 메서드
+    def upload_image_to_imgur(self, image_url, platform_prefix="thumbnail"):
+        try:
+            # 이미지 다운로드
+            response = get(image_url, timeout=5)
+            
+            if response.status_code != 200:
+                print(f"{datetime.now()} 이미지 다운로드 실패: {response.status_code}")
+                return None
+            
+            # 환경 변수에서 Imgur 클라이언트 ID 가져오기
+            client_id = environ.get("IMGUR_CLIENT_ID")
+            if not client_id:
+                print(f"{datetime.now()} Imgur 클라이언트 ID가 설정되지 않았습니다")
+                return None
+            
+            # 이미지 데이터를 base64로 인코딩
+            image_data = BytesIO(response.content).getvalue()
+            b64_image = base64.b64encode(image_data).decode('utf-8')
+            
+            # 채널 정보 및 타임스탬프
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            
+            # Imgur에 이미지 업로드
+            headers = {'Authorization': f'Client-ID {client_id}'}
+            data = {
+                'image': b64_image,
+                'type': 'base64',
+                'name': f'{platform_prefix}_{self.channel_id}_{timestamp}.jpg',
+                'title': f'{self.channel_name} {self.platform_name} 생방송 썸네일',
+                'description': f'채널: {self.channel_name}, 채널ID: {self.channel_id}, 플랫폼: {self.platform_name}, 시간: {datetime.now().isoformat()}'
+            }
+            
+            imgur_response = post(
+                'https://api.imgur.com/3/image',
+                headers=headers,
+                data=data,
+                timeout=10
+            )
+            
+            # 응답 확인
+            if imgur_response.status_code == 200:
+                imgur_data = imgur_response.json()
+                thumbnail_url = imgur_data['data']['link']
+                
+                # 삭제 해시 기록 (필요시 나중에 이미지 삭제에 사용 가능)
+                delete_hash = imgur_data['data']['deletehash']
+                print(f"{datetime.now()} Imgur 업로드 성공: {thumbnail_url} (삭제 해시: {delete_hash})")
+                
+                return thumbnail_url
+            else:
+                print(f"{datetime.now()} Imgur 업로드 실패: {imgur_response.status_code}")
+                print(f"응답: {imgur_response.text}")
+                return None
+        
+        except Exception as e:
+            print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+    
     #온라인 상태 처리 (뱅온 또는 방제 변경)
     async def _handle_online_status(self, state_data):
         message = self.getMessage()
@@ -394,34 +457,18 @@ class chzzk_live_message(base_live_message):
     #치지직 썸네일 이미지 처리
     def get_thumbnail_image(self, state_data): 
         try:
-            if state_data['content']['liveImageUrl'] is not None:
-                self.image_path = "explain.png"  # 파일 경로를 변수로 저장
-                self.saveImage(state_data)
+            if state_data['content']['liveImageUrl'] is None:
+                return None
+            
+            # 이미지 URL 가져오기
+            image_url = self.getImageURL(state_data)
+            
+            return self.upload_image_to_imgur(image_url, platform_prefix="chzzk")
                 
-                # 파일 핸들 명시적 관리
-                with open(self.image_path, 'rb') as image_file:
-                    file = {'file': image_file}
-                    data = {"username": self.channel_name,
-                            "avatar_url": self.id_list.loc[self.channel_id, 'profile_image']}
-                    
-                    thumbnail = post(environ['recvThumbnailURL'], files=file, data=data, timeout=3)
-                
-                # 파일 삭제 로직 개선
-                try: 
-                    if path.exists(self.image_path):
-                        remove(self.image_path)
-                        # print(f"파일 삭제 성공: {self.image_path}")  # 디버깅 필요시 활성화
-                except Exception as delete_error:
-                    asyncio.create_task(log_error(f"{datetime.now()} Error deleting thumbnail: {delete_error}"))
-                
-                # 썸네일 URL 추출
-                frontIndex = thumbnail.text.index('"proxy_url"')
-                thumbnail = thumbnail.text[frontIndex:]
-                frontIndex = thumbnail.index('https://media.discordap')
-                return thumbnail[frontIndex:thumbnail.index(".png") + 4]
-            return None
         except Exception as e:
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
+            import traceback
+            traceback.print_exc()
             return None
 
     #이미지 파일로 저장
@@ -639,32 +686,15 @@ class afreeca_live_message(base_live_message):
     #아프리카 썸네일 이미지 처리
     def get_thumbnail_image(self): 
         try:
-            self.image_path = "explain.png"
-            self.saveImage()
-            file = {'file': open(self.image_path, 'rb')}
-            data = {"username": self.channel_name,
-                    "avatar_url": self.id_list.loc[self.channel_id, 'profile_image']}
+            # 이미지 URL 가져오기
+            image_url = self.getImageURL()
             
-            thumbnailURL = environ['recvThumbnailURL']
-
-            thumbnail = post(thumbnailURL, files=file, data=data, timeout=3)
-            
-            # 파일 핸들을 닫고 삭제
-            file['file'].close()
-            try: 
-                if path.exists(self.image_path):
-                    remove(self.image_path)
-                    print(f"파일 삭제 성공: {self.image_path}")
-                else:
-                    print(f"파일이 존재하지 않음: {self.image_path}")
-            except Exception as e:
-                print(f"파일 삭제 실패: {e}")
-                
-            frontIndex = thumbnail.text.index('"proxy_url"')
-            thumbnail = thumbnail.text[frontIndex:]
-            frontIndex = thumbnail.index('https://media.discordap')
-            return thumbnail[frontIndex:thumbnail.index(".png") + 4]
-        except:
+            return self.upload_image_to_imgur(image_url, platform_prefix="afreeca")
+        
+        except Exception as e:
+            print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
+            import traceback
+            traceback.print_exc()
             return None
 
     #이미지 파일로 저장
