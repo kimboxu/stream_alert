@@ -18,7 +18,7 @@ import '../utils/url_helper.dart';
 
 class ApiService {
   // static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
-  static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
+  static const String baseUrl = 'https://146.56.98.203'; // 오라클 서버 주소
   // static String get baseUrl {
   //   if (kIsWeb) {
   //     // CORS 프록시 서비스 사용 (테스트용)
