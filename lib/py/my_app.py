@@ -1,21 +1,15 @@
 from os import environ
-from flask import Flask, request, jsonify, Response, stream_with_context, render_template, g
-from base import make_list_to_dict, initVar
+from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS
 import asyncio
 import signal
 from json import loads, dumps
-from supabase import create_client
 from dotenv import load_dotenv
-from datetime import datetime, timezone
+from datetime import datetime
 import pandas as pd
-from firebase_admin import credentials, messaging
 from shared_state import StateManager
 from urllib.parse import unquote
 from requests import get 
-
-from base import update_flag
-
 
 
 from notification_service import (
