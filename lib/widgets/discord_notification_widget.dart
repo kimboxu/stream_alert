@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+// import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:url_launcher/url_launcher.dart';
 import '../models/notification_model.dart';
 
@@ -532,11 +532,11 @@ class DiscordNotificationWidget extends StatelessWidget {
     return processedText;
   }
 
-  String _getProxyImageUrl(String url) {
-    if (kIsWeb && url.isNotEmpty) {
-      // 웹 환경에서만 CORS 프록시 추가
-      return 'https://cors-anywhere.herokuapp.com/$url';
-    }
-    return url;
-  }
+  // String _getProxyImageUrl(String url) {
+  //   if (kIsWeb && url.isNotEmpty) {
+  //     // 웹 환경에서만 CORS 프록시 추가
+  //     return 'https://cors-anywhere.herokuapp.com/$url';
+  //   }
+  //   return url;
+  // }
 }
