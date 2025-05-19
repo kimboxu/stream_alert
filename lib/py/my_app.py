@@ -399,7 +399,7 @@ def proxy_image():
         if response.status_code != 200:
             return jsonify({
                 "status": "error", 
-                "message": f"이미지를 불러오는데 실패했습니다. 상태 코드: {response.status_code}"
+                "message": f"이미지를 불러오는데 실패했습니다. 상태 코드: {response.status_code}.{decoded_url}"
             }), response.status_code
         
         # 응답 헤더 설정
