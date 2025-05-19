@@ -311,7 +311,7 @@ class DiscordNotificationWidget extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4),
                       child: Image.network(
-                        notification.thumbnailUrl,
+                        ApiService.processImageUrl(notification.thumbnailUrl),
                         fit: BoxFit.cover,
                         width: thumbnailSize,
                         height: thumbnailSize,
@@ -366,7 +366,7 @@ class DiscordNotificationWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
                   child: Image.network(
-                    notification.imageUrl,
+                    ApiService.processImageUrl(notification.imageUrl),
                     fit: BoxFit.cover,
                     errorBuilder:
                         (context, error, stackTrace) => Container(
@@ -416,7 +416,7 @@ class DiscordNotificationWidget extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: Image.network(
-                          notification.footerIconUrl,
+                          ApiService.processImageUrl(notification.footerIconUrl),
                           fit: BoxFit.cover,
                           errorBuilder:
                               (context, error, stackTrace) => SizedBox(
