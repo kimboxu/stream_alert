@@ -366,7 +366,7 @@ class DiscordNotificationWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
                   child: Image.network(
-                    ApiService.processImageUrl(notification.imageUrl),
+                    notification.imageUrl,
                     fit: BoxFit.cover,
                     errorBuilder:
                         (context, error, stackTrace) => Container(
