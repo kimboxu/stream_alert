@@ -308,20 +308,30 @@ class _NotificationsPageState extends State<NotificationsPage>
   }
 
   // 네트워크 연결 상태 확인
+  // 네트워크 연결 상태 확인
   Future<void> _checkConnectivity() async {
     try {
-      if (kIsWeb){
+      if (kIsWeb) {
+        // 웹 환경에서는 일단 온라인으로 간주
         setState(() {
           _isOffline = false;
         });
-      }
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        setState(() {
-          _isOffline = false;
-        });
+      } else {
+        // 모바일/데스크톱 환경 인터넷 연결 상태 확인
+        final result = await InternetAddress.lookup('google.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          setState(() {
+            _isOffline = false;
+          });
+        }
       }
     } on SocketException catch (_) {
+      setState(() {
+        _isOffline = true;
+        _loadFailed = true;
+      });
+    } catch (e) {
+      debugPrint('연결 확인 중 예상치 못한 오류: $e');
       setState(() {
         _isOffline = true;
         _loadFailed = true;
@@ -423,7 +433,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     await _loadNotifications(direction: LoadDirection.newer);
   }
 
-// 이전(과거) 알림 로드
+  // 이전(과거) 알림 로드
   Future<void> _loadOlderMessages() async {
     await _loadNotifications(direction: LoadDirection.older);
   }
@@ -967,7 +977,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     );
   }
 
-// 빈 알림 상태 위젯
+  // 빈 알림 상태 위젯
   Widget _buildEmptyState() {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
