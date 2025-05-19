@@ -18,14 +18,24 @@ import '../utils/url_helper.dart';
 
 class ApiService {
   // static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
-  // static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
-  static String get baseUrl {
-    if (kIsWeb) {
-      // CORS 프록시 서비스 사용 (테스트용)
-      return 'https://cors-anywhere.herokuapp.com/http://146.56.98.203:5000';
-    } else {
-      return 'http://146.56.98.203:5000';
+  static const String baseUrl = 'http://146.56.98.203:5000'; // 오라클 서버 주소
+  // static String get baseUrl {
+  //   if (kIsWeb) {
+  //     // CORS 프록시 서비스 사용 (테스트용)
+  //     return 'https://cors-anywhere.herokuapp.com/http://146.56.98.203:5000';
+  //   } else {
+  //     return 'http://146.56.98.203:5000';
+  //   }
+  // }
+
+  // 이미지 URL을 프록시 URL로 변환하는 함수
+  static  processImageUrl(String url) {
+    if (!kIsWeb || url.isEmpty) {
+      return url;
     }
+
+    // 서버측 프록시를 통해 이미지 로드
+    return '$baseUrl/proxy-image?url=${Uri.encodeComponent(url)}';
   }
 
   // FCM 토큰 등록 메서드
