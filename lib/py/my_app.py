@@ -1,5 +1,5 @@
 from os import environ
-from flask import Flask, request, jsonify, render_template, g
+from flask import Flask, request, jsonify, Response, stream_with_context, render_template, g
 from base import make_list_to_dict, initVar
 from flask_cors import CORS
 import asyncio
@@ -11,8 +11,12 @@ from datetime import datetime, timezone
 import pandas as pd
 from firebase_admin import credentials, messaging
 from shared_state import StateManager
+from urllib.parse import unquote
+from requests import get 
 
 from base import update_flag
+
+
 
 from notification_service import (
     initialize_firebase,
@@ -373,6 +377,71 @@ def get_streamers():
             ),
             500,
         )
+
+@app.route("/proxy-image", methods=["GET"])
+def proxy_image():
+    """
+    CORS 우회를 위한 이미지 프록시 엔드포인트
+    사용법: /proxy-image?url=인코딩된_이미지_URL
+    """
+    image_url = request.args.get("url")
+    
+    if not image_url:
+        return jsonify({"status": "error", "message": "URL 매개변수가 필요합니다"}), 400
+    
+    try:
+        # URL 디코딩
+        decoded_url = unquote(image_url)
+        
+        # 요청 헤더 설정
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Referer': 'https://streamalert-a07d2.web.app/'
+        }
+        
+        # 소스 서버에서 이미지 가져오기 (스트리밍)
+        response = get(decoded_url, headers=headers, stream=True, timeout=10)
+        
+        if response.status_code != 200:
+            return jsonify({
+                "status": "error", 
+                "message": f"이미지를 불러오는데 실패했습니다. 상태 코드: {response.status_code}"
+            }), response.status_code
+        
+        # 응답 헤더 설정
+        headers = {
+            'Content-Type': response.headers.get('Content-Type', 'image/jpeg'),
+            'Content-Length': response.headers.get('Content-Length', ''),
+            'Cache-Control': 'public, max-age=86400',  # 24시간 캐싱
+            'Access-Control-Allow-Origin': '*',  # CORS 허용
+            'Access-Control-Allow-Methods': 'GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        }
+        
+        # 스트리밍 응답 반환
+        return Response(
+            stream_with_context(response.iter_content(chunk_size=1024)),
+            status=response.status_code,
+            headers=headers
+        )
+        
+    except Exception as e:
+        print(f"이미지 프록시 오류: {e}")
+        return jsonify({
+            "status": "error", 
+            "message": f"이미지 프록시 처리 중 오류: {str(e)}"
+        }), 500
+
+# CORS 프리플라이트 요청 처리
+@app.route("/proxy-image", methods=["OPTIONS"])
+def proxy_image_options():
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        'Access-Control-Max-Age': '86400',  # 24시간 캐싱
+    }
+    return '', 204, headers
 
 # 알림 가져오기 엔드포인트
 @app.route("/get_notifications", methods=["GET"])
