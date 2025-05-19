@@ -308,7 +308,6 @@ class _NotificationsPageState extends State<NotificationsPage>
   }
 
   // 네트워크 연결 상태 확인
-  // 네트워크 연결 상태 확인
   Future<void> _checkConnectivity() async {
     try {
       if (kIsWeb) {
