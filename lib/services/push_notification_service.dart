@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
@@ -10,7 +8,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_info_plus/device_info_plus.dart'; //디바이스 id 생성용
 import 'package:uuid/uuid.dart'; // 고유 ID 생성용 패키지
-import 'package:http/http.dart' as http;
 import '../services/api_service.dart';
 import '../models/notification_model.dart';
 import '../utils/navigation_helper.dart';
@@ -375,21 +372,6 @@ class PushNotificationService {
     try {
       // 오프라인 상태 확인
       if (kIsWeb) {
-        try {
-          final response = await http.get(
-            Uri.parse('https://google.com'),
-            headers: {'Cache-Control': 'no-cache'},
-          );
-          if (response.statusCode < 200 || response.statusCode >= 300) {
-            result['errorType'] = 'network';
-            result['error'] = '인터넷 연결이 없습니다';
-            return result;
-          }
-        } catch (e) {
-          result['errorType'] = 'network';
-          result['error'] = '인터넷 연결이 없습니다';
-          return result;
-        }
       } else {
         try {
           final connectivityResult = await InternetAddress.lookup('google.com');
