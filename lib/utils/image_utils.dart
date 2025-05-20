@@ -19,7 +19,6 @@ class ImageUtils {
       debugPrint('Fetching image from $url');
 
       if (kIsWeb) {
-        url = 'https://cors-anywhere.herokuapp.com/$url';
       }
       // 타임아웃 설정으로 네트워크 지연 방지
       final response = await _client.get(
