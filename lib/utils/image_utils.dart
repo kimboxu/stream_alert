@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
 
+import '../services/api_service.dart';
+
 class ImageUtils {
   // HTTP 클라이언트 재사용을 위한 인스턴스 (성능 최적화)
   static final http.Client _client = http.Client();
@@ -19,6 +21,7 @@ class ImageUtils {
       debugPrint('Fetching image from $url');
 
       if (kIsWeb) {
+        url = ApiService.processImageUrl(url);
       }
       // 타임아웃 설정으로 네트워크 지연 방지
       final response = await _client.get(
