@@ -1,4 +1,4 @@
-package com.example.stream_alert
+package org.duckdns.discordbotsetting.streamalert
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,0 +1,52 @@
+<svg viewBox="0 0 1024 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 -->
+  <rect width="1024" height="500" fill="#5C5EAE" rx="20" ry="20"/>
+  
+  <!-- 장식용 원형 요소들 -->
+  <circle cx="150" cy="100" r="50" fill="#4F51A0" opacity="0.6"/>
+  <circle cx="900" cy="400" r="80" fill="#4F51A0" opacity="0.6"/>
+  <circle cx="800" cy="120" r="40" fill="#4F51A0" opacity="0.6"/>
+  
+  <!-- 노란색 캐릭터 (왼쪽) -->
+  <g transform="translate(200, 250) scale(1.2)">
+    <!-- 몸체 -->
+    <ellipse cx="0" cy="0" rx="70" ry="90" fill="#FFBB33"/>
+    
+    <!-- 팔 -->
+    <ellipse cx="-65" cy="-20" rx="25" ry="15" fill="#FFEECC" transform="rotate(-20)"/>
+    <ellipse cx="60" cy="-30" rx="25" ry="15" fill="#FFEECC" transform="rotate(20)"/>
+    <ellipse cx="-60" cy="40" rx="25" ry="15" fill="#FFEECC" transform="rotate(-20)"/>
+    
+    <!-- 안테나/장식 -->
+    <ellipse cx="0" cy="-95" rx="15" ry="20" fill="#FF5544"/>
+    
+    <!-- 눈/얼굴 요소 -->
+    <circle cx="0" cy="0" r="25" fill="#FF5544"/>
+  </g>
+  
+  <!-- 말풍선 (오른쪽) -->
+  <g transform="translate(750, 250)">
+    <path d="M0,0 L40,50 L100,50 Q150,50 150,0 Q150,-50 100,-50 L-50,-50 Q-100,-50 -100,0 Q-100,50 -50,50 L0,50 Z" fill="white"/>
+    <circle cx="-50" cy="0" r="12" fill="#5C5EAE"/>
+    <circle cx="0" cy="0" r="12" fill="#5C5EAE"/>
+    <circle cx="50" cy="0" r="12" fill="#5C5EAE"/>
+  </g>
+  
+  <!-- 작은 알림 아이콘들 -->
+  <g transform="translate(650, 150)">
+    <circle cx="0" cy="0" r="15" fill="#FF5544" opacity="0.9"/>
+  </g>
+  <g transform="translate(850, 200)">
+    <circle cx="0" cy="0" r="10" fill="#FF5544" opacity="0.9"/>
+  </g>
+  
+  <!-- 앱 이름 텍스트 -->
+  <g transform="translate(512, 170)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white">스트림 알림</text>
+  </g>
+  
+  <!-- 슬로건 텍스트 -->
+  <g transform="translate(512, 400)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="white">좋아하는 스트리머의 방송을 놓치지 마세요!</text>
+  </g>
+</svg>
