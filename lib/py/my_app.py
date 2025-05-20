@@ -379,6 +379,7 @@ def proxy_image():
     사용법: /proxy-image?url=인코딩된_이미지_URL
     """
     image_url = request.args.get("url")
+    source = request.args.get("source")
     
     if not image_url:
         return jsonify({"status": "error", "message": "URL 매개변수가 필요합니다"}), 400
@@ -388,10 +389,17 @@ def proxy_image():
         decoded_url = unquote(image_url)
         
         # 요청 헤더 설정
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-            'Referer': 'https://streamalert-a07d2.web.app/'
-        }
+        # 네이버 이미지인 경우 특별 처리
+        if source == 'naver':
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                'Referer': 'https://cafe.naver.com/'
+            }
+        else:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                'Referer': 'https://streamalert-a07d2.web.app/'
+            }
         
         # 소스 서버에서 이미지 가져오기 (스트리밍)
         response = get(decoded_url, headers=headers, stream=True, timeout=10)

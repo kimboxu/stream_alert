@@ -29,13 +29,18 @@ class ApiService {
   // }
 
   // 이미지 URL을 프록시 URL로 변환하는 함수
-  static  processImageUrl(String url) {
+  static processImageUrl(String url) {
     if (!kIsWeb || url.isEmpty) {
       return url;
     }
 
-    if (url.contains('i.imgur.com')){
+    if (url.contains('i.imgur.com')) {
       return url;
+    }
+
+    // 네이버 이미지인 경우 특별 처리
+    if (url.contains('pstatic.net') || url.contains('naver.com')) {
+      return '$baseUrl/proxy-image?url=${Uri.encodeComponent(url)}&source=naver';
     }
 
     // 서버측 프록시를 통해 이미지 로드
