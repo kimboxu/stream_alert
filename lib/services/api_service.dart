@@ -34,6 +34,10 @@ class ApiService {
       return url;
     }
 
+    if (url.contains('i.imgur.com')){
+      return url;
+    }
+
     // 서버측 프록시를 통해 이미지 로드
     return '$baseUrl/proxy-image?url=${Uri.encodeComponent(url)}';
   }
