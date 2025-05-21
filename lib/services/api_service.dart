@@ -17,16 +17,8 @@ import '../utils/cache_helper.dart';
 import '../utils/url_helper.dart';
 
 class ApiService {
-  // static const String baseUrl = 'http://192.168.0.4:5000'; // 디버깅 용도
+  // static const String baseUrl = 'http://192.168.0.8:5000'; // 디버깅 용도
   static const String baseUrl = 'https://discordbotsetting.duckdns.org'; // 오라클 서버 주소
-  // static String get baseUrl {
-  //   if (kIsWeb) {
-  //     // CORS 프록시 서비스 사용 (테스트용)
-  //     return 'https://cors-anywhere.herokuapp.com/http://146.56.98.203:5000';
-  //   } else {
-  //     return 'http://146.56.98.203:5000';
-  //   }
-  // }
 
   // 이미지 URL을 프록시 URL로 변환하는 함수
   static processImageUrl(String url) {
