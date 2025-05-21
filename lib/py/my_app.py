@@ -265,16 +265,6 @@ def save_user_settings():
         if field in data:
             update_data[field] = data.get(field)
 
-
-    app.init.userStateData.loc[discordWebhooksURL, "뱅온 알림"] = update_data["뱅온 알림"]
-    app.init.userStateData.loc[discordWebhooksURL, "방제 변경 알림"] = update_data["방제 변경 알림"]
-    app.init.userStateData.loc[discordWebhooksURL, "방종 알림"] = update_data["방종 알림"]
-    app.init.userStateData.loc[discordWebhooksURL, "유튜브 알림"] = update_data["유튜브 알림"]
-    app.init.userStateData.loc[discordWebhooksURL, "치지직 VOD"] = update_data["치지직 VOD"]
-    app.init.userStateData.loc[discordWebhooksURL, "cafe_user_json"] = update_data["cafe_user_json"]
-    app.init.userStateData.loc[discordWebhooksURL, "chat_user_json"] = update_data["chat_user_json"]
-
-
     try:
         update_data["유튜브 알림"] = loads(update_data["유튜브 알림"].replace('"', '"'))
         update_data["치지직 VOD"] = loads(update_data["치지직 VOD"].replace('"', '"'))
@@ -282,6 +272,14 @@ def save_user_settings():
         update_data["chat_user_json"] = loads(update_data["chat_user_json"].replace('"', '"'))
     except Exception as e:
         return jsonify({"status": "error", "message": f"데이터 파싱 오류: {str(e)}"}), 400
+    
+    app.init.userStateData.loc[discordWebhooksURL, "뱅온 알림"] = update_data["뱅온 알림"]
+    app.init.userStateData.loc[discordWebhooksURL, "방제 변경 알림"] = update_data["방제 변경 알림"]
+    app.init.userStateData.loc[discordWebhooksURL, "방종 알림"] = update_data["방종 알림"]
+    app.init.userStateData.loc[discordWebhooksURL, "유튜브 알림"] = update_data["유튜브 알림"]
+    app.init.userStateData.loc[discordWebhooksURL, "치지직 VOD"] = update_data["치지직 VOD"]
+    app.init.userStateData.loc[discordWebhooksURL, "cafe_user_json"] = update_data["cafe_user_json"]
+    app.init.userStateData.loc[discordWebhooksURL, "chat_user_json"] = update_data["chat_user_json"]
      
     # Supabase에 설정 업데이트
     result = app.init.supabase.table("userStateData").upsert(update_data).execute()

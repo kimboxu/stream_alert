@@ -49,7 +49,38 @@ from datetime import datetime, timedelta
 # a=json.loads(msg[1])
 # a['gift_count']
 # pass
-
+from shared_state import StateManager
+from discord_webhook_sender import DiscordWebhookSender
+from base import (initVar, userDataVar)
+from os import environ
+from supabase import create_client
+import asyncio
+async def main():
+    result_urls =[]
+    state = StateManager.get_instance()
+    init = state.get_init()
+    if init is None: init =await state.initialize()
+    discordWebhookURL = "https://discord.com/api/webhooks/1363456084580368474/ExIPhT3Yt6f74uQZF6k5CvvrBMceoa1l8wbLShKg-4LSARpP4rSH0QAS9RN6NWNKDThR"
+    try:
+        # 해당 URL의 사용자 데이터 가져오기
+        user_data = init.userStateData.loc[discordWebhookURL, "chat_user_json"]
+        
+        # 데이터 유형 확인 후 리스트 변환
+        if isinstance(user_data, str):
+            name_list = user_data  # 문자열인 경우
+        elif isinstance(user_data, dict):
+            name_list = user_data.get("nambong94", [])  # 딕셔너리인 경우
+        else:
+            name_list = []  # 그 외 경우
+        
+        # 해당 이름이 리스트에 있으면 URL 추가
+        if "name" in name_list:
+            result_urls.append(discordWebhookURL)
+    except (KeyError, AttributeError) as e:
+        # 특정 URL 처리 중 오류가 발생해도 다른 URL 처리는 계속
+        pass
+if __name__ == "__main__":
+    asyncio.run(main())
 
 from urllib.parse import unquote
 chat_data = {'svcid': 'game', 'cid': 'N1lGJ2', 'mbrCnt': 2873, 'uid': 'anonymous', 'profile': None, 'msg': '바니걸 라이브', 'msgTypeCode': 10, 'msgStatusType': 'NORMAL', 'extras': '{"isAnonymous":true,"payType":"CURRENCY","payAmount":1500,"donationId":"7GgkAxNl6XDcVPfHB7JVp5UiV3k4X","donationType":"VIDEO","weeklyRankList":[{"userIdHash":"d59cb9944a2811ce2fd1c5451ec4840d","nickName":"어디까지올라가는거엥","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":100000,"ranking":1},{"userIdHash":"799c6d3a5f4d627cfbfeaca9b5ad561d","nickName":"염룡2","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":100000,"ranking":2},{"userIdHash":"2610c2393928d2380d15df5b83585952","nickName":"참이슬참좋아","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":30100,"ranking":3},{"userIdHash":"b69a88bcad56ef48801b5e70508df0c4","nickName":"료햄","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":30000,"ranking":4},{"userIdHash":"0581b551fcc7637752092c3d93d0351e","nickName":"설원슾햄","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":30000,"ranking":5},{"userIdHash":"b9c5b763b2745062103ab993c7f1937f","nickName":"아르세야","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":19000,"ranking":6},{"userIdHash":"0a9482b841ad3d58ee1eba1ee4f69378","nickName":"프 노","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":9000,"ranking":7},{"userIdHash":"7f8322ba439f7abd81b96286b1fa0055","nickName":"용사비군","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":8000,"ranking":8},{"userIdHash":"5da8c7376eb90c57cc4501d245fc3080","nickName":"뚜띠투구굽한동수칸","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":7950,"ranking":9},{"userIdHash":"8a4226ea80d57019f69c8ad31c8078e2","nickName":"마싯는뻐네너","verifiedMark":false,"activatedAchievementBadgeIds":[],"donationAmount":6000,"ranking":10}]}', 'ctime': 1744775870701, 'utime': 1744775870701, 'msgTid': None, 'msgTime': 1744775870697}
@@ -57,11 +88,7 @@ profile_data = chat_data.get('profile', {})
 extras = json.loads(chat_data['extras'])
 p = json.loads(unquote(profile_data))
 
-from discord_webhook_sender import DiscordWebhookSender
-from base_with_cache import (initVar, userDataVar, discordBotDataVars)
-from os import environ
-from supabase import create_client
-import asyncio
+
 async def main():
     supabase = create_client(environ['supabase_url'], environ['supabase_key'])
     init = initVar()
