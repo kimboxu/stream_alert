@@ -249,46 +249,40 @@ def save_user_settings():
     else:
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
 
+    # 기본 업데이트 데이터 설정
     update_data = {"discordURL": discordWebhooksURL, "username": username}
-    app.init.userStateData.loc[discordWebhooksURL, "username"] = username
-    userStateData = app.init.userStateData
-    # 선택적 설정 필드 추가
-    for field in [
-        "뱅온 알림",
-        "방제 변경 알림",
-        "방종 알림",
-        "유튜브 알림",
-        "치지직 VOD",
-        "cafe_user_json",
-        "chat_user_json",
-    ]:
-        if field in data:
-            update_data[field] = data.get(field)
-
-    try:
-        update_data["유튜브 알림"] = loads(update_data["유튜브 알림"].replace('"', '"'))
-        update_data["치지직 VOD"] = loads(update_data["치지직 VOD"].replace('"', '"'))
-        update_data["cafe_user_json"] = loads(update_data["cafe_user_json"].replace('"', '"'))
-        update_data["chat_user_json"] = loads(update_data["chat_user_json"].replace('"', '"'))
-    except Exception as e:
-        return jsonify({"status": "error", "message": f"데이터 파싱 오류: {str(e)}"}), 400
     
-    app.init.userStateData.loc[discordWebhooksURL, "뱅온 알림"] = update_data["뱅온 알림"]
-    app.init.userStateData.loc[discordWebhooksURL, "방제 변경 알림"] = update_data["방제 변경 알림"]
-    app.init.userStateData.loc[discordWebhooksURL, "방종 알림"] = update_data["방종 알림"]
-    app.init.userStateData.loc[discordWebhooksURL, "유튜브 알림"] = update_data["유튜브 알림"]
-    app.init.userStateData.loc[discordWebhooksURL, "치지직 VOD"] = update_data["치지직 VOD"]
-    app.init.userStateData.loc[discordWebhooksURL, "cafe_user_json"] = update_data["cafe_user_json"]
-    app.init.userStateData.loc[discordWebhooksURL, "chat_user_json"] = update_data["chat_user_json"]
-     
-    # Supabase에 설정 업데이트
-    result = app.init.supabase.table("userStateData").upsert(update_data).execute()
+    # JSON 필드 목록
+    json_fields = ["유튜브 알림", "치지직 VOD", "cafe_user_json", "chat_user_json"]
+    
+    # 일반 텍스트 필드 목록
+    text_fields = ["뱅온 알림", "방제 변경 알림", "방종 알림"]
+    
+    # 모든 필드 처리
+    for field in text_fields + json_fields:
+        if field in data:
+            field_data = data.get(field)
+            
+            # JSON 필드 처리
+            if field in json_fields:
+                update_data[field] = loads(field_data)
+                app.init.userStateData.at[discordWebhooksURL, field] = update_data[field]
 
-    # 사용자 데이터 변경 플래그 설정
-    # asyncio.run(update_flag('user_date', True))
+            # 일반 텍스트 필드 처리
+            else:
+                update_data[field] = field_data
+                app.init.userStateData.at[discordWebhooksURL, field] = field_data
+
+    # Supabase에 설정 업데이트
+    try:
+        result = app.init.supabase.table("userStateData").upsert(update_data).execute()
+        print(f"사용자 설정 저장 성공: {discordWebhooksURL}")
+    except Exception as e:
+        print(f"데이터베이스 저장 오류: {e}")
+        return jsonify({"status": "error", "message": f"데이터베이스 저장 오류: {str(e)}"}), 500
 
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
-    
+
 @app.route("/update_username", methods=["POST"])
 def update_username():
     # JSON 데이터 처리
