@@ -20,8 +20,8 @@ import '../utils/url_helper.dart';
 class ApiService {
   // 환경변수에서 BASE_URL 가져오기
   static String? get baseUrl {
-      // return dotenv.env['DEBUG_BASE_URL'];
-      return dotenv.env['BASE_URL'];
+      // return dotenv.env['DEBUG_BASE_URL'] ?? 'http://192.168.0.4:5000';
+      return dotenv.env['BASE_URL'] ?? 'https://discordbotsetting.duckdns.org';
     
   }
 
