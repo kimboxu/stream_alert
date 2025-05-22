@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,8 +18,12 @@ import '../utils/cache_helper.dart';
 import '../utils/url_helper.dart';
 
 class ApiService {
-  // static const String baseUrl = 'http://192.168.0.8:5000'; // 디버깅 용도
-  static const String baseUrl = 'https://discordbotsetting.duckdns.org'; // 오라클 서버 주소
+  // 환경변수에서 BASE_URL 가져오기
+  static String? get baseUrl {
+      // return dotenv.env['DEBUG_BASE_URL'];
+      return dotenv.env['BASE_URL'];
+    
+  }
 
   // 이미지 URL을 프록시 URL로 변환하는 함수
   static processImageUrl(String url) {
