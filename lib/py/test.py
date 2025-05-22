@@ -60,7 +60,6 @@ async def main():
     state = StateManager.get_instance()
     init = state.get_init()
     if init is None: init =await state.initialize()
-    discordWebhookURL = "https://discord.com/api/webhooks/1363456084580368474/ExIPhT3Yt6f74uQZF6k5CvvrBMceoa1l8wbLShKg-4LSARpP4rSH0QAS9RN6NWNKDThR"
     try:
         # 해당 URL의 사용자 데이터 가져오기
         user_data = init.userStateData.loc[discordWebhookURL, "chat_user_json"]
