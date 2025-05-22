@@ -142,7 +142,7 @@ async def run_discord_bot():
         asyncio.create_task(main_loop(init)),
         asyncio.create_task(generic_chat(init, 'afreeca', afreeca_chat_message)),
         asyncio.create_task(generic_chat(init, 'chzzk', chzzk_chat_message)),
-        asyncio.create_task(youtube_task(init)),
+        # asyncio.create_task(youtube_task(init)),
     ]
     
     await asyncio.gather(*bot_tasks)
