@@ -783,8 +783,8 @@ def get_daily_statistics():
         start_date = end_date - timedelta(days=days)
         
         # 로컬 파일에서 통계 로드
-        from base import _load_daily_statistics
-        all_stats = _load_daily_statistics()
+        from base import load_daily_statistics
+        all_stats = load_daily_statistics()
         
         # 날짜 범위 필터링
         filtered_stats = []

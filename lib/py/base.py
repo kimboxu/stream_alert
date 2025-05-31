@@ -409,7 +409,7 @@ async def _save_daily_statistics(daily_stat):
 		print(f"일일 통계 파일 저장 실패: {e}")
 
 # 로컬 파일에서 일일 통계 로드하는 함수
-def _load_daily_statistics():
+def load_daily_statistics():
 	try:
 		if DAILY_STATS_FILE.exists():
 			with open(DAILY_STATS_FILE, 'r', encoding='utf-8') as f:
