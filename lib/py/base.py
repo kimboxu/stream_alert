@@ -59,7 +59,6 @@ async def log_api_performance(api_type: str, response_time_ms: int, is_success: 
 							error_message: str = None, retry_count: int = 0,
 							user_count: int = None, batch_size: int = None,
 							additional_data: dict = None):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	
 	data = {
 		"api_type": api_type,
@@ -74,31 +73,29 @@ async def log_api_performance(api_type: str, response_time_ms: int, is_success: 
 		"additional_data": additional_data,
 	}
 	
+
 	try:
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
+
 		# DB에 저장
 		result = await asyncio.to_thread(
-			lambda: supabase.table('api_performance_logs').insert(data).execute()
+			lambda: init.supabase.table('api_performance_logs').insert(data).execute()
 		)
 		
-		try:
-			from shared_state import StateManager
-			state = StateManager.get_instance()
-			init = state.get_init()
+		if init is not None and hasattr(init, 'api_performance_logs'):
+			new_row = pd.DataFrame([data])
+			init.api_performance_logs = pd.concat([init.api_performance_logs, new_row], ignore_index=True)
 			
-			if init is not None and hasattr(init, 'api_performance_logs'):
-				new_row = pd.DataFrame([data])
-				init.api_performance_logs = pd.concat([init.api_performance_logs, new_row], ignore_index=True)
-				
-				# 메모리 사용량 관리 (최근 100000개만 유지)
-				if len(init.api_performance_logs) > 100000:
-					init.api_performance_logs = init.api_performance_logs.tail(100000).reset_index(drop=True)
-		except Exception as memory_error:
-			# 메모리 업데이트 실패해도 로깅은 계속
-			print(f"메모리 업데이트 실패: {memory_error}")
+			# 메모리 사용량 관리 (최근 100000개만 유지)
+			if len(init.api_performance_logs) > 100000:
+				init.api_performance_logs = init.api_performance_logs.tail(100000).reset_index(drop=True)
+	except Exception as memory_error:
+		# 메모리 업데이트 실패해도 로깅은 계속
+		print(f"메모리 업데이트 실패: {memory_error}")
 			
-	except Exception as e:
-		# 성능 로깅 실패해도 메인 로직에 영향 주지 않도록
-		print(f"성능 로깅 실패: {e}")
+
 
 #특정 API 타입의 평균 응답시간 계산하는 함수
 async def calculate_avg_response_time(api_type: str, date):
@@ -124,9 +121,8 @@ async def calculate_avg_response_time(api_type: str, date):
 				return round(filtered_logs['response_time_ms'].mean(), 2)
 		
 		# 메모리에 데이터가 없으면 DB에서 조회
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		result = await asyncio.to_thread(
-			lambda: supabase.table('api_performance_logs')
+			lambda: init.supabase.table('api_performance_logs')
 				.select('response_time_ms')
 				.eq('api_type', api_type)
 				.gte('timestamp', f'{date}T00:00:00')
@@ -168,10 +164,9 @@ async def calculate_success_rate(api_type: str, date):
 				return round((success_count / total_count) * 100, 2) if total_count > 0 else 100
 		
 		# 메모리에 데이터가 없으면 DB에서 조회
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		
 		total_result = await asyncio.to_thread(
-			lambda: supabase.table('api_performance_logs')
+			lambda: init.supabase.table('api_performance_logs')
 				.select('id', count='exact')
 				.eq('api_type', api_type)
 				.gte('timestamp', f'{date}T00:00:00')
@@ -180,7 +175,7 @@ async def calculate_success_rate(api_type: str, date):
 		)
 		
 		success_result = await asyncio.to_thread(
-			lambda: supabase.table('api_performance_logs')
+			lambda: init.supabase.table('api_performance_logs')
 				.select('id', count='exact')
 				.eq('api_type', api_type)
 				.eq('is_success', True)
@@ -201,24 +196,29 @@ async def calculate_success_rate(api_type: str, date):
 
 #사용자 통계 계산하는 함수
 async def get_user_statistics(date):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+
 	try:
+		# StateManager에서 init 가져오기
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
+
 		total_users_result = await asyncio.to_thread(
-			lambda: supabase.table('userStateData')
+			lambda: init.supabase.table('userStateData')
 				.select('discordURL', count='exact')
 				.execute()
 		)
 		
 		yesterday = date - timedelta(days=1)
 		active_users_result = await asyncio.to_thread(
-			lambda: supabase.table('userStateData')
+			lambda: init.supabase.table('userStateData')
 				.select('discordURL', count='exact')
 				.gte('last_db_save_time', f'{yesterday}T00:00:00')
 				.execute()
 		)
 		
 		new_users_result = await asyncio.to_thread(
-			lambda: supabase.table('userStateData')
+			lambda: init.supabase.table('userStateData')
 				.select('discordURL', count='exact')
 				.gte('created_at', f'{date}T00:00:00')
 				.lt('created_at', f'{date + timedelta(days=1)}T00:00:00')
@@ -236,10 +236,14 @@ async def get_user_statistics(date):
 
 #알림 통계 계산하는 함수
 async def get_notification_statistics(date):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	try:
+		# StateManager에서 init 가져오기
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
+
 		discord_result = await asyncio.to_thread(
-			lambda: supabase.table('api_performance_logs')
+			lambda: init.supabase.table('api_performance_logs')
 				.select('id', count='exact')
 				.eq('api_type', 'discord_webhook')
 				.eq('is_success', True)
@@ -249,7 +253,7 @@ async def get_notification_statistics(date):
 		)
 		
 		fcm_result = await asyncio.to_thread(
-			lambda: supabase.table('api_performance_logs')
+			lambda: init.supabase.table('api_performance_logs')
 				.select('id', count='exact')
 				.eq('api_type', 'fcm_push')
 				.eq('is_success', True)
@@ -272,10 +276,14 @@ async def get_notification_statistics(date):
 
 #에러 개수 계산하는 함수
 async def get_error_count(date):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	try:
+		# StateManager에서 init 가져오기
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
+
 		result = await asyncio.to_thread(
-			lambda: supabase.table('api_performance_logs')
+			lambda: init.supabase.table('api_performance_logs')
 				.select('id', count='exact')
 				.eq('is_success', False)
 				.gte('timestamp', f'{date}T00:00:00')
@@ -330,10 +338,14 @@ async def get_active_streams_count():
 async def calculate_system_uptime():
 	try:
 		today = datetime.now().date()
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+
+		# StateManager에서 init 가져오기
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
 		
 		result = await asyncio.to_thread(
-			lambda: supabase.table('api_performance_logs')
+			lambda: init.supabase.table('api_performance_logs')
 				.select('timestamp')
 				.gte('timestamp', f'{today}T00:00:00')
 				.lt('timestamp', f'{today + timedelta(days=1)}T00:00:00')
@@ -355,7 +367,11 @@ async def calculate_system_uptime():
 
 #일일 통계를 계산하고 저장하는 함수
 async def calculate_and_save_daily_statistics():
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	# StateManager에서 init 가져오기
+	from shared_state import StateManager
+	state = StateManager.get_instance()
+	init = state.get_init()
+
 	today = datetime.now().date()
 	yesterday = today - timedelta(days=1)
 	
@@ -394,7 +410,7 @@ async def calculate_and_save_daily_statistics():
 		}
 		
 		await asyncio.to_thread(
-			lambda: supabase.table('system_statistics').upsert(data).execute()
+			lambda: init.supabase.table('system_statistics').upsert(data).execute()
 		)
 		
 		print(f"{datetime.now()} 일일 통계 저장 완료: {yesterday}")
