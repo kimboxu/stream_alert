@@ -9,9 +9,9 @@ from supabase import create_client
 class DiscordWebhookSender:
     # 디스코드 웹훅 전송 클래스 초기화
     def __init__(self, 
-                 supabase_url: str = environ.get('supabase_url'),
-                 supabase_key: str = environ.get('supabase_key'),
-                 error_webhook_url: str = environ.get('errorPostBotURL')):
+                supabase_url: str = environ.get('supabase_url'),
+                supabase_key: str = environ.get('supabase_key'),
+                error_webhook_url: str = environ.get('errorPostBotURL')):
 
         self.supabase_url = supabase_url  # Supabase URL
         self.supabase_key = supabase_key  # Supabase API 키
@@ -49,28 +49,68 @@ class DiscordWebhookSender:
 
     # 재시도 로직이 포함된 메시지 전송 함수
     async def _send_message_with_retry(self, 
-                                       session: ClientSession, 
-                                       url: str, 
-                                       data: Dict[str, Any], 
-                                       semaphore: asyncio.Semaphore) -> Optional[str]:
+                                session: ClientSession, 
+                                url: str, 
+                                data: Dict[str, Any], 
+                                semaphore: asyncio.Semaphore) -> Optional[str]:
         async with semaphore:  # 세마포어로 동시 요청 제한
             for attempt in range(self.MAX_RETRIES):
+                start_time = datetime.now()
+                
                 try:
                     # 웹훅 POST 요청 전송
                     async with session.post(url, json=data, timeout=self.TIMEOUT) as response:
+                        end_time = datetime.now()
+                        response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+                        
+                        # 성능 로깅
+                        from base import log_api_performance
+                        asyncio.create_task(log_api_performance(
+                            api_type='discord_webhook',
+                            response_time_ms=response_time_ms,
+                            is_success=response.status < 400,
+                            http_status_code=response.status,
+                            retry_count=attempt
+                        ))
+                        
                         response.raise_for_status()  # HTTP 오류 발생 시 예외 발생
                         return await response.text()  # 응답 반환
                 
                 except ClientError as e:
-                    # 특정 오류 시나리오 처리
-                    if response.status == 404:  # URL이 존재하지 않는 경우
+                    end_time = datetime.now()
+                    response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+                    
+                    # 에러 로깅
+                    from base import log_api_performance
+                    asyncio.create_task(log_api_performance(
+                        api_type='discord_webhook',
+                        response_time_ms=response_time_ms,
+                        is_success=False,
+                        error_type=type(e).__name__,
+                        error_message=str(e),
+                        retry_count=attempt
+                    ))
+                    
+                    if hasattr(e, 'status') and e.status == 404:
                         await self._handle_404_error(url)
                     
                     # 지수 백오프 적용 (재시도 간격 점점 증가)
                     await asyncio.sleep(self.BASE_DELAY * (2 ** attempt))
                 
                 except asyncio.TimeoutError:
-                    # 요청 시간 초과 처리
+                    end_time = datetime.now()
+                    response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+                    
+                    # 타임아웃 로깅
+                    from base import log_api_performance
+                    asyncio.create_task(log_api_performance(
+                        api_type='discord_webhook',
+                        response_time_ms=response_time_ms,
+                        is_success=False,
+                        error_type='TimeoutError',
+                        retry_count=attempt
+                    ))
+                    
                     print(f"{datetime.now()} Timeout for {url}: {str(data)}")
                     
                     # 마지막 시도에서 실패한 경우
@@ -81,7 +121,20 @@ class DiscordWebhookSender:
                     await asyncio.sleep(self.BASE_DELAY * (2 ** attempt))
                 
                 except Exception as e:
-                    # 기타 예외 처리
+                    end_time = datetime.now()
+                    response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+                    
+                    # 기타 예외 로깅
+                    from base import log_api_performance
+                    asyncio.create_task(log_api_performance(
+                        api_type='discord_webhook',
+                        response_time_ms=response_time_ms,
+                        is_success=False,
+                        error_type=type(e).__name__,
+                        error_message=str(e),
+                        retry_count=attempt
+                    ))
+                    
                     print(f"Unexpected error sending message: {e}")
                     
                     # 마지막 시도에서 실패한 경우

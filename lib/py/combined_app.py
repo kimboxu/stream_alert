@@ -4,7 +4,7 @@ import nest_asyncio
 from os import environ
 from datetime import datetime
 from dotenv import load_dotenv
-from base import initVar, userDataVar, fCount, fSleep
+from base import initVar, userDataVar, fCount, fSleep, log_error, setup_performance_scheduler
 from shared_state import StateManager
 # from Twitch_live_message import twitch_live_message
 from Chzzk_chat_message import chzzk_chat_message
@@ -14,7 +14,6 @@ from getCafePostTitle import getCafePostTitle
 from getYoutubeJsonData import getYoutubeJsonData
 from live_message import chzzk_live_message, afreeca_live_message
 from notification_service import initialize_firebase, cleanup_all_invalid_tokens, setup_scheduled_tasks
-from base import log_error
 from supabase import create_client
 
 # 비동기 이벤트 루프를 중첩해서 사용할 수 있도록 설정
@@ -168,6 +167,10 @@ def main():
     firebase_initialized = initialize_firebase(False)
     if not firebase_initialized:
         print("경고: Firebase 초기화에 실패했습니다. 푸시 알림 기능이 작동하지 않을 수 있습니다.")
+
+    # 성능 통계 스케줄러 시작
+    setup_performance_scheduler()
+    print("성능 통계 스케줄러가 시작되었습니다.")
     
     # 디스코드 봇 스레드 시작
     bot_thread = threading.Thread(target=run_bot_thread, daemon=True)

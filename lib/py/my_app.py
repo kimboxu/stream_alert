@@ -5,12 +5,11 @@ import asyncio
 import signal
 from json import loads, dumps
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from shared_state import StateManager
 from urllib.parse import unquote
 from requests import get 
-
 
 from notification_service import (
     initialize_firebase,
@@ -741,6 +740,91 @@ def remove_fcm_token():
             ),
             500,
         )
+
+#성능 통계 조회 엔드포인트
+@app.route("/get_performance_stats", methods=["GET"])
+def get_performance_stats():
+    try:
+        days = request.args.get('days', default=7, type=int)
+        
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            from base import get_realtime_statistics
+            stats = loop.run_until_complete(get_realtime_statistics(days))
+            
+            if stats:
+                return jsonify({
+                    "status": "success",
+                    **stats
+                })
+            else:
+                return jsonify({
+                    "status": "error",
+                    "message": "통계 계산 실패"
+                }), 500
+                
+        finally:
+            loop.close()
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"통계 조회 실패: {str(e)}"
+        }), 500
+
+#저장된 일일 통계 조회
+@app.route("/get_daily_statistics", methods=["GET"])
+def get_daily_statistics():
+    try:
+        days = request.args.get('days', default=7, type=int)
+        end_date = datetime.now().date()
+        start_date = end_date - timedelta(days=days)
+        
+        result = app.init.supabase.table('system_statistics') \
+            .select('*') \
+            .gte('date', start_date.isoformat()) \
+            .lte('date', end_date.isoformat()) \
+            .order('date', desc=True) \
+            .execute()
+        
+        return jsonify({
+            "status": "success",
+            "data": result.data,
+            "period": f"{start_date} ~ {end_date}"
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"일일 통계 조회 실패: {str(e)}"
+        }), 500
+    
+#수동으로 일일 통계 계산 트리거 (테스트용)
+@app.route("/trigger_daily_stats", methods=["POST"])
+def trigger_daily_stats():
+    try:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            from base import calculate_and_save_daily_statistics
+            loop.run_until_complete(calculate_and_save_daily_statistics())
+            
+            return jsonify({
+                "status": "success",
+                "message": "일일 통계 계산이 완료되었습니다"
+            })
+            
+        finally:
+            loop.close()
+            
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"일일 통계 계산 실패: {str(e)}"
+        }), 500
 
 def save_notifications(init, discordWebhooksURL, notifications):
     init.userStateData.loc[discordWebhooksURL, "notifications"] = notifications
