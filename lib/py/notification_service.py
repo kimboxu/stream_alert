@@ -9,7 +9,7 @@ from base import initVar, if_after_time
 from shared_state import StateManager
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
-from base import update_flag, save_user_notifications
+from base import update_flag, save_user_notifications, log_api_performance
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -74,6 +74,8 @@ async def send_fcm_message(token, notification_data, data_fields):
     """
     개별 FCM 토큰에 메시지를 전송합니다.
     """
+    start_time = datetime.now()
+    
     try:
         # FCM은 모든 데이터 필드가 문자열이어야 함
         message_data = {k: str(v) if not isinstance(v, (list, dict)) else dumps(v) for k, v in data_fields.items()}
@@ -94,18 +96,81 @@ async def send_fcm_message(token, notification_data, data_fields):
 
         # 메시지 전송 및 결과 로깅
         result = messaging.send(message, dry_run=False)
-        # print(f"FCM 메시지 전송 성공: {token[:15]}... 결과: {result}")
+        
+        end_time = datetime.now()
+        response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+        
+        # 성공 로깅
+        from base import log_api_performance
+        asyncio.create_task(log_api_performance(
+            api_type='fcm_push',
+            response_time_ms=response_time_ms,
+            is_success=True
+        ))
+        
+        print(f"FCM 메시지 전송 성공: {token[:15]}... 결과: {result}, 응답시간: {response_time_ms/1000:.3f}초")
         return result
+        
     except messaging.UnregisteredError:
-        print(f"FCM 토큰 등록 취소됨 (앱 제거): {token}")
+        end_time = datetime.now()
+        response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+        asyncio.create_task(log_api_performance(
+           api_type='fcm_push',
+           response_time_ms=response_time_ms,
+           is_success=False,
+           error_type='UnregisteredError',
+           error_message='토큰이 등록 취소됨'
+       ))
         remove_fcm_token(token)
         return None
     except messaging.InvalidArgumentError as e:
+        end_time = datetime.now()
+        response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+        
+        # 잘못된 인수 로깅
+        asyncio.create_task(log_api_performance(
+           api_type='fcm_push',
+           response_time_ms=response_time_ms,
+           is_success=False,
+           error_type='InvalidArgumentError',
+           error_message=str(e)
+       ))
         print(f"FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token}): {e}")
         remove_fcm_token(token)
         return None
+    
+    except messaging.QuotaExceededError as e:
+        end_time = datetime.now()
+        response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+        
+        # 할당량 초과 로깅
+        from base import log_api_performance
+        asyncio.create_task(log_api_performance(
+            api_type='fcm_push',
+            response_time_ms=response_time_ms,
+            is_success=False,
+            error_type='QuotaExceededError',
+            error_message=str(e)
+        ))
+        
+        print(f"FCM 할당량 초과: {token[:15]}... 오류: {e}")
+        return None
+
     except Exception as e:
-        print(f"FCM 메시지 전송 실패 (토큰: {token[:15]}...): {e}")
+        end_time = datetime.now()
+        response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+        
+        # 기타 예외 로깅
+        from base import log_api_performance
+        asyncio.create_task(log_api_performance(
+            api_type='fcm_push',
+            response_time_ms=response_time_ms,
+            is_success=False,
+            error_type=type(e).__name__,
+            error_message=str(e)
+        ))
+        
+        print(f"FCM 메시지 전송 실패: {token[:15]}... 오류: {e}")
         return None
 
 # FCM 메시지 배치 전송 함수

@@ -15,6 +15,8 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor
 from discord_webhook_sender import DiscordWebhookSender
+from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
 
 class initVar:
 	# 초기화 클래스: 프로그램의 기본 설정값과 상태를 관리함
@@ -34,6 +36,7 @@ class initVar:
 	# 모든 로거의 레벨을 높이려면
 	# logging.getLogger().setLevel(logging.WARNING)
 	print("start!")
+	
 
 # 각 플랫폼의 아이콘 URL을 저장하는 데이터 클래스
 @dataclass
@@ -48,8 +51,333 @@ class iconLinkData:
 
 ## 오류 로깅 함수: Discord 웹훅을 통해 오류 메시지 전송
 async def log_error(message, webhook_url = environ.get('errorPostBotURL')):
-    await DiscordWebhookSender()._log_error(message, webhook_url)
+	await DiscordWebhookSender()._log_error(message, webhook_url)
 
+# 성능 로그 저장 함수
+async def log_api_performance(api_type: str, response_time_ms: int, is_success: bool, 
+							http_status_code: int = None, error_type: str = None, 
+							error_message: str = None, retry_count: int = 0,
+							user_count: int = None, batch_size: int = None,
+							additional_data: dict = None):
+	"""API 성능 데이터를 로깅하는 함수"""
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	
+	data = {
+		"api_type": api_type,
+		"response_time_ms": response_time_ms,
+		"is_success": is_success,
+		"http_status_code": http_status_code,
+		"error_type": error_type,
+		"error_message": error_message,
+		"retry_count": retry_count,
+		"user_count": user_count,
+		"batch_size": batch_size,
+		"additional_data": additional_data
+	}
+	
+	try:
+		await asyncio.to_thread(
+			lambda: supabase.table('api_performance_logs').insert(data).execute()
+		)
+	except Exception as e:
+		# 성능 로깅 실패해도 메인 로직에 영향 주지 않도록
+		print(f"성능 로깅 실패: {e}")
+
+#특정 API 타입의 평균 응답시간 계산하는 함수
+async def calculate_avg_response_time(api_type: str, date):
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	try:
+		result = await asyncio.to_thread(
+			lambda: supabase.table('api_performance_logs')
+				.select('response_time_ms')
+				.eq('api_type', api_type)
+				.gte('timestamp', f'{date}T00:00:00')
+				.lt('timestamp', f'{date + timedelta(days=1)}T00:00:00')
+				.eq('is_success', True)
+				.execute()
+		)
+		
+		if result.data:
+			times = [row['response_time_ms'] for row in result.data]
+			return round(sum(times) / len(times), 2)
+		return 0
+	except Exception as e:
+		await log_error(f"평균 응답시간 계산 오류: {e}")
+		return 0
+
+#특정 API 타입의 성공률 계산하는 함수
+async def calculate_success_rate(api_type: str, date):
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	try:
+		total_result = await asyncio.to_thread(
+			lambda: supabase.table('api_performance_logs')
+				.select('id', count='exact')
+				.eq('api_type', api_type)
+				.gte('timestamp', f'{date}T00:00:00')
+				.lt('timestamp', f'{date + timedelta(days=1)}T00:00:00')
+				.execute()
+		)
+		
+		success_result = await asyncio.to_thread(
+			lambda: supabase.table('api_performance_logs')
+				.select('id', count='exact')
+				.eq('api_type', api_type)
+				.eq('is_success', True)
+				.gte('timestamp', f'{date}T00:00:00')
+				.lt('timestamp', f'{date + timedelta(days=1)}T00:00:00')
+				.execute()
+		)
+		
+		total_count = total_result.count or 0
+		success_count = success_result.count or 0
+		
+		if total_count > 0:
+			return round((success_count / total_count) * 100, 2)
+		return 100
+	except Exception as e:
+		await log_error(f"성공률 계산 오류: {e}")
+		return 0
+
+#사용자 통계 계산하는 함수
+async def get_user_statistics(date):
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	try:
+		total_users_result = await asyncio.to_thread(
+			lambda: supabase.table('userStateData')
+				.select('discordURL', count='exact')
+				.execute()
+		)
+		
+		yesterday = date - timedelta(days=1)
+		active_users_result = await asyncio.to_thread(
+			lambda: supabase.table('userStateData')
+				.select('discordURL', count='exact')
+				.gte('last_db_save_time', f'{yesterday}T00:00:00')
+				.execute()
+		)
+		
+		new_users_result = await asyncio.to_thread(
+			lambda: supabase.table('userStateData')
+				.select('discordURL', count='exact')
+				.gte('created_at', f'{date}T00:00:00')
+				.lt('created_at', f'{date + timedelta(days=1)}T00:00:00')
+				.execute()
+		)
+		
+		return {
+			'total_users': total_users_result.count or 0,
+			'active_users': active_users_result.count or 0,
+			'new_users': new_users_result.count or 0
+		}
+	except Exception as e:
+		await log_error(f"사용자 통계 계산 오류: {e}")
+		return {'total_users': 0, 'active_users': 0, 'new_users': 0}
+
+#알림 통계 계산하는 함수
+async def get_notification_statistics(date):
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	try:
+		discord_result = await asyncio.to_thread(
+			lambda: supabase.table('api_performance_logs')
+				.select('id', count='exact')
+				.eq('api_type', 'discord_webhook')
+				.eq('is_success', True)
+				.gte('timestamp', f'{date}T00:00:00')
+				.lt('timestamp', f'{date + timedelta(days=1)}T00:00:00')
+				.execute()
+		)
+		
+		fcm_result = await asyncio.to_thread(
+			lambda: supabase.table('api_performance_logs')
+				.select('id', count='exact')
+				.eq('api_type', 'fcm_push')
+				.eq('is_success', True)
+				.gte('timestamp', f'{date}T00:00:00')
+				.lt('timestamp', f'{date + timedelta(days=1)}T00:00:00')
+				.execute()
+		)
+		
+		discord_count = discord_result.count or 0
+		fcm_count = fcm_result.count or 0
+		
+		return {
+			'discord': discord_count,
+			'fcm': fcm_count,
+			'total': discord_count + fcm_count
+		}
+	except Exception as e:
+		await log_error(f"알림 통계 계산 오류: {e}")
+		return {'discord': 0, 'fcm': 0, 'total': 0}
+
+#에러 개수 계산하는 함수
+async def get_error_count(date):
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	try:
+		result = await asyncio.to_thread(
+			lambda: supabase.table('api_performance_logs')
+				.select('id', count='exact')
+				.eq('is_success', False)
+				.gte('timestamp', f'{date}T00:00:00')
+				.lt('timestamp', f'{date + timedelta(days=1)}T00:00:00')
+				.execute()
+		)
+		return result.count or 0
+	except Exception as e:
+		await log_error(f"에러 개수 계산 오류: {e}")
+		return 0
+
+#모니터링 중인 스트리머 수 계산하는 함수
+async def get_monitored_streamers_count():
+	try:
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
+		if init is None:
+			return 0
+			
+		chzzk_count = len(init.chzzkIDList) if hasattr(init, 'chzzkIDList') else 0
+		afreeca_count = len(init.afreecaIDList) if hasattr(init, 'afreecaIDList') else 0
+		
+		return chzzk_count + afreeca_count 
+	except Exception as e:
+		await log_error(f"모니터링 스트리머 수 계산 오류: {e}")
+		return 0
+
+#현재 활성 스트림 수 계산하는 함수
+async def get_active_streams_count():
+	try:
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
+		if init is None:
+			return 0
+			
+		online_counts = {
+			'chzzk': get_online_count(init.chzzk_titleData) if hasattr(init, 'chzzk_titleData') else 0,
+			'afreeca': get_online_count(init.afreeca_titleData) if hasattr(init, 'afreeca_titleData') else 0,
+			'twitch': get_online_count(init.twitch_titleData) if hasattr(init, 'twitch_titleData') else 0
+		}
+		
+		# 전체 활성 스트림 수 반환
+		return sum(online_counts.values())
+
+	except Exception as e:
+		await log_error(f"활성 스트림 수 계산 오류: {e}")
+		return 0
+
+#시스템 가동 시간 계산하는 함수
+async def calculate_system_uptime():
+	try:
+		today = datetime.now().date()
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		
+		result = await asyncio.to_thread(
+			lambda: supabase.table('api_performance_logs')
+				.select('timestamp')
+				.gte('timestamp', f'{today}T00:00:00')
+				.lt('timestamp', f'{today + timedelta(days=1)}T00:00:00')
+				.order('timestamp')
+				.limit(1)
+				.execute()
+		)
+		
+		if result.data:
+			first_call = datetime.fromisoformat(result.data[0]['timestamp'].replace('Z', '+00:00'))
+			now = datetime.now().astimezone()
+			uptime_hours = (now - first_call).total_seconds() / 3600
+			return round(uptime_hours, 2)
+		
+		return 0
+	except Exception as e:
+		await log_error(f"시스템 가동시간 계산 오류: {e}")
+		return 0
+
+#일일 통계를 계산하고 저장하는 함수
+async def calculate_and_save_daily_statistics():
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	today = datetime.now().date()
+	yesterday = today - timedelta(days=1)
+	
+	try:
+		print(f"{datetime.now()} 일일 통계 계산 시작: {yesterday}")
+		
+		discord_avg = await calculate_avg_response_time('discord_webhook', yesterday)
+		fcm_avg = await calculate_avg_response_time('fcm_push', yesterday)
+		discord_success_rate = await calculate_success_rate('discord_webhook', yesterday)
+		fcm_success_rate = await calculate_success_rate('fcm_push', yesterday)
+		
+		user_stats = await get_user_statistics(yesterday)
+		notification_stats = await get_notification_statistics(yesterday)
+		error_count = await get_error_count(yesterday)
+		
+		monitored_streamers = await get_monitored_streamers_count()
+		active_streams = await get_active_streams_count()
+		system_uptime = await calculate_system_uptime()
+		
+		data = {
+			"date": yesterday.isoformat(),
+			"total_users": user_stats.get('total_users', 0),
+			"active_users": user_stats.get('active_users', 0),
+			"new_users": user_stats.get('new_users', 0),
+			"total_notifications_sent": notification_stats.get('total', 0),
+			"discord_notifications": notification_stats.get('discord', 0),
+			"fcm_notifications": notification_stats.get('fcm', 0),
+			"monitored_streamers": monitored_streamers,
+			"active_streams": active_streams,
+			"avg_discord_response_time_ms": discord_avg,
+			"avg_fcm_response_time_ms": fcm_avg,
+			"discord_success_rate": discord_success_rate,
+			"fcm_success_rate": fcm_success_rate,
+			"system_uptime_hours": system_uptime,
+			"error_count": error_count
+		}
+		
+		await asyncio.to_thread(
+			lambda: supabase.table('system_statistics').upsert(data).execute()
+		)
+		
+		print(f"{datetime.now()} 일일 통계 저장 완료: {yesterday}")
+		print(f"Discord 평균 응답시간: {discord_avg}ms, 성공률: {discord_success_rate}%")
+		print(f"FCM 평균 응답시간: {fcm_avg}ms, 성공률: {fcm_success_rate}%")
+		
+	except Exception as e:
+		await log_error(f"일일 통계 계산 및 저장 오류: {e}")
+
+#실시간 통계 조회하는 함수
+async def get_realtime_statistics(days=7):
+	end_date = datetime.now().date()
+	start_date = end_date - timedelta(days=days-1)
+	
+	try:
+		discord_avg = await calculate_avg_response_time('discord_webhook', start_date)
+		fcm_avg = await calculate_avg_response_time('fcm_push', start_date)
+		discord_success = await calculate_success_rate('discord_webhook', start_date)
+		fcm_success = await calculate_success_rate('fcm_push', start_date)
+		
+		monitored_streamers = await get_monitored_streamers_count()
+		active_streams = await get_active_streams_count()
+		
+		return {
+			"period": f"{start_date} ~ {end_date}",
+			"performance": {
+				"discord_webhook": {
+					"avg_response_time_ms": discord_avg,
+					"success_rate": discord_success
+				},
+				"fcm_push": {
+					"avg_response_time_ms": fcm_avg,
+					"success_rate": fcm_success
+				}
+			},
+			"system": {
+				"monitored_streamers": monitored_streamers,
+				"active_streams": active_streams
+			}
+		}
+	except Exception as e:
+		await log_error(f"실시간 통계 조회 오류: {e}")
+		return None
+	
 # 사용자 데이터 업데이트 함수
 async def userDataVar(init: initVar):
 	try:
@@ -280,9 +608,9 @@ def cafe_params(cafeNum, page_num):
 
 # ISO 시간을 UTC로 변환하는 함수 (한국시간 -9시간)
 def changeUTCtime(time_str):
-    time = datetime.fromisoformat(time_str)
-    time -= timedelta(hours=9)
-    return time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+	time = datetime.fromisoformat(time_str)
+	time -= timedelta(hours=9)
+	return time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 # 지정된 시간 이후인지 확인하는 함수 (기본 300초/5분)
 def if_after_time(time_str, sec=300):  
@@ -302,6 +630,8 @@ def afreeca_getLink(afreeca_id: str):
 
 # 플랫폼별 API 요청 처리 함수
 async def get_message(platform, link):
+	start_time = datetime.now()  # 시작 시간 기록
+	
 	# 미리 정의된 플랫폼별 API 요청 구성
 	platform_config = {
 		"afreeca": {
@@ -343,19 +673,16 @@ async def get_message(platform, link):
 		
 		# 기본 헤더 및 요청 설정
 		headers = {}
-		request_kwargs = {
-			"timeout": 10  # 타임아웃 시간 증가 (3초 → 10초)
-		}
+		request_kwargs = {"timeout": 10}
 		
 		# 플랫폼별 헤더 설정
 		if platform == "chzzk":
 			headers = getDefaultHeaders()
 		elif platform == "twitch":
-			headers = getTwitchHeaders()  # 트위치 인증 헤더
+			headers = getTwitchHeaders()
 		else:
 			headers = getDefaultHeaders()
 			
-		
 		request_kwargs["headers"] = headers
 		
 		# 쿠키가 필요한 경우 추가
@@ -363,7 +690,6 @@ async def get_message(platform, link):
 			if platform == "chzzk":
 				request_kwargs["cookies"] = getChzzkCookie()
 
-		
 		# URL 형식 처리
 		formatted_url = link
 		if "url_formatter" in config:
@@ -380,7 +706,6 @@ async def get_message(platform, link):
 				cafe_num = link.split(",")[-1]  # 링크에서 카페 번호 추출
 				request_kwargs["params"] = cafe_params(cafe_num, page_num)
 			elif platform == "chzzk":
-				# 치지직 파라미터 설정 (필요시)
 				pass
 		
 		# 재시도 설정
@@ -388,7 +713,7 @@ async def get_message(platform, link):
 		retry_count = 0
 		retry_delay = 2  # 초 단위
 		
-		# 재시도 메커니즘 구현
+		# 재시도 메커니즘
 		while retry_count < max_retries:
 			try:
 				# API 요청 실행
@@ -398,11 +723,19 @@ async def get_message(platform, link):
 					**request_kwargs
 				)
 				
+				end_time = datetime.now()
+				response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+				
 				# 응답 코드 확인
 				if response.status_code != 200:
-					error_msg = f"API 요청 실패: {response.status_code} - {platform}, {formatted_url}"
-					# 에러 로깅은 유지하되 재시도 수행
-					if retry_count >= max_retries: asyncio.create_task(log_error(f"{error_msg} (시도 {retry_count+1}/{max_retries})"))
+					# 실패 로깅
+					asyncio.create_task(log_api_performance(
+						api_type=f"{platform}_api",
+						response_time_ms=response_time_ms,
+						is_success=False,
+						http_status_code=response.status_code,
+						retry_count=retry_count
+					))
 					
 					# 서버 오류(5xx)의 경우만 재시도
 					if 500 <= response.status_code < 600:
@@ -418,10 +751,30 @@ async def get_message(platform, link):
 						# 4xx 등의 클라이언트 오류는 재시도하지 않고 바로 종료
 						return {}
 				
-				# 성공적인 응답을 받았으므로 처리 후 반환
+				# 성공 로깅
+				asyncio.create_task(log_api_performance(
+					api_type=f"{platform}_api",
+					response_time_ms=response_time_ms,
+					is_success=True,
+					http_status_code=response.status_code,
+					retry_count=retry_count
+				))
 				return config["response_handler"](response)
 				
 			except (ConnectTimeout, ReadTimeout, ConnectionError, HTTPError, RemoteDisconnected) as e:
+				end_time = datetime.now()
+				response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+				
+				# 에러 로깅
+				asyncio.create_task(log_api_performance(
+					api_type=f"{platform}_api",
+					response_time_ms=response_time_ms,
+					is_success=False,
+					error_type=type(e).__name__,
+					error_message=str(e),
+					retry_count=retry_count
+				))
+				
 				# 연결 관련 예외 발생 시 재시도
 				retry_count += 1
 				error_type = type(e).__name__
@@ -464,7 +817,7 @@ async def get_message(platform, link):
 		error_msg = f"error get_message2: {platform} - {str(e)}"
 		asyncio.create_task(log_error(error_msg))
 		return {}
-
+	
 # 트위치 채널 상태 데이터 추출 함수
 def twitch_getChannelOffStateData(offStateList, twitchID):
 	try:
@@ -616,21 +969,38 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 
 # 사용자 알림 데이터 저장 함수
 async def save_user_notifications(supabase, webhook_url, notifications, last_db_save_time):
-    for _ in range(3):  # 최대 3번 시도
-        try:
-            await asyncio.to_thread(
-                lambda: supabase.table('userStateData')
-                    .upsert({
-                        'discordURL': webhook_url, 
-                        'notifications': notifications,
-                        'last_db_save_time': last_db_save_time
-                    })
-                    .execute()
-            )
-            print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url}")
-            return True
-        except Exception as e:
-            print(f"{datetime.now()} 알림 저장 중 오류: {e} - URL: {webhook_url}")
-            await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
-    
-    return False  # 모든 시도 실패
+	for _ in range(3):  # 최대 3번 시도
+		try:
+			await asyncio.to_thread(
+				lambda: supabase.table('userStateData')
+					.upsert({
+						'discordURL': webhook_url, 
+						'notifications': notifications,
+						'last_db_save_time': last_db_save_time
+					})
+					.execute()
+			)
+			print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url}")
+			return True
+		except Exception as e:
+			print(f"{datetime.now()} 알림 저장 중 오류: {e} - URL: {webhook_url}")
+			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
+	
+	return False  # 모든 시도 실패
+
+#성능 통계 수집 스케줄러 설정 함수
+def setup_performance_scheduler():
+	scheduler = BackgroundScheduler()
+	
+	scheduler.add_job(
+		func=lambda: asyncio.run(calculate_and_save_daily_statistics()),
+		trigger="cron",
+		hour=0,
+		minute=5,
+		id='daily_statistics'
+	)
+	
+	scheduler.start()
+	print("성능 통계 스케줄러가 시작되었습니다 (매일 00:05에 실행)")
+	
+	atexit.register(lambda: scheduler.shutdown())
