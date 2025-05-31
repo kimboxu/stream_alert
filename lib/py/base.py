@@ -49,17 +49,16 @@ class iconLinkData:
 	youtube_icon: str = environ['YOUTUBE_ICON']
 	cafe_icon: str = environ['CAFE_ICON']
 
-## 오류 로깅 함수: Discord 웹훅을 통해 오류 메시지 전송
+# 오류 로깅 함수: Discord 웹훅을 통해 오류 메시지 전송
 async def log_error(message, webhook_url = environ.get('errorPostBotURL')):
 	await DiscordWebhookSender()._log_error(message, webhook_url)
 
-# 성능 로그 저장 함수
+# API 성능 데이터를 로깅하는 함수
 async def log_api_performance(api_type: str, response_time_ms: int, is_success: bool, 
 							http_status_code: int = None, error_type: str = None, 
 							error_message: str = None, retry_count: int = 0,
 							user_count: int = None, batch_size: int = None,
 							additional_data: dict = None):
-	"""API 성능 데이터를 로깅하는 함수"""
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	
 	data = {
@@ -72,21 +71,60 @@ async def log_api_performance(api_type: str, response_time_ms: int, is_success: 
 		"retry_count": retry_count,
 		"user_count": user_count,
 		"batch_size": batch_size,
-		"additional_data": additional_data
+		"additional_data": additional_data,
 	}
 	
 	try:
-		await asyncio.to_thread(
+		# DB에 저장
+		result = await asyncio.to_thread(
 			lambda: supabase.table('api_performance_logs').insert(data).execute()
 		)
+		
+		try:
+			from shared_state import StateManager
+			state = StateManager.get_instance()
+			init = state.get_init()
+			
+			if init is not None and hasattr(init, 'api_performance_logs'):
+				new_row = pd.DataFrame([data])
+				init.api_performance_logs = pd.concat([init.api_performance_logs, new_row], ignore_index=True)
+				
+				# 메모리 사용량 관리 (최근 100000개만 유지)
+				if len(init.api_performance_logs) > 100000:
+					init.api_performance_logs = init.api_performance_logs.tail(100000).reset_index(drop=True)
+		except Exception as memory_error:
+			# 메모리 업데이트 실패해도 로깅은 계속
+			print(f"메모리 업데이트 실패: {memory_error}")
+			
 	except Exception as e:
 		# 성능 로깅 실패해도 메인 로직에 영향 주지 않도록
 		print(f"성능 로깅 실패: {e}")
 
 #특정 API 타입의 평균 응답시간 계산하는 함수
 async def calculate_avg_response_time(api_type: str, date):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	try:
+		# StateManager에서 init 가져오기
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
+		
+		if init is not None and hasattr(init, 'api_performance_logs') and not init.api_performance_logs.empty:
+			# 메모리에서 먼저 계산 시도
+			logs = init.api_performance_logs
+			
+			# 날짜 필터링
+			target_date = date.strftime('%Y-%m-%d')
+			filtered_logs = logs[
+				(logs['api_type'] == api_type) & 
+				(logs['is_success'] == True) &
+				(logs['timestamp'].str.startswith(target_date))
+			]
+			
+			if not filtered_logs.empty:
+				return round(filtered_logs['response_time_ms'].mean(), 2)
+		
+		# 메모리에 데이터가 없으면 DB에서 조회
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		result = await asyncio.to_thread(
 			lambda: supabase.table('api_performance_logs')
 				.select('response_time_ms')
@@ -105,10 +143,33 @@ async def calculate_avg_response_time(api_type: str, date):
 		await log_error(f"평균 응답시간 계산 오류: {e}")
 		return 0
 
-#특정 API 타입의 성공률 계산하는 함수
+# 특정 API 타입의 성공률 계산하는 함수
 async def calculate_success_rate(api_type: str, date):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	try:
+		# StateManager에서 init 가져오기
+		from shared_state import StateManager
+		state = StateManager.get_instance()
+		init = state.get_init()
+		
+		if init is not None and hasattr(init, 'api_performance_logs') and not init.api_performance_logs.empty:
+			# 메모리에서 먼저 계산 시도
+			logs = init.api_performance_logs
+			
+			# 날짜 필터링
+			target_date = date.strftime('%Y-%m-%d')
+			filtered_logs = logs[
+				(logs['api_type'] == api_type) &
+				(logs['timestamp'].str.startswith(target_date))
+			]
+			
+			if not filtered_logs.empty:
+				total_count = len(filtered_logs)
+				success_count = len(filtered_logs[filtered_logs['is_success'] == True])
+				return round((success_count / total_count) * 100, 2) if total_count > 0 else 100
+		
+		# 메모리에 데이터가 없으면 DB에서 조회
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		
 		total_result = await asyncio.to_thread(
 			lambda: supabase.table('api_performance_logs')
 				.select('id', count='exact')
@@ -451,7 +512,7 @@ async def DataBaseVars(init: initVar):
 				'afreeca_titleData', 'twitchIDList', 'chzzkIDList', 
 				'afreecaIDList', 'youtubeData', 'twitch_chatFilter',
 				'chzzk_chatFilter', 'afreeca_chatFilter', 'chzzk_video', 
-				'cafeData'
+				'cafeData', 'api_performance_logs', 'system_statistics'
 			]
 			
 			# 모든 테이블의 데이터를 비동기로 가져오기
@@ -478,12 +539,15 @@ async def DataBaseVars(init: initVar):
 				'youtubeData': 'YoutubeChannelID',
 				'afreeca_chatFilter': 'channelID',
 				'cafeData': 'channelID',
-				'chzzk_video': 'channelID'
+				'chzzk_video': 'channelID',
+				'api_performance_logs': 'id',
+				'system_statistics': 'date',
 			}
 			
 			for table_name, index_col in index_mappings.items():
 				data = getattr(init, table_name)
-				data.index = list(data[index_col])
+				if not data.empty:  # 데이터가 있을 때만 인덱스 설정
+					data.index = list(data[index_col])
 
 			await update_flag('all_date', False)
 
