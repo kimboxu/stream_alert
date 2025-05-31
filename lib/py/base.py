@@ -2,7 +2,7 @@ from os import environ
 import logging
 import asyncio
 import aiohttp
-from json import loads, dump, JSONDecodeError
+from json import loads, load, dump, JSONDecodeError
 from queue import Queue
 import pandas as pd
 from requests import post, get
@@ -113,7 +113,7 @@ async def _flush_api_performance_cache():
 		if API_PERFORMANCE_FILE.exists():
 			with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
 				try:
-					existing_data = loads(f)
+					existing_data = load	(f)
 				except JSONDecodeError:
 					existing_data = []
 		
@@ -122,7 +122,7 @@ async def _flush_api_performance_cache():
 		
 		# 오래된 데이터 제거 (7일 이상된 데이터)
 		cutoff_date = datetime.now() - timedelta(days=7)
-		filtered_data = [
+		filtered_data = [	
 			item for item in existing_data
 			if datetime.fromisoformat(item['timestamp']) > cutoff_date
 		]
@@ -142,7 +142,7 @@ def _load_api_performance_data():
 	try:
 		if API_PERFORMANCE_FILE.exists():
 			with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
-				return loads(f)
+				return load(f)
 	except Exception as e:
 		print(f"API 성능 데이터 로드 실패: {e}")
 	return []
@@ -386,7 +386,7 @@ async def _save_daily_statistics(daily_stat):
 		if DAILY_STATS_FILE.exists():
 			with open(DAILY_STATS_FILE, 'r', encoding='utf-8') as f:
 				try:
-					existing_stats = loads(f)
+					existing_stats = load(f)
 				except JSONDecodeError:
 					existing_stats = {}
 		
@@ -413,7 +413,7 @@ def _load_daily_statistics():
 	try:
 		if DAILY_STATS_FILE.exists():
 			with open(DAILY_STATS_FILE, 'r', encoding='utf-8') as f:
-				return loads(f)
+				return load(f)
 	except Exception as e:
 		print(f"일일 통계 데이터 로드 실패: {e}")
 	return {}
