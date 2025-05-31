@@ -455,6 +455,41 @@ async def save_all_cached_data():
 	except Exception as e:
 		print(f"캐시 데이터 저장 실패: {e}")
 			
+#실시간 통계 조회하는 함수
+async def get_realtime_statistics(days=7):
+	end_date = datetime.now().date()
+	start_date = end_date - timedelta(days=days-1)
+	
+	try:
+		discord_avg = await calculate_avg_response_time('discord_webhook', start_date)
+		fcm_avg = await calculate_avg_response_time('fcm_push', start_date)
+		discord_success = await calculate_success_rate('discord_webhook', start_date)
+		fcm_success = await calculate_success_rate('fcm_push', start_date)
+		
+		monitored_streamers = await get_monitored_streamers_count()
+		active_streams = await get_active_streams_count()
+		
+		return {
+			"period": f"{start_date} ~ {end_date}",
+			"performance": {
+				"discord_webhook": {
+					"avg_response_time_ms": discord_avg,
+					"success_rate": discord_success
+				},
+				"fcm_push": {
+					"avg_response_time_ms": fcm_avg,
+					"success_rate": fcm_success
+				}
+			},
+			"system": {
+				"monitored_streamers": monitored_streamers,
+				"active_streams": active_streams
+			}
+		}
+	except Exception as e:
+		await log_error(f"실시간 통계 조회 오류: {e}")
+		return None
+
 # 사용자 데이터 업데이트 함수
 async def userDataVar(init: initVar):
 	try:
