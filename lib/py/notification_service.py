@@ -101,7 +101,6 @@ async def send_fcm_message(token, notification_data, data_fields):
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
         
         # 성공 로깅
-        from base import log_api_performance
         asyncio.create_task(log_api_performance(
             api_type='fcm_push',
             response_time_ms=response_time_ms,
@@ -123,6 +122,7 @@ async def send_fcm_message(token, notification_data, data_fields):
        ))
         remove_fcm_token(token)
         return None
+        
     except messaging.InvalidArgumentError as e:
         end_time = datetime.now()
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
@@ -144,7 +144,6 @@ async def send_fcm_message(token, notification_data, data_fields):
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
         
         # 할당량 초과 로깅
-        from base import log_api_performance
         asyncio.create_task(log_api_performance(
             api_type='fcm_push',
             response_time_ms=response_time_ms,
@@ -161,7 +160,6 @@ async def send_fcm_message(token, notification_data, data_fields):
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
         
         # 기타 예외 로깅
-        from base import log_api_performance
         asyncio.create_task(log_api_performance(
             api_type='fcm_push',
             response_time_ms=response_time_ms,

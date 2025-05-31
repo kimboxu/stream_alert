@@ -782,17 +782,25 @@ def get_daily_statistics():
         end_date = datetime.now().date()
         start_date = end_date - timedelta(days=days)
         
-        result = app.init.supabase.table('system_statistics') \
-            .select('*') \
-            .gte('date', start_date.isoformat()) \
-            .lte('date', end_date.isoformat()) \
-            .order('date', desc=True) \
-            .execute()
+        # 로컬 파일에서 통계 로드
+        from base import _load_daily_statistics
+        all_stats = _load_daily_statistics()
+        
+        # 날짜 범위 필터링
+        filtered_stats = []
+        for date_str, stat_data in all_stats.items():
+            stat_date = datetime.fromisoformat(date_str).date()
+            if start_date <= stat_date <= end_date:
+                filtered_stats.append(stat_data)
+        
+        # 날짜순 정렬 (최신 순)
+        filtered_stats.sort(key=lambda x: x['date'], reverse=True)
         
         return jsonify({
             "status": "success",
-            "data": result.data,
-            "period": f"{start_date} ~ {end_date}"
+            "data": filtered_stats,
+            "period": f"{start_date} ~ {end_date}",
+            "source": "local_file"
         })
         
     except Exception as e:
@@ -855,11 +863,18 @@ async def force_save_all(init):
 # SIGTERM/SIGINT 핸들러 등록
 
 def graceful_shutdown_handler(signum, frame):
-    print("서버 종료 감지! 모든 데이터를 DB에 저장합니다...")
+    print("서버 종료 감지! 모든 데이터를 저장합니다...")
     loop = asyncio.get_event_loop()
     try:
+        # 사용자 데이터 저장
         loop.run_until_complete(force_save_all(app.init))
-        print("[완료] 서버 종료 전 모든 데이터를 DB에 저장했습니다.")
+        print("[완료] 서버 종료 전 모든 사용자 데이터를 DB에 저장했습니다.")
+        
+        # 통계 데이터 저장
+        from base import save_all_cached_data
+        loop.run_until_complete(save_all_cached_data())
+        print("[완료] 서버 종료 전 모든 통계 데이터를 로컬 파일에 저장했습니다.")
+        
     except Exception as e:
         print(f"[종료시 저장실패] {e}")
     import sys
