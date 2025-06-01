@@ -81,6 +81,7 @@ class DiscordWebhookSender:
                     response_time_ms = int((end_time - start_time).total_seconds() * 1000)
                     
                     # 에러 로깅
+                    from base import log_api_performance
                     asyncio.create_task(log_api_performance(
                         api_type='discord_webhook',
                         response_time_ms=response_time_ms,
@@ -101,6 +102,7 @@ class DiscordWebhookSender:
                     response_time_ms = int((end_time - start_time).total_seconds() * 1000)
                     
                     # 타임아웃 로깅
+                    from base import log_api_performance
                     asyncio.create_task(log_api_performance(
                         api_type='discord_webhook',
                         response_time_ms=response_time_ms,
@@ -123,6 +125,7 @@ class DiscordWebhookSender:
                     response_time_ms = int((end_time - start_time).total_seconds() * 1000)
                     
                     # 기타 예외 로깅
+                    from base import log_api_performance
                     asyncio.create_task(log_api_performance(
                         api_type='discord_webhook',
                         response_time_ms=response_time_ms,
