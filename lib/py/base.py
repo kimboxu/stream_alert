@@ -29,7 +29,6 @@ STATS_DIR.mkdir(exist_ok=True)
 
 # 메모리 캐시
 _api_performance_cache = []
-_daily_stats_cache = {}
 
 class initVar:
 	# 초기화 클래스: 프로그램의 기본 설정값과 상태를 관리함
@@ -95,10 +94,6 @@ async def log_api_performance(api_type: str, response_time_ms: int, is_success: 
 		if len(_api_performance_cache) >= 100:
 			await _flush_api_performance_cache()
 			
-		# 메모리 사용량 관리 (최근 100000000개만 유지)
-		if len(_api_performance_cache) > 100000000:
-			_api_performance_cache[:] = _api_performance_cache[-50000000:]  # 절반으로 줄임
-			
 	except Exception as e:
 		print(f"API 성능 로깅 실패: {e}")
 
@@ -147,13 +142,32 @@ def _load_api_performance_data():
 		print(f"API 성능 데이터 로드 실패: {e}")
 	return []
 
-# 특정 API 타입의 평균 응답시간 계산하는 함수 (로컬 파일 기반)
+# 로컬 파일에서 일일 통계 로드하는 함수
+def load_daily_statistics():
+	try:
+		if DAILY_STATS_FILE.exists():
+			with open(DAILY_STATS_FILE, 'r', encoding='utf-8') as f:
+				return load(f)
+	except Exception as e:
+		print(f"일일 통계 데이터 로드 실패: {e}")
+	return {}
+
+# 앱 종료 시 캐시 저장
+async def save_all_cached_data():
+	"""애플리케이션 종료 시 모든 캐시된 데이터를 파일에 저장"""
+	try:
+		await _flush_api_performance_cache()
+		print("모든 캐시된 통계 데이터가 파일에 저장되었습니다.")
+	except Exception as e:
+		print(f"캐시 데이터 저장 실패: {e}")
+
+# 특정 API 타입의 평균 응답시간 계산하는 함수
 async def calculate_avg_response_time(api_type: str, date, days=1):
 	try:
 		# 캐시와 파일 데이터 모두 확인
 		all_data = _api_performance_cache + _load_api_performance_data()
 		
-		# 기간별 계산 (days=1일 때도 동일하게 처리)
+		# 기간별 계산
 		end_date = date
 		start_date = date - timedelta(days=days-1)
 		filtered_data = []
@@ -172,13 +186,13 @@ async def calculate_avg_response_time(api_type: str, date, days=1):
 		await log_error(f"평균 응답시간 계산 오류: {e}")
 		return 0
 
-# 특정 API 타입의 성공률 계산하는 함수 (로컬 파일 기반)
+# 특정 API 타입의 성공률 계산하는 함수
 async def calculate_success_rate(api_type: str, date, days=1):
 	try:
 		# 캐시와 파일 데이터 모두 확인
 		all_data = _api_performance_cache + _load_api_performance_data()
 		
-		# 기간별 계산 (days=1일 때도 동일하게 처리)
+		# 기간별 계산
 		end_date = date
 		start_date = date - timedelta(days=days-1)
 		filtered_data = []
@@ -199,7 +213,7 @@ async def calculate_success_rate(api_type: str, date, days=1):
 		await log_error(f"성공률 계산 오류: {e}")
 		return 0
 
-# 에러 개수 계산하는 함수 (로컬 파일 기반)
+# 에러 개수 계산하는 함수
 async def get_error_count(date):
 	try:
 		# 캐시와 파일 데이터 모두 확인
@@ -218,7 +232,7 @@ async def get_error_count(date):
 		await log_error(f"에러 개수 계산 오류: {e}")
 		return 0
 
-# 사용자 통계 계산하는 함수 (DB 기반 유지 - 이건 통계 로그가 아니라 실제 사용자 데이터)
+# 사용자 통계 계산하는 함수
 async def get_user_statistics(date):
 	try:
 		from shared_state import StateManager
@@ -239,7 +253,6 @@ async def get_user_statistics(date):
 				.execute()
 		)
 		
-		
 		return {
 			'total_users': total_users_result.count or 0,
 			'active_users': active_users_result.count or 0,
@@ -248,7 +261,7 @@ async def get_user_statistics(date):
 		await log_error(f"사용자 통계 계산 오류: {e}")
 		return {'total_users': 0, 'active_users': 0}
 
-# 알림 통계 계산하는 함수 (로컬 파일 기반으로 수정)
+# 알림 통계 계산하는 함수
 async def get_notification_statistics(date):
 	try:
 		# 로컬 파일에서 데이터 로드
@@ -402,17 +415,7 @@ async def _save_daily_statistics(daily_stat):
 	except Exception as e:
 		print(f"일일 통계 파일 저장 실패: {e}")
 
-# 로컬 파일에서 일일 통계 로드하는 함수
-def load_daily_statistics():
-	try:
-		if DAILY_STATS_FILE.exists():
-			with open(DAILY_STATS_FILE, 'r', encoding='utf-8') as f:
-				return load(f)
-	except Exception as e:
-		print(f"일일 통계 데이터 로드 실패: {e}")
-	return {}
-
-# 시스템 가동 시간 계산하는 함수 (로컬 파일 기반)
+# 시스템 가동 시간 계산하는 함수
 async def calculate_system_uptime():
 	try:
 		today = datetime.now().date()
@@ -439,15 +442,6 @@ async def calculate_system_uptime():
 	except Exception as e:
 		await log_error(f"시스템 가동시간 계산 오류: {e}")
 		return 0
-
-# 앱 종료 시 캐시 저장
-async def save_all_cached_data():
-	"""애플리케이션 종료 시 모든 캐시된 데이터를 파일에 저장"""
-	try:
-		await _flush_api_performance_cache()
-		print("모든 캐시된 통계 데이터가 파일에 저장되었습니다.")
-	except Exception as e:
-		print(f"캐시 데이터 저장 실패: {e}")
 			
 #실시간 통계 조회하는 함수
 async def get_realtime_statistics(days=7):
