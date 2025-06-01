@@ -148,19 +148,20 @@ def _load_api_performance_data():
 	return []
 
 # 특정 API 타입의 평균 응답시간 계산하는 함수 (로컬 파일 기반)
-async def calculate_avg_response_time(api_type: str, date):
+async def calculate_avg_response_time(api_type: str, date, days=1):
 	try:
 		# 캐시와 파일 데이터 모두 확인
 		all_data = _api_performance_cache + _load_api_performance_data()
 		
-		# 날짜 필터링
-		target_date = date.strftime('%Y-%m-%d')
-		filtered_data = [
-			item for item in all_data
-			if (item['api_type'] == api_type and 
-				item['is_success'] and
-				item['timestamp'].startswith(target_date))
-		]
+		# 기간별 계산 (days=1일 때도 동일하게 처리)
+		end_date = date
+		start_date = date - timedelta(days=days-1)
+		filtered_data = []
+		for item in all_data:
+			if item['api_type'] == api_type and item['is_success']:
+				item_date = datetime.fromisoformat(item['timestamp']).date()
+				if start_date <= item_date <= end_date:
+					filtered_data.append(item)
 		
 		if filtered_data:
 			times = [item['response_time_ms'] for item in filtered_data]
@@ -172,18 +173,20 @@ async def calculate_avg_response_time(api_type: str, date):
 		return 0
 
 # 특정 API 타입의 성공률 계산하는 함수 (로컬 파일 기반)
-async def calculate_success_rate(api_type: str, date):
+async def calculate_success_rate(api_type: str, date, days=1):
 	try:
 		# 캐시와 파일 데이터 모두 확인
 		all_data = _api_performance_cache + _load_api_performance_data()
 		
-		# 날짜 필터링
-		target_date = date.strftime('%Y-%m-%d')
-		filtered_data = [
-			item for item in all_data
-			if (item['api_type'] == api_type and
-				item['timestamp'].startswith(target_date))
-		]
+		# 기간별 계산 (days=1일 때도 동일하게 처리)
+		end_date = date
+		start_date = date - timedelta(days=days-1)
+		filtered_data = []
+		for item in all_data:
+			if item['api_type'] == api_type:
+				item_date = datetime.fromisoformat(item['timestamp']).date()
+				if start_date <= item_date <= end_date:
+					filtered_data.append(item)
 		
 		if filtered_data:
 			total_count = len(filtered_data)
@@ -449,16 +452,18 @@ async def save_all_cached_data():
 #실시간 통계 조회하는 함수
 async def get_realtime_statistics(days=7):
 	end_date = datetime.now().date()
-	start_date = end_date - timedelta(days=days-1)
 	
 	try:
-		discord_avg = await calculate_avg_response_time('discord_webhook', start_date)
-		fcm_avg = await calculate_avg_response_time('fcm_push', start_date)
-		discord_success = await calculate_success_rate('discord_webhook', start_date)
-		fcm_success = await calculate_success_rate('fcm_push', start_date)
+		# days 파라미터를 전달하여 기간별 계산
+		discord_avg = await calculate_avg_response_time('discord_webhook', end_date, days)
+		fcm_avg = await calculate_avg_response_time('fcm_push', end_date, days)
+		discord_success = await calculate_success_rate('discord_webhook', end_date, days)
+		fcm_success = await calculate_success_rate('fcm_push', end_date, days)
 		
 		monitored_streamers = await get_monitored_streamers_count()
 		active_streams = await get_active_streams_count()
+		
+		start_date = end_date - timedelta(days=days-1)
 		
 		return {
 			"period": f"{start_date} ~ {end_date}",
