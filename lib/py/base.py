@@ -236,22 +236,14 @@ async def get_user_statistics(date):
 				.execute()
 		)
 		
-		new_users_result = await asyncio.to_thread(
-			lambda: init.supabase.table('userStateData')
-				.select('discordURL', count='exact')
-				.gte('created_at', f'{date}T00:00:00')
-				.lt('created_at', f'{date + timedelta(days=1)}T00:00:00')
-				.execute()
-		)
 		
 		return {
 			'total_users': total_users_result.count or 0,
 			'active_users': active_users_result.count or 0,
-			'new_users': new_users_result.count or 0
 		}
 	except Exception as e:
 		await log_error(f"사용자 통계 계산 오류: {e}")
-		return {'total_users': 0, 'active_users': 0, 'new_users': 0}
+		return {'total_users': 0, 'active_users': 0}
 
 # 알림 통계 계산하는 함수 (로컬 파일 기반으로 수정)
 async def get_notification_statistics(date):
@@ -353,7 +345,6 @@ async def calculate_and_save_daily_statistics():
 			"date": yesterday.isoformat(),
 			"total_users": user_stats.get('total_users', 0),
 			"active_users": user_stats.get('active_users', 0),
-			"new_users": user_stats.get('new_users', 0),
 			"total_notifications_sent": notification_stats.get('total', 0),
 			"discord_notifications": notification_stats.get('discord', 0),
 			"fcm_notifications": notification_stats.get('fcm', 0),
