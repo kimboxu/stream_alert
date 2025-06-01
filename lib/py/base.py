@@ -95,9 +95,9 @@ async def log_api_performance(api_type: str, response_time_ms: int, is_success: 
 		if len(_api_performance_cache) >= 100:
 			await _flush_api_performance_cache()
 			
-		# 메모리 사용량 관리 (최근 10000개만 유지)
-		if len(_api_performance_cache) > 10000:
-			_api_performance_cache[:] = _api_performance_cache[-5000:]  # 절반으로 줄임
+		# 메모리 사용량 관리 (최근 100000000개만 유지)
+		if len(_api_performance_cache) > 100000000:
+			_api_performance_cache[:] = _api_performance_cache[-50000000:]  # 절반으로 줄임
 			
 	except Exception as e:
 		print(f"API 성능 로깅 실패: {e}")
