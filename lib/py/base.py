@@ -31,6 +31,9 @@ STATS_DIR.mkdir(exist_ok=True)
 # 메모리 캐시
 _api_performance_cache = []
 
+# 파일 쓰기 락 (동시 쓰기 방지)
+_file_write_lock = asyncio.Lock()
+
 #API 성능 데이터를 효율적으로 관리하는 클래스
 class APIPerformanceManager:
 	
@@ -135,50 +138,51 @@ async def log_api_performance(api_type: str, response_time_ms: int, is_success: 
 		# 메모리 캐시에 추가
 		_api_performance_cache.append(data)
 		
-		# 캐시가 100개 이상이면 파일에 저장하고 캐시 정리
-		if len(_api_performance_cache) >= 100:
-			await _flush_api_performance_cache()
+		# 캐시가 1000개 이상이면 파일에 저장하고 캐시 정리
+		if len(_api_performance_cache) >= 1000:
+			asyncio.create_task(_flush_api_performance_cache())
 			
 	except Exception as e:
 		print(f"API 성능 로깅 실패: {e}")
 
 # API 성능 캐시를 파일에 저장하는 함수
 async def _flush_api_performance_cache():
-	if not _api_performance_cache:
-		return
-		
-	try:
-		# 기존 데이터 로드
-		existing_data = []
-		if API_PERFORMANCE_FILE.exists():
-			with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
-				try:
-					existing_data = load(f)
-				except JSONDecodeError:
-					existing_data = []
-		
-		# 새 데이터 추가
-		existing_data.extend(_api_performance_cache)
-		
-		# 오래된 데이터 제거 (7일 이상된 데이터)
-		cutoff_date = datetime.now() - timedelta(days=7)
-		filtered_data = [	
-			item for item in existing_data
-			if datetime.fromisoformat(item['timestamp']) > cutoff_date
-		]
-		
-		# 파일에 저장
-		with open(API_PERFORMANCE_FILE, 'w', encoding='utf-8') as f:
-			dump(filtered_data, f, ensure_ascii=False, indent=2)
-		
-		# 캐시 초기화
-		_api_performance_cache.clear()
-		
-		# 캐시 무효화
-		performance_manager.invalidate_cache()
-		
-	except Exception as e:
-		print(f"API 성능 데이터 파일 저장 실패: {e}")
+    async with _file_write_lock:
+        if not _api_performance_cache:
+            return
+    
+        try:
+            data_to_save = _api_performance_cache.copy()
+            _api_performance_cache.clear()
+            
+            # 기존 데이터 로드
+            existing_data = []
+            if API_PERFORMANCE_FILE.exists():
+                with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
+                    try:
+                        existing_data = load(f)
+                    except JSONDecodeError:
+                        existing_data = []
+            
+            # 복사한 데이터 추가
+            existing_data.extend(data_to_save)
+            
+            # 오래된 데이터 제거
+            cutoff_date = datetime.now() - timedelta(days=3)
+            filtered_data = [    
+                item for item in existing_data
+                if datetime.fromisoformat(item['timestamp']) > cutoff_date
+            ]
+            
+            # 파일에 저장
+            with open(API_PERFORMANCE_FILE, 'w', encoding='utf-8') as f:
+                dump(filtered_data, f, ensure_ascii=False, indent=2)
+            
+            # 캐시 무효화
+            performance_manager.invalidate_cache()
+            
+        except Exception as e:
+            print(f"API 성능 데이터 파일 저장 실패: {e}")
 
 # 로컬 파일에서 일일 통계 로드하는 함수
 def load_daily_statistics():
@@ -192,9 +196,10 @@ def load_daily_statistics():
 
 # 앱 종료 시 캐시 저장
 async def save_all_cached_data():
-	"""애플리케이션 종료 시 모든 캐시된 데이터를 파일에 저장"""
 	try:
-		await _flush_api_performance_cache()
+		if _api_performance_cache:
+			await _flush_api_performance_cache()
+	
 		print("모든 캐시된 통계 데이터가 파일에 저장되었습니다.")
 	except Exception as e:
 		print(f"캐시 데이터 저장 실패: {e}")
