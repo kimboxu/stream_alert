@@ -18,6 +18,7 @@ from discord_webhook_sender import DiscordWebhookSender
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 from pathlib import Path
+from typing import List, Dict, Optional
 
 # 로컬 통계 파일 경로 설정
 STATS_DIR = Path("stats_data")
@@ -29,6 +30,50 @@ STATS_DIR.mkdir(exist_ok=True)
 
 # 메모리 캐시
 _api_performance_cache = []
+
+#API 성능 데이터를 효율적으로 관리하는 클래스
+class APIPerformanceManager:
+	
+	def __init__(self):
+		self._file_data_cache = None
+		self._cache_timestamp = None
+		self._cache_ttl = 300  # 5분
+		
+	#캐시가 유효한지 확인
+	def _is_cache_valid(self) -> bool:
+		if self._file_data_cache is None or self._cache_timestamp is None:
+			return False
+		return (datetime.now() - self._cache_timestamp).seconds < self._cache_ttl
+	
+	#파일에서 데이터를 로드하고 캐시에 저장
+	def _load_file_data(self) -> List[Dict]:
+		try:
+			if API_PERFORMANCE_FILE.exists():
+				with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
+					data = load(f)
+					self._file_data_cache = data
+					self._cache_timestamp = datetime.now()
+					return data
+		except Exception as e:
+			print(f"API 성능 데이터 로드 실패: {e}")
+		return []
+	
+	#메모리 캐시와 파일 데이터를 합쳐서 반환
+	def get_all_data(self) -> List[Dict]:
+		# 파일 캐시가 유효하지 않으면 다시 로드
+		if not self._is_cache_valid():
+			self._load_file_data()
+		
+		file_data = self._file_data_cache or []
+		return _api_performance_cache + file_data
+	
+	#캐시 무효화
+	def invalidate_cache(self):
+		self._file_data_cache = None
+		self._cache_timestamp = None
+
+# 전역 매니저 인스턴스
+performance_manager = APIPerformanceManager()
 
 class initVar:
 	# 초기화 클래스: 프로그램의 기본 설정값과 상태를 관리함
@@ -108,7 +153,7 @@ async def _flush_api_performance_cache():
 		if API_PERFORMANCE_FILE.exists():
 			with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
 				try:
-					existing_data = load	(f)
+					existing_data = load(f)
 				except JSONDecodeError:
 					existing_data = []
 		
@@ -129,18 +174,11 @@ async def _flush_api_performance_cache():
 		# 캐시 초기화
 		_api_performance_cache.clear()
 		
+		# 캐시 무효화
+		performance_manager.invalidate_cache()
+		
 	except Exception as e:
 		print(f"API 성능 데이터 파일 저장 실패: {e}")
-
-# 파일에서 API 성능 데이터 로드하는 함수
-def _load_api_performance_data():
-	try:
-		if API_PERFORMANCE_FILE.exists():
-			with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
-				return load(f)
-	except Exception as e:
-		print(f"API 성능 데이터 로드 실패: {e}")
-	return []
 
 # 로컬 파일에서 일일 통계 로드하는 함수
 def load_daily_statistics():
@@ -162,15 +200,19 @@ async def save_all_cached_data():
 		print(f"캐시 데이터 저장 실패: {e}")
 
 # 특정 API 타입의 평균 응답시간 계산하는 함수
-async def calculate_avg_response_time(api_type: str, date, days=1):
+async def calculate_avg_response_time(api_type: str, date, days=1, data_source: List[Dict] = None):
 	try:
-		# 캐시와 파일 데이터 모두 확인
-		all_data = _api_performance_cache + _load_api_performance_data()
+		# 데이터 소스가 제공되지 않으면 매니저에서 가져오기
+		if data_source is None:
+			all_data = performance_manager.get_all_data()
+		else:
+			all_data = data_source
 		
 		# 기간별 계산
 		end_date = date
 		start_date = date - timedelta(days=days-1)
 		filtered_data = []
+		
 		for item in all_data:
 			if item['api_type'] == api_type and item['is_success']:
 				item_date = datetime.fromisoformat(item['timestamp']).date()
@@ -187,15 +229,19 @@ async def calculate_avg_response_time(api_type: str, date, days=1):
 		return 0
 
 # 특정 API 타입의 성공률 계산하는 함수
-async def calculate_success_rate(api_type: str, date, days=1):
+async def calculate_success_rate(api_type: str, date, days=1, 
+										data_source: List[Dict] = None):
 	try:
-		# 캐시와 파일 데이터 모두 확인
-		all_data = _api_performance_cache + _load_api_performance_data()
-		
+		if data_source is None:
+			all_data = performance_manager.get_all_data()
+		else:
+			all_data = data_source
+
 		# 기간별 계산
 		end_date = date
 		start_date = date - timedelta(days=days-1)
 		filtered_data = []
+		
 		for item in all_data:
 			if item['api_type'] == api_type:
 				item_date = datetime.fromisoformat(item['timestamp']).date()
@@ -214,10 +260,12 @@ async def calculate_success_rate(api_type: str, date, days=1):
 		return 0
 
 # 에러 개수 계산하는 함수
-async def get_error_count(date):
+async def get_error_count(date, data_source: List[Dict] = None):
 	try:
-		# 캐시와 파일 데이터 모두 확인
-		all_data = _api_performance_cache + _load_api_performance_data()
+		if data_source is None:
+			all_data = performance_manager.get_all_data()
+		else:
+			all_data = data_source
 		
 		target_date = date.strftime('%Y-%m-%d')
 		filtered_data = [
@@ -231,7 +279,7 @@ async def get_error_count(date):
 	except Exception as e:
 		await log_error(f"에러 개수 계산 오류: {e}")
 		return 0
-
+	
 # 사용자 통계 계산하는 함수
 async def get_user_statistics(date):
 	try:
@@ -262,10 +310,12 @@ async def get_user_statistics(date):
 		return {'total_users': 0, 'active_users': 0}
 
 # 알림 통계 계산하는 함수
-async def get_notification_statistics(date):
+async def get_notification_statistics(date, data_source: List[Dict] = None):
 	try:
-		# 로컬 파일에서 데이터 로드
-		all_data = _api_performance_cache + _load_api_performance_data()
+		if data_source is None:
+			all_data = performance_manager.get_all_data()
+		else:
+			all_data = data_source
 		
 		target_date = date.strftime('%Y-%m-%d')
 		
@@ -342,19 +392,27 @@ async def calculate_and_save_daily_statistics():
 	try:
 		print(f"{datetime.now()} 일일 통계 계산 시작: {yesterday}")
 		
+		# 데이터 로드
+		all_data = performance_manager.get_all_data()
+		
 		# 통계 계산
-		discord_avg = await calculate_avg_response_time('discord_webhook', yesterday)
-		fcm_avg = await calculate_avg_response_time('fcm_push', yesterday)
-		discord_success_rate = await calculate_success_rate('discord_webhook', yesterday)
-		fcm_success_rate = await calculate_success_rate('fcm_push', yesterday)
+		discord_avg = await calculate_avg_response_time(
+			'discord_webhook', yesterday, data_source=all_data)
+		fcm_avg = await calculate_avg_response_time(
+			'fcm_push', yesterday, data_source=all_data)
+		discord_success_rate = await calculate_success_rate(
+			'discord_webhook', yesterday, data_source=all_data)
+		fcm_success_rate = await calculate_success_rate(
+			'fcm_push', yesterday, data_source=all_data)
 		
 		user_stats = await get_user_statistics(yesterday)
-		notification_stats = await get_notification_statistics(yesterday)
-		error_count = await get_error_count(yesterday)
+		notification_stats = await get_notification_statistics(
+			yesterday, data_source=all_data)
+		error_count = await get_error_count(yesterday, data_source=all_data)
 		
 		monitored_streamers = await get_monitored_streamers_count()
 		active_streams = await get_active_streams_count()
-		system_uptime = await calculate_system_uptime()
+		system_uptime = await calculate_system_uptime(data_source=all_data)
 		
 		# 일일 통계 데이터
 		daily_stat = {
@@ -416,12 +474,14 @@ async def _save_daily_statistics(daily_stat):
 		print(f"일일 통계 파일 저장 실패: {e}")
 
 # 시스템 가동 시간 계산하는 함수
-async def calculate_system_uptime():
+async def calculate_system_uptime(data_source: List[Dict] = None):
 	try:
 		today = datetime.now().date()
 		
-		# 캐시와 파일 데이터 모두 확인
-		all_data = _api_performance_cache + _load_api_performance_data()
+		if data_source is None:
+			all_data = performance_manager.get_all_data()
+		else:
+			all_data = data_source
 		
 		target_date = today.strftime('%Y-%m-%d')
 		today_data = [
@@ -442,17 +502,24 @@ async def calculate_system_uptime():
 	except Exception as e:
 		await log_error(f"시스템 가동시간 계산 오류: {e}")
 		return 0
-			
+
 #실시간 통계 조회하는 함수
 async def get_realtime_statistics(days=7):
 	end_date = datetime.now().date()
 	
 	try:
-		# days 파라미터를 전달하여 기간별 계산
-		discord_avg = await calculate_avg_response_time('discord_webhook', end_date, days)
-		fcm_avg = await calculate_avg_response_time('fcm_push', end_date, days)
-		discord_success = await calculate_success_rate('discord_webhook', end_date, days)
-		fcm_success = await calculate_success_rate('fcm_push', end_date, days)
+		# 데이터 로드
+		all_data = performance_manager.get_all_data()
+		
+		# 통계 계산
+		discord_avg = await calculate_avg_response_time(
+			'discord_webhook', end_date, days, data_source=all_data)
+		fcm_avg = await calculate_avg_response_time(
+			'fcm_push', end_date, days, data_source=all_data)
+		discord_success = await calculate_success_rate(
+			'discord_webhook', end_date, days, data_source=all_data)
+		fcm_success = await calculate_success_rate(
+			'fcm_push', end_date, days, data_source=all_data)
 		
 		monitored_streamers = await get_monitored_streamers_count()
 		active_streams = await get_active_streams_count()
