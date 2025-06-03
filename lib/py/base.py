@@ -119,7 +119,8 @@ async def log_api_performance(api_type: str, response_time_ms: int, is_success: 
 							error_message: str = None, retry_count: int = 0,
 							user_count: int = None, batch_size: int = None,
 							additional_data: dict = None):
-	
+	return 
+
 	data = {
 		"timestamp": datetime.now().isoformat(),
 		"api_type": api_type,
