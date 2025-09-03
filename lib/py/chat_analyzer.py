@@ -325,6 +325,7 @@ class ChatAnalyzer:
                 'chat_context': highlight.chat_context,
                 'viewer_count': highlight.viewer_count,
                 'duration': highlight.duration,
+                'after_openDate': highlight.after_openDate,
             }
             
             # TODO: 실제 DB 저장 코드
