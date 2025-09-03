@@ -248,11 +248,12 @@ class ChatAnalyzer:
                     spike_bonus = min((spike_ratio - 1) * 40, 20)
                     score += spike_bonus
         
-        # 최근의 fun_score 중에 가장 점수가 높은지 확인
+        # 최근의 fun_score 중에 가장 점수가 높고, 직전 보다 10점 이상 높을 경우인지 확인
         if len(self.analysis_history) >= 10:
             recent_analyses = list(self.analysis_history)[-10:]
-            recent_max_score = max(a[2] for a in recent_analyses)
-            if score >= recent_max_score: 
+            max_recent_score = max(a[2] for a in recent_analyses)
+            bef_recent_score = list(self.analysis_history)[-1]
+            if score >= max_recent_score and score > bef_recent_score + 10: 
                 check_create_highlight = True
             else:
                 check_create_highlight = False
