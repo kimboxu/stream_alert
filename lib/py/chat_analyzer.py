@@ -252,14 +252,23 @@ class ChatAnalyzer:
         if len(self.analysis_history) >= 10:
             recent_analyses = list(self.analysis_history)[-10:]
             max_recent_score = max(a[2] for a in recent_analyses)
-            bef_recent_score = list(self.analysis_history)[-1][2]
-            if score >= max_recent_score and score > bef_recent_score + 10: 
+
+            if score >= max_recent_score and self.check_bef_recent_scores(score): 
                 check_create_highlight = True
             else:
                 check_create_highlight = False
 
         return min(score, 100), check_create_highlight
     
+    def check_bef_recent_scores(self, score):
+        bef_recent_scores = list(self.analysis_history)[-3:]
+
+        for a in bef_recent_scores:
+            if score < a[2] + 10:
+                return False
+            
+        return True
+
     async def _create_highlight(self, analysis: ChatAnalysisData, fun_score: float, window_chats: List[Dict]) -> None:
         """하이라이트 생성"""
         # 최근 10개 채팅 컨텍스트
