@@ -252,7 +252,7 @@ class ChatAnalyzer:
         if len(self.analysis_history) >= 10:
             recent_analyses = list(self.analysis_history)[-10:]
             max_recent_score = max(a[2] for a in recent_analyses)
-            bef_recent_score = list(self.analysis_history)[-1]
+            bef_recent_score = list(self.analysis_history)[-1][2]
             if score >= max_recent_score and score > bef_recent_score + 10: 
                 check_create_highlight = True
             else:
