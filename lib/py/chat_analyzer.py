@@ -287,8 +287,8 @@ class ChatAnalyzer:
         )
 
         self.highlights.append(highlight)
-
-        await self._save_highlight_to_db(highlight)
+        if not self.init.DO_TEST:
+            await self._save_highlight_to_db(highlight)
 
         # 큰 재미인 경우 즉시 알림
         if fun_score >= self.big_fun_threshold:
