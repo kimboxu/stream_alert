@@ -16,6 +16,7 @@ from notification_service import send_push_notification
 class ChatAnalysisData:
     """채팅 분석 데이터를 저장하는 클래스"""
     timestamp: datetime
+    openDate: datetime
     message_count: int = 0
     viewer_count: int = 0
     fun_keywords: Dict[str, int] = field(default_factory=dict)
@@ -32,6 +33,7 @@ class StreamHighlight:
     chat_context: List[str]
     viewer_count: int
     duration: int  # seconds
+    after_openDate: datetime
 
 class ChatMessageWithAnalyzer:
     def setup_analyzer(self, channel_id: str, channel_name: str):
@@ -96,7 +98,7 @@ class ChatAnalyzer:
         self.fun_patterns = {
         'laugh': re.compile(r'ㅋ{2,}|ㅎ{2,}|하하|ㅏㅏ|캬|푸하|풉|웃겨|개웃|존웃'),
         'excitement': re.compile(r'!{2,}|\?{2,}|ㄷㄷ|헐|대박|와|오|우와|미친|개쩔|쩐다|ㄱㄱ|고고|가즈아'),
-        'surprise': re.compile(r'헉|뭐야|어떻게|진짜|실화|레전드|띠용|충격|놀람'),
+        'surprise': re.compile(r'헉|뭣|뭐야|어떻게|진짜|실화|레전드|띠용|충격|놀람'),
         'reaction': re.compile(r'ㅠㅠ|ㅜㅜ|아니|안돼|제발|부탁|응원'),
         }
 
@@ -166,9 +168,10 @@ class ChatAnalyzer:
         # 분석 데이터 생성
         analysis = ChatAnalysisData(
             timestamp=current_time,
+            openDate=self.init.stream_status[self.channel_id].state_update_time['openDate'],
             message_count=len(window_chats),
             viewer_count=viewer_count,
-            chat_velocity=len(window_chats) / self.window_size
+            chat_velocity=len(window_chats) / self.window_size,
         )
 
         # 키워드 집계
@@ -180,10 +183,10 @@ class ChatAnalyzer:
         analysis.fun_keywords = dict(keyword_counter)
 
         # 재미도 점수 계산
-        fun_score = self._calculate_fun_score(analysis, window_chats)
+        fun_score, check_create_highlight = self._calculate_fun_score(analysis, window_chats)
 
         # 하이라이트 체크
-        if fun_score >= self.small_fun_threshold:
+        if fun_score >= self.small_fun_threshold and check_create_highlight:
             await self._create_highlight(analysis, fun_score, window_chats)
 
         # 분석 기록 저장
@@ -194,6 +197,7 @@ class ChatAnalyzer:
     def _calculate_fun_score(self, analysis: ChatAnalysisData, window_chats: List[Dict]) -> float:
         """재미도 점수 계산 (0-100)"""
         score = 0.0
+        check_create_highlight = True
 
         # 1. 채팅 속도 점수 (최대 15점), 초당 3개 채팅 발생시 15점
         chat_velocity_score = min(analysis.chat_velocity * 5, 15)
@@ -202,7 +206,7 @@ class ChatAnalyzer:
         # 2. 키워드 점수 (최대 30점)
         keyword_score = 0
         keyword_score += analysis.fun_keywords.get('laugh', 0) * 3.0
-        keyword_score += analysis.fun_keywords.get('excitement', 0) * 2.5
+        keyword_score += analysis.fun_keywords.get('excitement', 0) * 2.0
         keyword_score += analysis.fun_keywords.get('surprise', 0) * 2.0
         keyword_score += analysis.fun_keywords.get('reaction', 0) * 1.0
         score += min(keyword_score, 30)
@@ -243,9 +247,17 @@ class ChatAnalyzer:
                 if spike_ratio > 1.0:  # 최대 50% 증가시 15점 
                     spike_bonus = min((spike_ratio - 1) * 40, 20)
                     score += spike_bonus
+        
+        # 최근의 fun_score 중에 가장 점수가 높은지 확인
+        if len(self.analysis_history) >= 10:
+            recent_analyses = list(self.analysis_history)[-10:]
+            recent_max_score = max(a[2] for a in recent_analyses)
+            if score >= recent_max_score: 
+                check_create_highlight = True
+            else:
+                check_create_highlight = False
 
-
-        return min(score, 100)
+        return min(score, 100), check_create_highlight
     
     async def _create_highlight(self, analysis: ChatAnalysisData, fun_score: float, window_chats: List[Dict]) -> None:
         """하이라이트 생성"""
@@ -258,6 +270,10 @@ class ChatAnalyzer:
         # 하이라이트 이유 결정
         reason = self._determine_highlight_reason(analysis, fun_score)
 
+        # 방송이 켜진 시점 이후 작성된 채팅의 시간  
+        after_openDate = analysis.timestamp - datetime.fromisoformat(analysis.openDate)
+        after_openDate = str(after_openDate).split('.')[0]
+
         highlight = StreamHighlight(
             timestamp=analysis.timestamp,
             channel_id=self.channel_id,
@@ -266,7 +282,8 @@ class ChatAnalyzer:
             reason=reason,
             chat_context=chat_context,
             viewer_count=analysis.viewer_count,
-            duration=self.window_size
+            duration=self.window_size,
+            after_openDate=after_openDate,
         )
 
         self.highlights.append(highlight)
