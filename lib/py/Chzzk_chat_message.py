@@ -22,6 +22,7 @@ from base import  (
 
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
 from notification_service import send_push_notification
+from chat_analyzer import ChatMessageWithAnalyzer
 
 @dataclass
 class ChzzkChatData:
@@ -30,13 +31,13 @@ class ChzzkChatData:
     last_chat_time: str = ""  # 마지막 채팅 시간
     sid: str = ""  # 세션 ID
     cid: str = ""  # 채널 ID
-    accessToken: str = ""  # 액세스 토큰
-    extraToken: str = ""  # 추가 토큰
-    channel_id: str = ""  # 채널 ID
+    accessToken: str = ""   # 액세스 토큰
+    extraToken: str = ""    # 추가 토큰
+    channel_id: str = ""    # 채널 ID
     channel_name: str = ""  # 채널 이름
 
 # Chzzk 채팅 메시지 처리 클래스
-class chzzk_chat_message:
+class chzzk_chat_message(ChatMessageWithAnalyzer):
     def __init__(self, init_var, channel_id):
         self.init = init_var
         channel_name = init_var.chzzkIDList.loc[channel_id, 'channelName']
@@ -46,6 +47,8 @@ class chzzk_chat_message:
         self.profile_image_cache = {}  # 프로필 이미지 캐시 (uid -> (timestamp, image_url))
         self.profile_cache_ttl = 1800  # 프로필 캐시 유효 시간 (초)
         self.tasks = []  # 비동기 태스크
+
+        self.setup_analyzer(channel_id, channel_name)
 
     # 메인 실행 함수
     async def start(self):
@@ -59,7 +62,8 @@ class chzzk_chat_message:
                 continue
             
             try:
-                await self._connect_and_run()  # 연결 및 실행
+                await self.start_analyzer()     # 분석기 시작
+                await self._connect_and_run()   # 연결 및 실행
             except Exception as e:
                 await log_error(f"error in chat manager: {e}")
                 await change_chat_join_state(self.init.chat_json, self.data.channel_id)
@@ -102,6 +106,7 @@ class chzzk_chat_message:
                     await asyncio.wait([task], timeout=2)
                 except Exception as cancel_error:
                     await log_error(f"Error cancelling task for {self.data.channel_id}: {cancel_error}")
+        await self.stop_analyzer()
 
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
@@ -122,12 +127,12 @@ class chzzk_chat_message:
                     try: await self.data.sock.close()
                     except Exception: pass
 
-                if self.data.sock.closed:
+                if self.data.sock.state.name == 'CLOSED':
                     asyncio.create_task(log_error(f"{self.data.channel_id} 연결 종료 {self.data.cid}", webhook_url=environ['chat_post_url']))
                     break
 
-                # 메시지 수신(0.5초 타임아웃)
-                raw_message = await asyncio.wait_for(self.data.sock.recv(), timeout=0.5)
+                # 메시지 수신(1.0초 타임아웃)
+                raw_message = await asyncio.wait_for(self.data.sock.recv(), timeout=1.0)
                 
                 self.data.last_chat_time= datetime.now().isoformat()
                 parsed_message = json_loads(raw_message)
@@ -315,6 +320,16 @@ class chzzk_chat_message:
                 else:
                     print(f"{datetime.now()} {message}")
 
+                # 채팅 메시지인 경우 분석기로 전달
+                if chat_type == "채팅":
+                    chat = self.get_chat(chat_data)
+                    
+                    if nickname and chat:
+                        # 분석기로 메시지 전달
+                        time = chat_data.get('msgTime') or chat_data.get('messageTime')
+                        timestamp = datetime.fromtimestamp(time/1000)
+                        await self.chat_analyzer.add_chat_message(nickname, chat, timestamp)
+
                 # chzzk_chatFilter에 없는 사람 채팅은 제거
                 if not self.init.DO_TEST and nickname not in [*self.init.chzzk_chatFilter["channelName"]]:
                     continue
@@ -388,7 +403,7 @@ class chzzk_chat_message:
         ping_interval = 10  # 핑 간격(초)
         
         try:
-            while not self.data.sock.closed:
+            while not self.data.sock.state.name == 'CLOSED':
                 # 핑 메시지 전송
                 await self.data.sock.send(dumps(self._CHZZK_CHAT_DICT("pong")))
                 

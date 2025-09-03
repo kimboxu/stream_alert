@@ -35,12 +35,16 @@ from base import (
 @dataclass
 class LiveData:
     """라이브 방송 데이터를 저장하는 데이터 클래스"""
-    livePostList: list = field(default_factory=list)  # 알림 메시지 리스트
-    live: str = ""                                    # 라이브 상태 ("OPEN", "CLOSE" 등)
-    title: str = ""                                   # 방송 제목
-    view_count: int = 0                               # 시청자 수
-    thumbnail_url: str = ""                           # 썸네일 URL
-    profile_image: str = ""                           # 프로필 이미지 URL
+    livePostList: list = field(default_factory=list)    # 알림 메시지 리스트
+    live: str = ""                                      # 라이브 상태 ("OPEN", "CLOSE" 등)
+    id_list: list = field(default_factory=list)         # 스트리머 개인 값
+    title: str = ""                                     # 방송 제목
+    view_count: int = 0                                 # 시청자 수
+    thumbnail_url: str = ""                             # 썸네일 URL
+    channel_url: str = ""                               # 채널 URL
+    profile_image: str = ""                             # 프로필 이미지 URL
+    platform_name: str = ""                             # 플랫폼 이름
+    
     start_at: Dict[str, str] = field(default_factory=lambda: {
         "openDate": "2025-01-01 00:00:00",           # 방송 시작 시간
         "closeDate": "2025-01-01 00:00:00"           # 방송 종료 시간
@@ -79,8 +83,9 @@ class base_live_message:
         
         self.channel_name = self.id_list.loc[channel_id, 'channelName']
         state_update_time = self.title_data.loc[self.channel_id, 'state_update_time']
-        self.data = LiveData(state_update_time = state_update_time)
-
+        self.data = LiveData(state_update_time = state_update_time, id_list = self.id_list, platform_name = platform_name)
+        init_var.stream_status[channel_id] = self.data
+        
     async def start(self):
         await self.addMSGList()
         await self.postLive_message()
@@ -100,6 +105,12 @@ class base_live_message:
             stream_data = self._get_stream_data(state_data)
             self._update_stream_info(stream_data, state_data)
             await self.save_profile_image()
+
+            #온라인 상태일 때 상태 정보 업데이트
+            if self.data.live in ["OPEN", 1]:
+                self.get_channel_url()
+                self.getViewer_count(state_data)
+                self.getImageURL(state_data)
 
             # 온라인/오프라인 상태 처리
             if self._should_process_online_status():
@@ -203,7 +214,7 @@ class base_live_message:
             str(self._get_title()), 
             str(self._get_old_title())
         ]
-
+    
     def getMessage(self) -> str:
         raise NotImplementedError
     
@@ -224,67 +235,6 @@ class base_live_message:
     
     def _should_process_offline_status(self):
         raise NotImplementedError
-    
-    # 썸네일 이미지를 Imgur에 업로드하는 공통 메서드
-    def upload_image_to_imgur(self, image_url, platform_prefix="thumbnail"):
-        try:
-            # 이미지 다운로드
-            response = get(image_url, timeout=5)
-            
-            if response.status_code != 200:
-                print(f"{datetime.now()} 이미지 다운로드 실패: {response.status_code}")
-                return None
-            
-            # 환경 변수에서 Imgur 클라이언트 ID 가져오기
-            client_id = environ.get("IMGUR_CLIENT_ID")
-            if not client_id:
-                print(f"{datetime.now()} Imgur 클라이언트 ID가 설정되지 않았습니다")
-                return None
-            
-            # 이미지 데이터를 base64로 인코딩
-            image_data = BytesIO(response.content).getvalue()
-            b64_image = base64.b64encode(image_data).decode('utf-8')
-            
-            # 채널 정보 및 타임스탬프
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            
-            # Imgur에 이미지 업로드
-            headers = {'Authorization': f'Client-ID {client_id}'}
-            data = {
-                'image': b64_image,
-                'type': 'base64',
-                'name': f'{platform_prefix}_{self.channel_id}_{timestamp}.jpg',
-                'title': f'{self.channel_name} {self.platform_name} 생방송 썸네일',
-                'description': f'채널: {self.channel_name}, 채널ID: {self.channel_id}, 플랫폼: {self.platform_name}, 시간: {datetime.now().isoformat()}'
-            }
-            
-            imgur_response = post(
-                'https://api.imgur.com/3/image',
-                headers=headers,
-                data=data,
-                timeout=10
-            )
-            
-            # 응답 확인
-            if imgur_response.status_code == 200:
-                imgur_data = imgur_response.json()
-                thumbnail_url = imgur_data['data']['link']
-                
-                # 삭제 해시 기록 (필요시 나중에 이미지 삭제에 사용 가능)
-                delete_hash = imgur_data['data']['deletehash']
-                print(f"{datetime.now()} Imgur 업로드 성공: {thumbnail_url} (삭제 해시: {delete_hash})")
-                
-                return thumbnail_url
-            else:
-                print(f"{datetime.now()} Imgur 업로드 실패: {imgur_response.status_code}")
-                print(f"응답: {imgur_response.text}")
-                return None
-        
-        except Exception as e:
-            print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
-            import traceback
-            traceback.print_exc()
-            return None
     
     #온라인 상태 처리 (뱅온 또는 방제 변경)
     async def _handle_online_status(self, state_data):
@@ -325,6 +275,9 @@ class base_live_message:
         raise NotImplementedError
     
     def getViewer_count(self, state_data):
+        raise NotImplementedError
+    
+    def getImageURL(self, state_data):
         raise NotImplementedError
     
     async def get_live_thumbnail_image(self, state_data, message=None):
@@ -418,7 +371,7 @@ class chzzk_live_message(base_live_message):
 
     #치지직 채널 URL 생성
     def get_channel_url(self): 
-        return f'https://chzzk.naver.com/live/{self.id_list.loc[self.channel_id, "channel_code"]}'
+        self.data.channel_url = f'https://chzzk.naver.com/live/{self.id_list.loc[self.channel_id, "channel_code"]}'
 
     #치지직 시청자 수 가져오기
     def getViewer_count(self, state_data):
@@ -461,9 +414,9 @@ class chzzk_live_message(base_live_message):
                 return None
             
             # 이미지 URL 가져오기
-            image_url = self.getImageURL(state_data)
+            self.getImageURL(state_data)
             
-            return self.upload_image_to_imgur(image_url, platform_prefix="chzzk")
+            return upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
                 
         except Exception as e:
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
@@ -481,7 +434,7 @@ class chzzk_live_message(base_live_message):
         link = link.replace("{type", "")
         link = link.replace("}.jpg", "0.jpg")
         self.data.thumbnail_url = link
-        return link
+        return self.data.thumbnail_url
     
     #온라인 알림 메시지 JSON 생성
     async def getOnAirJson(self, message, state_data):
@@ -507,7 +460,7 @@ class chzzk_live_message(base_live_message):
                         # "value": self.data.view_count, "inline": True}
                         ],
                     "title": f"{self.channel_name} {message}\n",
-                "url": self.get_channel_url(),
+                "url": self.data.channel_url,
                 # "image": {"url": thumbnail_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
                 "timestamp": changeUTCtime(self.getStarted_at("openDate"))}]}
@@ -523,7 +476,7 @@ class chzzk_live_message(base_live_message):
                         "value": self.data.view_count, "inline": True}
                         ],
                     "title": f"{self.channel_name} {message}\n",
-                "url": self.get_channel_url(),
+                "url": self.data.channel_url,
                 "image": {"url": thumbnail_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
                 "timestamp": changeUTCtime(self.getStarted_at("openDate"))}]}
@@ -552,7 +505,7 @@ class chzzk_live_message(base_live_message):
                         {"name": "현재 방제", "value": self.data.title, "inline": True}],
                     "title": f"{self.channel_name} {message}\n",
                     "footer": { "icon_url": iconLinkData().chzzk_icon },
-                "url": self.get_channel_url()}]}
+                "url": self.data.channel_url}]}
 
     #뱅종 JSON 데이터 생성
     async def getOffJson(self, state_data, message):
@@ -650,7 +603,7 @@ class afreeca_live_message(base_live_message):
     def get_channel_url(self):
         afreecaID = self.id_list.loc[self.channel_id, "afreecaID"]
         bno = self.title_data.loc[self.channel_id, 'chatChannelId']
-        return f"https://play.sooplive.co.kr/{afreecaID}/{bno}"
+        self.data.channel_url = f"https://play.sooplive.co.kr/{afreecaID}/{bno}"
     
     #아프리카 시청자 수 가져오기
     def getViewer_count(self, state_data):
@@ -687,9 +640,9 @@ class afreeca_live_message(base_live_message):
     def get_thumbnail_image(self): 
         try:
             # 이미지 URL 가져오기
-            image_url = self.getImageURL()
+            self.getImageURL()
             
-            return self.upload_image_to_imgur(image_url, platform_prefix="afreeca")
+            return upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
         
         except Exception as e:
             print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
@@ -702,10 +655,10 @@ class afreeca_live_message(base_live_message):
         urlretrieve(self.getImageURL(), self.image_path)
 
     #아프리카 이미지 URL 가져오기
-    def getImageURL(self) -> str:
+    def getImageURL(self, state_data = "") -> str:
         link = f"https://liveimg.afreecatv.com/m/{self.title_data.loc[self.channel_id, 'chatChannelId']}"
         self.data.thumbnail_url = link
-        return link
+        return self.data.thumbnail_url
     
     #온라인 알림 메시지 JSON 생성
     async def getOnAirJson(self, message, state_data):
@@ -724,7 +677,7 @@ class afreeca_live_message(base_live_message):
                         {"name": ':busts_in_silhouette: 시청자수',
                         "value": self.data.view_count, "inline": True}],
                     "title": f"{self.channel_name} {message}\n",
-                "url": self.get_channel_url(), 
+                "url": self.data.channel_url, 
                 "image": {"url": thumbnail_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().soop_icon },
                 "timestamp": changeUTCtime(self.getStarted_at("openDate"))}]}
@@ -750,6 +703,70 @@ class afreeca_live_message(base_live_message):
                     "title": self.channel_name +" 방송 종료\n",
                     "footer": {"icon_url": iconLinkData().soop_icon},
                 }]}
+    
+# 썸네일 이미지를 Imgur에 업로드하는 공통 메서드
+def upload_image_to_imgur(stream_status :LiveData, channel_id, image_url, platform_prefix="thumbnail"):
+    try:
+        # 이미지 다운로드
+        response = get(image_url, timeout=5)
+        
+        if response.status_code != 200:
+            print(f"{datetime.now()} 이미지 다운로드 실패: {response.status_code}")
+            return None
+        
+        # 환경 변수에서 Imgur 클라이언트 ID 가져오기
+        client_id = environ.get("IMGUR_CLIENT_ID")
+        if not client_id:
+            print(f"{datetime.now()} Imgur 클라이언트 ID가 설정되지 않았습니다")
+            return None
+        
+        # 이미지 데이터를 base64로 인코딩
+        image_data = BytesIO(response.content).getvalue()
+        b64_image = base64.b64encode(image_data).decode('utf-8')
+        
+        # 채널 정보 및 타임스탬프
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        # Imgur에 이미지 업로드
+        headers = {'Authorization': f'Client-ID {client_id}'}
+        channel_name = stream_status.id_list.loc[channel_id, 'channelName']
+        data = {
+            'image': b64_image,
+            'type': 'base64',
+            'name': f'{platform_prefix}_{channel_id}_{timestamp}.jpg',
+            'title': f'{channel_name} {stream_status.platform_name} 생방송 썸네일',
+            'description': f'채널: {channel_name}, 채널ID: {channel_id}, 플랫폼: {stream_status.platform_name}, 시간: {datetime.now().isoformat()}'
+        }
+        
+        imgur_response = post(
+            'https://api.imgur.com/3/image',
+            headers=headers,
+            data=data,
+            timeout=10
+        )
+        
+        # 응답 확인
+        if imgur_response.status_code == 200:
+            imgur_data = imgur_response.json()
+            thumbnail_url = imgur_data['data']['link']
+            
+            # 삭제 해시 기록 (필요시 나중에 이미지 삭제에 사용 가능)
+            delete_hash = imgur_data['data']['deletehash']
+            print(f"{datetime.now()} Imgur 업로드 성공: {thumbnail_url} (삭제 해시: {delete_hash})")
+            
+            return thumbnail_url
+        else:
+            print(f"{datetime.now()} Imgur 업로드 실패: {imgur_response.status_code}")
+            print(f"응답: {imgur_response.text}")
+            return None
+    
+    except Exception as e:
+        print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
+
  # 디버깅 용도 실행 함수
 async def main_loop(init):
 

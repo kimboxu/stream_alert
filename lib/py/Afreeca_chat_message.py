@@ -19,6 +19,7 @@ from supabase import create_client
 from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
 from notification_service import send_push_notification
+from chat_analyzer import ChatMessageWithAnalyzer
 
 # 아프리카 채팅 데이터 클래스 정의
 @dataclass
@@ -33,7 +34,7 @@ class AfreecaChatData:
     BID: str = ""                           # 방송인 ID
     
 # 아프리카 채팅 메시지 처리 클래스
-class afreeca_chat_message:
+class afreeca_chat_message(ChatMessageWithAnalyzer):
     def __init__(self, init_var: initVar, channel_id):
         self.init = init_var
 
@@ -56,6 +57,8 @@ class afreeca_chat_message:
         
         # 비동기 태스크 관리 리스트
         self.tasks = []
+
+        self.setup_analyzer(channel_id, channel_name)
 
     # SSL 컨텍스트 생성
     @staticmethod
@@ -98,8 +101,8 @@ class afreeca_chat_message:
                 continue
             
             try:
-                # 웹소켓 연결 및 메시지 처리 실행
-                await self._connect_and_run()
+                await self.start_analyzer()     # 분석기 시작
+                await self._connect_and_run()   # 웹소켓 연결 및 메시지 처리 실행
             except Exception as e:
                 # 오류 발생 시 로그 기록
                 await log_error(f"error in chat manager afreeca", e)
@@ -139,6 +142,7 @@ class afreeca_chat_message:
                     await asyncio.wait([task], timeout=2)
                 except Exception as cancel_error:
                     await log_error(f"Error cancelling task for {self.data.channel_id}", cancel_error)
+        await self.stop_analyzer()
 
     # 채팅 서버 연결
     async def connect(self):
@@ -170,7 +174,7 @@ class afreeca_chat_message:
         ping_interval = 10
         
         try:
-            while not self.data.sock.closed:
+            while not self.data.sock.state.name == 'CLOSED':
                 # 핑 메시지 전송
                 await self.data.sock.send(self.PING_PACKET)
                 
@@ -208,7 +212,7 @@ class afreeca_chat_message:
                     except Exception: pass
 
                 # 소켓이 닫혔는지 확인
-                if self.data.sock.closed:
+                if self.data.sock.state.name == 'CLOSED':
                     asyncio.create_task(log_error(f"{self.data.channel_id}: 연결 종료", webhook_url=environ['chat_post_url']))
                     break
 
@@ -301,6 +305,13 @@ class afreeca_chat_message:
         user_id = user_id.split("(")[0]
 
         # print(f"{datetime.now()} [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
+
+        # 채팅 메시지인 경우 분석기로 전달
+        if chat_type == "채팅":
+            
+            if nickname and chat:
+                # 분석기로 메시지 전달
+                await self.chat_analyzer.add_chat_message(nickname, chat)
 
         # 테스트 모드가 아니고 필터링된 채널이 아니면 무시
         if not self.init.DO_TEST and user_id not in [*self.init.afreeca_chatFilter["channelID"]]: 

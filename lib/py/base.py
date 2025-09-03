@@ -89,6 +89,8 @@ class initVar:
 	countTimeList.append(default_timer())
 	SEC 			= 1000000  # 까지만 표시(넘어서면 0부터)
 	count 			= 0
+
+	stream_status = {}
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])  # Supabase DB 클라이언트
 
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정

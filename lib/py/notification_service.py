@@ -342,6 +342,8 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
     state = StateManager.get_instance()
     init = state.get_init()
     if init is None: init = await state.initialize()
+    
+    if init.DO_TEST: return
 
     # 성능 측정 시작
     start_time = datetime.now()
