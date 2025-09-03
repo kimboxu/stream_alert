@@ -289,7 +289,19 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             finally:
                 # 큐 작업 완료 신호
                 message_queue.task_done()
-        
+    
+    # 유저 채팅 데이터 얻기
+    def get_user_chat(self, messages):
+        user_id, chat, nickname = None, None, None
+        if len(messages) == 14:
+            user_id, chat, nickname = messages[2], messages[1], messages[6]
+        elif len(messages) == 19:
+            user_id, chat, nickname = messages[6], messages[2], messages[7]
+        else:
+            asyncio.create_task(log_error(f"messages,{messages}", webhook_url= environ['afreeca_chat_log_url']))
+
+        return user_id, chat, nickname
+
     # 단일 메시지 처리 
     async def _process_single_message(self, messages):
         # 유효하지 않은 메시지 필터링
@@ -299,7 +311,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             return
         
         # 메시지 정보 추출
-        user_id, chat, nickname = messages[2], messages[1], messages[6]
+        user_id, chat, nickname = self.get_user_chat(messages)
         chat_type = "채팅"
 
         user_id = user_id.split("(")[0]
@@ -369,10 +381,13 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
     # 유저 정보 가져오기
     async def _get_user_info(self, user_id):
-        
-        stateData = await get_message("afreeca", afreeca_getLink(user_id))
-        user_nick = stateData['station']['user_nick']
-        _, _, profile_image = afreeca_getChannelOffStateData(stateData, stateData["station"]["user_id"])
+        try:
+            stateData = await get_message("afreeca", afreeca_getLink(user_id))
+            user_nick = stateData['station']['user_nick']
+            _, _, profile_image = afreeca_getChannelOffStateData(stateData, stateData["station"]["user_id"])
+        except Exception as e:
+            asyncio.create_task(log_error(f"Error in _get_user_info: {e}", webhook_url= environ['afreeca_chat_log_url']))
+            asyncio.create_task(log_error(f"stateData,{stateData}", webhook_url= environ['afreeca_chat_log_url']))
         return user_nick, profile_image
 
     # 새 메시지 처리  (중복 방지)
@@ -395,6 +410,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     def _is_invalid_message(self, messages):
         # 메시지가 유효하지 않은지 확인
         return (len(messages) < 7 or 
+                len(messages) == 8 or
+                len(messages) == 9 or
                 messages[1] in ['-1', '', '1'] or 
                 len(messages[2]) == 0 or 
                 messages[2] in ["1"] or 
