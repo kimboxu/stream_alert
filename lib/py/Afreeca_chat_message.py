@@ -96,7 +96,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             
             # 성인 채널인 경우 채팅을 확인 할 수 없기 때문에 건너뛰기
             adult_channel_state = -6
-            if if_adult_channel == adult_channel_state:
+            subscription_Plus   = -14
+            if if_adult_channel in [adult_channel_state, subscription_Plus]:
                 await asyncio.sleep(5)
                 continue
             
@@ -493,11 +494,12 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         
         # 방송 상태 및 제목 정보 추출
         live = res["CHANNEL"]["RESULT"]
-        title = res["CHANNEL"]["TITLE"]
+        title = res["CHANNEL"].get("TITLE","TITLE")
 
-        # 성인 채널 처리
+        # 성인, 구독 플러스 채널 처리
         adult_channel_state = -6
-        if live == adult_channel_state:  # 연령제한 채널로 썸네일링크 못 읽을 경우
+        subscription_Plus = -14
+        if live in [adult_channel_state, subscription_Plus]:  # 연령제한 채널로 썸네일링크 못 읽을 경우
             thumbnail_url = f"https://liveimg.afreecatv.com/m/{self.data.BNO}"
             return live, title, thumbnail_url, None, None, None, None, None
         
