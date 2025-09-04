@@ -390,7 +390,7 @@ class ChatAnalyzer:
         else:
             threshold = self.small_fun_threshold  # 기본 임계값
         
-        check_create_highlight = final_score >= threshold and self.check_bef_recent_scores(final_score)
+        check_create_highlight = final_score >= threshold and self._should_create_new_highlight(final_score)
           
         # 상세 점수 정보
         score_details = {
@@ -654,16 +654,27 @@ class ChatAnalyzer:
     def _sigmoid_transform(self, x: float, midpoint: float = 1.0, steepness: float = 2.0) -> float:
             return 2 / (1 + exp(-steepness * (x - midpoint)))
 
-    # 최근 이전 점수 보다 크게 높은지
-    def check_bef_recent_scores(self, score):
+    #새 하이라이트를 생성해야 하는지 판단
+    def _should_create_new_highlight(self, score):
+        if not self.highlights:
+            return True
+        
+        last_highlight = self.highlights[-1]
+        
+        time_diff = (datetime.now() - last_highlight.timestamp).total_seconds()
+        
+        # 쿨다운: 2분 간격
+        cooldown = 120
+        if time_diff < cooldown:
+            return False
+
         # 최근 30초
         bef_recent_scores = list(self.analysis_history)[-int(self.history_1min*0.5):]
 
-        #이전 30초에서의 점수들 보다 15점 이상 높은 경우
-        for a in bef_recent_scores:
-            if score < a[2] + 15:
-                return False
-            
+        #이전 30초 동안 15점 이상 높아진 경우
+        if score > min(a[2] for a in bef_recent_scores) + 15:
+            return False
+
         return True
 
     #하이라이트 생성
