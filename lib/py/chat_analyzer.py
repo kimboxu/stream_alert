@@ -131,7 +131,7 @@ class ChatAnalyzer:
         self.fun_patterns = {
         'laugh': re.compile(r'ㅋ{2,}|ㅎ{2,}|하하|ㅏㅏ|캬|푸하|풉|웃겨|개웃|존웃'),
         'excitement': re.compile(r'!{2,}|\?{2,}|ㄷㄷ|헐|대박|와|오|우와|미친|ㅁㅊ|개쩔|쩐다|ㄱㄱ|고고|가즈아'),
-        'surprise': re.compile(r'헉|뭣|뭐야|어떻게|진짜|실화|레전드|띠용|충격|놀람'),
+        'surprise': re.compile(r'헉|뭣|뭐야|어떻게|진짜|실화|레전드|띠용|충격|놀람|ㄴㅇㅅ|지리네'),
         'reaction': re.compile(r'ㅠㅠ|ㅜㅜ|아니|안돼|제발|부탁|응원'),
         }
 
@@ -291,7 +291,7 @@ class ChatAnalyzer:
             if len(msg_lengths) > 1:
                 import statistics
                 if len(msg_lengths) >= 2:
-                    diversity = min(statistics.stdev(msg_lengths) / 20, 5)
+                    diversity = min(statistics.stdev(msg_lengths) / 10, 5)
                     score += diversity
                     score_details['diversity_score'] = diversity
 
@@ -312,7 +312,7 @@ class ChatAnalyzer:
             if avg_recent_msgs > 0:
                 spike_ratio = analysis.message_count / avg_recent_msgs
                 if spike_ratio > 1.0:
-                    chat_spike_bonus = min((spike_ratio - 1) * 40, 20)
+                    chat_spike_bonus = min((spike_ratio - 1) * 30, 30)
                     score += chat_spike_bonus
                     score_details['chat_spike_bonus'] = chat_spike_bonus
 
@@ -320,7 +320,7 @@ class ChatAnalyzer:
             if avg_recent_views > 0:
                 spike_ratio = analysis.viewer_count / avg_recent_views
                 if spike_ratio > 1.0:
-                    viewer_spike_bonus = min((spike_ratio - 1) * 40, 20)
+                    viewer_spike_bonus = min((spike_ratio - 1) * 10, 10)
                     score += viewer_spike_bonus
                     score_details['viewer_spike_bonus'] = viewer_spike_bonus
         
@@ -425,7 +425,7 @@ class ChatAnalyzer:
         try:
 
             message = "🎉 하이라이트"
-            channel_name = self.data.channel_name
+            channel_name = self.channel_name
             channel_color = self.init.stream_status[highlight.channel_id].id_list.loc[highlight.channel_id, 'channel_color']
 
             thumbnail_url = self.init.stream_status[highlight.channel_id].thumbnail_url
