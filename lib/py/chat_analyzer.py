@@ -471,10 +471,10 @@ class ChatAnalyzer:
         
         # 키워드별 가중치 (감정 강도 반영)
         keyword_weights = {
-            'laugh': 4.0,      # 웃음 - 강한 긍정 반응
-            'excitement': 3.0,  # 흥분 - 강한 에너지
-            'surprise': 3.5,   # 놀람 - 예상치 못한 재미
-            'reaction': 2.0,   # 일반 반응
+            'laugh': 3.0,      # 웃음 - 강한 긍정 반응
+            'excitement': 2.5,  # 흥분 - 강한 에너지
+            'surprise': 2.0,   # 놀람 - 예상치 못한 재미
+            'reaction': 1.0,   # 일반 반응
         }
         
         total_weighted_keywords = 0
@@ -486,7 +486,7 @@ class ChatAnalyzer:
         if analysis.message_count > 0:
             keyword_density = total_weighted_keywords / analysis.message_count
             # 밀도 1.0 (평균 1채팅당 1키워드)를 기준으로 점수화
-            reaction_score = min(self._sigmoid_transform(keyword_density, 1.0) * 100, 100)
+            reaction_score = min(self._sigmoid_transform(keyword_density, 3.0) * 100, 100)
         else:
             reaction_score = 0
             
