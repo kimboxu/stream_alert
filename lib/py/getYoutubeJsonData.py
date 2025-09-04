@@ -1,6 +1,6 @@
 import asyncio
 import aiohttp
-from datetime import datetime
+from datetime import datetime, timedelta
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError, Error
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
@@ -61,8 +61,33 @@ class getYoutubeJsonData:
 			await self.post_youtube()   # 새 비디오 알림 전송
 	
 		except Exception as e:
+			if "quota" in str(e):
+				await self.sleep_until_youtube_quota_reset()
+				return
+			
 			if "RetryError" not in str(e):
 				asyncio.create_task(log_error(f"error Youtube {self.youtubeChannelID}: {str(e)}"))
+				
+
+
+	#YouTube API 할당량이 리셋되는 PST 자정까지 대기
+	async def sleep_until_youtube_quota_reset(self):
+		import pytz
+		pst = pytz.timezone('US/Pacific')
+		now_pst = datetime.now(pst)
+		
+		# 다음 날 자정 (PST)
+		next_midnight = now_pst.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+		
+		# 남은 시간 계산 (초)
+		seconds_to_wait = int((next_midnight - now_pst).total_seconds())
+		
+		hours = seconds_to_wait // 3600
+		minutes = (seconds_to_wait % 3600) // 60
+		
+		print(f"{datetime.now()} YouTube API 할당량 리셋까지 {hours}시간 {minutes}분 대기합니다...")
+		await asyncio.sleep(seconds_to_wait)
+		print(f"{datetime.now()}할당량이 리셋되었습니다!")
 			
 	# 유튜브 채널의 새 비디오를 확인하는 함수
 	async def check_youtube(self):
