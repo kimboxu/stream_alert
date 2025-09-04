@@ -485,8 +485,8 @@ class ChatAnalyzer:
         # 채팅 수 대비 키워드 밀도로 정규화
         if analysis.message_count > 0:
             keyword_density = total_weighted_keywords / analysis.message_count
-            # 밀도 0.5 (평균 2채팅당 1키워드)를 기준으로 점수화
-            reaction_score = min(self._sigmoid_transform(keyword_density, 0.5) * 100, 100)
+            # 밀도 1.0 (평균 1채팅당 1키워드)를 기준으로 점수화
+            reaction_score = min(self._sigmoid_transform(keyword_density, 1.0) * 100, 100)
         else:
             reaction_score = 0
             
