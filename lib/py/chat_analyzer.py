@@ -95,11 +95,9 @@ class ChatMessageWithAnalyzer:
         """주기적인 분석 실행"""
         while True:
             try:
-                # 10초마다 분석
-                if not if_after_time(self.chat_analyzer.last_analysis_time.isoformat(), sec=10):
-                    await asyncio.sleep(0.5) 
-                    continue
-  
+                # 5초마다 분석
+                await asyncio.sleep(self.chat_analyzer.analysis_interval) 
+
                 # 분석 실행
                 result = await self.chat_analyzer.analyze()
 
@@ -123,7 +121,7 @@ class ChatAnalyzer:
 
         # 분석 설정
         self.window_size = 30  # 30초 윈도우
-        self.analysis_interval = 10  # 10초마다 분석
+        self.analysis_interval = 5  # 5초마다 분석
 
         # 채팅 데이터 저장 (최대 30분)
         self.chat_buffer = deque(maxlen=1800)  # 30분 분량
@@ -188,12 +186,6 @@ class ChatAnalyzer:
     async def analyze(self) -> Optional[Tuple[float, ChatAnalysisData]]:
         """현재 시점 분석 수행"""
         current_time = datetime.now()
-
-        # 분석 간격 체크
-        time_since_last = (current_time - self.last_analysis_time).seconds
-        if time_since_last < self.analysis_interval:
-            return None
-        
         self.last_analysis_time = current_time
 
         # 윈도우 시작 시간
@@ -245,9 +237,9 @@ class ChatAnalyzer:
         }
         
         self.detailed_logs.append(detailed_log)
-        # 최대 1000개까지만 보관
-        if len(self.detailed_logs) > 1000:
-            self.detailed_logs = self.detailed_logs[-1000:]
+        # 최대 2000개까지만 보관
+        if len(self.detailed_logs) > 2000:
+            self.detailed_logs = self.detailed_logs[-2000:]
 
         # 하이라이트 체크
         if fun_score >= self.small_fun_threshold and check_create_highlight:
@@ -550,9 +542,9 @@ class ChatAnalyzer:
             
             print(f"상세 로그 저장 완료: {filename} ({len(self.detailed_logs)}개 기록)")
             
-            # 메모리 절약을 위해 저장 후 로그 일부 삭제 (최근 1000개만 유지)
-            if len(self.detailed_logs) > 1000:
-                self.detailed_logs = self.detailed_logs[-1000:]
+            # 메모리 절약을 위해 저장 후 로그 일부 삭제 (최근 2000개만 유지)
+            if len(self.detailed_logs) > 2000:
+                self.detailed_logs = self.detailed_logs[-2000:]
                 
         except Exception as e:
             print(f"로그 저장 오류: {e}")
