@@ -403,6 +403,12 @@ class ChatAnalyzer:
             'threshold': threshold,
             'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
             'baseline_chat_velocity': self.baseline_metrics['avg_chat_velocity'],
+            'reaction_keyword_breakdown': {
+                'laugh': analysis.fun_keywords.get('laugh', 0),
+                'excitement': analysis.fun_keywords.get('excitement', 0),
+                'surprise': analysis.fun_keywords.get('surprise', 0),
+                'reaction': analysis.fun_keywords.get('reaction', 0)
+            }
         }
         
         return final_score, check_create_highlight, score_details
