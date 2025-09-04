@@ -74,50 +74,93 @@ class FunScoreLogAnalyzer:
         return stats
     
     def analyze_score_components(self, logs):
-        """점수 구성 요소 분석"""
+        """점수 구성 요소 분석 - 새로운 구조에 맞게 수정"""
         if not logs:
             return
         
-        # 각 구성 요소별 평균
-        velocity_scores = [log['score_components']['chat_velocity_score'] for log in logs]
-        keyword_scores = [log['score_components']['keyword_score'] for log in logs]
-        participation_scores = [log['score_components']['participation_score'] for log in logs]
-        diversity_scores = [log['score_components']['diversity_score'] for log in logs]
-        chat_bonuses = [log['score_components']['chat_spike_bonus'] for log in logs]
-        viewer_bonuses = [log['score_components']['viewer_spike_bonus'] for log in logs]
-        
-        print(f"\n=== 점수 구성 요소 분석 ===")
-        print(f"채팅 속도 점수: 평균 {sum(velocity_scores)/len(velocity_scores):.2f}/15 (최대 {max(velocity_scores):.1f})")
-        print(f"키워드 점수: 평균 {sum(keyword_scores)/len(keyword_scores):.2f}/30 (최대 {max(keyword_scores):.1f})")
-        print(f"참여도 점수: 평균 {sum(participation_scores)/len(participation_scores):.2f}/10 (최대 {max(participation_scores):.1f})")
-        print(f"다양성 점수: 평균 {sum(diversity_scores)/len(diversity_scores):.2f}/5 (최대 {max(diversity_scores):.1f})")
-        print(f"채팅 급증 보너스: 평균 {sum(chat_bonuses)/len(chat_bonuses):.2f} (최대 {max(chat_bonuses):.1f})")
-        print(f"시청자 급증 보너스: 평균 {sum(viewer_bonuses)/len(viewer_bonuses):.2f} (최대 {max(viewer_bonuses):.1f})")
-        
-        # 각 구성요소의 전체 점수 기여도
-        total_velocity = sum(velocity_scores)
-        total_keyword = sum(keyword_scores)
-        total_participation = sum(participation_scores)
-        total_diversity = sum(diversity_scores)
-        total_bonuses = sum(chat_bonuses) + sum(viewer_bonuses)
-        grand_total = total_velocity + total_keyword + total_participation + total_diversity + total_bonuses
-        
-        print(f"\n=== 구성 요소별 기여도 ===")
-        print(f"채팅 속도: {total_velocity/grand_total*100:.1f}%")
-        print(f"키워드: {total_keyword/grand_total*100:.1f}%")
-        print(f"참여도: {total_participation/grand_total*100:.1f}%")
-        print(f"다양성: {total_diversity/grand_total*100:.1f}%")
-        print(f"급증 보너스: {total_bonuses/grand_total*100:.1f}%")
+        # 새로운 구조에서는 score_components에 다른 필드들이 있음
+        try:
+            # 첫 번째 로그의 구조 확인
+            first_log = logs[0]
+            print(f"\n=== 로그 구조 확인 ===")
+            print(f"Score components keys: {list(first_log['score_components'].keys())}")
+            
+            # 새로운 구조에 맞는 분석
+            engagement_scores = [log['score_components'].get('engagement_score', 0) for log in logs]
+            reaction_scores = [log['score_components'].get('reaction_score', 0) for log in logs]
+            diversity_scores = [log['score_components'].get('diversity_score', 0) for log in logs]
+            chat_spike_scores = [log['score_components'].get('chat_spike_score', 0) for log in logs]
+            viewer_trend_scores = [log['score_components'].get('viewer_trend_score', 0) for log in logs]
+            
+            print(f"\n=== 새로운 점수 구성 요소 분석 ===")
+            print(f"참여도 점수: 평균 {sum(engagement_scores)/len(engagement_scores):.2f}/100 (최대 {max(engagement_scores):.1f})")
+            print(f"반응 강도 점수: 평균 {sum(reaction_scores)/len(reaction_scores):.2f}/100 (최대 {max(reaction_scores):.1f})")
+            print(f"다양성 점수: 평균 {sum(diversity_scores)/len(diversity_scores):.2f}/100 (최대 {max(diversity_scores):.1f})")
+            print(f"채팅 급증 점수: 평균 {sum(chat_spike_scores)/len(chat_spike_scores):.2f}/100 (최대 {max(chat_spike_scores):.1f})")
+            print(f"시청자 증가 점수: 평균 {sum(viewer_trend_scores)/len(viewer_trend_scores):.2f}/80 (최대 {max(viewer_trend_scores):.1f})")
+            
+            # 각 구성요소의 전체 점수 기여도
+            total_engagement = sum(engagement_scores)
+            total_reaction = sum(reaction_scores)
+            total_diversity = sum(diversity_scores)
+            total_chat_spike = sum(chat_spike_scores)
+            total_viewer_trend = sum(viewer_trend_scores)
+            grand_total = total_engagement + total_reaction + total_diversity + total_chat_spike + total_viewer_trend
+            
+            if grand_total > 0:
+                print(f"\n=== 구성 요소별 기여도 ===")
+                print(f"참여도: {total_engagement/grand_total*100:.1f}%")
+                print(f"반응 강도: {total_reaction/grand_total*100:.1f}%")
+                print(f"다양성: {total_diversity/grand_total*100:.1f}%")
+                print(f"채팅 급증: {total_chat_spike/grand_total*100:.1f}%")
+                print(f"시청자 증가: {total_viewer_trend/grand_total*100:.1f}%")
+            
+        except KeyError as e:
+            print(f"로그 구조 오류: {e}")
+            print("기존 구조로 분석을 시도합니다...")
+            
+            # 기존 구조 분석 시도
+            try:
+                velocity_scores = [log['score_components'].get('chat_velocity_score', 0) for log in logs]
+                keyword_scores = [log['score_components'].get('keyword_score', 0) for log in logs]
+                participation_scores = [log['score_components'].get('participation_score', 0) for log in logs]
+                diversity_scores = [log['score_components'].get('diversity_score', 0) for log in logs]
+                chat_bonuses = [log['score_components'].get('chat_spike_bonus', 0) for log in logs]
+                viewer_bonuses = [log['score_components'].get('viewer_spike_bonus', 0) for log in logs]
+                
+                print(f"\n=== 기존 점수 구성 요소 분석 ===")
+                print(f"채팅 속도 점수: 평균 {sum(velocity_scores)/len(velocity_scores):.2f} (최대 {max(velocity_scores):.1f})")
+                print(f"키워드 점수: 평균 {sum(keyword_scores)/len(keyword_scores):.2f} (최대 {max(keyword_scores):.1f})")
+                print(f"참여도 점수: 평균 {sum(participation_scores)/len(participation_scores):.2f} (최대 {max(participation_scores):.1f})")
+                print(f"다양성 점수: 평균 {sum(diversity_scores)/len(diversity_scores):.2f} (최대 {max(diversity_scores):.1f})")
+                print(f"채팅 급증 보너스: 평균 {sum(chat_bonuses)/len(chat_bonuses):.2f} (최대 {max(chat_bonuses):.1f})")
+                print(f"시청자 급증 보너스: 평균 {sum(viewer_bonuses)/len(viewer_bonuses):.2f} (최대 {max(viewer_bonuses):.1f})")
+                
+            except Exception as e2:
+                print(f"기존 구조 분석도 실패: {e2}")
     
     def analyze_keywords(self, logs):
-        """키워드 분석"""
+        """키워드 분석 - 새로운 구조에 맞게 수정"""
         if not logs:
             return
         
-        laugh_total = sum(log['score_components']['keyword_breakdown']['laugh'] for log in logs)
-        excitement_total = sum(log['score_components']['keyword_breakdown']['excitement'] for log in logs)
-        surprise_total = sum(log['score_components']['keyword_breakdown']['surprise'] for log in logs)
-        reaction_total = sum(log['score_components']['keyword_breakdown']['reaction'] for log in logs)
+        try:
+            # 새로운 구조: reaction_keyword_breakdown
+            laugh_total = sum(log['score_components'].get('reaction_keyword_breakdown', {}).get('laugh', 0) for log in logs)
+            excitement_total = sum(log['score_components'].get('reaction_keyword_breakdown', {}).get('excitement', 0) for log in logs)
+            surprise_total = sum(log['score_components'].get('reaction_keyword_breakdown', {}).get('surprise', 0) for log in logs)
+            reaction_total = sum(log['score_components'].get('reaction_keyword_breakdown', {}).get('reaction', 0) for log in logs)
+            
+        except:
+            # 기존 구조: keyword_breakdown
+            try:
+                laugh_total = sum(log['score_components'].get('keyword_breakdown', {}).get('laugh', 0) for log in logs)
+                excitement_total = sum(log['score_components'].get('keyword_breakdown', {}).get('excitement', 0) for log in logs)
+                surprise_total = sum(log['score_components'].get('keyword_breakdown', {}).get('surprise', 0) for log in logs)
+                reaction_total = sum(log['score_components'].get('keyword_breakdown', {}).get('reaction', 0) for log in logs)
+            except:
+                print("키워드 데이터를 찾을 수 없습니다.")
+                return
         
         print(f"\n=== 키워드 분석 ===")
         print(f"웃음 키워드: 총 {laugh_total}개 (평균 {laugh_total/len(logs):.2f}/회)")
@@ -163,7 +206,7 @@ class FunScoreLogAnalyzer:
             print(f"{hour:2d}시: 평균 {avg_score:5.1f} (분석 {len(scores):3d}회, 하이라이트 {highlights:2d}회)")
     
     def export_to_csv(self, logs, filename=None):
-        """로그를 CSV로 내보내기"""
+        """로그를 CSV로 내보내기 - 새로운 구조에 맞게 수정"""
         if not logs:
             print("내보낼 데이터가 없습니다.")
             return
@@ -175,23 +218,55 @@ class FunScoreLogAnalyzer:
         # DataFrame 생성
         data = []
         for log in logs:
-            row = {
-                'timestamp': log['timestamp'],
-                'fun_score': log['fun_score'],
-                'message_count': log['analysis_data']['message_count'],
-                'viewer_count': log['analysis_data']['viewer_count'],
-                'chat_velocity': log['analysis_data']['chat_velocity'],
-                'velocity_score': log['score_components']['chat_velocity_score'],
-                'keyword_score': log['score_components']['keyword_score'],
-                'participation_score': log['score_components']['participation_score'],
-                'diversity_score': log['score_components']['diversity_score'],
-                'chat_spike_bonus': log['score_components']['chat_spike_bonus'],
-                'viewer_spike_bonus': log['score_components']['viewer_spike_bonus'],
-                'laugh_count': log['score_components']['keyword_breakdown']['laugh'],
-                'excitement_count': log['score_components']['keyword_breakdown']['excitement'],
-                'surprise_count': log['score_components']['keyword_breakdown']['surprise'],
-                'reaction_count': log['score_components']['keyword_breakdown']['reaction']
-            }
+            try:
+                # 새로운 구조에 맞는 데이터 추출
+                row = {
+                    'timestamp': log['timestamp'],
+                    'fun_score': log['fun_score'],
+                    'message_count': log['analysis_data']['message_count'],
+                    'viewer_count': log['analysis_data']['viewer_count'],
+                    'chat_velocity': log['analysis_data']['chat_velocity'],
+                    
+                    # 새로운 구조의 점수들
+                    'engagement_score': log['score_components'].get('engagement_score', 0),
+                    'reaction_score': log['score_components'].get('reaction_score', 0),
+                    'diversity_score': log['score_components'].get('diversity_score', 0),
+                    'chat_spike_score': log['score_components'].get('chat_spike_score', 0),
+                    'viewer_trend_score': log['score_components'].get('viewer_trend_score', 0),
+                    
+                    # 기준값들
+                    'baseline_chat_count': log['score_components'].get('baseline_chat_count', 0),
+                    'baseline_chat_velocity': log['score_components'].get('baseline_chat_velocity', 0),
+                    'baseline_viewer_count': log['score_components'].get('baseline_viewer_count', 0),
+                    'threshold': log['score_components'].get('threshold', 50),
+                    
+                    # 키워드 데이터
+                    'laugh_count': log['score_components'].get('reaction_keyword_breakdown', {}).get('laugh', 0),
+                    'excitement_count': log['score_components'].get('reaction_keyword_breakdown', {}).get('excitement', 0),
+                    'surprise_count': log['score_components'].get('reaction_keyword_breakdown', {}).get('surprise', 0),
+                    'reaction_count': log['score_components'].get('reaction_keyword_breakdown', {}).get('reaction', 0)
+                }
+                
+            except KeyError:
+                # 기존 구조로 대체
+                row = {
+                    'timestamp': log['timestamp'],
+                    'fun_score': log['fun_score'],
+                    'message_count': log['analysis_data']['message_count'],
+                    'viewer_count': log['analysis_data']['viewer_count'],
+                    'chat_velocity': log['analysis_data']['chat_velocity'],
+                    'velocity_score': log['score_components'].get('chat_velocity_score', 0),
+                    'keyword_score': log['score_components'].get('keyword_score', 0),
+                    'participation_score': log['score_components'].get('participation_score', 0),
+                    'diversity_score': log['score_components'].get('diversity_score', 0),
+                    'chat_spike_bonus': log['score_components'].get('chat_spike_bonus', 0),
+                    'viewer_spike_bonus': log['score_components'].get('viewer_spike_bonus', 0),
+                    'laugh_count': log['score_components'].get('keyword_breakdown', {}).get('laugh', 0),
+                    'excitement_count': log['score_components'].get('keyword_breakdown', {}).get('excitement', 0),
+                    'surprise_count': log['score_components'].get('keyword_breakdown', {}).get('surprise', 0),
+                    'reaction_count': log['score_components'].get('keyword_breakdown', {}).get('reaction', 0)
+                }
+            
             data.append(row)
         
         df = pd.DataFrame(data)
@@ -291,7 +366,7 @@ if __name__ == "__main__":
     analyzer = FunScoreLogAnalyzer("fun_score_logs")
     
     # 전체 분석 실행
-    analyzer.full_analysis("빅헤드")
+    analyzer.full_analysis("지누")
     
     # 또는 특정 파일만 분석
     # logs = analyzer.load_log_file("fun_score_logs/fun_score_detailed_채널명_20250903_143022.json")
