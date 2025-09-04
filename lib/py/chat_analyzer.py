@@ -560,8 +560,8 @@ class ChatAnalyzer:
         
         # 1. 단기 증가 추세 (최근 5분 vs 이전 5분)
         if len(self.analysis_history) >= 10:
-            recent_5_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num/2:]]) / (history_num/2)
-            previous_5_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num:-history_num/2]]) / (history_num/2)
+            recent_5_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/2):]]) / (history_num/2)
+            previous_5_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num:-int(history_num/2)]]) / (history_num/2)
             
             if previous_5_avg > 0:
                 growth_ratio = recent_5_avg / previous_5_avg
@@ -577,7 +577,7 @@ class ChatAnalyzer:
         
         # 2. 즉시 급증 감지 (최근 1분 평균 vs 현재)
         if len(self.analysis_history) >= history_num/10:
-            recent_1_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num/10:]]) / (history_num/10)
+            recent_1_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/10):]]) / (history_num/10)
             
             if recent_1_avg > 0:
                 immediate_ratio = current_viewers / recent_1_avg
@@ -593,7 +593,7 @@ class ChatAnalyzer:
         
         # 3. 절대 증가량 보너스
         if len(self.analysis_history) >= (history_num/2):
-            recent_5_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num/2:]]) / (history_num/2)
+            recent_5_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/2):]]) / (history_num/2)
             absolute_increase = current_viewers - recent_5_avg
             
             # 채널 규모별 차등 적용
@@ -622,11 +622,11 @@ class ChatAnalyzer:
         # 4. 지속적 상승 보너스 (연속으로 증가하는 패턴)
         if len(self.analysis_history) >= history_num:
             splits_5_viewers = []
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num:-history_num/5*4]]) / (history_num/5))
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num/5*4:-history_num/5*3]]) / (history_num/5))
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num/5*3:-history_num/5*2]]) / (history_num/5))
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num/5*2:-history_num/5]]) / (history_num/5))
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num/5:]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num:-int(history_num/5*4)]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/5*4):-int(history_num/5*3)]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/5*3):-int(history_num/5*2)]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/5*2):-int(history_num/5)]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/5):]]) / int(history_num/5))
 
             increasing_count = 0
             
