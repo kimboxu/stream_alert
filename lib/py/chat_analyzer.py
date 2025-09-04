@@ -485,8 +485,8 @@ class ChatAnalyzer:
         # 채팅 수 대비 키워드 밀도로 정규화
         if analysis.message_count > 0:
             keyword_density = total_weighted_keywords / analysis.message_count
-            # 밀도 1.0 (평균 1채팅당 1키워드)를 기준으로 점수화
-            reaction_score = min(self._sigmoid_transform(keyword_density, 3.0) * 100, 100)
+            # 밀도 2.5 (평균 1채팅당 1키워드)를 기준으로 점수화
+            reaction_score = min(self._sigmoid_transform(keyword_density, 2.0) * 100, 100)
         else:
             reaction_score = 0
             
@@ -539,10 +539,8 @@ class ChatAnalyzer:
             if recent_avg > 0:
                 current_spike_ratio = analysis.message_count / recent_avg
                 
-                # 급증 조건: 최근 평균의 1.5배 이상 + 절대 증가량 3개 이상
-                if current_spike_ratio >= 1.5 and analysis.message_count - recent_avg >= 30:
-                    spike_intensity = min((current_spike_ratio - 1.0) * 40, 100)
-                    chat_spike_score = spike_intensity
+                # 급증 - 최근 평균의 5.0배 이상 증가
+                chat_spike_score = min(self._sigmoid_transform(current_spike_ratio, 5.0) * 100, 100)
 
         return chat_spike_score
     
