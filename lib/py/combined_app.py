@@ -22,6 +22,14 @@ nest_asyncio.apply()
 # 환경 변수 로드
 load_dotenv()
 
+GLOBAL_INSTANCES = {
+    'cafe': {},
+    'chzzk_video': {},
+    'chzzk_live': {},
+    'afreeca_live': {}
+}
+
+
 # 전역 상태 관리자
 state_manager = StateManager.get_instance()
 
@@ -39,27 +47,68 @@ def setup_flask_app():
     
     return app
 
+def get_or_create_instance(instance_type, init, channel_id):
+    """인스턴스를 가져오거나 생성하는 헬퍼 함수"""
+    instances = GLOBAL_INSTANCES[instance_type]
+    
+    if channel_id not in instances:
+        if instance_type == 'cafe':
+            instances[channel_id] = getCafePostTitle(init, channel_id)
+        elif instance_type == 'chzzk_video':
+            instances[channel_id] = chzzk_video(init, channel_id)
+        elif instance_type == 'chzzk_live':
+            instances[channel_id] = chzzk_live_message(init, channel_id)
+        elif instance_type == 'afreeca_live':
+            instances[channel_id] = afreeca_live_message(init, channel_id)
+    
+    return instances[channel_id]
+
 # 디스코드 봇 메인 루프
 async def main_loop(init: initVar):
     while True:
         try:
-            # 2초마다 db에서 상태 정보 확인 및 처리
             if init.count % 2 == 0: 
                 await userDataVar(init)
 
-
-            # 각 기능별 작업 생성
-            cafe_tasks = [asyncio.create_task(getCafePostTitle(init, channel_id).start()) for channel_id in init.cafeData["channelID"]]
-            chzzk_video_tasks = [asyncio.create_task(chzzk_video(init, channel_id).start()) for channel_id in init.chzzkIDList["channelID"]]
-            chzzk_live_tasks = [asyncio.create_task(chzzk_live_message(init, channel_id).start()) for channel_id in init.chzzkIDList["channelID"]]
-            afreeca_live_tasks = [asyncio.create_task(afreeca_live_message(init, channel_id).start()) for channel_id in init.afreecaIDList["channelID"]]
-            
-            tasks = [
-                *chzzk_live_tasks,
-                *afreeca_live_tasks,
-                *chzzk_video_tasks,
-                *cafe_tasks
+            # 기존 인스턴스를 재사용하여 태스크 생성
+            cafe_tasks = [
+                asyncio.create_task(
+                    get_or_create_instance('cafe', init, channel_id).start()
+                ) 
+                for channel_id in init.cafeData["channelID"]
             ]
+            
+            chzzk_video_tasks = [
+                asyncio.create_task(
+                    get_or_create_instance('chzzk_video', init, channel_id).start()
+                ) 
+                for channel_id in init.chzzkIDList["channelID"]
+            ]
+            
+            chzzk_live_tasks = [
+                asyncio.create_task(
+                    get_or_create_instance('chzzk_live', init, channel_id).start()
+                ) 
+                for channel_id in init.chzzkIDList["channelID"]
+            ]
+            
+            afreeca_live_tasks = [
+                asyncio.create_task(
+                    get_or_create_instance('afreeca_live', init, channel_id).start()
+                ) 
+                for channel_id in init.afreecaIDList["channelID"]
+            ]
+
+            tasks = []
+            
+            if init.count % 2 == 0: 
+                tasks.extend(chzzk_live_tasks)
+            if init.count % 2 == 1: 
+                tasks.extend(afreeca_live_tasks) 
+            if init.count % 3 == 2: 
+                tasks.extend(chzzk_video_tasks) 
+            if init.count % 3 == 1: 
+                tasks.extend(cafe_tasks)
 
             await asyncio.gather(*tasks)
             await fSleep(init)
