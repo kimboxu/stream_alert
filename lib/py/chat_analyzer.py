@@ -104,8 +104,8 @@ class ChatMessageWithAnalyzer:
                 result = await self.chat_analyzer.analyze()
 
                 if result:
-                    fun_score, analysis, score_details = result
-                    print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 재미도 점수: {fun_score}\n디테일 점수{score_details}")
+                    fun_score, analysis, detailed_log = result
+                    print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 재미도 점수: {fun_score}\n디테일 점수{detailed_log}")
                       
             except asyncio.CancelledError:
                 break
@@ -260,7 +260,7 @@ class ChatAnalyzer:
         # 분석 기록 저장
         self.analysis_history.append((current_time, analysis, fun_score))
 
-        return fun_score, analysis, score_details
+        return fun_score, analysis, detailed_log
     
     # def _calculate_fun_score(self, analysis: ChatAnalysisData, window_chats: List[Dict]) -> float:
     #     """재미도 점수를 세부 구성 요소와 함께 계산"""
@@ -426,8 +426,8 @@ class ChatAnalyzer:
         recent_velocities = [a[1].chat_velocity for a in recent_20]
         recent_viewers = [a[1].viewer_count for a in recent_20]
         
-        # 지수 이동 평균으로 부드럽게 업데이트 (alpha=0.15)
-        alpha = 0.15
+        # 지수 이동 평균으로 부드럽게 업데이트 (alpha=0.10)
+        alpha = 0.10
         avg_count = sum(recent_chat_counts) / len(recent_chat_counts)
         avg_velocity = sum(recent_velocities) / len(recent_velocities)
         avg_viewers = sum(recent_viewers) / len(recent_viewers)
@@ -531,16 +531,10 @@ class ChatAnalyzer:
     def _calculate_chat_spike_score(self, analysis: ChatAnalysisData) -> float:
         chat_spike_score = 0
         
-        if len(self.analysis_history) >= 30:
-            # 최근 30개 데이터를 사용하여 급증 판정
-            recent_30 = list(self.analysis_history)[-30:]
-            recent_avg = sum(a[1].message_count for a in recent_30) / len(recent_30)
-            
-            if recent_avg > 0:
-                current_spike_ratio = analysis.message_count / recent_avg
-                
-                # 급증 - 최근 평균의 5.0배 이상 증가
-                chat_spike_score = min(self._sigmoid_transform(current_spike_ratio, 5.0) * 100, 100)
+        current_spike_ratio = analysis.message_count / self.baseline_metrics['avg_chat_count']
+        
+        # 급증 - 최근 평균의 3.0배 이상 증가
+        chat_spike_score = min(self._sigmoid_transform(current_spike_ratio, 3.0) * 100, 100)
 
         return chat_spike_score
     

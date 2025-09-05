@@ -376,8 +376,7 @@ class chzzk_live_message(base_live_message):
     #치지직 시청자 수 가져오기
     def getViewer_count(self, state_data):
         view_count = state_data['content']['concurrentUserCount']
-        if view_count > 0:
-            self.data.view_count = state_data['content']['concurrentUserCount']
+        self.data.view_count = view_count
 
     #상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self) -> str: 
@@ -610,8 +609,7 @@ class afreeca_live_message(base_live_message):
     #아프리카 시청자 수 가져오기
     def getViewer_count(self, state_data):
         view_count = state_data['broad']['current_sum_viewer']
-        if view_count > 0:
-            self.data.view_count = state_data['broad']['current_sum_viewer']
+        self.data.view_count = view_count
     
     #상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self):
