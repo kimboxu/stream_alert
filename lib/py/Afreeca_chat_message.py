@@ -293,15 +293,17 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     
     # 유저 채팅 데이터 얻기
     def get_user_chat(self, messages):
-        user_id, chat, nickname = None, None, None
+        user_id, chat, nickname, chat_type = None, None, None, "채팅"
         if len(messages) == 14:
-            user_id, chat, nickname = messages[2], messages[1], messages[6]
+            user_id, chat, nickname, chat_type = messages[2], messages[1], messages[6], "채팅"
         elif len(messages) == 19:
-            user_id, chat, nickname = messages[6], messages[2], messages[7]
+            user_id, chat, nickname, chat_type = messages[6], messages[2], messages[7], "채팅"
+        elif len(messages) == 18:
+            user_id, chat, nickname, chat_type = messages[3], messages[7], messages[4], "애드벌룬 후원"
         else:
             asyncio.create_task(log_error(f"messages,{messages}", webhook_url= environ['afreeca_chat_log_url']))
 
-        return user_id, chat, nickname
+        return user_id, chat, nickname, chat_type
 
     # 단일 메시지 처리 
     async def _process_single_message(self, messages):
@@ -312,10 +314,12 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             return
         
         # 메시지 정보 추출
-        user_id, chat, nickname = self.get_user_chat(messages)
-        chat_type = "채팅"
-
-        user_id = user_id.split("(")[0]
+        user_id, chat, nickname, chat_type = self.get_user_chat(messages)
+        
+        try:
+            user_id = user_id.split("(")[0]
+        except:
+            asyncio.create_task(log_error(f"messages2,{messages}", webhook_url=environ['afreeca_chat_log_url']))
 
         # print(f"{datetime.now()} [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
 
@@ -416,6 +420,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 messages[1] in ['-1', '', '1'] or 
                 len(messages[2]) == 0 or 
                 messages[2] in ["1"] or 
+                messages[1] == self.data.BID or 
                 ("fw" in messages[2]))
 
     # 아프리카 채팅 메시지 체크 
