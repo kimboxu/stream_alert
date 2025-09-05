@@ -417,6 +417,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         return (len(messages) < 7 or 
                 len(messages) == 8 or
                 len(messages) == 9 or
+                len(messages) == 10 or   #매니저가 해당 유저 차단?
                 messages[1] in ['-1', '', '1'] or 
                 len(messages[2]) == 0 or 
                 messages[2] in ["1"] or 
