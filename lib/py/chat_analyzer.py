@@ -35,6 +35,7 @@ class StreamHighlight:
     reason: str
     chat_context: List[str]
     viewer_count: int
+    message_count: int
     duration: int  # seconds
     after_openDate: datetime
     score_details: dict
@@ -692,6 +693,7 @@ class ChatAnalyzer:
             reason=reason,
             chat_context=chat_context,
             viewer_count=analysis.viewer_count,
+            message_count=analysis.message_count,
             duration=self.window_size,
             after_openDate=after_openDate,
             score_details=score_details,
@@ -735,6 +737,7 @@ class ChatAnalyzer:
                 'reason': highlight.reason,
                 'chat_context': highlight.chat_context,
                 'viewer_count': highlight.viewer_count,
+                'message_count': highlight.message_count,
                 'duration': highlight.duration,
                 'after_openDate': highlight.after_openDate,
                 'score_details': highlight.score_details,

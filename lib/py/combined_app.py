@@ -124,6 +124,8 @@ async def youtube_task(init: initVar):
 
     developer_keys = environ['developerKeyList'].split(",")
     key_index = 0
+    if init.DO_TEST:
+        return
     while True:
         try:
             for youtubeChannelID in init.youtubeData["YoutubeChannelID"]:
