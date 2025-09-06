@@ -510,13 +510,13 @@ class chzzk_live_message(base_live_message):
 
     #뱅종 JSON 데이터 생성
     async def getOffJson(self, state_data, message):
-        thumbnail_url = await self.get_live_thumbnail_image(state_data, message)
+        # thumbnail_url = await self.get_live_thumbnail_image(state_data, message)
         
         return {"username": self.channel_name, "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
                 "embeds": [
                     {"color": int(self.id_list.loc[self.channel_id, 'channel_color']),
                     "title": self.channel_name +" 방송 종료\n",
-                "image": {"url": thumbnail_url},
+                # "image": {"url": thumbnail_url},
                 "footer": { "text": f"방종 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
                 "timestamp": changeUTCtime(self.getStarted_at("closeDate"))}]}
 
