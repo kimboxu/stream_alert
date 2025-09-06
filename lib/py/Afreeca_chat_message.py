@@ -415,6 +415,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     def _is_invalid_message(self, messages):
         # 메시지가 유효하지 않은지 확인
         return (len(messages) < 7 or 
+                len(messages) == 7 or
                 len(messages) == 8 or
                 len(messages) == 9 or
                 len(messages) == 10 or   #매니저가 해당 유저 차단?
