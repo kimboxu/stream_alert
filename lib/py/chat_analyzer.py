@@ -545,8 +545,8 @@ class ChatAnalyzer:
             await self._save_highlight_to_db(highlight)
 
         # 큰 재미인 경우 즉시 알림
-        if fun_score >= self.big_fun_threshold:
-            await self._send_notification(highlight)
+        # if fun_score >= self.big_fun_threshold:
+        await self._send_notification(highlight)
 
     #하이라이트 이유 생성
     def _determine_highlight_reason(self, analysis: ChatAnalysisData, score: float, score_details: dict) -> str:
@@ -623,7 +623,8 @@ class ChatAnalyzer:
             
             # 알림 전송
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
-            if self.init.DO_TEST: list_of_urls.append(environ['highlightURL'])
+            # if self.init.DO_TEST: 
+            list_of_urls.append(environ['highlightURL'])
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
             asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
             
