@@ -545,8 +545,8 @@ class ChatAnalyzer:
             await self._save_highlight_to_db(highlight)
 
         # 큰 재미인 경우 즉시 알림
-        # if fun_score >= self.big_fun_threshold:
-        await self._send_notification(highlight)
+        if fun_score >= self.big_fun_threshold:
+            await self._send_notification(highlight)
 
     #하이라이트 이유 생성
     def _determine_highlight_reason(self, analysis: ChatAnalysisData, score: float, score_details: dict) -> str:
