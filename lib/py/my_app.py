@@ -257,7 +257,7 @@ def save_user_settings():
     json_fields = ["유튜브 알림", "치지직 VOD", "cafe_user_json", "chat_user_json"]
     
     # 일반 텍스트 필드 목록
-    text_fields = ["뱅온 알림", "방제 변경 알림", "방종 알림", " 방송 하이라이트 알림"]
+    text_fields = ["뱅온 알림", "방제 변경 알림", "방종 알림", "방송 하이라이트 알림"]
     
     # 모든 필드 처리
     for field in text_fields + json_fields:
