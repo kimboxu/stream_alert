@@ -235,6 +235,8 @@ class NotificationModel {
       return NotificationType.streamChange;  // 방송 제목 변경 알림
     } else if (title.trim().endsWith('방송 종료')) {
       return NotificationType.streamEnd;  // 방송 종료 알림
+    } else if (title.trim().contains('하이라이트') && title.trim().contains('/100')) {
+      return NotificationType.streamHighlight;  // 방송 하이라이트 알림
     } else if (username.contains('>>')) {
       return NotificationType.chat;  // 채팅 알림
     } else {
@@ -251,7 +253,7 @@ enum NotificationType {
   streamStart,  // 뱅온 알림
   streamChange, // 방제 변경 알림
   streamEnd,    // 방종 알림
-  streamHighlight,    // 방종 알림
+  streamHighlight,    // 방송 하이라이트 알림
   chat,         // 채팅 알림
   general,      // 일반 알림
 }
