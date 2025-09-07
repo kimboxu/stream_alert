@@ -121,10 +121,11 @@ class ChatAnalyzer:
 
         # 재미 키워드 패턴 (한국어 최적화)
         self.fun_patterns = {
-        'laugh': re.compile(r'ㅋ{2,}|ㅎ{2,}|하하|ㅏㅏ|캬|푸하|풉|웃겨|개웃|존웃'),
-        'excitement': re.compile(r'!{2,}|\?{2,}|ㄷㄷ|헐|대박|와|오|우와|미친|ㅁㅊ|개쩔|쩐다|ㄱㄱ|고고|가즈아'),
-        'surprise': re.compile(r'헉|뭣|뭐야|어떻게|진짜|실화|레전드|띠용|충격|놀람|ㄴㅇㅅ|지리네'),
-        'reaction': re.compile(r'ㅠㅠ|ㅜㅜ|아니|안돼|제발|부탁|응원'),
+        'laugh': re.compile(r'ㅋ{2,}|ㅎ{2,}|하하|캬|푸하|풉|웃겨|개웃|존웃'),
+        'excitement': re.compile(r'!{2,}|?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|와|오|우와|미친|ㅁㅊ|개쩔|쩐다|고고|가즈아'),
+        'surprise': re.compile(r'헉|뭣|뭐야|무야|어떻게|진짜|실화|레전드|띠용|충격|놀람|ㄴㅇㅅ|지리네|o0o|O0O|0o0'),
+        'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|아니|안돼|제발|부탁|응원'),
+        'greeting': re.compile(r'.하|.바|.ㅎ|.ㅂ'),
         }
 
         # 가중 평균으로 최종 점수
@@ -351,9 +352,11 @@ class ChatAnalyzer:
 
     #채팅 급증 점수 계산
     def _calculate_chat_spike_score(self, analysis: ChatAnalysisData) -> float:
+        # 인사 반응(방송 시작 직후 or 방송 종료 직전의 인사는 제외)
+        del_greeting_message_count = analysis.message_count - analysis.fun_keywords["greeting"]
 
         # 정규화된 점수 (기존 대비 상대적으로 3배 일 경우 100점)
-        count_ratio = analysis.message_count / self.baseline_metrics['avg_chat_count']
+        count_ratio = del_greeting_message_count / self.baseline_metrics['avg_chat_count']
         count_score = min(self._sigmoid_transform(count_ratio, 3.0) * 100, 100)
   
         return count_score
@@ -368,10 +371,12 @@ class ChatAnalyzer:
             'excitement': 3.5,  # 흥분 - 강한 에너지
             'surprise': 2.5,   # 놀람 - 예상치 못한 재미
             'reaction': 1.0,   # 일반 반응
+            # 'greeting': 0.0,   # 인사 반응(방송 시작 직후 or 방송 종료 직전의 인사는 제외)
         }
         
         total_weighted_keywords = 0
         for keyword, count in keywords.items():
+            
             weight = keyword_weights.get(keyword, 1.0)
             total_weighted_keywords += count * weight
         
