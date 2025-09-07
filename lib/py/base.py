@@ -81,7 +81,7 @@ performance_manager = APIPerformanceManager()
 class initVar:
 	# 초기화 클래스: 프로그램의 기본 설정값과 상태를 관리함
 	load_dotenv()
-	DO_TEST = False
+	DO_TEST = True
 	
 	printCount 		= 100	# 100회마다 카운트 출력
 	countTimeList = []
