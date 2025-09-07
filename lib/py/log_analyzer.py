@@ -1,282 +1,193 @@
 import json
 import pandas as pd
-import matplotlib.pyplot as plt
-from datetime import datetime, timedelta
-import os
+from datetime import datetime
 import glob
+import argparse
+import sys
+from pathlib import Path
 
-class FunScoreLogAnalyzer:
-    """저장된 재미도 로그 파일을 분석하는 클래스"""
+class SessionBasedFunScoreAnalyzer:
+    """방송 세션별로 재미도 로그를 분석하는 클래스"""
     
-    def __init__(self, log_dir="fun_score_logs"):
-        self.log_dir = log_dir
+    def __init__(self, channel_name, date, base_dir=None):
+        # 기본 디렉토리 설정 (스크립트 위치 기준)
+        if base_dir is None:
+            script_dir = Path(__file__).parent
+            self.base_dir = script_dir.parent  # stream_alert/ 디렉토리
+        else:
+            self.base_dir = Path(base_dir)
         
-    def load_log_file(self, filename):
-        """단일 로그 파일 로드"""
-        try:
-            with open(filename, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            return data['logs']
-        except Exception as e:
-            print(f"파일 로드 오류: {e}")
-            return []
+        # 각 디렉토리 경로 설정
+        self.data_dir = self.base_dir / "data"
+        self.log_dir = self.data_dir / "fun_score_logs"
+        self.output_dir = self.base_dir / "output"
+        self.csv_dir = self.output_dir / "csv"
+        self.plots_dir = self.output_dir / "plots"
+        self.reports_dir = self.output_dir / "reports"
+        
+        # 출력 디렉토리 생성
+        self._ensure_directories()
+        
+        self.channel_name = channel_name
+        self.date = date
+        
+        # 프로젝트 구조 정보 출력
+        self._print_project_info()
+        
+    def _ensure_directories(self):
+        """필요한 디렉토리들이 없으면 생성"""
+        directories = [
+            self.data_dir, 
+            self.log_dir, 
+            self.output_dir, 
+            self.csv_dir, 
+            self.plots_dir,
+            self.reports_dir
+        ]
+        for directory in directories:
+            directory.mkdir(parents=True, exist_ok=True)
+            
+    def _print_project_info(self):
+        """프로젝트 구조 정보 출력"""
+        print(f"📁 프로젝트 구조:")
+        print(f"   Base: {self.base_dir}")
+        print(f"   Logs: {self.log_dir}")
+        print(f"   CSV: {self.csv_dir}")
+        print(f"   Plots: {self.plots_dir}")
+        print(f"   Reports: {self.reports_dir}")
+        
+    def parse_time_string(self, time_str):
+        """after_openDate 시간 문자열을 초로 변환"""
+        # "0:00:30" 형태의 문자열을 파싱
+        parts = time_str.split(':')
+        if len(parts) == 3:
+            hours = int(parts[0])
+            minutes = int(parts[1])
+            seconds = int(parts[2])
+            return hours * 3600 + minutes * 60 + seconds
+        return 0
     
-    def load_all_logs(self, channel_name=None):
+    def get_date_from_timestamp(self, timestamp_str):
+        """timestamp에서 날짜 문자열 추출 (YYYY-MM-DD 형태)"""
+        try:
+            dt = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
+            return dt.strftime('%Y-%m-%d')
+        except:
+            return None
+    
+    def detect_session_breaks(self, logs):
+        """after_openDate를 기준으로 방송 세션 구분점 찾기"""
+        if not logs:
+            return []
+        
+        sessions = []
+        current_session = [logs[0]]
+        prev_time = self.parse_time_string(logs[0]['after_openDate'])
+        date_str = self.get_date_from_timestamp(logs[0]['timestamp'])
+        
+        for _, log in enumerate(logs[1:], 1):
+            current_time = self.parse_time_string(log['after_openDate'])
+            
+            # after_openDate가 이전보다 작아지면 새로운 방송 시작
+            if current_time < prev_time:
+                date_str = self.get_date_from_timestamp(current_session[0]['timestamp'])
+
+                # 현재 세션 저장
+                sessions.append([date_str, current_session])
+                # 새로운 세션 시작
+                current_session = [log]
+                print(f"새 세션 감지: {log['timestamp']} (after_openDate: {log['after_openDate']})")
+            else:
+                current_session.append(log)
+            
+            prev_time = current_time
+        
+        # 마지막 세션 추가
+        if current_session:
+            date_str = self.get_date_from_timestamp(current_session[0]['timestamp'])
+            sessions.append([date_str, current_session])
+        
+        return sessions
+    
+    def load_all_logs(self):
         """모든 로그 파일을 로드하여 합치기"""
-        pattern = f"{self.log_dir}/fun_score_detailed_"
-        if channel_name:
-            pattern += f"{channel_name}_"
+        pattern = f"fun_score_detailed_"
+        if self.channel_name:
+            pattern += f"{self.channel_name}_"
         pattern += "*.json"
         
-        files = glob.glob(pattern)
+        # log_dir에서 파일 검색
+        search_pattern = self.log_dir / pattern
+        files = glob.glob(str(search_pattern))
         all_logs = []
         
-        for file in sorted(files):
-            logs = self.load_log_file(file)
-            all_logs.extend(logs)
-            print(f"로드: {file} ({len(logs)}개)")
+        print(f"📂 로그 검색 경로: {search_pattern}")
         
-        print(f"총 {len(files)}개 파일에서 {len(all_logs)}개 로그 로드됨")
+        if not files:
+            print(f"⚠️  경고: {self.log_dir}에서 로그 파일을 찾을 수 없습니다.")
+            print(f"   다음 패턴으로 검색했습니다: {pattern}")
+            return []
+        
+        for file in sorted(files):
+            try:
+                with open(file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                logs = data['logs']
+                all_logs.extend(logs)
+                print(f"✅ 로드: {Path(file).name} ({len(logs)}개)")
+            except Exception as e:
+                print(f"❌ 파일 로드 오류 {file}: {e}")
+                continue
+        
+        print(f"📊 총 {len(files)}개 파일에서 {len(all_logs)}개 로그 로드됨")
         return all_logs
     
-    def analyze_basic_stats(self, logs):
-        """기본 통계 분석"""
-        if not logs:
-            print("분석할 로그가 없습니다.")
+    def analyze_session(self, session_logs, date_str):
+        """단일 세션 분석"""
+        if not session_logs:
             return {}
         
-        scores = [log['fun_score'] for log in logs]
+        scores = [log['fun_score'] for log in session_logs]
         
-        # 시간 정보
-        start_time = logs[0]['timestamp']
-        end_time = logs[-1]['timestamp']
+        # 세션 시작/종료 시간
+        start_time = session_logs[0]['timestamp']
+        end_time = session_logs[-1]['timestamp']
+        start_after_open = session_logs[0]['after_openDate']
+        end_after_open = session_logs[-1]['after_openDate']
         
-        # 점수 통계
+        # 방송 지속 시간 계산
+        start_seconds = self.parse_time_string(start_after_open)
+        end_seconds = self.parse_time_string(end_after_open)
+        duration_seconds = end_seconds - start_seconds
+        duration_hours = duration_seconds / 3600
+        
+        # 기본 통계
         stats = {
-            'period': f"{start_time} ~ {end_time}",
-            'total_analyses': len(logs),
+            'date_str': date_str,
+            'start_time': start_time,
+            'end_time': end_time,
+            'start_after_open': start_after_open,
+            'end_after_open': end_after_open,
+            'duration_hours': duration_hours,
+            'total_analyses': len(session_logs),
             'avg_score': sum(scores) / len(scores),
             'max_score': max(scores),
             'min_score': min(scores),
             'highlights': len([s for s in scores if s >= 50]),
-            'big_highlights': len([s for s in scores if s >= 80])
+            'big_highlights': len([s for s in scores if s >= 80]),
+            'max_viewers': max([log['analysis_data']['viewer_count'] for log in session_logs]),
+            'avg_viewers': sum([log['analysis_data']['viewer_count'] for log in session_logs]) / len(session_logs)
         }
         
-        print(f"\n=== 기본 통계 ===")
-        print(f"분석 기간: {stats['period']}")
-        print(f"총 분석 횟수: {stats['total_analyses']}")
-        print(f"평균 재미도: {stats['avg_score']:.2f}")
-        print(f"최고 재미도: {stats['max_score']:.2f}")
-        print(f"최저 재미도: {stats['min_score']:.2f}")
-        print(f"하이라이트: {stats['highlights']}회 ({stats['highlights']/len(logs)*100:.1f}%)")
-        print(f"대형 하이라이트: {stats['big_highlights']}회 ({stats['big_highlights']/len(logs)*100:.1f}%)")
+        # 하이라이트 비율
+        stats['highlight_rate'] = stats['highlights'] / len(scores) * 100
+        stats['big_highlight_rate'] = stats['big_highlights'] / len(scores) * 100
         
         return stats
     
-    def analyze_score_components(self, logs):
-        """점수 구성 요소 분석 - 새로운 구조에 맞게 수정"""
-        if not logs:
-            return
-        
-        # 새로운 구조에서는 score_components에 다른 필드들이 있음
-        try:
-            # 첫 번째 로그의 구조 확인
-            first_log = logs[0]
-            print(f"\n=== 로그 구조 확인 ===")
-            print(f"Score components keys: {list(first_log['score_components'].keys())}")
-            
-            # 새로운 구조에 맞는 분석
-            engagement_scores = [log['score_components'].get('engagement_score', 0) for log in logs]
-            reaction_scores = [log['score_components'].get('reaction_score', 0) for log in logs]
-            diversity_scores = [log['score_components'].get('diversity_score', 0) for log in logs]
-            chat_spike_scores = [log['score_components'].get('chat_spike_score', 0) for log in logs]
-            viewer_trend_scores = [log['score_components'].get('viewer_trend_score', 0) for log in logs]
-            
-            print(f"\n=== 새로운 점수 구성 요소 분석 ===")
-            print(f"참여도 점수: 평균 {sum(engagement_scores)/len(engagement_scores):.2f}/100 (최대 {max(engagement_scores):.1f})")
-            print(f"반응 강도 점수: 평균 {sum(reaction_scores)/len(reaction_scores):.2f}/100 (최대 {max(reaction_scores):.1f})")
-            print(f"다양성 점수: 평균 {sum(diversity_scores)/len(diversity_scores):.2f}/100 (최대 {max(diversity_scores):.1f})")
-            print(f"채팅 급증 점수: 평균 {sum(chat_spike_scores)/len(chat_spike_scores):.2f}/100 (최대 {max(chat_spike_scores):.1f})")
-            print(f"시청자 증가 점수: 평균 {sum(viewer_trend_scores)/len(viewer_trend_scores):.2f}/80 (최대 {max(viewer_trend_scores):.1f})")
-            
-            # 각 구성요소의 전체 점수 기여도
-            total_engagement = sum(engagement_scores)
-            total_reaction = sum(reaction_scores)
-            total_diversity = sum(diversity_scores)
-            total_chat_spike = sum(chat_spike_scores)
-            total_viewer_trend = sum(viewer_trend_scores)
-            grand_total = total_engagement + total_reaction + total_diversity + total_chat_spike + total_viewer_trend
-            
-            if grand_total > 0:
-                print(f"\n=== 구성 요소별 기여도 ===")
-                print(f"참여도: {total_engagement/grand_total*100:.1f}%")
-                print(f"반응 강도: {total_reaction/grand_total*100:.1f}%")
-                print(f"다양성: {total_diversity/grand_total*100:.1f}%")
-                print(f"채팅 급증: {total_chat_spike/grand_total*100:.1f}%")
-                print(f"시청자 증가: {total_viewer_trend/grand_total*100:.1f}%")
-            
-        except KeyError as e:
-            print(f"로그 구조 오류: {e}")
-            print("기존 구조로 분석을 시도합니다...")
-            
-            # 기존 구조 분석 시도
-            try:
-                velocity_scores = [log['score_components'].get('chat_velocity_score', 0) for log in logs]
-                keyword_scores = [log['score_components'].get('keyword_score', 0) for log in logs]
-                participation_scores = [log['score_components'].get('participation_score', 0) for log in logs]
-                diversity_scores = [log['score_components'].get('diversity_score', 0) for log in logs]
-                chat_bonuses = [log['score_components'].get('chat_spike_bonus', 0) for log in logs]
-                viewer_bonuses = [log['score_components'].get('viewer_spike_bonus', 0) for log in logs]
-                
-                print(f"\n=== 기존 점수 구성 요소 분석 ===")
-                print(f"채팅 속도 점수: 평균 {sum(velocity_scores)/len(velocity_scores):.2f} (최대 {max(velocity_scores):.1f})")
-                print(f"키워드 점수: 평균 {sum(keyword_scores)/len(keyword_scores):.2f} (최대 {max(keyword_scores):.1f})")
-                print(f"참여도 점수: 평균 {sum(participation_scores)/len(participation_scores):.2f} (최대 {max(participation_scores):.1f})")
-                print(f"다양성 점수: 평균 {sum(diversity_scores)/len(diversity_scores):.2f} (최대 {max(diversity_scores):.1f})")
-                print(f"채팅 급증 보너스: 평균 {sum(chat_bonuses)/len(chat_bonuses):.2f} (최대 {max(chat_bonuses):.1f})")
-                print(f"시청자 급증 보너스: 평균 {sum(viewer_bonuses)/len(viewer_bonuses):.2f} (최대 {max(viewer_bonuses):.1f})")
-                
-            except Exception as e2:
-                print(f"기존 구조 분석도 실패: {e2}")
-    
-    def analyze_keywords(self, logs):
-        """키워드 분석 - 새로운 구조에 맞게 수정"""
-        if not logs:
-            return
-        
-        try:
-            # 새로운 구조: reaction_keyword_breakdown
-            laugh_total = sum(log['score_components'].get('reaction_keyword_breakdown', {}).get('laugh', 0) for log in logs)
-            excitement_total = sum(log['score_components'].get('reaction_keyword_breakdown', {}).get('excitement', 0) for log in logs)
-            surprise_total = sum(log['score_components'].get('reaction_keyword_breakdown', {}).get('surprise', 0) for log in logs)
-            reaction_total = sum(log['score_components'].get('reaction_keyword_breakdown', {}).get('reaction', 0) for log in logs)
-            
-        except:
-            # 기존 구조: keyword_breakdown
-            try:
-                laugh_total = sum(log['score_components'].get('keyword_breakdown', {}).get('laugh', 0) for log in logs)
-                excitement_total = sum(log['score_components'].get('keyword_breakdown', {}).get('excitement', 0) for log in logs)
-                surprise_total = sum(log['score_components'].get('keyword_breakdown', {}).get('surprise', 0) for log in logs)
-                reaction_total = sum(log['score_components'].get('keyword_breakdown', {}).get('reaction', 0) for log in logs)
-            except:
-                print("키워드 데이터를 찾을 수 없습니다.")
-                return
-        
-        print(f"\n=== 키워드 분석 ===")
-        print(f"웃음 키워드: 총 {laugh_total}개 (평균 {laugh_total/len(logs):.2f}/회)")
-        print(f"흥분 키워드: 총 {excitement_total}개 (평균 {excitement_total/len(logs):.2f}/회)")
-        print(f"놀라움 키워드: 총 {surprise_total}개 (평균 {surprise_total/len(logs):.2f}/회)")
-        print(f"반응 키워드: 총 {reaction_total}개 (평균 {reaction_total/len(logs):.2f}/회)")
-    
-    def find_peak_moments(self, logs, top_n=10):
-        """최고 재미도 순간 찾기"""
-        if not logs:
-            return
-        
-        # 점수순으로 정렬
-        sorted_logs = sorted(logs, key=lambda x: x['fun_score'], reverse=True)
-        
-        print(f"\n=== TOP {top_n} 재미 순간 ===")
-        for i, log in enumerate(sorted_logs[:top_n]):
-            timestamp = datetime.fromisoformat(log['timestamp']).strftime('%m/%d %H:%M:%S')
-            score = log['fun_score']
-            messages = log.get('sample_messages', ['샘플 없음'])
-            recent_msg = messages[-1] if messages else '메시지 없음'
-            
-            print(f"{i+1:2d}. [{timestamp}] 점수: {score:5.1f} | 최근 채팅: {recent_msg}")
-    
-    def analyze_time_patterns(self, logs):
-        """시간대별 패턴 분석"""
-        if not logs:
-            return
-        
-        # 시간대별 그룹화
-        hourly_scores = {}
-        for log in logs:
-            hour = datetime.fromisoformat(log['timestamp']).hour
-            if hour not in hourly_scores:
-                hourly_scores[hour] = []
-            hourly_scores[hour].append(log['fun_score'])
-        
-        print(f"\n=== 시간대별 평균 재미도 ===")
-        for hour in sorted(hourly_scores.keys()):
-            scores = hourly_scores[hour]
-            avg_score = sum(scores) / len(scores)
-            highlights = len([s for s in scores if s >= 50])
-            print(f"{hour:2d}시: 평균 {avg_score:5.1f} (분석 {len(scores):3d}회, 하이라이트 {highlights:2d}회)")
-    
-    def export_to_csv(self, logs, filename=None):
-        """로그를 CSV로 내보내기 - 새로운 구조에 맞게 수정"""
-        if not logs:
-            print("내보낼 데이터가 없습니다.")
-            return
-        
-        if filename is None:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"fun_score_analysis_{timestamp}.csv"
-        
-        # DataFrame 생성
-        data = []
-        for log in logs:
-            try:
-                # 새로운 구조에 맞는 데이터 추출
-                row = {
-                    'timestamp': log['timestamp'],
-                    'fun_score': log['fun_score'],
-                    'message_count': log['analysis_data']['message_count'],
-                    'viewer_count': log['analysis_data']['viewer_count'],
-                    'chat_velocity': log['analysis_data']['chat_velocity'],
-                    
-                    # 새로운 구조의 점수들
-                    'engagement_score': log['score_components'].get('engagement_score', 0),
-                    'reaction_score': log['score_components'].get('reaction_score', 0),
-                    'diversity_score': log['score_components'].get('diversity_score', 0),
-                    'chat_spike_score': log['score_components'].get('chat_spike_score', 0),
-                    'viewer_trend_score': log['score_components'].get('viewer_trend_score', 0),
-                    
-                    # 기준값들
-                    'baseline_chat_count': log['score_components'].get('baseline_chat_count', 0),
-                    'baseline_chat_velocity': log['score_components'].get('baseline_chat_velocity', 0),
-                    'baseline_viewer_count': log['score_components'].get('baseline_viewer_count', 0),
-                    'threshold': log['score_components'].get('threshold', 50),
-                    
-                    # 키워드 데이터
-                    'laugh_count': log['score_components'].get('reaction_keyword_breakdown', {}).get('laugh', 0),
-                    'excitement_count': log['score_components'].get('reaction_keyword_breakdown', {}).get('excitement', 0),
-                    'surprise_count': log['score_components'].get('reaction_keyword_breakdown', {}).get('surprise', 0),
-                    'reaction_count': log['score_components'].get('reaction_keyword_breakdown', {}).get('reaction', 0)
-                }
-                
-            except KeyError:
-                # 기존 구조로 대체
-                row = {
-                    'timestamp': log['timestamp'],
-                    'fun_score': log['fun_score'],
-                    'message_count': log['analysis_data']['message_count'],
-                    'viewer_count': log['analysis_data']['viewer_count'],
-                    'chat_velocity': log['analysis_data']['chat_velocity'],
-                    'velocity_score': log['score_components'].get('chat_velocity_score', 0),
-                    'keyword_score': log['score_components'].get('keyword_score', 0),
-                    'participation_score': log['score_components'].get('participation_score', 0),
-                    'diversity_score': log['score_components'].get('diversity_score', 0),
-                    'chat_spike_bonus': log['score_components'].get('chat_spike_bonus', 0),
-                    'viewer_spike_bonus': log['score_components'].get('viewer_spike_bonus', 0),
-                    'laugh_count': log['score_components'].get('keyword_breakdown', {}).get('laugh', 0),
-                    'excitement_count': log['score_components'].get('keyword_breakdown', {}).get('excitement', 0),
-                    'surprise_count': log['score_components'].get('keyword_breakdown', {}).get('surprise', 0),
-                    'reaction_count': log['score_components'].get('keyword_breakdown', {}).get('reaction', 0)
-                }
-            
-            data.append(row)
-        
-        df = pd.DataFrame(data)
-        df.to_csv(filename, index=False, encoding='utf-8-sig')
-        print(f"CSV 저장 완료: {filename} ({len(df)}행)")
-        return filename
-    
-    def create_simple_plot(self, logs, save_plot=True):
-        """간단한 점수 변화 그래프"""
-        if not logs:
+    def create_session_plot(self, session_logs, session_stats, save_plot=True):
+        """세션별 그래프 생성"""
+        if not session_logs:
             return
         
         try:
@@ -293,81 +204,342 @@ class FunScoreLogAnalyzer:
             else:  # Linux
                 plt.rcParams['font.family'] = ['Noto Sans CJK KR', 'DejaVu Sans']
             
-            plt.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
+            plt.rcParams['axes.unicode_minus'] = False
             
             # 데이터 준비
-            times = [datetime.fromisoformat(log['timestamp']) for log in logs]
-            scores = [log['fun_score'] for log in logs]
+            after_open_times = [self.parse_time_string(log['after_openDate']) / 60 for log in session_logs]  # 분 단위
+            scores = [log['fun_score'] for log in session_logs]
+            viewer_counts = [log['analysis_data']['viewer_count'] for log in session_logs]
             
-            # 그래프 생성
-            plt.figure(figsize=(15, 6))
-            plt.plot(times, scores, 'b-', alpha=0.7, linewidth=1)
-            plt.axhline(y=50, color='orange', linestyle='--', alpha=0.7, label='하이라이트 임계값')
-            plt.axhline(y=80, color='red', linestyle='--', alpha=0.7, label='대형 하이라이트 임계값')
+            # 2개 서브플롯 생성
+            fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10))
             
-            plt.title('재미도 점수 변화')
-            plt.xlabel('시간')
-            plt.ylabel('재미도 점수')
-            plt.legend()
-            plt.grid(True, alpha=0.3)
+            # 첫 번째 플롯: 재미도 점수
+            ax1.plot(after_open_times, scores, 'b-', alpha=0.7, linewidth=1.5, label='재미도 점수')
+            ax1.axhline(y=50, color='orange', linestyle='--', alpha=0.7, label='하이라이트 임계값')
+            ax1.axhline(y=80, color='red', linestyle='--', alpha=0.7, label='대형 하이라이트 임계값')
+            ax1.fill_between(after_open_times, scores, alpha=0.3)
             
-            # x축 포맷팅
-            plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d %H:%M'))
-            plt.gca().xaxis.set_major_locator(mdates.HourLocator(interval=6))
-            plt.xticks(rotation=45)
+            # 하이라이트 순간 표시
+            highlight_times = [after_open_times[i] for i, s in enumerate(scores) if s >= 50]
+            highlight_scores = [s for s in scores if s >= 50]
+            ax1.scatter(highlight_times, highlight_scores, color='orange', s=30, alpha=0.7, zorder=5)
+            
+            # 대형 하이라이트 순간 표시
+            big_highlight_times = [after_open_times[i] for i, s in enumerate(scores) if s >= 80]
+            big_highlight_scores = [s for s in scores if s >= 80]
+            ax1.scatter(big_highlight_times, big_highlight_scores, color='red', s=50, alpha=0.8, zorder=5)
+            
+            ax1.set_title(f'재미도 점수 변화 - ({session_stats["date_str"]})\n'
+                         f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
+                         f'{session_stats["duration_hours"]:.1f}시간)')
+            ax1.set_xlabel('방송 시작 후 시간 (단위: 분)')
+            ax1.set_ylabel('재미도 점수')
+            ax1.legend()
+            ax1.grid(True, alpha=0.3)
+            
+            # 두 번째 플롯: 시청자 수
+            ax2.plot(after_open_times, viewer_counts, 'g-', alpha=0.7, linewidth=1.5, label='시청자 수')
+            ax2.fill_between(after_open_times, viewer_counts, alpha=0.3, color='green')
+            ax2.set_xlabel('방송 시작 후 시간 (단위: 분)')
+            ax2.set_ylabel('시청자 수')
+            ax2.legend()
+            ax2.grid(True, alpha=0.3)
             
             plt.tight_layout()
             
             if save_plot:
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                filename = f"fun_score_plot_{timestamp}.png"
-                plt.savefig(filename, dpi=150, bbox_inches='tight')
-                print(f"그래프 저장: {filename}")
+                start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+                filename = f"{self.channel_name}_{start_date}_plot.png"
+                
+                # plots 디렉토리에 저장
+                plot_path = self.plots_dir / filename
+                plt.savefig(plot_path, dpi=150, bbox_inches='tight')
+                print(f"📈 세션 그래프 저장: {plot_path}")
             
             plt.show()
             
         except ImportError:
-            print("matplotlib가 설치되지 않아 그래프를 생성할 수 없습니다.")
+            print("⚠️  matplotlib가 설치되지 않아 그래프를 생성할 수 없습니다.")
     
-    def full_analysis(self, channel_name=None):
-        """전체 분석 실행"""
-        print("재미도 로그 분석을 시작합니다...")
+    def export_session_to_csv(self, session_logs, session_stats):
+        """세션 데이터를 CSV로 내보내기"""
+        if not session_logs:
+            return None
         
-        # 로그 로드
-        logs = self.load_all_logs(channel_name)
+        data = []
+        for log in session_logs:
+            try:
+                row = {
+                    'timestamp': log['timestamp'],
+                    'after_openDate': log['after_openDate'],
+                    'after_open_minutes': self.parse_time_string(log['after_openDate']) / 60,
+                    'fun_score': log['fun_score'],
+                    'message_count': log['analysis_data']['message_count'],
+                    'viewer_count': log['analysis_data']['viewer_count'],
+                    
+                    # 현재 chat_analyzer.py 구조의 점수 구성 요소들
+                    'chat_spike_score': log['score_components'].get('chat_spike_score', 0),
+                    'reaction_score': log['score_components'].get('reaction_score', 0),
+                    'diversity_score': log['score_components'].get('diversity_score', 0),
+                    'viewer_trend_score': log['score_components'].get('viewer_trend_score', 0),
+                    'final_score': log['score_components'].get('final_score', 0),
+                    'threshold': log['score_components'].get('threshold', 50),
+                    'baseline_chat_count': log['score_components'].get('baseline_chat_count', 0),
+                    'baseline_viewer_count': log['score_components'].get('baseline_viewer_count', 0),
+                    
+                    # 키워드 데이터 (analysis_data에서 추출)
+                    'laugh_count': log['analysis_data'].get('fun_keywords', {}).get('laugh', 0),
+                    'excitement_count': log['analysis_data'].get('fun_keywords', {}).get('excitement', 0),
+                    'surprise_count': log['analysis_data'].get('fun_keywords', {}).get('surprise', 0),
+                    'reaction_count': log['analysis_data'].get('fun_keywords', {}).get('reaction', 0),
+                    
+                    # 추가 정보
+                    'total_keywords': sum(log['analysis_data'].get('fun_keywords', {}).values()),
+                    'chat_context_sample': str(log.get('chat_context', [])[:3])  # 처음 3개만
+                }
+            except Exception as e:
+                print(f"❌ 데이터 처리 오류: {e}")
+                continue
+            
+            data.append(row)
         
-        if not logs:
-            print("분석할 로그가 없습니다.")
+        if not data:
+            return None
+        
+        df = pd.DataFrame(data)
+        start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+        filename = f"{self.channel_name}_{start_date}.csv"
+        
+        # csv 디렉토리에 저장
+        csv_path = self.csv_dir / filename
+        df.to_csv(csv_path, index=False, encoding='utf-8-sig')
+        print(f"💾 세션 CSV 저장: {csv_path} ({len(df)}행)")
+        return str(csv_path)
+    
+    def create_session_summary(self, all_session_stats):
+        """모든 세션의 요약 통계"""
+        if not all_session_stats:
             return
         
-        # 각종 분석 실행
-        self.analyze_basic_stats(logs)
-        self.analyze_score_components(logs)
-        self.analyze_keywords(logs)
-        self.find_peak_moments(logs)
-        self.analyze_time_patterns(logs)
+        print(f"\n{'='*60}")
+        print(f"전체 세션 요약 ({len(all_session_stats)}개 세션)")
+        print(f"{'='*60}")
         
-        # CSV 내보내기
-        csv_file = self.export_to_csv(logs)
+        total_duration = sum([s['duration_hours'] for s in all_session_stats])
+        total_highlights = sum([s['highlights'] for s in all_session_stats])
+        total_big_highlights = sum([s['big_highlights'] for s in all_session_stats])
+        avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
         
-        # 그래프 생성 (선택사항)
-        try:
-            self.create_simple_plot(logs)
-        except:
-            print("그래프 생성을 건너뜁니다.")
+        print(f"총 방송 시간: {total_duration:.1f}시간")
+        print(f"전체 평균 재미도: {avg_score_overall:.2f}")
+        print(f"총 하이라이트: {total_highlights}회")
+        print(f"총 대형 하이라이트: {total_big_highlights}회")
+        print(f"시간당 하이라이트: {total_highlights/total_duration:.1f}회/시간")
         
-        print(f"\n분석 완료! CSV 파일: {csv_file}")
-        return logs
+        print(f"\n각 세션별 상세:")
+        print(f"{'세션':>4} {'날짜':>12} {'시간':>8} {'길이':>6} {'평균점수':>8} {'하이라':>6} {'대형':>4} {'최대시청':>7}")
+        print(f"{'-'*60}")
+        
+        for stats in all_session_stats:
+            start_date = datetime.fromisoformat(stats['start_time']).strftime('%m/%d')
+            start_time = datetime.fromisoformat(stats['start_time']).strftime('%H:%M')
+            
+            print(f"{stats['date_str']:>4} {start_date:>12} {start_time:>8} "
+                  f"{stats['duration_hours']:>5.1f}h {stats['avg_score']:>7.1f} "
+                  f"{stats['highlights']:>5}회 {stats['big_highlights']:>3}회 "
+                  f"{stats['max_viewers']:>6}명")
+        
+        # 요약 리포트를 파일로 저장
+        self._save_summary_report(all_session_stats)
+    
+    def _save_summary_report(self, all_session_stats):
+        """요약 리포트를 텍스트 파일로 저장"""
+        if not all_session_stats:
+            return
+        
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        report_filename = f"{self.channel_name}_summary_report_{timestamp}.txt"
+        report_path = self.reports_dir / report_filename
+        
+        with open(report_path, 'w', encoding='utf-8') as f:
+            f.write(f"방송 재미도 분석 리포트\n")
+            f.write(f"채널: {self.channel_name}\n")
+            f.write(f"생성일시: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"{'='*60}\n\n")
+            
+            total_duration = sum([s['duration_hours'] for s in all_session_stats])
+            total_highlights = sum([s['highlights'] for s in all_session_stats])
+            total_big_highlights = sum([s['big_highlights'] for s in all_session_stats])
+            avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
+            
+            f.write(f"전체 통계:\n")
+            f.write(f"- 총 세션 수: {len(all_session_stats)}개\n")
+            f.write(f"- 총 방송 시간: {total_duration:.1f}시간\n")
+            f.write(f"- 전체 평균 재미도: {avg_score_overall:.2f}\n")
+            f.write(f"- 총 하이라이트: {total_highlights}회\n")
+            f.write(f"- 총 대형 하이라이트: {total_big_highlights}회\n")
+            f.write(f"- 시간당 하이라이트: {total_highlights/total_duration:.1f}회/시간\n\n")
+            
+            f.write(f"세션별 상세:\n")
+            f.write(f"{'날짜':>12} {'시간':>8} {'길이':>6} {'평균점수':>8} {'하이라':>6} {'대형':>4} {'최대시청':>7}\n")
+            f.write(f"{'-'*60}\n")
+            
+            for stats in all_session_stats:
+                start_date = datetime.fromisoformat(stats['start_time']).strftime('%m/%d')
+                start_time = datetime.fromisoformat(stats['start_time']).strftime('%H:%M')
+                
+                f.write(f"{start_date:>12} {start_time:>8} "
+                       f"{stats['duration_hours']:>5.1f}h {stats['avg_score']:>7.1f} "
+                       f"{stats['highlights']:>5}회 {stats['big_highlights']:>3}회 "
+                       f"{stats['max_viewers']:>6}명\n")
+        
+        print(f"📄 요약 리포트 저장: {report_path}")
+    
+    def full_session_analysis(self):
+        """전체 세션별 분석 실행"""
+        print("🔍 세션별 재미도 로그 분석을 시작합니다...")
+        
+        # 로그 로드
+        logs = self.load_all_logs()
+        if not logs:
+            print("❌ 분석할 로그가 없습니다.")
+            return
+        
+        # 시간순 정렬
+        logs.sort(key=lambda x: x['timestamp'])
+        
+        # 세션 구분
+        sessions = self.detect_session_breaks(logs)
+        print(f"\n🔢 총 {len(sessions)}개 세션이 감지되었습니다.")
+        
+        all_session_stats = []
+        
+        # 각 세션별 분석
+        for date_str, session_logs in sessions:
+            if not self.date == "모든 날짜" and not self.date == date_str:
+                continue
+            
+            print(f"\n{'='*50}")
+            print(f"📅 {date_str} 분석 중... ({len(session_logs)}개 로그)")
+            
+            # 세션 통계 계산
+            session_stats = self.analyze_session(session_logs, date_str)
+            all_session_stats.append(session_stats)
+            
+            # 세션 정보 출력
+            print(f"⏰ 시작: {session_stats['start_time']} ({session_stats['start_after_open']})")
+            print(f"⏰ 종료: {session_stats['end_time']} ({session_stats['end_after_open']})")
+            print(f"📊 지속 시간: {session_stats['duration_hours']:.1f}시간")
+            print(f"📈 평균 재미도: {session_stats['avg_score']:.2f}")
+            print(f"🔥 최고 재미도: {session_stats['max_score']:.2f}")
+            print(f"⭐ 하이라이트: {session_stats['highlights']}회 ({session_stats['highlight_rate']:.1f}%)")
+            print(f"🌟 대형 하이라이트: {session_stats['big_highlights']}회 ({session_stats['big_highlight_rate']:.1f}%)")
+            print(f"👥 최대 시청자: {session_stats['max_viewers']}명")
+            
+            # CSV 내보내기
+            csv_file = self.export_session_to_csv(session_logs, session_stats)
+            
+            # 그래프 생성
+            try:
+                self.create_session_plot(session_logs, session_stats)
+            except Exception as e:
+                print(f"❌ 그래프 생성 실패: {e}")
+        
+        # 전체 요약
+        self.create_session_summary(all_session_stats)
+        
+        # 전체 세션 요약 CSV
+        if all_session_stats:
+            summary_df = pd.DataFrame(all_session_stats)
+            start_date = datetime.fromisoformat(all_session_stats[0]['start_time']).strftime('%Y-%m-%d_%H%M')
+            summary_filename = f"{self.channel_name}_summary_{start_date}.csv"
+            
+            # csv 디렉토리에 저장
+            summary_path = self.csv_dir / summary_filename
+            summary_df.to_csv(summary_path, index=False, encoding='utf-8-sig')
+            print(f"💾 세션 요약 CSV 저장: {summary_path}")
+        
+        return sessions
 
 
-# 사용 예시
+def parse_arguments():
+    """명령행 인자를 파싱하는 함수"""
+    parser = argparse.ArgumentParser(
+        description='방송 세션별 재미도 로그 분석 도구',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+사용 예시:
+  python3 py/log_analyzer.py                    # 기본 설정으로 실행
+  python3 py/log_analyzer.py 빅헤드             # 특정 채널 분석
+  python3 py/log_analyzer.py --channel 빅헤드 --date 2025-09-06  # 특정 날짜 분석
+        """
+    )
+    
+    # 위치 인자: 채널명 (선택사항)
+    parser.add_argument(
+        'channel_name',
+        nargs='?',  # 선택적 위치 인자
+        default='빅헤드',
+        help='분석할 채널명 (기본값: 빅헤드)'
+    )
+    
+    # 선택적 인자들
+    parser.add_argument(
+        '--channel',
+        help='분석할 채널명 (위치 인자 대신 사용 가능)'
+    )
+
+    parser.add_argument(
+        '--date',
+        default='모든 날짜',
+        help='분석할 날짜 지정 (YYYY-MM-DD 형태, 기본값: 모든 날짜)'
+    )
+    
+    parser.add_argument(
+        '--version',
+        action='version',
+        version='Stream Alert Analyzer 2.0'
+    )
+    
+    return parser.parse_args()
+
+
+def main():
+    """메인 실행 함수"""
+    try:
+        # 명령행 인자 파싱
+        args = parse_arguments()
+        
+        # 채널명 결정 (--channel 옵션이 있으면 우선 사용)
+        channel_name = args.channel if args.channel else args.channel_name
+        date = args.date if args.date != '모든 날짜' else '모든 날짜'
+        
+        print(f"🚀 === Stream Alert 재미도 로그 분석 시작 ===")
+        print(f"📺 채널명: {channel_name}")
+        print(f"📅 분석할 날짜: {date}")
+        print("="*60)
+        
+        # 분석기 생성 및 실행
+        analyzer = SessionBasedFunScoreAnalyzer(channel_name, date)
+        sessions = analyzer.full_session_analysis()
+        
+        if sessions:
+            filtered_sessions = [s for date_str, s in sessions if date == "모든 날짜" or date == date_str]
+            print(f"\n✅ 분석 완료! {len(filtered_sessions)}개 세션을 분석했습니다.")
+            print(f"📁 결과 파일들이 output/ 폴더에 저장되었습니다.")
+        else:
+            print("\n❌ 분석할 데이터가 없습니다.")
+            
+    except KeyboardInterrupt:
+        print("\n\n⏹️  사용자에 의해 중단되었습니다.")
+        sys.exit(1)
+    except Exception as e:
+        print(f"\n❌ 예상치 못한 오류가 발생했습니다: {e}")
+        print("문제가 지속되면 개발자에게 문의해주세요.")
+        sys.exit(1)
+
+
+# 스크립트가 직접 실행될 때만 main() 함수 호출
 if __name__ == "__main__":
-    # 분석기 생성
-    analyzer = FunScoreLogAnalyzer("fun_score_logs")
-    
-    # 전체 분석 실행
-    analyzer.full_analysis("지누")
-    
-    # 또는 특정 파일만 분석
-    # logs = analyzer.load_log_file("fun_score_logs/fun_score_detailed_채널명_20250903_143022.json")
-    # analyzer.analyze_basic_stats(logs)
+    main()
