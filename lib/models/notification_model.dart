@@ -251,6 +251,7 @@ enum NotificationType {
   streamStart,  // 뱅온 알림
   streamChange, // 방제 변경 알림
   streamEnd,    // 방종 알림
+  streamHighlight,    // 방종 알림
   chat,         // 채팅 알림
   general,      // 일반 알림
 }
