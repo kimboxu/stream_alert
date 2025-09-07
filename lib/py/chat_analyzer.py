@@ -10,6 +10,7 @@ from collections import deque, Counter
 from os import environ, path, makedirs
 import pandas as pd
 from uuid import uuid4
+from pathlib import Path
 from live_message import upload_image_to_imgur
 from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
@@ -93,7 +94,7 @@ class ChatMessageWithAnalyzer:
 
                 if result:
                     fun_score, analysis, detailed_log = result
-                    print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 재미도 점수: {fun_score}\n디테일 점수{detailed_log}")
+                    # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 재미도 점수: {fun_score}\n디테일 점수{detailed_log}")
                       
             except asyncio.CancelledError:
                 break
@@ -139,18 +140,31 @@ class ChatAnalyzer:
         self.last_analysis_time = datetime.now()
 
         # 임계값 설정
-        self.small_fun_threshold    = 50    # 작은 재미
-        self.big_fun_threshold      = 70    # 큰 재미
+        self.small_fun_difference    = 15    # 작은 재미 차이
+        self.big_fun_difference      = 70    # 큰 재미 차이
 
         # 로그 파일 설정
         self.detailed_logs = []  # 상세 분석 로그
-        self.log_dir = "fun_score_logs"
-        self.create_log_directory()
+        self._setup_log_directories()
         
-    def create_log_directory(self):
-        """로그 디렉터리 생성"""
-        if not path.exists(self.log_dir):
-            makedirs(self.log_dir)
+    def _setup_log_directories(self):
+        """프로젝트 구조에 맞는 로그 디렉토리 설정"""
+        # 현재 스크립트 위치를 기준으로 프로젝트 루트 찾기
+        current_file = Path(__file__)
+        
+        if current_file.parent.name == 'py':
+            project_root = current_file.parent.parent  # stream_alert/
+        else:
+            # 만약 다른 위치에 있다면 현재 디렉토리 기준
+            project_root = current_file.parent
+        
+        # 로그 디렉토리 경로 설정
+        self.data_dir = project_root / "data"
+        self.log_dir = self.data_dir / "fun_score_logs"
+        
+        # 디렉토리 생성
+        self.log_dir.mkdir(parents=True, exist_ok=True)
+
 
     async def add_chat_message(self, nickname: str, message: str, timestamp: Optional[datetime] = None) -> None:
         """채팅 메시지 추가"""
@@ -244,7 +258,7 @@ class ChatAnalyzer:
             self.detailed_logs = self.detailed_logs[-2000:]
 
         # 하이라이트 체크
-        if fun_score >= self.small_fun_threshold and check_create_highlight:
+        if check_create_highlight:
             await self._create_highlight(analysis, fun_score, score_details, window_chats)
 
         # 분석 기록 저장
@@ -270,7 +284,7 @@ class ChatAnalyzer:
         # 2. 반응 강도 점수 (40% 가중치) - 최대 100점
         reaction_score = self._calculate_reaction_score(analysis)
         
-        # 3. 다양성 점수 (10% 가중치) - 최대 100점    
+        # 3. 다양성 점수 (10% 가중치) - 최대 100점
         diversity_score = self._calculate_diversity_score(window_chats)
 
         # 5. 시청자 급증 점수 (15% 가중치) - 최대 100점
@@ -296,9 +310,7 @@ class ChatAnalyzer:
             threshold = max(min(dynamic_threshold, 80.0), 40.0)
         else:
             threshold = self.small_fun_threshold  # 기본 임계값
-        
-        check_create_highlight = final_score >= threshold and self._should_create_new_highlight(final_score)
-          
+         
         # 상세 점수 정보
         score_details = {
             'chat_spike_score': chat_spike_score,
@@ -312,7 +324,7 @@ class ChatAnalyzer:
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
         }
         
-        return final_score, check_create_highlight, score_details
+        return final_score, self._should_create_new_highlight(final_score, threshold), score_details
     
     #채널별 기준값 자동 업데이트
     def _update_baselines(self):
@@ -484,8 +496,11 @@ class ChatAnalyzer:
             return 2 / (1 + exp(-steepness * (x - midpoint)))
 
     #새 하이라이트를 생성해야 하는지 판단
-    def _should_create_new_highlight(self, score):
-        if not self.highlights:
+    def _should_create_new_highlight(self, fun_score, threshold):
+        if fun_score < threshold:
+            return False
+
+        if len(self.analysis_history) < int(self.history_1min*0.5):
             return True
         
         last_highlight = self.highlights[-1]
@@ -497,14 +512,20 @@ class ChatAnalyzer:
         if time_diff < cooldown:
             return False
 
-        # 최근 30초
+        #이전 30초 중 가장 작은 점수가 15점 이상 높아진 경우
+        if self.get_score_difference(fun_score) > self.small_fun_difference:
+            return True
+
+        return False
+    
+    def get_score_difference(self, fun_score):
+        if len(self.analysis_history) < int(self.history_1min*0.5):
+            return None
+        
         bef_recent_scores = list(self.analysis_history)[-int(self.history_1min*0.5):]
 
-        #이전 30초 동안 15점 이상 높아진 경우
-        if score > min(a[2] for a in bef_recent_scores) + 15:
-            return False
-
-        return True
+        #이전 30초 중 가장 작은 점수와의 차이
+        return fun_score - min(a[2] for a in bef_recent_scores)
 
     #하이라이트 생성
     async def _create_highlight(self, analysis: ChatAnalysisData, fun_score: float, score_details: dict, window_chats: List[Dict]) -> None:
@@ -545,7 +566,7 @@ class ChatAnalyzer:
             await self._save_highlight_to_db(highlight)
 
         # 큰 재미인 경우 즉시 알림
-        if fun_score >= self.big_fun_threshold:
+        if self.get_score_difference(fun_score) > self.big_fun_difference:
             await self._send_notification(highlight)
 
     #하이라이트 이유 생성
@@ -639,7 +660,10 @@ class ChatAnalyzer:
                 return
             
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"{self.log_dir}/fun_score_detailed_{self.channel_name}_{timestamp}.json"
+            filename = f"fun_score_detailed_{self.channel_name}_{timestamp}.json"
+            
+            # 전체 파일 경로
+            file_path = self.log_dir / filename
             
             # JSON 형태로 저장
             log_data = {
@@ -650,16 +674,16 @@ class ChatAnalyzer:
                 "logs": self.detailed_logs.copy()  # 전체 로그 복사
             }
             
-            with open(filename, 'w', encoding='utf-8') as f:
+            with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(log_data, f, ensure_ascii=False, indent=2)
             
-            print(f"상세 로그 저장 완료: {filename} ({len(self.detailed_logs)}개 기록)")
+            print(f"📄 상세 로그 저장 완료: {file_path} ({len(self.detailed_logs)}개 기록)")
             
             # 저장 후 삭제
             self.detailed_logs = []
                 
         except Exception as e:
-            print(f"로그 저장 오류: {e}")
+            print(f"❌ 로그 저장 오류: {e}")
     
     #주기적으로 로그 저장
     async def save_logs_periodically(self):
@@ -668,5 +692,5 @@ class ChatAnalyzer:
                 await asyncio.sleep(1800)  # 30분마다
                 await self.save_detailed_logs_to_file()
             except Exception as e:
-                print(f"주기적 로그 저장 오류: {e}")
+                print(f"❌ 주기적 로그 저장 오류: {e}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
