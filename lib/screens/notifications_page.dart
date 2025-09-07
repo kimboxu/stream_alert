@@ -1176,6 +1176,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                   _buildFilterOption(NotificationType.streamStart, '뱅온 알림'),
                   _buildFilterOption(NotificationType.streamChange, '방제 변경 알림'),
                   _buildFilterOption(NotificationType.streamEnd, '방종 알림'),
+                  _buildFilterOption(NotificationType.streamHighlight, '방송 하이라이트 알림'),
                   _buildFilterOption(NotificationType.chat, '채팅 알림'),
                 ],
               ),
@@ -1226,6 +1227,8 @@ class _NotificationsPageState extends State<NotificationsPage>
         return '방종 알림';
       case NotificationType.chat:
         return '채팅 알림';
+      case NotificationType.streamHighlight:
+        return '방송 하이라이트 알림';
       case NotificationType.general:
         return '일반 알림';
     }
