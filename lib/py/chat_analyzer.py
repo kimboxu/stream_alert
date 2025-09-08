@@ -12,7 +12,7 @@ import pandas as pd
 from uuid import uuid4
 from pathlib import Path
 from live_message import upload_image_to_imgur
-from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar
+from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar, get_stream_start_id
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 
@@ -80,8 +80,7 @@ class ChatMessageWithAnalyzer:
         await self.chat_analyzer.save_detailed_logs_to_file(force_save=True)
         print(f"종료 시 최종 로그 저장 완료: {self.chat_analyzer.channel_name}")
 
-        #self.init.highlight_chat[channel_id] 만드는 기능 추가
-        self.chat_analyzer.highlights
+        await self.chat_analyzer._make_highlight_chat()
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
@@ -106,9 +105,11 @@ class ChatAnalyzer:
     """채팅 데이터를 분석하여 재미있는 순간을 감지하는 클래스"""
     def __init__(self, init: initVar, channel_id: str, channel_name: str = ""):
         self.init = init
-        self.init.highlight_chat[channel_id] = {}
         self.channel_id = channel_id
         self.channel_name = channel_name
+
+        stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
+        self.stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
 
         # 분석 설정
         self.window_size = 30  # 30초 윈도우
@@ -261,7 +262,7 @@ class ChatAnalyzer:
             self.detailed_logs = self.detailed_logs[-2000:]
 
         # 하이라이트 체크
-        if score_details['highlights']:
+        if score_details['highlights'] or self.init.DO_TEST:
             await self._create_highlight(detailed_log)
 
         # 분석 기록 저장
@@ -561,6 +562,7 @@ class ChatAnalyzer:
         )
 
         self.highlights.append(highlight)
+        # await self._make_highlight_chat()
         if not self.init.DO_TEST:
             await self._save_highlight_to_db(highlight)
 
@@ -637,7 +639,7 @@ class ChatAnalyzer:
                 "url": self.init.stream_status[highlight.channel_id].channel_url,
                 "image": {"url": image_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
-                "timestamp": changeUTCtime(highlight.timestamp.isoformat())}]}
+                "timestamp": changeUTCtime(highlight.timestamp)}]}
             
             # 알림 전송
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
@@ -691,3 +693,69 @@ class ChatAnalyzer:
             except Exception as e:
                 print(f"❌ 주기적 로그 저장 오류: {e}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
+
+    async def _make_highlight_chat(self):
+        if not self.highlights:
+            return
+        highlight_data  = []
+        for highlight in self.highlights:
+            try:
+                analysis_data = highlight.analysis_data
+                fun_keywords = analysis_data.get('fun_keywords', {})
+                score_details = highlight.score_details
+
+                highlight_data.append({ "재미도 점수"       :   highlight.fun_score,
+                                        "하이라이트 이유"   :   highlight.reason,
+                                        "최근 채팅"         :   highlight.chat_context,
+                                        "방송 켜진 시간"    :   highlight.after_openDate,
+                                        "메시지 갯수"       :   analysis_data['message_count'],
+                                        "시청자 수"         :   analysis_data['viewer_count'],
+                                        "웃음 키워드 수"    :   fun_keywords.get('laugh',0),
+                                        "놀람 키워드 수"    :   fun_keywords.get('surprise',0),
+                                        "흥분 키워드 수"    :   fun_keywords.get('excitement',0),
+                                        "일반반응 키워드 수":   fun_keywords.get('reaction',0),
+                                        "인사 키워드 수"    :   fun_keywords.get('greeting',0),
+                                        "채팅 급증 점수"    :   score_details['chat_spike_score'],
+                                        "리액션 점수"       :   score_details['reaction_score'],
+                                        "다양성 점수"       :   score_details['diversity_score'],
+                                        "시청자 급증 점수"  :   score_details['viewer_trend_score'],
+                                        "기준 채팅 수"      :   score_details['baseline_chat_count'],
+                                        "기준 시청자 수"    :   score_details['baseline_viewer_count'],
+                                        "하이라이트 여부"   :   score_details['highlights'],
+                                        "큰 하이라이트 여부":   score_details['big_highlights'],
+                                        "재미도 점수 차이"  :   score_details['score_difference'],
+                })
+            except Exception as e:
+                print(f"하이라이트 데이터 처리 오류: {e}")
+                continue
+
+        try:
+            prompt = f"다음 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요:\n{json.dumps(highlight_data, ensure_ascii=False, indent=2)}"
+            
+            response = self.init.model.generate_content(prompt)
+
+
+            # JSON 파싱 시도
+            try:
+                timeline_comments = json.loads(response.text)
+                 # 유효성 검사
+                if isinstance(timeline_comments, list):
+                    # 시간순으로 정렬
+                    timeline_comments.sort(key=lambda x: x['after_openDate'])
+                    self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.extend(timeline_comments)
+                
+                    print(f"타임라인 댓글 생성 완료: {len(timeline_comments)}개")
+                    for comment in timeline_comments:
+                        if 'after_openDate' in comment and 'text' in comment:
+                            print(f"**{comment['after_openDate']}** {comment['text']}")
+                else:
+                    raise ValueError("응답이 리스트 형태가 아닙니다")
+
+            except (json.JSONDecodeError, ValueError, KeyError) as e:
+                print(f"JSON 파싱 오류: {e}")
+                print(f"응답 내용: {response.text[:500]}...")
+                self.init.highlight_chat[self.channel_id][self.stream_start_id] = []
+                
+        except Exception as e:
+            await log_error(f"타임라인 댓글 생성 오류: {e}")
+            self.init.highlight_chat[self.channel_id][self.stream_start_id] = []

@@ -19,6 +19,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 from pathlib import Path
 from typing import List, Dict, Optional
+import google.generativeai as genai
 
 # 로컬 통계 파일 경로 설정
 STATS_DIR = Path("stats_data")
@@ -92,6 +93,40 @@ class initVar:
 
 	stream_status = {}
 	highlight_chat = {}
+	model = genai.GenerativeModel('gemini-2.0-flash')
+	system_instruction = '''
+		방송 하이라이트 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
+
+		응답 형식:
+		[
+		{"after_openDate": "시간", "text": "댓글 내용"}
+		]
+
+		분석 우선순위:
+		1. "최근 채팅" 내용으로 구체적 상황 파악 (게임, 행동, 사건)
+		2. "하이라이트 이유"로 반응 유형 확인
+		3. 점수 데이터로 상황의 특성 분석:
+		- 채팅 급증 점수 높음 → 갑작스러운 사건
+		- 리액션 점수 높음 → 강한 감정 반응
+		- 시청자 급증 점수 높음 → 화제성 있는 순간
+		- 다양성 점수 높음 → 다양한 시청자 참여
+
+		댓글 작성 방식:
+		1. 채팅에서 명확한 상황(게임명, 행동)이 보이면 구체적으로 표현
+		2. 점수 패턴으로 상황의 성격 파악:
+		- 리액션 점수 > 채팅 급증 점수 → 감정적 반응 중심
+		- 채팅 급증 점수 > 리액션 점수 → 사건/상황 중심
+		- 시청자 급증 있음 → 주목받는 순간
+		3. "큰 하이라이트 여부"가 true면 더 임팩트 있게 표현
+		4. 실제 시청자 톤으로 20자 이내, 자연스럽게
+
+		예시:
+		- 리액션 중심: "ㅋㅋㅋ 개웃김", "미친 반응 ㄷㄷ"
+		- 상황 중심: "레전드 플레이", "데드락 일퀘 시작"
+		- 화제성: "시청자들 몰려옴", "클립감 ㄷㄷ"
+	'''
+	genai.configure(api_key=environ['GOOGLE_API_KEY'])
+	model = genai.GenerativeModel("gemini-2.0-flash", system_instruction=system_instruction, generation_config={"response_mime_type": "application/json"})
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])  # Supabase DB 클라이언트
 
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
@@ -798,6 +833,12 @@ def if_after_time(time_str, sec=300):
 		return time <= datetime.now()
 	except Exception as e: 
 		return time <= datetime.now().astimezone()
+	
+# 방송 세션을 구분하는 고유 ID 생성
+def get_stream_start_id(channel_id: str, start_time: str) -> str:
+	# start_time을 기반으로 고유한 스트림 ID 생성
+	timestamp = datetime.fromisoformat(start_time.replace('Z', '+00:00'))
+	return f"{channel_id}_{timestamp.strftime('%Y%m%d_%H%M%S')}"
 
 # 치지직 API URL 생성 함수
 def chzzk_getLink(uid: str): 

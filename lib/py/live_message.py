@@ -29,6 +29,7 @@ from base import (
     fCount,
     fSleep,
     log_error,
+    get_stream_start_id,
 )
 
 
@@ -55,6 +56,13 @@ class LiveData:
         "titleChangeDate": "2025-01-01T00:00:00",    # 제목 변경 업데이트 시간
 })
     
+@dataclass
+class highlight_chat_Data:
+    """하이라이트 채팅 데이터를 저장하는 데이터 클래스"""
+    timeline_comments: list = field(default_factory=list)
+    stream_end_id: str = ""
+    last_title: str = ""
+
 class base_live_message:
     """모든 스트리밍 플랫폼에 공통으로 사용되는 기본 클래스"""
     def __init__(self, init_var: initVar, channel_id, platform_name):
@@ -66,6 +74,7 @@ class base_live_message:
             channel_id: 채널 ID
             platform_name: 플랫폼 이름 (chzzk 또는 afreeca)
         """
+        self.init = init_var
         self.DO_TEST = init_var.DO_TEST
         self.userStateData = init_var.userStateData
         self.platform_name = platform_name
@@ -84,7 +93,12 @@ class base_live_message:
         self.channel_name = self.id_list.loc[channel_id, 'channelName']
         state_update_time = self.title_data.loc[self.channel_id, 'state_update_time']
         self.data = LiveData(state_update_time = state_update_time, id_list = self.id_list, platform_name = platform_name)
-        init_var.stream_status[channel_id] = self.data
+
+        if not init_var.stream_status.get(channel_id):
+            init_var.stream_status[channel_id] = self.data
+
+        if not init_var.highlight_chat.get(channel_id):
+            init_var.highlight_chat[channel_id] = {}
         
     async def start(self):
         await self.addMSGList()
@@ -111,6 +125,10 @@ class base_live_message:
                 self.get_channel_url()
                 self.getViewer_count(state_data)
                 self.getImageURL(state_data)
+                
+                self.stream_start_id = get_stream_start_id(self.channel_id, self.data.start_at["openDate"])
+                if not self.init.highlight_chat[self.channel_id].get(self.stream_start_id):
+                    self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
 
             # 온라인/오프라인 상태 처리
             if self._should_process_online_status():
@@ -199,6 +217,13 @@ class base_live_message:
         self.title_data.loc[self.channel_id,'title2'] = self._get_title()
         self.title_data.loc[self.channel_id,'title1'] = self.data.title
 
+    def record_title(self, message):
+        if message == "방제 변경":
+            after_openDate = datetime.now() - datetime.fromisoformat(self.data.start_at["openDate"])
+            after_openDate = str(after_openDate).split('.')[0]
+            self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.append({"after_openDate": after_openDate, "text":f"방제 변경: {self.data.title}"})
+            self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
+
     #방송 시작 시간 업데이트
     def onLineTime(self, message):
         if message == "뱅온!":
@@ -243,6 +268,7 @@ class base_live_message:
 
         self.onLineTime(message)
         self.onLineTitle(message)
+        self.record_title(message)
 
         self.data.livePostList.append((message, json_data))
 
@@ -368,6 +394,9 @@ class chzzk_live_message(base_live_message):
     #방송 종료 시간 업데이트
     def offLineTime(self):
         self.title_data.loc[self.channel_id,'update_time'] = self.getStarted_at("closeDate")
+
+        stream_end_id = get_stream_start_id(self.channel_id, self.data.start_at["closeDate"])
+        self.init.highlight_chat[self.channel_id][self.stream_start_id].stream_end_id = stream_end_id
 
     #치지직 채널 URL 생성
     def get_channel_url(self): 
@@ -600,6 +629,9 @@ class afreeca_live_message(base_live_message):
         self.title_data.loc[self.channel_id, 'state_update_time']["closeDate"] = datetime.now().isoformat()
         self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
     
+        stream_end_id = get_stream_start_id(self.channel_id, self.title_data.loc[self.channel_id, 'state_update_time']["closeDate"])
+        self.init.highlight_chat[self.channel_id][self.stream_start_id].stream_end_id = stream_end_id
+
     #아프리카 채널 URL 생성
     def get_channel_url(self):
         afreecaID = self.id_list.loc[self.channel_id, "afreecaID"]
@@ -627,7 +659,7 @@ class afreeca_live_message(base_live_message):
     
     #아프리카 썸네일 이미지 가져오기
     async def get_live_thumbnail_image(self, state_data, message=None):
-        for count in range(40):
+        for count in range(10):
             thumbnail_image = self.get_thumbnail_image()
             if thumbnail_image is None: 
                 print(f"{datetime.now()} wait make thumbnail 1 .{count}.{str(self.getImageURL())}")

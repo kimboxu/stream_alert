@@ -4,6 +4,7 @@ from datetime import datetime
 from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
+from live_message import highlight_chat_Data
 from base import (
     changeUTCtime, 
     get_message, 
@@ -24,6 +25,7 @@ class ChzzkVOD_Data:
     thumbnailImageUrl : str = ""                # 썸네일 이미지 URL
     videoCategoryValue : str = ""               # 비디오 카테고리
     video_alarm_List: list = field(default_factory=list)
+    duration: int = 0                           # 비디오 길이(초)
 
 class chzzk_video:
     # 초기화 함수: 필요한 데이터와 채널 ID 설정
@@ -128,6 +130,17 @@ class chzzk_video:
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
             asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
 
+            highlight_chat = None
+            #다시보기에 하이라이트 댓글 달기
+            for stream_start_id in self.init.highlight_chat[self.chzzk_id]:
+                stream_end_id = self.init.highlight_chat[self.chzzk_id][stream_start_id].stream_end_id
+                if abs(int(self.data.duration - (stream_end_id - stream_start_id))) < 60 and self.init.highlight_chat[self.chzzk_id][stream_start_id].last_title == self.data.videoTitle:
+                    highlight_chat = self.init.highlight_chat[self.chzzk_id].pop(stream_start_id, [])
+
+            if highlight_chat:
+                msg = self.get_highlight_msg(highlight_chat)
+                await self._send_comment(msg)
+
         except Exception as e:
             asyncio.create_task(log_error(f"postLiveMSG {e}"))
 
@@ -137,7 +150,7 @@ class chzzk_video:
 
         
         # 제목 포맷팅
-        videoTitle = "|" + (videoTitle if videoTitle != " " else "                                                  ") + "|"
+        self.data.videoTitle = "|" + (self.data.videoTitle if self.data.videoTitle != " " else "                                                  ") + "|"
         
         # 채널 정보 가져오기
         channel_data = self.chzzkIDList.loc[self.chzzk_id]
@@ -153,7 +166,7 @@ class chzzk_video:
                 "url": video_url,
                 "icon_url": avatar_url
             },
-            "title": videoTitle,
+            "title": self.data.videoTitle,
             "url": f"https://chzzk.naver.com/video/{self.data.videoNo}",
             "description": f"{username} 치지직 영상 업로드!",
             "fields": [
@@ -190,8 +203,9 @@ class chzzk_video:
         # 첫 번째 비디오 데이터 가져오기
         data = stateData["content"]["data"][0]
 
+        self.data.duration = data["duration"]
         self.data.videoNo = data["videoNo"]
-        self.data.videoTitle = ["videoTitle"]
+        self.data.videoTitle = data["videoTitle"]
         self.data.publishDate = get_started_at(data.get("publishDate"))
         self.data.thumbnailImageUrl = data["thumbnailImageUrl"]
         self.data.videoCategoryValue = data["videoCategoryValue"]
@@ -201,10 +215,27 @@ class chzzk_video:
         # 목록이 이미 10개 이상인 경우 가장 오래된 항목 제거
         if len(chzzk_video_json["videoNo_list"]) >= 10:
             chzzk_video_json["videoNo_list"][:-1] = chzzk_video_json["videoNo_list"][1:]
-            chzzk_video_json["videoNo_list"][-1] = self.videoNo
+            chzzk_video_json["videoNo_list"][-1] = self.data.videoNo
         else:
             # 목록에 추가
-            chzzk_video_json["videoNo_list"].append(self.videoNo)
+            chzzk_video_json["videoNo_list"].append(self.data.videoNo)
+
+    def get_highlight_msg(self, highlight_chat: highlight_chat_Data):
+        """		
+        응답 형식:
+		[
+		{"after_openDate": "시간", "text": "댓글 내용"}
+		]
+        """
+        timeline_comments = highlight_chat.timeline_comments
+        if isinstance(timeline_comments, list):
+            # 시간순으로 정렬
+            timeline_comments.sort(key=lambda x: x['after_openDate'])
+
+        
+
+        
+
 
     async def _send_comment(self, message):
         """댓글 전송"""
