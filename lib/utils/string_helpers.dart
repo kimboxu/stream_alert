@@ -8,7 +8,7 @@ class StringHelper {
         return '방제 변경 알림';
       case '방종 알림':
         return '방종 알림';
-      case '방송 하이라이트 알림':
+      case '하이라이트 알림':
         return '하이라이트 알림';
       case '유튜브 알림':
         return '유튜브 알림';
