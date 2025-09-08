@@ -262,8 +262,13 @@ class chzzk_video:
         if not comment_lines:
             return []
         
-        # 500자 제한에 맞춰 여러 댓글로 분할
-        return self._split_comments_to_chunks(comment_lines, 500)
+        # 자동 생성 안내 문구 먼저 추가
+        auto_notice = "🤖 이 댓글은 방송 하이라이트를 자동 분석하여 생성된 타임라인입니다.\n\n"
+        
+        # 안내 문구를 포함하여 500자 제한에 맞춰 분할
+        chunks = self._split_comments_with_notice(comment_lines, auto_notice, 500)
+        
+        return chunks
     
     def _format_time_for_comment(self, time_str: str) -> str:
         """시간 문자열을 댓글용 HH:MM:SS 형식으로 변환"""
@@ -284,6 +289,62 @@ class chzzk_video:
             
         except (ValueError, IndexError):
             return ""
+        
+    def _split_comments_with_notice(self, comment_lines: list, auto_notice: str, max_length: int) -> list:
+        """
+        안내 문구를 포함하여 댓글 라인들을 분할
+        첫 번째 댓글에는 항상 안내 문구가 포함됨
+        
+        Args:
+            comment_lines: 댓글 라인 리스트
+            auto_notice: 자동 생성 안내 문구
+            max_length: 각 댓글의 최대 허용 길이
+            
+        Returns:
+            list: 분할된 댓글 문자열 리스트
+        """
+        if not comment_lines:
+            return [auto_notice.rstrip()]  # 안내 문구만 반환
+        
+        chunks = []
+        
+        # 첫 번째 댓글: 안내 문구 + 가능한 한 많은 하이라이트
+        remaining_lines = comment_lines.copy()
+        
+        # 첫 번째 댓글에 들어갈 수 있는 만큼 하이라이트 추가
+        first_chunk_lines = []
+        current_length = len(auto_notice)
+        
+        for i, line in enumerate(remaining_lines):
+            # 라인을 추가했을 때의 길이 계산
+            if len(first_chunk_lines) == 0:
+                new_length = current_length + len(line)
+            else:
+                new_length = current_length + 2 + len(line)  # +2는 "\n\n"
+            
+            if new_length <= max_length:
+                first_chunk_lines.append(line)
+                current_length = new_length
+            else:
+                break
+        
+        # 첫 번째 댓글 완성
+        if first_chunk_lines:
+            first_chunk = auto_notice + "\n\n".join(first_chunk_lines)
+        else:
+            first_chunk = auto_notice.rstrip()
+        
+        chunks.append(first_chunk)
+        
+        # 첫 번째 댓글에 포함되지 않은 나머지 라인들 처리
+        remaining_lines = remaining_lines[len(first_chunk_lines):]
+        
+        if remaining_lines:
+            # 나머지 라인들을 일반적인 방식으로 분할
+            remaining_chunks = self._split_comments_to_chunks(remaining_lines, max_length)
+            chunks.extend(remaining_chunks)
+        
+        return chunks
             
     def _split_comments_to_chunks(self, comment_lines: list, max_length: int) -> list:
         """댓글 라인들을 500자 제한에 맞춰 여러 덩어리로 분할"""
