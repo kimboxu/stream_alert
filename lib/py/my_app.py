@@ -22,32 +22,7 @@ from notification_service import (
 load_dotenv()
 
 app = Flask(__name__)
-# CORS 설정 강화
-CORS(app, 
-     origins=["*"],  # 모든 도메인 허용 (프로덕션에서는 구체적인 도메인 지정 권장)
-     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-     allow_headers=["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"],
-     supports_credentials=True,
-     max_age=86400)  # preflight 캐시 시간
-
-# preflight 요청 처리
-@app.before_request
-def handle_preflight():
-    if request.method == "OPTIONS":
-        response = Response()
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, Origin, X-Requested-With')
-        response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-        response.headers.add('Access-Control-Max-Age', '86400')
-        return response
-
-# 모든 응답에 CORS 헤더 추가
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, Origin, X-Requested-With')
-    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-    return response
+CORS(app)
 
 def init_background_tasks():
     loop = asyncio.new_event_loop()
