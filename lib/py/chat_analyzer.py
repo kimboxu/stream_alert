@@ -588,7 +588,7 @@ class ChatAnalyzer:
             # Supabase에 저장
             data = {
                 'id': str(uuid4()),
-                'timestamp': highlight.timestamp.isoformat(),
+                'timestamp': highlight.timestamp,
                 'channel_id': highlight.channel_id,
                 'channel_name': highlight.channel_name,
                 'fun_score': highlight.fun_score,
