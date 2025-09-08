@@ -299,6 +299,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         elif len(messages) == 19:
             user_id, chat, nickname, chat_type = messages[6], messages[2], messages[7], "채팅"
         elif len(messages) == 18:
+            user_id, chat, nickname, chat_type = messages[2], messages[16], messages[3], "구독선물"
+        elif len(messages) == 17:
             user_id, chat, nickname, chat_type = messages[3], messages[7], messages[4], "애드벌룬 후원"
         else:
             asyncio.create_task(log_error(f"messages,{messages}", webhook_url= environ['afreeca_chat_log_url']))
