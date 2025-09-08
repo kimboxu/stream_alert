@@ -514,7 +514,7 @@ class ChatAnalyzer:
         
         last_highlight = self.highlights[-1]
         
-        time_diff = (datetime.now() - last_highlight.timestamp).total_seconds()
+        time_diff = (datetime.now() - datetime.fromisoformat(last_highlight.timestamp)).total_seconds()
         
         # 쿨다운: 2분 간격
         if time_diff < self.cooldown:
