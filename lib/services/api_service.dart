@@ -17,8 +17,8 @@ import '../utils/cache_helper.dart';
 import '../utils/url_helper.dart';
 
 class ApiService {
-  // static const String baseUrl = 'http://49.142.11.175:5000'; // 디버깅 용도
-  // static const String baseUrl = 'http://192.168.0.7:5000/'; // 디버깅 용도
+  // static const String baseUrl = 'http://49.142.11.175:8080'; // 디버깅 용도
+  // static const String baseUrl = 'http://192.168.0.7:8080/'; // 디버깅 용도
   static const String baseUrl = 'https://discordbotsetting.duckdns.org/'; // 오라클 서버 주소
 
   // 이미지 URL을 프록시 URL로 변환하는 함수

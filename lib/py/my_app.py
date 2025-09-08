@@ -210,7 +210,7 @@ def get_user_settings():
         "뱅온 알림": user_data.get("뱅온 알림", ""),
         "방제 변경 알림": user_data.get("방제 변경 알림", ""),
         "방종 알림": user_data.get("방종 알림", ""),
-        "방송 하이라이트 알림": user_data.get("방송 하이라이트 알림", ""),
+        "하이라이트 알림": user_data.get("방송 하이라이트 알림", ""),
         "유튜브 알림": user_data.get("유튜브 알림", {}),
         "치지직 VOD": user_data.get("치지직 VOD", {}),
         "cafe_user_json": user_data.get("cafe_user_json", {}),
