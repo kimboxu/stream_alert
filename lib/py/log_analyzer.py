@@ -161,6 +161,12 @@ class SessionBasedFunScoreAnalyzer:
         duration_seconds = end_seconds - start_seconds
         duration_hours = duration_seconds / 3600
         
+        # 하이라이트 정보 카운트
+        highlights = sum(1 for log in session_logs 
+                        if log.get('score_components', {}).get('highlights', False))
+        big_highlights = sum(1 for log in session_logs 
+                            if log.get('score_components', {}).get('big_highlights', False))
+        
         # 기본 통계
         stats = {
             'date_str': date_str,
@@ -173,8 +179,8 @@ class SessionBasedFunScoreAnalyzer:
             'avg_score': sum(scores) / len(scores),
             'max_score': max(scores),
             'min_score': min(scores),
-            'highlights': len([s for s in scores if s >= 50]),
-            'big_highlights': len([s for s in scores if s >= 80]),
+            'highlights': highlights,
+            'big_highlights': big_highlights,
             'max_viewers': max([log['analysis_data']['viewer_count'] for log in session_logs]),
             'avg_viewers': sum([log['analysis_data']['viewer_count'] for log in session_logs]) / len(session_logs)
         }
@@ -270,6 +276,8 @@ class SessionBasedFunScoreAnalyzer:
         data = []
         for log in session_logs:
             try:
+                score_components = log.get('score_components', {})
+                
                 row = {
                     'timestamp': log['timestamp'],
                     'after_openDate': log['after_openDate'],
@@ -278,17 +286,22 @@ class SessionBasedFunScoreAnalyzer:
                     'message_count': log['analysis_data']['message_count'],
                     'viewer_count': log['analysis_data']['viewer_count'],
                     
-                    # 현재 chat_analyzer.py 구조의 점수 구성 요소들
-                    'chat_spike_score': log['score_components'].get('chat_spike_score', 0),
-                    'reaction_score': log['score_components'].get('reaction_score', 0),
-                    'diversity_score': log['score_components'].get('diversity_score', 0),
-                    'viewer_trend_score': log['score_components'].get('viewer_trend_score', 0),
-                    'final_score': log['score_components'].get('final_score', 0),
-                    'threshold': log['score_components'].get('threshold', 50),
-                    'baseline_chat_count': log['score_components'].get('baseline_chat_count', 0),
-                    'baseline_viewer_count': log['score_components'].get('baseline_viewer_count', 0),
+                    # 점수 구성 요소들
+                    'chat_spike_score': score_components.get('chat_spike_score', 0),
+                    'reaction_score': score_components.get('reaction_score', 0),
+                    'diversity_score': score_components.get('diversity_score', 0),
+                    'viewer_trend_score': score_components.get('viewer_trend_score', 0),
+                    'final_score': score_components.get('final_score', 0),
+                    'threshold': score_components.get('threshold', 50),
+                    'baseline_chat_count': score_components.get('baseline_chat_count', 0),
+                    'baseline_viewer_count': score_components.get('baseline_viewer_count', 0),
                     
-                    # 키워드 데이터 (analysis_data에서 추출)
+                    # 하이라이트 정보
+                    'is_highlight': score_components.get('highlights', False),
+                    'is_big_highlight': score_components.get('big_highlights', False),
+                    'score_difference': score_components.get('score_difference', 0),
+                    
+                    # 키워드 데이터
                     'laugh_count': log['analysis_data'].get('fun_keywords', {}).get('laugh', 0),
                     'excitement_count': log['analysis_data'].get('fun_keywords', {}).get('excitement', 0),
                     'surprise_count': log['analysis_data'].get('fun_keywords', {}).get('surprise', 0),
@@ -296,10 +309,10 @@ class SessionBasedFunScoreAnalyzer:
                     
                     # 추가 정보
                     'total_keywords': sum(log['analysis_data'].get('fun_keywords', {}).values()),
-                    'chat_context_sample': str(log.get('chat_context', [])[:3])  # 처음 3개만
+                    'chat_context_sample': str(log.get('chat_context', [])[:10])
                 }
             except Exception as e:
-                print(f"❌ 데이터 처리 오류: {e}")
+                print(f"데이터 처리 오류: {e}")
                 continue
             
             data.append(row)
