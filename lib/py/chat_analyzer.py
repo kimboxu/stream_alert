@@ -354,7 +354,7 @@ class ChatAnalyzer:
     #채팅 급증 점수 계산
     def _calculate_chat_spike_score(self, analysis: ChatAnalysisData) -> float:
         # 인사 반응(방송 시작 직후 or 방송 종료 직전의 인사는 제외)
-        del_greeting_message_count = analysis.message_count - analysis.fun_keywords["greeting"]
+        del_greeting_message_count = analysis.message_count - analysis.fun_keywords.get("greeting",0)
 
         # 정규화된 점수 (기존 대비 상대적으로 3배 일 경우 100점)
         count_ratio = del_greeting_message_count / self.baseline_metrics['avg_chat_count']
