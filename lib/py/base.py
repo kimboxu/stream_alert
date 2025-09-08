@@ -91,6 +91,7 @@ class initVar:
 	count 			= 0
 
 	stream_status = {}
+	highlight_chat = {}
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])  # Supabase DB 클라이언트
 
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
