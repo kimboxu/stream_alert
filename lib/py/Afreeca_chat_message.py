@@ -387,7 +387,15 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     # 유저 정보 가져오기
     async def _get_user_info(self, user_id):
         try:
-            stateData = await get_message("afreeca", afreeca_getLink(user_id))
+            for _ in range(3):
+                stateData = await get_message("afreeca", afreeca_getLink(user_id))
+                if not stateData:
+                    continue
+                break
+
+            if not stateData:
+                return None, None
+            
             user_nick = stateData['station']['user_nick']
             _, _, profile_image = afreeca_getChannelOffStateData(stateData, stateData["station"]["user_id"])
         except Exception as e:
