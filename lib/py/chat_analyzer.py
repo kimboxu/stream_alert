@@ -80,6 +80,9 @@ class ChatMessageWithAnalyzer:
         await self.chat_analyzer.save_detailed_logs_to_file(force_save=True)
         print(f"종료 시 최종 로그 저장 완료: {self.chat_analyzer.channel_name}")
 
+        #self.init.highlight_chat[channel_id] 만드는 기능 추가
+        self.chat_analyzer.highlights
+
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
         while True:
@@ -103,6 +106,7 @@ class ChatAnalyzer:
     """채팅 데이터를 분석하여 재미있는 순간을 감지하는 클래스"""
     def __init__(self, init: initVar, channel_id: str, channel_name: str = ""):
         self.init = init
+        self.init.highlight_chat[channel_id] = {}
         self.channel_id = channel_id
         self.channel_name = channel_name
 
@@ -509,6 +513,10 @@ class ChatAnalyzer:
         if len(self.analysis_history) < int(self.history_1min*0.5):
             return True
         
+        #이전 30초 중 가장 작은 점수가 15점 이상 높아진 경우
+        if self.get_score_difference(fun_score) < self.small_fun_difference:
+            return False
+        
         if not len(self.highlights):
             return True
         
@@ -518,10 +526,6 @@ class ChatAnalyzer:
         
         # 쿨다운: 2분 간격
         if time_diff < self.cooldown:
-            return False
-
-        #이전 30초 중 가장 작은 점수가 15점 이상 높아진 경우
-        if self.get_score_difference(fun_score) < self.small_fun_difference:
             return False
 
         return True
