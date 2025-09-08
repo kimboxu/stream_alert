@@ -131,15 +131,23 @@ class chzzk_video:
             asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
 
             highlight_chat = None
-            #다시보기에 하이라이트 댓글 달기
+            # 다시보기에 하이라이트 댓글 달기
             for stream_start_id in self.init.highlight_chat[self.chzzk_id]:
                 stream_end_id = self.init.highlight_chat[self.chzzk_id][stream_start_id].stream_end_id
                 if abs(int(self.data.duration - (stream_end_id - stream_start_id))) < 60 and self.init.highlight_chat[self.chzzk_id][stream_start_id].last_title == self.data.videoTitle:
                     highlight_chat = self.init.highlight_chat[self.chzzk_id].pop(stream_start_id, [])
 
             if highlight_chat:
-                msg = self.get_highlight_msg(highlight_chat)
-                await self._send_comment(msg)
+                # 하이라이트 메시지들을 여러 댓글로 분할
+                highlight_messages = self.get_highlight_msg(highlight_chat)
+                
+                if highlight_messages:
+                    # 첫 번째 댓글 작성
+                    first_comment_id = await self._send_comment(highlight_messages[0])
+                    
+                    # 나머지 메시지들을 답글로 작성
+                    if first_comment_id and len(highlight_messages) > 1:
+                        await self._send_reply_comments(first_comment_id, highlight_messages[1:])
 
         except Exception as e:
             asyncio.create_task(log_error(f"postLiveMSG {e}"))
@@ -221,21 +229,145 @@ class chzzk_video:
             chzzk_video_json["videoNo_list"].append(self.data.videoNo)
 
     def get_highlight_msg(self, highlight_chat: highlight_chat_Data):
-        """		
+        """
+        하이라이트 채팅 데이터를 VOD 댓글 형식으로 변환
+        
         응답 형식:
-		[
-		{"after_openDate": "시간", "text": "댓글 내용"}
-		]
+        [시간] 댓글 내용
+        [시간] 댓글 내용
+        
+        Args:
+            highlight_chat: highlight_chat_Data 객체
+            
+        Returns:
+            str: VOD에 작성할 댓글 문자열 (최대 500자)
         """
         timeline_comments = highlight_chat.timeline_comments
-        if isinstance(timeline_comments, list):
-            # 시간순으로 정렬
-            timeline_comments.sort(key=lambda x: x['after_openDate'])
-
         
-
+        if not timeline_comments or not isinstance(timeline_comments, list):
+            return ""
         
-
+        # 시간순으로 정렬
+        timeline_comments.sort(key=lambda x: x.get('after_openDate', ''))
+        
+        # 댓글 라인들을 저장할 리스트
+        comment_lines = []
+        
+        for comment in timeline_comments:
+            time_str = comment.get('after_openDate', '')
+            text = comment.get('text', '')
+            
+            if not time_str or not text:
+                continue
+                
+            # 시간 형식 정리 (HH:MM:SS -> MM:SS 또는 H:MM:SS -> M:SS)
+            formatted_time = self.format_time_for_comment(time_str)
+            if not formatted_time:
+                continue
+                
+            # 댓글 라인 생성: **시간** 내용
+            comment_line = f"**{formatted_time}** {text}"
+            comment_lines.append(comment_line)
+        
+        if not comment_lines:
+            return ""
+        
+        # 모든 댓글을 하나의 문자열로 합치기
+        full_comment = "".join(comment_lines)
+        
+        # 500자 제한 확인 및 조정
+        if len(full_comment) <= 500:
+            return full_comment
+        
+        # 500자를 초과하는 경우 댓글 수를 줄여가며 조정
+        return self.trim_comment_to_limit(comment_lines, 500)
+    
+    def format_time_for_comment(self, time_str: str) -> str:
+        """
+        시간 문자열을 댓글용 형식으로 변환
+        
+        Args:
+            time_str: "0:04:24" 또는 "4:24" 또는 "1:23:45" 형식의 시간
+            
+        Returns:
+            str: "4:24" 형식의 시간 문자열
+        """
+        try:
+            # 콜론으로 분리
+            parts = time_str.strip().split(':')
+            
+            if len(parts) == 2:
+                # MM:SS 형식
+                minutes, seconds = parts
+                return f"{int(minutes)}:{seconds.zfill(2)}"
+                
+            elif len(parts) == 3:
+                # HH:MM:SS 형식
+                hours, minutes, seconds = parts
+                hours, minutes = int(hours), int(minutes)
+                
+                if hours == 0:
+                    # 1시간 미만: MM:SS
+                    return f"{minutes}:{seconds.zfill(2)}"
+                else:
+                    # 1시간 이상: H:MM:SS
+                    return f"{hours}:{minutes:02d}:{seconds.zfill(2)}"
+            
+            return ""
+            
+        except (ValueError, IndexError):
+            return ""
+            
+    def trim_comment_to_limit(self, comment_lines: list, max_length: int) -> str:
+        """
+        댓글 라인들을 최대 길이에 맞춰 조정
+        
+        Args:
+            comment_lines: 댓글 라인 리스트
+            max_length: 최대 허용 길이
+            
+        Returns:
+            str: 길이 제한에 맞춘 댓글 문자열
+        """
+        if not comment_lines:
+            return ""
+        
+        # 우선순위: 앞쪽 댓글들을 우선적으로 포함
+        result_lines = []
+        current_length = 0
+        
+        for line in comment_lines:
+            # 현재 라인을 추가했을 때의 길이 계산
+            if current_length == 0:
+                new_length = len(line)
+            else:
+                new_length = current_length + len(line)
+            
+            # 제한을 초과하지 않으면 추가
+            if new_length <= max_length:
+                result_lines.append(line)
+                current_length = new_length
+            else:
+                # 제한을 초과하면 중단
+                break
+        
+        # 아무것도 포함할 수 없다면 첫 번째 댓글만 잘라서 포함
+        if not result_lines and comment_lines:
+            first_line = comment_lines[0]
+            if len(first_line) > max_length:
+                # 첫 번째 라인도 너무 길면 잘라내기
+                # "**시간** " 부분은 보존하고 텍스트 부분만 자르기
+                if "** " in first_line:
+                    time_part = first_line.split("** ")[0] + "** "
+                    text_part = first_line.split("** ", 1)[1]
+                    available_length = max_length - len(time_part) - 3  # "..." 고려
+                    if available_length > 0:
+                        trimmed_text = text_part[:available_length] + "..."
+                        result_lines.append(time_part + trimmed_text)
+            else:
+                result_lines.append(first_line)
+        
+        return "".join(result_lines)
 
     async def _send_comment(self, message):
         """댓글 전송"""
