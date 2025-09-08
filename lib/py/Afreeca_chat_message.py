@@ -301,7 +301,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         elif len(messages) == 18:
             user_id, chat, nickname, chat_type = messages[3], messages[7], messages[4], "애드벌룬 후원"
         elif len(messages) == 17:
-            user_id, chat, nickname, chat_type = messages[2], messages[16], messages[3], "구독선물"
+            user_id, chat, nickname, chat_type = messages[2], messages[16], messages[3], "구독선물"# 12,15,16 중 하나가 chat 5(설물 받은 사람), 6(방송 채널 id), 7(방송 채널 이름)
         else:
             asyncio.create_task(log_error(f"messages,{messages}", webhook_url= environ['afreeca_chat_log_url']))
 
