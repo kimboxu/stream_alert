@@ -34,8 +34,6 @@ class StreamHighlight:
     fun_score: float
     reason: str
     chat_context: List[str]
-    message_count: int
-    viewer_count: int
     duration: int  # seconds
     after_openDate: datetime
     score_details: dict
@@ -141,8 +139,9 @@ class ChatAnalyzer:
         self.last_analysis_time = datetime.now()
 
         # 임계값 설정
-        self.small_fun_difference    = 15    # 작은 재미 차이
-        self.big_fun_difference      = 70    # 큰 재미 차이
+        self.small_fun_difference   = 15    # 작은 재미 차이
+        self.big_fun_difference     = 70    # 큰 재미 차이
+        self.cooldown               = 120   # 쿨다운
 
         # 로그 파일 설정
         self.detailed_logs = []  # 상세 분석 로그
@@ -233,7 +232,7 @@ class ChatAnalyzer:
         analysis.fun_keywords = dict(keyword_counter)
 
         # 상세 점수 계산
-        fun_score, check_create_highlight, score_details = self._calculate_fun_score(analysis, window_chats)
+        score_details = self._calculate_fun_score(analysis, window_chats)
 
         # 방송이 켜진 시점 이후 작성된 채팅의 시간  
         after_openDate = analysis.timestamp - datetime.fromisoformat(analysis.openDate)
@@ -241,16 +240,17 @@ class ChatAnalyzer:
         
         # 상세 로그 저장
         detailed_log = {
-            'timestamp': datetime.now().isoformat(),
-            'fun_score': fun_score,
+            'timestamp': current_time.isoformat(),
+            'fun_score': score_details['final_score'],
             'score_components': score_details,
+            'reason': self._determine_highlight_reason(analysis, score_details),
             'analysis_data': {
                 'message_count': analysis.message_count,
                 'viewer_count': analysis.viewer_count,
                 'fun_keywords': analysis.fun_keywords
             },
             'after_openDate': after_openDate,
-            'chat_context': [chat['message'] for chat in window_chats[-10:]]  # 최근 10개 메시지
+            'chat_context': [ f"{chat['nickname']}: {chat['message']}" for chat in window_chats[-10:]],  # 최근 10개 메시지
         }
         
         self.detailed_logs.append(detailed_log)
@@ -259,8 +259,8 @@ class ChatAnalyzer:
             self.detailed_logs = self.detailed_logs[-2000:]
 
         # 하이라이트 체크
-        if check_create_highlight:
-            await self._create_highlight(analysis, fun_score, score_details, window_chats)
+        if detailed_log['highlights']:
+            await self._create_highlight(detailed_log)
 
         # 분석 기록 저장
         self.analysis_history.append((current_time, analysis, fun_score))
@@ -323,9 +323,12 @@ class ChatAnalyzer:
             'threshold': threshold,
             'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
+            'highlights': self._should_create_new_highlight(final_score, threshold),
+            'big_highlights': self.get_score_difference(final_score) > self.big_fun_difference,
+            'score_difference': self.get_score_difference(final_score),
         }
         
-        return final_score, self._should_create_new_highlight(final_score, threshold), score_details
+        return score_details
     
     #채널별 기준값 자동 업데이트
     def _update_baselines(self):
@@ -513,8 +516,7 @@ class ChatAnalyzer:
         time_diff = (datetime.now() - last_highlight.timestamp).total_seconds()
         
         # 쿨다운: 2분 간격
-        cooldown = 120
-        if time_diff < cooldown:
+        if time_diff < self.cooldown:
             return False
 
         #이전 30초 중 가장 작은 점수가 15점 이상 높아진 경우
@@ -533,36 +535,23 @@ class ChatAnalyzer:
         return fun_score - min(a[2] for a in bef_recent_scores)
 
     #하이라이트 생성
-    async def _create_highlight(self, analysis: ChatAnalysisData, fun_score: float, score_details: dict, window_chats: List[Dict]) -> None:
-        # 최근 10개 채팅 컨텍스트
-        chat_context = [
-            f"{chat['nickname']}: {chat['message']}"
-            for chat in window_chats[-10:]
-        ]
+    async def _create_highlight(self, detailed_log: dict) -> None:
 
-        # 하이라이트 이유 결정
-        reason = self._determine_highlight_reason(analysis, fun_score, score_details)
-
-        # 방송이 켜진 시점 이후 작성된 채팅의 시간  
-        after_openDate = analysis.timestamp - datetime.fromisoformat(analysis.openDate)
-        after_openDate = str(after_openDate).split('.')[0]
 
         highlight = StreamHighlight(
-            timestamp=analysis.timestamp,
+            timestamp=detailed_log['timestamp'],
             channel_id=self.channel_id,
             channel_name=self.channel_name,
-            fun_score=fun_score,
-            reason=reason,
-            chat_context=chat_context,
-            message_count=analysis.message_count,
-            viewer_count=analysis.viewer_count,
+            fun_score=detailed_log['fun_score'],
+            reason=detailed_log['reason'],
+            chat_context=detailed_log['chat_context'],
             duration=self.window_size,
-            after_openDate=after_openDate,
-            score_details=score_details,
+            after_openDate=detailed_log['after_openDate'],
+            score_details=detailed_log['score_components'],
             analysis_data = {
-                'message_count': analysis.message_count,
-                'viewer_count': analysis.viewer_count,
-                'fun_keywords': analysis.fun_keywords
+                'message_count': detailed_log['analysis_data']['message_count'],
+                'viewer_count': detailed_log['analysis_data']['viewer_count'],
+                'fun_keywords': detailed_log['analysis_data']['fun_keywords'],
             }
         )
 
@@ -571,11 +560,11 @@ class ChatAnalyzer:
             await self._save_highlight_to_db(highlight)
 
         # 큰 재미인 경우 즉시 알림
-        if self.get_score_difference(fun_score) > self.big_fun_difference:
+        if detailed_log['score_components']['big_highlights']:
             await self._send_notification(highlight)
 
     #하이라이트 이유 생성
-    def _determine_highlight_reason(self, analysis: ChatAnalysisData, score: float, score_details: dict) -> str:
+    def _determine_highlight_reason(self, analysis: ChatAnalysisData, score_details: dict) -> str:
         reasons = []
 
         if analysis.fun_keywords.get('laugh', 0) >= analysis.message_count/3:
@@ -586,7 +575,7 @@ class ChatAnalyzer:
             reasons.append("😱 놀라운 순간")
         if score_details['chat_spike_score'] >= 50:
             reasons.append("💬 채팅 폭발")
-        if score >= 80:
+        if score_details['final_score'] >= 80:
             reasons.append("🏆 레전드 순간")
 
         return " + ".join(reasons) if reasons else "재미있는 순간 감지"
@@ -604,8 +593,6 @@ class ChatAnalyzer:
                 'fun_score': highlight.fun_score,
                 'reason': highlight.reason,
                 'chat_context': highlight.chat_context,
-                'message_count': highlight.message_count,
-                'viewer_count': highlight.viewer_count,
                 'duration': highlight.duration,
                 'after_openDate': highlight.after_openDate,
                 'score_details': highlight.score_details,
