@@ -525,7 +525,7 @@ class ChatAnalyzer:
     
     def get_score_difference(self, fun_score):
         if len(self.analysis_history) < int(self.history_1min*0.5):
-            return None
+            return self.big_fun_difference
         
         bef_recent_scores = list(self.analysis_history)[-int(self.history_1min*0.5):]
 
