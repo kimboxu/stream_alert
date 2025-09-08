@@ -118,7 +118,7 @@ class ChatAnalyzer:
         # 재미 키워드 패턴 (한국어 최적화)
         self.fun_patterns = {
         'laugh': re.compile(r'ㅋ{2,}|ㅎ{2,}|하하|캬|푸하|풉|웃겨|개웃|존웃'),
-        'excitement': re.compile(r'!{2,}|?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|와|오|우와|미친|ㅁㅊ|개쩔|쩐다|고고|가즈아'),
+        'excitement': re.compile(r'!{2,}|\?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|와|오|우와|미친|ㅁㅊ|개쩔|쩐다|고고|가즈아'),
         'surprise': re.compile(r'헉|뭣|뭐야|무야|어떻게|진짜|실화|레전드|띠용|충격|놀람|ㄴㅇㅅ|지리네|o0o|O0O|0o0'),
         'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|아니|안돼|제발|부탁|응원'),
         'greeting': re.compile(r'.하|.바|.ㅎ|.ㅂ'),
