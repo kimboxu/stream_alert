@@ -88,11 +88,9 @@ class ChatMessageWithAnalyzer:
                 await asyncio.sleep(self.chat_analyzer.analysis_interval) 
 
                 # 분석 실행
-                result = await self.chat_analyzer.analyze()
+                detailed_log = await self.chat_analyzer.analyze()
 
-                if result:
-                    fun_score, analysis, detailed_log = result
-                    # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 재미도 점수: {fun_score}\n디테일 점수{detailed_log}")
+                # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 디테일 점수{detailed_log}")
                       
             except asyncio.CancelledError:
                 break
@@ -263,9 +261,9 @@ class ChatAnalyzer:
             await self._create_highlight(detailed_log)
 
         # 분석 기록 저장
-        self.analysis_history.append((current_time, analysis, fun_score))
+        self.analysis_history.append((analysis, score_details['final_score']))
 
-        return fun_score, analysis, detailed_log
+        return detailed_log
     
     #재미도 점수 계산
     def _calculate_fun_score(self, analysis: ChatAnalysisData, window_chats: List[Dict]) -> Tuple[float, bool, dict]:
@@ -303,7 +301,7 @@ class ChatAnalyzer:
         # 동적 하이라이트 임계값 계산 - 최근 5분
         history_num = self.history_1min*5
         if len(self.analysis_history) >= history_num:
-            recent_scores = [a[2] for a in list(self.analysis_history)[-history_num:]]
+            recent_scores = [a[1] for a in list(self.analysis_history)[-history_num:]]
             sorted_scores = sorted(recent_scores, reverse=True)
             # 상위 10%를 하이라이트로 설정
             threshold_index = min(floor(len(sorted_scores) * 0.10), len(sorted_scores) - 1)
@@ -338,8 +336,8 @@ class ChatAnalyzer:
         recent_20 = list(self.analysis_history)[-20:]
         
         # 최근 20개 데이터의 평균으로 기준값 업데이트
-        recent_chat_counts = [a[1].message_count for a in recent_20]
-        recent_viewers = [a[1].viewer_count for a in recent_20]
+        recent_chat_counts = [a[0].message_count for a in recent_20]
+        recent_viewers = [a[0].viewer_count for a in recent_20]
         
         # 지수 이동 평균으로 부드럽게 업데이트 (alpha=0.10)
         alpha = 0.10
@@ -435,7 +433,7 @@ class ChatAnalyzer:
             return 0
         
         # 최근 시청자 수 데이터 추출
-        recent_viewers = [a[1].viewer_count for a in list(self.analysis_history)[-history_num:]]  # 최근 20분
+        recent_viewers = [a[0].viewer_count for a in list(self.analysis_history)[-history_num:]]  # 최근 20분
         
         if not recent_viewers or current_viewers <= 0:
             return 0
@@ -444,8 +442,8 @@ class ChatAnalyzer:
         
         # 1. 단기 증가 추세 (최근 10분 vs 이전 10분)
         if len(self.analysis_history) >= history_num:
-            recent_10_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/2):]]) / (history_num/2)
-            previous_10_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num:-int(history_num/2)]]) / (history_num/2)
+            recent_10_avg = sum([a[0].viewer_count for a in list(self.analysis_history)[-int(history_num/2):]]) / (history_num/2)
+            previous_10_avg = sum([a[0].viewer_count for a in list(self.analysis_history)[-history_num:-int(history_num/2)]]) / (history_num/2)
             
             if previous_10_avg > 0:
                 growth_ratio = recent_10_avg / previous_10_avg
@@ -461,7 +459,7 @@ class ChatAnalyzer:
         
         # 2. 즉시 급증 감지 (최근 1분 평균 vs 현재)
         if len(self.analysis_history) >= self.history_1min:
-            recent_1_avg = sum([a[1].viewer_count for a in list(self.analysis_history)[-int(self.history_1min):]]) / (self.history_1min)
+            recent_1_avg = sum([a[0].viewer_count for a in list(self.analysis_history)[-int(self.history_1min):]]) / (self.history_1min)
             
             if recent_1_avg > 0:
                 immediate_ratio = current_viewers / recent_1_avg
@@ -478,11 +476,11 @@ class ChatAnalyzer:
         # 3. 지속적 상승 보너스 (연속으로 증가하는 패턴)
         if len(self.analysis_history) >= history_num:
             splits_5_viewers = []
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-history_num:-int(history_num/5*4)]]) / (history_num/5))
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/5*4):-int(history_num/5*3)]]) / (history_num/5))
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/5*3):-int(history_num/5*2)]]) / (history_num/5))
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/5*2):-int(history_num/5)]]) / (history_num/5))
-            splits_5_viewers.append(sum([a[1].viewer_count for a in list(self.analysis_history)[-int(history_num/5):]]) / int(history_num/5))
+            splits_5_viewers.append(sum([a[0].viewer_count for a in list(self.analysis_history)[-history_num:-int(history_num/5*4)]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[0].viewer_count for a in list(self.analysis_history)[-int(history_num/5*4):-int(history_num/5*3)]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[0].viewer_count for a in list(self.analysis_history)[-int(history_num/5*3):-int(history_num/5*2)]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[0].viewer_count for a in list(self.analysis_history)[-int(history_num/5*2):-int(history_num/5)]]) / (history_num/5))
+            splits_5_viewers.append(sum([a[0].viewer_count for a in list(self.analysis_history)[-int(history_num/5):]]) / int(history_num/5))
 
             increasing_count = 0
             
@@ -532,7 +530,7 @@ class ChatAnalyzer:
         bef_recent_scores = list(self.analysis_history)[-int(self.history_1min*0.5):]
 
         #이전 30초 중 가장 작은 점수와의 차이
-        return fun_score - min(a[2] for a in bef_recent_scores)
+        return fun_score - min(a[1] for a in bef_recent_scores)
 
     #하이라이트 생성
     async def _create_highlight(self, detailed_log: dict) -> None:
