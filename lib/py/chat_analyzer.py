@@ -308,7 +308,7 @@ class ChatAnalyzer:
             dynamic_threshold = sorted_scores[threshold_index]
             threshold = max(min(dynamic_threshold, 80.0), 40.0)
         else:
-            threshold = self.small_fun_threshold  # 기본 임계값
+            threshold = self.small_fun_difference  # 기본 임계값
          
         # 상세 점수 정보
         score_details = {
