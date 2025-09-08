@@ -257,7 +257,7 @@ class ChatAnalyzer:
             self.detailed_logs = self.detailed_logs[-2000:]
 
         # 하이라이트 체크
-        if detailed_log['highlights']:
+        if score_details['highlights']:
             await self._create_highlight(detailed_log)
 
         # 분석 기록 저장
