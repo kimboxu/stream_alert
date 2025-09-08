@@ -306,7 +306,7 @@ class ChatAnalyzer:
             # 상위 10%를 하이라이트로 설정
             threshold_index = min(floor(len(sorted_scores) * 0.10), len(sorted_scores) - 1)
             dynamic_threshold = sorted_scores[threshold_index]
-            threshold = max(min(dynamic_threshold, 80.0), 40.0)
+            threshold = max(min(dynamic_threshold, 80.0), self.small_fun_difference)
         else:
             threshold = self.small_fun_difference  # 기본 임계값
          

@@ -143,7 +143,7 @@ class SessionBasedFunScoreAnalyzer:
         return all_logs
     
     def analyze_session(self, session_logs, date_str):
-        """단일 세션 분석"""
+        """ 세션 분석"""
         if not session_logs:
             return {}
         
@@ -161,11 +161,26 @@ class SessionBasedFunScoreAnalyzer:
         duration_seconds = end_seconds - start_seconds
         duration_hours = duration_seconds / 3600
         
-        # 하이라이트 정보 카운트
+        # 하이라이트 정보
         highlights = sum(1 for log in session_logs 
                         if log.get('score_components', {}).get('highlights', False))
         big_highlights = sum(1 for log in session_logs 
                             if log.get('score_components', {}).get('big_highlights', False))
+        
+        # 동적 임계값 및 점수 차이 통계
+        dynamic_thresholds = []
+        score_differences = []
+        
+        for log in session_logs:
+            score_comp = log.get('score_components', {})
+            if 'threshold' in score_comp:
+                dynamic_thresholds.append(score_comp['threshold'])
+            if 'score_difference' in score_comp:
+                score_differences.append(score_comp['score_difference'])
+        
+        avg_dynamic_threshold = sum(dynamic_thresholds) / len(dynamic_thresholds) if dynamic_thresholds else 50
+        avg_score_difference = sum(score_differences) / len(score_differences) if score_differences else 0
+        max_score_difference = max(score_differences) if score_differences else 0
         
         # 기본 통계
         stats = {
@@ -182,12 +197,15 @@ class SessionBasedFunScoreAnalyzer:
             'highlights': highlights,
             'big_highlights': big_highlights,
             'max_viewers': max([log['analysis_data']['viewer_count'] for log in session_logs]),
-            'avg_viewers': sum([log['analysis_data']['viewer_count'] for log in session_logs]) / len(session_logs)
+            'avg_viewers': sum([log['analysis_data']['viewer_count'] for log in session_logs]) / len(session_logs),
+            
+            # 동적 하이라이트 관련 통계
+            'avg_dynamic_threshold': avg_dynamic_threshold,
+            'avg_score_difference': avg_score_difference,
+            'max_score_difference': max_score_difference,
+            'highlight_rate': highlights / len(scores) * 100,
+            'big_highlight_rate': big_highlights / len(scores) * 100,
         }
-        
-        # 하이라이트 비율
-        stats['highlight_rate'] = stats['highlights'] / len(scores) * 100
-        stats['big_highlight_rate'] = stats['big_highlights'] / len(scores) * 100
         
         return stats
     
@@ -198,48 +216,72 @@ class SessionBasedFunScoreAnalyzer:
         
         try:
             import matplotlib.pyplot as plt
-            import matplotlib.dates as mdates
             import platform
             
             # 한글 폰트 설정
             plt.rcParams['font.family'] = ['DejaVu Sans']
             if platform.system() == 'Windows':
                 plt.rcParams['font.family'] = ['Malgun Gothic', 'DejaVu Sans']
-            elif platform.system() == 'Darwin':  # macOS
+            elif platform.system() == 'Darwin':
                 plt.rcParams['font.family'] = ['AppleGothic', 'DejaVu Sans']
-            else:  # Linux
+            else:
                 plt.rcParams['font.family'] = ['Noto Sans CJK KR', 'DejaVu Sans']
             
             plt.rcParams['axes.unicode_minus'] = False
             
             # 데이터 준비
-            after_open_times = [self.parse_time_string(log['after_openDate']) / 60 for log in session_logs]  # 분 단위
+            after_open_times = [self.parse_time_string(log['after_openDate']) / 60 for log in session_logs]
             scores = [log['fun_score'] for log in session_logs]
             viewer_counts = [log['analysis_data']['viewer_count'] for log in session_logs]
+            
+            # 동적 임계값 데이터
+            dynamic_thresholds = []
+            for log in session_logs:
+                threshold = log.get('score_components', {}).get('threshold', 50)
+                dynamic_thresholds.append(threshold)
             
             # 2개 서브플롯 생성
             fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10))
             
             # 첫 번째 플롯: 재미도 점수
             ax1.plot(after_open_times, scores, 'b-', alpha=0.7, linewidth=1.5, label='재미도 점수')
-            ax1.axhline(y=50, color='orange', linestyle='--', alpha=0.7, label='하이라이트 임계값')
-            ax1.axhline(y=80, color='red', linestyle='--', alpha=0.7, label='대형 하이라이트 임계값')
+            
+            # 동적 임계값 라인
+            ax1.plot(after_open_times, dynamic_thresholds, 'orange', linestyle='-.', alpha=0.8, label='동적 임계값')
+            
+            # 고정 임계값 (참고용)
+            ax1.axhline(y=15, color='lightgray', linestyle=':', alpha=0.5, label='최소 임계값 (15)')
+            ax1.axhline(y=70, color='lightcoral', linestyle=':', alpha=0.5, label='대형 하이라이트 기준 (70점 차이)')
+            
             ax1.fill_between(after_open_times, scores, alpha=0.3)
             
             # 하이라이트 순간 표시
-            highlight_times = [after_open_times[i] for i, s in enumerate(scores) if s >= 50]
-            highlight_scores = [s for s in scores if s >= 50]
-            ax1.scatter(highlight_times, highlight_scores, color='orange', s=30, alpha=0.7, zorder=5)
+            highlight_times = []
+            highlight_scores = []
+            big_highlight_times = []
+            big_highlight_scores = []
             
-            # 대형 하이라이트 순간 표시
-            big_highlight_times = [after_open_times[i] for i, s in enumerate(scores) if s >= 80]
-            big_highlight_scores = [s for s in scores if s >= 80]
-            ax1.scatter(big_highlight_times, big_highlight_scores, color='red', s=50, alpha=0.8, zorder=5)
+            for i, log in enumerate(session_logs):
+                score_comp = log.get('score_components', {})
+                if score_comp.get('highlights', False):
+                    highlight_times.append(after_open_times[i])
+                    highlight_scores.append(scores[i])
+                if score_comp.get('big_highlights', False):
+                    big_highlight_times.append(after_open_times[i])
+                    big_highlight_scores.append(scores[i])
+            
+            if highlight_times:
+                ax1.scatter(highlight_times, highlight_scores, color='orange', s=30, alpha=0.7, 
+                        zorder=5, label=f'하이라이트 ({len(highlight_times)}개)')
+            
+            if big_highlight_times:
+                ax1.scatter(big_highlight_times, big_highlight_scores, color='red', s=50, alpha=0.8, 
+                        zorder=5, label=f'대형 하이라이트 ({len(big_highlight_times)}개)')
             
             ax1.set_title(f'재미도 점수 변화 - ({session_stats["date_str"]})\n'
-                         f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
-                         f'{session_stats["duration_hours"]:.1f}시간)')
-            ax1.set_xlabel('방송 시작 후 시간 (단위: 분)')
+                        f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
+                        f'{session_stats["duration_hours"]:.1f}시간, 평균 임계값: {session_stats.get("avg_dynamic_threshold", 50):.1f})')
+            ax1.set_xlabel('방송 시작 후 시간 (분)')
             ax1.set_ylabel('재미도 점수')
             ax1.legend()
             ax1.grid(True, alpha=0.3)
@@ -247,7 +289,7 @@ class SessionBasedFunScoreAnalyzer:
             # 두 번째 플롯: 시청자 수
             ax2.plot(after_open_times, viewer_counts, 'g-', alpha=0.7, linewidth=1.5, label='시청자 수')
             ax2.fill_between(after_open_times, viewer_counts, alpha=0.3, color='green')
-            ax2.set_xlabel('방송 시작 후 시간 (단위: 분)')
+            ax2.set_xlabel('방송 시작 후 시간 (분)')
             ax2.set_ylabel('시청자 수')
             ax2.legend()
             ax2.grid(True, alpha=0.3)
@@ -258,7 +300,6 @@ class SessionBasedFunScoreAnalyzer:
                 start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
                 filename = f"{self.channel_name}_{start_date}_plot.png"
                 
-                # plots 디렉토리에 저장
                 plot_path = self.plots_dir / filename
                 plt.savefig(plot_path, dpi=150, bbox_inches='tight')
                 print(f"📈 세션 그래프 저장: {plot_path}")
@@ -269,7 +310,7 @@ class SessionBasedFunScoreAnalyzer:
             print("⚠️  matplotlib가 설치되지 않아 그래프를 생성할 수 없습니다.")
     
     def export_session_to_csv(self, session_logs, session_stats):
-        """세션 데이터를 CSV로 내보내기"""
+        """ 데이터를 CSV 내보내기"""
         if not session_logs:
             return None
         
@@ -292,14 +333,16 @@ class SessionBasedFunScoreAnalyzer:
                     'diversity_score': score_components.get('diversity_score', 0),
                     'viewer_trend_score': score_components.get('viewer_trend_score', 0),
                     'final_score': score_components.get('final_score', 0),
-                    'threshold': score_components.get('threshold', 50),
+                    
+                    # 동적 하이라이트 정보
+                    'dynamic_threshold': score_components.get('threshold', 50),
+                    'score_difference': score_components.get('score_difference', 0),
                     'baseline_chat_count': score_components.get('baseline_chat_count', 0),
                     'baseline_viewer_count': score_components.get('baseline_viewer_count', 0),
                     
                     # 하이라이트 정보
                     'is_highlight': score_components.get('highlights', False),
                     'is_big_highlight': score_components.get('big_highlights', False),
-                    'score_difference': score_components.get('score_difference', 0),
                     
                     # 키워드 데이터
                     'laugh_count': log['analysis_data'].get('fun_keywords', {}).get('laugh', 0),
@@ -309,7 +352,7 @@ class SessionBasedFunScoreAnalyzer:
                     
                     # 추가 정보
                     'total_keywords': sum(log['analysis_data'].get('fun_keywords', {}).values()),
-                    'chat_context_sample': str(log.get('chat_context', [])[:10])
+                    'chat_context_sample': str(log.get('chat_context', [])[:3])
                 }
             except Exception as e:
                 print(f"데이터 처리 오류: {e}")
