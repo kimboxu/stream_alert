@@ -286,7 +286,7 @@ class ChatAnalyzer:
         # 3. 다양성 점수 (10% 가중치) - 최대 100점
         diversity_score = self._calculate_diversity_score(window_chats)
 
-        # 5. 시청자 급증 점수 (15% 가중치) - 최대 100점
+        # 4. 시청자 급증 점수 (15% 가중치) - 최대 100점
         viewer_trend_score = self._calculate_viewer_trend_score(analysis)
 
         final_score = (
@@ -509,6 +509,9 @@ class ChatAnalyzer:
         if len(self.analysis_history) < int(self.history_1min*0.5):
             return True
         
+        if not len(self.highlights):
+            return True
+        
         last_highlight = self.highlights[-1]
         
         time_diff = (datetime.now() - last_highlight.timestamp).total_seconds()
@@ -518,10 +521,10 @@ class ChatAnalyzer:
             return False
 
         #이전 30초 중 가장 작은 점수가 15점 이상 높아진 경우
-        if self.get_score_difference(fun_score) > self.small_fun_difference:
-            return True
+        if self.get_score_difference(fun_score) < self.small_fun_difference:
+            return False
 
-        return False
+        return True
     
     def get_score_difference(self, fun_score):
         if len(self.analysis_history) < int(self.history_1min*0.5):
