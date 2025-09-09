@@ -628,6 +628,8 @@ async def userDataVar(init: initVar):
 
 	except Exception as e:
 		error_details = f"Error in userDataVar: {str(e)}"
+		if "Server disconnected" in str(e):
+			return 
 		if hasattr(e, 'response'):
 			error_details += f"\nResponse: {e.response.text}"
 		
