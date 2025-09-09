@@ -197,7 +197,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # 연결 종료 여부 확인 함수
         async def should_close_connection():
             if (is_close:= self.check_live_state_close()):
-                await self.save_detailed_logs_to_file()
+                await self.should_offLine()
 
             return (is_close and if_after_time(self.data.last_chat_time) 
                     or self.init.chat_json[self.data.channel_id])
