@@ -592,7 +592,7 @@ class ChatAnalyzer:
         if analysis.fun_keywords.get('surprise', 0) >= analysis.message_count/3:
             reasons.append("😱 놀라운 순간")
         if score_details['chat_spike_score'] >= 50:
-            reasons.append("💬 채팅 폭발")
+            reasons.append("💬 채팅량 폭증")
         if score_details['final_score'] >= 80:
             reasons.append("🏆 레전드 순간")
 
