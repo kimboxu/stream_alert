@@ -38,6 +38,8 @@ class chzzk_video:
         self.userStateData = init_var.userStateData  # 사용자 상태 데이터
         self.chzzk_id = chzzk_id  # 현재 처리할 치지직 채널 ID
         self.time_offset = 30
+        self.small_fun_difference = 50
+        self.big_fun_difference = 70
         self.data = ChzzkVOD_Data()
 
     async def start(self):
@@ -269,6 +271,7 @@ class chzzk_video:
             time_str = comment.get('after_openDate', '')
             text = comment.get('text', '')
             description = comment.get('description', '')
+            score_difference = comment.get('score_difference', '')
             
             if not time_str or not description:
                 continue
@@ -279,7 +282,12 @@ class chzzk_video:
                 continue
                 
             # 댓글 라인 생성: **HH:MM:SS**- 내용
-            comment_line = f"**{formatted_time}**- {description}"
+            if score_difference > self.small_fun_difference:
+                description = f"*{description}"
+            if score_difference > self.big_fun_difference:
+                description = f"*{description}"
+
+            comment_line = f"{formatted_time}- {description}"
             comment_lines.append(comment_line)
         
         if not comment_lines:

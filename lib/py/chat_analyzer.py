@@ -541,7 +541,7 @@ class ChatAnalyzer:
     
     def get_score_difference(self, fun_score):
         if len(self.analysis_history) < int(self.history_1min*0.5):
-            return self.big_fun_difference
+            return 0
         
         bef_recent_scores = list(self.analysis_history)[-int(self.history_1min*0.5):]
 
@@ -633,8 +633,11 @@ class ChatAnalyzer:
             thumbnail_url = self.init.stream_status[highlight.channel_id].thumbnail_url
             platform_name= self.init.stream_status[highlight.channel_id].platform_name
 
-            image_url = upload_image_to_imgur(self.init.stream_status[highlight.channel_id], highlight.channel_id, thumbnail_url, platform_prefix = platform_name)
-            # image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
+            if self.init.DO_TEST: 
+                image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
+            else:
+                image_url = upload_image_to_imgur(self.init.stream_status[highlight.channel_id], highlight.channel_id, thumbnail_url, platform_prefix = platform_name)
+            
  
             timeline_comments = await self._make_highlight_chat([highlight])
         
@@ -801,5 +804,5 @@ class ChatAnalyzer:
                 
         print(f"{datetime.now()} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
         for comment in timeline_comments:
-            if 'after_openDate' in comment and 'text' in comment and 'description' in comment:
-                print(f"**{comment['after_openDate']}** {comment['text']}** {comment['description']}")
+            if 'after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'description' in comment:
+                print(f"**{comment['after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['description']}")
