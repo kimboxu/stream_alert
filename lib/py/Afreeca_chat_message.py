@@ -103,7 +103,6 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             
             try:    
                 await self._connect_and_run()   # 웹소켓 연결 및 메시지 처리 실행
-                await self.start_analyzer()     # 분석기 시작
             except Exception as e:
                 # 오류 발생 시 로그 기록
                 await log_error(f"error in chat manager afreeca", e)
@@ -125,6 +124,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             # 채팅 채널에 연결
             await self.connect()
             message_queue = asyncio.Queue()
+            await self.start_analyzer()     # 분석기 시작
 
             # 핑, 메시지 수신, 메시지 디코딩 태스크 생성 및 실행
             self.tasks = [
