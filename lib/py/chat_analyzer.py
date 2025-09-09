@@ -802,5 +802,5 @@ class ChatAnalyzer:
                 
         print(f"{datetime.now()} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
         for comment in timeline_comments:
-            if 'after_openDate' in comment and 'text' in comment:
-                print(f"**{comment['after_openDate']}** {comment['text']}")
+            if 'after_openDate' in comment and 'text' in comment and 'description' in comment:
+                print(f"**{comment['after_openDate']}** {comment['text']}** {comment['description']}")
