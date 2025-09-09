@@ -2,6 +2,9 @@ import asyncio
 import re
 import json
 import statistics
+from requests import get
+from io import BytesIO
+from PIL import Image
 from math import exp, floor
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
@@ -38,6 +41,7 @@ class StreamHighlight:
     after_openDate: datetime
     score_details: dict
     analysis_data: dict
+    image: str = ""
 
 class ChatMessageWithAnalyzer:
     def setup_analyzer(self, channel_id: str, channel_name: str):
@@ -547,7 +551,9 @@ class ChatAnalyzer:
 
     #하이라이트 생성
     async def _create_highlight(self, detailed_log: dict) -> None:
-
+        thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
+        response = get(thumbnail_url)
+        image = Image.open(BytesIO(response.content))
 
         highlight = StreamHighlight(
             timestamp=detailed_log['timestamp'],
@@ -559,11 +565,12 @@ class ChatAnalyzer:
             duration=self.window_size,
             after_openDate=detailed_log['after_openDate'],
             score_details=detailed_log['score_components'],
+            image=image,
             analysis_data = {
                 'message_count': detailed_log['analysis_data']['message_count'],
                 'viewer_count': detailed_log['analysis_data']['viewer_count'],
                 'fun_keywords': detailed_log['analysis_data']['fun_keywords'],
-            }
+            },
         )
 
         self.highlights.append(highlight)
@@ -572,7 +579,7 @@ class ChatAnalyzer:
             await self._save_highlight_to_db(highlight)
 
         # 큰 재미인 경우 즉시 알림
-        if detailed_log['score_components']['big_highlights']:
+        if detailed_log['score_components']['big_highlights'] or self.init.DO_TEST:
             await self._send_notification(highlight)
 
     #하이라이트 이유 생성
@@ -620,17 +627,19 @@ class ChatAnalyzer:
     #알림 전송
     async def _send_notification(self, highlight: StreamHighlight):
         try:
-            timeline_comments = await self._make_highlight_chat([highlight])
-            description = timeline_comments.get("text", "")
-
             message = "🎉 하이라이트"
             channel_name = self.channel_name
             channel_color = self.init.stream_status[highlight.channel_id].id_list.loc[highlight.channel_id, 'channel_color']
 
             thumbnail_url = self.init.stream_status[highlight.channel_id].thumbnail_url
             platform_name= self.init.stream_status[highlight.channel_id].platform_name
+
             # image_url = upload_image_to_imgur(self.init.stream_status[highlight.channel_id], highlight.channel_id, thumbnail_url, platform_prefix = platform_name)
             image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
+ 
+            timeline_comments = await self._make_highlight_chat([highlight])
+            text = timeline_comments.get("text", "")
+            description = timeline_comments.get("description", "")
 
             # 알림 JSON 생성
             json_data = {"username": channel_name, 
@@ -642,7 +651,7 @@ class ChatAnalyzer:
                         {"name": ':busts_in_silhouette: 시청자수',
                         "value": self.init.stream_status[highlight.channel_id].view_count, "inline": True}
                         ],
-                    "title": f"{channel_name} {message} \n재미도: {highlight.fun_score:.0f}/100\n",
+                    "title": f"{channel_name} {message}: {text} \n재미도: {highlight.fun_score:.0f}/100\n",
                     "description": description,
                 "url": self.init.stream_status[highlight.channel_id].channel_url,
                 "image": {"url": image_url},
@@ -700,20 +709,24 @@ class ChatAnalyzer:
                 print(f"❌ 주기적 로그 저장 오류: {e}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
-    async def _make_highlight_chat(self, highlights):
+    async def _make_highlight_chat(self, highlights: list[StreamHighlight]):
         if not highlights:
-            return
+            return []
+        
         highlight_data  = []
-        for highlight in highlights:
+        images_with_labels = []  # 라벨이 있는 이미지들
+        for i, highlight in enumerate(highlights):
             try:
                 analysis_data = highlight.analysis_data
                 fun_keywords = analysis_data.get('fun_keywords', {})
                 score_details = highlight.score_details
 
-                highlight_data.append({ "재미도 점수"       :   highlight.fun_score,
+                highlight_data.append({ "하이라이트_ID"     :   f"HIGHLIGHT_{i+1}",  # 고유 식별자
+                                        "재미도 점수"       :   highlight.fun_score,
                                         "하이라이트 이유"   :   highlight.reason,
                                         "최근 채팅"         :   highlight.chat_context,
                                         "방송 켜진 시간"    :   highlight.after_openDate,
+                                        "방송 썸네일"       :   f"이미지_{i+1}",  # 이미지 순서 표시
                                         "메시지 갯수"       :   analysis_data['message_count'],
                                         "시청자 수"         :   analysis_data['viewer_count'],
                                         "웃음 키워드 수"    :   fun_keywords.get('laugh',0),
@@ -731,39 +744,60 @@ class ChatAnalyzer:
                                         "큰 하이라이트 여부":   score_details['big_highlights'],
                                         "재미도 점수 차이"  :   score_details['score_difference'],
                 })
+
+                # 이미지에 라벨 추가하여 수집
+                images_with_labels.append(highlight.image)
+
             except Exception as e:
-                print(f"하이라이트 데이터 처리 오류: {e}")
+                print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
                 continue
 
         try:
-            prompt = f"다음 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요:\n{json.dumps(highlight_data, ensure_ascii=False, indent=2)}"
-            
-            response = self.init.model.generate_content(prompt)
+            # 명확한 이미지 매핑 지시사항 포함
+            prompt = f"""다음 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
 
-            # JSON 파싱 시도
+                중요: 각 하이라이트의 "방송 썸네일" 필드에 표시된 이미지 번호와 제공된 이미지 순서가 일치합니다.
+                - 첫 번째 이미지는 "이미지_1"에 해당
+                - 두 번째 이미지는 "이미지_2"에 해당
+                - 이런 식으로 순서대로 매핑됩니다.
+
+                각 하이라이트의 "하이라이트_ID"를 참조하여 해당하는 이미지를 분석해주세요.
+
+                분석 데이터:
+                {json.dumps(highlight_data, ensure_ascii=False, indent=2)}"""
+            
+            # 프롬프트와 모든 이미지를 순서대로 전송
+            msg_list = [prompt] + images_with_labels
+            
+            print(f"{datetime.now()} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
+
+            response = self.init.model.generate_content(msg_list)
+
+            # JSON 파싱
             try:
                 timeline_comments = json.loads(response.text)
-                 # 유효성 검사
                 if isinstance(timeline_comments, list):
                     # 시간순으로 정렬
-                    timeline_comments.sort(key=lambda x: x['after_openDate'])
-
+                    timeline_comments.sort(key=lambda x: x.get('after_openDate', ''))
+                    print(f"배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
                     return timeline_comments
                 
                 else:
                     raise ValueError("응답이 리스트 형태가 아닙니다")
 
             except (json.JSONDecodeError, ValueError, KeyError) as e:
-                print(f"JSON 파싱 오류: {e}")
-                print(f"응답 내용: {response.text[:500]}...")
-                
+                print(f"{datetime.now()} JSON 파싱 오류: {e}")
+                print(f"{datetime.now()} 응답 내용: {response.text[:500]}...")
+                return []
+                        
         except Exception as e:
-            await log_error(f"타임라인 댓글 생성 오류: {e}")
+            await log_error(f"{datetime.now()}타임라인 댓글 생성 오류: {e}")
+            return []
 
     def update_highlight_chat(self, timeline_comments):
         self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.extend(timeline_comments)
                 
-        print(f"타임라인 댓글 생성 완료: {len(timeline_comments)}개")
+        print(f"{datetime.now()} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
         for comment in timeline_comments:
             if 'after_openDate' in comment and 'text' in comment:
                 print(f"**{comment['after_openDate']}** {comment['text']}")
