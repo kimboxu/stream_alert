@@ -101,9 +101,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 await asyncio.sleep(5)
                 continue
             
-            try:
-                await self.start_analyzer()     # 분석기 시작
+            try:    
                 await self._connect_and_run()   # 웹소켓 연결 및 메시지 처리 실행
+                await self.start_analyzer()     # 분석기 시작
             except Exception as e:
                 # 오류 발생 시 로그 기록
                 await log_error(f"error in chat manager afreeca", e)

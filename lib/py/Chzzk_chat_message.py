@@ -62,8 +62,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 continue
             
             try:
-                await self.start_analyzer()     # 분석기 시작
                 await self._connect_and_run()   # 연결 및 실행
+                await self.start_analyzer()     # 분석기 시작
             except Exception as e:
                 await log_error(f"error in chat manager: {e}")
                 await change_chat_join_state(self.init.chat_json, self.data.channel_id)
