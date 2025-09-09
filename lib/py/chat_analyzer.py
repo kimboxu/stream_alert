@@ -77,8 +77,8 @@ class ChatMessageWithAnalyzer:
         except asyncio.CancelledError:
             pass
         
-
-        await self.chat_analyzer._make_highlight_chat()
+        timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
+        self.chat_analyzer.update_highlight_chat(timeline_comments)
 
     async def save_detailed_logs_to_file(self):
         # 로그 저장
@@ -620,6 +620,8 @@ class ChatAnalyzer:
     #알림 전송
     async def _send_notification(self, highlight: StreamHighlight):
         try:
+            timeline_comments = await self._make_highlight_chat([highlight])
+            description = timeline_comments.get("text", "")
 
             message = "🎉 하이라이트"
             channel_name = self.channel_name
@@ -641,6 +643,7 @@ class ChatAnalyzer:
                         "value": self.init.stream_status[highlight.channel_id].view_count, "inline": True}
                         ],
                     "title": f"{channel_name} {message} \n재미도: {highlight.fun_score:.0f}/100\n",
+                    "description": description,
                 "url": self.init.stream_status[highlight.channel_id].channel_url,
                 "image": {"url": image_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
@@ -697,11 +700,11 @@ class ChatAnalyzer:
                 print(f"❌ 주기적 로그 저장 오류: {e}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
-    async def _make_highlight_chat(self):
-        if not self.highlights:
+    async def _make_highlight_chat(self, highlights):
+        if not highlights:
             return
         highlight_data  = []
-        for highlight in self.highlights:
+        for highlight in highlights:
             try:
                 analysis_data = highlight.analysis_data
                 fun_keywords = analysis_data.get('fun_keywords', {})
@@ -737,7 +740,6 @@ class ChatAnalyzer:
             
             response = self.init.model.generate_content(prompt)
 
-
             # JSON 파싱 시도
             try:
                 timeline_comments = json.loads(response.text)
@@ -745,20 +747,23 @@ class ChatAnalyzer:
                 if isinstance(timeline_comments, list):
                     # 시간순으로 정렬
                     timeline_comments.sort(key=lambda x: x['after_openDate'])
-                    self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.extend(timeline_comments)
+
+                    return timeline_comments
                 
-                    print(f"타임라인 댓글 생성 완료: {len(timeline_comments)}개")
-                    for comment in timeline_comments:
-                        if 'after_openDate' in comment and 'text' in comment:
-                            print(f"**{comment['after_openDate']}** {comment['text']}")
                 else:
                     raise ValueError("응답이 리스트 형태가 아닙니다")
 
             except (json.JSONDecodeError, ValueError, KeyError) as e:
                 print(f"JSON 파싱 오류: {e}")
                 print(f"응답 내용: {response.text[:500]}...")
-                self.init.highlight_chat[self.channel_id][self.stream_start_id] = []
                 
         except Exception as e:
             await log_error(f"타임라인 댓글 생성 오류: {e}")
-            self.init.highlight_chat[self.channel_id][self.stream_start_id] = []
+
+    def update_highlight_chat(self, timeline_comments):
+        self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.extend(timeline_comments)
+                
+        print(f"타임라인 댓글 생성 완료: {len(timeline_comments)}개")
+        for comment in timeline_comments:
+            if 'after_openDate' in comment and 'text' in comment:
+                print(f"**{comment['after_openDate']}** {comment['text']}")
