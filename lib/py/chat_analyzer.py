@@ -80,16 +80,15 @@ class ChatMessageWithAnalyzer:
             await self.log_save_task
         except asyncio.CancelledError:
             pass
-        
-        timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
-        self.chat_analyzer.update_highlight_chat(timeline_comments)
 
-    async def save_detailed_logs_to_file(self):
+    async def should_offLine(self):
         # 로그 저장
         if not self.is_save_log:
             self.is_save_log = True
             await self.chat_analyzer.save_detailed_logs_to_file(force_save=True)
             print(f"로그 저장 완료: {self.chat_analyzer.channel_name}")
+            timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
+            self.chat_analyzer.update_highlight_chat(timeline_comments)
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
