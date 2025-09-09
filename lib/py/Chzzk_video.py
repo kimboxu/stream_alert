@@ -132,6 +132,8 @@ class chzzk_video:
             asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
 
             highlight_chat = None
+            print(f"self.init.highlight_chat[self.chzzk_id],{self.init.highlight_chat[self.chzzk_id]}")
+            print(f"self.data,{self.data}")
             # 다시보기에 하이라이트 댓글 달기
             for stream_start_id in self.init.highlight_chat[self.chzzk_id]:
                 highlight_chat_data = self.init.highlight_chat[self.chzzk_id][stream_start_id]
