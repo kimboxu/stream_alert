@@ -94,6 +94,8 @@ class base_live_message:
         state_update_time = self.title_data.loc[self.channel_id, 'state_update_time']
         self.data = LiveData(state_update_time = state_update_time, id_list = self.id_list, platform_name = platform_name)
 
+        self.stream_start_id = get_stream_start_id(self.channel_id, self.data.start_at["openDate"])
+
         if not init_var.stream_status.get(channel_id):
             init_var.stream_status[channel_id] = self.data
 
@@ -218,11 +220,17 @@ class base_live_message:
         self.title_data.loc[self.channel_id,'title1'] = self.data.title
 
     def record_title(self, message):
-        if message == "방제 변경":
-            after_openDate = datetime.now() - datetime.fromisoformat(self.data.start_at["openDate"])
-            after_openDate = str(after_openDate).split('.')[0]
-            self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.append({"after_openDate": after_openDate, "text":f"방제 변경: {self.data.title}"})
-            self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
+        try:
+            if message == "방제 변경" and self.data.live in ["OPEN", 1]:      
+                after_openDate = datetime.now() - datetime.fromisoformat(self.data.start_at["openDate"])
+                after_openDate = str(after_openDate).split('.')[0]
+                self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.append({
+                    "after_openDate": after_openDate, 
+                    "text": f"방제 변경: {self.data.title}"
+                })
+                self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
+        except Exception as e:
+            asyncio.create_task(log_error(f"error record_title, {e}, highlight_chat:{self.init.highlight_chat[self.channel_id]}"))
 
     #방송 시작 시간 업데이트
     def onLineTime(self, message):
