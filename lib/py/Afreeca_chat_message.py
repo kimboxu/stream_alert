@@ -196,7 +196,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     async def _receive_messages(self, message_queue: asyncio.Queue):
         # 연결 종료 여부 확인 함수
         async def should_close_connection():
-            return (self.check_live_state_close() and if_after_time(self.data.last_chat_time) 
+            return (self.check_live_state_close() and if_after_time(self.data.last_chat_time, sec=30) 
                     or self.init.chat_json[self.data.channel_id])
         
         # 메시지 버퍼링을 위한 변수들

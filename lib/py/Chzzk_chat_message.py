@@ -111,7 +111,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            return ((self.check_live_state_close() and if_after_time(self.data.last_chat_time)) 
+            return ((self.check_live_state_close() and if_after_time(self.data.last_chat_time, sec=30)) 
                     or self.init.chat_json[self.data.channel_id])
         json_loads = loads
         message_buffer = []
