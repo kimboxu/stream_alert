@@ -131,7 +131,7 @@ class ChatAnalyzer:
         'excitement': re.compile(r'!{2,}|\?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|와|오|우와|미친|ㅁㅊ|개쩔|쩐다|고고|가즈아'),
         'surprise': re.compile(r'헉|뭣|뭐야|무야|어떻게|진짜|실화|레전드|띠용|충격|놀람|ㄴㅇㅅ|지리네|o0o|O0O|0o0'),
         'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|ㅎㅇㅌ|앗|아악|아니|안돼|제발|부탁|응원'),
-        'greeting': re.compile(r'.하|.바|.ㅎ|.ㅂ|ㅎㅇ|안녕|반갑|'),
+        'greeting': re.compile(r'.하|.바|.ㅎ|.ㅂ|ㅎㅇ|안녕|반갑'),
         }
 
         # 가중 평균으로 최종 점수
