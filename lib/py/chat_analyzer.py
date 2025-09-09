@@ -633,8 +633,8 @@ class ChatAnalyzer:
             thumbnail_url = self.init.stream_status[highlight.channel_id].thumbnail_url
             platform_name= self.init.stream_status[highlight.channel_id].platform_name
 
-            # image_url = upload_image_to_imgur(self.init.stream_status[highlight.channel_id], highlight.channel_id, thumbnail_url, platform_prefix = platform_name)
-            image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
+            image_url = upload_image_to_imgur(self.init.stream_status[highlight.channel_id], highlight.channel_id, thumbnail_url, platform_prefix = platform_name)
+            # image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
  
             timeline_comments = await self._make_highlight_chat([highlight])
         
