@@ -643,8 +643,6 @@ class ChatAnalyzer:
             
             # 알림 전송
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
-            # if self.init.DO_TEST: 
-            list_of_urls.append(environ['highlightURL'])
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
             asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
             
