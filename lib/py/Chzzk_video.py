@@ -14,6 +14,7 @@ from base import (
     log_error,
     getChzzkCookie,
     getDefaultHeaders,
+    calculate_stream_duration,
 )
 
 @dataclass
@@ -133,9 +134,27 @@ class chzzk_video:
             highlight_chat = None
             # 다시보기에 하이라이트 댓글 달기
             for stream_start_id in self.init.highlight_chat[self.chzzk_id]:
-                stream_end_id = self.init.highlight_chat[self.chzzk_id][stream_start_id].stream_end_id
-                if abs(int(self.data.duration - (stream_end_id - stream_start_id))) < 60 and self.init.highlight_chat[self.chzzk_id][stream_start_id].last_title == self.data.videoTitle:
-                    highlight_chat = self.init.highlight_chat[self.chzzk_id].pop(stream_start_id, [])
+                highlight_chat_data = self.init.highlight_chat[self.chzzk_id][stream_start_id]
+                
+                # stream_end_id가 설정되어 있는지 확인
+                if not hasattr(highlight_chat_data, 'stream_end_id') or not highlight_chat_data.stream_end_id:
+                    continue
+                    
+                try:
+                    # 방송 지속시간 계산
+                    broadcast_duration = calculate_stream_duration(stream_start_id, highlight_chat_data.stream_end_id)
+                    
+                    # VOD 길이와 방송 시간 차이가 60초 이내이고 제목이 일치하는지 확인
+                    duration_diff = abs(self.data.duration - broadcast_duration)
+                    title_matches = highlight_chat_data.last_title == self.data.videoTitle
+                    
+                    if duration_diff < 60 and title_matches:
+                        highlight_chat = self.init.highlight_chat[self.chzzk_id].pop(stream_start_id, None)
+                        break
+                        
+                except ValueError as e:
+                    asyncio.create_task(log_error(f"방송 지속시간 계산 오류: {e}, broadcast_duration:{broadcast_duration}"))
+                    continue
 
             if highlight_chat:
                 # 하이라이트 메시지들을 여러 댓글로 분할
