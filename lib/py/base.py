@@ -840,6 +840,31 @@ def get_stream_start_id(channel_id: str, start_time: str) -> str:
 	timestamp = datetime.fromisoformat(start_time.replace('Z', '+00:00'))
 	return f"{channel_id}_{timestamp.strftime('%Y%m%d_%H%M%S')}"
 
+#스트림 ID에서 타임스탬프 추출
+def get_timestamp_from_stream_id(stream_id: str) -> datetime:
+    try:
+        # stream_id 형식: "channelID_YYYYMMDD_HHMMSS"
+        parts = stream_id.split('_')
+        if len(parts) >= 3:
+            date_part = parts[-2]  # YYYYMMDD
+            time_part = parts[-1]  # HHMMSS
+            time_str = f"{date_part}_{time_part}"
+            return datetime.strptime(time_str, '%Y%m%d_%H%M%S')
+        else:
+            raise ValueError(f"Invalid stream_id format: {stream_id}")
+    except (ValueError, IndexError) as e:
+        raise ValueError(f"Cannot parse timestamp from stream_id '{stream_id}': {e}")
+
+#두 스트림 ID 사이의 시간 차이를 초 단위로 계산
+def calculate_stream_duration(start_stream_id: str, end_stream_id: str) -> float:
+    try:
+        start_time = get_timestamp_from_stream_id(start_stream_id)
+        end_time = get_timestamp_from_stream_id(end_stream_id)
+        return (end_time - start_time).total_seconds()
+    except ValueError as e:
+        print(f"스트림 지속시간 계산 오류: {e}")
+        return 0.0
+
 # 치지직 API URL 생성 함수
 def chzzk_getLink(uid: str): 
 	return f"https://api.chzzk.naver.com/service/v2/channels/{uid}/live-detail"
