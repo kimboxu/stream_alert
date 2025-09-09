@@ -267,8 +267,9 @@ class chzzk_video:
         for comment in timeline_comments:
             time_str = comment.get('after_openDate', '')
             text = comment.get('text', '')
+            description = comment.get('description', '')
             
-            if not time_str or not text:
+            if not time_str or not description:
                 continue
                 
             # 시간 형식 정리 (HH:MM:SS 형식으로 통일)
@@ -277,7 +278,7 @@ class chzzk_video:
                 continue
                 
             # 댓글 라인 생성: **HH:MM:SS**- 내용
-            comment_line = f"**{formatted_time}**- {text}"
+            comment_line = f"**{formatted_time}**- {description}"
             comment_lines.append(comment_line)
         
         if not comment_lines:
