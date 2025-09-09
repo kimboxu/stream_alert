@@ -218,6 +218,7 @@ class base_live_message:
             self.title_data.loc[self.channel_id, 'live_state'] = "OPEN"
         self.title_data.loc[self.channel_id,'title2'] = self._get_title()
         self.title_data.loc[self.channel_id,'title1'] = self.data.title
+        self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
 
     def record_title(self, message):
         try:
@@ -228,7 +229,6 @@ class base_live_message:
                     "after_openDate": after_openDate, 
                     "text": f"방제 변경: {self.data.title}"
                 })
-                self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
         except Exception as e:
             asyncio.create_task(log_error(f"error record_title, {e}, highlight_chat:{self.init.highlight_chat[self.channel_id]}"))
 

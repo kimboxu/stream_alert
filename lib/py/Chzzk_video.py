@@ -176,7 +176,7 @@ class chzzk_video:
     # 치지직 비디오 웹훅 JSON 데이터 생성 함수
     def getChzzk_video_json(self):
         # 제목 포맷팅
-        self.data.videoTitle = "|" + (self.data.videoTitle if self.data.videoTitle != " " else "                                                  ") + "|"
+        videoTitle = "|" + (self.data.videoTitle if self.data.videoTitle != " " else "                                                  ") + "|"
         
         # 채널 정보 가져오기
         channel_data = self.chzzkIDList.loc[self.chzzk_id]
@@ -192,7 +192,7 @@ class chzzk_video:
                 "url": video_url,
                 "icon_url": avatar_url
             },
-            "title": self.data.videoTitle,
+            "title": videoTitle,
             "url": f"https://chzzk.naver.com/video/{self.data.videoNo}",
             "description": f"{username} 치지직 영상 업로드!",
             "fields": [
