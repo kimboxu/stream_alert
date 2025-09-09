@@ -37,6 +37,7 @@ class chzzk_video:
         self.chzzk_video = init_var.chzzk_video  # 치지직 비디오 데이터
         self.userStateData = init_var.userStateData  # 사용자 상태 데이터
         self.chzzk_id = chzzk_id  # 현재 처리할 치지직 채널 ID
+        self.time_offset = 30
         self.data = ChzzkVOD_Data()
 
     async def start(self):
@@ -297,17 +298,24 @@ class chzzk_video:
         try:
             parts = time_str.strip().split(':')
             
+            # 총 초 계산
             if len(parts) == 2:
-                # 00:MM:SS
-                minutes, seconds = parts
-                return f"00:{int(minutes):02d}:{seconds.zfill(2)}"
-                
+                minutes, seconds = map(int, parts)
+                total_seconds = minutes * 60 + seconds
             elif len(parts) == 3:
-                # HH:MM:SS 형식
-                hours, minutes, seconds = parts
-                return f"{int(hours):02d}:{int(minutes):02d}:{seconds.zfill(2)}"
+                hours, minutes, seconds = map(int, parts)
+                total_seconds = hours * 3600 + minutes * 60 + seconds
+            else:
+                return ""
             
-            return ""
+            # 오프셋 적용 (음수 방지)
+            adjusted_seconds = max(0, total_seconds - self.time_offset)
+            
+            # 시:분:초로 변환
+            h, remainder = divmod(adjusted_seconds, 3600)
+            m, s = divmod(remainder, 60)
+            
+            return f"{h:02d}:{m:02d}:{s:02d}"
             
         except (ValueError, IndexError):
             return ""
