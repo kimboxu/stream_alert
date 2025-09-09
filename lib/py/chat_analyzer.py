@@ -651,15 +651,16 @@ class ChatAnalyzer:
                     "fields": [
                         {"name": "방제", "value": self.init.stream_status[highlight.channel_id].title, "inline": True},
                         {"name": ':busts_in_silhouette: 시청자수',
-                        "value": self.init.stream_status[highlight.channel_id].view_count, "inline": True}
+                        "value": self.init.stream_status[highlight.channel_id].view_count, "inline": True},
+                        {"name": 'Description', "value": description}
                         ],
-                    "title": f"{channel_name} {message}: {text} \n재미도: {highlight.fun_score:.0f}/100\n",
-                    "description": description,
+                    "title": f"{channel_name} {message}: 재미도: {highlight.fun_score:.0f}/100\n",
+                    # "description": description,
                 "url": self.init.stream_status[highlight.channel_id].channel_url,
                 "image": {"url": image_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
                 "timestamp": changeUTCtime(highlight.timestamp)}]}
-            
+            print(json_data)
             # 알림 전송
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
