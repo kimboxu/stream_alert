@@ -93,13 +93,12 @@ class initVar:
 
 	stream_status = {}
 	highlight_chat = {}
-	model = genai.GenerativeModel('gemini-2.0-flash')
 	system_instruction = '''
 		방송 하이라이트 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
 
 		응답 형식:
 		[
-		{"after_openDate": "시간", "text": "댓글 내용"}
+		{"after_openDate": "시간", "text": "댓글 내용", "description": "방송 썸네일을 포함한 상세 분석 댓글"}
 		]
 
 		분석 우선순위:
@@ -118,12 +117,18 @@ class initVar:
 		- 채팅 급증 점수 > 리액션 점수 → 사건/상황 중심
 		- 시청자 급증 있음 → 주목받는 순간
 		3. "큰 하이라이트 여부"가 true면 더 임팩트 있게 표현
-		4. 실제 시청자 톤으로 20자 이내, 자연스럽게
+		4. 필드별 작성 규칙:
+		- text: 채팅과 점수 데이터만으로 분석한 기본 댓글
+		- description: 방송 썸네일이 있다면 이미지까지 분석하여 더 구체적이고 정확한 시청자 반응으로 작성. 썸네일이 없다면 "방송 썸네일이 없어 기본 분석만 가능합니다"
+		5. 모든 댓글은 실제 시청자 톤으로 20자 이내, 자연스럽게 작성
 
 		예시:
 		- 리액션 중심: "ㅋㅋㅋ 개웃김", "미친 반응 ㄷㄷ"
 		- 상황 중심: "레전드 플레이", "데드락 일퀘 시작"
 		- 화제성: "시청자들 몰려옴", "클립감 ㄷㄷ"
+		- 썸네일 분석 예시:
+		text: "섬광탄으로 어그로 끄는 중"
+		description: "아서스 또 있네 ㅋㅋㅋ" (썸네일에서 특정 캐릭터 확인시)
 	'''
 	genai.configure(api_key=environ['GOOGLE_API_KEY'])
 	model = genai.GenerativeModel("gemini-2.0-flash", system_instruction=system_instruction, generation_config={"response_mime_type": "application/json"})
