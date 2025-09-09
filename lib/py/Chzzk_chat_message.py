@@ -111,8 +111,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            return ((self.check_live_state_close() and if_after_time(self.data.last_chat_time, sec=30)) 
+            if (is_close:= self.check_live_state_close()):
+                await self.save_detailed_logs_to_file()
+            return ((is_close and if_after_time(self.data.last_chat_time)) 
                     or self.init.chat_json[self.data.channel_id])
+
         json_loads = loads
         message_buffer = []
         buffer_size = 5  # 버퍼 크기
