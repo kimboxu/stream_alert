@@ -271,7 +271,7 @@ class chzzk_video:
             time_str = comment.get('after_openDate', '')
             text = comment.get('text', '')
             description = comment.get('description', '')
-            score_difference = comment.get('score_difference', '')
+            score_difference = float(comment.get('score_difference', 0))
             
             if not time_str or not description:
                 continue
