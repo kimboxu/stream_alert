@@ -45,6 +45,7 @@ class ChatMessageWithAnalyzer:
         self.chat_analyzer = ChatAnalyzer(self.init, channel_id, channel_name)
         self.analysis_task = None
         self.log_save_task = None
+        self.is_save_log = False
 
     async def start_analyzer(self):
         """분석기 시작 - start() 메서드에서 호출"""
@@ -76,11 +77,15 @@ class ChatMessageWithAnalyzer:
         except asyncio.CancelledError:
             pass
         
-        # 종료 전 마지막 로그 저장
-        await self.chat_analyzer.save_detailed_logs_to_file(force_save=True)
-        print(f"종료 시 최종 로그 저장 완료: {self.chat_analyzer.channel_name}")
 
         await self.chat_analyzer._make_highlight_chat()
+
+    async def save_detailed_logs_to_file(self):
+        # 로그 저장
+        if not self.is_save_log:
+            self.is_save_log = True
+            await self.chat_analyzer.save_detailed_logs_to_file(force_save=True)
+            print(f"로그 저장 완료: {self.chat_analyzer.channel_name}")
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
@@ -125,8 +130,8 @@ class ChatAnalyzer:
         'laugh': re.compile(r'ㅋ{2,}|ㅎ{2,}|하하|캬|푸하|풉|웃겨|개웃|존웃'),
         'excitement': re.compile(r'!{2,}|\?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|와|오|우와|미친|ㅁㅊ|개쩔|쩐다|고고|가즈아'),
         'surprise': re.compile(r'헉|뭣|뭐야|무야|어떻게|진짜|실화|레전드|띠용|충격|놀람|ㄴㅇㅅ|지리네|o0o|O0O|0o0'),
-        'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|아니|안돼|제발|부탁|응원'),
-        'greeting': re.compile(r'.하|.바|.ㅎ|.ㅂ'),
+        'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|ㅎㅇㅌ|앗|아악|아니|안돼|제발|부탁|응원'),
+        'greeting': re.compile(r'.하|.바|.ㅎ|.ㅂ|ㅎㅇ|안녕|반갑|'),
         }
 
         # 가중 평균으로 최종 점수
