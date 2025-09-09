@@ -4,7 +4,7 @@ import json
 import statistics
 from requests import get
 from io import BytesIO
-from PIL import Image
+from PIL import Image as PILImage
 from math import exp, floor
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
@@ -41,7 +41,7 @@ class StreamHighlight:
     after_openDate: datetime
     score_details: dict
     analysis_data: dict
-    image: str = ""
+    image: PILImage.Image = None
 
 class ChatMessageWithAnalyzer:
     def setup_analyzer(self, channel_id: str, channel_name: str):
@@ -553,7 +553,7 @@ class ChatAnalyzer:
     async def _create_highlight(self, detailed_log: dict) -> None:
         thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
         response = get(thumbnail_url)
-        image = Image.open(BytesIO(response.content))
+        image = PILImage.open(BytesIO(response.content))
 
         highlight = StreamHighlight(
             timestamp=detailed_log['timestamp'],
@@ -638,8 +638,10 @@ class ChatAnalyzer:
             image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
  
             timeline_comments = await self._make_highlight_chat([highlight])
-            text = timeline_comments.get("text", "")
-            description = timeline_comments.get("description", "")
+        
+            first_comment = timeline_comments[0] if timeline_comments else {}
+            text = first_comment.get("text", "하이라이트 주석")
+            description = first_comment.get("description", "분석 결과를 가져올 수 없습니다")
 
             # 알림 JSON 생성
             json_data = {"username": channel_name, 
