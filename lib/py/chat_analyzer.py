@@ -271,7 +271,7 @@ class ChatAnalyzer:
             self.detailed_logs = self.detailed_logs[-2000:]
 
         # 하이라이트 체크
-        if score_details['highlights'] or self.init.DO_TEST:
+        if score_details['highlights']:
             await self._create_highlight(detailed_log)
 
         # 분석 기록 저장
@@ -577,7 +577,7 @@ class ChatAnalyzer:
             await self._save_highlight_to_db(highlight)
 
         # 큰 재미인 경우 즉시 알림
-        if detailed_log['score_components']['big_highlights'] or self.init.DO_TEST:
+        if detailed_log['score_components']['big_highlights']:
             await self._send_notification(highlight)
 
     #하이라이트 이유 생성
