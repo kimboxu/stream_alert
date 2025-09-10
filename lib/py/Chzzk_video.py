@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from live_message import highlight_chat_Data
+from make_log_api_performance import PerformanceManager
 from base import (
     changeUTCtime, 
     get_message, 
@@ -30,8 +31,9 @@ class ChzzkVOD_Data:
 
 class chzzk_video:
     # 초기화 함수: 필요한 데이터와 채널 ID 설정
-    def __init__(self, init_var: initVar, chzzk_id):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, chzzk_id):
         self.init = init_var
+        self.performance_manager = performance_manager
         self.DO_TEST = init_var.DO_TEST  # 테스트 모드 여부
         self.chzzkIDList = init_var.chzzkIDList  # 치지직 채널 ID 리스트
         self.chzzk_video = init_var.chzzk_video  # 치지직 비디오 데이터
@@ -56,7 +58,7 @@ class chzzk_video:
             
             # 채널 코드 가져오기 및 API 요청
             uid = self.chzzkIDList.loc[self.chzzk_id, 'channel_code']
-            stateData = await get_message("chzzk", get_link(uid))
+            stateData = await get_message(self.performance_manager, "chzzk", get_link(uid))
 
             # 비디오 데이터 처리 여부 확인
             if not self._should_process_video(stateData):

@@ -5,10 +5,9 @@ from typing import List, Tuple, Optional, Dict, Any
 
 from aiohttp import ClientSession, ClientError, TCPConnector
 from supabase import create_client
-
 class DiscordWebhookSender:
     # 디스코드 웹훅 전송 클래스 초기화
-    def __init__(self, 
+    def __init__(self,
                 supabase_url: str = environ.get('supabase_url'),
                 supabase_key: str = environ.get('supabase_key'),
                 error_webhook_url: str = environ.get('errorPostBotURL')):
@@ -53,6 +52,10 @@ class DiscordWebhookSender:
                                 url: str, 
                                 data: Dict[str, Any], 
                                 semaphore: asyncio.Semaphore) -> Optional[str]:
+        from shared_state import StateManager
+        state_manager = StateManager.get_instance()
+        performance_manager = state_manager.get_performance_manager()
+
         async with semaphore:  # 세마포어로 동시 요청 제한
             for attempt in range(self.MAX_RETRIES):
                 start_time = datetime.now()
@@ -64,14 +67,20 @@ class DiscordWebhookSender:
                         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
                         
                         # 성능 로깅
-                        from base import log_api_performance
-                        asyncio.create_task(log_api_performance(
+                        asyncio.create_task(performance_manager.log_api_performance(
                             api_type='discord_webhook',
                             response_time_ms=response_time_ms,
                             is_success=response.status < 400,
                             http_status_code=response.status,
                             retry_count=attempt
                         ))
+                        # asyncio.create_task(log_api_performance(
+                        #     api_type='discord_webhook',
+                        #     response_time_ms=response_time_ms,
+                        #     is_success=response.status < 400,
+                        #     http_status_code=response.status,
+                        #     retry_count=attempt
+                        # ))
                         
                         response.raise_for_status()  # HTTP 오류 발생 시 예외 발생
                         return await response.text()  # 응답 반환
@@ -81,8 +90,7 @@ class DiscordWebhookSender:
                     response_time_ms = int((end_time - start_time).total_seconds() * 1000)
                     
                     # 에러 로깅
-                    from base import log_api_performance
-                    asyncio.create_task(log_api_performance(
+                    asyncio.create_task(performance_manager.log_api_performance(
                         api_type='discord_webhook',
                         response_time_ms=response_time_ms,
                         is_success=False,
@@ -90,6 +98,14 @@ class DiscordWebhookSender:
                         error_message=str(e),
                         retry_count=attempt
                     ))
+                    # asyncio.create_task(log_api_performance(
+                    #     api_type='discord_webhook',
+                    #     response_time_ms=response_time_ms,
+                    #     is_success=False,
+                    #     error_type=type(e).__name__,
+                    #     error_message=str(e),
+                    #     retry_count=attempt
+                    # ))
                     
                     if hasattr(e, 'status') and e.status == 404:
                         await self._handle_404_error(url)
@@ -102,14 +118,20 @@ class DiscordWebhookSender:
                     response_time_ms = int((end_time - start_time).total_seconds() * 1000)
                     
                     # 타임아웃 로깅
-                    from base import log_api_performance
-                    asyncio.create_task(log_api_performance(
+                    asyncio.create_task(performance_manager.log_api_performance(
                         api_type='discord_webhook',
                         response_time_ms=response_time_ms,
                         is_success=False,
                         error_type='TimeoutError',
                         retry_count=attempt
                     ))
+                    # asyncio.create_task(log_api_performance(
+                    #     api_type='discord_webhook',
+                    #     response_time_ms=response_time_ms,
+                    #     is_success=False,
+                    #     error_type='TimeoutError',
+                    #     retry_count=attempt
+                    # ))
                     
                     print(f"{datetime.now()} Timeout for {url}: {str(data)}")
                     
@@ -125,8 +147,7 @@ class DiscordWebhookSender:
                     response_time_ms = int((end_time - start_time).total_seconds() * 1000)
                     
                     # 기타 예외 로깅
-                    from base import log_api_performance
-                    asyncio.create_task(log_api_performance(
+                    asyncio.create_task(performance_manager.log_api_performance(
                         api_type='discord_webhook',
                         response_time_ms=response_time_ms,
                         is_success=False,
@@ -134,6 +155,14 @@ class DiscordWebhookSender:
                         error_message=str(e),
                         retry_count=attempt
                     ))
+                    # asyncio.create_task(log_api_performance(
+                    #     api_type='discord_webhook',
+                    #     response_time_ms=response_time_ms,
+                    #     is_success=False,
+                    #     error_type=type(e).__name__,
+                    #     error_message=str(e),
+                    #     retry_count=attempt
+                    # ))
                     
                     print(f"{datetime.now()} Unexpected error sending message: {e}")
                     

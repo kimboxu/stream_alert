@@ -8,6 +8,7 @@ from urllib.request import urlretrieve
 from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
+from make_log_api_performance import PerformanceManager
 from io import BytesIO
 
 from typing import List, Tuple, Dict, Any
@@ -65,7 +66,7 @@ class highlight_chat_Data:
 
 class base_live_message:
     """모든 스트리밍 플랫폼에 공통으로 사용되는 기본 클래스"""
-    def __init__(self, init_var: initVar, channel_id, platform_name):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id, platform_name):
         """
         초기화 함수
         
@@ -75,6 +76,7 @@ class base_live_message:
             platform_name: 플랫폼 이름 (chzzk 또는 afreeca)
         """
         self.init = init_var
+        self.performance_manager = performance_manager
         self.DO_TEST = init_var.DO_TEST
         self.userStateData = init_var.userStateData
         self.platform_name = platform_name
@@ -330,7 +332,7 @@ class base_live_message:
 # 치지직 구현 클래스
 class chzzk_live_message(base_live_message):
     """치지직 플랫폼 라이브 모니터링 클래스"""
-    def __init__(self, init_var: initVar, chzzk_id):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, chzzk_id):
         """
         초기화 함수
         
@@ -338,11 +340,12 @@ class chzzk_live_message(base_live_message):
             init_var: 초기화 변수
             chzzk_id: 치지직 채널 ID
         """
-        super().__init__(init_var, chzzk_id, "chzzk")
+        super().__init__(init_var, performance_manager, chzzk_id, "chzzk")
 
     #치지직 채널 상태 데이터 가져오기
     async def _get_state_data(self):
         return await get_message(
+            self.performance_manager, 
             "chzzk", 
             chzzk_getLink(self.id_list.loc[self.channel_id, "channel_code"])
         )
@@ -572,12 +575,13 @@ class chzzk_live_message(base_live_message):
 # 아프리카 구현 클래스
 class afreeca_live_message(base_live_message):
     """아프리카TV 플랫폼 라이브 모니터링 클래스"""
-    def __init__(self, init_var: initVar, channel_id):
-        super().__init__(init_var, channel_id, "afreeca")
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
+        super().__init__(init_var, performance_manager, channel_id, "afreeca")
 
     #아프리카 채널 상태 데이터 가져오기
     async def _get_state_data(self):
         return await get_message(
+            self.performance_manager,
             "afreeca", 
             afreeca_getLink(self.id_list.loc[self.channel_id, "afreecaID"])
         )

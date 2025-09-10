@@ -18,7 +18,6 @@ from notification_service import (
     save_tokens_data,
 )
 
-# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
@@ -427,7 +426,6 @@ def proxy_image():
             "message": f"이미지 프록시 처리 중 오류: {str(e)}"
         }), 500
 
-
 # 알림 가져오기 엔드포인트
 @app.route("/get_notifications", methods=["GET"])
 def get_notifications():
@@ -748,13 +746,18 @@ def remove_fcm_token():
 def get_performance_stats():
     try:
         days = request.args.get('days', default=7, type=int)
+
+        # StateManager에서 성능 매니저 가져오기
+        state_manager = StateManager.get_instance()
+        performance_manager = state_manager.get_performance_manager()
         
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         
         try:
-            from base import get_realtime_statistics
-            stats = loop.run_until_complete(get_realtime_statistics(days))
+            stats = loop.run_until_complete(
+                performance_manager._get_realtime_statistics(days)
+            )
             
             if stats:
                 return jsonify({
@@ -781,51 +784,100 @@ def get_performance_stats():
 def get_daily_statistics():
     try:
         days = request.args.get('days', default=7, type=int)
-        end_date = datetime.now().date()
-        start_date = end_date - timedelta(days=days)
+        summary = request.args.get('summary', default='false', type=str).lower() == 'true'
+
+        # StateManager에서 성능 매니저 가져오기
+        state_manager = StateManager.get_instance()
+        performance_manager = state_manager.get_performance_manager()
         
-        # 로컬 파일에서 통계 로드
-        from base import load_daily_statistics
-        all_stats = load_daily_statistics()
+        if not performance_manager:
+            return jsonify({
+                "status": "error",
+                "message": "성능 매니저를 사용할 수 없습니다"
+            }), 500
         
-        # 날짜 범위 필터링
-        filtered_stats = []
-        for date_str, stat_data in all_stats.items():
-            stat_date = datetime.fromisoformat(date_str).date()
-            if start_date <= stat_date <= end_date:
-                filtered_stats.append(stat_data)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         
-        # 날짜순 정렬 (최신 순)
-        filtered_stats.sort(key=lambda x: x['date'], reverse=True)
-        
-        return jsonify({
-            "status": "success",
-            "data": filtered_stats,
-            "period": f"{start_date} ~ {end_date}",
-            "source": "local_file"
-        })
+        try:
+            if summary:
+                # 요약 정보 포함된 일일 통계
+                result = loop.run_until_complete(
+                    performance_manager._get_daily_statistics_with_summary(days)
+                )
+            else:
+                # 기본 일일 통계 리스트
+                daily_stats = loop.run_until_complete(
+                    performance_manager._get_daily_statistics_list(days)
+                )
+                
+                result = {
+                    "period": f"{datetime.now().date() - timedelta(days=days)} ~ {datetime.now().date()}",
+                    "total_days": len(daily_stats),
+                    "data": daily_stats,
+                    "source": "daily_statistics_file"
+                }
+            
+            return jsonify({
+                "status": "success",
+                **result
+            })
+            
+        finally:
+            loop.close()
         
     except Exception as e:
         return jsonify({
             "status": "error",
             "message": f"일일 통계 조회 실패: {str(e)}"
         }), 500
-    
-#수동으로 일일 통계 계산 트리거 (테스트용)
+
+# 수동으로 일일 통계 계산 트리거 (테스트/관리용)
 @app.route("/trigger_daily_stats", methods=["POST"])
 def trigger_daily_stats():
     try:
+        # 특정 날짜 지정 가능 (옵션)
+        target_date_str = request.args.get('date')  # YYYY-MM-DD 형식
+        target_date = None
+        
+        if target_date_str:
+            try:
+                target_date = datetime.strptime(target_date_str, '%Y-%m-%d')
+            except ValueError:
+                return jsonify({
+                    "status": "error",
+                    "message": "날짜 형식이 잘못되었습니다 (YYYY-MM-DD 형식 사용)"
+                }), 400
+        
+        state_manager = StateManager.get_instance()
+        asyncio.create_task(state_manager.initialize())
+        performance_manager = state_manager.get_performance_manager()
+        
+        if not performance_manager:
+            return jsonify({
+                "status": "error",
+                "message": "성능 매니저를 사용할 수 없습니다"
+            }), 500
+        
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         
         try:
-            from base import calculate_and_save_daily_statistics
-            loop.run_until_complete(calculate_and_save_daily_statistics())
+            result = loop.run_until_complete(
+                performance_manager.calculate_and_save_daily_statistics(target_date)
+            )
             
-            return jsonify({
-                "status": "success",
-                "message": "일일 통계 계산이 완료되었습니다"
-            })
+            if result:
+                return jsonify({
+                    "status": "success",
+                    "message": f"일일 통계 계산이 완료되었습니다: {result['date']}",
+                    "data": result
+                })
+            else:
+                return jsonify({
+                    "status": "error",
+                    "message": "일일 통계 계산에 실패했습니다"
+                }), 500
             
         finally:
             loop.close()
@@ -862,26 +914,6 @@ async def force_save_all(init):
         except Exception as e:
             print(f"{datetime.now()} [종료시 저장오류] {webhook_url}: {e}")
 
-# SIGTERM/SIGINT 핸들러 등록
-
-def graceful_shutdown_handler(signum, frame):
-    print(f"{datetime.now()} 서버 종료 감지! 모든 데이터를 저장합니다...")
-    loop = asyncio.get_event_loop()
-    try:
-        # 사용자 데이터 저장
-        loop.run_until_complete(force_save_all(app.init))
-        print(f"{datetime.now()} [완료] 서버 종료 전 모든 사용자 데이터를 DB에 저장했습니다.")
-        
-        # 통계 데이터 저장
-        from base import save_all_cached_data
-        loop.run_until_complete(save_all_cached_data())
-        print(f"{datetime.now()} [완료] 서버 종료 전 모든 통계 데이터를 로컬 파일에 저장했습니다.")
-        
-    except Exception as e:
-        print(f"{datetime.now()} [종료시 저장실패] {e}")
-    import sys
-    sys.exit(0)
-
 if __name__ == "__main__":
 
     # Only initialize once for the main process, not the reloader
@@ -901,8 +933,5 @@ if __name__ == "__main__":
     # App initialization
     with app.app_context():
         app.init = init_background_tasks()
-        # 안전 종료 핸들러 등록 (init 생성 후)
-        signal.signal(signal.SIGTERM, graceful_shutdown_handler)
-        signal.signal(signal.SIGINT, graceful_shutdown_handler)
     
     app.run(host="0.0.0.0", port=8080, debug=False)

@@ -20,6 +20,7 @@ from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
 from notification_service import send_push_notification
 from chat_analyzer import ChatMessageWithAnalyzer
+from make_log_api_performance import PerformanceManager
 
 # 아프리카 채팅 데이터 클래스 정의
 @dataclass
@@ -35,8 +36,9 @@ class AfreecaChatData:
     
 # 아프리카 채팅 메시지 처리 클래스
 class afreeca_chat_message(ChatMessageWithAnalyzer):
-    def __init__(self, init_var: initVar, channel_id):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
         self.init = init_var
+        self.performance_manager = performance_manager
 
         # SSL 컨텍스트 생성
         self.ssl_context = self.create_ssl_context()
@@ -393,7 +395,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     async def _get_user_info(self, user_id):
         try:
             for _ in range(3):
-                stateData = await get_message("afreeca", afreeca_getLink(user_id))
+                stateData = await get_message(self.performance_manager, "afreeca", afreeca_getLink(user_id))
                 if not stateData:
                     continue
                 break
@@ -480,7 +482,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
     # 비밀번호 설정 여부 확인 
     async def check_is_passwordDict(self):
-        stateData = await get_message("afreeca", afreeca_getLink(self.init.afreecaIDList["afreecaID"][self.data.channel_id]))
+        stateData = await get_message(self.performance_manager, "afreeca", afreeca_getLink(self.init.afreecaIDList["afreecaID"][self.data.channel_id]))
         return stateData['broad'].get('is_password',{False})
     
     # 방송 종료 여부 확인 

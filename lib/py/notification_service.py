@@ -9,7 +9,8 @@ from base import initVar, if_after_time
 from shared_state import StateManager
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
-from base import update_flag, save_user_notifications, log_api_performance
+from base import update_flag, save_user_notifications
+from make_log_api_performance import PerformanceManager
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -70,7 +71,7 @@ def initialize_firebase(firebase_initialized_globally=False):
             return False
 
 # FCM 메시지 전송 함수
-async def send_fcm_message(token, notification_data, data_fields):
+async def send_fcm_message(performance_manager: PerformanceManager , token, notification_data, data_fields):
     """
     개별 FCM 토큰에 메시지를 전송합니다.
     """
@@ -99,13 +100,19 @@ async def send_fcm_message(token, notification_data, data_fields):
         
         end_time = datetime.now()
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
-        
+
         # 성공 로깅
-        asyncio.create_task(log_api_performance(
-            api_type='fcm_push',
-            response_time_ms=response_time_ms,
-            is_success=True
+        asyncio.create_task(performance_manager.log_api_performance(
+                api_type='fcm_push',
+                response_time_ms=response_time_ms,
+                is_success=True,
         ))
+        
+        # asyncio.create_task(log_api_performance(
+        #     api_type='fcm_push',
+        #     response_time_ms=response_time_ms,
+        #     is_success=True
+        # ))
         
         print(f"{datetime.now()} FCM 메시지 전송 성공: {token[:15]}... 결과: {result}, 응답시간: {response_time_ms/1000:.3f}초")
         return result
@@ -113,28 +120,44 @@ async def send_fcm_message(token, notification_data, data_fields):
     except messaging.UnregisteredError:
         end_time = datetime.now()
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
-        asyncio.create_task(log_api_performance(
-           api_type='fcm_push',
-           response_time_ms=response_time_ms,
-           is_success=False,
-           error_type='UnregisteredError',
-           error_message='토큰이 등록 취소됨'
-       ))
+        asyncio.create_task(performance_manager.log_api_performance(
+            api_type='fcm_push',
+            response_time_ms=response_time_ms,
+            is_success=False,
+            error_type='UnregisteredError',
+            error_message='토큰이 등록 취소됨'
+        ))
+    #     asyncio.create_task(log_api_performance(
+    #        api_type='fcm_push',
+    #        response_time_ms=response_time_ms,
+    #        is_success=False,
+    #        error_type='UnregisteredError',
+    #        error_message='토큰이 등록 취소됨'
+    #    ))
         remove_fcm_token(token)
         return None
         
     except messaging.InvalidArgumentError as e:
         end_time = datetime.now()
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
-        
+
         # 잘못된 인수 로깅
-        asyncio.create_task(log_api_performance(
-           api_type='fcm_push',
-           response_time_ms=response_time_ms,
-           is_success=False,
-           error_type='InvalidArgumentError',
-           error_message=str(e)
-       ))
+        asyncio.create_task(performance_manager.log_api_performance(
+            api_type='fcm_push',
+            response_time_ms=response_time_ms,
+            is_success=False,
+            error_type='InvalidArgumentError',
+            error_message=str(e)
+        ))
+        
+        
+    #     asyncio.create_task(log_api_performance(
+    #        api_type='fcm_push',
+    #        response_time_ms=response_time_ms,
+    #        is_success=False,
+    #        error_type='InvalidArgumentError',
+    #        error_message=str(e)
+    #    ))
         print(f"{datetime.now()} FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token}): {e}")
         remove_fcm_token(token)
         return None
@@ -144,13 +167,20 @@ async def send_fcm_message(token, notification_data, data_fields):
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
         
         # 할당량 초과 로깅
-        asyncio.create_task(log_api_performance(
+        asyncio.create_task(performance_manager.log_api_performance(
             api_type='fcm_push',
             response_time_ms=response_time_ms,
             is_success=False,
             error_type='QuotaExceededError',
             error_message=str(e)
         ))
+        # asyncio.create_task(log_api_performance(
+        #     api_type='fcm_push',
+        #     response_time_ms=response_time_ms,
+        #     is_success=False,
+        #     error_type='QuotaExceededError',
+        #     error_message=str(e)
+        # ))
         
         print(f"{datetime.now()} FCM 할당량 초과: {token[:15]}... 오류: {e}")
         return None
@@ -160,19 +190,26 @@ async def send_fcm_message(token, notification_data, data_fields):
         response_time_ms = int((end_time - start_time).total_seconds() * 1000)
         
         # 기타 예외 로깅
-        asyncio.create_task(log_api_performance(
+        asyncio.create_task(performance_manager.log_api_performance(
             api_type='fcm_push',
             response_time_ms=response_time_ms,
             is_success=False,
             error_type=type(e).__name__,
             error_message=str(e)
         ))
+        # asyncio.create_task(log_api_performance(
+        #     api_type='fcm_push',
+        #     response_time_ms=response_time_ms,
+        #     is_success=False,
+        #     error_type=type(e).__name__,
+        #     error_message=str(e)
+        # ))
         
         print(f"{datetime.now()} FCM 메시지 전송 실패: {token[:15]}... 오류: {e}")
         return None
 
 # FCM 메시지 배치 전송 함수
-async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, batch_size=10):
+async def send_fcm_messages_in_batch(performance_manager: PerformanceManager, tokens, notification_data, data_fields, batch_size=10):
     """
     여러 FCM 토큰에 동일한 메시지를 배치로 전송합니다.
     
@@ -194,7 +231,7 @@ async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, bat
         batch_tasks = []
         for token in batch:
             # 수정된 부분: await 없이 코루틴 객체 직접 생성
-            task = asyncio.create_task(send_fcm_message(token, notification_data, data_fields))
+            task = asyncio.create_task(send_fcm_message(performance_manager, token, notification_data, data_fields))
             batch_tasks.append(task)
             
         # 배치 단위로 병렬 처리하되 타임아웃 설정
@@ -341,7 +378,8 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
     # init 객체 가져오기
     state = StateManager.get_instance()
     init = state.get_init()
-    if init is None: init = await state.initialize()
+    performance_manager = state.get_performance_manager()
+    init = await state.initialize()
     
     if init.DO_TEST: return
 
@@ -438,7 +476,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             
             # FCM 메시지 배치 전송
             batch_task = asyncio.create_task(
-                send_fcm_messages_in_batch(fcm_tokens, notification_data, data_fields)
+                send_fcm_messages_in_batch(performance_manager, fcm_tokens, notification_data, data_fields)
             )
             fcm_tasks.append(batch_task)
         

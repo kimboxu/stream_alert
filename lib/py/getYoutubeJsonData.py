@@ -7,7 +7,7 @@ from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from base import subjectReplace, iconLinkData, initVar, get_message, saveYoutubeData, log_error
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from notification_service import send_push_notification
-
+from make_log_api_performance import PerformanceManager
 from dataclasses import dataclass
 from typing import List, Optional
 
@@ -42,7 +42,8 @@ class YouTubeVideoBatch:
 # 유튜브 데이터를 처리하는 메인 클래스
 class getYoutubeJsonData:
 	# 초기화 함수
-	def __init__(self, init_var: initVar, developerKey, youtubeChannelID):
+	def __init__(self, init_var: initVar, performance_manager: PerformanceManager, developerKey, youtubeChannelID):
+		self.performance_manager = performance_manager
 		self.developerKey = developerKey         # YouTube API 키
 		self.DO_TEST = init_var.DO_TEST          # 테스트 모드 여부
 		self.userStateData = init_var.userStateData  # 사용자 상태 데이터
@@ -462,7 +463,7 @@ class getYoutubeJsonData:
 	# 채널 썸네일 이미지 확인 및 가져오기 
 	async def get_youtube_thumbnail_url(self):
 		# 유튜브 채널 페이지 요청
-		response = await get_message("youtube", f"https://www.youtube.com/@{self.youtubeChannelID}")
+		response = await get_message(self.performance_manager, "youtube", f"https://www.youtube.com/@{self.youtubeChannelID}")
 		if not response:
 			asyncio.create_task(log_error(f"error Youtube get_youtube_thumbnail_url.{self.youtubeChannelID}:"))
 			return
