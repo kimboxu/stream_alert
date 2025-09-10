@@ -153,7 +153,7 @@ class chzzk_video:
                     # VOD 길이와 방송 시간 차이가 60초 이내이고 제목이 일치하는지 확인
                     self.duration_diff = min(broadcast_duration - self.data.duration, 0)
                     title_matches = highlight_chat_data.last_title == self.data.videoTitle
-                    
+                    print(f"{datetime.now()} duration_diff,{self.duration_diff}")
                     if self.duration_diff < 60 and title_matches:
                         highlight_chat = self.init.highlight_chat[self.chzzk_id].pop(stream_start_id, None)
                         break
