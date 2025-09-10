@@ -37,7 +37,8 @@ class chzzk_video:
         self.chzzk_video = init_var.chzzk_video  # 치지직 비디오 데이터
         self.userStateData = init_var.userStateData  # 사용자 상태 데이터
         self.chzzk_id = chzzk_id  # 현재 처리할 치지직 채널 ID
-        self.time_offset = 30
+        self.time_offset = 30   # window_size 만큼의 길이
+        self.duration_diff = 0  # 실제 방송시간과 VOD 길이 와의 차이
         self.small_fun_difference = 50
         self.big_fun_difference = 70
         self.data = ChzzkVOD_Data()
@@ -150,10 +151,10 @@ class chzzk_video:
                     broadcast_duration = calculate_stream_duration(stream_start_id, highlight_chat_data.stream_end_id)
                     
                     # VOD 길이와 방송 시간 차이가 60초 이내이고 제목이 일치하는지 확인
-                    duration_diff = abs(self.data.duration - broadcast_duration)
+                    self.duration_diff = min(broadcast_duration - self.data.duration, 0)
                     title_matches = highlight_chat_data.last_title == self.data.videoTitle
                     
-                    if duration_diff < 60 and title_matches:
+                    if self.duration_diff < 60 and title_matches:
                         highlight_chat = self.init.highlight_chat[self.chzzk_id].pop(stream_start_id, None)
                         break
                         
@@ -317,7 +318,7 @@ class chzzk_video:
                 return ""
             
             # 오프셋 적용 (음수 방지)
-            adjusted_seconds = max(0, total_seconds - self.time_offset)
+            adjusted_seconds = max(0, total_seconds - (self.time_offset + self.duration_diff//2))
             
             # 시:분:초로 변환
             h, remainder = divmod(adjusted_seconds, 3600)
