@@ -190,7 +190,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         except Exception as e:
             await log_error(f"Error in ping function: {e}")
         
-        print(f"{self.data.channel_id} chat pong 종료")
+        print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
     
     # 메시지 수신
     async def _receive_messages(self, message_queue: asyncio.Queue):

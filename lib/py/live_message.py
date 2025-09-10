@@ -179,7 +179,7 @@ class base_live_message:
             await save_airing_data(self.title_data, self.platform_name, self.channel_id)
 
         except Exception as e:
-            print(f"postLiveMSG {e}")
+            print(f"{datetime.now()} postLiveMSG {e}")
             self.data.livePostList.clear()
     
     #메시지 유형에 맞는 DB 이름 반환

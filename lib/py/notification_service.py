@@ -50,7 +50,7 @@ def initialize_firebase(firebase_initialized_globally=False):
             project_id = cred.project_id or environ.get("FIREBASE_PROJECT_ID")
 
             if not project_id:
-                print("Firebase 프로젝트 ID를 찾을 수 없습니다.")
+                print(f"{datetime.now()} Firebase 프로젝트 ID를 찾을 수 없습니다.")
                 return False
 
             # Firebase 앱 초기화 (한 번만 호출)
@@ -61,10 +61,10 @@ def initialize_firebase(firebase_initialized_globally=False):
                 },
             )
 
-            print(f"Firebase 앱이 프로젝트 ID '{project_id}'로 성공적으로 초기화되었습니다.")
+            print(f"{datetime.now()} Firebase 앱이 프로젝트 ID '{project_id}'로 성공적으로 초기화되었습니다.")
             return True
         except Exception as e:
-            print(f"Firebase 초기화 중 오류 발생: {e}")
+            print(f"{datetime.now()} Firebase 초기화 중 오류 발생: {e}")
             import traceback
             traceback.print_exc()
             return False
@@ -107,7 +107,7 @@ async def send_fcm_message(token, notification_data, data_fields):
             is_success=True
         ))
         
-        print(f"FCM 메시지 전송 성공: {token[:15]}... 결과: {result}, 응답시간: {response_time_ms/1000:.3f}초")
+        print(f"{datetime.now()} FCM 메시지 전송 성공: {token[:15]}... 결과: {result}, 응답시간: {response_time_ms/1000:.3f}초")
         return result
         
     except messaging.UnregisteredError:
@@ -135,7 +135,7 @@ async def send_fcm_message(token, notification_data, data_fields):
            error_type='InvalidArgumentError',
            error_message=str(e)
        ))
-        print(f"FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token}): {e}")
+        print(f"{datetime.now()} FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token}): {e}")
         remove_fcm_token(token)
         return None
     
@@ -152,7 +152,7 @@ async def send_fcm_message(token, notification_data, data_fields):
             error_message=str(e)
         ))
         
-        print(f"FCM 할당량 초과: {token[:15]}... 오류: {e}")
+        print(f"{datetime.now()} FCM 할당량 초과: {token[:15]}... 오류: {e}")
         return None
 
     except Exception as e:
@@ -168,7 +168,7 @@ async def send_fcm_message(token, notification_data, data_fields):
             error_message=str(e)
         ))
         
-        print(f"FCM 메시지 전송 실패: {token[:15]}... 오류: {e}")
+        print(f"{datetime.now()} FCM 메시지 전송 실패: {token[:15]}... 오류: {e}")
         return None
 
 # FCM 메시지 배치 전송 함수
@@ -205,7 +205,7 @@ async def send_fcm_messages_in_batch(tokens, notification_data, data_fields, bat
             )
             all_results.extend(batch_results)
         except asyncio.TimeoutError:
-            print(f"배치 FCM 메시지 전송 시간 초과 (배치 크기: {len(batch)})")
+            print(f"{datetime.now()} 배치 FCM 메시지 전송 시간 초과 (배치 크기: {len(batch)})")
             # 타임아웃된 배치에 대한 결과는 None으로 처리
             all_results.extend([None] * len(batch))
     
@@ -294,7 +294,7 @@ def get_user_data_from_init(init: initVar, webhook_url):
             return user_data
         return None
     except Exception as e:
-        print(f"init에서 사용자 데이터 추출 오류: {e}")
+        print(f"{datetime.now()} init에서 사용자 데이터 추출 오류: {e}")
         return None
 
 def get_notification_data(json_data):
@@ -317,7 +317,7 @@ def get_notification_data(json_data):
                 elif "description" in embeds[0] and embeds[0]["description"]:
                     body = embeds[0]["description"]
         except Exception as e:
-            print(f"embeds 데이터 파싱 오류: {e}")
+            print(f"{datetime.now()} embeds 데이터 파싱 오류: {e}")
     if not body:
         body = "새 알림이 도착했습니다"
 
@@ -351,7 +351,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
     
     # Firebase 초기화 확인
     if not initialize_firebase(firebase_initialized_globally):
-        print("Firebase 초기화 실패")
+        print(f"{datetime.now()} Firebase 초기화 실패")
         return False
         
     try:
@@ -399,7 +399,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
                     if webhook_url:
                         all_users[webhook_url] = user_data
             except Exception as e:
-                print(f"누락된 사용자 데이터 조회 실패: {e}")
+                print(f"{datetime.now()} 누락된 사용자 데이터 조회 실패: {e}")
         
         # 알림 처리 (배치로)
         notification_tasks = []
@@ -450,7 +450,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
                     timeout=10
                 )
             except asyncio.TimeoutError:
-                print(f"일부 FCM 메시지 작업 시간 초과 ({len(fcm_tasks)}개 배치)")
+                print(f"{datetime.now()} 일부 FCM 메시지 작업 시간 초과 ({len(fcm_tasks)}개 배치)")
         
         # 알림 저장 작업 대기 (타임아웃 설정)
         if notification_tasks:
@@ -460,7 +460,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
                     timeout=10
                 )
             except asyncio.TimeoutError:
-                print(f"일부 알림 저장 작업 시간 초과 ({len(notification_tasks)}개 배치)")
+                print(f"{datetime.now()} 일부 알림 저장 작업 시간 초과 ({len(notification_tasks)}개 배치)")
         
         # 성능 보고
         end_time = datetime.now()
@@ -469,7 +469,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         return True
         
     except Exception as e:
-        print(f"푸시 알림 오류: {e}")
+        print(f"{datetime.now()} 푸시 알림 오류: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -504,7 +504,7 @@ async def validate_fcm_token(token):
         # 유효하지 않은 토큰 형식
         return False
     except Exception as e:
-        print(f"토큰 검증 오류: {e}")
+        print(f"{datetime.now()} 토큰 검증 오류: {e}")
         # 알 수 없는 오류는 일단 유효하다고 가정 (오탐 방지)
         return True
 
@@ -596,7 +596,7 @@ async def cleanup_all_invalid_tokens():
               f"{duration:.2f}초 소요")
             
     except Exception as e:
-        print(f"FCM 토큰 정리 오류: {e}")
+        print(f"{datetime.now()} FCM 토큰 정리 오류: {e}")
         import traceback
         traceback.print_exc()
 
@@ -669,5 +669,5 @@ def remove_fcm_token(token):
                 break
 
     except Exception as e:
-        print(f"FCM 토큰 제거 중 오류: {e}")
+        print(f"{datetime.now()} FCM 토큰 제거 중 오류: {e}")
         return

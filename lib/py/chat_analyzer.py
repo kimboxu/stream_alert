@@ -55,11 +55,11 @@ class ChatMessageWithAnalyzer:
         """분석기 시작 - start() 메서드에서 호출"""
         if not self.analysis_task or self.analysis_task.done():
             self.analysis_task = asyncio.create_task(self._run_analyzer())
-            print(f"채팅 분석기 시작: {self.chat_analyzer.channel_name}")
+            print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}")
 
             # 주기적 로그 저장 태스크 시작
             self.log_save_task = asyncio.create_task(self.chat_analyzer.save_logs_periodically())
-            print(f"로그 저장 태스크 시작: 30분마다 자동 저장")
+            print(f"{datetime.now()} 로그 저장 태스크 시작: 30분마다 자동 저장")
 
     async def stop_analyzer(self):
         """분석기 중지"""
@@ -86,7 +86,7 @@ class ChatMessageWithAnalyzer:
         if not self.is_save_log:
             self.is_save_log = True
             await self.chat_analyzer.save_detailed_logs_to_file(force_save=True)
-            print(f"로그 저장 완료: {self.chat_analyzer.channel_name}")
+            print(f"{datetime.now()} 로그 저장 완료: {self.chat_analyzer.channel_name}")
             timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
             self.chat_analyzer.update_highlight_chat(timeline_comments)
 
@@ -666,7 +666,7 @@ class ChatAnalyzer:
                 "image": {"url": image_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
                 "timestamp": changeUTCtime(highlight.timestamp)}]}
-            print(json_data)
+            print(f"{datetime.now()} {json_data}")
             # 알림 전송
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
@@ -700,13 +700,13 @@ class ChatAnalyzer:
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(log_data, f, ensure_ascii=False, indent=2)
             
-            print(f"📄 상세 로그 저장 완료: {file_path} ({len(self.detailed_logs)}개 기록)")
+            print(f"{datetime.now()} 📄 상세 로그 저장 완료: {file_path} ({len(self.detailed_logs)}개 기록)")
             
             # 저장 후 삭제
             self.detailed_logs = []
                 
         except Exception as e:
-            print(f"❌ 로그 저장 오류: {e}")
+            print(f"{datetime.now()} ❌ 로그 저장 오류: {e}")
     
     #주기적으로 로그 저장
     async def save_logs_periodically(self):
@@ -715,7 +715,7 @@ class ChatAnalyzer:
                 await asyncio.sleep(1800)  # 30분마다
                 await self.save_detailed_logs_to_file()
             except Exception as e:
-                print(f"❌ 주기적 로그 저장 오류: {e}")
+                print(f"{datetime.now()} ❌ 주기적 로그 저장 오류: {e}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight]):

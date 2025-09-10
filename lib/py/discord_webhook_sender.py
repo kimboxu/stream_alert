@@ -135,7 +135,7 @@ class DiscordWebhookSender:
                         retry_count=attempt
                     ))
                     
-                    print(f"Unexpected error sending message: {e}")
+                    print(f"{datetime.now()} Unexpected error sending message: {e}")
                     
                     # 마지막 시도에서 실패한 경우
                     if attempt == self.MAX_RETRIES - 1:
@@ -191,7 +191,7 @@ class DiscordWebhookSender:
                         retry_after = float(response.headers.get('Retry-After', 1))
                         await asyncio.sleep(retry_after)
         except Exception as e:
-            print(f"Failed to log error to webhook: {e}")
+            print(f"{datetime.now()} Failed to log error to webhook: {e}")
 
 # 사용자 설정에 따른 전송 대상 웹훅 URL 목록 생성 함수
 def get_list_of_urls(DO_TEST, userStateData, name, channel_id, db_name):

@@ -277,9 +277,9 @@ def save_user_settings():
     # Supabase에 설정 업데이트
     try:
         result = app.init.supabase.table("userStateData").upsert(update_data).execute()
-        print(f"사용자 설정 저장 성공: {discordWebhooksURL}")
+        print(f"{datetime.now()} 사용자 설정 저장 성공: {discordWebhooksURL}")
     except Exception as e:
-        print(f"데이터베이스 저장 오류: {e}")
+        print(f"{datetime.now()} 데이터베이스 저장 오류: {e}")
         return jsonify({"status": "error", "message": f"데이터베이스 저장 오류: {str(e)}"}), 500
 
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
@@ -321,7 +321,7 @@ def update_username():
 
         return jsonify({"status": "success", "message": "사용자 이름이 변경되었습니다"})
     except Exception as e:
-        print(f"사용자 이름 변경 중 오류: {e}")
+        print(f"{datetime.now()} 사용자 이름 변경 중 오류: {e}")
         return (
             jsonify(
                 {"status": "error", "message": f"사용자 이름 변경 중 오류 발생: {str(e)}"}
@@ -421,7 +421,7 @@ def proxy_image():
         )
         
     except Exception as e:
-        print(f"이미지 프록시 오류: {e}")
+        print(f"{datetime.now()} 이미지 프록시 오류: {e}")
         return jsonify({
             "status": "error", 
             "message": f"이미지 프록시 처리 중 오류: {str(e)}"
@@ -646,7 +646,7 @@ def register_fcm_token():
                 # 다른 사용자의 토큰 목록 업데이트
                 if len(updated_tokens) != len(other_tokens_data):
                     save_tokens_data(app.init, other_webhook_url, updated_tokens)
-                    print(f"다른 사용자({other_webhook_url[:10]}...)에서 기기 ID({device_id})를 가진 토큰을 제거했습니다.")
+                    print(f"{datetime.now()} 다른 사용자({other_webhook_url[:10]}...)에서 기기 ID({device_id})를 가진 토큰을 제거했습니다.")
         
         # 현재 사용자의 토큰 데이터 업데이트
         # 같은 기기 ID를 가진 기존 토큰 찾기
@@ -680,7 +680,7 @@ def register_fcm_token():
         return jsonify({"status": "success", "message": "FCM 토큰이 등록되었습니다"})
 
     except Exception as e:
-        print(f"FCM 토큰 등록 중 오류: {e}")
+        print(f"{datetime.now()} FCM 토큰 등록 중 오류: {e}")
         return (
             jsonify(
                 {"status": "error", "message": f"토큰 등록 중 오류 발생: {str(e)}"}
@@ -735,7 +735,7 @@ def remove_fcm_token():
         return jsonify({"status": "success", "message": "FCM 토큰이 제거되었습니다"})
 
     except Exception as e:
-        print(f"FCM 토큰 제거 중 오류: {e}")
+        print(f"{datetime.now()} FCM 토큰 제거 중 오류: {e}")
         return (
             jsonify(
                 {"status": "error", "message": f"토큰 제거 중 오류 발생: {str(e)}"}
@@ -860,25 +860,25 @@ async def force_save_all(init):
                     .execute()
             )
         except Exception as e:
-            print(f"[종료시 저장오류] {webhook_url}: {e}")
+            print(f"{datetime.now()} [종료시 저장오류] {webhook_url}: {e}")
 
 # SIGTERM/SIGINT 핸들러 등록
 
 def graceful_shutdown_handler(signum, frame):
-    print("서버 종료 감지! 모든 데이터를 저장합니다...")
+    print(f"{datetime.now()} 서버 종료 감지! 모든 데이터를 저장합니다...")
     loop = asyncio.get_event_loop()
     try:
         # 사용자 데이터 저장
         loop.run_until_complete(force_save_all(app.init))
-        print("[완료] 서버 종료 전 모든 사용자 데이터를 DB에 저장했습니다.")
+        print(f"{datetime.now()} [완료] 서버 종료 전 모든 사용자 데이터를 DB에 저장했습니다.")
         
         # 통계 데이터 저장
         from base import save_all_cached_data
         loop.run_until_complete(save_all_cached_data())
-        print("[완료] 서버 종료 전 모든 통계 데이터를 로컬 파일에 저장했습니다.")
+        print(f"{datetime.now()} [완료] 서버 종료 전 모든 통계 데이터를 로컬 파일에 저장했습니다.")
         
     except Exception as e:
-        print(f"[종료시 저장실패] {e}")
+        print(f"{datetime.now()} [종료시 저장실패] {e}")
     import sys
     sys.exit(0)
 
@@ -889,11 +889,11 @@ if __name__ == "__main__":
         # Initialize Firebase here
         firebase_initialized_globally = initialize_firebase(False)
         if not firebase_initialized_globally:
-            print("경고: Firebase 초기화에 실패했습니다. 푸시 알림 기능이 작동하지 않을 수 있습니다.")
+            print(f"{datetime.now()} 경고: Firebase 초기화에 실패했습니다. 푸시 알림 기능이 작동하지 않을 수 있습니다.")
 
         # FCM 토큰 정리 작업 실행 (한 번만)
         asyncio.run(cleanup_all_invalid_tokens())
-        print("FCM 토큰 정리 작업이 완료되었습니다.")
+        print(f"{datetime.now()} FCM 토큰 정리 작업이 완료되었습니다.")
 
     # 예약 작업 설정 (추가됨)
     setup_scheduled_tasks()

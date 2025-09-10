@@ -421,7 +421,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         except Exception as e:
             await log_error(f"Error in ping function: {e}")
         
-        print(f"{self.data.channel_id} chat pong 종료")
+        print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
 
     # 연결 수립 함수
     async def connect(self):
@@ -785,7 +785,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         
         # 알 수 없는 구독 선물 타입 처리
         asyncio.create_task(log_error(f"Unknown gift subscription type: "))
-        print(f"Unknown gift subscription type: {chat_data}")
+        print(f"{datetime.now()} Unknown gift subscription type: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
     # 일반 채팅 처리 함수 - 기본 채팅 메시지 형식으로 반환
@@ -801,7 +801,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 알 수 없는 메시지 타입 처리 함수 - 오류 로깅 후 기본 메시지 형식 반환
     def _handle_unknown(self, chat_data, chat_type, extras):
         asyncio.create_task(log_error(f"Unknown _handle_unknowne: {self.get_msgTypeCode(chat_data)}.{chat_type}"))
-        print(f"Unknown _handle_unknowne: {chat_data}")
+        print(f"{datetime.now()} Unknown _handle_unknowne: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
     # 채팅방 입장 시 인사 메시지 전송 함수
