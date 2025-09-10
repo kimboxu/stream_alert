@@ -135,8 +135,8 @@ class chzzk_video:
             asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
 
             highlight_chat = None
-            print(f"self.init.highlight_chat[self.chzzk_id],{self.init.highlight_chat[self.chzzk_id]}")
-            print(f"self.data,{self.data}")
+            print(f"{datetime.now()} self.init.highlight_chat[self.chzzk_id],{self.init.highlight_chat[self.chzzk_id]}")
+            print(f"{datetime.now()} self.data,{self.data}")
             # 다시보기에 하이라이트 댓글 달기
             for stream_start_id in self.init.highlight_chat[self.chzzk_id]:
                 highlight_chat_data = self.init.highlight_chat[self.chzzk_id][stream_start_id]
@@ -163,15 +163,15 @@ class chzzk_video:
 
             if highlight_chat:
                 # 하이라이트 메시지들을 여러 댓글로 분할
-                highlight_messages = self.get_highlight_msg(highlight_chat)
+                highlight_message = self.get_highlight_msg(highlight_chat)
                 
-                if highlight_messages:
+                if highlight_message:
                     # 첫 번째 댓글 작성
-                    first_comment_id = await self._send_comment(highlight_messages[0])
+                    first_comment_id = await self._send_comment(highlight_message, self.data.videoNo)
                     
-                    # 나머지 메시지들을 답글로 작성
-                    if first_comment_id and len(highlight_messages) > 1:
-                        await self._send_reply_comments(first_comment_id, highlight_messages[1:])
+                    # # 나머지 메시지들을 답글로 작성
+                    # if first_comment_id and len(highlight_message) > 1:
+                    #     await self._send_reply_comments(first_comment_id, highlight_message)
 
         except Exception as e:
             asyncio.create_task(log_error(f"postLiveMSG {e}"))
@@ -266,7 +266,11 @@ class chzzk_video:
         
         # 댓글 라인들을 저장할 리스트
         comment_lines = []
-        
+
+        # 자동 생성 안내 문구 먼저 추가
+        auto_notice = "🤖 이 댓글은 방송 하이라이트를 자동 분석하여 생성된 타임라인입니다."
+        comment_lines.append(auto_notice)
+
         for comment in timeline_comments:
             time_str = comment.get('after_openDate', '')
             text = comment.get('text', '')
@@ -293,13 +297,9 @@ class chzzk_video:
         if not comment_lines:
             return []
         
-        # 자동 생성 안내 문구 먼저 추가
-        auto_notice = "🤖 이 댓글은 방송 하이라이트를 자동 분석하여 생성된 타임라인입니다.\n\n"
+        highlight_message = "\n\n".join(comment_lines)
         
-        # 안내 문구를 포함하여 500자 제한에 맞춰 분할
-        chunks = self._split_comments_with_notice(comment_lines, auto_notice, 500)
-        
-        return chunks
+        return highlight_message
     
     def _format_time_for_comment(self, time_str: str) -> str:
         """시간 문자열을 댓글용 HH:MM:SS 형식으로 변환"""
@@ -326,123 +326,9 @@ class chzzk_video:
             return f"{h:02d}:{m:02d}:{s:02d}"
             
         except (ValueError, IndexError):
-            return ""
-        
-    def _split_comments_with_notice(self, comment_lines: list, auto_notice: str, max_length: int) -> list:
-        """
-        안내 문구를 포함하여 댓글 라인들을 분할
-        첫 번째 댓글에는 항상 안내 문구가 포함됨
-        
-        Args:
-            comment_lines: 댓글 라인 리스트
-            auto_notice: 자동 생성 안내 문구
-            max_length: 각 댓글의 최대 허용 길이
-            
-        Returns:
-            list: 분할된 댓글 문자열 리스트
-        """
-        if not comment_lines:
-            return [auto_notice.rstrip()]  # 안내 문구만 반환
-        
-        chunks = []
-        
-        # 첫 번째 댓글: 안내 문구 + 가능한 한 많은 하이라이트
-        remaining_lines = comment_lines.copy()
-        
-        # 첫 번째 댓글에 들어갈 수 있는 만큼 하이라이트 추가
-        first_chunk_lines = []
-        current_length = len(auto_notice)
-        
-        for i, line in enumerate(remaining_lines):
-            # 라인을 추가했을 때의 길이 계산
-            if len(first_chunk_lines) == 0:
-                new_length = current_length + len(line)
-            else:
-                new_length = current_length + 2 + len(line)  # +2는 "\n\n"
-            
-            if new_length <= max_length:
-                first_chunk_lines.append(line)
-                current_length = new_length
-            else:
-                break
-        
-        # 첫 번째 댓글 완성
-        if first_chunk_lines:
-            first_chunk = auto_notice + "\n\n".join(first_chunk_lines)
-        else:
-            first_chunk = auto_notice.rstrip()
-        
-        chunks.append(first_chunk)
-        
-        # 첫 번째 댓글에 포함되지 않은 나머지 라인들 처리
-        remaining_lines = remaining_lines[len(first_chunk_lines):]
-        
-        if remaining_lines:
-            # 나머지 라인들을 일반적인 방식으로 분할
-            remaining_chunks = self._split_comments_to_chunks(remaining_lines, max_length)
-            chunks.extend(remaining_chunks)
-        
-        return chunks
-            
-    def _split_comments_to_chunks(self, comment_lines: list, max_length: int) -> list:
-        """댓글 라인들을 500자 제한에 맞춰 여러 덩어리로 분할"""
-        if not comment_lines:
-            return []
-        
-        chunks = []
-        current_chunk = []
-        current_length = 0
-        
-        for line in comment_lines:
-            # 현재 라인을 추가했을 때의 길이 계산 (2번 줄바꿈 포함)
-            if current_length == 0:
-                new_length = len(line)
-            else:
-                new_length = current_length + 2 + len(line)  # +2는 "\n\n"
-            
-            # 제한을 초과하지 않으면 현재 덩어리에 추가
-            if new_length <= max_length:
-                current_chunk.append(line)
-                current_length = new_length
-            else:
-                # 제한을 초과하면 현재 덩어리를 완성하고 새 덩어리 시작
-                if current_chunk:
-                    chunks.append("\n\n".join(current_chunk))
-                
-                # 단일 라인이 너무 긴 경우 잘라내기
-                if len(line) > max_length:
-                    trimmed_line = self._trim_single_line(line, max_length)
-                    chunks.append(trimmed_line)
-                    current_chunk = []
-                    current_length = 0
-                else:
-                    current_chunk = [line]
-                    current_length = len(line)
-        
-        # 마지막 덩어리 추가
-        if current_chunk:
-            chunks.append("\n\n".join(current_chunk))
-        
-        return chunks
+            return ""       
 
-    def _trim_single_line(self, line: str, max_length: int) -> str:
-        """단일 라인이 너무 긴 경우 잘라내기"""
-        if len(line) <= max_length:
-            return line
-        
-        # "**HH:MM:SS**- " 부분은 보존하고 텍스트 부분만 자르기
-        if "**- " in line:
-            time_part = line.split("**- ")[0] + "**- "
-            text_part = line.split("**- ", 1)[1]
-            available_length = max_length - len(time_part) - 3  # "..." 고려
-            if available_length > 0:
-                trimmed_text = text_part[:available_length] + "..."
-                return time_part + trimmed_text
-        
-        # 기본적으로 끝에서 자르기
-        return line[:max_length-3] + "..."     
-
-    async def _send_comment(self, message):
+    async def _send_comment(self, message, videoNo):
         """
         첫 번째 댓글 전송
         
@@ -451,7 +337,7 @@ class chzzk_video:
         """
         try:
             def get_link():
-                return f"https://apis.naver.com/nng_main/nng_comment_api/v1/type/STREAMING_VIDEO/id/{self.data.videoNo}/comments"
+                return f"https://apis.naver.com/nng_main/nng_comment_api/v1/type/STREAMING_VIDEO/id/{videoNo}/comments"
             
             def get_VOD_chat_json():
                 return {
@@ -476,7 +362,7 @@ class chzzk_video:
                     cookies=getChzzkCookie()
                 ) as response:
                     
-                    print(f"첫 번째 댓글 응답 상태: {response.status}")
+                    print(f"{datetime.now()} 첫 번째 댓글 응답 상태: {response.status}")
                     response_text = await response.text()
                     
                     if response.status == 200:
@@ -484,16 +370,16 @@ class chzzk_video:
                             response_data = loads(response_text)
                             if response_data.get('code') == 200 and 'content' in response_data:
                                 comment_id = response_data['content'].get('commentId')
-                                print(f"첫 번째 댓글 작성 성공! ID: {comment_id}")
+                                print(f"{datetime.now()} 첫 번째 댓글 작성 성공! ID: {comment_id}")
                                 return comment_id
                             else:
-                                print(f"첫 번째 댓글 실패: {response_data}")
+                                print(f"{datetime.now()} 첫 번째 댓글 실패: {response_data}")
                                 return None
                         except Exception as parse_error:
-                            print(f"응답 파싱 오류: {parse_error}")
+                            print(f"{datetime.now()} 응답 파싱 오류: {parse_error}")
                             return None
                     else:
-                        print(f"첫 번째 댓글 HTTP 오류: {response.status}")
+                        print(f"{datetime.now()} 첫 번째 댓글 HTTP 오류: {response.status}")
                         return None
                         
         except Exception as e:
@@ -536,26 +422,26 @@ class chzzk_video:
                             cookies=getChzzkCookie()
                         ) as response:
                             
-                            print(f"답글 {i+1} 응답 상태: {response.status}")
+                            print(f"{datetime.now()} 답글 {i+1} 응답 상태: {response.status}")
                             response_text = await response.text()
                             
                             if response.status == 200:
                                 try:
                                     response_data = loads(response_text)
                                     if response_data.get('code') == 200:
-                                        print(f"답글 {i+1} 작성 성공!")
+                                        print(f"{datetime.now()} 답글 {i+1} 작성 성공!")
                                     else:
-                                        print(f"답글 {i+1} 실패: {response_data}")
+                                        print(f"{datetime.now()} 답글 {i+1} 실패: {response_data}")
                                 except Exception as parse_error:
-                                    print(f"답글 {i+1} 파싱 오류: {parse_error}")
+                                    print(f"{datetime.now()} 답글 {i+1} 파싱 오류: {parse_error}")
                             else:
-                                print(f"답글 {i+1} HTTP 오류: {response.status}")
+                                print(f"{datetime.now()} 답글 {i+1} HTTP 오류: {response.status}")
                         
                         # 답글 간 간격 (너무 빠르게 보내지 않도록)
                         await asyncio.sleep(1)
                         
                     except Exception as reply_error:
-                        print(f"답글 {i+1} 전송 오류: {reply_error}")
+                        print(f"{datetime.now()} 답글 {i+1} 전송 오류: {reply_error}")
                         continue
                         
         except Exception as e:

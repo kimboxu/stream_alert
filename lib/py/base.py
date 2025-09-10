@@ -59,7 +59,7 @@ class APIPerformanceManager:
 					self._cache_timestamp = datetime.now()
 					return data
 		except Exception as e:
-			print(f"API 성능 데이터 로드 실패: {e}")
+			print(f"{datetime.now()} API 성능 데이터 로드 실패: {e}")
 		return []
 	
 	#메모리 캐시와 파일 데이터를 합쳐서 반환
@@ -187,7 +187,7 @@ async def log_api_performance(api_type: str, response_time_ms: int, is_success: 
 			asyncio.create_task(_flush_api_performance_cache())
 			
 	except Exception as e:
-		print(f"API 성능 로깅 실패: {e}")
+		print(f"{datetime.now()} API 성능 로깅 실패: {e}")
 
 # API 성능 캐시를 파일에 저장하는 함수
 async def _flush_api_performance_cache():
@@ -226,7 +226,7 @@ async def _flush_api_performance_cache():
             performance_manager.invalidate_cache()
             
         except Exception as e:
-            print(f"API 성능 데이터 파일 저장 실패: {e}")
+            print(f"{datetime.now()} API 성능 데이터 파일 저장 실패: {e}")
 
 # 로컬 파일에서 일일 통계 로드하는 함수
 def load_daily_statistics():
@@ -235,7 +235,7 @@ def load_daily_statistics():
 			with open(DAILY_STATS_FILE, 'r', encoding='utf-8') as f:
 				return load(f)
 	except Exception as e:
-		print(f"일일 통계 데이터 로드 실패: {e}")
+		print(f"{datetime.now()} 일일 통계 데이터 로드 실패: {e}")
 	return {}
 
 # 앱 종료 시 캐시 저장
@@ -244,9 +244,9 @@ async def save_all_cached_data():
 		if _api_performance_cache:
 			await _flush_api_performance_cache()
 	
-		print("모든 캐시된 통계 데이터가 파일에 저장되었습니다.")
+		print(f"{datetime.now()} 모든 캐시된 통계 데이터가 파일에 저장되었습니다.")
 	except Exception as e:
-		print(f"캐시 데이터 저장 실패: {e}")
+		print(f"{datetime.now()} 캐시 데이터 저장 실패: {e}")
 
 # 특정 API 타입의 평균 응답시간 계산하는 함수
 async def calculate_avg_response_time(api_type: str, date, days=1, data_source: List[Dict] = None):
@@ -520,7 +520,7 @@ async def _save_daily_statistics(daily_stat):
 			dump(filtered_stats, f, ensure_ascii=False, indent=2)
 			
 	except Exception as e:
-		print(f"일일 통계 파일 저장 실패: {e}")
+		print(f"{datetime.now()} 일일 통계 파일 저장 실패: {e}")
 
 # 시스템 가동 시간 계산하는 함수
 async def calculate_system_uptime(data_source: List[Dict] = None):
@@ -869,7 +869,7 @@ def calculate_stream_duration(start_stream_id: str, end_stream_id: str) -> float
         end_time = get_timestamp_from_stream_id(end_stream_id)
         return (end_time - start_time).total_seconds()
     except ValueError as e:
-        print(f"스트림 지속시간 계산 오류: {e}")
+        print(f"{datetime.now()} 스트림 지속시간 계산 오류: {e}")
         return 0.0
 
 # 치지직 API URL 생성 함수
@@ -1253,6 +1253,6 @@ def setup_performance_scheduler():
 	)
 	
 	scheduler.start()
-	print("성능 통계 스케줄러가 시작되었습니다 (매일 00:05에 실행)")
+	print(f"{datetime.now()} 성능 통계 스케줄러가 시작되었습니다 (매일 00:05에 실행)")
 	
 	atexit.register(lambda: scheduler.shutdown())
