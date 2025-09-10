@@ -479,7 +479,7 @@ class APIPerformanceLog:
 class APIPerformanceLogger:
     """API 성능 로깅을 관리하는 클래스 - 전역변수 없이 구현"""
     
-    def __init__(self, log_dir: Path = None, max_memory_logs: int = 1000):
+    def __init__(self, log_dir: Path = None, max_memory_logs: int = 10000):
         # 디렉토리 설정
         if log_dir is None:
             current_file = Path(__file__)
@@ -498,7 +498,7 @@ class APIPerformanceLogger:
         
         # 파일 저장 설정
         self.save_interval_minutes = 30  # 30분마다 파일 저장
-        self.max_file_age_days = 7  # 7일 이상된 파일 삭제
+        self.max_file_age_days = 30  # 30일 이상된 파일 삭제
         
         # 비동기 락
         self._save_lock = asyncio.Lock()
