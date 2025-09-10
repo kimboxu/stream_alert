@@ -5,7 +5,7 @@ from datetime import datetime
 from urllib.parse import quote
 from dataclasses import dataclass
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
-
+from make_log_api_performance import PerformanceManager
 from base import (
     initVar,
     subjectReplace, 
@@ -34,11 +34,12 @@ class CafePostData:
     
 class getCafePostTitle:
     # 초기화 함수: 필요한 데이터와 채널 ID 설정
-    def __init__(self, init_var: initVar, channel_id):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
         self.DO_TEST: bool = init_var.DO_TEST                # 테스트 모드 여부
         self.userStateData = init_var.userStateData          # 사용자 상태 데이터
         self.cafeData = init_var.cafeData                    # 카페 데이터
         self.channel_id: str = channel_id                    # 채널 ID
+        self.performance_manager = performance_manager
 
     async def start(self):
         try:
@@ -53,7 +54,7 @@ class getCafePostTitle:
     async def getCafeDataDic(self):
         # 네이버 카페 API URL 구성
         BASE_URL = f"https://apis.naver.com/cafe-web/cafe2/ArticleListV2dot1.json,{str(self.cafeData.loc[self.channel_id, 'cafeNum'])}"
-        response = await get_message("cafe", BASE_URL)  # API 요청
+        response = await get_message(self.performance_manager, "cafe", BASE_URL)  # API 요청
 
         # 현재 저장된 카페 데이터 가져오기
         cafe_json = self.cafeData.loc[self.channel_id, 'cafe_json']
@@ -249,7 +250,7 @@ class getCafePostTitle:
             config = platform_config[platform]
             
             # API 요청 및 데이터 가져오기
-            data = await get_message(platform, config["get_link"](user_id))
+            data = await get_message(self.performance_manager, platform, config["get_link"](user_id))
             
             # 응답 데이터 처리 (플랫폼별 다른 경로)
             if "content_path" in config:

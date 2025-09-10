@@ -4,7 +4,7 @@ import nest_asyncio
 from os import environ
 from datetime import datetime
 from dotenv import load_dotenv
-from base import initVar, userDataVar, fCount, fSleep, log_error, setup_performance_scheduler
+from base import initVar, userDataVar, fCount, fSleep, log_error
 from shared_state import StateManager
 # from Twitch_live_message import twitch_live_message
 from Chzzk_chat_message import chzzk_chat_message
@@ -15,6 +15,8 @@ from getYoutubeJsonData import getYoutubeJsonData
 from live_message import chzzk_live_message, afreeca_live_message
 from notification_service import initialize_firebase, cleanup_all_invalid_tokens, setup_scheduled_tasks
 from supabase import create_client
+from make_log_api_performance import PerformanceManager
+
 
 # 비동기 이벤트 루프를 중첩해서 사용할 수 있도록 설정
 nest_asyncio.apply()
@@ -28,7 +30,6 @@ GLOBAL_INSTANCES = {
     'chzzk_live': {},
     'afreeca_live': {}
 }
-
 
 # 전역 상태 관리자
 state_manager = StateManager.get_instance()
@@ -47,24 +48,24 @@ def setup_flask_app():
     
     return app
 
-def get_or_create_instance(instance_type, init, channel_id):
+def get_or_create_instance(instance_type, init, performance_manager, channel_id):
     """인스턴스를 가져오거나 생성하는 헬퍼 함수"""
     instances = GLOBAL_INSTANCES[instance_type]
     
     if channel_id not in instances:
         if instance_type == 'cafe':
-            instances[channel_id] = getCafePostTitle(init, channel_id)
+            instances[channel_id] = getCafePostTitle(init, performance_manager, channel_id)
         elif instance_type == 'chzzk_video':
-            instances[channel_id] = chzzk_video(init, channel_id)
+            instances[channel_id] = chzzk_video(init, performance_manager, channel_id)
         elif instance_type == 'chzzk_live':
-            instances[channel_id] = chzzk_live_message(init, channel_id)
+            instances[channel_id] = chzzk_live_message(init, performance_manager, channel_id)
         elif instance_type == 'afreeca_live':
-            instances[channel_id] = afreeca_live_message(init, channel_id)
+            instances[channel_id] = afreeca_live_message(init, performance_manager, channel_id)
     
     return instances[channel_id]
 
 # 디스코드 봇 메인 루프
-async def main_loop(init: initVar):
+async def main_loop(init: initVar, performance_manager: PerformanceManager):
     while True:
         try:
             if init.count % 2 == 0: 
@@ -73,28 +74,28 @@ async def main_loop(init: initVar):
             # 기존 인스턴스를 재사용하여 태스크 생성
             cafe_tasks = [
                 asyncio.create_task(
-                    get_or_create_instance('cafe', init, channel_id).start()
+                    get_or_create_instance('cafe', init, performance_manager, channel_id).start()
                 ) 
                 for channel_id in init.cafeData["channelID"]
             ]
             
             chzzk_video_tasks = [
                 asyncio.create_task(
-                    get_or_create_instance('chzzk_video', init, channel_id).start()
+                    get_or_create_instance('chzzk_video', init, performance_manager, channel_id).start()
                 ) 
                 for channel_id in init.chzzkIDList["channelID"]
             ]
             
             chzzk_live_tasks = [
                 asyncio.create_task(
-                    get_or_create_instance('chzzk_live', init, channel_id).start()
+                    get_or_create_instance('chzzk_live', init, performance_manager, channel_id).start()
                 ) 
                 for channel_id in init.chzzkIDList["channelID"]
             ]
             
             afreeca_live_tasks = [
                 asyncio.create_task(
-                    get_or_create_instance('afreeca_live', init, channel_id).start()
+                    get_or_create_instance('afreeca_live', init, performance_manager, channel_id).start()
                 ) 
                 for channel_id in init.afreecaIDList["channelID"]
             ]
@@ -119,7 +120,7 @@ async def main_loop(init: initVar):
             await asyncio.sleep(1)
 
 # 유튜브 작업 함수
-async def youtube_task(init: initVar):
+async def youtube_task(init: initVar, performance_manager: PerformanceManager):
     await asyncio.sleep(2)
 
     developer_keys = environ['developerKeyList'].split(",")
@@ -137,7 +138,7 @@ async def youtube_task(init: initVar):
                 
                 # 작업 실행
                 developerKey = developer_keys[key_index]
-                await asyncio.create_task(getYoutubeJsonData(init, developerKey, youtubeChannelID).start())
+                await asyncio.create_task(getYoutubeJsonData(init, performance_manager, developerKey, youtubeChannelID).start())
                 
                 # 다음 키로 순환
                 key_index = (key_index + 1) % len(developer_keys)
@@ -151,7 +152,7 @@ async def youtube_task(init: initVar):
             await asyncio.sleep(3)
 
 # 채팅 작업 함수
-async def generic_chat(init: initVar, platform_name: str, message_class):
+async def generic_chat(init: initVar, performance_manager: PerformanceManager, platform_name: str, message_class):
     await asyncio.sleep(3)
     
     tasks = {}  # 채널 ID별 실행 중인 task를 관리할 딕셔너리
@@ -167,7 +168,7 @@ async def generic_chat(init: initVar, platform_name: str, message_class):
             # 기존 실행 중인 태스크를 유지하면서, 새로운 채널이 추가되면 실행
             for channel_id in id_list["channelID"]:
                 if channel_id not in tasks or tasks[channel_id].done():
-                    chat_instance = message_class(init, channel_id)
+                    chat_instance = message_class(init, performance_manager, channel_id)
                     tasks[channel_id] = asyncio.create_task(chat_instance.start())
             
             await asyncio.sleep(1)  # 1초마다 체크
@@ -181,18 +182,22 @@ async def generic_chat(init: initVar, platform_name: str, message_class):
 async def run_discord_bot():
     # 상태 관리자에서 init 가져오기
     init = state_manager.get_init()
-    if init is None: 
-        init = await state_manager.initialize()
+    performance_manager = state_manager.get_performance_manager()
+    init = await state_manager.initialize()
+
+    #정기적인 작업 스케줄러 설정
+    performance_manager.setup_scheduler()
+    print("성능 통계 스케줄러가 시작되었습니다.")
     
     # Firebase 초기화
     initialize_firebase(False)
 
     # 모든 작업 동시 실행
     bot_tasks = [
-        asyncio.create_task(main_loop(init)),
-        asyncio.create_task(generic_chat(init, 'afreeca', afreeca_chat_message)),
-        asyncio.create_task(generic_chat(init, 'chzzk', chzzk_chat_message)),
-        asyncio.create_task(youtube_task(init)),
+        asyncio.create_task(main_loop(init, performance_manager)),
+        asyncio.create_task(generic_chat(init, performance_manager, 'afreeca', afreeca_chat_message)),
+        asyncio.create_task(generic_chat(init, performance_manager, 'chzzk', chzzk_chat_message)),
+        asyncio.create_task(youtube_task(init, performance_manager)),
     ]
     
     await asyncio.gather(*bot_tasks)
@@ -220,8 +225,8 @@ def main():
         print("경고: Firebase 초기화에 실패했습니다. 푸시 알림 기능이 작동하지 않을 수 있습니다.")
 
     # 성능 통계 스케줄러 시작
-    setup_performance_scheduler()
-    print("성능 통계 스케줄러가 시작되었습니다.")
+    # setup_performance_scheduler()
+    # print("성능 통계 스케줄러가 시작되었습니다.")
     
     # 디스코드 봇 스레드 시작
     bot_thread = threading.Thread(target=run_bot_thread, daemon=True)

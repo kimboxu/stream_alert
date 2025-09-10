@@ -7,7 +7,7 @@ from urllib.parse import unquote
 from json import loads, dumps, JSONDecodeError
 from dataclasses import dataclass, field
 from cmd_type import CHZZK_CHAT_CMD, CHZZK_DONATION_CMD
-
+from make_log_api_performance import PerformanceManager
 from base import  (
     initVar,
     getChzzkCookie, 
@@ -38,8 +38,9 @@ class ChzzkChatData:
 
 # Chzzk 채팅 메시지 처리 클래스
 class chzzk_chat_message(ChatMessageWithAnalyzer):
-    def __init__(self, init_var, channel_id):
+    def __init__(self, init_var, performance_manager: PerformanceManager, channel_id):
         self.init = init_var
+        self.performance_manager = performance_manager
         channel_name = init_var.chzzkIDList.loc[channel_id, 'channelName']
         self.state_update_time = init_var.chzzk_titleData.loc[channel_id, 'state_update_time']
         self.data = ChzzkChatData(channel_id=channel_id, channel_name = channel_name)
@@ -526,7 +527,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         def chzzk_getLink(uid):
             return f'https://api.chzzk.naver.com/service/v1/channels/{uid}'
         
-        data = await get_message("chzzk", chzzk_getLink(uid))
+        data = await get_message(self.performance_manager, "chzzk", chzzk_getLink(uid))
         profile_image = data["content"]["channelImageUrl"]
 
         # 유효한 프로필 이미지 확인
