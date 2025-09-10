@@ -26,6 +26,7 @@ class ChatAnalysisData:
     openDate: datetime
     message_count: int = 0
     viewer_count: int = 0
+    threshold: int = 0
     fun_keywords: Dict[str, int] = field(default_factory=dict)
 
 @dataclass
@@ -285,6 +286,7 @@ class ChatAnalyzer:
             self.baseline_metrics = {
                 'avg_chat_count': 10.0,
                 'avg_viewer_count': 100.0,
+                'avg_threshold_score': self.small_fun_difference,
             }
         
         # 기준값 자동 업데이트
@@ -310,18 +312,6 @@ class ChatAnalyzer:
         )
         
         final_score = min(final_score, 100.0)
-        
-        # 동적 하이라이트 임계값 계산 - 최근 5분
-        history_num = self.history_1min*5
-        if len(self.analysis_history) >= history_num:
-            recent_scores = [a[1] for a in list(self.analysis_history)[-history_num:]]
-            sorted_scores = sorted(recent_scores, reverse=True)
-            # 상위 20%를 하이라이트로 설정
-            threshold_index = min(floor(len(sorted_scores) * 0.20), len(sorted_scores) - 1)
-            dynamic_threshold = sorted_scores[threshold_index]
-            threshold = max(min(dynamic_threshold, 80.0), self.small_fun_difference)
-        else:
-            threshold = self.small_fun_difference  # 기본 임계값
          
         # 상세 점수 정보
         score_details = {
@@ -331,11 +321,11 @@ class ChatAnalyzer:
             
             'viewer_trend_score': viewer_trend_score,
             'final_score': final_score,
-            'threshold': threshold,
             'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
-            'highlights': self._should_create_new_highlight(final_score, threshold),
-            'big_highlights': self._should_create_new_highlight(final_score, threshold) and self.get_score_difference(final_score) > self.big_fun_difference,
+            'baseline_threshold': self.baseline_metrics['avg_threshold_score'],
+            'highlights': self._should_create_new_highlight(final_score),
+            'big_highlights': self._should_create_new_highlight(final_score) and self.get_score_difference(final_score) > self.big_fun_difference,
             'score_difference': self.get_score_difference(final_score),
         }
         
@@ -351,17 +341,22 @@ class ChatAnalyzer:
         # 최근 20개 데이터의 평균으로 기준값 업데이트
         recent_chat_counts = [a[0].message_count for a in recent_20]
         recent_viewers = [a[0].viewer_count for a in recent_20]
+        recent_threshold = [a[0].threshold for a in recent_20]
         
         # 지수 이동 평균으로 부드럽게 업데이트 (alpha=0.10)
         alpha = 0.10
         avg_count = sum(recent_chat_counts) / len(recent_chat_counts)
         avg_viewers = sum(recent_viewers) / len(recent_viewers)
+        avg_threshold = sum(recent_threshold) / len(recent_threshold)
         
         self.baseline_metrics['avg_chat_count'] = (
             alpha * avg_count + (1 - alpha) * self.baseline_metrics['avg_chat_count']
         )
         self.baseline_metrics['avg_viewer_count'] = (
             alpha * avg_viewers + (1 - alpha) * self.baseline_metrics['avg_viewer_count']
+        )
+        self.baseline_metrics['avg_threshold_score'] = (
+            alpha * avg_threshold + (1 - alpha) * self.baseline_metrics['avg_threshold_score']
         )
 
     #채팅 급증 점수 계산
@@ -515,8 +510,8 @@ class ChatAnalyzer:
             return 2 / (1 + exp(-steepness * (x - midpoint)))
 
     #새 하이라이트를 생성해야 하는지 판단
-    def _should_create_new_highlight(self, fun_score, threshold):
-        if fun_score < threshold:
+    def _should_create_new_highlight(self, fun_score):
+        if fun_score < self.baseline_metrics['avg_threshold_score']:
             return False
 
         if len(self.analysis_history) < int(self.history_1min):
