@@ -130,11 +130,7 @@ class base_live_message:
                 self.get_channel_url()
                 self.getViewer_count(state_data)
                 self.getImageURL(state_data)
-                
-                self.stream_start_id = get_stream_start_id(self.channel_id, self.data.start_at["openDate"])
-                if not self.init.highlight_chat[self.channel_id].get(self.stream_start_id):
-                    self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
-                    
+                self.init_highlight_chat()
                 self.get_init_last_title()
 
             # 온라인/오프라인 상태 처리
@@ -318,6 +314,11 @@ class base_live_message:
     
     def getImageURL(self, state_data):
         raise NotImplementedError
+    
+    def init_highlight_chat(self):
+        self.stream_start_id = get_stream_start_id(self.channel_id, self.data.start_at["openDate"])
+        if not self.init.highlight_chat[self.channel_id].get(self.stream_start_id):
+            self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
     
     def get_init_last_title(self):
         if not len(self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title):
