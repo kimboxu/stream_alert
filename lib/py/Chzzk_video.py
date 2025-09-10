@@ -37,7 +37,7 @@ class chzzk_video:
         self.chzzk_video = init_var.chzzk_video  # 치지직 비디오 데이터
         self.userStateData = init_var.userStateData  # 사용자 상태 데이터
         self.chzzk_id = chzzk_id  # 현재 처리할 치지직 채널 ID
-        self.time_offset = 30   # window_size 만큼의 길이
+        self.time_offset = 20   # window_size 만큼의 길이
         self.duration_diff = 0  # 실제 방송시간과 VOD 길이 와의 차이
         self.small_fun_difference = 50
         self.big_fun_difference = 70
