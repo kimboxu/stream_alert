@@ -24,9 +24,9 @@ from chat_analyzer import ChatMessageWithAnalyzer
 # 아프리카 채팅 데이터 클래스 정의
 @dataclass
 class AfreecaChatData:
-    sock: websockets.connect = None         # 웹소켓 연결 객체
-    afreeca_chat_msg_List: list = field(default_factory=list)  # 채팅 메시지 리스트
-    processed_messages: list = field(default_factory=list)     # 처리된 메시지 리스트 (중복 방지용)
+    sock = None                                                         # 웹소켓 연결 객체
+    message_queue: asyncio.Queue = field(default_factory=asyncio.Queue) # 채팅 메시지 큐
+    processed_messages: list = field(default_factory=list)              # 처리된 메시지 리스트 (중복 방지용)
     last_chat_time: str = ""                # 마지막 채팅 시간
     channel_id: str = ""                    # 채널 ID
     channel_name: str = ""                  # 채널 이름
@@ -123,14 +123,14 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             # 채팅 채널에 연결
             await self.connect()
-            message_queue = asyncio.Queue()
+            
             await self.start_analyzer()     # 분석기 시작
 
             # 핑, 메시지 수신, 메시지 디코딩 태스크 생성 및 실행
             self.tasks = [
                 asyncio.create_task(self._ping()),
-                asyncio.create_task(self._receive_messages(message_queue)),
-                asyncio.create_task(self._decode_message(message_queue)),
+                asyncio.create_task(self._receive_messages()),
+                asyncio.create_task(self._decode_message()),
             ]
             await asyncio.gather(self.tasks[0], self.tasks[1])
 
@@ -193,7 +193,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
     
     # 메시지 수신
-    async def _receive_messages(self, message_queue: asyncio.Queue):
+    async def _receive_messages(self):
         # 연결 종료 여부 확인 함수
         async def should_close_connection():
             if (is_close:= self.check_live_state_close()):
@@ -223,7 +223,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 # 메시지 수신
                 raw_message = await asyncio.wait_for(self.data.sock.recv(), timeout=1)
                 self.data.last_chat_time = datetime.now().isoformat()
-                # await message_queue.put(raw_message)
+                # await self.data.message_queue.put(raw_message)
 
                 # 메시지 버퍼에 추가
                 message_buffer.append(raw_message)
@@ -231,7 +231,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 # 버퍼가 가득 차거나 일정 시간이 지나면 메시지 큐에 추가
                 if len(message_buffer) >= buffer_size or if_after_time(last_buffer_flush, sec=buffer_timeout):
                     for msg in message_buffer:
-                        await message_queue.put(msg)
+                        await self.data.message_queue.put(msg)
                     message_buffer.clear()
                     last_buffer_flush = self.data.last_chat_time
                     
@@ -239,7 +239,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 # 타임아웃 시 버퍼 비우기
                 if message_buffer:
                     for msg in message_buffer:
-                        await message_queue.put(msg)
+                        await self.data.message_queue.put(msg)
                     message_buffer.clear()
                     last_buffer_flush = self.data.last_chat_time
                 continue
@@ -257,13 +257,13 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 except Exception: pass
 
     # 메시지 디코딩 및 처리 
-    async def _decode_message(self, message_queue: asyncio.Queue):
+    async def _decode_message(self):
         processing_pool = []
         max_concurrent_processing = 10
 
         while True:
             # 큐에서 메시지 가져오기
-            bytes_data = await message_queue.get()
+            bytes_data = await self.data.message_queue.get()
             # 메시지 분할 및 디코딩
             parts = bytes_data.split(b'\x0c')
             messages = [part.decode('utf-8', errors='ignore') for part in parts]
@@ -292,7 +292,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 ))
             finally:
                 # 큐 작업 완료 신호
-                message_queue.task_done()
+                self.data.message_queue.task_done()
     
     # 유저 채팅 데이터 얻기
     def get_user_chat(self, messages):
