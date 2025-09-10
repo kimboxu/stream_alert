@@ -133,7 +133,7 @@ class ChatAnalyzer:
         'laugh': re.compile(r'ㅋ{2,}|z{2,}|ㅎ{2,}|하하|푸하|풉|웃겨|개웃|존웃|엌'),
         'excitement': re.compile(r'!{1,}|\?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|캬|^굳$|^구뜨|^와|^오$|^오(?!\S)|^오우|^오이|^옹|^올$|우와|미친|ㅁㅊ|나이스|ㄴㅇㅅ|개쩔|쩐다|고고|가즈아|ㅗㅜㅑ'),
         'surprise': re.compile(r'^\s*\?\s*$|헉|왓|뭣|뭐야|뭐여|무야|어라|어래|어머|어떻게|진짜|실화|레전드|띠용|충격|놀람|지리네|o0o|O0O|0o0'),
-        'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|ㅎㅇㅌ|ㄹㅇ|앗|아악|아으|으아|으악|아니|안돼|제발|부탁|응원'),
+        'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|ㅎㅇㅌ|ㄹㅇ|앗|아악|아으|으아|으악|끄악|아니|안돼|제발|부탁|응원'),
         'greeting': re.compile(r'^.하$|^.바$|^.ㅎ$|^.ㅂ$|ㅎㅇ|안녕|반갑'),
         }
 
@@ -316,8 +316,8 @@ class ChatAnalyzer:
         if len(self.analysis_history) >= history_num:
             recent_scores = [a[1] for a in list(self.analysis_history)[-history_num:]]
             sorted_scores = sorted(recent_scores, reverse=True)
-            # 상위 10%를 하이라이트로 설정
-            threshold_index = min(floor(len(sorted_scores) * 0.10), len(sorted_scores) - 1)
+            # 상위 20%를 하이라이트로 설정
+            threshold_index = min(floor(len(sorted_scores) * 0.20), len(sorted_scores) - 1)
             dynamic_threshold = sorted_scores[threshold_index]
             threshold = max(min(dynamic_threshold, 80.0), self.small_fun_difference)
         else:
