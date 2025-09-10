@@ -522,7 +522,7 @@ class ChatAnalyzer:
         if len(self.analysis_history) < int(self.history_1min*0.5):
             return True
         
-        #이전 30초 중 가장 작은 점수가 15점 이상 높아진 경우
+        #이전 1분 중 가장 작은 점수가 15점 이상 높아진 경우
         if self.get_score_difference(fun_score) < self.small_fun_difference:
             return False
         
@@ -540,12 +540,12 @@ class ChatAnalyzer:
         return True
     
     def get_score_difference(self, fun_score):
-        if len(self.analysis_history) < int(self.history_1min*0.5):
+        if len(self.analysis_history) < int(self.history_1min):
             return 0
         
-        bef_recent_scores = list(self.analysis_history)[-int(self.history_1min*0.5):]
+        bef_recent_scores = list(self.analysis_history)[-int(self.history_1min):]
 
-        #이전 30초 중 가장 작은 점수와의 차이
+        #이전 1분 중 가장 작은 점수와의 차이
         return fun_score - min(a[1] for a in bef_recent_scores)
 
     #하이라이트 생성
