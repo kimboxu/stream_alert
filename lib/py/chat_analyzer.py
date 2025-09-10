@@ -120,7 +120,7 @@ class ChatAnalyzer:
         self.stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
 
         # 분석 설정
-        self.window_size = 60  # 30초 윈도우
+        self.window_size = 30  # 30초 윈도우
         self.analysis_interval = 5  # 5초마다 분석
 
         # 채팅 데이터 저장 (약 30분)
