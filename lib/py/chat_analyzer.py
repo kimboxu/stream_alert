@@ -335,7 +335,7 @@ class ChatAnalyzer:
             'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
             'highlights': self._should_create_new_highlight(final_score, threshold),
-            'big_highlights': self.get_score_difference(final_score) > self.big_fun_difference,
+            'big_highlights': self._should_create_new_highlight(final_score, threshold) and self.get_score_difference(final_score) > self.big_fun_difference,
             'score_difference': self.get_score_difference(final_score),
         }
         
