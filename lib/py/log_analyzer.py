@@ -168,17 +168,17 @@ class SessionBasedFunScoreAnalyzer:
                             if log.get('score_components', {}).get('big_highlights', False))
         
         # 동적 임계값 및 점수 차이 통계
-        dynamic_thresholds = []
+        baseline_thresholdss = []
         score_differences = []
         
         for log in session_logs:
             score_comp = log.get('score_components', {})
-            if 'threshold' in score_comp:
-                dynamic_thresholds.append(score_comp['threshold'])
+            if 'baseline_threshold' in score_comp:
+                baseline_thresholdss.append(score_comp['baseline_threshold'])
             if 'score_difference' in score_comp:
                 score_differences.append(score_comp['score_difference'])
         
-        avg_dynamic_threshold = sum(dynamic_thresholds) / len(dynamic_thresholds) if dynamic_thresholds else 50
+        avg_baseline_thresholds = sum(baseline_thresholdss) / len(baseline_thresholdss) if baseline_thresholdss else 50
         avg_score_difference = sum(score_differences) / len(score_differences) if score_differences else 0
         max_score_difference = max(score_differences) if score_differences else 0
         
@@ -200,7 +200,7 @@ class SessionBasedFunScoreAnalyzer:
             'avg_viewers': sum([log['analysis_data']['viewer_count'] for log in session_logs]) / len(session_logs),
             
             # 동적 하이라이트 관련 통계
-            'avg_dynamic_threshold': avg_dynamic_threshold,
+            'avg_baseline_thresholds': avg_baseline_thresholds,
             'avg_score_difference': avg_score_difference,
             'max_score_difference': max_score_difference,
             'highlight_rate': highlights / len(scores) * 100,
@@ -235,10 +235,10 @@ class SessionBasedFunScoreAnalyzer:
             viewer_counts = [log['analysis_data']['viewer_count'] for log in session_logs]
             
             # 동적 임계값 데이터
-            dynamic_thresholds = []
+            baseline_thresholdss = []
             for log in session_logs:
                 threshold = log.get('score_components', {}).get('threshold', 50)
-                dynamic_thresholds.append(threshold)
+                baseline_thresholdss.append(threshold)
             
             # 2개 서브플롯 생성
             fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10))
@@ -247,7 +247,7 @@ class SessionBasedFunScoreAnalyzer:
             ax1.plot(after_open_times, scores, 'b-', alpha=0.7, linewidth=1.5, label='재미도 점수')
             
             # 동적 임계값 라인
-            ax1.plot(after_open_times, dynamic_thresholds, 'orange', linestyle='-.', alpha=0.8, label='동적 임계값')
+            ax1.plot(after_open_times, baseline_thresholdss, 'orange', linestyle='-.', alpha=0.8, label='동적 임계값')
             
             # 고정 임계값 (참고용)
             ax1.axhline(y=15, color='lightgray', linestyle=':', alpha=0.5, label='최소 임계값 (15)')
@@ -280,7 +280,7 @@ class SessionBasedFunScoreAnalyzer:
             
             ax1.set_title(f'재미도 점수 변화 - ({session_stats["date_str"]})\n'
                         f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
-                        f'{session_stats["duration_hours"]:.1f}시간, 평균 임계값: {session_stats.get("avg_dynamic_threshold", 50):.1f})')
+                        f'{session_stats["duration_hours"]:.1f}시간, 평균 임계값: {session_stats.get("avg_baseline_thresholds", 50):.1f})')
             ax1.set_xlabel('방송 시작 후 시간 (분)')
             ax1.set_ylabel('재미도 점수')
             ax1.legend()
@@ -335,7 +335,7 @@ class SessionBasedFunScoreAnalyzer:
                     'final_score': score_components.get('final_score', 0),
                     
                     # 동적 하이라이트 정보
-                    'dynamic_threshold': score_components.get('threshold', 50),
+                    'baseline_threshold': score_components.get('baseline_threshold', 50),
                     'score_difference': score_components.get('score_difference', 0),
                     'baseline_chat_count': score_components.get('baseline_chat_count', 0),
                     'baseline_viewer_count': score_components.get('baseline_viewer_count', 0),
