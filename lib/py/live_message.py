@@ -79,6 +79,7 @@ class base_live_message:
         self.userStateData = init_var.userStateData
         self.platform_name = platform_name
         self.channel_id = channel_id
+        self.wait_get_live_thumbnail_image = False
 
         # 플랫폼별 데이터 초기화
         if platform_name == "chzzk":
@@ -109,6 +110,8 @@ class base_live_message:
     #방송 상태를 확인하고 상태 변경 시 메시지 리스트에 추가하는 함수
     async def addMSGList(self):
         try:
+            if self.wait_get_live_thumbnail_image:
+                return
             # 방송 상태 데이터 가져오기
             state_data = await self._get_state_data()
                 
@@ -432,6 +435,7 @@ class chzzk_live_message(base_live_message):
     
     #치지직 썸네일 이미지(실시간 방송 화면 이미지로 변환 후) 가져오기
     async def get_live_thumbnail_image(self, state_data, message):
+        self.wait_get_live_thumbnail_image = True
         for count in range(20):
             time_difference = (datetime.now() - datetime.fromisoformat(self.title_data.loc[self.channel_id, 'update_time'])).total_seconds()
 
@@ -447,6 +451,7 @@ class chzzk_live_message(base_live_message):
             break
 
         else: thumbnail_image = ""
+        self.wait_get_live_thumbnail_image = False
         
         return thumbnail_image
     
@@ -672,7 +677,8 @@ class afreeca_live_message(base_live_message):
     
     #아프리카 썸네일 이미지 가져오기
     async def get_live_thumbnail_image(self, state_data, message=None):
-        for count in range(10):
+        self.wait_get_live_thumbnail_image = True
+        for count in range(40):
             thumbnail_image = self.get_thumbnail_image()
             if thumbnail_image is None: 
                 print(f"{datetime.now()} wait make thumbnail 1 .{count}.{str(self.getImageURL())}")
@@ -680,6 +686,7 @@ class afreeca_live_message(base_live_message):
                 continue
             break
         else: thumbnail_image = ""
+        self.wait_get_live_thumbnail_image = False
 
         return thumbnail_image
     
