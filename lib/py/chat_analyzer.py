@@ -522,7 +522,7 @@ class ChatAnalyzer:
         if len(self.analysis_history) < int(self.history_1min):
             return True
         
-        #이전 1분 중 가장 작은 점수가 15점 이상 높아진 경우
+        #이전 1분 중 가장 작은 점수가 small_fun_difference점 이상 높아진 경우
         if self.get_score_difference(fun_score) < self.small_fun_difference:
             return False
         
@@ -535,6 +535,10 @@ class ChatAnalyzer:
         
         # 쿨다운: 2분 간격
         if time_diff < self.cooldown:
+            #이전 2분 이내의 하이라이트가 big_highlights가 아니고, 현재의 하이라이트가 big_highlights일 경우
+            if self.get_score_difference(fun_score) >= self.big_fun_difference:
+                if not last_highlight.score_details['big_highlights']:
+                    return True
             return False
 
         return True
