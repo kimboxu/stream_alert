@@ -261,7 +261,7 @@ class ChatAnalyzer:
                 'fun_keywords': analysis.fun_keywords
             },
             'after_openDate': after_openDate,
-            'chat_context': [ f"{chat['nickname']}: {chat['message']}" for chat in window_chats[-10:]],  # 최근 10개 메시지
+            'chat_context': [ f"{chat['nickname']}: {chat['message']}" for chat in window_chats[-30:]],  # 최근 30개 메시지
         }
         
         self.detailed_logs.append(detailed_log)
