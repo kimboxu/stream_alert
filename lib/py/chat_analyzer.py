@@ -633,6 +633,7 @@ class ChatAnalyzer:
             message = "🎉 하이라이트"
             channel_name = self.channel_name
             channel_color = self.init.stream_status[highlight.channel_id].id_list.loc[highlight.channel_id, 'channel_color']
+            openDate=self.init.stream_status[self.channel_id].state_update_time['openDate']
 
             thumbnail_url = self.init.stream_status[highlight.channel_id].thumbnail_url
             platform_name= self.init.stream_status[highlight.channel_id].platform_name
@@ -665,7 +666,7 @@ class ChatAnalyzer:
                 "url": self.init.stream_status[highlight.channel_id].channel_url,
                 "image": {"url": image_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
-                "timestamp": changeUTCtime(highlight.timestamp)}]}
+                "timestamp": changeUTCtime(openDate)}]}
             print(f"{datetime.now()} {json_data}")
             # 알림 전송
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
