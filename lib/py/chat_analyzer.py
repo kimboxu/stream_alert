@@ -120,12 +120,12 @@ class ChatAnalyzer:
         self.stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
 
         # 분석 설정
-        self.window_size = 30  # 30초 윈도우
+        self.window_size = 60  # 30초 윈도우
         self.analysis_interval = 5  # 5초마다 분석
 
         # 채팅 데이터 저장 (약 30분)
         self.history_1min = int(60/self.analysis_interval)
-        self.chat_buffer = deque(maxlen=3600)  # 30분 분량
+        self.chat_buffer = deque(maxlen=3600)  #30분 분량(2/초 채팅 기준)
         self.analysis_history = deque(maxlen= self.history_1min * 30)  # 30분간 분석 결과
 
         # 재미 키워드 패턴 (한국어 최적화)
