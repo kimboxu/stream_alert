@@ -514,8 +514,8 @@ class ChatAnalyzer:
         if fun_score < self.baseline_metrics['avg_threshold_score']:
             return False
 
-        if len(self.analysis_history) < int(self.history_1min):
-            return True
+        if len(self.analysis_history) < int(self.history_1min*5):
+            return False
         
         #이전 1분 중 가장 작은 점수가 small_fun_difference점 이상 높아진 경우
         if self.get_score_difference(fun_score) < self.small_fun_difference:
