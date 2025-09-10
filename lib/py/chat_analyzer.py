@@ -519,7 +519,7 @@ class ChatAnalyzer:
         if fun_score < threshold:
             return False
 
-        if len(self.analysis_history) < int(self.history_1min*0.5):
+        if len(self.analysis_history) < int(self.history_1min):
             return True
         
         #이전 1분 중 가장 작은 점수가 15점 이상 높아진 경우
