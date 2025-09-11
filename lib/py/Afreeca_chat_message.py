@@ -477,6 +477,10 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # messages[7] 체크 (인덱스 확인 필요)
         if len(messages) >= 8 and isinstance(messages[7], str) and '|' in messages[7]:
             return 0
+        
+        # messages[1] 이 BID 인 경우 or messages[2] 가  BID 면서 길이가 11인 경우 
+        if messages[1] == self.data.BID or (messages[2] == self.data.BID and len(messages) == 11):
+            return 0
                 
         return 1
 
