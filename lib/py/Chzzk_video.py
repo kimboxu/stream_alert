@@ -115,6 +115,7 @@ class chzzk_video:
             return False
 
         # 썸네일 URL 검증
+        print(f"{datetime.now()} {self.chzzk_id},썸네일 검증{self.data.thumbnailImageUrl}")
         if not self.data.thumbnailImageUrl or ("https://video-phinf.pstatic.net" not in self.data.thumbnailImageUrl 
                                                and "https://livecloud-thumb.akamaized.net"not in self.data.thumbnailImageUrl ):
             return False
