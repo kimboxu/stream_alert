@@ -284,6 +284,9 @@ class chzzk_video:
             description = comment.get('description', '')
             score_difference = float(comment.get('score_difference', 0))
             
+            if not description:
+                description = text
+                
             if not time_str or not description:
                 continue
                 
