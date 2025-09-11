@@ -416,31 +416,31 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 			"needs_cookies": False,
 			"needs_params": False,
 			"url_formatter": link,
-			"response_handler": lambda response: loads(response.text)
+			"response_handler": lambda response: loads(response.text),
 		},
 		"chzzk": {
 			"needs_cookies": True,
 			"needs_params": True,
 			"url_formatter": link,
-			"response_handler": lambda response: loads(response.text)
+			"response_handler": lambda response: loads(response.text),
 		},
 		"twitch": {
 			"needs_cookies": False,
 			"needs_params": False,
 			"url_formatter": link,
-			"response_handler": lambda response: loads(response.text)
+			"response_handler": lambda response: loads(response.text),
 		},
 		"cafe": {
 			"needs_cookies": False,
 			"needs_params": True,
 			"url_formatter": lambda link, cafe_num: link,
-			"response_handler": lambda response: loads(response.text)
+			"response_handler": lambda response: loads(response.text),
 		},
 		"youtube": {
 			"needs_cookies": False,
 			"needs_params": False,
 			"url_formatter": link,
-			"response_handler": lambda response: response.text
+			"response_handler": lambda response: response.text,
 		},
 	}
 	
@@ -503,9 +503,6 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 				
 				end_time = datetime.now()
 				response_time_ms = int((end_time - start_time).total_seconds() * 1000)
-				content = loads(response.text)
-				code = content.get("code", None)
-				message = content.get("message", None)
 				# 응답 코드 확인
 				if response.status_code != 200:
 					# 실패 로깅
@@ -513,8 +510,6 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 						api_type=f"{platform}_api",
 						response_time_ms=response_time_ms,
 						is_success=False,
-						error_type=code,
-						error_message=message,
 						http_status_code=response.status_code,
 						retry_count=retry_count
 					))
