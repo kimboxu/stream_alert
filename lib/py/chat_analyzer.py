@@ -146,7 +146,7 @@ class ChatAnalyzer:
 
         # 하이라이트 저장
         self.highlights: List[StreamHighlight] = []
-        self.last_highlight = StreamHighlight
+        self.last_highlight = None
         self.last_analysis_time = datetime.now()
 
         # 임계값 설정
