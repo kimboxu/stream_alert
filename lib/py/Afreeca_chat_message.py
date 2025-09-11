@@ -351,7 +351,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             asyncio.create_task(self.afreeca_name_save(user_id, nickname))
 
         # 메시지 중복 체크 및 처리
-        self._process_new_message(chat)
+        self._process_new_message(user_id, chat)
         
         # 채팅 메시지 포스팅
         asyncio.create_task(self._post_chat(nickname, chat, profile_image, chat_type))
@@ -411,12 +411,12 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         return user_nick, profile_image
 
     # 새 메시지 처리  (중복 방지)
-    def _process_new_message(self, chat):
-        message_id = f"{chat}_{time()}"
+    def _process_new_message(self, user_id, chat):
+        message_id = f"{user_id}_{chat}_{time()}"
         
         # 이미 처리된 메시지인지 확인
         if message_id in self.data.processed_messages:
-            asyncio.create_task(log_error(f"{datetime.now()} 중복 메시지 무시: {chat}"))
+            asyncio.create_task(log_error(f"중복 메시지 무시: {chat}"))
             return
             
         # 새 메시지 처리
