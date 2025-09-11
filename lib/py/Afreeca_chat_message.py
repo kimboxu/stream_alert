@@ -429,10 +429,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     # 메시지 유효성 검사 
     def _is_invalid_message(self, messages):
         # 메시지가 유효하지 않은지 확인
-        return (len(messages) < 7 or 
-                len(messages) == 7 or
-                len(messages) == 8 or
-                len(messages) == 9 or
+        return (len(messages) < 10 or 
                 len(messages) == 10 or   #매니저가 해당 유저 차단?
                 messages[1] in ['-1', '', '1'] or 
                 len(messages[2]) == 0 or 
@@ -480,6 +477,10 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         
         # messages[1] 이 BID 인 경우 or messages[2] 가  BID 면서 길이가 11인 경우 
         if messages[1] == self.data.BID or (messages[2] == self.data.BID and len(messages) == 11):
+            return 0
+        
+        # len(messages) < 10인지
+        if len(messages) < 10:
             return 0
                 
         return 1
