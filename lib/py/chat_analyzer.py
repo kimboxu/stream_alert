@@ -521,7 +521,7 @@ class ChatAnalyzer:
         if self.get_score_difference(fun_score) < self.small_fun_difference:
             return False
         
-        if not self.last_highlight:
+        if self.last_highlight is None:
             return True
            
         time_diff = (datetime.now() - datetime.fromisoformat(self.last_highlight.timestamp)).total_seconds()
@@ -530,7 +530,7 @@ class ChatAnalyzer:
         if time_diff < self.cooldown:
             #이전 2분 이내의 하이라이트가 big_highlights가 아니고, 현재의 하이라이트가 big_highlights일 경우
             if self.get_score_difference(fun_score) >= self.big_fun_difference:
-                if not self.last_highlight.score_details['big_highlights']:
+                if not self.last_highlight.score_details.get('big_highlights', False):
                     return True
             return False
 
@@ -572,7 +572,6 @@ class ChatAnalyzer:
         # 큰 재미인 경우 즉시 알림
         if detailed_log['score_components']['big_highlights']:
             await self._send_notification(highlight)
-            self.highlights
         else:
             self.highlights.append(highlight)
 
