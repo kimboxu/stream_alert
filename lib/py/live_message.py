@@ -233,7 +233,6 @@ class base_live_message:
                 self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.append({
                     "after_openDate": after_openDate, 
                     "text": f"방제 변경: {self.data.title}",
-                    "score_difference": None,
                     "description": f"방제 변경: {self.data.title}",
                 })
         except Exception as e:
