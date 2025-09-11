@@ -353,7 +353,7 @@ class chzzk_video:
                         try:
                             response_data = loads(response_text)
                             if response_data.get('code') == 200 and 'content' in response_data:
-                                comment_id = response_data['content'].get('commentId')
+                                comment_id = response_data['content'].get('comment',{}).get('commentId')
                                 print(f"{datetime.now()} 첫 번째 댓글 작성 성공! ID: {comment_id}")
                                 return comment_id
                             else:
