@@ -408,7 +408,7 @@ class chzzk_video:
                             
                             print(f"{datetime.now()} 답글 {i+1} 응답 상태: {response.status}")
                             response_text = await response.text()
-                            
+                            await asyncio.sleep(5.1)
                             if response.status == 200:
                                 try:
                                     response_data = loads(response_text)
