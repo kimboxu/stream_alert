@@ -114,7 +114,8 @@ class chzzk_video:
             return False
 
         # 썸네일 URL 검증
-        if not self.data.thumbnailImageUrl or "https://video-phinf.pstatic.net" not in self.data.thumbnailImageUrl:
+        if not self.data.thumbnailImageUrl or ("https://video-phinf.pstatic.net" not in self.data.thumbnailImageUrl 
+                                               and "https://livecloud-thumb.akamaized.net"not in self.data.thumbnailImageUrl ):
             return False
         return True
  

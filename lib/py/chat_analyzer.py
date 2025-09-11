@@ -117,9 +117,6 @@ class ChatAnalyzer:
         self.channel_id = channel_id
         self.channel_name = channel_name
 
-        stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
-        self.stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
-
         # 분석 설정
         self.window_size = 30  # 30초 윈도우
         self.analysis_interval = 5  # 5초마다 분석
@@ -800,7 +797,9 @@ class ChatAnalyzer:
             return []
 
     def update_highlight_chat(self, timeline_comments):
-        self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.extend(timeline_comments)
+        stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
+        stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
+        self.init.highlight_chat[self.channel_id][stream_start_id].timeline_comments.extend(timeline_comments)
                 
         print(f"{datetime.now()} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
         for comment in timeline_comments:
