@@ -246,6 +246,7 @@ class ChatAnalyzer:
         # 방송이 켜진 시점 이후 작성된 채팅의 시간  
         after_openDate = analysis.timestamp - datetime.fromisoformat(analysis.openDate)
         after_openDate = str(after_openDate).split('.')[0]
+        after_openDate = self._format_time_for_comment(after_openDate)
         
         # 상세 로그 저장
         detailed_log = {
@@ -805,3 +806,30 @@ class ChatAnalyzer:
         for comment in timeline_comments:
             if 'after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'description' in comment:
                 print(f"**{comment['after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['description']}")
+
+    def _format_time_for_comment(self, time_str: str) -> str:
+        """시간 문자열을 댓글용 HH:MM:SS 형식으로 변환"""
+        try:
+            parts = time_str.strip().split(':')
+            
+            # 총 초 계산
+            if len(parts) == 2:
+                minutes, seconds = map(int, parts)
+                total_seconds = minutes * 60 + seconds
+            elif len(parts) == 3:
+                hours, minutes, seconds = map(int, parts)
+                total_seconds = hours * 3600 + minutes * 60 + seconds
+            else:
+                return ""
+            
+            # 오프셋 적용 (음수 방지)
+            adjusted_seconds = max(0, total_seconds)
+            
+            # 시:분:초로 변환
+            h, remainder = divmod(adjusted_seconds, 3600)
+            m, s = divmod(remainder, 60)
+            
+            return f"{h:02d}:{m:02d}:{s:02d}"
+            
+        except (ValueError, IndexError):
+            return "" 
