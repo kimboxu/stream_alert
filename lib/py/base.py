@@ -360,6 +360,33 @@ def get_timestamp_from_stream_id(stream_id: str) -> datetime:
             raise ValueError(f"Invalid stream_id format: {stream_id}")
     except (ValueError, IndexError) as e:
         raise ValueError(f"Cannot parse timestamp from stream_id '{stream_id}': {e}")
+	
+def format_time_for_comment(time_str: str, del_sec = 0) -> str:
+	"""시간 문자열을 댓글용 HH:MM:SS 형식으로 변환"""
+	try:
+		parts = time_str.strip().split(':')
+		
+		# 총 초 계산
+		if len(parts) == 2:
+			minutes, seconds = map(int, parts)
+			total_seconds = minutes * 60 + seconds
+		elif len(parts) == 3:
+			hours, minutes, seconds = map(int, parts)
+			total_seconds = hours * 3600 + minutes * 60 + seconds
+		else:
+			return ""
+		
+		# 오프셋 적용 (음수 방지)
+		adjusted_seconds = max(0, total_seconds - del_sec)
+		
+		# 시:분:초로 변환
+		h, remainder = divmod(adjusted_seconds, 3600)
+		m, s = divmod(remainder, 60)
+		
+		return f"{h:02d}:{m:02d}:{s:02d}"
+		
+	except (ValueError, IndexError):
+		return "" 
 
 #두 스트림 ID 사이의 시간 차이를 초 단위로 계산
 def calculate_stream_duration(start_stream_id: str, end_stream_id: str) -> float:
