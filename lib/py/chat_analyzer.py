@@ -595,7 +595,7 @@ class ChatAnalyzer:
 
         if len(self.highlights) > 30:
             await self._make_highlight_chat(self.highlights[:-1])
-            self.highlights = self.highlights[-1]
+            self.highlights = [self.highlights[-1]]
 
     #하이라이트 이유 생성
     def _determine_highlight_reason(self, analysis: ChatAnalysisData, score_details: dict) -> str:
