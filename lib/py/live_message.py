@@ -31,6 +31,7 @@ from base import (
     fSleep,
     log_error,
     get_stream_start_id,
+    format_time_for_comment,
 )
 
 
@@ -228,9 +229,12 @@ class base_live_message:
             if message == "방제 변경" and self.data.live in ["OPEN", 1]:      
                 after_openDate = datetime.now() - datetime.fromisoformat(self.data.start_at["openDate"])
                 after_openDate = str(after_openDate).split('.')[0]
+                after_openDate = format_time_for_comment(after_openDate)
                 self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.append({
                     "after_openDate": after_openDate, 
-                    "text": f"방제 변경: {self.data.title}"
+                    "text": f"방제 변경: {self.data.title}",
+                    "score_difference": None,
+                    "description": f"방제 변경: {self.data.title}",
                 })
         except Exception as e:
             asyncio.create_task(log_error(f"error record_title, {e}, highlight_chat:{self.init.highlight_chat[self.channel_id]}"))
