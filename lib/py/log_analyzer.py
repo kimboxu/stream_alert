@@ -237,7 +237,7 @@ class SessionBasedFunScoreAnalyzer:
             # 동적 임계값 데이터
             baseline_thresholdss = []
             for log in session_logs:
-                threshold = log.get('score_components', {}).get('threshold', 50)
+                threshold = log.get('score_components', {}).get('baseline_threshold', 50)
                 baseline_thresholdss.append(threshold)
             
             # 2개 서브플롯 생성

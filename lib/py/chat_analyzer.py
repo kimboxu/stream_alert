@@ -89,6 +89,7 @@ class ChatMessageWithAnalyzer:
             await self.chat_analyzer.save_detailed_logs_to_file(force_save=True)
             print(f"{datetime.now()} 로그 저장 완료: {self.chat_analyzer.channel_name}")
             timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
+            self.chat_analyzer.highlights = []
             self.chat_analyzer.update_highlight_chat(timeline_comments)
 
     async def _run_analyzer(self):
@@ -145,6 +146,7 @@ class ChatAnalyzer:
 
         # 하이라이트 저장
         self.highlights: List[StreamHighlight] = []
+        self.last_highlight = StreamHighlight
         self.last_analysis_time = datetime.now()
 
         # 임계값 설정
@@ -269,7 +271,7 @@ class ChatAnalyzer:
             self.detailed_logs = self.detailed_logs[-2000:]
 
         # 하이라이트 체크
-        if score_details['highlights']:
+        if score_details['highlights'] or self.init.DO_TEST:
             await self._create_highlight(detailed_log)
 
         # 분석 기록 저장
@@ -339,13 +341,13 @@ class ChatAnalyzer:
         # 최근 20개 데이터의 평균으로 기준값 업데이트
         recent_chat_counts = [a[0].message_count for a in recent_20]
         recent_viewers = [a[0].viewer_count for a in recent_20]
-        recent_threshold = [a[0].threshold for a in recent_20]
+        recent_final_score = [a[1] for a in recent_20]
         
         # 지수 이동 평균으로 부드럽게 업데이트 (alpha=0.10)
         alpha = 0.10
         avg_count = sum(recent_chat_counts) / len(recent_chat_counts)
         avg_viewers = sum(recent_viewers) / len(recent_viewers)
-        avg_threshold = sum(recent_threshold) / len(recent_threshold)
+        avg_final_score = sum(recent_final_score) / len(recent_final_score)
         
         self.baseline_metrics['avg_chat_count'] = (
             alpha * avg_count + (1 - alpha) * self.baseline_metrics['avg_chat_count']
@@ -354,7 +356,7 @@ class ChatAnalyzer:
             alpha * avg_viewers + (1 - alpha) * self.baseline_metrics['avg_viewer_count']
         )
         self.baseline_metrics['avg_threshold_score'] = (
-            alpha * avg_threshold + (1 - alpha) * self.baseline_metrics['avg_threshold_score']
+            alpha * avg_final_score + (1 - alpha) * self.baseline_metrics['avg_threshold_score']
         )
 
     #채팅 급증 점수 계산
@@ -519,18 +521,16 @@ class ChatAnalyzer:
         if self.get_score_difference(fun_score) < self.small_fun_difference:
             return False
         
-        if not len(self.highlights):
+        if not self.last_highlight:
             return True
-        
-        last_highlight = self.highlights[-1]
-        
-        time_diff = (datetime.now() - datetime.fromisoformat(last_highlight.timestamp)).total_seconds()
+           
+        time_diff = (datetime.now() - datetime.fromisoformat(self.last_highlight.timestamp)).total_seconds()
         
         # 쿨다운: 2분 간격
         if time_diff < self.cooldown:
             #이전 2분 이내의 하이라이트가 big_highlights가 아니고, 현재의 하이라이트가 big_highlights일 경우
             if self.get_score_difference(fun_score) >= self.big_fun_difference:
-                if not last_highlight.score_details['big_highlights']:
+                if not self.last_highlight.score_details['big_highlights']:
                     return True
             return False
 
@@ -569,14 +569,20 @@ class ChatAnalyzer:
             },
         )
 
-        self.highlights.append(highlight)
-        # await self._make_highlight_chat()
-        if not self.init.DO_TEST:
-            await self._save_highlight_to_db(highlight)
-
         # 큰 재미인 경우 즉시 알림
         if detailed_log['score_components']['big_highlights']:
             await self._send_notification(highlight)
+            self.highlights
+        else:
+            self.highlights.append(highlight)
+
+        if not self.init.DO_TEST:
+            await self._save_highlight_to_db(highlight)
+
+        self.last_highlight = highlight
+        if len(self.highlights) > 30:
+            await self._make_highlight_chat(self.highlights)
+            self.highlights = []
 
     #하이라이트 이유 생성
     def _determine_highlight_reason(self, analysis: ChatAnalysisData, score_details: dict) -> str:
@@ -782,7 +788,7 @@ class ChatAnalyzer:
                 if isinstance(timeline_comments, list):
                     # 시간순으로 정렬
                     timeline_comments.sort(key=lambda x: x.get('after_openDate', ''))
-                    print(f"배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
+                    print(f"{datetime.now()} 배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
                     return timeline_comments
                 
                 else:
