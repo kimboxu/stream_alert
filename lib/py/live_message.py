@@ -199,14 +199,14 @@ class base_live_message:
     def _log_message(self, message):
         now = datetime.now()
         if message == "뱅온!":
-            print(f"{now} onLine {self.channel_name} {message}")
+            print(f"{now} onLine {self.channel_name} {message}, {self.init.highlight_chat[self.channel_id]}")
         elif message == "방제 변경":
             old_title = self._get_old_title()
-            print(f"{now} onLine {self.channel_name} {message}")
+            print(f"{now} onLine {self.channel_name} {message}, {self.init.highlight_chat[self.channel_id]}")
             print(f"{now} 이전 방제: {old_title}")
             print(f"{now} 현재 방제: {self.data.title}")
         elif message == "뱅종":
-            print(f"{now} offLine {self.channel_name}")
+            print(f"{now} offLine {self.channel_name}, {self.init.highlight_chat[self.channel_id]}")
     
     #이전 방송 제목 반환
     def _get_old_title(self):
@@ -222,7 +222,8 @@ class base_live_message:
             self.title_data.loc[self.channel_id, 'live_state'] = "OPEN"
         self.title_data.loc[self.channel_id,'title2'] = self._get_title()
         self.title_data.loc[self.channel_id,'title1'] = self.data.title
-        self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
+        if (self.stream_start_id in self.init.highlight_chat[self.channel_id]):
+            self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
 
     def record_title(self, message):
         try:
@@ -321,13 +322,24 @@ class base_live_message:
         raise NotImplementedError
     
     def init_highlight_chat(self):
-        self.stream_start_id = get_stream_start_id(self.channel_id, self.data.start_at["openDate"])
-        if not self.init.highlight_chat[self.channel_id].get(self.stream_start_id):
-            self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
+        try:
+            self.stream_start_id = get_stream_start_id(self.channel_id, self.data.start_at["openDate"])
+            
+            # 스트림 ID가 없으면 초기화
+            if self.stream_start_id not in self.init.highlight_chat[self.channel_id]:
+                self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
+                
+        except Exception as e:
+            asyncio.create_task(log_error(f"error init_highlight_chat: {e}, channel_id: {self.channel_id}"))
     
     def get_init_last_title(self):
-        if not len(self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title):
-            self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
+        try:
+            if (self.stream_start_id in self.init.highlight_chat[self.channel_id]):
+                if not self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title:
+                    self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
+        except Exception as e:
+            asyncio.create_task(log_error(f"error get_init_last_title: {e}"))
+
 
     async def get_live_thumbnail_image(self, state_data, message=None):
         raise NotImplementedError

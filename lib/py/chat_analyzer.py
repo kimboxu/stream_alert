@@ -56,7 +56,7 @@ class ChatMessageWithAnalyzer:
         """분석기 시작 - start() 메서드에서 호출"""
         if not self.analysis_task or self.analysis_task.done():
             self.analysis_task = asyncio.create_task(self._run_analyzer())
-            print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}")
+            print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
 
             # 주기적 로그 저장 태스크 시작
             self.log_save_task = asyncio.create_task(self.chat_analyzer.save_logs_periodically())
