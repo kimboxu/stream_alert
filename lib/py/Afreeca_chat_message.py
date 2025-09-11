@@ -317,7 +317,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # 유효하지 않은 메시지 필터링
         if self._is_invalid_message(messages):
             if self.if_afreeca_chat(messages): 
-                asyncio.create_task(log_error(f"아프리카 chat recv messages {messages}", webhook_url=environ['chat_post_url']))
+                asyncio.create_task(log_error(f"아프리카 chat recv messages {messages}", webhook_url=environ['afreeca_chat_log_url']))
             return
         
         # 메시지 정보 추출
