@@ -536,6 +536,14 @@ class ChatAnalyzer:
 
         return True
     
+    def check_cooldown(self, highlight: StreamHighlight, last_highlight: StreamHighlight):
+        time_diff = (datetime.fromisoformat(highlight.timestamp) - datetime.fromisoformat(last_highlight.timestamp)).total_seconds()
+        
+        # 쿨다운: 2분 간격
+        if time_diff < self.cooldown:
+            return False
+        return True
+    
     def get_score_difference(self, fun_score):
         if len(self.analysis_history) < int(self.history_1min):
             return 0
@@ -569,8 +577,15 @@ class ChatAnalyzer:
             },
         )
 
-        # 큰 재미인 경우 즉시 알림
-        if detailed_log['score_components']['big_highlights']:
+        self.last_highlight = highlight
+
+        # 큰 재미인 경우 알림 보내기
+        if detailed_log['score_components']['big_highlights'] or (self.init.DO_TEST and len(self.highlights)):
+            # 직전의 하이라이트가 만들어진지 2분이 안지났을 경우
+            if len(self.highlights) and not self.check_cooldown(highlight, self.highlights[-1]):
+                highlight.after_openDate = self.highlights[-1].after_openDate
+                self.highlights = self.highlights[:-1]
+
             await self._send_notification(highlight)
         else:
             self.highlights.append(highlight)
@@ -578,10 +593,9 @@ class ChatAnalyzer:
         if not self.init.DO_TEST:
             await self._save_highlight_to_db(highlight)
 
-        self.last_highlight = highlight
         if len(self.highlights) > 30:
-            await self._make_highlight_chat(self.highlights)
-            self.highlights = []
+            await self._make_highlight_chat(self.highlights[:-1])
+            self.highlights = self.highlights[-1]
 
     #하이라이트 이유 생성
     def _determine_highlight_reason(self, analysis: ChatAnalysisData, score_details: dict) -> str:
