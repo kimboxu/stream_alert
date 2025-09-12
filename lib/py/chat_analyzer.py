@@ -130,7 +130,7 @@ class ChatAnalyzer:
         # 재미 키워드 패턴 (한국어 최적화)
         self.fun_patterns = {
         'laugh': re.compile(r'ㅋ{2,}|z{2,}|ㅎ{2,}|하하|푸하|풉|웃겨|개웃|존웃|엌'),
-        'excitement': re.compile(r'!{1,}|\?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|캬|^굳$|^구뜨|^와|^오$|^오(?!\S)|^오우|^오이|^옹|^올$|우와|미친|ㅁㅊ|나이스|ㄴㅇㅅ|개쩔|쩐다|고고|가즈아|ㅗㅜㅑ'),
+        'excitement': re.compile(r'!{1,}|\?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|캬|^굳$|^구뜨|^와|^오$|^오(?!\S)|^오.|^오우|^오이|^옹|^올$|우와|미친|ㅁㅊ|나이스|ㄴㅇㅅ|개쩔|쩐다|고고|가즈아|ㅗㅜㅑ|으흐흐'),
         'surprise': re.compile(r'^\s*\?\s*$|헉|왓|뭣|뭐야|뭐여|무야|어라|어래|어머|어떻게|진짜|실화|레전드|띠용|충격|놀람|지리네|o0o|O0O|0o0'),
         'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|ㅎㅇㅌ|ㄹㅇ|앗|아악|아으|으아|으악|끄악|아니|안돼|제발|부탁|응원'),
         'greeting': re.compile(r'^.하$|^.바$|^.ㅎ$|^.ㅂ$|ㅎㅇ|안녕|반갑'),
@@ -324,9 +324,10 @@ class ChatAnalyzer:
             'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
             'baseline_threshold': self.baseline_metrics['avg_threshold_score'],
-            'highlights': self._should_create_new_highlight(final_score),
-            'big_highlights': self._should_create_new_highlight(final_score) and self.get_score_difference(final_score) > self.big_fun_difference,
+            'highlights': self._is_highlight(final_score, self.small_fun_difference),
+            'big_highlights': self._is_highlight(final_score, self.big_fun_difference),
             'score_difference': self.get_score_difference(final_score),
+            'should_create_new_highlight':self._should_create_new_highlight(final_score),
         }
         
         return score_details
@@ -509,35 +510,36 @@ class ChatAnalyzer:
     def _sigmoid_transform(self, x: float, midpoint: float = 1.0, steepness: float = 2.0) -> float:
             return 2 / (1 + exp(-steepness * (x - midpoint)))
 
-    #새 하이라이트를 생성해야 하는지 판단
-    def _should_create_new_highlight(self, fun_score):
+    #하이라이트를 인지 판단
+    def _is_highlight(self, fun_score, fun_difference):
         if fun_score < self.baseline_metrics['avg_threshold_score']:
             return False
 
         if len(self.analysis_history) < int(self.history_1min*5):
             return False
         
-        #이전 1분 중 가장 작은 점수가 small_fun_difference점 이상 높아진 경우
-        if self.get_score_difference(fun_score) < self.small_fun_difference:
-            return False
-        
-        if self.last_highlight is None:
-            return True
-           
-        time_diff = (datetime.now() - datetime.fromisoformat(self.last_highlight.timestamp)).total_seconds()
-        
-        # 쿨다운: 2분 간격
-        if time_diff < self.cooldown:
-            #이전 2분 이내의 하이라이트가 big_highlights가 아니고, 현재의 하이라이트가 big_highlights일 경우
-            if self.get_score_difference(fun_score) >= self.big_fun_difference:
-                if not self.last_highlight.score_details.get('big_highlights', False):
-                    return True
+        #이전 1분 중 가장 작은 점수가 fun_difference점 이상 높아진 경우
+        if self.get_score_difference(fun_score) < fun_difference:
             return False
 
         return True
     
-    def check_cooldown(self, highlight: StreamHighlight, last_highlight: StreamHighlight):
-        time_diff = (datetime.fromisoformat(highlight.timestamp) - datetime.fromisoformat(last_highlight.timestamp)).total_seconds()
+        #새 하이라이트를 생성해야 하는지 판단
+    def _should_create_new_highlight(self, fun_score):
+        if not self._is_highlight(fun_score, self.small_fun_difference):
+            return
+        
+        if self.last_highlight is None:
+            return True
+           
+        # 쿨다운: 2분 간격
+        if not self.check_cooldown(datetime.now(), self.last_highlight.timestamp):
+            return False
+
+        return True
+    
+    def check_cooldown(self, timestamp: datetime, last_timestamp: datetime):
+        time_diff = (datetime.fromisoformat(timestamp) - datetime.fromisoformat(last_timestamp)).total_seconds()
         
         # 쿨다운: 2분 간격
         if time_diff < self.cooldown:
@@ -580,15 +582,12 @@ class ChatAnalyzer:
         self.last_highlight = highlight
 
         # 큰 재미인 경우 알림 보내기
-        if detailed_log['score_components']['big_highlights'] or (self.init.DO_TEST and len(self.highlights)):
-            # 직전의 하이라이트가 만들어진지 2분이 안지났을 경우
-            if len(self.highlights) and not self.check_cooldown(highlight, self.highlights[-1]):
-                highlight.after_openDate = self.highlights[-1].after_openDate
-                self.highlights = self.highlights[:-1]
-
+        if highlight.score_details['big_highlights'] and highlight.score_details['should_create_new_highlight']:
             await self._send_notification(highlight)
-        else:
-            self.highlights.append(highlight)
+
+        #하이라이트의 피크 점수로 수정
+        highlight = self.change_score_to_peak(highlight)
+        self.highlights.append(highlight)
 
         if not self.init.DO_TEST:
             await self._save_highlight_to_db(highlight)
@@ -613,6 +612,24 @@ class ChatAnalyzer:
             reasons.append("🏆 레전드 순간")
 
         return " + ".join(reasons) if reasons else "재미있는 순간 감지"
+
+    def change_score_to_peak(self, highlight: StreamHighlight):
+        if highlight.score_details['highlights'] and not highlight.score_details['should_create_new_highlight']:
+            idx = None
+            for i,detailed_log in enumerate(reversed(self.detailed_logs)):
+                if detailed_log['score_components']['should_create_new_highlight']:
+                    idx = i
+                    break
+
+            #직전 하이라이트의 should_create_new_highlight를 False로 변경 후 현재것을 True로 변경
+            if idx:
+                self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
+                highlight.score_details['should_create_new_highlight'] = True
+
+            # 직전의 하이라이트 제거
+            self.highlights = self.highlights[:-1]
+
+        return highlight
 
     #하이라이트 DB 저장
     async def _save_highlight_to_db(self, highlight: StreamHighlight):
@@ -706,17 +723,17 @@ class ChatAnalyzer:
                 "channel_id": self.channel_id,
                 "channel_name": self.channel_name,
                 "save_timestamp": datetime.now().isoformat(),
-                "total_logs": len(self.detailed_logs),
-                "logs": self.detailed_logs.copy()  # 전체 로그 복사
+                "total_logs": len(self.detailed_logs[:-int(self.history_1min*2)]),
+                "logs": self.detailed_logs[:-int(self.history_1min*2)].copy()  # 전체 로그 복사
             }
             
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(log_data, f, ensure_ascii=False, indent=2)
             
-            print(f"{datetime.now()} 📄 상세 로그 저장 완료: {file_path} ({len(self.detailed_logs)}개 기록)")
+            print(f"{datetime.now()} 📄 상세 로그 저장 완료: {file_path} ({len(self.detailed_logs[:-int(self.history_1min*2)])}개 기록)")
             
             # 저장 후 삭제
-            self.detailed_logs = []
+            self.detailed_logs = self.detailed_logs[-int(self.history_1min*2):]
                 
         except Exception as e:
             print(f"{datetime.now()} ❌ 로그 저장 오류: {e}")
