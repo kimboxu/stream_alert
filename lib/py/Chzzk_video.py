@@ -303,7 +303,7 @@ class chzzk_video:
             if score_difference > self.big_fun_difference:
                 description = f"*{description}"
 
-            comment_line = f"{formatted_time}- {description}"
+            comment_line = f"{formatted_time}- 상대 점수:{score_difference:.1f} - {description}"
             comment_lines.append(comment_line)
         
         if not comment_lines:
