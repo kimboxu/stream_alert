@@ -399,7 +399,7 @@ class SessionBasedFunScoreAnalyzer:
                 score_components.get('should_create_new_highlight', True)):
                 
                 after_open = log['after_openDate']
-                after_open = format_time_for_comment(after_open, 30)
+                after_open = format_time_for_comment(after_open, 25)
                 score_diff = score_components.get('score_difference', 0)
                 star = ""
                 if score_diff > 40:
