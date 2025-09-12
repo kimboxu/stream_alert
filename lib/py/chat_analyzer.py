@@ -243,7 +243,7 @@ class ChatAnalyzer:
         analysis.fun_keywords = dict(keyword_counter)
 
         # 상세 점수 계산
-        score_details = self._calculate_fun_score(analysis, window_chats)
+        score_details = self._calculate_fun_score(current_time, analysis, window_chats)
 
         # 방송이 켜진 시점 이후 작성된 채팅의 시간  
         after_openDate = analysis.timestamp - datetime.fromisoformat(analysis.openDate)
@@ -280,7 +280,7 @@ class ChatAnalyzer:
         return detailed_log
     
     #재미도 점수 계산
-    def _calculate_fun_score(self, analysis: ChatAnalysisData, window_chats: List[Dict]) -> Tuple[float, bool, dict]:
+    def _calculate_fun_score(self, current_time: datetime, analysis: ChatAnalysisData, window_chats: List[Dict]) -> Tuple[float, bool, dict]:
         # 적응형 기준값 초기화
         if not hasattr(self, 'baseline_metrics'):
             self.baseline_metrics = {
@@ -327,7 +327,7 @@ class ChatAnalyzer:
             'highlights': self._is_highlight(final_score, self.small_fun_difference),
             'big_highlights': self._is_highlight(final_score, self.big_fun_difference),
             'score_difference': self.get_score_difference(final_score),
-            'should_create_new_highlight':self._should_create_new_highlight(final_score),
+            'should_create_new_highlight':self._should_create_new_highlight(final_score, current_time),
         }
         
         return score_details
@@ -525,7 +525,7 @@ class ChatAnalyzer:
         return True
     
         #새 하이라이트를 생성해야 하는지 판단
-    def _should_create_new_highlight(self, fun_score):
+    def _should_create_new_highlight(self, fun_score, current_time: datetime):
         if not self._is_highlight(fun_score, self.small_fun_difference):
             return
         
@@ -533,13 +533,13 @@ class ChatAnalyzer:
             return True
            
         # 쿨다운: 2분 간격
-        if not self.check_cooldown(datetime.now(), self.last_highlight.timestamp):
+        if not self.check_cooldown(current_time, self.last_highlight.timestamp):
             return False
 
         return True
     
-    def check_cooldown(self, timestamp: datetime, last_timestamp: datetime):
-        time_diff = (datetime.fromisoformat(timestamp) - datetime.fromisoformat(last_timestamp)).total_seconds()
+    def check_cooldown(self, current_time: datetime, last_timestamp: datetime):
+        time_diff = (current_time - datetime.fromisoformat(last_timestamp)).total_seconds()
         
         # 쿨다운: 2분 간격
         if time_diff < self.cooldown:
