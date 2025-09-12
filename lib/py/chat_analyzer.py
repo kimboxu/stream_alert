@@ -558,8 +558,12 @@ class ChatAnalyzer:
     #하이라이트 생성
     async def _create_highlight(self, detailed_log: dict) -> None:
         thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
-        response = get(thumbnail_url)
-        image = PILImage.open(BytesIO(response.content))
+        try:
+            response = get(thumbnail_url)
+            image = PILImage.open(BytesIO(response.content))
+        except Exception as e:
+            image = None
+            await log_error(f"error _create_highlight get image,{e}")
 
         highlight = StreamHighlight(
             timestamp=detailed_log['timestamp'],

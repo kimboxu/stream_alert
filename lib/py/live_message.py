@@ -620,7 +620,8 @@ class afreeca_live_message(base_live_message):
     #아프리카 스트림 정보 업데이트
     def _update_stream_info(self, stream_data, state_data):
         self.update_broad_no(state_data)
-        self.data.start_at["openDate"] = state_data["station"]["broad_start"]
+        if state_data["station"]["broad_start"] != "0000-00-00 00:00:00":
+            self.data.start_at["openDate"] = state_data["station"]["broad_start"]
         self.data.live, self.data.title, self.data.profile_image = stream_data
         self.id_list.loc[self.channel_id, 'profile_image'] = self.data.profile_image
     
