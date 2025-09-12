@@ -131,7 +131,7 @@ class ChatAnalyzer:
         # 재미 키워드 패턴 (한국어 최적화)
         self.fun_patterns = {
         'laugh': re.compile(r'ㅋ{2,}|z{2,}|ㅎ{2,}|하하|푸하|풉|웃겨|개웃|존웃|엌'),
-        'excitement': re.compile(r'!{1,}|\?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|캬|^굳$|^구뜨|^와|^오$|^오(?!\S)|^오.|^오우|^오이|^옹|^올$|우와|미친|ㅁㅊ|나이스|ㄴㅇㅅ|개쩔|쩐다|고고|가즈아|ㄱㅈㅇ|ㄷㄱㄷㄱ|ㄷㄱㅈ|ㅗㅜㅑ|으흐흐'),
+        'excitement': re.compile(r'!{1,}|\?{2,}|ㄷ{2,}|ㄱ{2,}|ㅏ{2,}|헐|대박|캬|^굳$|^구뜨|^와|^오$|^오(?!\S)|^오.|^오우|^오이|^옹|^올$|우와|미친|ㅁㅊ|나이스|ㄴㅇㅅ|개쩔|쩐다|고고|가자잇|가즈아|ㄱㅈㅇ|ㄷㄱㄷㄱ|ㄷㄱㅈ|ㅗㅜㅑ|으흐흐'),
         'surprise': re.compile(r'^\s*\?\s*$|헉|왓|뭣|뭐야|뭐여|무야|어라|어래|어머|어떻게|진짜|실화|레전드|띠용|충격|놀람|지리네|o0o|O0O|0o0'),
         'reaction': re.compile(r'ㅠ{2,}|ㅜ{2,}|ㅎㅇㅌ|ㄹㅇ|앗|아악|아으|으아|으악|끄악|아니|안돼|제발|부탁|응원'),
         'greeting': re.compile(r'^.하$|^.바$|^.ㅎ$|^.ㅂ$|ㅎㅇ|안녕|반갑'),
@@ -643,28 +643,30 @@ class ChatAnalyzer:
 
     #하이라이트 DB 저장
     async def _save_highlight_to_db(self, highlight: StreamHighlight):
-        try:
-
-            # Supabase에 저장
-            data = {
-                'id': str(uuid4()),
-                'timestamp': highlight.timestamp,
-                'channel_id': highlight.channel_id,
-                'channel_name': highlight.channel_name,
-                'fun_score': highlight.fun_score,
-                'reason': highlight.reason,
-                'chat_context': highlight.chat_context,
-                'duration': highlight.duration,
-                'after_openDate': highlight.after_openDate,
-                'score_details': highlight.score_details,
-                'analysis_data': highlight.analysis_data,
-            }
-            
-            # TODO: 실제 DB 저장 코드
-            self.init.supabase.table('stream_highlights').insert(data).execute()
-            
-        except Exception as e:
-            await log_error(f"하이라이트 DB 저장 오류: {e}")
+        for _ in range(5):
+            try:
+                # Supabase에 저장
+                data = {
+                    'id': str(uuid4()),
+                    'timestamp': highlight.timestamp,
+                    'channel_id': highlight.channel_id,
+                    'channel_name': highlight.channel_name,
+                    'fun_score': highlight.fun_score,
+                    'reason': highlight.reason,
+                    'chat_context': highlight.chat_context,
+                    'duration': highlight.duration,
+                    'after_openDate': highlight.after_openDate,
+                    'score_details': highlight.score_details,
+                    'analysis_data': highlight.analysis_data,
+                }
+                
+                # TODO: 실제 DB 저장 코드
+                self.init.supabase.table('stream_highlights').insert(data).execute()
+                break
+                
+            except Exception as e:
+                await log_error(f"하이라이트 DB 저장 오류: {e}")
+                await asyncio.sleep(0.2)
 
     #알림 전송
     async def _send_notification(self, highlight: StreamHighlight):
