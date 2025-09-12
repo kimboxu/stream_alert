@@ -442,6 +442,12 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 			"url_formatter": link,
 			"response_handler": lambda response: response.text,
 		},
+		"image": {
+    		"needs_cookies": False,
+			"needs_params": False,
+			"url_formatter": link,
+			"response_handler": lambda response: response.content,
+		},
 	}
 	
 	try:
