@@ -164,10 +164,10 @@ class SessionBasedFunScoreAnalyzer:
         # 하이라이트 정보
         highlights = sum(1 for log in session_logs 
                         if log.get('score_components', {}).get('highlights', False) 
-                        and log.get('score_components', {}).get('should_create_new_highlight', False))
+                        and log.get('score_components', {}).get('should_create_new_highlight', True))
         big_highlights = sum(1 for log in session_logs 
                             if log.get('score_components', {}).get('big_highlights', False)
-                            and log.get('score_components', {}).get('should_create_new_highlight', False))
+                            and log.get('score_components', {}).get('should_create_new_highlight', True))
         
         # 동적 임계값 및 점수 차이 통계
         baseline_thresholdss = []
@@ -267,7 +267,7 @@ class SessionBasedFunScoreAnalyzer:
                 score_comp = log.get('score_components', {})
                 is_highlight = score_comp.get('highlights', False)
                 is_big_highlight = score_comp.get('big_highlights', False)
-                should_create = score_comp.get('should_create_new_highlight', False)
+                should_create = score_comp.get('should_create_new_highlight', True)
                 
                 if is_highlight and should_create:
                     highlight_times.append(after_open_times[i])
@@ -349,9 +349,9 @@ class SessionBasedFunScoreAnalyzer:
                     # 하이라이트 정보
                     'is_highlight': score_components.get('highlights', False),
                     'is_big_highlight': score_components.get('big_highlights', False),
-                    'should_create_new_highlight': score_components.get('should_create_new_highlight', False),
-                    'is_actual_highlight': score_components.get('highlights', False) and score_components.get('should_create_new_highlight', False),
-                    'is_actual_big_highlight': score_components.get('big_highlights', False) and score_components.get('should_create_new_highlight', False),
+                    'should_create_new_highlight': score_components.get('should_create_new_highlight', True),
+                    'is_actual_highlight': score_components.get('highlights', False) and score_components.get('should_create_new_highlight', True),
+                    'is_actual_big_highlight': score_components.get('big_highlights', False) and score_components.get('should_create_new_highlight', True),
                     
                     # 키워드 데이터
                     'laugh_count': log['analysis_data'].get('fun_keywords', {}).get('laugh', 0),
@@ -396,7 +396,7 @@ class SessionBasedFunScoreAnalyzer:
             
             # 하이라이트인지 확인
             if (score_components.get('highlights', False) and 
-                score_components.get('should_create_new_highlight', False)):
+                score_components.get('should_create_new_highlight', True)):
                 
                 after_open = log['after_openDate']
                 after_open = format_time_for_comment(after_open, 30)

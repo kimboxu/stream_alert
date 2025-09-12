@@ -15,10 +15,10 @@ import pandas as pd
 from uuid import uuid4
 from pathlib import Path
 from live_message import upload_image_to_imgur
-from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar, get_stream_start_id, format_time_for_comment
+from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar, get_stream_start_id, format_time_for_comment, get_message
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
-
+from make_log_api_performance import PerformanceManager
 @dataclass
 class ChatAnalysisData:
     """채팅 분석 데이터를 저장하는 클래스"""
@@ -47,7 +47,7 @@ class StreamHighlight:
 class ChatMessageWithAnalyzer:
     def setup_analyzer(self, channel_id: str, channel_name: str):
         """분석기 초기화"""
-        self.chat_analyzer = ChatAnalyzer(self.init, channel_id, channel_name)
+        self.chat_analyzer = ChatAnalyzer(self.init, self.performance_manager, channel_id, channel_name)
         self.analysis_task = None
         self.log_save_task = None
         self.is_save_log = False
@@ -113,8 +113,9 @@ class ChatMessageWithAnalyzer:
 
 class ChatAnalyzer:
     """채팅 데이터를 분석하여 재미있는 순간을 감지하는 클래스"""
-    def __init__(self, init: initVar, channel_id: str, channel_name: str = ""):
+    def __init__(self, init: initVar, performance_manager: PerformanceManager, channel_id: str, channel_name: str = ""):
         self.init = init
+        self.performance_manager = performance_manager
         self.channel_id = channel_id
         self.channel_name = channel_name
 
@@ -152,7 +153,7 @@ class ChatAnalyzer:
         # 임계값 설정
         self.small_fun_difference   = 15    # 작은 재미 차이
         self.big_fun_difference     = 70    # 큰 재미 차이
-        self.cooldown               = 120   # 쿨다운
+        self.cooldown               = 90    # 쿨다운
 
         # 로그 파일 설정
         self.detailed_logs = []  # 상세 분석 로그
@@ -527,7 +528,7 @@ class ChatAnalyzer:
         #새 하이라이트를 생성해야 하는지 판단
     def _should_create_new_highlight(self, fun_score, current_time: datetime):
         if not self._is_highlight(fun_score, self.small_fun_difference):
-            return
+            return False
         
         if self.last_highlight is None:
             return True
@@ -557,13 +558,19 @@ class ChatAnalyzer:
 
     #하이라이트 생성
     async def _create_highlight(self, detailed_log: dict) -> None:
-        thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
-        try:
-            response = get(thumbnail_url)
-            image = PILImage.open(BytesIO(response.content))
-        except Exception as e:
-            image = None
-            await log_error(f"error _create_highlight get image,{e}")
+        for _ in range(10):
+            try:
+                # 썸네일 가져오기
+                thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
+                image_content = await get_message(self.performance_manager, "image", thumbnail_url)
+                if not image_content:
+                    print(f"_create_highlight 썸네일 가져오기 실패")
+                    await asyncio.sleep(0.1)
+                image = PILImage.open(BytesIO(image_content))
+                break
+            except Exception as e:
+                await log_error(f"썸네일 가져오기 실패: {e}")
+                return
 
         highlight = StreamHighlight(
             timestamp=detailed_log['timestamp'],
@@ -590,7 +597,7 @@ class ChatAnalyzer:
             await self._send_notification(highlight)
 
         #하이라이트의 피크 점수로 수정
-        highlight = self.change_score_to_peak(highlight)
+        self.change_score_to_peak(highlight)
         self.highlights.append(highlight)
 
         if not self.init.DO_TEST:
@@ -632,8 +639,6 @@ class ChatAnalyzer:
 
             # 직전의 하이라이트 제거
             self.highlights = self.highlights[:-1]
-
-        return highlight
 
     #하이라이트 DB 저장
     async def _save_highlight_to_db(self, highlight: StreamHighlight):
