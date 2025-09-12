@@ -566,6 +566,7 @@ class ChatAnalyzer:
                 if not image_content:
                     print(f"_create_highlight 썸네일 가져오기 실패")
                     await asyncio.sleep(0.1)
+                    continue
                 image = PILImage.open(BytesIO(image_content))
                 break
             except Exception as e:
