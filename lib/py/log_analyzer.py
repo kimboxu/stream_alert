@@ -124,7 +124,7 @@ class SessionBasedFunScoreAnalyzer:
         print(f"📂 로그 검색 경로: {search_pattern}")
         
         if not files:
-            print(f"⚠️  경고: {self.log_dir}에서 로그 파일을 찾을 수 없습니다.")
+            print(f"⚠️ 경고: {self.log_dir}에서 로그 파일을 찾을 수 없습니다.")
             print(f"   다음 패턴으로 검색했습니다: {pattern}")
             return []
         
@@ -163,9 +163,11 @@ class SessionBasedFunScoreAnalyzer:
         
         # 하이라이트 정보
         highlights = sum(1 for log in session_logs 
-                        if log.get('score_components', {}).get('highlights', False))
+                        if log.get('score_components', {}).get('highlights', False) 
+                        and log.get('score_components', {}).get('should_create_new_highlight', False))
         big_highlights = sum(1 for log in session_logs 
-                            if log.get('score_components', {}).get('big_highlights', False))
+                            if log.get('score_components', {}).get('big_highlights', False)
+                            and log.get('score_components', {}).get('should_create_new_highlight', False))
         
         # 동적 임계값 및 점수 차이 통계
         baseline_thresholdss = []
@@ -263,10 +265,14 @@ class SessionBasedFunScoreAnalyzer:
             
             for i, log in enumerate(session_logs):
                 score_comp = log.get('score_components', {})
-                if score_comp.get('highlights', False):
+                is_highlight = score_comp.get('highlights', False)
+                is_big_highlight = score_comp.get('big_highlights', False)
+                should_create = score_comp.get('should_create_new_highlight', False)
+                
+                if is_highlight and should_create:
                     highlight_times.append(after_open_times[i])
                     highlight_scores.append(scores[i])
-                if score_comp.get('big_highlights', False):
+                if is_big_highlight and should_create:
                     big_highlight_times.append(after_open_times[i])
                     big_highlight_scores.append(scores[i])
             
@@ -307,7 +313,7 @@ class SessionBasedFunScoreAnalyzer:
             plt.show()
             
         except ImportError:
-            print("⚠️  matplotlib가 설치되지 않아 그래프를 생성할 수 없습니다.")
+            print("⚠️ matplotlib가 설치되지 않아 그래프를 생성할 수 없습니다.")
     
     def export_session_to_csv(self, session_logs, session_stats):
         """ 데이터를 CSV 내보내기"""
@@ -343,6 +349,9 @@ class SessionBasedFunScoreAnalyzer:
                     # 하이라이트 정보
                     'is_highlight': score_components.get('highlights', False),
                     'is_big_highlight': score_components.get('big_highlights', False),
+                    'should_create_new_highlight': score_components.get('should_create_new_highlight', False),
+                    'is_actual_highlight': score_components.get('highlights', False) and score_components.get('should_create_new_highlight', False),
+                    'is_actual_big_highlight': score_components.get('big_highlights', False) and score_components.get('should_create_new_highlight', False),
                     
                     # 키워드 데이터
                     'laugh_count': log['analysis_data'].get('fun_keywords', {}).get('laugh', 0),
@@ -373,6 +382,51 @@ class SessionBasedFunScoreAnalyzer:
         print(f"💾 세션 CSV 저장: {csv_path} ({len(df)}행)")
         return str(csv_path)
     
+    def export_highlights_to_text(self, session_logs, session_stats):
+        from base import format_time_for_comment
+        """하이라이트 데이터를 간단한 텍스트 형태로 추출"""
+        if not session_logs:
+            return None
+        
+        # 하이라이트 데이터 수집
+        highlight_lines = []
+        
+        for log in session_logs:
+            score_components = log.get('score_components', {})
+            
+            # 하이라이트인지 확인
+            if (score_components.get('highlights', False) and 
+                score_components.get('should_create_new_highlight', False)):
+                
+                after_open = log['after_openDate']
+                after_open = format_time_for_comment(after_open, 30)
+                score_diff = score_components.get('score_difference', 0)
+                star = ""
+                if score_diff > 40:
+                    star = f"*{star}"
+                if score_diff > 70:
+                    star = f"*{star}"
+
+                highlight_lines.append(f"{after_open}- {star}상대 점수 차이: {score_diff:.1f}")
+        
+        if not highlight_lines:
+            return None
+        
+        # 파일 저장
+        start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+        filename = f"{self.channel_name}_{start_date}_highlights.txt"
+        file_path = self.reports_dir / filename
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(highlight_lines))
+        
+        print(f"하이라이트 텍스트 저장: {file_path}")
+        
+        return {
+            'highlights_count': len(highlight_lines),
+            'file_path': str(file_path)
+        }
+
     def create_session_summary(self, all_session_stats):
         """모든 세션의 요약 통계"""
         if not all_session_stats:
@@ -414,8 +468,9 @@ class SessionBasedFunScoreAnalyzer:
         if not all_session_stats:
             return
         
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        report_filename = f"{self.channel_name}_summary_report_{timestamp}.txt"
+        # timestamp = datetime.now().strftime('%Y%m%d_%H%M')
+        start_date = datetime.fromisoformat(all_session_stats[0]['start_time']).strftime('%Y-%m-%d_%H%M')
+        report_filename = f"{self.channel_name}_summary_report_{start_date}.txt"
         report_path = self.reports_dir / report_filename
         
         with open(report_path, 'w', encoding='utf-8') as f:
@@ -467,7 +522,7 @@ class SessionBasedFunScoreAnalyzer:
         
         # 세션 구분
         sessions = self.detect_session_breaks(logs)
-        print(f"\n🔢 총 {len(sessions)}개 세션이 감지되었습니다.")
+        print(f"\n📢 총 {len(sessions)}개 세션이 감지되었습니다.")
         
         all_session_stats = []
         
@@ -495,6 +550,9 @@ class SessionBasedFunScoreAnalyzer:
             
             # CSV 내보내기
             csv_file = self.export_session_to_csv(session_logs, session_stats)
+
+            # 하이라이트 텍스트 파일 생성
+            self.export_highlights_to_text(session_logs, session_stats)
             
             # 그래프 생성
             try:
@@ -588,7 +646,7 @@ def main():
             print("\n❌ 분석할 데이터가 없습니다.")
             
     except KeyboardInterrupt:
-        print("\n\n⏹️  사용자에 의해 중단되었습니다.")
+        print("\n\n⏹️ 사용자에 의해 중단되었습니다.")
         sys.exit(1)
     except Exception as e:
         print(f"\n❌ 예상치 못한 오류가 발생했습니다: {e}")
