@@ -407,7 +407,7 @@ class SessionBasedFunScoreAnalyzer:
                 if score_diff > 70:
                     star = f"*{star}"
 
-                highlight_lines.append(f"{after_open}- {star}상대 점수 차이: {score_diff:.1f}")
+                highlight_lines.append(f"{after_open}- {star}상대적 재미 점수 차이: {score_diff:.1f}")
         
         if not highlight_lines:
             return None

@@ -250,11 +250,10 @@ class APIStatisticsCalculator:
     def __init__(self, logger: APIPerformanceLogger):
         self.logger = logger
 
-    async def calculate_avg_response_time(self, api_type: str, start_date: datetime, 
-                                        end_date: datetime) -> float:
+    async def calculate_avg_response_time(self, api_type: str, logs) -> float:
         """특정 API 타입의 평균 응답시간 계산"""
         try:
-            logs = await self.logger.get_logs_in_period(start_date, end_date)
+            
             filtered_logs = [
                 log for log in logs 
                 if log['api_type'] == api_type and log['is_success']
@@ -269,11 +268,9 @@ class APIStatisticsCalculator:
             await log_error(f"평균 응답시간 계산 오류: {e}")
             return 0
 
-    async def calculate_success_rate(self, api_type: str, start_date: datetime, 
-                                   end_date: datetime) -> float:
+    async def calculate_success_rate(self, api_type: str, logs) -> float:
         """특정 API 타입의 성공률 계산"""
         try:
-            logs = await self.logger.get_logs_in_period(start_date, end_date)
             filtered_logs = [log for log in logs if log['api_type'] == api_type]
             
             if filtered_logs:
@@ -285,21 +282,18 @@ class APIStatisticsCalculator:
             await log_error(f"성공률 계산 오류: {e}")
             return 0
 
-    async def get_error_count(self, start_date: datetime, end_date: datetime) -> int:
+    async def get_error_count(self, logs) -> int:
         """특정 기간의 에러 개수 계산"""
         try:
-            logs = await self.logger.get_logs_in_period(start_date, end_date)
             return len([log for log in logs if not log['is_success']])
             
         except Exception as e:
             await log_error(f"에러 개수 계산 오류: {e}")
             return 0
 
-    async def get_notification_statistics(self, start_date: datetime, 
-                                        end_date: datetime) -> Dict:
+    async def get_notification_statistics(self, logs) -> Dict:
         """알림 통계 계산"""
         try:
-            logs = await self.logger.get_logs_in_period(start_date, end_date)
             
             discord_count = len([
                 log for log in logs 
@@ -325,13 +319,14 @@ class APIStatisticsCalculator:
         """포괄적인 통계 계산 - 실시간과 일일 통계 모두 사용"""
         try:
             # 기본 API 통계 계산
-            discord_avg = await self.calculate_avg_response_time('discord_webhook', start_date, end_date)
-            fcm_avg = await self.calculate_avg_response_time('fcm_push', start_date, end_date)
-            discord_success_rate = await self.calculate_success_rate('discord_webhook', start_date, end_date)
-            fcm_success_rate = await self.calculate_success_rate('fcm_push', start_date, end_date)
+            logs = await self.logger.get_logs_in_period(start_date, end_date)
+            discord_avg = await self.calculate_avg_response_time('discord_webhook', logs)
+            fcm_avg = await self.calculate_avg_response_time('fcm_push', logs)
+            discord_success_rate = await self.calculate_success_rate('discord_webhook', logs)
+            fcm_success_rate = await self.calculate_success_rate('fcm_push', logs)
             
-            notification_stats = await self.get_notification_statistics(start_date, end_date)
-            error_count = await self.get_error_count(start_date, end_date)
+            notification_stats = await self.get_notification_statistics(start_date, end_date, logs)
+            error_count = await self.get_error_count(logs)
             
             # 통합된 형식으로 반환
             return {
