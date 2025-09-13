@@ -361,7 +361,7 @@ def get_timestamp_from_stream_id(stream_id: str) -> datetime:
     except (ValueError, IndexError) as e:
         raise ValueError(f"Cannot parse timestamp from stream_id '{stream_id}': {e}")
 	
-def format_time_for_comment(time_str: str, del_sec:int = 0) -> str:
+def format_time_for_comment(time_str: str, del_sec = 0) -> str:
 	"""시간 문자열을 댓글용 HH:MM:SS 형식으로 변환"""
 	try:
 		parts = time_str.strip().split(':')
@@ -377,7 +377,7 @@ def format_time_for_comment(time_str: str, del_sec:int = 0) -> str:
 			return ""
 		
 		# 오프셋 적용 (음수 방지)
-		adjusted_seconds = max(0, total_seconds - del_sec)
+		adjusted_seconds = max(0, total_seconds - int(del_sec))
 		
 		# 시:분:초로 변환
 		h, remainder = divmod(adjusted_seconds, 3600)
