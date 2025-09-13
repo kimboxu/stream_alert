@@ -253,7 +253,6 @@ class APIStatisticsCalculator:
     async def calculate_avg_response_time(self, api_type: str, logs) -> float:
         """특정 API 타입의 평균 응답시간 계산"""
         try:
-            
             filtered_logs = [
                 log for log in logs 
                 if log['api_type'] == api_type and log['is_success']
@@ -282,19 +281,68 @@ class APIStatisticsCalculator:
             await log_error(f"성공률 계산 오류: {e}")
             return 0
 
-    async def get_error_count(self, logs) -> int:
-        """특정 기간의 에러 개수 계산"""
+    async def get_error_count(self, api_type: str, logs) -> int:
+        """특정 API 타입의 에러 개수 계산"""
         try:
-            return len([log for log in logs if not log['is_success']])
+            return len([
+                log for log in logs 
+                if log['api_type'] == api_type and not log['is_success']
+            ])
             
         except Exception as e:
             await log_error(f"에러 개수 계산 오류: {e}")
             return 0
 
+    async def get_request_count(self, api_type: str, logs) -> int:
+        """특정 API 타입의 총 요청 수 계산"""
+        try:
+            return len([log for log in logs if log['api_type'] == api_type])
+        except Exception as e:
+            await log_error(f"요청 수 계산 오류: {e}")
+            return 0
+        
+    async def get_api_statistics_by_type(self, api_type: str, logs) -> Dict:
+        """특정 API 타입에 대한 상세 통계"""
+        try:
+            total_requests = await self.get_request_count(api_type, logs)
+            error_count = await self.get_error_count(api_type, logs)
+            avg_response_time = await self.calculate_avg_response_time(api_type, logs)
+            success_rate = await self.calculate_success_rate(api_type, logs)
+            
+            return {
+                "total_requests": total_requests,
+                "successful_requests": total_requests - error_count,
+                "failed_requests": error_count,
+                "avg_response_time_ms": avg_response_time,
+                "success_rate_percent": success_rate
+            }
+            
+        except Exception as e:
+            await log_error(f"API 타입별 통계 계산 오류 ({api_type}): {e}")
+            return {
+                "total_requests": 0,
+                "successful_requests": 0,
+                "failed_requests": 0,
+                "avg_response_time_ms": 0,
+                "success_rate_percent": 100
+            }
+
+    async def get_all_api_types_from_logs(self, logs) -> List[str]:
+        """로그에서 실제 사용된 모든 API 타입 추출"""
+        try:
+            api_types = set()
+            for log in logs:
+                api_type = log.get('api_type')
+                if api_type:
+                    api_types.add(api_type)
+            return sorted(list(api_types))
+        except Exception as e:
+            await log_error(f"API 타입 추출 오류: {e}")
+            return []
+
     async def get_notification_statistics(self, logs) -> Dict:
         """알림 통계 계산"""
         try:
-            
             discord_count = len([
                 log for log in logs 
                 if log['api_type'] == 'discord_webhook' and log['is_success']
@@ -316,17 +364,31 @@ class APIStatisticsCalculator:
             return {'discord': 0, 'fcm': 0, 'total': 0}
 
     async def calculate_comprehensive_statistics(self, start_date: datetime, end_date: datetime) -> Dict:
-        """포괄적인 통계 계산 - 실시간과 일일 통계 모두 사용"""
+        """포괄적인 통계 계산 - 모든 API 타입 지원"""
         try:
-            # 기본 API 통계 계산
             logs = await self.logger.get_logs_in_period(start_date, end_date)
-            discord_avg = await self.calculate_avg_response_time('discord_webhook', logs)
-            fcm_avg = await self.calculate_avg_response_time('fcm_push', logs)
-            discord_success_rate = await self.calculate_success_rate('discord_webhook', logs)
-            fcm_success_rate = await self.calculate_success_rate('fcm_push', logs)
             
+            # 실제 로그에서 사용된 API 타입들 찾기
+            actual_api_types = await self.get_all_api_types_from_logs(logs)
+            
+            # 모든 API 타입에 대한 통계 계산
+            api_performance = {}
+            
+            for api_type in actual_api_types:
+                api_performance[api_type] = await self.get_api_statistics_by_type(api_type, logs)
+            
+            # 전체 요약 통계
+            total_requests = sum(stats['total_requests'] for stats in api_performance.values())
+            total_errors = sum(stats['failed_requests'] for stats in api_performance.values())
+            total_successful = total_requests - total_errors
+            
+            overall_success_rate = (
+                round((total_successful / total_requests) * 100, 2) 
+                if total_requests > 0 else 100.0
+            )
+            
+            # 기존 호환성을 위한 알림 통계
             notification_stats = await self.get_notification_statistics(logs)
-            error_count = await self.get_error_count(logs)
             
             # 통합된 형식으로 반환
             return {
@@ -335,23 +397,17 @@ class APIStatisticsCalculator:
                     "end": end_date.isoformat(),
                     "duration_days": (end_date.date() - start_date.date()).days + 1
                 },
-                "api_performance": {
-                    "discord_webhook": {
-                        "total_requests": notification_stats.get('discord', 0),
-                        "avg_response_time_ms": discord_avg,
-                        "success_rate_percent": discord_success_rate
-                    },
-                    "fcm_push": {
-                        "total_requests": notification_stats.get('fcm', 0),
-                        "avg_response_time_ms": fcm_avg,
-                        "success_rate_percent": fcm_success_rate
-                    },
-                    "summary": {
-                        "total_requests": notification_stats.get('total', 0),
-                        "total_errors": error_count,
-                        "overall_success_rate": self._calculate_overall_success_rate(notification_stats, error_count)
-                    }
+                "api_performance": api_performance,
+                "summary": {
+                    "total_requests": total_requests,
+                    "successful_requests": total_successful,
+                    "failed_requests": total_errors,
+                    "overall_success_rate_percent": overall_success_rate,
+                    "unique_api_types": len(actual_api_types),
+                    "active_api_types": actual_api_types
                 },
+                # 기존 호환성 유지
+                "notification_summary": notification_stats,
                 "calculated_at": datetime.now().isoformat()
             }
             
@@ -359,15 +415,97 @@ class APIStatisticsCalculator:
             await log_error(f"포괄적 통계 계산 오류: {e}")
             return {}
 
-    def _calculate_overall_success_rate(self, notification_stats: Dict, error_count: int) -> float:
+    def _calculate_overall_success_rate(self, total_successful: int, total_requests: int) -> float:
         """전체 성공률 계산"""
-        total_requests = notification_stats.get('total', 0)
         if total_requests == 0:
             return 100.0
-        
-        success_requests = total_requests - error_count
-        return round((success_requests / total_requests) * 100, 2)
+        return round((total_successful / total_requests) * 100, 2)
     
+    async def get_api_performance_summary(self, logs) -> Dict:
+        """API 성능 요약 (상위 API 타입별)"""
+        try:
+            api_types = await self.get_all_api_types_from_logs(logs)
+            
+            performance_summary = []
+            
+            for api_type in api_types:
+                stats = await self.get_api_statistics_by_type(api_type, logs)
+                performance_summary.append({
+                    "api_type": api_type,
+                    **stats
+                })
+            
+            # 요청 수 기준으로 정렬
+            performance_summary.sort(key=lambda x: x['total_requests'], reverse=True)
+            
+            return {
+                "top_apis_by_usage": performance_summary[:10],  # 상위 10개
+                "total_api_types": len(api_types),
+                "summary_generated_at": datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            await log_error(f"API 성능 요약 계산 오류: {e}")
+            return {}
+
+    async def calculate_api_health_score(self, api_type: str, logs) -> Dict:
+        """API 건강도 점수 계산 (0-100점)"""
+        try:
+            stats = await self.get_api_statistics_by_type(api_type, logs)
+            
+            if stats['total_requests'] == 0:
+                return {"health_score": 100, "status": "no_data", "details": "요청 없음"}
+            
+            # 건강도 계산 요소들
+            success_score = stats['success_rate_percent']  # 성공률 (0-100)
+            
+            # 응답시간 점수 (빠를수록 높은 점수)
+            avg_time = stats['avg_response_time_ms']
+            if avg_time == 0:
+                time_score = 100
+            elif avg_time <= 100:
+                time_score = 100
+            elif avg_time <= 500:
+                time_score = 90 - (avg_time - 100) * 0.2
+            elif avg_time <= 1000:
+                time_score = 70 - (avg_time - 500) * 0.1
+            elif avg_time <= 3000:
+                time_score = 50 - (avg_time - 1000) * 0.02
+            else:
+                time_score = 10
+                
+            time_score = max(0, min(100, time_score))
+            
+            # 종합 건강도 점수 (성공률 70%, 응답시간 30%)
+            health_score = round(success_score * 0.7 + time_score * 0.3, 1)
+            
+            # 상태 분류
+            if health_score >= 90:
+                status = "excellent"
+            elif health_score >= 80:
+                status = "good"
+            elif health_score >= 70:
+                status = "fair"
+            elif health_score >= 60:
+                status = "poor"
+            else:
+                status = "critical"
+            
+            return {
+                "health_score": health_score,
+                "status": status,
+                "details": {
+                    "success_component": success_score,
+                    "response_time_component": round(time_score, 1),
+                    "total_requests": stats['total_requests'],
+                    "avg_response_time_ms": avg_time
+                }
+            }
+            
+        except Exception as e:
+            await log_error(f"API 건강도 계산 오류 ({api_type}): {e}")
+            return {"health_score": 0, "status": "error", "details": str(e)}
+
 class PerformanceManager:
     """전체 성능 관리 시스템을 조율하는 메인 클래스"""
     
@@ -389,18 +527,22 @@ class PerformanceManager:
             **kwargs
         )
 
-    async def get_statistics(self, days: int = 7, stat_type: str = "realtime") -> Dict:
+    async def get_statistics(self, days: int = 7, stat_type: str = "realtime", api_type: str = None) -> Dict:
         """통계 조회"""
         if stat_type == "realtime":
-            return await self._get_realtime_statistics(days)
+            return await self._get_realtime_statistics(days, api_type)
         elif stat_type == "daily":
-            return await self._get_daily_statistics_list(days)
+            return await self._get_daily_statistics_list(days, api_type)
         elif stat_type == "daily_summary":
-            return await self._get_daily_statistics_with_summary(days)
+            return await self._get_daily_statistics_with_summary(days, api_type)
+        elif stat_type == "api_health":
+            return await self._get_api_health_statistics(days, api_type)
+        elif stat_type == "performance_summary":
+            return await self._get_performance_summary(days)
         else:
             raise ValueError(f"지원하지 않는 통계 타입: {stat_type}")
 
-    async def _get_realtime_statistics(self, days: int = 7) -> Dict:
+    async def _get_realtime_statistics(self, days: int = 7, api_type: str = None) -> Dict:
         """실시간 통계 조회 (메모리 + 최근 파일 데이터 기반)"""
         end_date = datetime.now()
         start_date = end_date - timedelta(days=days)
@@ -408,6 +550,19 @@ class PerformanceManager:
         try:
             # 통계 계산
             stats = await self.calculator.calculate_comprehensive_statistics(start_date, end_date)
+            
+            # 특정 API 타입만 필터링
+            if api_type and api_type in stats.get('api_performance', {}):
+                filtered_stats = {
+                    "period": stats["period"],
+                    "api_performance": {api_type: stats['api_performance'][api_type]},
+                    "summary": {
+                        **stats['api_performance'][api_type],
+                        "filtered_by": api_type
+                    },
+                    "calculated_at": stats["calculated_at"]
+                }
+                stats = filtered_stats
             
             # 메모리 상태 정보 추가
             memory_stats = self.logger.get_current_memory_stats()
@@ -423,10 +578,94 @@ class PerformanceManager:
             await log_error(f"실시간 통계 조회 오류: {e}")
             return {}
 
-    async def _get_daily_statistics_list(self, days: int = 7) -> Dict:
-        """일일 통계 리스트 조회"""
+    async def _get_api_health_statistics(self, days: int = 7, api_type: str = None) -> Dict:
+        """API 건강도 통계"""
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=days)
+        
+        try:
+            logs = await self.logger.get_logs_in_period(start_date, end_date)
+            
+            if api_type:
+                # 특정 API 타입의 건강도
+                health_data = await self.calculator.calculate_api_health_score(api_type, logs)
+                api_stats = await self.calculator.get_api_statistics_by_type(api_type, logs)
+                
+                return {
+                    "period": {
+                        "start": start_date.isoformat(),
+                        "end": end_date.isoformat(),
+                        "duration_days": days
+                    },
+                    "api_type": api_type,
+                    "health_analysis": health_data,
+                    "detailed_statistics": api_stats,
+                    "calculated_at": datetime.now().isoformat()
+                }
+            else:
+                # 모든 API 타입의 건강도
+                api_types = await self.calculator.get_all_api_types_from_logs(logs)
+                health_results = {}
+                
+                for api in api_types:
+                    health_results[api] = await self.calculator.calculate_api_health_score(api, logs)
+                
+                return {
+                    "period": {
+                        "start": start_date.isoformat(),
+                        "end": end_date.isoformat(),
+                        "duration_days": days
+                    },
+                    "health_by_api_type": health_results,
+                    "total_api_types_analyzed": len(api_types),
+                    "calculated_at": datetime.now().isoformat()
+                }
+                
+        except Exception as e:
+            await log_error(f"API 건강도 통계 조회 오류: {e}")
+            return {}
+
+    async def _get_performance_summary(self, days: int = 7) -> Dict:
+        """성능 요약 통계"""
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=days)
+        
+        try:
+            logs = await self.logger.get_logs_in_period(start_date, end_date)
+            performance_summary = await self.calculator.get_api_performance_summary(logs)
+            
+            return {
+                "period": {
+                    "start": start_date.isoformat(),
+                    "end": end_date.isoformat(),
+                    "duration_days": days
+                },
+                **performance_summary,
+                "calculated_at": datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            await log_error(f"성능 요약 조회 오류: {e}")
+            return {}
+
+    async def _get_daily_statistics_list(self, days: int = 7, api_type: str = None) -> Dict:
+        """일일 통계 리스트 조회 - API 타입 필터링 지원"""
         try:
             daily_stats_list = await self.get_daily_statistics_raw(days)
+            
+            # API 타입 필터링
+            if api_type:
+                filtered_stats_list = []
+                for daily_stat in daily_stats_list:
+                    api_performance = daily_stat.get('api_performance', {})
+                    if api_type in api_performance:
+                        filtered_stat = {
+                            **daily_stat,
+                            'api_performance': {api_type: api_performance[api_type]},
+                            'filtered_by': api_type
+                        }
+                        filtered_stats_list.append(filtered_stat)
+                daily_stats_list = filtered_stats_list
             
             return {
                 "period": {
@@ -438,7 +677,8 @@ class PerformanceManager:
                 "total_days_available": len(daily_stats_list),
                 "system_status": {
                     "data_source": "daily_statistics_file",
-                    "includes_current_session": False
+                    "includes_current_session": False,
+                    "filtered_by": api_type if api_type else None
                 },
                 "calculated_at": datetime.now().isoformat()
             }
@@ -523,79 +763,98 @@ class PerformanceManager:
             if not daily_stats_list:
                 return {}
             
-            # 총합 계산 (통합 형식 기준)
-            total_discord = sum(
-                stat.get('api_performance', {}).get('discord_webhook', {}).get('total_requests', 0) 
-                for stat in daily_stats_list
-            )
-            total_fcm = sum(
-                stat.get('api_performance', {}).get('fcm_push', {}).get('total_requests', 0) 
-                for stat in daily_stats_list
-            )
-            total_errors = sum(
-                stat.get('api_performance', {}).get('summary', {}).get('total_errors', 0) 
-                for stat in daily_stats_list
-            )
+            # 모든 API 타입 수집
+            all_api_types = set()
+            for stat in daily_stats_list:
+                api_performance = stat.get('api_performance', {})
+                all_api_types.update(api_performance.keys())
             
-            # 평균 계산 (유효한 값만)
-            discord_times = [
-                stat.get('api_performance', {}).get('discord_webhook', {}).get('avg_response_time_ms', 0) 
-                for stat in daily_stats_list
-            ]
-            valid_discord_times = [t for t in discord_times if t > 0]
+            # API 타입별 요약 계산
+            api_summaries = {}
+            for api_type in all_api_types:
+                total_requests = sum(
+                    stat.get('api_performance', {}).get(api_type, {}).get('total_requests', 0) 
+                    for stat in daily_stats_list
+                )
+                total_errors = sum(
+                    stat.get('api_performance', {}).get(api_type, {}).get('failed_requests', 0) 
+                    for stat in daily_stats_list
+                )
+                
+                # 평균 계산 (유효한 값만)
+                response_times = [
+                    stat.get('api_performance', {}).get(api_type, {}).get('avg_response_time_ms', 0) 
+                    for stat in daily_stats_list
+                ]
+                valid_response_times = [t for t in response_times if t > 0]
+                
+                success_rates = [
+                    stat.get('api_performance', {}).get(api_type, {}).get('success_rate_percent', 0) 
+                    for stat in daily_stats_list
+                ]
+                valid_success_rates = [r for r in success_rates if r > 0]
+                
+                api_summaries[api_type] = {
+                    "total_requests": total_requests,
+                    "daily_avg_requests": round(total_requests / len(daily_stats_list), 1) if daily_stats_list else 0,
+                    "total_errors": total_errors,
+                    "daily_avg_errors": round(total_errors / len(daily_stats_list), 1) if daily_stats_list else 0,
+                    "avg_response_time_ms": round(sum(valid_response_times) / len(valid_response_times), 2) if valid_response_times else 0,
+                    "avg_success_rate_percent": round(sum(valid_success_rates) / len(valid_success_rates), 2) if valid_success_rates else 0
+                }
             
-            fcm_times = [
-                stat.get('api_performance', {}).get('fcm_push', {}).get('avg_response_time_ms', 0) 
-                for stat in daily_stats_list
-            ]
-            valid_fcm_times = [t for t in fcm_times if t > 0]
-            
-            discord_success_rates = [
-                stat.get('api_performance', {}).get('discord_webhook', {}).get('success_rate_percent', 0) 
-                for stat in daily_stats_list
-            ]
-            valid_discord_success = [r for r in discord_success_rates if r > 0]
-            
-            fcm_success_rates = [
-                stat.get('api_performance', {}).get('fcm_push', {}).get('success_rate_percent', 0) 
-                for stat in daily_stats_list
-            ]
-            valid_fcm_success = [r for r in fcm_success_rates if r > 0]
-            
-            # 최신 사용자 정보
-            latest_stat = daily_stats_list[0] if daily_stats_list else {}
-            latest_user_stats = latest_stat.get('user_statistics', {})
+            # 전체 요약
+            total_all_requests = sum(summary["total_requests"] for summary in api_summaries.values())
+            total_all_errors = sum(summary["total_errors"] for summary in api_summaries.values())
             
             return {
-                "api_performance": {
-                    "discord_webhook": {
-                        "total_requests": total_discord,
-                        "daily_avg_requests": round(total_discord / len(daily_stats_list), 1) if daily_stats_list else 0,
-                        "avg_response_time_ms": round(sum(valid_discord_times) / len(valid_discord_times), 2) if valid_discord_times else 0,
-                        "avg_success_rate_percent": round(sum(valid_discord_success) / len(valid_discord_success), 2) if valid_discord_success else 0
-                    },
-                    "fcm_push": {
-                        "total_requests": total_fcm,
-                        "daily_avg_requests": round(total_fcm / len(daily_stats_list), 1) if daily_stats_list else 0,
-                        "avg_response_time_ms": round(sum(valid_fcm_times) / len(valid_fcm_times), 2) if valid_fcm_times else 0,
-                        "avg_success_rate_percent": round(sum(valid_fcm_success) / len(valid_fcm_success), 2) if valid_fcm_success else 0
-                    },
-                    "summary": {
-                        "total_requests": total_discord + total_fcm,
-                        "daily_avg_requests": round((total_discord + total_fcm) / len(daily_stats_list), 1) if daily_stats_list else 0,
-                        "total_errors": total_errors,
-                        "daily_avg_errors": round(total_errors / len(daily_stats_list), 1) if daily_stats_list else 0
-                    }
-                },
-                "user_statistics": {
-                    "latest_total_users": latest_user_stats.get('total_users', 0),
-                    "latest_active_users": latest_user_stats.get('active_users_in_period', 0),
-                    "latest_new_users": latest_user_stats.get('new_users_in_period', 0)
+                "api_performance_summary": api_summaries,
+                "overall_summary": {
+                    "total_requests": total_all_requests,
+                    "daily_avg_requests": round(total_all_requests / len(daily_stats_list), 1) if daily_stats_list else 0,
+                    "total_errors": total_all_errors,
+                    "daily_avg_errors": round(total_all_errors / len(daily_stats_list), 1) if daily_stats_list else 0,
+                    "total_api_types": len(all_api_types),
+                    "api_types": sorted(list(all_api_types))
                 }
             }
             
         except Exception as e:
             await log_error(f"일일 요약 계산 오류: {e}")
+            return {}
+        
+    async def get_api_comparison(self, api_types: List[str], days: int = 7) -> Dict:
+        """여러 API 타입 간 성능 비교"""
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=days)
+        
+        try:
+            logs = await self.logger.get_logs_in_period(start_date, end_date)
+            
+            comparison_data = {}
+            for api_type in api_types:
+                stats = await self.calculator.get_api_statistics_by_type(api_type, logs)
+                health = await self.calculator.calculate_api_health_score(api_type, logs)
+                
+                comparison_data[api_type] = {
+                    **stats,
+                    "health_score": health["health_score"],
+                    "health_status": health["status"]
+                }
+            
+            return {
+                "period": {
+                    "start": start_date.isoformat(),
+                    "end": end_date.isoformat(),
+                    "duration_days": days
+                },
+                "comparison_data": comparison_data,
+                "compared_api_types": api_types,
+                "calculated_at": datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            await log_error(f"API 비교 통계 오류: {e}")
             return {}
 
     async def calculate_and_save_daily_statistics(self, target_date: datetime = None):
@@ -627,10 +886,25 @@ class PerformanceManager:
             await self._save_daily_statistics(daily_stat)
             
             print(f"{datetime.now()} 일일 통계 저장 완료: {target_date}")
-            discord_perf = comprehensive_stats.get('api_performance', {}).get('discord_webhook', {})
-            fcm_perf = comprehensive_stats.get('api_performance', {}).get('fcm_push', {})
-            print(f"Discord: {discord_perf.get('avg_response_time_ms', 0)}ms, {discord_perf.get('success_rate_percent', 0)}%")
-            print(f"FCM: {fcm_perf.get('avg_response_time_ms', 0)}ms, {fcm_perf.get('success_rate_percent', 0)}%")
+            
+            # 요약 정보 출력
+            api_performance = comprehensive_stats.get('api_performance', {})
+            summary = comprehensive_stats.get('summary', {})
+            
+            print(f"총 {summary.get('unique_api_types', 0)}개 API 타입, "
+                  f"{summary.get('total_requests', 0)}건 요청, "
+                  f"{summary.get('overall_success_rate_percent', 0)}% 성공률")
+            
+            # 상위 API 타입들 출력
+            sorted_apis = sorted(
+                api_performance.items(), 
+                key=lambda x: x[1].get('total_requests', 0), 
+                reverse=True
+            )
+            for api_type, stats in sorted_apis[:5]:  # 상위 5개만
+                print(f"  {api_type}: {stats.get('total_requests', 0)}건, "
+                      f"{stats.get('avg_response_time_ms', 0)}ms, "
+                      f"{stats.get('success_rate_percent', 0)}%")
             
             return daily_stat
             
