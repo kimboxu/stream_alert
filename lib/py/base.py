@@ -37,7 +37,7 @@ class initVar:
 
 		응답 형식:
 		[
-		{"after_openDate": "시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "description": "방송 썸네일을 포함한 상세 분석 댓글"}
+		{"comment_after_openDate": "VOD_타임라인_시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "description": "방송 썸네일을 포함한 상세 분석 댓글"}
 		]
 
 		분석 우선순위:
