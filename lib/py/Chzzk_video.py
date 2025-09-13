@@ -260,13 +260,13 @@ class chzzk_video:
     def get_highlight_msg(self, highlight_chat: highlight_chat_Data):
         """
         하이라이트 채팅 데이터를 VOD 댓글 형식으로 변환
-        
-        Returns:
-            list: VOD에 작성할 댓글 문자열 리스트 (각각 최대 500자)
         """
         timeline_comments = highlight_chat.timeline_comments
         
+        print(f"{datetime.now()} [DEBUG] timeline_comments 수: {len(timeline_comments)}")
+        
         if not timeline_comments or not isinstance(timeline_comments, list):
+            print(f"{datetime.now()} [DEBUG] timeline_comments가 비어있거나 리스트가 아님")
             return []
         
         # 시간순으로 정렬
@@ -279,39 +279,51 @@ class chzzk_video:
         auto_notice = "🤖 이 댓글은 방송 하이라이트를 자동 분석하여 생성된 타임라인입니다."
         comment_lines.append(auto_notice)
 
-        for comment in timeline_comments:
+        for i, comment in enumerate(timeline_comments):
             time_str = comment.get('comment_after_openDate', '')
             text = comment.get('text', '')
             description = comment.get('description', '')
             score_difference = float(comment.get('score_difference', 0))
             
+            print(f"{datetime.now()} [DEBUG] Comment {i}: time_str={time_str}, description={description[:50]}...")
+            
             if not description:
                 description = text
                 
             if not time_str or not description:
+                print(f"{datetime.now()} [DEBUG] Comment {i} 스킵: time_str 또는 description 없음")
                 continue
                 
             # 시간 형식 정리 (HH:MM:SS 형식으로 통일)
             del_sec = (self.time_offset + self.duration_diff//2)
             formatted_time = format_time_for_comment(time_str, del_sec)
+            
+            print(f"{datetime.now()} [DEBUG] Comment {i}: formatted_time={formatted_time}")
+            
             if not formatted_time:
+                print(f"{datetime.now()} [DEBUG] Comment {i} 스킵: formatted_time이 None")
                 continue
                 
-            # 댓글 라인 생성: **HH:MM:SS**- 내용
+            # 댓글 라인 생성
             if score_difference > self.small_fun_difference:
                 description = f"*{description}"
             if score_difference > self.big_fun_difference:
                 description = f"*{description}"
 
-            comment_line = f"{formatted_time}- 상대 점수:{score_difference:.1f} - {description}"
+            comment_line = f"**{formatted_time}** - 상대 점수:{score_difference:.1f} - {description}"
             comment_lines.append(comment_line)
+            print(f"{datetime.now()} [DEBUG] Comment {i} 추가됨: {comment_line[:100]}...")
+        
+        print(f"{datetime.now()} [DEBUG] 최종 comment_lines 수: {len(comment_lines)}")
         
         if not comment_lines:
-            return []
+            return ""
         
         highlight_message = "\n\n".join(comment_lines)
+        print(f"{datetime.now()} [DEBUG] 최종 메시지 길이: {len(highlight_message)}")
         
         return highlight_message
+    
     async def _send_comment(self, message, videoNo):
         """
         첫 번째 댓글 전송
