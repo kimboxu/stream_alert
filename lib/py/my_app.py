@@ -746,17 +746,29 @@ def remove_fcm_token():
 def get_performance_stats():
     try:
         days = request.args.get('days', default=7, type=int)
-
+        api_type = request.args.get('api_type', default=None, type=str)  # 특정 API 타입 필터
+        
         # StateManager에서 성능 매니저 가져오기
         state_manager = StateManager.get_instance()
         performance_manager = state_manager.get_performance_manager()
+        
+        if not performance_manager:
+            return jsonify({
+                "status": "error", 
+                "message": "성능 매니저를 사용할 수 없습니다"
+            }), 500
         
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         
         try:
+            # API 타입 필터링 지원
             stats = loop.run_until_complete(
-                performance_manager._get_realtime_statistics(days)
+                performance_manager.get_statistics(
+                    days=days, 
+                    stat_type="realtime", 
+                    api_type=api_type
+                )
             )
             
             if stats:
@@ -778,15 +790,144 @@ def get_performance_stats():
             "status": "error",
             "message": f"통계 조회 실패: {str(e)}"
         }), 500
+    
+# API 건강도 조회 엔드포인트 
+@app.route("/get_api_health", methods=["GET"])
+def get_api_health():
+    try:
+        days = request.args.get('days', default=7, type=int)
+        api_type = request.args.get('api_type', default=None, type=str)
+        
+        state_manager = StateManager.get_instance()
+        performance_manager = state_manager.get_performance_manager()
+        
+        if not performance_manager:
+            return jsonify({
+                "status": "error",
+                "message": "성능 매니저를 사용할 수 없습니다"
+            }), 500
+        
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            health_stats = loop.run_until_complete(
+                performance_manager.get_statistics(
+                    days=days, 
+                    stat_type="api_health", 
+                    api_type=api_type
+                )
+            )
+            
+            return jsonify({
+                "status": "success",
+                **health_stats
+            })
+            
+        finally:
+            loop.close()
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"API 건강도 조회 실패: {str(e)}"
+        }), 500
 
-#저장된 일일 통계 조회
+# API 성능 요약 조회 엔드포인트
+@app.route("/get_performance_summary", methods=["GET"])
+def get_performance_summary():
+    try:
+        days = request.args.get('days', default=7, type=int)
+        
+        state_manager = StateManager.get_instance()
+        performance_manager = state_manager.get_performance_manager()
+        
+        if not performance_manager:
+            return jsonify({
+                "status": "error",
+                "message": "성능 매니저를 사용할 수 없습니다"
+            }), 500
+        
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            summary = loop.run_until_complete(
+                performance_manager.get_statistics(
+                    days=days, 
+                    stat_type="performance_summary"
+                )
+            )
+            
+            return jsonify({
+                "status": "success",
+                **summary
+            })
+            
+        finally:
+            loop.close()
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"성능 요약 조회 실패: {str(e)}"
+        }), 500
+
+# API 비교 분석 엔드포인트
+@app.route("/compare_apis", methods=["GET"])
+def compare_apis():
+    try:
+        days = request.args.get('days', default=7, type=int)
+        api_types = request.args.get('api_types', default='', type=str)
+        
+        # API 타입들을 쉼표로 분리
+        if not api_types:
+            return jsonify({
+                "status": "error",
+                "message": "비교할 API 타입들을 지정해주세요 (예: api_types=chzzk_api,afreeca_api,cafe_api)"
+            }), 400
+            
+        api_types_list = [api_type.strip() for api_type in api_types.split(',')]
+        
+        state_manager = StateManager.get_instance()
+        performance_manager = state_manager.get_performance_manager()
+        
+        if not performance_manager:
+            return jsonify({
+                "status": "error",
+                "message": "성능 매니저를 사용할 수 없습니다"
+            }), 500
+        
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            comparison = loop.run_until_complete(
+                performance_manager.get_api_comparison(api_types_list, days)
+            )
+            
+            return jsonify({
+                "status": "success",
+                **comparison
+            })
+            
+        finally:
+            loop.close()
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"API 비교 분석 실패: {str(e)}"
+        }), 500
+
+# 저장된 일일 통계 조회
 @app.route("/get_daily_statistics", methods=["GET"])
 def get_daily_statistics():
     try:
         days = request.args.get('days', default=7, type=int)
         summary = request.args.get('summary', default='false', type=str).lower() == 'true'
+        api_type = request.args.get('api_type', default=None, type=str)
 
-        # StateManager에서 성능 매니저 가져오기
         state_manager = StateManager.get_instance()
         performance_manager = state_manager.get_performance_manager()
         
@@ -803,20 +944,20 @@ def get_daily_statistics():
             if summary:
                 # 요약 정보 포함된 일일 통계
                 result = loop.run_until_complete(
-                    performance_manager._get_daily_statistics_with_summary(days)
+                    performance_manager.get_statistics(
+                        days=days, 
+                        stat_type="daily_summary"
+                    )
                 )
             else:
                 # 기본 일일 통계 리스트
-                daily_stats = loop.run_until_complete(
-                    performance_manager._get_daily_statistics_list(days)
+                result = loop.run_until_complete(
+                    performance_manager.get_statistics(
+                        days=days, 
+                        stat_type="daily", 
+                        api_type=api_type
+                    )
                 )
-                
-                result = {
-                    "period": f"{datetime.now().date() - timedelta(days=days)} ~ {datetime.now().date()}",
-                    "total_days": len(daily_stats),
-                    "data": daily_stats,
-                    "source": "daily_statistics_file"
-                }
             
             return jsonify({
                 "status": "success",
@@ -830,6 +971,140 @@ def get_daily_statistics():
         return jsonify({
             "status": "error",
             "message": f"일일 통계 조회 실패: {str(e)}"
+        }), 500
+
+# 특정 API 상세 분석 엔드포인트
+@app.route("/analyze_api", methods=["GET"])
+def analyze_api():
+    try:
+        api_type = request.args.get('api_type', type=str)
+        days = request.args.get('days', default=7, type=int)
+        
+        if not api_type:
+            return jsonify({
+                "status": "error",
+                "message": "분석할 API 타입을 지정해주세요 (예: api_type=chzzk_api)"
+            }), 400
+        
+        state_manager = StateManager.get_instance()
+        performance_manager = state_manager.get_performance_manager()
+        
+        if not performance_manager:
+            return jsonify({
+                "status": "error",
+                "message": "성능 매니저를 사용할 수 없습니다"
+            }), 500
+        
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            # 실시간 통계
+            realtime_stats = loop.run_until_complete(
+                performance_manager.get_statistics(
+                    days=days, 
+                    stat_type="realtime", 
+                    api_type=api_type
+                )
+            )
+            
+            # 건강도 분석
+            health_stats = loop.run_until_complete(
+                performance_manager.get_statistics(
+                    days=days, 
+                    stat_type="api_health", 
+                    api_type=api_type
+                )
+            )
+            
+            # 일별 트렌드
+            daily_trend = loop.run_until_complete(
+                performance_manager.get_statistics(
+                    days=days, 
+                    stat_type="daily", 
+                    api_type=api_type
+                )
+            )
+            
+            return jsonify({
+                "status": "success",
+                "api_type": api_type,
+                "analysis_period_days": days,
+                "realtime_statistics": realtime_stats,
+                "health_analysis": health_stats,
+                "daily_trend": daily_trend
+            })
+            
+        finally:
+            loop.close()
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"API 분석 실패: {str(e)}"
+        }), 500
+
+# 모든 활성 API 타입 목록 조회 엔드포인트
+@app.route("/get_active_api_types", methods=["GET"])
+def get_active_api_types():
+    try:
+        days = request.args.get('days', default=7, type=int)
+        
+        state_manager = StateManager.get_instance()
+        performance_manager = state_manager.get_performance_manager()
+        
+        if not performance_manager:
+            return jsonify({
+                "status": "error",
+                "message": "성능 매니저를 사용할 수 없습니다"
+            }), 500
+        
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            # 전체 통계에서 활성 API 타입들 추출
+            stats = loop.run_until_complete(
+                performance_manager.get_statistics(days=days, stat_type="realtime")
+            )
+            
+            active_api_types = stats.get('summary', {}).get('active_api_types', [])
+            
+            return jsonify({
+                "status": "success",
+                "active_api_types": active_api_types,
+                "total_api_types": len(active_api_types),
+                "period_days": days
+            })
+            
+        finally:
+            loop.close()
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"활성 API 타입 조회 실패: {str(e)}"
+        }), 500
+
+# API 알림 설정 (성능 문제 감지 시 알림) - 향후 확장용
+@app.route("/set_performance_alerts", methods=["POST"])
+def set_performance_alerts():
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        
+        # 향후 구현: 특정 API의 성능이 임계치 이하로 떨어질 때 알림
+        return jsonify({
+            "status": "success",
+            "message": "성능 알림 설정이 저장되었습니다 (향후 구현 예정)"
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"성능 알림 설정 실패: {str(e)}"
         }), 500
 
 # 수동으로 일일 통계 계산 트리거 (테스트/관리용)
