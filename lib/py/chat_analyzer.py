@@ -605,7 +605,8 @@ class ChatAnalyzer:
         #     await self._save_highlight_to_db(highlight)
 
         if len(self.highlights) > 30:
-            await self._make_highlight_chat(self.highlights[:-1])
+            timeline_comments = await self._make_highlight_chat(self.highlights[:-1])
+            self.update_highlight_chat(timeline_comments)
             self.highlights = [self.highlights[-1]]
 
     #하이라이트 이유 생성
