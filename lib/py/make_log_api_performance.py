@@ -625,8 +625,11 @@ class APIPerformanceLogger:
         try:
             all_logs = []
             
-            # 메모리의 로그 추가
-            for log_entry in self.memory_logs:
+            # deque의 안전한 복사본 생성 (동시성 문제 해결)
+            memory_logs_copy = list(self.memory_logs)
+            
+            # 복사본으로 순회 작업 수행
+            for log_entry in memory_logs_copy:
                 if start_date <= log_entry.timestamp <= end_date:
                     all_logs.append({
                         "timestamp": log_entry.timestamp.isoformat(),
