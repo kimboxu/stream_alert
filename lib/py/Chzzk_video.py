@@ -295,7 +295,7 @@ class chzzk_video:
                 continue
                 
             # 시간 형식 정리 (HH:MM:SS 형식으로 통일)
-            del_sec = (self.time_offset + self.duration_diff//2)
+            del_sec = int(self.time_offset + self.duration_diff//2)
             formatted_time = format_time_for_comment(time_str, del_sec)
             
             print(f"{datetime.now()} [DEBUG] Comment {i}: formatted_time={formatted_time}")
@@ -310,7 +310,7 @@ class chzzk_video:
             if score_difference > self.big_fun_difference:
                 description = f"*{description}"
 
-            comment_line = f"**{formatted_time}** - 상대 점수:{score_difference:.1f} - {description}"
+            comment_line = f"{formatted_time} - 재미 점수:{score_difference:.1f} - {description}"
             comment_lines.append(comment_line)
             print(f"{datetime.now()} [DEBUG] Comment {i} 추가됨: {comment_line[:100]}...")
         
