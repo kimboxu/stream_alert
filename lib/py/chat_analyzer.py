@@ -636,21 +636,27 @@ class ChatAnalyzer:
     async def change_score_to_peak(self, highlight: StreamHighlight):
         if highlight.score_details['highlights'] and not highlight.score_details['should_create_new_highlight'] and highlight.fun_score > self.highlights[-1].fun_score:
             idx = None
+            is_new_highlight = False
             for i,detailed_log in enumerate(reversed(self.detailed_logs)):
+                # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있는지
+                if not detailed_log['score_components']['highlight']:
+                    is_new_highlight = True
+
                 if detailed_log['score_components']['should_create_new_highlight']:
                     idx = i
                     break
 
             #직전 하이라이트의 should_create_new_highlight를 False로 변경 후 현재것을 True로 변경
             if idx:
-                self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
+                # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있다면, 직전의 하이라이트 제거하지 않고, 새로운 하이라이트 추가
+                if not is_new_highlight:
+                    highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
+                    self.detailed_logs[-1]['comment_after_openDate'] = self.detailed_logs[-(idx+1)]['comment_after_openDate']
+                    self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
+                    self.highlights = self.highlights[:-1]
+
                 highlight.score_details['should_create_new_highlight'] = True
                 
-                highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
-                self.detailed_logs[-1]['comment_after_openDate'] = self.detailed_logs[-(idx+1)]['comment_after_openDate']
-
-                # 직전의 하이라이트 제거
-                self.highlights = self.highlights[:-1]
             else:
                 await log_error(f"error change_score_to_peak: idx None")
                 print(f"{datetime.now()} {self.detailed_logs}")
