@@ -40,6 +40,7 @@ class StreamHighlight:
     chat_context: List[str]
     duration: int  # seconds
     after_openDate: datetime
+    comment_after_openDate: datetime
     score_details: dict
     analysis_data: dict
     image: PILImage.Image = None
@@ -263,6 +264,7 @@ class ChatAnalyzer:
                 'fun_keywords': analysis.fun_keywords
             },
             'after_openDate': after_openDate,
+            'comment_after_openDate': after_openDate,
             'chat_context': [ f"{chat['nickname']}: {chat['message']}" for chat in window_chats[-30:]],  # 최근 30개 메시지
         }
         
@@ -513,6 +515,9 @@ class ChatAnalyzer:
 
     #하이라이트를 인지 판단
     def _is_highlight(self, fun_score, fun_difference):
+        if self.init.DO_TEST:
+            return True
+        
         if fun_score < self.baseline_metrics['avg_threshold_score']:
             return False
 
@@ -582,6 +587,7 @@ class ChatAnalyzer:
             chat_context=detailed_log['chat_context'],
             duration=self.window_size,
             after_openDate=detailed_log['after_openDate'],
+            comment_after_openDate=detailed_log['comment_after_openDate'],
             score_details=detailed_log['score_components'],
             image=image,
             analysis_data = {
@@ -591,15 +597,16 @@ class ChatAnalyzer:
             },
         )
 
-        self.last_highlight = highlight
 
         # 큰 재미인 경우 알림 보내기
         if highlight.score_details['big_highlights'] and highlight.score_details['should_create_new_highlight']:
             await self._send_notification(highlight)
 
         #하이라이트의 피크 점수로 수정
-        self.change_score_to_peak(highlight)
-        self.highlights.append(highlight)
+        await self.change_score_to_peak(highlight)
+        if highlight.score_details['should_create_new_highlight']:
+            self.highlights.append(highlight)
+            self.last_highlight = highlight
 
         # if not self.init.DO_TEST:
         #     await self._save_highlight_to_db(highlight)
@@ -626,7 +633,7 @@ class ChatAnalyzer:
 
         return " + ".join(reasons) if reasons else "재미있는 순간 감지"
 
-    def change_score_to_peak(self, highlight: StreamHighlight):
+    async def change_score_to_peak(self, highlight: StreamHighlight):
         if highlight.score_details['highlights'] and not highlight.score_details['should_create_new_highlight'] and highlight.fun_score > self.highlights[-1].fun_score:
             idx = None
             for i,detailed_log in enumerate(reversed(self.detailed_logs)):
@@ -638,9 +645,15 @@ class ChatAnalyzer:
             if idx:
                 self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
                 highlight.score_details['should_create_new_highlight'] = True
+                
+                highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
+                self.detailed_logs[-1]['comment_after_openDate'] = self.detailed_logs[-(idx+1)]['comment_after_openDate']
 
-            # 직전의 하이라이트 제거
-            self.highlights = self.highlights[:-1]
+                # 직전의 하이라이트 제거
+                self.highlights = self.highlights[:-1]
+            else:
+                await log_error(f"error change_score_to_peak: idx None")
+                print(f"{datetime.now()} {self.detailed_logs}")
 
     #하이라이트 DB 저장
     async def _save_highlight_to_db(self, highlight: StreamHighlight):
@@ -798,7 +811,8 @@ class ChatAnalyzer:
                                         "재미도 점수"       :   highlight.fun_score,
                                         "하이라이트 이유"   :   highlight.reason,
                                         "최근 채팅"         :   highlight.chat_context,
-                                        "방송 켜진 시간"    :   highlight.after_openDate,
+                                        "최고점수_시간"     :   highlight.after_openDate,
+                                        "VOD_타임라인_시간" :   highlight.comment_after_openDate,
                                         "방송 썸네일"       :   f"이미지_{i+1}",  # 이미지 순서 표시
                                         "메시지 갯수"       :   analysis_data['message_count'],
                                         "시청자 수"         :   analysis_data['viewer_count'],
@@ -851,7 +865,7 @@ class ChatAnalyzer:
                 timeline_comments = json.loads(response.text)
                 if isinstance(timeline_comments, list):
                     # 시간순으로 정렬
-                    timeline_comments.sort(key=lambda x: x.get('after_openDate', ''))
+                    timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
                     print(f"{datetime.now()} 배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
                     return timeline_comments
                 
@@ -874,5 +888,5 @@ class ChatAnalyzer:
                 
         print(f"{datetime.now()} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
         for comment in timeline_comments:
-            if 'after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'description' in comment:
-                print(f"**{comment['after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['description']}")
+            if 'comment_after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'description' in comment:
+                print(f"**{comment['comment_after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['description']}")

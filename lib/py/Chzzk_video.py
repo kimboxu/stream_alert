@@ -270,7 +270,7 @@ class chzzk_video:
             return []
         
         # 시간순으로 정렬
-        timeline_comments.sort(key=lambda x: x.get('after_openDate', ''))
+        timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
         
         # 댓글 라인들을 저장할 리스트
         comment_lines = []
@@ -280,7 +280,7 @@ class chzzk_video:
         comment_lines.append(auto_notice)
 
         for comment in timeline_comments:
-            time_str = comment.get('after_openDate', '')
+            time_str = comment.get('comment_after_openDate', '')
             text = comment.get('text', '')
             description = comment.get('description', '')
             score_difference = float(comment.get('score_difference', 0))
