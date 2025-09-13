@@ -635,6 +635,7 @@ class ChatAnalyzer:
 
     async def change_score_to_peak(self, highlight: StreamHighlight):
         if not self.highlights:
+            print(f"{datetime.now()} highlights가 비어있어서 change_score_to_peak 건너뜀")
             return
         
         if (highlight.score_details['highlights'] and 
