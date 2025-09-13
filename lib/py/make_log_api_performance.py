@@ -1,454 +1,3 @@
-# import asyncio
-# from pathlib import Path
-# from shared_state import StateManager
-# from datetime import datetime, timedelta
-# from typing import List, Dict, Optional
-# from json import loads, load, dump, JSONDecodeError
-# from dataclasses import dataclass, field
-# from collections import deque
-# from base import initVar, log_error
-# from apscheduler.schedulers.background import BackgroundScheduler
-# import atexit
-
-# @dataclass
-# class APIPerformanceLog:
-#     """API 성능 로그 데이터 클래스"""
-#     timestamp: datetime
-#     api_type: str
-#     response_time_ms: int
-#     is_success: bool
-#     http_status_code: Optional[int] = None
-#     error_type: Optional[str] = None
-#     error_message: Optional[str] = None
-#     retry_count: int = 0
-
-# # 로컬 통계 파일 경로 설정
-# STATS_DIR = Path("stats_data")
-# API_PERFORMANCE_FILE = STATS_DIR / "api_performance.json"
-# DAILY_STATS_FILE = STATS_DIR / "daily_statistics.json"
-
-# # 디렉토리가 없으면 생성
-# STATS_DIR.mkdir(exist_ok=True)
-
-# # 파일 쓰기 락 (동시 쓰기 방지)
-# _file_write_lock = asyncio.Lock()
-
-# #API 성능 데이터를 효율적으로 관리하는 클래스
-# class APIPerformanceManager:
-    
-#     def __init__(self):
-#         self._file_data_cache = None
-#         self._cache_timestamp = None
-#         self._cache_ttl = 300  # 5분
-        
-#     #캐시가 유효한지 확인
-#     def _is_cache_valid(self) -> bool:
-#         if self._file_data_cache is None or self._cache_timestamp is None:
-#             return False
-#         return (datetime.now() - self._cache_timestamp).seconds < self._cache_ttl
-    
-#     #파일에서 데이터를 로드하고 캐시에 저장
-#     def _load_file_data(self) -> List[Dict]:
-#         try:
-#             if API_PERFORMANCE_FILE.exists():
-#                 with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
-#                     data = load(f)
-#                     self._file_data_cache = data
-#                     self._cache_timestamp = datetime.now()
-#                     return data
-#         except Exception as e:
-#             print(f"{datetime.now()} API 성능 데이터 로드 실패: {e}")
-#         return []
-    
-#     #메모리 캐시와 파일 데이터를 합쳐서 반환
-#     def get_all_data(self) -> List[Dict]:
-#         # 파일 캐시가 유효하지 않으면 다시 로드
-#         if not self._is_cache_valid():
-#             self._load_file_data()
-        
-#         file_data = self._file_data_cache or []
-#         return init.api_performance_cache + file_data
-    
-#     #캐시 무효화
-#     def invalidate_cache(self):
-#         self._file_data_cache = None
-#         self._cache_timestamp = None
-
-# # 전역 매니저 인스턴스
-# performance_manager = APIPerformanceManager()
-
-# # API 성능 데이터를 로컬 파일에 로깅하는 함수
-# async def log_api_performance(api_type: str, response_time_ms: int, is_success: bool, 
-#                             http_status_code: int = None, error_type: str = None, 
-#                             error_message: str = None, retry_count: int = 0):
-#     init = StateManager().get_init()
-
-#     data = {
-#         "timestamp": datetime.now().isoformat(),
-#         "api_type": api_type,
-#         "response_time_ms": response_time_ms,
-#         "is_success": is_success,
-#         "http_status_code": http_status_code,
-#         "error_type": error_type,
-#         "error_message": error_message,
-#         "retry_count": retry_count,
-#     }
-    
-#     try:
-#         # 메모리 캐시에 추가
-#         init.api_performance_cache.append(data)
-        
-#         # 캐시가 1000개 이상이면 파일에 저장하고 캐시 정리
-#         if len(init.api_performance_cache) >= 1000:
-#             asyncio.create_task(_flush_api_performance_cache(init))
-            
-#     except Exception as e:
-#         print(f"{datetime.now()} API 성능 로깅 실패: {e}")
-
-# # API 성능 캐시를 파일에 저장하는 함수
-# async def _flush_api_performance_cache(init: initVar):
-#     async with _file_write_lock:
-#         if not init.api_performance_cache:
-#             return
-    
-#         try:
-#             data_to_save = init.api_performance_cache.copy()
-#             init.api_performance_cache.clear()
-            
-#             # 기존 데이터 로드
-#             existing_data = []
-#             if API_PERFORMANCE_FILE.exists():
-#                 with open(API_PERFORMANCE_FILE, 'r', encoding='utf-8') as f:
-#                     try:
-#                         existing_data = load(f)
-#                     except JSONDecodeError:
-#                         existing_data = []
-            
-#             # 복사한 데이터 추가
-#             existing_data.extend(data_to_save)
-            
-#             # 오래된 데이터 제거
-#             cutoff_date = datetime.now() - timedelta(days=3)
-#             filtered_data = [    
-#                 item for item in existing_data
-#                 if datetime.fromisoformat(item['timestamp']) > cutoff_date
-#             ]
-            
-#             # 파일에 저장
-#             with open(API_PERFORMANCE_FILE, 'w', encoding='utf-8') as f:
-#                 dump(filtered_data, f, ensure_ascii=False, indent=2)
-            
-#             # 캐시 무효화
-#             performance_manager.invalidate_cache()
-            
-#         except Exception as e:
-#             print(f"{datetime.now()} API 성능 데이터 파일 저장 실패: {e}")
-
-# # 로컬 파일에서 일일 통계 로드하는 함수
-# def load_daily_statistics():
-#     try:
-#         if DAILY_STATS_FILE.exists():
-#             with open(DAILY_STATS_FILE, 'r', encoding='utf-8') as f:
-#                 return load(f)
-#     except Exception as e:
-#         print(f"{datetime.now()} 일일 통계 데이터 로드 실패: {e}")
-#     return {}
-
-
-# # 특정 API 타입의 평균 응답시간 계산하는 함수
-# async def calculate_avg_response_time(api_type: str, date, days=1, data_source: List[Dict] = None):
-#     try:
-#         # 데이터 소스가 제공되지 않으면 매니저에서 가져오기
-#         if data_source is None:
-#             all_data = performance_manager.get_all_data()
-#         else:
-#             all_data = data_source
-        
-#         # 기간별 계산
-#         end_date = date
-#         start_date = date - timedelta(days=days-1)
-#         filtered_data = []
-        
-#         for item in all_data:
-#             if item['api_type'] == api_type and item['is_success']:
-#                 item_date = datetime.fromisoformat(item['timestamp']).date()
-#                 if start_date <= item_date <= end_date:
-#                     filtered_data.append(item)
-        
-#         if filtered_data:
-#             times = [item['response_time_ms'] for item in filtered_data]
-#             return round(sum(times) / len(times), 2)
-#         return 0
-        
-#     except Exception as e:
-#         await log_error(f"평균 응답시간 계산 오류: {e}")
-#         return 0
-
-# # 특정 API 타입의 성공률 계산하는 함수
-# async def calculate_success_rate(api_type: str, date, days=1, 
-#                                         data_source: List[Dict] = None):
-#     try:
-#         if data_source is None:
-#             all_data = performance_manager.get_all_data()
-#         else:
-#             all_data = data_source
-
-#         # 기간별 계산
-#         end_date = date
-#         start_date = date - timedelta(days=days-1)
-#         filtered_data = []
-        
-#         for item in all_data:
-#             if item['api_type'] == api_type:
-#                 item_date = datetime.fromisoformat(item['timestamp']).date()
-#                 if start_date <= item_date <= end_date:
-#                     filtered_data.append(item)
-        
-#         if filtered_data:
-#             total_count = len(filtered_data)
-#             success_count = sum(1 for item in filtered_data if item['is_success'])
-#             return round((success_count / total_count) * 100, 2) if total_count > 0 else 100
-        
-#         return 100
-        
-#     except Exception as e:
-#         await log_error(f"성공률 계산 오류: {e}")
-#         return 0
-
-# # 에러 개수 계산하는 함수
-# async def get_error_count(date, data_source: List[Dict] = None):
-#     try:
-#         if data_source is None:
-#             all_data = performance_manager.get_all_data()
-#         else:
-#             all_data = data_source
-        
-#         target_date = date.strftime('%Y-%m-%d')
-#         filtered_data = [
-#             item for item in all_data
-#             if (not item['is_success'] and
-#                 item['timestamp'].startswith(target_date))
-#         ]
-        
-#         return len(filtered_data)
-        
-#     except Exception as e:
-#         await log_error(f"에러 개수 계산 오류: {e}")
-#         return 0
-    
-# # 사용자 통계 계산하는 함수
-# async def get_user_statistics(date):
-#     try:
-#         from shared_state import StateManager
-#         state = StateManager.get_instance()
-#         init = state.get_init()
-
-#         total_users_result = await asyncio.to_thread(
-#             lambda: init.supabase.table('userStateData')
-#                 .select('discordURL', count='exact')
-#                 .execute()
-#         )
-        
-#         yesterday = date - timedelta(days=1)
-#         active_users_result = await asyncio.to_thread(
-#             lambda: init.supabase.table('userStateData')
-#                 .select('discordURL', count='exact')
-#                 .gte('last_db_save_time', f'{yesterday}T00:00:00')
-#                 .execute()
-#         )
-        
-#         return {
-#             'total_users': total_users_result.count or 0,
-#             'active_users': active_users_result.count or 0,
-#         }
-#     except Exception as e:
-#         await log_error(f"사용자 통계 계산 오류: {e}")
-#         return {'total_users': 0, 'active_users': 0}
-
-# # 알림 통계 계산하는 함수
-# async def get_notification_statistics(date, data_source: List[Dict] = None):
-#     try:
-#         if data_source is None:
-#             all_data = performance_manager.get_all_data()
-#         else:
-#             all_data = data_source
-        
-#         target_date = date.strftime('%Y-%m-%d')
-        
-#         discord_data = [
-#             item for item in all_data
-#             if (item['api_type'] == 'discord_webhook' and 
-#                 item['is_success'] and
-#                 item['timestamp'].startswith(target_date))
-#         ]
-        
-#         fcm_data = [
-#             item for item in all_data
-#             if (item['api_type'] == 'fcm_push' and 
-#                 item['is_success'] and
-#                 item['timestamp'].startswith(target_date))
-#         ]
-        
-#         discord_count = len(discord_data)
-#         fcm_count = len(fcm_data)
-        
-#         return {
-#             'discord': discord_count,
-#             'fcm': fcm_count,
-#             'total': discord_count + fcm_count
-#         }
-#     except Exception as e:
-#         await log_error(f"알림 통계 계산 오류: {e}")
-#         return {'discord': 0, 'fcm': 0, 'total': 0}
-    
-
-
-# # 일일 통계를 계산하고 로컬 파일에 저장하는 함수
-# async def calculate_and_save_daily_statistics():
-#     today = datetime.now().date()
-#     yesterday = today - timedelta(days=1)
-    
-#     try:
-#         print(f"{datetime.now()} 일일 통계 계산 시작: {yesterday}")
-        
-#         # 데이터 로드
-#         all_data = performance_manager.get_all_data()
-        
-#         # 통계 계산
-#         discord_avg = await calculate_avg_response_time(
-#             'discord_webhook', yesterday, data_source=all_data)
-#         fcm_avg = await calculate_avg_response_time(
-#             'fcm_push', yesterday, data_source=all_data)
-#         discord_success_rate = await calculate_success_rate(
-#             'discord_webhook', yesterday, data_source=all_data)
-#         fcm_success_rate = await calculate_success_rate(
-#             'fcm_push', yesterday, data_source=all_data)
-        
-#         user_stats = await get_user_statistics(yesterday)
-#         notification_stats = await get_notification_statistics(
-#             yesterday, data_source=all_data)
-#         error_count = await get_error_count(yesterday, data_source=all_data)
-        
-        
-#         # 일일 통계 데이터
-#         daily_stat = {
-#             "created_at": datetime.now().isoformat(),
-#             "date": yesterday.isoformat(),
-#             "total_users": user_stats.get('total_users', 0),
-#             "active_users": user_stats.get('active_users', 0),
-#             "total_notifications_sent": notification_stats.get('total', 0),
-#             "discord_notifications": notification_stats.get('discord', 0),
-#             "fcm_notifications": notification_stats.get('fcm', 0),
-#             "avg_discord_response_time_ms": discord_avg,
-#             "avg_fcm_response_time_ms": fcm_avg,
-#             "discord_success_rate": discord_success_rate,
-#             "fcm_success_rate": fcm_success_rate,
-#             "error_count": error_count,
-#         }
-        
-#         # 로컬 파일에 저장
-#         await _save_daily_statistics(daily_stat)
-        
-#         print(f"{datetime.now()} 일일 통계 저장 완료: {yesterday}")
-#         print(f"Discord 평균 응답시간: {discord_avg}ms, 성공률: {discord_success_rate}%")
-#         print(f"FCM 평균 응답시간: {fcm_avg}ms, 성공률: {fcm_success_rate}%")
-        
-#     except Exception as e:
-#         await log_error(f"일일 통계 계산 및 저장 오류: {e}")
-
-# # 일일 통계를 로컬 파일에 저장하는 함수
-# async def _save_daily_statistics(daily_stat):
-#     try:
-#         # 기존 데이터 로드
-#         existing_stats = {}
-#         if DAILY_STATS_FILE.exists():
-#             with open(DAILY_STATS_FILE, 'r', encoding='utf-8') as f:
-#                 try:
-#                     existing_stats = load(f)
-#                 except JSONDecodeError:
-#                     existing_stats = {}
-        
-#         # 새 통계 추가 (날짜를 키로 사용)
-#         date_key = daily_stat['date']
-#         existing_stats[date_key] = daily_stat
-        
-#         # 오래된 데이터 제거 (30일 이상된 데이터)
-#         cutoff_date = datetime.now().date() - timedelta(days=30)
-#         filtered_stats = {
-#             date: stat for date, stat in existing_stats.items()
-#             if datetime.fromisoformat(date).date() > cutoff_date
-#         }
-        
-#         # 파일에 저장
-#         with open(DAILY_STATS_FILE, 'w', encoding='utf-8') as f:
-#             dump(filtered_stats, f, ensure_ascii=False, indent=2)
-            
-#     except Exception as e:
-#         print(f"{datetime.now()} 일일 통계 파일 저장 실패: {e}")
-
-# #실시간 통계 조회하는 함수
-# async def get_realtime_statistics(days=7):
-#     end_date = datetime.now().date()
-#     start_date = end_date - timedelta(days=days-1)
-
-#     try:
-#         # 데이터 로드
-#         all_data = performance_manager.get_all_data()
-        
-#         # 통계 계산
-#         discord_avg = await calculate_avg_response_time(
-#             'discord_webhook', end_date, days, data_source=all_data)
-#         fcm_avg = await calculate_avg_response_time(
-#             'fcm_push', end_date, days, data_source=all_data)
-#         discord_success = await calculate_success_rate(
-#             'discord_webhook', end_date, days, data_source=all_data)
-#         fcm_success = await calculate_success_rate(
-#             'fcm_push', end_date, days, data_source=all_data)
-        
-#         user_stats = await get_user_statistics(days)
-#         notification_stats = await get_notification_statistics(days, data_source=all_data)
-
-#         return {
-#             "period": f"{start_date} ~ {end_date}",
-#             "performance": {
-#                 'user':{
-#                     "total_users": user_stats.get('total_users', 0),
-#                     "active_users": user_stats.get('active_users', 0),
-#                 },
-#                 "discord_webhook": {
-#                     "discord_notifications": notification_stats.get('discord', 0),
-#                     "avg_response_time_ms": discord_avg,
-#                     "success_rate": discord_success
-#                 },
-#                 "fcm_push": {
-#                     "fcm_notifications": notification_stats.get('fcm', 0),
-#                     "avg_response_time_ms": fcm_avg,
-#                     "success_rate": fcm_success
-#                 }
-#             }
-
-#         }
-#     except Exception as e:
-#         await log_error(f"실시간 통계 조회 오류: {e}")
-#         return None
-
-# #성능 통계 수집 스케줄러 설정 함수
-# def setup_performance_scheduler():
-#     scheduler = BackgroundScheduler()
-    
-#     scheduler.add_job(
-#         func=lambda: asyncio.run(calculate_and_save_daily_statistics()),
-#         trigger="cron",
-#         hour=0,
-#         minute=5,
-#         id='daily_statistics'
-#     )
-    
-#     scheduler.start()
-#     print(f"{datetime.now()} 성능 통계 스케줄러가 시작되었습니다 (매일 00:05에 실행)")
-    
-#     atexit.register(lambda: scheduler.shutdown())
-
 import asyncio
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -501,7 +50,9 @@ class APIPerformanceLogger:
         self.max_file_age_days = 30  # 30일 이상된 파일 삭제
         
         # 비동기 락
-        self._save_lock = asyncio.Lock()
+        self._memory_lock = asyncio.Lock()  # 메모리 액세스용 락
+        self._save_lock = asyncio.Lock()    # 파일 저장용 락
+        
         
         # 마지막 저장 시간
         self._last_save_time = datetime.now()
@@ -513,7 +64,6 @@ class APIPerformanceLogger:
                             error_message: str = None, retry_count: int = 0):
         """API 성능 데이터를 로깅"""
         try:
-            # 로그 객체 생성
             log_entry = APIPerformanceLog(
                 timestamp=datetime.now(),
                 api_type=api_type,
@@ -525,8 +75,9 @@ class APIPerformanceLogger:
                 retry_count=retry_count
             )
             
-            # 메모리에 추가
-            self.memory_logs.append(log_entry)
+            # 메모리 락으로 안전하게 추가
+            async with self._memory_lock:
+                self.memory_logs.append(log_entry)
             
             # 주기적 저장 체크
             await self._check_and_save_if_needed()
@@ -547,21 +98,24 @@ class APIPerformanceLogger:
     async def _save_logs_to_file(self):
         """메모리의 로그를 시간 기반 파일에 저장"""
         async with self._save_lock:
-            if not self.memory_logs:
-                return
+            # 메모리 락으로 안전하게 복사 후 클리어
+            async with self._memory_lock:
+                if not self.memory_logs:
+                    return
+                
+                logs_to_save = list(self.memory_logs)  # 안전한 복사
+                self.memory_logs.clear()               # 원본 클리어
             
             try:
-                # 현재 시간으로 파일명 생성
+                # 파일 저장 로직
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 filename = f"api_performance_{timestamp}.json"
                 file_path = self.log_dir / filename
                 
-                # 메모리 로그를 딕셔너리 리스트로 변환
-                logs_to_save = []
-                saved_logs = list(self.memory_logs)  # 복사본 생성
-                
-                for log_entry in saved_logs:
-                    logs_to_save.append({
+                # 복사본을 딕셔너리로 변환
+                logs_data = []
+                for log_entry in logs_to_save:
+                    logs_data.append({
                         "timestamp": log_entry.timestamp.isoformat(),
                         "api_type": log_entry.api_type,
                         "response_time_ms": log_entry.response_time_ms,
@@ -572,26 +126,27 @@ class APIPerformanceLogger:
                         "retry_count": log_entry.retry_count
                     })
                 
-                # 파일에 저장
                 save_data = {
                     "created_at": datetime.now().isoformat(),
-                    "log_count": len(logs_to_save),
-                    "logs": logs_to_save
+                    "log_count": len(logs_data),
+                    "logs": logs_data
                 }
                 
                 with open(file_path, 'w', encoding='utf-8') as f:
                     dump(save_data, f, ensure_ascii=False, indent=2)
                 
-                print(f"{datetime.now()} API 성능 로그 저장 완료: {file_path} ({len(logs_to_save)}개 기록)")
+                print(f"{datetime.now()} API 성능 로그 저장 완료: {file_path} ({len(logs_data)}개 기록)")
                 
-                # 메모리 클리어
-                self.memory_logs.clear()
                 self._last_save_time = datetime.now()
-                
-                # 오래된 파일 정리
                 await self._cleanup_old_files()
                 
             except Exception as e:
+                # 저장 실패 시 데이터 복구
+                async with self._memory_lock:
+                    # 실패한 로그들을 다시 메모리에 추가 (최신 순서 유지)
+                    for log_entry in reversed(logs_to_save):
+                        self.memory_logs.appendleft(log_entry)
+                        
                 await log_error(f"API 성능 로그 파일 저장 실패: {e}")
 
     async def _cleanup_old_files(self):
@@ -625,8 +180,9 @@ class APIPerformanceLogger:
         try:
             all_logs = []
             
-            # deque의 안전한 복사본 생성 (동시성 문제 해결)
-            memory_logs_copy = list(self.memory_logs)
+            # 메모리 락으로 안전하게 복사
+            async with self._memory_lock:
+                memory_logs_copy = list(self.memory_logs)
             
             # 복사본으로 순회 작업 수행
             for log_entry in memory_logs_copy:
@@ -669,13 +225,24 @@ class APIPerformanceLogger:
 
     def get_current_memory_stats(self) -> Dict:
         """현재 메모리 상태 정보 반환"""
-        return {
-            "memory_log_count": len(self.memory_logs),
-            "max_memory_logs": self.max_memory_logs,
-            "last_save_time": self._last_save_time.isoformat(),
-            "next_auto_save_in_minutes": max(0, self.save_interval_minutes - 
-                                           (datetime.now() - self._last_save_time).total_seconds() / 60)
-        }
+        try:
+            memory_count = len(self.memory_logs)
+            
+            return {
+                "memory_log_count": memory_count,
+                "max_memory_logs": self.max_memory_logs,
+                "last_save_time": self._last_save_time.isoformat(),
+                "next_auto_save_in_minutes": max(0, self.save_interval_minutes - 
+                                            (datetime.now() - self._last_save_time).total_seconds() / 60)
+            }
+        except Exception:
+            # 예외 발생 시 기본값 반환
+            return {
+                "memory_log_count": 0,
+                "max_memory_logs": self.max_memory_logs,
+                "last_save_time": datetime.now().isoformat(),
+                "next_auto_save_in_minutes": 0
+            }
 
 class APIStatisticsCalculator:
     """API 통계 계산을 담당하는 클래스"""
