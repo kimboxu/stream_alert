@@ -601,8 +601,8 @@ class ChatAnalyzer:
         self.change_score_to_peak(highlight)
         self.highlights.append(highlight)
 
-        if not self.init.DO_TEST:
-            await self._save_highlight_to_db(highlight)
+        # if not self.init.DO_TEST:
+        #     await self._save_highlight_to_db(highlight)
 
         if len(self.highlights) > 30:
             await self._make_highlight_chat(self.highlights[:-1])
