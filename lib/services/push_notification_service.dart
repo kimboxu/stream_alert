@@ -88,6 +88,8 @@ Future<void> _saveNotification(RemoteMessage message) async {
 }
 
 class PushNotificationService {
+  
+  final Set<String> _processedMessageIds = <String>{};  // 중복 알림 방지를 위한 처리된 메시지 ID 저장
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _localNotifications =
       FlutterLocalNotificationsPlugin();
@@ -666,6 +668,23 @@ class PushNotificationService {
 
   // 포그라운드 메시지 처리
   void _handleForegroundMessage(RemoteMessage message) async {
+      final messageId = message.messageId ?? '${DateTime.now().millisecondsSinceEpoch}';
+    
+    // 이미 처리된 메시지인지 확인
+    if (_processedMessageIds.contains(messageId)) {
+      debugPrint('이미 처리된 메시지입니다: $messageId');
+      return;
+    }
+    
+    // 처리된 메시지 ID 추가
+    _processedMessageIds.add(messageId);
+    
+    // 메모리 관리 (최대 100개 유지)
+    if (_processedMessageIds.length > 100) {
+      final oldestId = _processedMessageIds.first;
+      _processedMessageIds.remove(oldestId);
+    }
+
     debugPrint('데이터: ${message.data}');
 
     // 알림 저장
