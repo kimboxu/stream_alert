@@ -86,7 +86,7 @@ class ChatMessageWithAnalyzer:
         # 로그 저장
         if not self.is_save_log:
             self.is_save_log = True
-            await self.chat_analyzer.save_detailed_logs_to_file(force_save=True)
+            await self.chat_analyzer.save_detailed_logs_to_file(save_cache=True,force_save=True)
             print(f"{datetime.now()} 로그 저장 완료: {self.chat_analyzer.channel_name}")
             timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
             self.chat_analyzer.highlights = []
@@ -719,7 +719,7 @@ class ChatAnalyzer:
             await log_error(f"디스코드 알림 오류: {e}")
 
     #detailed_logs를 파일에 저장
-    async def save_detailed_logs_to_file(self, force_save=False):
+    async def save_detailed_logs_to_file(self, save_cache=False, force_save=False):
         try:
             # 로그가 충분히 쌓였거나 강제 저장일 때만 실행
             if len(self.detailed_logs) < 100 and not force_save:
@@ -730,23 +730,44 @@ class ChatAnalyzer:
             
             # 전체 파일 경로
             file_path = self.log_dir / filename
+
+            if save_cache:
+                # 전체 로그 저장
+                logs_to_save = self.detailed_logs.copy()
+                remaining_logs = []  # 전부 삭제
+            else:
+                # 최근 일부만 제외하고 저장
+                keep_count = int(self.history_1min * 2)
+                logs_to_save = self.detailed_logs[:-keep_count].copy() if len(self.detailed_logs) > keep_count else []
+                remaining_logs = self.detailed_logs[-keep_count:] if len(self.detailed_logs) > keep_count else self.detailed_logs.copy()
+            
+            # 저장할 로그가 없으면 종료
+            if not logs_to_save:
+                print(f"{datetime.now()} 저장할 로그가 없습니다.")
+                return
             
             # JSON 형태로 저장
             log_data = {
                 "channel_id": self.channel_id,
                 "channel_name": self.channel_name,
                 "save_timestamp": datetime.now().isoformat(),
-                "total_logs": len(self.detailed_logs[:-int(self.history_1min*2)]),
-                "logs": self.detailed_logs[:-int(self.history_1min*2)].copy()  # 전체 로그 복사
+                "total_logs": len(logs_to_save),
+                "logs": logs_to_save,
+                "save_type": "full_cache" if save_cache else "partial"
             }
             
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(log_data, f, ensure_ascii=False, indent=2)
             
-            print(f"{datetime.now()} 📄 상세 로그 저장 완료: {file_path} ({len(self.detailed_logs[:-int(self.history_1min*2)])}개 기록)")
+            # 저장 완료 메시지
+            save_type = "전체 캐시" if save_cache else "일부"
+            print(f"{datetime.now()} 📄 상세 로그 저장 완료: {file_path} ({len(logs_to_save)}개 기록, {save_type})")
             
-            # 저장 후 삭제
-            self.detailed_logs = self.detailed_logs[-int(self.history_1min*2):]
+            # 저장 후 로그 업데이트
+            self.detailed_logs = remaining_logs
+            
+            # 남은 로그 수 출력
+            print(f"{datetime.now()} 남은 로그: {len(self.detailed_logs)}개")
                 
         except Exception as e:
             print(f"{datetime.now()} ❌ 로그 저장 오류: {e}")
