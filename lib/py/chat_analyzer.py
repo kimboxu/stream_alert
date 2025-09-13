@@ -627,7 +627,7 @@ class ChatAnalyzer:
         return " + ".join(reasons) if reasons else "재미있는 순간 감지"
 
     def change_score_to_peak(self, highlight: StreamHighlight):
-        if highlight.score_details['highlights'] and not highlight.score_details['should_create_new_highlight']:
+        if highlight.score_details['highlights'] and not highlight.score_details['should_create_new_highlight'] and highlight.fun_score > self.highlights[-1].fun_score:
             idx = None
             for i,detailed_log in enumerate(reversed(self.detailed_logs)):
                 if detailed_log['score_components']['should_create_new_highlight']:
