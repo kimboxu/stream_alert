@@ -325,7 +325,7 @@ class APIStatisticsCalculator:
             discord_success_rate = await self.calculate_success_rate('discord_webhook', logs)
             fcm_success_rate = await self.calculate_success_rate('fcm_push', logs)
             
-            notification_stats = await self.get_notification_statistics(start_date, end_date, logs)
+            notification_stats = await self.get_notification_statistics(logs)
             error_count = await self.get_error_count(logs)
             
             # 통합된 형식으로 반환
