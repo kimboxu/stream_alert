@@ -1,7 +1,7 @@
 import base64
 import asyncio
 from typing import Dict
-from datetime import datetime
+from datetime import datetime, timedelta
 from os import remove, environ, path
 from requests import post, get
 from urllib.request import urlretrieve
@@ -32,6 +32,7 @@ from base import (
     log_error,
     get_stream_start_id,
     format_time_for_comment,
+    get_timestamp_from_stream_id,
 )
 
 
@@ -327,6 +328,7 @@ class base_live_message:
             
             # 스트림 ID가 없으면 초기화
             if self.stream_start_id not in self.init.highlight_chat[self.channel_id]:
+                self._cleanup_old_highlights() # 오래된 데이터 정리
                 self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
                 
         except Exception as e:
@@ -339,6 +341,52 @@ class base_live_message:
                     self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
         except Exception as e:
             asyncio.create_task(log_error(f"error get_init_last_title: {e}"))
+
+    def _cleanup_old_highlights(self, days_threshold: int = 14):
+        """
+        현재 채널의 14일 이상 지난 하이라이트 채팅 데이터를 정리하는 메서드
+        
+        Args:
+            days_threshold: 삭제할 데이터의 기준 일수 (기본값: 14일)
+        """
+        try:
+            current_time = datetime.now()
+            threshold_time = current_time - timedelta(days=days_threshold)
+            
+            # 현재 채널의 하이라이트 채팅 데이터가 없으면 스킵
+            if self.channel_id not in self.init.highlight_chat:
+                return 0
+            
+            channel_data = self.init.highlight_chat[self.channel_id]
+            streams_to_remove = []
+            
+            # 각 스트림의 생성 시간 확인
+            for stream_id in list(channel_data.keys()):
+                try:
+                    # stream_id에서 타임스탬프 추출
+                    stream_timestamp = get_timestamp_from_stream_id(stream_id)
+                    
+                    # 14일 이상 지난 데이터인지 확인
+                    if stream_timestamp < threshold_time:
+                        streams_to_remove.append(stream_id)
+                        
+                except ValueError as e:
+                    # 타임스탬프를 파싱할 수 없는 경우 로그 기록 후 건너뛰기
+                    print(f"{current_time} cleanup: 타임스탬프 파싱 실패 - {stream_id}: {e}")
+                    continue
+            
+            # 오래된 스트림 데이터 제거
+            for stream_id in streams_to_remove:
+                del self.init.highlight_chat[self.channel_id][stream_id]
+            
+            if streams_to_remove:
+                print(f"{current_time} [{self.channel_id}] {len(streams_to_remove)}개의 오래된 하이라이트 데이터 정리")
+                
+            return len(streams_to_remove)
+            
+        except Exception as e:
+            asyncio.create_task(log_error(f"_cleanup_old_highlights 오류: {e}, channel_id: {self.channel_id}"))
+            return 0
 
 
     async def get_live_thumbnail_image(self, state_data, message=None):

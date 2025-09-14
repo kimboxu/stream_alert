@@ -19,6 +19,8 @@ from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar,
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
+from highlight_chat_saver import HighlightChatSaver
+
 @dataclass
 class ChatAnalysisData:
     """채팅 분석 데이터를 저장하는 클래스"""
@@ -52,6 +54,9 @@ class ChatMessageWithAnalyzer:
         self.analysis_task = None
         self.log_save_task = None
         self.is_save_log = False
+
+        # 하이라이트 채팅 저장기 추가
+        self.highlight_saver = HighlightChatSaver()
 
     async def start_analyzer(self):
         """분석기 시작 - start() 메서드에서 호출"""
@@ -92,6 +97,57 @@ class ChatMessageWithAnalyzer:
             timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
             self.chat_analyzer.highlights = []
             self.chat_analyzer.update_highlight_chat(timeline_comments)
+
+            # 하이라이트 채팅 업데이트 직후 파일로 저장
+            await self._save_completed_highlight_chat_after_update()
+
+    async def _save_completed_highlight_chat_after_update(self):
+        """하이라이트 채팅 저장"""
+        try:
+            channel_id = self.chat_analyzer.channel_id
+            channel_name = self.chat_analyzer.channel_name
+            
+            # 현재 스트림의 stream_start_id 가져오기
+            stream_start_time = self.init.stream_status[channel_id].start_at['openDate']
+            stream_start_id = get_stream_start_id(channel_id, stream_start_time)
+            
+            # 해당 채널의 하이라이트 데이터 확인
+            if (channel_id not in self.init.highlight_chat or 
+                stream_start_id not in self.init.highlight_chat[channel_id]):
+                print(f"{datetime.now()} 저장할 하이라이트 데이터 없음: {channel_name} - {stream_start_id}")
+                return
+
+            # 현재 스트림의 하이라이트 데이터 가져오기
+            highlight_data = self.init.highlight_chat[channel_id][stream_start_id]
+            
+            # timeline_comments가 업데이트되었는지 확인
+            if (hasattr(highlight_data, 'timeline_comments') and 
+                highlight_data.timeline_comments):
+                
+                print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}")
+                print(f"  - 스트림 ID: {stream_start_id}")
+                print(f"  - 하이라이트 개수: {len(highlight_data.timeline_comments)}개")
+                
+                # 파일로 저장
+                file_path = await self.highlight_saver.save_completed_stream_highlight(
+                    channel_id, channel_name, stream_start_id, highlight_data
+                )
+                
+                if file_path:
+                    print(f"{datetime.now()} 하이라이트 채팅 저장 성공: {file_path}")
+                    
+                    # 저장 성공 후 메모리에서 제거
+                    del self.init.highlight_chat[channel_id][stream_start_id]
+                    print(f"{datetime.now()} 메모리에서 제거 완료: {stream_start_id}")
+                else:
+                    print(f"{datetime.now()} 하이라이트 채팅 저장 실패: {channel_name}")
+            else:
+                print(f"{datetime.now()} timeline_comments가 비어있음: {channel_name}")
+                
+        except Exception as e:
+            from base import log_error
+            await log_error(f"하이라이트 채팅 저장 오류 ({channel_name}): {e}")
+            print(f"{datetime.now()} 하이라이트 채팅 저장 오류: {e}")
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
