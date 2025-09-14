@@ -638,9 +638,12 @@ class ChatAnalyzer:
             print(f"{datetime.now()} highlights가 비어있어서 change_score_to_peak 건너뜀")
             return
         
-        if (highlight.score_details['highlights'] and 
-            not highlight.score_details['should_create_new_highlight'] and 
-            highlight.fun_score > self.highlights[-1].fun_score):
+        is_higher_score = False
+        if highlight.fun_score > self.highlights[-1].fun_score:
+            is_higher_score = True
+            
+        
+        if (highlight.score_details['highlights'] and not highlight.score_details['should_create_new_highlight']):
             idx = None
             is_new_highlight = False
             for i,detailed_log in enumerate(reversed(self.detailed_logs)):
@@ -655,17 +658,22 @@ class ChatAnalyzer:
             #직전 하이라이트의 should_create_new_highlight를 False로 변경 후 현재것을 True로 변경
             if idx:
                 # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있다면, 직전의 하이라이트 제거하지 않고, 새로운 하이라이트 추가
-                if not is_new_highlight:
-                    highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
-                    self.detailed_logs[-1]['comment_after_openDate'] = self.detailed_logs[-(idx+1)]['comment_after_openDate']
-                    self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
-                    self.highlights = self.highlights[:-1]
-
-                highlight.score_details['should_create_new_highlight'] = True
+                if not is_higher_score and not is_new_highlight:
+                    return
                 
-            else:
-                await log_error(f"error change_score_to_peak: idx None")
-                print(f"{datetime.now()} {self.detailed_logs}")
+                highlight.score_details['should_create_new_highlight'] = True
+
+                if is_new_highlight:
+                    return
+                
+                highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
+                self.detailed_logs[-1]['comment_after_openDate'] = self.detailed_logs[-(idx+1)]['comment_after_openDate']
+                self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
+                self.highlights = self.highlights[:-1]
+                return
+                
+            await log_error(f"error change_score_to_peak: idx None")
+            print(f"{datetime.now()} {self.detailed_logs}")
 
     #하이라이트 DB 저장
     async def _save_highlight_to_db(self, highlight: StreamHighlight):
