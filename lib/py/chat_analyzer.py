@@ -12,6 +12,7 @@ from typing import List, Dict, Optional, Tuple
 from collections import deque, Counter
 from os import environ, path, makedirs
 import pandas as pd
+import glob
 from uuid import uuid4
 from pathlib import Path
 from live_message import upload_image_to_imgur
@@ -177,8 +178,9 @@ class ChatAnalyzer:
         self.channel_name = channel_name
 
         # 분석 설정
-        self.window_size = 30  # 30초 윈도우
+        self.window_size = 30       # 30초 윈도우
         self.analysis_interval = 5  # 5초마다 분석
+        self.max_file_age_days = 30 # 30일 이상된 파일 삭제
 
         # 채팅 데이터 저장 (약 30분)
         self.history_1min = int(60/self.analysis_interval)
@@ -860,15 +862,65 @@ class ChatAnalyzer:
                 
         except Exception as e:
             print(f"{datetime.now()} ❌ 로그 저장 오류: {e}")
+
+    async def _cleanup_old_log_files(self):
+        """오래된 fun_score_logs 파일 삭제"""
+        try:
+            cutoff_date = datetime.now() - timedelta(days=self.max_file_age_days)
+            pattern = str(self.log_dir / "fun_score_detailed_*.json")
+            
+            deleted_count = 0
+            for file_path in glob.glob(pattern):
+                file_path = Path(file_path)
+                
+                try:
+                    # 파일명에서 날짜 추출
+                    filename = file_path.stem
+                    # fun_score_detailed_{channel_name}_{YYYYMMDD_HHMMSS}.json 형식
+                    parts = filename.split('_')
+                    if len(parts) >= 2:
+                        datetime_part = parts[-1]  # YYYYMMDD_HHMMSS
+                        if len(datetime_part) >= 8:
+                            date_str = datetime_part[:8]  # YYYYMMDD
+                            file_date = datetime.strptime(date_str, "%Y%m%d")
+                            
+                            if file_date < cutoff_date:
+                                file_path.unlink()
+                                deleted_count += 1
+                                print(f"{datetime.now()} 오래된 fun_score 로그 파일 삭제: {file_path.name}")
+                                
+                except (ValueError, IndexError) as e:
+                    print(f"{datetime.now()} 파일 날짜 파싱 실패 ({file_path.name}): {e}")
+                    continue
+            
+            if deleted_count > 0:
+                print(f"{datetime.now()} 총 {deleted_count}개의 오래된 fun_score 로그 파일 삭제 완료")
+                
+        except Exception as e:
+            from base import log_error
+            await log_error(f"fun_score 로그 파일 정리 실패: {e}")
     
     #주기적으로 로그 저장
     async def save_logs_periodically(self):
+        cleanup_last_run_date = None  # 마지막 정리 실행 날짜 추적
+        
         while True:
             try:
                 await asyncio.sleep(1800)  # 30분마다
                 await self.save_detailed_logs_to_file()
+
+                # 매일 한 번씩 파일 정리
+                current_date = datetime.now().date()
+                current_hour = datetime.now().hour
+                
+                if (5 <= current_hour <= 7 and 
+                    cleanup_last_run_date != current_date):
+                    await self._cleanup_old_log_files()
+                    cleanup_last_run_date = current_date
+                    print(f"{datetime.now()} 일일 파일 정리 완료 - 다음 실행: {current_date + timedelta(days=1)}")
+
             except Exception as e:
-                print(f"{datetime.now()} ❌ 주기적 로그 저장 오류: {e}")
+                print(f"{datetime.now()} ⚠ 주기적 로그 저장 오류: {e}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight]):
