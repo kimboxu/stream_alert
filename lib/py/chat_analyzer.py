@@ -703,11 +703,11 @@ class ChatAnalyzer:
         
         if (highlight.score_details['highlights'] and not highlight.score_details['should_create_new_highlight']):
             idx = None
-            is_new_highlight = False
+            is_new_highlight_check_cnt = 0
             for i,detailed_log in enumerate(reversed(self.detailed_logs)):
                 # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있는지
                 if not detailed_log['score_components']['highlights']:
-                    is_new_highlight = True
+                    is_new_highlight_check_cnt += 1
 
                 if detailed_log['score_components']['should_create_new_highlight']:
                     idx = i
@@ -716,12 +716,12 @@ class ChatAnalyzer:
             #직전 하이라이트의 should_create_new_highlight를 False로 변경 후 현재것을 True로 변경
             if idx:
                 # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있다면, 직전의 하이라이트 제거하지 않고, 새로운 하이라이트 추가
-                if not is_higher_score and not is_new_highlight:
+                if not is_higher_score and not is_new_highlight_check_cnt:
                     return
                 
                 highlight.score_details['should_create_new_highlight'] = True
 
-                if is_new_highlight:
+                if is_new_highlight_check_cnt >= 2:
                     return
                 
                 highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
