@@ -617,7 +617,7 @@ class ChatAnalyzer:
         bef_recent_scores = list(self.analysis_history)[-int(self.history_1min):]
 
         #이전 1분 중 가장 작은 점수와의 차이
-        return fun_score - min(a[1] for a in bef_recent_scores)
+        return max(fun_score - min(a[1] for a in bef_recent_scores), 0)
 
     #하이라이트 생성
     async def _create_highlight(self, detailed_log: dict) -> None:
