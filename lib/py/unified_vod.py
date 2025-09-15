@@ -1,5 +1,6 @@
 import asyncio
-from json import loads
+from pathlib import Path
+from json import loads, load
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
@@ -209,37 +210,71 @@ class base_vod(ABC):
             asyncio.create_task(log_error(f"post video message error: {e}"))
 
     async def _process_highlight_chat(self):
-        """하이라이트 채팅 처리 공통 로직"""
-        highlight_chat = None
+        """하이라이트 채팅 처리 - 파일에서 직접 로드"""
         
-        for stream_start_id in self.init.highlight_chat[self.channel_id]:
-            highlight_chat_data = self.init.highlight_chat[self.channel_id][stream_start_id]
-            
-            if not hasattr(highlight_chat_data, 'stream_end_id') or not highlight_chat_data.stream_end_id:
-                continue
-                
-            try:
-                broadcast_duration = calculate_stream_duration(stream_start_id, highlight_chat_data.stream_end_id)
-                duration_diff = max(broadcast_duration - self.data.duration, 0)
-                title_matches = highlight_chat_data.last_title == self.data.videoTitle
-                
-                if duration_diff < 60 and title_matches:
-                    self.duration_diff = duration_diff
-                    highlight_chat = self.init.highlight_chat[self.channel_id].pop(stream_start_id, None)
-                    break
-                    
-            except ValueError as e:
-                asyncio.create_task(log_error(f"방송 지속시간 계산 오류: {e}"))
-                continue
-
-        if highlight_chat:
-            highlight_message = self._get_highlight_msg(highlight_chat)
+        # 파일에서 하이라이트 데이터 검색 및 로드
+        highlight_data = await self._load_matching_highlight_file()
+        
+        if highlight_data:
+            highlight_message = self._get_highlight_msg_from_file(highlight_data)
             if highlight_message:
                 await self._send_comment(highlight_message)
 
-    def _get_highlight_msg(self, highlight_chat: highlight_chat_Data):
-        """하이라이트 메시지 생성 공통 로직"""
-        timeline_comments = highlight_chat.timeline_comments
+    async def _load_matching_highlight_file(self):
+        """VOD와 매칭되는 하이라이트 파일을 찾아서 로드"""
+        try:
+            # 하이라이트 파일 디렉토리 경로
+            current_file = Path(__file__)
+            if current_file.parent.name == 'py':
+                project_root = current_file.parent.parent
+            else:
+                project_root = current_file.parent
+            
+            highlight_dir = project_root / "data" / "highlight_chats"
+            
+            if not highlight_dir.exists():
+                return None
+            
+            # 채널의 모든 하이라이트 파일 검색
+            pattern = f"highlight_chat_{self.channel_id}_*.json"
+            files = list(highlight_dir.glob(pattern))
+            
+            # VOD 제목과 지속시간으로 매칭
+            for file_path in files:
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        data = load(f)
+                    
+                    # 제목 매칭 확인
+                    if data.get('last_title') != self.data.videoTitle:
+                        continue
+                    
+                    # 지속시간 매칭 확인 (stream_start_id와 stream_end_id 이용)
+                    stream_start_id = data.get('stream_start_id', '')
+                    stream_end_id = data.get('stream_end_id', '')
+                    
+                    if stream_start_id and stream_end_id:
+                        broadcast_duration = calculate_stream_duration(stream_start_id, stream_end_id)
+                        duration_diff = abs(broadcast_duration - self.data.duration)
+                        
+                        # 지속시간 차이가 1분 미만이면 매칭된 것으로 판단
+                        if duration_diff < 60:
+                            self.duration_diff = max(broadcast_duration - self.data.duration, 0)
+                            return data
+                            
+                except Exception as e:
+                    print(f"하이라이트 파일 처리 오류 {file_path}: {e}")
+                    continue
+            
+            return None
+            
+        except Exception as e:
+            await log_error(f"하이라이트 파일 로딩 오류: {e}")
+            return None
+
+    def _get_highlight_msg_from_file(self, highlight_data):
+        """파일에서 로드된 하이라이트 데이터를 VOD 댓글로 변환"""
+        timeline_comments = highlight_data.get('timeline_comments', [])
         
         if not timeline_comments or not isinstance(timeline_comments, list):
             return ""
@@ -269,7 +304,7 @@ class base_vod(ABC):
             if score_difference > self.big_fun_difference:
                 description = f"*{description}"
 
-            comment_line = f"{formatted_time} - 재미 점수:{score_difference:.1f} - {description}"
+            comment_line = f"{formatted_time}- 재미 점수:{score_difference:.1f} - {description}"
             comment_lines.append(comment_line)
         
         return "\n\n".join(comment_lines) if comment_lines else ""
