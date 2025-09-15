@@ -10,7 +10,7 @@ import pandas as pd
 from shared_state import StateManager
 from urllib.parse import unquote
 from requests import get 
-
+from base import get_timestamp_from_stream_id
 from notification_service import (
     initialize_firebase,
     cleanup_all_invalid_tokens,
@@ -740,6 +740,463 @@ def remove_fcm_token():
             ),
             500,
         )
+
+# 활성 하이라이트 챗 조회 (현재 메모리에 있는 데이터)
+@app.route("/get_active_highlight_chats", methods=["GET"])
+def get_active_highlight_chats():
+    """현재 메모리에 저장된 활성 하이라이트 챗 데이터 조회"""
+    try:
+        channel_id = request.args.get("channel_id")  # 특정 채널만 조회 (옵션)
+        include_details = request.args.get("include_details", "false").lower() == "true"
+        
+        active_chats = {}
+        
+        # 특정 채널 또는 전체 채널 처리
+        channels_to_check = [channel_id] if channel_id else list(app.init.highlight_chat.keys())
+        
+        for ch_id in channels_to_check:
+            if ch_id not in app.init.highlight_chat:
+                continue
+                
+            channel_data = app.init.highlight_chat[ch_id]
+            active_chats[ch_id] = {}
+            
+            for stream_id, highlight_data in channel_data.items():
+                try:
+                    # 기본 정보 추출
+                    basic_info = {
+                        "stream_id": stream_id,
+                        "last_title": getattr(highlight_data, 'last_title', ''),
+                        "stream_end_id": getattr(highlight_data, 'stream_end_id', ''),
+                        "timeline_comments_count": len(getattr(highlight_data, 'timeline_comments', [])),
+                        "has_ended": bool(getattr(highlight_data, 'stream_end_id', '')),
+                        "created_time": get_timestamp_from_stream_id(stream_id).isoformat() if stream_id else None
+                    }
+                    
+                    # 상세 정보 포함 시
+                    if include_details:
+                        timeline_comments = getattr(highlight_data, 'timeline_comments', [])
+                        basic_info.update({
+                            "timeline_comments": timeline_comments,
+                            "latest_comments": timeline_comments[-5:] if timeline_comments else []  # 최근 5개
+                        })
+                    
+                    active_chats[ch_id][stream_id] = basic_info
+                    
+                except Exception as e:
+                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류 ({ch_id}, {stream_id}): {e}")
+                    continue
+        
+        # 채널 이름 추가
+        result = {}
+        for ch_id, streams in active_chats.items():
+            try:
+                # 채널명 찾기 (chzzk 또는 afreeca에서)
+                channel_name = "Unknown"
+                if ch_id in app.init.chzzkIDList.index:
+                    channel_name = app.init.chzzkIDList.loc[ch_id, 'channelName']
+                elif ch_id in app.init.afreecaIDList.index:
+                    channel_name = app.init.afreecaIDList.loc[ch_id, 'channelName']
+                
+                result[ch_id] = {
+                    "channel_name": channel_name,
+                    "active_streams": len(streams),
+                    "streams": streams
+                }
+            except Exception as e:
+                print(f"{datetime.now()} 채널 정보 처리 오류 ({ch_id}): {e}")
+                result[ch_id] = {
+                    "channel_name": "Unknown",
+                    "active_streams": len(streams),
+                    "streams": streams
+                }
+        
+        return jsonify({
+            "status": "success",
+            "total_channels": len(result),
+            "total_active_streams": sum(data["active_streams"] for data in result.values()),
+            "data": result,
+            "retrieved_at": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"활성 하이라이트 챗 조회 실패: {str(e)}"
+        }), 500
+
+# 저장된 하이라이트 챗 파일 목록 조회
+@app.route("/get_saved_highlight_files", methods=["GET"])
+def get_saved_highlight_files():
+    """저장된 하이라이트 챗 파일 목록 조회"""
+    try:
+        channel_name = request.args.get("channel_name")  # 특정 채널만 조회 (옵션)
+        limit = request.args.get("limit", default=50, type=int)  # 결과 제한
+        
+        # HighlightChatSaver 인스턴스 생성
+        from highlight_chat_saver import HighlightChatSaver
+        saver = HighlightChatSaver()
+        
+        # 파일 정보 조회
+        files_info = saver.get_saved_files_info(channel_name)
+        
+        # 제한 적용
+        if limit > 0:
+            files_info = files_info[:limit]
+        
+        return jsonify({
+            "status": "success",
+            "total_files": len(files_info),
+            "filtered_by_channel": channel_name,
+            "files": files_info,
+            "retrieved_at": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"저장된 하이라이트 파일 목록 조회 실패: {str(e)}"
+        }), 500
+
+# 특정 하이라이트 챗 상세 조회
+@app.route("/get_highlight_chat_detail", methods=["GET"])
+def get_highlight_chat_detail():
+    """특정 하이라이트 챗의 상세 정보 조회"""
+    try:
+        # 파라미터 처리
+        channel_id = request.args.get("channel_id")
+        stream_id = request.args.get("stream_id")
+        file_path = request.args.get("file_path")  # 파일에서 직접 조회하는 경우
+        
+        if not any([channel_id and stream_id, file_path]):
+            return jsonify({
+                "status": "error",
+                "message": "channel_id와 stream_id 또는 file_path가 필요합니다"
+            }), 400
+        
+        result_data = None
+        
+        # 메모리에서 조회 (활성 데이터)
+        if channel_id and stream_id:
+            if (channel_id in app.init.highlight_chat and 
+                stream_id in app.init.highlight_chat[channel_id]):
+                
+                highlight_data = app.init.highlight_chat[channel_id][stream_id]
+                
+                # 채널 정보 추가
+                channel_name = "Unknown"
+                if channel_id in app.init.chzzkIDList.index:
+                    channel_name = app.init.chzzkIDList.loc[channel_id, 'channelName']
+                elif channel_id in app.init.afreecaIDList.index:
+                    channel_name = app.init.afreecaIDList.loc[channel_id, 'channelName']
+                
+                result_data = {
+                    "source": "active_memory",
+                    "channel_id": channel_id,
+                    "channel_name": channel_name,
+                    "stream_id": stream_id,
+                    "last_title": getattr(highlight_data, 'last_title', ''),
+                    "stream_end_id": getattr(highlight_data, 'stream_end_id', ''),
+                    "timeline_comments": getattr(highlight_data, 'timeline_comments', []),
+                    "is_active": not bool(getattr(highlight_data, 'stream_end_id', '')),
+                    "created_time": get_timestamp_from_stream_id(stream_id).isoformat() if stream_id else None
+                }
+            else:
+                return jsonify({
+                    "status": "error",
+                    "message": f"활성 데이터를 찾을 수 없습니다: {channel_id}/{stream_id}"
+                }), 404
+        
+        # 파일에서 조회 (저장된 데이터)
+        elif file_path:
+            import json
+            from pathlib import Path
+            
+            try:
+                file_path = Path(file_path)
+                if not file_path.exists():
+                    return jsonify({
+                        "status": "error",
+                        "message": f"파일을 찾을 수 없습니다: {file_path}"
+                    }), 404
+                
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    file_data = json.load(f)
+                
+                result_data = {
+                    "source": "saved_file",
+                    "file_path": str(file_path),
+                    **file_data
+                }
+                
+            except Exception as e:
+                return jsonify({
+                    "status": "error",
+                    "message": f"파일 읽기 실패: {str(e)}"
+                }), 500
+        
+        # 통계 정보 추가
+        if result_data and "timeline_comments" in result_data:
+            comments = result_data["timeline_comments"]
+            stats = {
+                "total_comments": len(comments),
+                "comments_with_scores": len([c for c in comments if "score_difference" in c]),
+                "avg_score": 0,
+                "max_score": 0,
+                "score_distribution": {"0-20": 0, "21-40": 0, "41-60": 0, "61-80": 0, "81-100": 0}
+            }
+            
+            # 점수 관련 통계 계산
+            scores = []
+            for comment in comments:
+                if "score_difference" in comment:
+                    try:
+                        score = float(comment["score_difference"])
+                        scores.append(score)
+                        
+                        # 분포 계산
+                        if score <= 20:
+                            stats["score_distribution"]["0-20"] += 1
+                        elif score <= 40:
+                            stats["score_distribution"]["21-40"] += 1
+                        elif score <= 60:
+                            stats["score_distribution"]["41-60"] += 1
+                        elif score <= 80:
+                            stats["score_distribution"]["61-80"] += 1
+                        else:
+                            stats["score_distribution"]["81-100"] += 1
+                    except (ValueError, TypeError):
+                        continue
+            
+            if scores:
+                stats["avg_score"] = round(sum(scores) / len(scores), 2)
+                stats["max_score"] = round(max(scores), 2)
+            
+            result_data["statistics"] = stats
+        
+        return jsonify({
+            "status": "success",
+            "data": result_data,
+            "retrieved_at": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"하이라이트 챗 상세 조회 실패: {str(e)}"
+        }), 500
+
+# 하이라이트 챗 통계 조회
+@app.route("/get_highlight_chat_statistics", methods=["GET"])
+def get_highlight_chat_statistics():
+    """전체 하이라이트 챗 시스템 통계 조회"""
+    try:
+        include_channel_breakdown = request.args.get("include_channels", "false").lower() == "true"
+        
+        # 활성 데이터 통계
+        active_stats = {
+            "total_channels": 0,
+            "total_active_streams": 0,
+            "total_timeline_comments": 0,
+            "channels_with_data": [],
+            "recent_activity": []
+        }
+        
+        for channel_id, channel_data in app.init.highlight_chat.items():
+            if not channel_data:
+                continue
+                
+            active_stats["total_channels"] += 1
+            
+            # 채널명 찾기
+            channel_name = "Unknown"
+            try:
+                if channel_id in app.init.chzzkIDList.index:
+                    channel_name = app.init.chzzkIDList.loc[channel_id, 'channelName']
+                elif channel_id in app.init.afreecaIDList.index:
+                    channel_name = app.init.afreecaIDList.loc[channel_id, 'channelName']
+            except:
+                pass
+            
+            channel_info = {
+                "channel_id": channel_id,
+                "channel_name": channel_name,
+                "active_streams": len(channel_data),
+                "total_comments": 0
+            }
+            
+            # 스트림별 통계
+            for stream_id, highlight_data in channel_data.items():
+                active_stats["total_active_streams"] += 1
+                
+                try:
+                    comments = getattr(highlight_data, 'timeline_comments', [])
+                    comments_count = len(comments)
+                    channel_info["total_comments"] += comments_count
+                    active_stats["total_timeline_comments"] += comments_count
+                    
+                    # 최근 활동 (최근 1시간 내 업데이트된 스트림)
+                    try:
+                        stream_time = get_timestamp_from_stream_id(stream_id)
+                        if (datetime.now() - stream_time).total_seconds() < 3600:  # 1시간
+                            active_stats["recent_activity"].append({
+                                "channel_id": channel_id,
+                                "channel_name": channel_name,
+                                "stream_id": stream_id,
+                                "comments_count": comments_count,
+                                "last_title": getattr(highlight_data, 'last_title', ''),
+                                "stream_time": stream_time.isoformat()
+                            })
+                    except:
+                        pass
+                        
+                except Exception as e:
+                    print(f"{datetime.now()} 스트림 통계 처리 오류 ({channel_id}, {stream_id}): {e}")
+                    continue
+            
+            if include_channel_breakdown:
+                active_stats["channels_with_data"].append(channel_info)
+        
+        # 최근 활동 정렬 (최신순)
+        active_stats["recent_activity"] = sorted(
+            active_stats["recent_activity"][-10:],  # 최근 10개만
+            key=lambda x: x["stream_time"], 
+            reverse=True
+        )
+        
+        # 저장된 파일 통계
+        try:
+            from highlight_chat_saver import HighlightChatSaver
+            saver = HighlightChatSaver()
+            saved_files = saver.get_saved_files_info()
+            
+            saved_stats = {
+                "total_saved_files": len(saved_files),
+                "total_saved_highlights": sum(f.get("total_highlights", 0) for f in saved_files),
+                "storage_size_mb": sum(f.get("size_mb", 0) for f in saved_files),
+                "date_range": {
+                    "oldest": min((f.get("stream_start_time", "") for f in saved_files), default=""),
+                    "newest": max((f.get("stream_start_time", "") for f in saved_files), default="")
+                } if saved_files else {"oldest": "", "newest": ""}
+            }
+        except Exception as e:
+            print(f"{datetime.now()} 저장된 파일 통계 처리 오류: {e}")
+            saved_stats = {
+                "total_saved_files": 0,
+                "total_saved_highlights": 0,
+                "storage_size_mb": 0,
+                "date_range": {"oldest": "", "newest": ""}
+            }
+        
+        return jsonify({
+            "status": "success",
+            "active_data": active_stats,
+            "saved_data": saved_stats,
+            "system_health": {
+                "memory_usage_normal": active_stats["total_active_streams"] < 100,  # 임계치 기준
+                "recent_activity_detected": len(active_stats["recent_activity"]) > 0,
+                "storage_healthy": saved_stats["storage_size_mb"] < 1000  # 1GB 기준
+            },
+            "retrieved_at": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"하이라이트 챗 통계 조회 실패: {str(e)}"
+        }), 500
+
+# 하이라이트 챗 데이터 정리 (메모리 관리)
+@app.route("/cleanup_highlight_data", methods=["POST"])
+def cleanup_highlight_data():
+    """오래된 하이라이트 데이터 정리 (관리자용)"""
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        
+        days_threshold = int(data.get("days_threshold", 7))  # 기본 7일
+        force_cleanup = data.get("force", "false").lower() == "true"
+        
+        cleanup_results = {
+            "cleaned_channels": [],
+            "total_streams_removed": 0,
+            "total_comments_removed": 0,
+            "errors": []
+        }
+        
+        for channel_id in list(app.init.highlight_chat.keys()):
+            try:
+                # 채널명 찾기
+                channel_name = "Unknown"
+                if channel_id in app.init.chzzkIDList.index:
+                    channel_name = app.init.chzzkIDList.loc[channel_id, 'channelName']
+                elif channel_id in app.init.afreecaIDList.index:
+                    channel_name = app.init.afreecaIDList.loc[channel_id, 'channelName']
+                
+                channel_data = app.init.highlight_chat[channel_id]
+                streams_to_remove = []
+                comments_removed = 0
+                
+                current_time = datetime.now()
+                threshold_time = current_time - timedelta(days=days_threshold)
+                
+                for stream_id in list(channel_data.keys()):
+                    try:
+                        # 스트림 시간 확인
+                        stream_timestamp = get_timestamp_from_stream_id(stream_id)
+                        
+                        # 정리 조건 확인
+                        should_cleanup = (
+                            stream_timestamp < threshold_time or
+                            (force_cleanup and bool(getattr(channel_data[stream_id], 'stream_end_id', '')))
+                        )
+                        
+                        if should_cleanup:
+                            # 댓글 수 계산
+                            comments = getattr(channel_data[stream_id], 'timeline_comments', [])
+                            comments_removed += len(comments)
+                            
+                            streams_to_remove.append(stream_id)
+                            del app.init.highlight_chat[channel_id][stream_id]
+                            
+                    except ValueError as e:
+                        cleanup_results["errors"].append(
+                            f"스트림 ID 파싱 실패 ({channel_id}/{stream_id}): {e}"
+                        )
+                        continue
+                
+                if streams_to_remove:
+                    cleanup_results["cleaned_channels"].append({
+                        "channel_id": channel_id,
+                        "channel_name": channel_name,
+                        "streams_removed": len(streams_to_remove),
+                        "comments_removed": comments_removed
+                    })
+                    cleanup_results["total_streams_removed"] += len(streams_to_remove)
+                    cleanup_results["total_comments_removed"] += comments_removed
+                
+                # 빈 채널 데이터 제거
+                if not app.init.highlight_chat[channel_id]:
+                    del app.init.highlight_chat[channel_id]
+                    
+            except Exception as e:
+                cleanup_results["errors"].append(f"채널 정리 오류 ({channel_id}): {e}")
+                continue
+        
+        return jsonify({
+            "status": "success",
+            "message": f"{days_threshold}일 기준으로 데이터 정리 완료",
+            "cleanup_results": cleanup_results,
+            "cleaned_at": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"하이라이트 데이터 정리 실패: {str(e)}"
+        }), 500
 
 #성능 통계 조회 엔드포인트
 @app.route("/get_performance_stats", methods=["GET"])
