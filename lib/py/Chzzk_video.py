@@ -1,6 +1,6 @@
 import asyncio
 from json import loads
-from datetime import datetime
+from datetime import datetime, timedelta
 from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
@@ -42,6 +42,8 @@ class chzzk_video:
         self.chzzk_id = chzzk_id  # 현재 처리할 치지직 채널 ID
         self.time_offset = 20   # window_size 만큼의 길이 - 10초
         self.duration_diff = 0  # 실제 방송시간과 VOD 길이 와의 차이
+        self.thumb_check_times = {}
+        self.max_check_thumb_min = 1
         self.small_fun_difference = 40
         self.big_fun_difference = 70
         self.data = ChzzkVOD_Data()
@@ -116,10 +118,39 @@ class chzzk_video:
 
         # 썸네일 URL 검증
         print(f"{datetime.now()} {self.chzzk_id},썸네일 검증{self.data.thumbnailImageUrl}")
-        if not self.data.thumbnailImageUrl or ("https://video-phinf.pstatic.net" not in self.data.thumbnailImageUrl 
-                                               and "https://livecloud-thumb.akamaized.net"not in self.data.thumbnailImageUrl ):
+        
+        # 썸네일이 있는 경우 - 바로 통과
+        if (self.data.thumbnailImageUrl and 
+            ("https://video-phinf.pstatic.net" in self.data.thumbnailImageUrl or 
+             "https://livecloud-thumb.akamaized.net" in self.data.thumbnailImageUrl)):
+            # 썸네일이 있으면 해당 비디오의 체크 시간 기록 삭제
+            if self.data.videoNo in self.thumb_check_times:
+                del self.thumb_check_times[self.data.videoNo]
+            return True
+        
+        # 썸네일이 없는 경우
+        current_time = datetime.now()
+        
+        # 이 비디오에 대한 첫 번째 체크인 경우 시간 기록
+        if self.data.videoNo not in self.thumb_check_times:
+            self.thumb_check_times[self.data.videoNo] = current_time
+            print(f"{datetime.now()} {self.chzzk_id} 비디오 {self.data.videoNo} 썸네일 체크 시작")
             return False
-        return True
+        
+        # 10분이 지났는지 확인
+        check_start_time = self.thumb_check_times[self.data.videoNo]
+        time_passed = current_time - check_start_time
+        
+        if time_passed >= timedelta(minutes=self.max_check_thumb_min):
+            print(f"{datetime.now()} {self.chzzk_id} 비디오 {self.data.videoNo} 썸네일 없이 {self.max_check_thumb_min}분 경과, 알림 전송")
+            # 10분이 지났으면 체크 시간 기록 삭제하고 알림 허용
+            del self.thumb_check_times[self.data.videoNo]
+            return True
+        else:
+            # 아직 10분이 안 지났으면 대기
+            remaining_time = timedelta(minutes=self.max_check_thumb_min) - time_passed
+            print(f"{datetime.now()} {self.chzzk_id} 비디오 {self.data.videoNo} 썸네일 대기 중 (남은 시간: {remaining_time})")
+            return False
  
     # 비디오 알림 전송 함수
     async def post_chzzk_video(self):
