@@ -11,7 +11,7 @@ from base import (
     get_message, 
     iconLinkData, 
     initVar, 
-    chzzk_saveVideoData, 
+    save_video_data, 
     log_error,
     getChzzkCookie,
     getDefaultHeaders,
@@ -103,7 +103,7 @@ class chzzk_video:
 
         # 알림 목록에 추가
         self.data.video_alarm_List.append((json_data))
-        await chzzk_saveVideoData(self.chzzk_video, self.chzzk_id)
+        await save_video_data(self.chzzk_video, 'chzzk', self.chzzk_id)
 
     # 새 비디오인지 확인하는 함수
     def check_new_video(self):

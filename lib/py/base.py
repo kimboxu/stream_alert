@@ -170,7 +170,7 @@ async def DataBaseVars(init: initVar):
 				'afreeca_titleData', 'twitchIDList', 'chzzkIDList', 
 				'afreecaIDList', 'youtubeData', 'twitch_chatFilter',
 				'chzzk_chatFilter', 'afreeca_chatFilter', 'chzzk_video', 
-				'cafeData'
+				'afreeca_video', 'cafeData'
 			]
 			
 			# 모든 테이블의 데이터를 비동기로 가져오기
@@ -198,6 +198,7 @@ async def DataBaseVars(init: initVar):
 				'afreeca_chatFilter': 'channelID',
 				'cafeData': 'channelID',
 				'chzzk_video': 'channelID',
+				'afreeca_video': 'channelID',
 			}
 			
 			for table_name, index_col in index_mappings.items():
@@ -316,6 +317,16 @@ def getDefaultHeaders():
 # 치지직 사이트 접속용 쿠키 반환
 def getChzzkCookie(): 
 	return {'NID_AUT': environ['NID_AUT'],'NID_SES':environ['NID_SES']} 
+
+# 아프리카 사이트 접속용 쿠키 반환
+def getAfreecaCookie(): 
+	return {'_ausb': environ['_ausb'],
+		 '_fbp':environ['_fbp'],
+		 'UserTicket':environ['UserTicket'],
+		 'BbsTicket':environ['BbsTicket'],
+		 '_ausa':environ['_ausa'],
+		 'AuthTicket':environ['AuthTicket'],
+		 } 
 
 # 카페 검색 파라미터 설정 함수
 def cafe_params(cafeNum, page_num):
@@ -720,15 +731,15 @@ async def change_chat_join_state(chat_json, channel_id, chat_rejoin = True):
 			await asyncio.sleep(0.1)
 	
 # 치지직 비디오 데이터 저장 함수
-async def chzzk_saveVideoData(chzzk_video, _id): 
+async def save_video_data(video_data, platform: str, _id): 
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	data = {
 		"channelID": _id,
-		'VOD_json': chzzk_video.loc[_id, 'VOD_json']
+		'VOD_json': video_data.loc[_id, 'VOD_json']
 	}
 	for _ in range(3):  # 최대 3번 시도
 		try:
-			supabase.table('chzzk_video').upsert(data).execute()
+			supabase.table(f'{platform}_video').upsert(data).execute()
 			break
 		except Exception as e:
 			asyncio.create_task(log_error(f"error saving profile data {e}"))
