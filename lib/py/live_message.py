@@ -752,7 +752,7 @@ class afreeca_live_message(base_live_message):
             thumbnail_image = self.get_thumbnail_image()
             if thumbnail_image is None: 
                 print(f"{datetime.now()} wait make thumbnail 1 .{count}.{str(self.getImageURL())}")
-                await asyncio.sleep(0.05)
+                await asyncio.sleep(0.1)
                 continue
             break
         else: thumbnail_image = ""
