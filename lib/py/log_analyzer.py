@@ -10,6 +10,11 @@ class SessionBasedFunScoreAnalyzer:
     """방송 세션별로 재미도 로그를 분석하는 클래스"""
     
     def __init__(self, channel_name, date, base_dir=None):
+
+        # 임계값
+        self.small_fun_difference   = 15    # 작은 재미 차이
+        self.big_fun_difference     = 70    # 큰 재미 차이
+
         # 기본 디렉토리 설정 (스크립트 위치 기준)
         if base_dir is None:
             script_dir = Path(__file__).parent
@@ -237,10 +242,14 @@ class SessionBasedFunScoreAnalyzer:
             viewer_counts = [log['analysis_data']['viewer_count'] for log in session_logs]
             
             # 동적 임계값 데이터
-            baseline_thresholdss = []
+            baseline_thresholds = []
+            score_difference_list = []
             for log in session_logs:
                 threshold = log.get('score_components', {}).get('baseline_threshold', 50)
-                baseline_thresholdss.append(threshold)
+                score_difference = log.get('score_components', {}).get('score_difference', 0)
+                baseline_thresholds.append(threshold)
+                score_difference_list.append(score_difference)
+
             
             # 2개 서브플롯 생성
             fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10))
@@ -249,13 +258,17 @@ class SessionBasedFunScoreAnalyzer:
             ax1.plot(after_open_times, scores, 'b-', alpha=0.7, linewidth=1.5, label='재미도 점수')
             
             # 동적 임계값 라인
-            ax1.plot(after_open_times, baseline_thresholdss, 'orange', linestyle='-.', alpha=0.8, label='동적 임계값')
+            # ax1.plot(after_open_times, baseline_thresholds, 'orange', linestyle='-.', alpha=0.5, label='동적 임계값')
+            ax1.plot(after_open_times, score_difference_list, 'purple', linestyle='-.', alpha=0.8, label='하이라이트 동적 임계값')
             
             # 고정 임계값 (참고용)
-            ax1.axhline(y=15, color='lightgray', linestyle=':', alpha=0.5, label='최소 임계값 (15)')
-            ax1.axhline(y=70, color='lightcoral', linestyle=':', alpha=0.5, label='대형 하이라이트 기준 (70점 차이)')
+            ax1.axhline(y=self.small_fun_difference, color='darkorange', linestyle=':', alpha=0.9, linewidth=3,
+                    label=f'하이라이트 기준: {self.small_fun_difference}점 차이')
+            ax1.axhline(y=self.big_fun_difference, color='crimson', linestyle=':', alpha=0.9, linewidth=3,
+                        label=f'대형 하이라이트 기준: {self.big_fun_difference}점 차이')
             
             ax1.fill_between(after_open_times, scores, alpha=0.3)
+            ax1.fill_between(after_open_times, score_difference_list, alpha=0.3)
             
             # 하이라이트 순간 표시
             highlight_times = []
