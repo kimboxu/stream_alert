@@ -43,7 +43,7 @@ class chzzk_video:
         self.time_offset = 20   # window_size 만큼의 길이 - 10초
         self.duration_diff = 0  # 실제 방송시간과 VOD 길이 와의 차이
         self.thumb_check_times = {}
-        self.max_check_thumb_min = 1
+        self.max_check_thumb_min = 10
         self.small_fun_difference = 40
         self.big_fun_difference = 70
         self.data = ChzzkVOD_Data()
