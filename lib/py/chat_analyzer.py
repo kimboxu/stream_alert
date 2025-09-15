@@ -721,7 +721,7 @@ class ChatAnalyzer:
                 
                 highlight.score_details['should_create_new_highlight'] = True
 
-                if is_new_highlight_check_cnt >= 2:
+                if is_new_highlight_check_cnt >= 3:
                     return
                 
                 highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
