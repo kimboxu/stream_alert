@@ -10,15 +10,16 @@ from shared_state import StateManager
 # from Afreeca_live_message import afreeca_live_message
 from Chzzk_chat_message import chzzk_chat_message
 from Afreeca_chat_message import afreeca_chat_message
-from Chzzk_video import chzzk_video
 from getCafePostTitle import getCafePostTitle
 from getYoutubeJsonData import getYoutubeJsonData
 from make_log_api_performance import PerformanceManager
 from live_message import chzzk_live_message, afreeca_live_message
+from unified_vod import chzzk_vod, afreeca_vod
 
 GLOBAL_INSTANCES = {
     'cafe': {},
     'chzzk_video': {},
+    'afreeca_video': {},
     'chzzk_live': {},
     'afreeca_live': {}
 }
@@ -31,7 +32,9 @@ def get_or_create_instance(instance_type, init, performance_manager, channel_id)
         if instance_type == 'cafe':
             instances[channel_id] = getCafePostTitle(init, performance_manager, channel_id)
         elif instance_type == 'chzzk_video':
-            instances[channel_id] = chzzk_video(init, performance_manager, channel_id)
+            instances[channel_id] = chzzk_vod(init, performance_manager, channel_id)
+        elif instance_type == 'afreeca_video':
+            instances[channel_id] = afreeca_vod(init, performance_manager, channel_id)
         elif instance_type == 'chzzk_live':
             instances[channel_id] = chzzk_live_message(init, performance_manager, channel_id)
         elif instance_type == 'afreeca_live':
@@ -60,6 +63,13 @@ async def main_loop(init: initVar, performance_manager: PerformanceManager):
                 for channel_id in init.chzzkIDList["channelID"]
             ]
             
+            afreeca_video_tasks = [
+                asyncio.create_task(
+                    get_or_create_instance('afreeca_video', init, performance_manager, channel_id).start()
+                ) 
+                for channel_id in init.afreecaIDList["channelID"]
+            ]
+
             chzzk_live_tasks = [
                 asyncio.create_task(
                     get_or_create_instance('chzzk_live', init, performance_manager, channel_id).start()
@@ -81,7 +91,9 @@ async def main_loop(init: initVar, performance_manager: PerformanceManager):
             if init.count % 2 == 1: 
                 tasks.extend(afreeca_live_tasks) 
             if init.count % 3 == 2: 
-                tasks.extend(chzzk_video_tasks) 
+                tasks.extend(chzzk_video_tasks)
+            if init.count % 3 == 0:
+                tasks.extend(afreeca_video_tasks) 
             if init.count % 3 == 1: 
                 tasks.extend(cafe_tasks) 
 
