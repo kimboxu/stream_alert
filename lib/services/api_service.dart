@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/streamer_data.dart';
 import '../models/cafe_data.dart';
-import '../models/chzzk_video.dart';
+import '../models/videoData.dart';
 import '../models/youtube_data.dart';
 import '../models/notification_model.dart';
 import '../utils/cache_helper.dart';
@@ -408,7 +408,7 @@ class ApiService {
               (!data.containsKey('afreecaStreamers') &&
                   !data.containsKey('chzzkStreamers') &&
                   !data.containsKey('cafeStreamers') &&
-                  !data.containsKey('chzzkVideoStreamers') &&
+                  !data.containsKey('videoDataStreamers') &&
                   !data.containsKey('youtubeStreamers') &&
                   !data.containsKey('chzzkChatFilter') &&
                   !data.containsKey('afreecaChatFilter'))) {
@@ -531,21 +531,21 @@ class ApiService {
     return cafeDataList;
   }
 
-  // 치지직 VOD 데이터 파싱
-  static List<ChzzkVideo> parseChzzkVideo(Map<String, dynamic> data) {
-    List<ChzzkVideo> chzzkVideoList = [];
-    List<dynamic> chzzkVideoStreamers = data['chzzkVideoStreamers'] ?? [];
+  // VOD 알림 데이터 파싱
+  static List<VideoData> parseVideoData(Map<String, dynamic> data) {
+    List<VideoData> videoDataList = [];
+    List<dynamic> videoDataStreamers = data['videoDataStreamers'] ?? [];
 
-    for (var chzzkVideoStreamer in chzzkVideoStreamers) {
+    for (var videoDataStreamer in videoDataStreamers) {
       try {
-        ChzzkVideo chzzkVideo = ChzzkVideo.fromJson(chzzkVideoStreamer);
-        chzzkVideoList.add(chzzkVideo);
+        VideoData videoData = VideoData.fromJson(videoDataStreamer);
+        videoDataList.add(videoData);
       } catch (e) {
-        debugPrint('Error parsing chzzk video data: $e');
+        debugPrint('Error parsing video data: $e');
       }
     }
 
-    return chzzkVideoList;
+    return videoDataList;
   }
 
   // 유튜브 데이터 파싱

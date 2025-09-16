@@ -227,8 +227,8 @@ class NotificationModel {
       return NotificationType.youtube;  // 유튜브 알림
     } else if (username.contains('카페 알림') || footerText == 'cafe') {
       return NotificationType.cafe;  // 카페 알림
-    } else if (description.endsWith('치지직 영상 업로드!')) {
-      return NotificationType.chzzkVOD;  // 치지직 VOD 알림
+    } else if (description.endsWith('영상 업로드!')) {
+      return NotificationType.vodAlarm;  // VOD 알림
     } else if (title.trim().endsWith('뱅온!')) {
       return NotificationType.streamStart;  // 방송 시작 알림
     } else if (title.trim().endsWith('방제 변경')) {
@@ -249,7 +249,7 @@ class NotificationModel {
 enum NotificationType {
   youtube,      // 유튜브 알림
   cafe,         // 카페 알림
-  chzzkVOD,     // 치지직 VOD 알림
+  vodAlarm,     // VOD 알림
   streamStart,  // 뱅온 알림
   streamChange, // 방제 변경 알림
   streamEnd,    // 방종 알림
