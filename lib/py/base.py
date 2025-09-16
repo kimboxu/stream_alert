@@ -320,13 +320,7 @@ def getChzzkCookie():
 
 # 아프리카 사이트 접속용 쿠키 반환
 def getAfreecaCookie(): 
-	return {'_ausb': environ['_ausb'],
-		 '_fbp':environ['_fbp'],
-		 'UserTicket':environ['UserTicket'],
-		 'BbsTicket':environ['BbsTicket'],
-		 '_ausa':environ['_ausa'],
-		 'AuthTicket':environ['AuthTicket'],
-		 } 
+	return {'AuthTicket':environ['AuthTicket'],} 
 
 # 카페 검색 파라미터 설정 함수
 def cafe_params(cafeNum, page_num):
