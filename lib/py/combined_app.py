@@ -12,6 +12,7 @@ from getCafePostTitle import getCafePostTitle
 from getYoutubeJsonData import getYoutubeJsonData
 from live_message import chzzk_live_message, afreeca_live_message
 from unified_vod import chzzk_vod, afreeca_vod
+from unified_hot_clip import ChzzkHotClipDetector, AfreecaHotClipDetector
 from notification_service import initialize_firebase, cleanup_all_invalid_tokens, setup_scheduled_tasks
 from make_log_api_performance import PerformanceManager
 
@@ -27,7 +28,11 @@ GLOBAL_INSTANCES = {
     'chzzk_video': {},
     'afreeca_video': {},
     'chzzk_live': {},
-    'afreeca_live': {}
+    'afreeca_live': {},
+    'chzzk_hot_clips': {},
+    'afreeca_hot_clips': {},
+    'chzzk_chat': {},
+    'afreeca_chat': {},
 }
 
 # 전역 상태 관리자
@@ -62,7 +67,15 @@ def get_or_create_instance(instance_type, init, performance_manager, channel_id)
             instances[channel_id] = chzzk_live_message(init, performance_manager, channel_id)
         elif instance_type == 'afreeca_live':
             instances[channel_id] = afreeca_live_message(init, performance_manager, channel_id)
-    
+        elif instance_type == 'chzzk_chat':
+            instances[channel_id] = chzzk_chat_message(init, performance_manager, channel_id)
+        elif instance_type == 'afreeca_chat':
+            instances[channel_id] = afreeca_chat_message(init, performance_manager, channel_id)
+        elif instance_type == 'chzzk_hot_clips':
+            instances[channel_id] = ChzzkHotClipDetector(init, performance_manager, channel_id)
+        elif instance_type == 'afreeca_hot_clips':
+            instances[channel_id] = AfreecaHotClipDetector(init, performance_manager, channel_id)
+            
     return instances[channel_id]
 
 # 디스코드 봇 메인 루프
@@ -162,7 +175,7 @@ async def youtube_task(init: initVar, performance_manager: PerformanceManager):
             await asyncio.sleep(3)
 
 # 채팅 작업 함수
-async def generic_chat(init: initVar, performance_manager: PerformanceManager, platform_name: str, message_class):
+async def generic_chat(init: initVar, performance_manager: PerformanceManager, platform_name: str):
     await asyncio.sleep(3)
     
     tasks = {}  # 채널 ID별 실행 중인 task를 관리할 딕셔너리
@@ -172,14 +185,15 @@ async def generic_chat(init: initVar, performance_manager: PerformanceManager, p
             # ID 리스트 결정
             if platform_name == 'chzzk':
                 id_list = init.chzzkIDList
+                chat_class = 'chzzk_chat'
             elif platform_name == 'afreeca':
                 id_list = init.afreecaIDList
+                chat_class = 'afreeca_chat'
             
             # 기존 실행 중인 태스크를 유지하면서, 새로운 채널이 추가되면 실행
             for channel_id in id_list["channelID"]:
                 if channel_id not in tasks or tasks[channel_id].done():
-                    chat_instance = message_class(init, performance_manager, channel_id)
-                    tasks[channel_id] = asyncio.create_task(chat_instance.start())
+                    tasks[channel_id] = asyncio.create_task(get_or_create_instance(chat_class, init, performance_manager, channel_id).start())
             
             await asyncio.sleep(1)  # 1초마다 체크
         
@@ -187,6 +201,38 @@ async def generic_chat(init: initVar, performance_manager: PerformanceManager, p
             print(f"{datetime.now()} error {platform_name}_chatf {e}")
             await asyncio.create_task(log_error(f"Error in {platform_name}_chatf: {str(e)}"))
             await asyncio.sleep(1)
+
+# 핫클립 작업
+async def generic_hot_clip(init: initVar, performance_manager: PerformanceManager, platform_name: str):
+    await asyncio.sleep(3)
+    
+    tasks = {}
+    
+    while True:
+        try:
+            # 플랫폼에 따른 ID 리스트 선택
+            if platform_name == "chzzk":
+                id_list = init.chzzkIDList
+                hot_clip_class = 'chzzk_hot_clips'
+            elif platform_name == "afreeca":
+                id_list = init.afreecaIDList
+                hot_clip_class = 'afreeca_hot_clips'
+            else:
+                await asyncio.sleep(60)
+                continue
+            
+            # 각 채널별 모니터링 태스크 관리
+            for channel_id in id_list["channelID"]:
+                if channel_id not in tasks or tasks[channel_id].done():
+                    tasks[channel_id] = asyncio.create_task(
+                        get_or_create_instance(hot_clip_class, init, performance_manager, channel_id).start_monitoring()
+                    )
+            
+            await asyncio.sleep(60)
+            
+        except Exception as e:
+            await log_error(f"{platform_name} 핫클립 모니터링 오류: {e}")
+            await asyncio.sleep(60)
 
 # 디스코드 봇 작업 실행 함수
 async def run_discord_bot():
@@ -205,8 +251,10 @@ async def run_discord_bot():
     # 모든 작업 동시 실행
     bot_tasks = [
         asyncio.create_task(main_loop(init, performance_manager)),
-        asyncio.create_task(generic_chat(init, performance_manager, 'afreeca', afreeca_chat_message)),
-        asyncio.create_task(generic_chat(init, performance_manager, 'chzzk', chzzk_chat_message)),
+        asyncio.create_task(generic_chat(init, performance_manager, 'chzzk')),
+        asyncio.create_task(generic_chat(init, performance_manager, 'afreeca')),
+        asyncio.create_task(generic_hot_clip(init, performance_manager, 'chzzk')),
+        asyncio.create_task(generic_hot_clip(init, performance_manager, 'afreeca')),
         asyncio.create_task(youtube_task(init, performance_manager)),
     ]
     

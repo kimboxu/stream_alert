@@ -426,9 +426,9 @@ class ChatAnalyzer:
         # 인사 반응(방송 시작 직후 or 방송 종료 직전의 인사는 제외)
         del_greeting_message_count = analysis.message_count - analysis.fun_keywords.get("greeting",0)
 
-        # 정규화된 점수 (기존 대비 상대적으로 3배 일 경우 100점)
+        # 정규화된 점수 (기존 대비 상대적으로 2배 일 경우 50점)
         count_ratio = del_greeting_message_count / self.baseline_metrics['avg_chat_count']
-        count_score = min(self._sigmoid_transform(count_ratio, 3.0) * 100, 100)
+        count_score = min(self._sigmoid_transform(count_ratio, 2.0) * 100, 100)
   
         return count_score
 
@@ -453,8 +453,8 @@ class ChatAnalyzer:
         
         # 채팅 수 대비 키워드 밀도로 정규화
         keyword_density = total_weighted_keywords / self.baseline_metrics['avg_chat_count']
-        # 밀도 3.0 (평균 채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
-        reaction_score = min(self._sigmoid_transform(keyword_density, 3.0*3.0) * 100, 100)
+        # 밀도 2.0 (평균 채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
+        reaction_score = min(self._sigmoid_transform(keyword_density, 2.0*3.0) * 100, 100)
             
         return reaction_score
 
