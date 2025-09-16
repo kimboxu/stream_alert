@@ -70,7 +70,8 @@ class HighlightChatSaver:
             save_data = {
                 "channel_id": channel_id,
                 "channel_name": channel_name,
-                "stream_id": stream_id,
+                "stream_start_id": stream_id,
+                "stream_end_id": stream_data.get("stream_end_id", ""),  
                 "stream_start_time": readable_time,
                 "stream_end_time": self._get_stream_end_time(highlight_data),
                 "last_title": stream_data.get("last_title", ""),

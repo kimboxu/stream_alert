@@ -236,8 +236,9 @@ class base_vod(ABC):
                 return None
             
             # 채널의 모든 하이라이트 파일 검색
-            pattern = f"highlight_chat_{self.channel_id}_*.json"
-            files = list(highlight_dir.glob(pattern))
+            channel_name = self.id_list.loc[self.channel_id, 'channelName']
+            pattern = f"highlight_chat_{channel_name}_*.json"
+            files = reversed(list(highlight_dir.glob(pattern)))
             
             # VOD 제목과 지속시간으로 매칭
             for file_path in files:
