@@ -62,7 +62,7 @@ class BaseHotClipDetector(ABC):
         # 공통 설정값
         self.days_to_analyze = 14      # 2주
         self.hot_threshold = 70.0      # 핫클립 임계값 (100점 만점)
-        self.analysis_interval = 3600   # 1시간마다 분석
+        self.analysis_interval = 1800  # 30분 마다 분석
         
         # 가중치 설정
         self.weights = {
