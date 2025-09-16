@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../models/streamer_data.dart';
 import '../models/cafe_data.dart';
-import '../models/chzzk_video.dart';
+import '../models/videoData.dart';
 import '../models/youtube_data.dart';
 import '../services/api_service.dart';
 import '../utils/json_helpers.dart';
@@ -47,16 +47,16 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
 
   // 추가 데이터 모델
   List<CafeData> _cafeData = [];
-  List<ChzzkVideo> _chzzkVideo = [];
+  List<VideoData> _videoData = [];
   List<YoutubeData> _youtubeData = [];
 
   // 데이터 빠른 접근을 위한 맵
   final Map<String, CafeData> _cafeDataMap = {};
-  final Map<String, ChzzkVideo> _chzzkVideoMap = {};
+  final Map<String, VideoData> _videoDataMap = {};
   final Map<String, YoutubeData> _youtubeDataMap = {};
 
   // 선택된 사용자 맵
-  final Map<String, Set<String>> _selectedChzzkVideoUsers = {};
+  final Map<String, Set<String>> _selectedVideoDataUsers = {};
   final Map<String, Set<String>> _selectedyoutubrUsers = {};
   final Map<String, Set<String>> _selectedCafeUsers = {};
   final Map<String, Set<String>> _selectedChzzkChatUsers = {};
@@ -75,7 +75,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   };
 
   // JSON 컨트롤러 - JSON 형식으로 데이터 관리
-  final TextEditingController _chzzkVideoJsonController =
+  final TextEditingController _videoDataJsonController =
       TextEditingController();
   final TextEditingController _youtubeJsonController = TextEditingController();
   final TextEditingController _cafeJsonController = TextEditingController();
@@ -133,7 +133,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
 
         // JSON 데이터 정규화 - 항상 Map 형태로 변환
         Map<String, dynamic> youtubeAlarm = _ensureJsonMap(_settings['유튜브 알림']);
-        Map<String, dynamic> chzzkVod = _ensureJsonMap(_settings['치지직 VOD']);
+        Map<String, dynamic> vodAlarm = _ensureJsonMap(_settings['VOD 알림']);
         Map<String, dynamic> cafeUserJson = _ensureJsonMap(
           _settings['cafe_user_json'],
         );
@@ -145,8 +145,8 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
         _youtubeJsonController.text = jsonEncode(
           youtubeAlarm.isEmpty ? {} : youtubeAlarm,
         );
-        _chzzkVideoJsonController.text = jsonEncode(
-          chzzkVod.isEmpty ? {} : chzzkVod,
+        _videoDataJsonController.text = jsonEncode(
+          vodAlarm.isEmpty ? {} : vodAlarm,
         );
         _cafeJsonController.text = jsonEncode(
           cafeUserJson.isEmpty ? {} : cafeUserJson,
@@ -215,7 +215,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       // 각 종류별 데이터 파싱
       _streamers = ApiService.parseStreamers(data);
       _cafeData = ApiService.parseCafeData(data);
-      _chzzkVideo = ApiService.parseChzzkVideo(data);
+      _videoData = ApiService.parseVideoData(data);
       _youtubeData = ApiService.parseYoutubeData(data);
 
       // 채팅 필터링 사용자 데이터 처리
@@ -307,8 +307,8 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       _selectedCafeUsers[cafe.channelID] = {};
     }
 
-    for (var video in _chzzkVideo) {
-      _selectedChzzkVideoUsers[video.channelID] = {};
+    for (var video in _videoData) {
+      _selectedVideoDataUsers[video.channelID] = {};
     }
 
     for (var youtube in _youtubeData) {
@@ -321,7 +321,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     try {
       // 각 JSON을 파싱
       _parseYoutubeSettings();
-      _parseChzzkVideoSettings();
+      _parseVideoDataSettings();
       _parseCafeSettings();
       _parseChatFilters();
     } catch (e) {
@@ -359,32 +359,32 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     }
   }
 
-  // 치지직 VOD 설정 파싱
-  void _parseChzzkVideoSettings() {
+  // VOD 알림 설정 파싱
+  void _parseVideoDataSettings() {
     try {
       // 빈 문자열 검사
-      if (_chzzkVideoJsonController.text.trim().isEmpty) {
-        _chzzkVideoJsonController.text = "{}"; // 유효한 빈 JSON 객체 설정
+      if (_videoDataJsonController.text.trim().isEmpty) {
+        _videoDataJsonController.text = "{}"; // 유효한 빈 JSON 객체 설정
       }
 
       // JSON 문자열에서 맵으로 변환
-      Map<String, dynamic> vodMap = jsonDecode(_chzzkVideoJsonController.text);
+      Map<String, dynamic> vodMap = jsonDecode(_videoDataJsonController.text);
 
       // 알림 설정 초기화
-      _selectedChzzkVideoUsers.clear();
+      _selectedVideoDataUsers.clear();
 
       // 채널 ID를 키로 사용하는 맵 처리
       vodMap.forEach((channelID, channels) {
-        _selectedChzzkVideoUsers[channelID] = Set<String>.from(channels);
+        _selectedVideoDataUsers[channelID] = Set<String>.from(channels);
       });
 
-      debugPrint('파싱된 치지직 VOD 데이터: $_selectedChzzkVideoUsers');
+      debugPrint('파싱된 VOD 알림 데이터: $_selectedVideoDataUsers');
     } catch (e) {
-      debugPrint('치지직 VOD 설정 파싱 중 오류: $e');
+      debugPrint('VOD 알림 설정 파싱 중 오류: $e');
       debugPrint('오류 스택 트레이스: ${StackTrace.current}');
 
       // 오류 발생 시 빈 맵으로 초기화
-      _selectedChzzkVideoUsers.clear();
+      _selectedVideoDataUsers.clear();
     }
   }
 
@@ -480,10 +480,10 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     );
   }
 
-  void _updateChzzkVideoUserJson() {
+  void _updateVideoDataUserJson() {
     JsonHelper.updateJsonFromSelectedUsers(
-      _selectedChzzkVideoUsers,
-      _chzzkVideoJsonController,
+      _selectedVideoDataUsers,
+      _videoDataJsonController,
     );
   }
 
@@ -530,9 +530,9 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       _updateYoutubeUserJson();
       data['유튜브 알림'] = _youtubeJsonController.text;
 
-      // 치지직 VOD 설정 저장
-      _updateChzzkVideoUserJson();
-      data['치지직 VOD'] = _chzzkVideoJsonController.text;
+      // VOD 알림 설정 저장
+      _updateVideoDataUserJson();
+      data['VOD 알림'] = _videoDataJsonController.text;
 
       // 카페 설정 저장
       _updateCafeUserJson();
@@ -546,7 +546,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
 
       debugPrint('저장할 데이터:');
       debugPrint('유튜브 알림: ${data['유튜브 알림']}');
-      debugPrint('치지직 VOD: ${data['치지직 VOD']}');
+      debugPrint('VOD 알림: ${data['VOD 알림']}');
       debugPrint('카페 설정: ${data['cafe_user_json']}');
       debugPrint('채팅 필터: ${data['chat_user_json']}');
 
@@ -583,7 +583,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   void _processFetchedData() {
     // 기존 맵 초기화
     _cafeDataMap.clear();
-    _chzzkVideoMap.clear();
+    _videoDataMap.clear();
     _youtubeDataMap.clear();
 
     // 맵 구성
@@ -591,8 +591,8 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       _cafeDataMap[cafe.channelID] = cafe;
     }
 
-    for (var video in _chzzkVideo) {
-      _chzzkVideoMap[video.channelID] = video;
+    for (var video in _videoData) {
+      _videoDataMap[video.channelID] = video;
     }
 
     for (var youtube in _youtubeData) {
@@ -606,14 +606,14 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
 
     // 스트리머 관련 데이터 가져오기
     CafeData? cafeData = _cafeDataMap[channelID];
-    ChzzkVideo? chzzkVideo = _chzzkVideoMap[channelID];
+    VideoData? videoData = _videoDataMap[channelID];
     YoutubeData? youtubeData = _youtubeDataMap[channelID];
 
     // 현재 선택된 사용자 목록 가져오기
     Set<String> selectedCafeUsers =
         _selectedCafeUsers[streamer.channelID] ?? {};
-    Set<String> selectedChzzkVideoUsers =
-        _selectedChzzkVideoUsers[streamer.channelID] ?? {};
+    Set<String> selectedVideoDataUsers =
+        _selectedVideoDataUsers[streamer.channelID] ?? {};
     Set<String> selectedyoutubrUsers =
         _selectedyoutubrUsers[streamer.channelID] ?? {};
     Set<String> selectedChzzkChatUsers =
@@ -646,10 +646,10 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
 
             // 각종 데이터와 콜백 함수 전달
             cafeData: cafeData,
-            chzzkVideo: chzzkVideo,
+            videoData: videoData,
             youtubeData: youtubeData,
             selectedCafeUsers: selectedCafeUsers,
-            selectedChzzkVideoUsers: selectedChzzkVideoUsers,
+            selectedVideoDataUsers: selectedVideoDataUsers,
             selectedyoutubrUsers: selectedyoutubrUsers,
             selectedChzzkChatUsers: selectedChzzkChatUsers,
             selectedAfreecaChatUsers: selectedAfreecaChatUsers,
@@ -665,14 +665,14 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                 _updateCafeUserJson();
               });
             },
-            onChzzkVideoUsersChanged: (selectedUsers) {
+            onVideoDataUsersChanged: (selectedUsers) {
               setState(() {
                 if (selectedUsers.isEmpty) {
-                  _selectedChzzkVideoUsers.remove(streamer.channelID);
+                  _selectedVideoDataUsers.remove(streamer.channelID);
                 } else {
-                  _selectedChzzkVideoUsers[streamer.channelID] = selectedUsers;
+                  _selectedVideoDataUsers[streamer.channelID] = selectedUsers;
                 }
-                _updateChzzkVideoUserJson();
+                _updateVideoDataUserJson();
               });
             },
             onyoutubrUsersChanged: (selectedUsers) {
@@ -710,7 +710,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       // 다이얼로그 닫힌 후 JSON 설정 업데이트
       setState(() {
         _settings['유튜브 알림'] = _youtubeJsonController.text;
-        _settings['치지직 VOD'] = _chzzkVideoJsonController.text;
+        _settings['VOD 알림'] = _videoDataJsonController.text;
         _settings['cafe_user_json'] = _cafeJsonController.text;
         _settings['chat_user_json'] = _chatJsonController.text;
       });
@@ -786,7 +786,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
             selectedChzzkChatUsers: _selectedChzzkChatUsers,
             selectedAfreecaChatUsers: _selectedAfreecaChatUsers,
             youtubeAlarm: jsonDecode(_youtubeJsonController.text),
-            chzzkVod: jsonDecode(_chzzkVideoJsonController.text),
+            vodAlarm: jsonDecode(_videoDataJsonController.text),
             cafeUserJson: jsonDecode(_cafeJsonController.text),
             allStreamers: _streamers,
           ),

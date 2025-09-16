@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '../models/streamer_data.dart';
 import '../models/cafe_data.dart';
-import '../models/chzzk_video.dart';
+import '../models/videoData.dart';
 import '../models/youtube_data.dart';
 import '../utils/string_helpers.dart';
 import '../widgets/profile_image_widget.dart';
@@ -19,19 +19,19 @@ class StreamerSettingsDialog extends StatefulWidget {
 
   // 부가 데이터 모델
   final CafeData? cafeData;
-  final ChzzkVideo? chzzkVideo;
+  final VideoData? videoData;
   final YoutubeData? youtubeData;
 
   // 선택된 사용자 목록
   final Set<String> selectedCafeUsers;
-  final Set<String> selectedChzzkVideoUsers;
+  final Set<String> selectedVideoDataUsers;
   final Set<String> selectedyoutubrUsers;
   final Set<String> selectedChzzkChatUsers;
   final Set<String> selectedAfreecaChatUsers;
 
   // 콜백 함수
   final Function(Set<String>) onCafeUsersChanged;
-  final Function(Set<String>) onChzzkVideoUsersChanged;
+  final Function(Set<String>) onVideoDataUsersChanged;
   final Function(Set<String>) onyoutubrUsersChanged;
   final Function(Set<String>) onChzzkChatUsersChanged;
   final Function(Set<String>) onAfreecaChatUsersChanged;
@@ -46,15 +46,15 @@ class StreamerSettingsDialog extends StatefulWidget {
     required this.selectedSettings,
     required this.onSettingsChanged,
     this.cafeData,
-    this.chzzkVideo,
+    this.videoData,
     this.youtubeData,
     required this.selectedCafeUsers,
-    required this.selectedChzzkVideoUsers,
+    required this.selectedVideoDataUsers,
     required this.selectedyoutubrUsers,
     required this.selectedChzzkChatUsers,
     required this.selectedAfreecaChatUsers,
     required this.onCafeUsersChanged,
-    required this.onChzzkVideoUsersChanged,
+    required this.onVideoDataUsersChanged,
     required this.onyoutubrUsersChanged,
     required this.onChzzkChatUsersChanged,
     required this.onAfreecaChatUsersChanged,
@@ -70,7 +70,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
   // 설정 상태 변수
   late Map<String, bool> _settings;
   late Set<String> _selectedCafeUsers;
-  late Set<String> _selectedChzzkVideoUsers;
+  late Set<String> _selectedVideoDataUsers;
   late Set<String> _selectedyoutubrUsers;
   late Set<String> _selectedChzzkChatUsers;
   late Set<String> _selectedAfreecaChatUsers;
@@ -89,7 +89,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
 
   // 패널 확장 상태 - 처음에는 알림 설정 패널만 열어둠
   bool _isNotificationPanelExpanded = true;
-  bool _isChzzkVodPanelExpanded = false;
+  bool _isvodAlarmPanelExpanded = false;
   bool _isYoutubePanelExpanded = false;
   bool _isCafePanelExpanded = false;
   bool _isChzzkChatPanelExpanded = false;
@@ -107,7 +107,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
   // 각 패널의 아이콘 설정
   final Map<String, IconData> _panelIcons = {
     'notification': Icons.notifications_none,
-    'chzzkVod': Icons.video_library_outlined,
+    'vodAlarm': Icons.video_library_outlined,
     'youtube': Icons.play_circle_outline,
     'cafe': Icons.article_outlined,
     'chat': Icons.chat_bubble_outline,
@@ -119,7 +119,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     // 전달받은 상태 복사
     _settings = Map.from(widget.selectedSettings);
     _selectedCafeUsers = Set.from(widget.selectedCafeUsers);
-    _selectedChzzkVideoUsers = Set.from(widget.selectedChzzkVideoUsers);
+    _selectedVideoDataUsers = Set.from(widget.selectedVideoDataUsers);
     _selectedyoutubrUsers = Set.from(widget.selectedyoutubrUsers);
     _selectedChzzkChatUsers = Set.from(widget.selectedChzzkChatUsers);
     _selectedAfreecaChatUsers = Set.from(widget.selectedAfreecaChatUsers);
@@ -173,10 +173,10 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
               // 알림 설정 패널
               buildExpandableNotificationSettings(),
 
-              // 치지직 VOD 설정 패널
-              if (widget.chzzkVideo != null &&
-                  widget.chzzkVideo!.channelID.isNotEmpty)
-                buildExpandableChzzkVideoSettings(),
+              // VOD 알림 설정 패널
+              if (widget.videoData != null &&
+                  widget.videoData!.channelID.isNotEmpty)
+                buildExpandableVideoDataSettings(),
 
               // 유튜브 알림 설정 패널
               if (widget.youtubeData != null &&
@@ -206,7 +206,7 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
             // 설정된 값을 콜백으로 전달
             widget.onSettingsChanged(_settings);
             widget.onCafeUsersChanged(_selectedCafeUsers);
-            widget.onChzzkVideoUsersChanged(_selectedChzzkVideoUsers);
+            widget.onVideoDataUsersChanged(_selectedVideoDataUsers);
             widget.onyoutubrUsersChanged(_selectedyoutubrUsers);
 
             // 채팅 필터 설정 저장 - 스트리머 이름 대신 채널 ID 사용
@@ -304,10 +304,10 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
     );
   }
 
-// 치지직 VOD 설정 확장 패널
-  Widget buildExpandableChzzkVideoSettings() {
+// VOD 알림 설정 확장 패널
+  Widget buildExpandableVideoDataSettings() {
     // 선택되었는지 확인
-    final bool isSelected = _selectedChzzkVideoUsers.contains(
+    final bool isSelected = _selectedVideoDataUsers.contains(
       widget.streamer.name,
     );
 
@@ -315,32 +315,32 @@ class _StreamerSettingsDialogState extends State<StreamerSettingsDialog> {
       margin: EdgeInsets.symmetric(vertical: 4.0),
       child: ExpansionTile(
         title: buildPanelTitle(
-          title: '치지직 VOD',
-          icon: _panelIcons['chzzkVod']!,
+          title: 'VOD 알림',
+          icon: _panelIcons['vodAlarm']!,
           chip: isSelected ? buildCountChip(1, '개 활성화됨') : null,
         ),
-        initiallyExpanded: _isChzzkVodPanelExpanded,
+        initiallyExpanded: _isvodAlarmPanelExpanded,
         onExpansionChanged: (isExpanded) {
           setState(() {
-            _isChzzkVodPanelExpanded = isExpanded;
+            _isvodAlarmPanelExpanded = isExpanded;
           });
         },
         children: [
-          if (widget.chzzkVideo == null || widget.chzzkVideo!.channelID.isEmpty)
+          if (widget.videoData == null || widget.videoData!.channelID.isEmpty)
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text('이 스트리머는 치지직 VOD 알림 설정이 불가능합니다.'),
+              child: Text('이 스트리머는 VOD 알림 설정이 불가능합니다.'),
             )
           else
             CheckboxListTile(
               title: Text('${widget.streamer.name} 채널 VOD 알림'),
-              value: _selectedChzzkVideoUsers.contains(widget.streamer.name),
+              value: _selectedVideoDataUsers.contains(widget.streamer.name),
               onChanged: (value) {
                 setState(() {
                   if (value == true) {
-                    _selectedChzzkVideoUsers.add(widget.streamer.name);
+                    _selectedVideoDataUsers.add(widget.streamer.name);
                   } else {
-                    _selectedChzzkVideoUsers.remove(widget.streamer.name);
+                    _selectedVideoDataUsers.remove(widget.streamer.name);
                   }
                 });
               },

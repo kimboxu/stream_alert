@@ -211,7 +211,7 @@ def get_user_settings():
         "방종 알림": user_data.get("방종 알림", ""),
         "하이라이트 알림": user_data.get("하이라이트 알림", ""),
         "유튜브 알림": user_data.get("유튜브 알림", {}),
-        "치지직 VOD": user_data.get("치지직 VOD", {}),
+        "VOD 알림": user_data.get("VOD 알림", {}),
         "cafe_user_json": user_data.get("cafe_user_json", {}),
         "chat_user_json": user_data.get("chat_user_json", {}),
     }
@@ -253,7 +253,7 @@ def save_user_settings():
     update_data = {"discordURL": discordWebhooksURL, "username": username}
     
     # JSON 필드 목록
-    json_fields = ["유튜브 알림", "치지직 VOD", "cafe_user_json", "chat_user_json"]
+    json_fields = ["유튜브 알림", "VOD 알림", "cafe_user_json", "chat_user_json"]
     
     # 일반 텍스트 필드 목록
     text_fields = ["뱅온 알림", "방제 변경 알림", "방종 알림", "하이라이트 알림"]
@@ -336,9 +336,12 @@ def get_streamers():
         chzzkIDList = app.init.chzzkIDList.to_dict('records')
         cafeData = app.init.cafeData.to_dict('records')
         chzzk_video = app.init.chzzk_video.to_dict('records')
+        afreeca_video = app.init.afreeca_video.to_dict('records')
         youtubeData = app.init.youtubeData.to_dict('records')
         chzzk_chatFilter = app.init.chzzk_chatFilter.to_dict('records')
         afreeca_chatFilter = app.init.afreeca_chatFilter.to_dict('records')
+
+        videoData = chzzk_video + afreeca_video
 
         return jsonify(
             {
@@ -346,7 +349,7 @@ def get_streamers():
                 "afreecaStreamers":     afreecaIDList,
                 "chzzkStreamers":       chzzkIDList,
                 "cafeStreamers":        cafeData,
-                "chzzkVideoStreamers":  chzzk_video,
+                "videoDataStreamers":  videoData,
                 "youtubeStreamers":     youtubeData,
                 "chzzkChatFilter":      chzzk_chatFilter,
                 "afreecaChatFilter":    afreeca_chatFilter,

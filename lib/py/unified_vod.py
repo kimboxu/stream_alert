@@ -196,7 +196,7 @@ class base_vod(ABC):
                 self.userStateData, 
                 channel_name, 
                 self.channel_id, 
-                f"{self.platform_name} VOD"
+                "VOD 알림"
             )
 
             # 푸시 알림 및 디스코드 웹훅 전송

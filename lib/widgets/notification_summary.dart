@@ -8,7 +8,7 @@ class NotificationSummary extends StatelessWidget {
   final Map<String, Set<String>> selectedChzzkChatUsers; // 치지직 채팅 필터링 사용자
   final Map<String, Set<String>> selectedAfreecaChatUsers; // 아프리카 채팅 필터링 사용자
   final Map<String, dynamic> youtubeAlarm; // 유튜브 알림 설정
-  final Map<String, dynamic> chzzkVod; // 치지직 VOD 알림 설정
+  final Map<String, dynamic> vodAlarm; // VOD 알림 설정
   final Map<String, dynamic> cafeUserJson; // 카페 알림 설정
   final List<StreamerData> allStreamers; // 스트리머 정보 목록
 
@@ -18,7 +18,7 @@ class NotificationSummary extends StatelessWidget {
     this.selectedChzzkChatUsers = const {},
     this.selectedAfreecaChatUsers = const {},
     this.youtubeAlarm = const {},
-    this.chzzkVod = const {},
+    this.vodAlarm = const {},
     this.cafeUserJson = const {},
     required this.allStreamers,
   });
@@ -57,7 +57,7 @@ class NotificationSummary extends StatelessWidget {
               );
             }),
 
-            // 치지직 VOD 알림 설정
+            // VOD 알림 설정
             _buildVodSummary(context),
 
             // 유튜브 알림 설정
@@ -96,18 +96,18 @@ class NotificationSummary extends StatelessWidget {
     );
   }
 
-  // 치지직 VOD 요약 표시
+  // VOD 요약 표시
   Widget _buildVodSummary(BuildContext context) {
     // 값이 없거나 빈 맵인 경우
-    if (chzzkVod.isEmpty) {
-      return _buildSummaryItem(context, '치지직 VOD', '설정 없음');
+    if (vodAlarm.isEmpty) {
+      return _buildSummaryItem(context, 'VOD 알림', '설정 없음');
     }
 
     try {
       List<String> streamers = [];
 
       // Map 처리
-      chzzkVod.forEach((_, value) {
+      vodAlarm.forEach((_, value) {
         if (value is List) {
           streamers.addAll(List<String>.from(value));
         } else if (value is String) {
@@ -121,10 +121,10 @@ class NotificationSummary extends StatelessWidget {
       // 표시할 문자열 구성
       String displayText = streamers.isEmpty ? '설정 없음' : streamers.join(', ');
 
-      return _buildSummaryItem(context, '치지직 VOD', displayText);
+      return _buildSummaryItem(context, 'VOD 알림', displayText);
     } catch (e) {
-      debugPrint('치지직 VOD 데이터 처리 중 오류: $e');
-      return _buildSummaryItem(context, '치지직 VOD', '설정 오류');
+      debugPrint('VOD 알림 데이터 처리 중 오류: $e');
+      return _buildSummaryItem(context, 'VOD 알림', '설정 오류');
     }
   }
 

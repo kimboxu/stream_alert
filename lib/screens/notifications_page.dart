@@ -84,7 +84,7 @@ class _NotificationsPageState extends State<NotificationsPage>
     _selectedFilters = {
       NotificationType.youtube,
       NotificationType.cafe,
-      NotificationType.chzzkVOD,
+      NotificationType.vodAlarm,
       NotificationType.streamStart,
       NotificationType.streamChange,
       NotificationType.streamEnd,
@@ -1145,7 +1145,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                             _selectedFilters = {
                               NotificationType.youtube,
                               NotificationType.cafe,
-                              NotificationType.chzzkVOD,
+                              NotificationType.vodAlarm,
                               NotificationType.streamStart,
                               NotificationType.streamChange,
                               NotificationType.streamEnd,
@@ -1174,7 +1174,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                   // 필터 옵션들
                   _buildFilterOption(NotificationType.youtube, '유튜브 알림'),
                   _buildFilterOption(NotificationType.cafe, '카페 알림'),
-                  _buildFilterOption(NotificationType.chzzkVOD, '치지직 VOD 알림'),
+                  _buildFilterOption(NotificationType.vodAlarm, 'VOD 알림'),
                   _buildFilterOption(NotificationType.streamStart, '뱅온 알림'),
                   _buildFilterOption(NotificationType.streamChange, '방제 변경 알림'),
                   _buildFilterOption(NotificationType.streamEnd, '방종 알림'),
@@ -1219,8 +1219,8 @@ class _NotificationsPageState extends State<NotificationsPage>
         return '유튜브 알림';
       case NotificationType.cafe:
         return '카페 알림';
-      case NotificationType.chzzkVOD:
-        return '치지직 VOD 알림';
+      case NotificationType.vodAlarm:
+        return 'VOD 알림';
       case NotificationType.streamStart:
         return '뱅온 알림';
       case NotificationType.streamChange:
