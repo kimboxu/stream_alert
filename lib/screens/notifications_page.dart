@@ -1179,6 +1179,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                   _buildFilterOption(NotificationType.streamChange, '방제 변경 알림'),
                   _buildFilterOption(NotificationType.streamEnd, '방종 알림'),
                   _buildFilterOption(NotificationType.streamHighlight, '하이라이트 알림'),
+                  _buildFilterOption(NotificationType.streamHotClip, '핫클립 알림'),
                   _buildFilterOption(NotificationType.chat, '채팅 알림'),
                 ],
               ),
@@ -1231,6 +1232,8 @@ class _NotificationsPageState extends State<NotificationsPage>
         return '채팅 알림';
       case NotificationType.streamHighlight:
         return '하이라이트 알림';
+      case NotificationType.streamHotClip:
+        return '핫클립 알림';
       case NotificationType.general:
         return '일반 알림';
     }

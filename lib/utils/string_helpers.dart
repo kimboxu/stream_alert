@@ -10,6 +10,8 @@ class StringHelper {
         return '방종 알림';
       case '하이라이트 알림':
         return '하이라이트 알림';
+      case '핫클립 알림':
+        return '핫클립 알림';
       case '유튜브 알림':
         return '유튜브 알림';
       case '치지직 VOD':
