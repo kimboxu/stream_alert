@@ -72,6 +72,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     "방제 변경 알림": {}, // 방송 제목 변경 알림
     "방종 알림": {}, // 방송 종료 알림
     "하이라이트 알림": {}, // 하이라이트 알림
+    "핫클립 알림": {}, // 핫클립 알림
   };
 
   // JSON 컨트롤러 - JSON 형식으로 데이터 관리

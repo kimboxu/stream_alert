@@ -100,6 +100,7 @@ def login():
                 "방제 변경 알림": user_data.get("방제 변경 알림", ""),
                 "방종 알림": user_data.get("방종 알림", ""),
                 "하이라이트 알림": user_data.get("하이라이트 알림", ""),
+                "핫클립 알림": user_data.get("핫클립 알림", ""),
                 "유튜브 알림": user_data.get("유튜브 알림", ""),
                 "cafe_user_json": user_data.get("cafe_user_json", {}),
             },
@@ -210,6 +211,7 @@ def get_user_settings():
         "방제 변경 알림": user_data.get("방제 변경 알림", ""),
         "방종 알림": user_data.get("방종 알림", ""),
         "하이라이트 알림": user_data.get("하이라이트 알림", ""),
+        "핫클립 알림": user_data.get("핫클립 알림", ""),
         "유튜브 알림": user_data.get("유튜브 알림", {}),
         "VOD 알림": user_data.get("VOD 알림", {}),
         "cafe_user_json": user_data.get("cafe_user_json", {}),
@@ -256,7 +258,7 @@ def save_user_settings():
     json_fields = ["유튜브 알림", "VOD 알림", "cafe_user_json", "chat_user_json"]
     
     # 일반 텍스트 필드 목록
-    text_fields = ["뱅온 알림", "방제 변경 알림", "방종 알림", "하이라이트 알림"]
+    text_fields = ["뱅온 알림", "방제 변경 알림", "방종 알림", "하이라이트 알림", "핫클립 알림"]
     
     # 모든 필드 처리
     for field in text_fields + json_fields:
