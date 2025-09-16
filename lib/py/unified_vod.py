@@ -514,10 +514,12 @@ class afreeca_vod(base_vod):
         self.data.videoNo = data["title_no"]
         self.data.videoTitle = data["title_name"]
         self.data.publishDate = get_started_at(data.get("reg_date"))
+        self.data.videoCategoryValue = data["ucc"].get("category_tags", "")
         
         # 썸네일 URL 생성 (https: 접두사 추가)
         thumb_url = data["ucc"].get("thumb", "")
         self.data.thumbnailImageUrl = f"https:{thumb_url}" if thumb_url.startswith("//") else thumb_url
+        
 
     def _has_valid_thumbnail(self):
         """아프리카TV 유효한 썸네일 확인"""
@@ -543,6 +545,9 @@ class afreeca_vod(base_vod):
             "title": videoTitle,
             "url": f"https://vod.sooplive.co.kr/player/{self.data.videoNo}",
             "description": f"{username} 아프리카TV 영상 업로드!",
+            "fields": [
+                {"name": 'Category', "value": self.data.videoCategoryValue}
+            ],
             "thumbnail": {"url": avatar_url},
             "image": {"url": self.data.thumbnailImageUrl},
             "footer": {
