@@ -667,7 +667,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             # 모금함 미션 추가 메시지 형식
             "후원미션추가": lambda: f"{base} ({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}, {formatted_time}",
 
-            "파티후원": lambda: f"{base} ({kwargs.get('partyName')}방에서 {kwargs.get('amount')}치즈 추가): {message}, {formatted_time}",
+            "파티후원": lambda: f"{base} ({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}, {formatted_time}",
             
             # 구독 메시지 형식
             "구독": lambda: f"{base} ({kwargs.get('month')}개월 동안 구독): {message}, {formatted_time}",
