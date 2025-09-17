@@ -770,6 +770,7 @@ class ChatAnalyzer:
 
             thumbnail_url = self.init.stream_status[highlight.channel_id].thumbnail_url
             platform_name= self.init.stream_status[highlight.channel_id].platform_name
+            icon = iconLinkData().chzzk_icon if platform_name == 'chzzk' else iconLinkData().afreeca_icon
 
             if self.init.DO_TEST: 
                 image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
@@ -798,7 +799,7 @@ class ChatAnalyzer:
                     # "description": description,
                 "url": self.init.stream_status[highlight.channel_id].channel_url,
                 "image": {"url": image_url},
-                "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
+                "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": icon },
                 "timestamp": changeUTCtime(openDate)}]}
             print(f"{datetime.now()} {json_data}")
             # 알림 전송
