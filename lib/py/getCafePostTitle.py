@@ -169,7 +169,7 @@ class getCafePostTitle:
                 asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
 
             # 카페 데이터 저장
-            await saveCafeData(self.cafeData, self.channel_id)
+            asyncio.create_task(saveCafeData(self.cafeData, self.channel_id))
             
         except Exception as e:
             # 오류 발생 시 로그 기록 및 메시지 목록 초기화

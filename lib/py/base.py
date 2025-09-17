@@ -170,7 +170,7 @@ async def DataBaseVars(init: initVar):
 				'afreeca_titleData', 'twitchIDList', 'chzzkIDList', 
 				'afreecaIDList', 'youtubeData', 'twitch_chatFilter',
 				'chzzk_chatFilter', 'afreeca_chatFilter', 'chzzk_video', 
-				'afreeca_video', 'cafeData'
+				'afreeca_video', 'cafeData', 'hot_clip_data',
 			]
 			
 			# 모든 테이블의 데이터를 비동기로 가져오기
@@ -199,6 +199,7 @@ async def DataBaseVars(init: initVar):
 				'cafeData': 'channelID',
 				'chzzk_video': 'channelID',
 				'afreeca_video': 'channelID',
+				'hot_clip_data': 'channelID',
 			}
 			
 			for table_name, index_col in index_mappings.items():
@@ -700,7 +701,7 @@ async def change_chat_join_state(chat_json, channel_id, chat_rejoin = True):
 			asyncio.create_task(log_error(f"echange_chat_join_state {e}"))
 			await asyncio.sleep(0.1)
 	
-# 치지직 비디오 데이터 저장 함수
+# 비디오 데이터 저장 함수
 async def save_video_data(video_data, platform: str, _id): 
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	data = {
@@ -756,21 +757,46 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 
 # 사용자 알림 데이터 저장 함수
 async def save_user_notifications(supabase, webhook_url, notifications, last_db_save_time):
+	data = {
+			'discordURL': webhook_url, 
+			'notifications': notifications,
+			'last_db_save_time': last_db_save_time
+	}
+	
 	for _ in range(3):  # 최대 3번 시도
 		try:
 			await asyncio.to_thread(
 				lambda: supabase.table('userStateData')
-					.upsert({
-						'discordURL': webhook_url, 
-						'notifications': notifications,
-						'last_db_save_time': last_db_save_time
-					})
+					.upsert(data)
 					.execute()
 			)
 			print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url}")
 			return True
 		except Exception as e:
 			print(f"{datetime.now()} 알림 저장 중 오류: {e} - URL: {webhook_url}")
+			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
+	
+	return False  # 모든 시도 실패
+
+# 림 보낸 클립 UID 저장 함수
+async def save_sent_notifications(supabase, channel_id, hot_clip_data):
+	data = {
+                'channel_id': channel_id,
+                'last_updated': datetime.now().isoformat(),
+                'sent_clip_uids': hot_clip_data.loc[channel_id, 'sent_clip_uids']
+            }
+
+	for _ in range(3):  # 최대 3번 시도
+		try:
+			await asyncio.to_thread(
+				lambda: supabase.table('hot_clip_data')
+					.upsert(data)
+					.execute()
+			)
+			print(f"{datetime.now()} 알림을 DB에 저장함 - channel_id: {channel_id}")
+			return True
+		except Exception as e:
+			print(f"{datetime.now()} 알림 저장 중 오류: {e} - channel_id: {channel_id}")
 			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
 	
 	return False  # 모든 시도 실패

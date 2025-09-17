@@ -77,7 +77,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         while True:
             # 채팅 참여 상태가 활성화되어 있으면 비활성화
             if self.init.chat_json[self.data.channel_id]: 
-                await change_chat_join_state(self.init.chat_json, self.data.channel_id, False)
+                asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id, False))
 
             # 방송이 종료되었거나 비밀번호가 설정된 경우 대기
             if self.check_live_state_close() or await self.check_is_passwordDict():
@@ -109,7 +109,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             except Exception as e:
                 # 오류 발생 시 로그 기록
                 await log_error(f"error in chat manager afreeca", e)
-                await change_chat_join_state(self.init.chat_json, self.data.channel_id)
+                asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
             finally:
                 # 실행 중인 태스크 정리
                 await self._cleanup_tasks()
