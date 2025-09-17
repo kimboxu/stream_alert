@@ -15,7 +15,8 @@ from base import (
     get_message, 
     log_error,
     changeUTCtime,
-    iconLinkData
+    iconLinkData,
+    save_sent_notifications,
 )
 from make_log_api_performance import PerformanceManager
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
@@ -55,6 +56,7 @@ class BaseHotClipDetector(ABC):
     
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id: str, platform_name: str):
         self.init = init_var
+        self.hot_clip_data = init_var.hot_clip_data
         self.performance_manager = performance_manager
         self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.channel_id = channel_id
@@ -82,9 +84,6 @@ class BaseHotClipDetector(ABC):
         # 플랫폼별 데이터 초기화
         self._initialize_platform_data()
         
-        # 알림 기록 설정
-        self._setup_notification_tracking()
-        
     @abstractmethod
     def _initialize_platform_data(self):
         """플랫폼별 데이터 초기화 (추상 메서드)"""
@@ -104,50 +103,6 @@ class BaseHotClipDetector(ABC):
     def _get_channel_name_field(self) -> str:
         """플랫폼별 채널명 필드 반환"""
         pass
-
-    def _setup_notification_tracking(self):
-        """알림 기록 추적 시스템 설정"""
-        current_file = Path(__file__)
-        if current_file.parent.name == 'py':
-            project_root = current_file.parent.parent
-        else:
-            project_root = current_file.parent
-        
-        self.data_dir = project_root / "data"
-        self.notification_log_dir = self.data_dir / "hot_clip_notifications"
-        self.notification_log_dir.mkdir(parents=True, exist_ok=True)
-        
-        # 알림 기록 파일 경로
-        self.notification_file = self.notification_log_dir / f"sent_notifications_{self.platform_name}_{self.channel_id}.json"
-        self.sent_notifications = self._load_sent_notifications()
-
-    def _load_sent_notifications(self) -> set:
-        """이미 알림 보낸 클립 UID 로드"""
-        try:
-            if self.notification_file.exists():
-                with open(self.notification_file, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    return set(data.get('sent_clip_uids', []))
-            return set()
-        except Exception as e:
-            print(f"알림 기록 로드 오류: {e}")
-            return set()
-
-    def _save_sent_notifications(self):
-        """알림 보낸 클립 UID 저장"""
-        try:
-            data = {
-                'channel_id': self.channel_id,
-                'platform_name': self.platform_name,
-                'last_updated': datetime.now().isoformat(),
-                'sent_clip_uids': list(self.sent_notifications)
-            }
-            
-            with open(self.notification_file, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-                
-        except Exception as e:
-            print(f"알림 기록 저장 오류: {e}")
 
     async def start_monitoring(self):
         """핫클립 모니터링 시작"""
@@ -289,10 +244,11 @@ class BaseHotClipDetector(ABC):
             channel_name = result.channel_name
             channel_data = self.id_list.loc[self.channel_id]
             channel_color = int(channel_data['channel_color'])
-            
+            sent_notifications = set(self.hot_clip_data.loc[self.channel_id, 'sent_clip_uids'])
+
             # 이미 알림 보낸 클립은 제외
             new_hot_clips = [clip for clip in result.hot_clips 
-                           if clip.clipUID not in self.sent_notifications]
+                           if clip.clipUID not in sent_notifications]
             
             if not new_hot_clips:
                 print(f"{datetime.now()} 새로운 핫클립 없음: {channel_name}")
@@ -356,13 +312,14 @@ class BaseHotClipDetector(ABC):
                 asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
                 
                 # 알림 보낸 클립으로 기록
-                self.sent_notifications.add(clip.clipUID)
+                self.hot_clip_data.loc[self.channel_id, 'sent_clip_uids'].add(clip.clipUID)
                 
                 # 연속 알림 간 간격
                 await asyncio.sleep(1)
             
             # 알림 기록 저장
-            self._save_sent_notifications()
+            asyncio.create_task(save_sent_notifications(self.init.supabase, self.channel_id, self.hot_clip_data))
+            # self._save_sent_notifications()
             
         except Exception as e:
             await log_error(f"핫클립 알림 전송 오류: {e}")

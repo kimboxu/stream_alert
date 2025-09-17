@@ -116,7 +116,7 @@ class getYoutubeJsonData:
 			self.youtubeData.loc[self.youtubeChannelID, "videoCount"] += 1
 			self.youtubeData.loc[self.youtubeChannelID, "video_count_check"] = 0
 			# 데이터 저장
-			await saveYoutubeData(self.youtubeData, self.youtubeChannelID)
+			asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
 			
 		# 새 비디오가 있는 경우
 		if self.check_new_video(video_count):
@@ -132,7 +132,7 @@ class getYoutubeJsonData:
 			if video_count - self.youtubeData.loc[self.youtubeChannelID, "videoCount"] < 3:
 				self.youtubeData.loc[self.youtubeChannelID, "videoCount"] -= 1
 				# 데이터 저장
-				await saveYoutubeData(self.youtubeData, self.youtubeChannelID)
+				asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
 
 	# 새 비디오 알림을 전송하는 함수
 	async def post_youtube(self):
@@ -152,7 +152,7 @@ class getYoutubeJsonData:
 					await asyncio.sleep(0.5)  # 웹훅 전송 간 딜레이
 					
 			# 데이터 저장
-			await saveYoutubeData(self.youtubeData, self.youtubeChannelID)
+			asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
 			
 	# YouTube API 클라이언트 생성 함수 (재시도 로직 포함)
 	@retry(stop=stop_after_attempt(5), 

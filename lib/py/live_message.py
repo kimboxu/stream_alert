@@ -181,7 +181,7 @@ class base_live_message:
             # 푸시 알림 및 메시지 전송
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
             asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
-            await save_airing_data(self.title_data, self.platform_name, self.channel_id)
+            asyncio.create_task(save_airing_data(self.title_data, self.platform_name, self.channel_id))
 
         except Exception as e:
             print(f"{datetime.now()} postLiveMSG {e}")
@@ -289,7 +289,7 @@ class base_live_message:
 
         self.data.livePostList.append((message, json_data))
 
-        await save_profile_data(self.id_list, self.platform_name, self.channel_id)
+        asyncio.create_task(save_profile_data(self.id_list, self.platform_name, self.channel_id))
 
         # 상태 업데이트 시간 저장
         if message == "뱅온!": 
@@ -300,7 +300,7 @@ class base_live_message:
     async def save_profile_image(self):
         if self.id_list.loc[self.channel_id, 'profile_image'] != self.data.profile_image:
             self.id_list.loc[self.channel_id, 'profile_image'] = self.data.profile_image
-            await save_profile_data(self.id_list, self.platform_name, self.channel_id)
+            asyncio.create_task(save_profile_data(self.id_list, self.platform_name, self.channel_id))
     
     async def getOnAirJson(self, message, state_data):
         raise NotImplementedError

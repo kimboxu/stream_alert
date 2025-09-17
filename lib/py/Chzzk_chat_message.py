@@ -56,7 +56,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def start(self):
         while True:
             if self.init.chat_json[self.data.channel_id]: 
-                await change_chat_join_state(self.init.chat_json, self.data.channel_id, False)
+                asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id, False))
             
             # 방송이 종료되었다면 대기(5초 마다 확인)
             if self.check_live_state_close():
@@ -67,7 +67,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 await self._connect_and_run()   # 연결 및 실행
             except Exception as e:
                 await log_error(f"error in chat manager: {e}")
-                await change_chat_join_state(self.init.chat_json, self.data.channel_id)
+                asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
             finally:
                 await self._cleanup_tasks()  # 태스크 정리
 
@@ -556,7 +556,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if self.data.cid != self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']:
             self.init.chzzk_titleData.loc[self.data.channel_id, 'oldChatChannelId'] = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
             self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId'] = self.data.cid
-            await save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id)
+            asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
             return True
         return False
 
