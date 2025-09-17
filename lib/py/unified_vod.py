@@ -306,7 +306,7 @@ class base_vod(ABC):
             if score_difference > self.big_fun_difference:
                 description = f"*{description}"
 
-            comment_line = f"{formatted_time}- 재미 점수:{score_difference:.1f} - {description}"
+            comment_line = f"{formatted_time}- {description}"
             comment_lines.append(comment_line)
         
         return "\n\n".join(comment_lines) if comment_lines else ""
