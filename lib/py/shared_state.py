@@ -164,8 +164,7 @@ class StateManager:
                             'channel_id': channel_id,
                             'channel_name': channel_name,
                             'platform': platform,
-                            'highlights_count': highlights_count,
-                            'instance': chat_instance
+                            'highlights_count': highlights_count
                         })
         
         return instances_with_highlights
