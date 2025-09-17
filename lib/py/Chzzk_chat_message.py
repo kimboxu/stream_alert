@@ -44,6 +44,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         channel_name = init_var.chzzkIDList.loc[channel_id, 'channelName']
         self.state_update_time = init_var.chzzk_titleData.loc[channel_id, 'state_update_time']
         self.data = ChzzkChatData(channel_id=channel_id, channel_name = channel_name)
+        self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.post_chat_semaphore = asyncio.Semaphore(5)  # 동시 실행 제한 세마포어
         self.profile_image_cache = {}  # 프로필 이미지 캐시 (uid -> (timestamp, image_url))
         self.profile_cache_ttl = 1800  # 프로필 캐시 유효 시간 (초)
@@ -374,7 +375,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 # 푸시 알림 전송
                 asyncio.create_task(send_push_notification(list_of_urls, json_data))
                 # 디스코드 웹훅 전송
-                webhook_task = asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
+                webhook_task = asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
                 webhook_task.add_done_callback(lambda t: self._handle_webhook_result(t))
                 
                 print(f"{datetime.now()} post chat {self.print_msg(chat_data, chat_type)}")

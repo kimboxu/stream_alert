@@ -44,6 +44,7 @@ class getYoutubeJsonData:
 	# 초기화 함수
 	def __init__(self, init_var: initVar, performance_manager: PerformanceManager, developerKey, youtubeChannelID):
 		self.performance_manager = performance_manager
+		self.DiscordWebhookSender_class = DiscordWebhookSender()
 		self.developerKey = developerKey         # YouTube API 키
 		self.DO_TEST = init_var.DO_TEST          # 테스트 모드 여부
 		self.userStateData = init_var.userStateData  # 사용자 상태 데이터
@@ -146,7 +147,7 @@ class getYoutubeJsonData:
 
 					# 푸시 알림 및 디스코드 웹훅 전송
 					asyncio.create_task(send_push_notification(list_of_urls, json_data))
-					await DiscordWebhookSender().send_messages(list_of_urls, json_data)
+					await self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data)
 					print(f'{datetime.now()} {json_data["username"]}: {json_data["embeds"][0]["title"]}')
 					await asyncio.sleep(0.5)  # 웹훅 전송 간 딜레이
 					

@@ -84,6 +84,7 @@ class base_live_message:
         self.platform_name = platform_name
         self.channel_id = channel_id
         self.wait_get_live_thumbnail_image = False
+        self.DiscordWebhookSender_class = DiscordWebhookSender()
 
         # 플랫폼별 데이터 초기화
         if platform_name == "chzzk":
@@ -179,7 +180,7 @@ class base_live_message:
 
             # 푸시 알림 및 메시지 전송
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
-            asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
+            asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
             await save_airing_data(self.title_data, self.platform_name, self.channel_id)
 
         except Exception as e:

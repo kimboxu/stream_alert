@@ -525,14 +525,6 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 						http_status_code=response.status_code,
 						retry_count=retry_count
 					))
-					# asyncio.create_task(log_api_performance(
-					# 	api_type=f"{platform}_api",
-					# 	response_time_ms=response_time_ms,
-					# 	is_success=False,
-					# 	http_status_code=response.status_code,
-					# 	retry_count=retry_count
-					# ))
-					
 					# 서버 오류(5xx)의 경우만 재시도
 					if 500 <= response.status_code < 600:
 						retry_count += 1
@@ -555,13 +547,6 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 					http_status_code=response.status_code,
 					retry_count=retry_count
 				))
-				# asyncio.create_task(log_api_performance(
-				# 	api_type=f"{platform}_api",
-				# 	response_time_ms=response_time_ms,
-				# 	is_success=True,
-				# 	http_status_code=response.status_code,
-				# 	retry_count=retry_count
-				# ))
 				return config["response_handler"](response)
 				
 			except (ConnectTimeout, ReadTimeout, ConnectionError, HTTPError, RemoteDisconnected) as e:
@@ -577,15 +562,6 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 					error_message=str(e),
 					retry_count=retry_count
 				))
-				# asyncio.create_task(log_api_performance(
-				# 	api_type=f"{platform}_api",
-				# 	response_time_ms=response_time_ms,
-				# 	is_success=False,
-				# 	error_type=type(e).__name__,
-				# 	error_message=str(e),
-				# 	retry_count=retry_count
-				# ))
-				
 				# 연결 관련 예외 발생 시 재시도
 				retry_count += 1
 				error_type = type(e).__name__

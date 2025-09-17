@@ -48,6 +48,7 @@ class base_vod(ABC):
         """
         self.init = init_var
         self.performance_manager = performance_manager
+        self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.DO_TEST = init_var.DO_TEST
         self.userStateData = init_var.userStateData
         self.platform_name = platform_name
@@ -201,7 +202,7 @@ class base_vod(ABC):
 
             # 푸시 알림 및 디스코드 웹훅 전송
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
-            asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
+            asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
 
             # 하이라이트 채팅 처리
             await self._process_highlight_chat()

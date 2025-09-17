@@ -39,6 +39,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
         self.init = init_var
         self.performance_manager = performance_manager
+        self.DiscordWebhookSender_class = DiscordWebhookSender()
 
         # SSL 컨텍스트 생성
         self.ssl_context = self.create_ssl_context()
@@ -383,7 +384,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
                 # 푸시 알림 및 디스코드 웹훅 전송
                 asyncio.create_task(send_push_notification(list_of_urls, json_data))
-                asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data, DO_TEST = self.init.DO_TEST))
+                asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data, DO_TEST = self.init.DO_TEST))
             
                 print(f"{datetime.now()} post chat [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
 

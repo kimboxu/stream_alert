@@ -35,6 +35,7 @@ class chzzk_video:
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, chzzk_id):
         self.init = init_var
         self.performance_manager = performance_manager
+        self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.DO_TEST = init_var.DO_TEST  # 테스트 모드 여부
         self.chzzkIDList = init_var.chzzkIDList  # 치지직 채널 ID 리스트
         self.chzzk_video = init_var.chzzk_video  # 치지직 비디오 데이터
@@ -169,7 +170,7 @@ class chzzk_video:
 
             # 푸시 알림 및 디스코드 웹훅 전송
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
-            asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
+            asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
 
             highlight_chat = None
             print(f"{datetime.now()} self.init.highlight_chat[self.chzzk_id].keys(),{self.init.highlight_chat[self.chzzk_id].keys()}")
