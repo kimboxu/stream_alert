@@ -781,7 +781,7 @@ async def save_user_notifications(supabase, webhook_url, notifications, last_db_
 # 림 보낸 클립 UID 저장 함수
 async def save_sent_notifications(supabase, channel_id, hot_clip_data):
 	data = {
-                'channel_id': channel_id,
+                'channelID': channel_id,
                 'last_updated': datetime.now().isoformat(),
                 'sent_clip_uids': hot_clip_data.loc[channel_id, 'sent_clip_uids']
             }
@@ -793,10 +793,10 @@ async def save_sent_notifications(supabase, channel_id, hot_clip_data):
 					.upsert(data)
 					.execute()
 			)
-			print(f"{datetime.now()} 알림을 DB에 저장함 - channel_id: {channel_id}")
+			print(f"{datetime.now()} 알림을 DB에 저장함 - channelID: {channel_id}")
 			return True
 		except Exception as e:
-			print(f"{datetime.now()} 알림 저장 중 오류: {e} - channel_id: {channel_id}")
+			print(f"{datetime.now()} 알림 저장 중 오류: {e} - channelID : {channel_id}")
 			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
 	
 	return False  # 모든 시도 실패

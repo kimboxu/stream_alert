@@ -1,7 +1,10 @@
 import asyncio
+import json
 from os import environ
 from uuid import uuid4
-from datetime import datetime
+from datetime import datetime, timedelta
+from pathlib import Path
+import hashlib
 
 from firebase_admin import messaging, credentials, get_app, initialize_app
 from json import loads, dumps
@@ -9,8 +12,211 @@ from base import initVar, if_after_time
 from shared_state import StateManager
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
-from base import update_flag, save_user_notifications
+from base import update_flag
 from make_log_api_performance import PerformanceManager
+
+class FileNotificationManager:
+    """파일 기반 사용자 알림 관리 클래스"""
+    
+    def __init__(self):
+        # 프로젝트 루트 디렉토리 찾기
+        current_file = Path(__file__)
+        if current_file.parent.name == 'py':
+            project_root = current_file.parent.parent
+        else:
+            project_root = current_file.parent
+        
+        self.data_dir = project_root / "data"
+        self.notifications_dir = self.data_dir / "user_notifications"
+        self.notifications_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 캐시된 알림 데이터 (메모리 최적화를 위해)
+        self.notification_cache = {}
+        self.last_save_times = {}
+    
+    def _get_file_path(self, webhook_url: str) -> Path:
+        """웹훅 URL에서 안전한 파일명 생성"""
+        # URL을 해시화하여 안전한 파일명 생성
+        url_hash = hashlib.md5(webhook_url.encode()).hexdigest()
+        return self.notifications_dir / f"notifications_{url_hash}.json"
+    
+    def _get_backup_file_path(self, webhook_url: str) -> Path:
+        """백업 파일 경로 생성"""
+        url_hash = hashlib.md5(webhook_url.encode()).hexdigest()
+        return self.notifications_dir / f"notifications_{url_hash}_backup.json"
+    
+    def load_notifications(self, webhook_url: str) -> list:
+        """사용자 알림 데이터 로드"""
+        try:
+            # 캐시에서 먼저 확인
+            if webhook_url in self.notification_cache:
+                return self.notification_cache[webhook_url].copy()
+            
+            file_path = self._get_file_path(webhook_url)
+            
+            if file_path.exists():
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    notifications = data.get('notifications', [])
+                    
+                    # 캐시에 저장
+                    self.notification_cache[webhook_url] = notifications.copy()
+                    
+                    # 마지막 저장 시간도 캐시
+                    self.last_save_times[webhook_url] = data.get('last_save_time')
+                    
+                    return notifications.copy()
+            
+            # 파일이 없으면 빈 리스트 반환
+            self.notification_cache[webhook_url] = []
+            return []
+            
+        except Exception as e:
+            print(f"알림 데이터 로드 오류 ({webhook_url}): {e}")
+            # 백업 파일에서 복구 시도
+            return self._load_from_backup(webhook_url)
+    
+    def _load_from_backup(self, webhook_url: str) -> list:
+        """백업 파일에서 데이터 복구"""
+        try:
+            backup_path = self._get_backup_file_path(webhook_url)
+            if backup_path.exists():
+                with open(backup_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    notifications = data.get('notifications', [])
+                    print(f"백업 파일에서 알림 데이터 복구 성공: {webhook_url}")
+                    return notifications
+        except Exception as e:
+            print(f"백업 파일 복구 실패 ({webhook_url}): {e}")
+        
+        return []
+    
+    def save_notifications(self, webhook_url: str, notifications: list, force_save: bool = False) -> bool:
+        """사용자 알림 데이터 저장"""
+        try:
+            current_time = datetime.now().astimezone().isoformat()
+            
+            # 강제 저장이 아닌 경우 시간 간격 확인 (5분)
+            if not force_save:
+                last_save = self.last_save_times.get(webhook_url)
+                if last_save and not if_after_time(last_save, 300):  # 5분
+                    # 캐시만 업데이트
+                    self.notification_cache[webhook_url] = notifications.copy()
+                    return True
+            
+            file_path = self._get_file_path(webhook_url)
+            backup_path = self._get_backup_file_path(webhook_url)
+            
+            # 기존 파일이 있으면 백업 생성
+            if file_path.exists():
+                import shutil
+                try:
+                    shutil.copy2(file_path, backup_path)
+                except Exception as e:
+                    print(f"백업 파일 생성 실패 ({webhook_url}): {e}")
+            
+            # 저장할 데이터 구조
+            save_data = {
+                'webhook_url': webhook_url,
+                'notifications': notifications,
+                'last_save_time': current_time,
+                'notification_count': len(notifications)
+            }
+            
+            # 임시 파일에 먼저 저장 후 이동 (원자적 저장)
+            temp_path = file_path.with_suffix('.tmp')
+            
+            with open(temp_path, 'w', encoding='utf-8') as f:
+                json.dump(save_data, f, ensure_ascii=False, indent=2)
+            
+            # 임시 파일을 실제 파일로 이동
+            temp_path.replace(file_path)
+            
+            # 캐시 업데이트
+            self.notification_cache[webhook_url] = notifications.copy()
+            self.last_save_times[webhook_url] = current_time
+            
+            print(f"{datetime.now()} 알림을 파일에 저장함 - URL: {webhook_url}, 개수: {len(notifications)}")
+            return True
+            
+        except Exception as e:
+            print(f"알림 파일 저장 오류 ({webhook_url}): {e}")
+            return False
+    
+    def add_notification(self, webhook_url: str, notification_data: dict) -> bool:
+        """알림 추가"""
+        try:
+            notifications = self.load_notifications(webhook_url)
+            
+            # 중복 확인 (ID 기반)
+            notification_id = notification_data.get('id')
+            if notification_id:
+                # 기존 알림 중에 같은 ID가 있으면 업데이트
+                for idx, existing in enumerate(notifications):
+                    if existing.get('id') == notification_id:
+                        notifications[idx] = notification_data
+                        return self.save_notifications(webhook_url, notifications)
+            
+            # 새 알림 추가
+            notifications.append(notification_data)
+            
+            # 알림 개수 제한 (최신 10000개만 유지)
+            if len(notifications) > 10000:
+                notifications = notifications[-10000:]
+            
+            return self.save_notifications(webhook_url, notifications)
+            
+        except Exception as e:
+            print(f"알림 추가 오류 ({webhook_url}): {e}")
+            return False
+    
+    def get_notification_count(self, webhook_url: str) -> int:
+        """사용자의 총 알림 개수 반환"""
+        notifications = self.load_notifications(webhook_url)
+        return len(notifications)
+    
+    def cleanup_old_notifications(self, webhook_url: str, max_age_days: int = 30) -> bool:
+        """오래된 알림 정리"""
+        try:
+            notifications = self.load_notifications(webhook_url)
+            if not notifications:
+                return True
+            
+            cutoff_time = datetime.now() - timedelta(days=max_age_days)
+            
+            # 최근 알림만 유지
+            filtered_notifications = []
+            for notification in notifications:
+                try:
+                    timestamp_str = notification.get('timestamp', '')
+                    if timestamp_str:
+                        timestamp = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
+                        if timestamp > cutoff_time:
+                            filtered_notifications.append(notification)
+                except:
+                    # 타임스탬프 파싱 실패시 유지
+                    filtered_notifications.append(notification)
+            
+            if len(filtered_notifications) != len(notifications):
+                return self.save_notifications(webhook_url, filtered_notifications, force_save=True)
+            
+            return True
+            
+        except Exception as e:
+            print(f"오래된 알림 정리 오류 ({webhook_url}): {e}")
+            return False
+    
+    def force_save_all_cache(self):
+        """캐시된 모든 데이터를 강제로 파일에 저장"""
+        saved_count = 0
+        for webhook_url, notifications in self.notification_cache.items():
+            if self.save_notifications(webhook_url, notifications, force_save=True):
+                saved_count += 1
+        
+        print(f"{datetime.now()} 캐시된 알림 데이터 강제 저장 완료: {saved_count}개 사용자")
+        return saved_count
+
+file_notification_manager = FileNotificationManager()
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -108,12 +314,6 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
                 is_success=True,
         ))
         
-        # asyncio.create_task(log_api_performance(
-        #     api_type='fcm_push',
-        #     response_time_ms=response_time_ms,
-        #     is_success=True
-        # ))
-        
         print(f"{datetime.now()} FCM 메시지 전송 성공: {token[:15]}... 결과: {result}, 응답시간: {response_time_ms/1000:.3f}초")
         return result
         
@@ -127,13 +327,7 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
             error_type='UnregisteredError',
             error_message='토큰이 등록 취소됨'
         ))
-    #     asyncio.create_task(log_api_performance(
-    #        api_type='fcm_push',
-    #        response_time_ms=response_time_ms,
-    #        is_success=False,
-    #        error_type='UnregisteredError',
-    #        error_message='토큰이 등록 취소됨'
-    #    ))
+
         remove_fcm_token(token)
         return None
         
@@ -149,15 +343,7 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
             error_type='InvalidArgumentError',
             error_message=str(e)
         ))
-        
-        
-    #     asyncio.create_task(log_api_performance(
-    #        api_type='fcm_push',
-    #        response_time_ms=response_time_ms,
-    #        is_success=False,
-    #        error_type='InvalidArgumentError',
-    #        error_message=str(e)
-    #    ))
+
         print(f"{datetime.now()} FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token}): {e}")
         remove_fcm_token(token)
         return None
@@ -174,14 +360,7 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
             error_type='QuotaExceededError',
             error_message=str(e)
         ))
-        # asyncio.create_task(log_api_performance(
-        #     api_type='fcm_push',
-        #     response_time_ms=response_time_ms,
-        #     is_success=False,
-        #     error_type='QuotaExceededError',
-        #     error_message=str(e)
-        # ))
-        
+
         print(f"{datetime.now()} FCM 할당량 초과: {token[:15]}... 오류: {e}")
         return None
 
@@ -197,14 +376,7 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
             error_type=type(e).__name__,
             error_message=str(e)
         ))
-        # asyncio.create_task(log_api_performance(
-        #     api_type='fcm_push',
-        #     response_time_ms=response_time_ms,
-        #     is_success=False,
-        #     error_type=type(e).__name__,
-        #     error_message=str(e)
-        # ))
-        
+
         print(f"{datetime.now()} FCM 메시지 전송 실패: {token[:15]}... 오류: {e}")
         return None
 
@@ -249,68 +421,35 @@ async def send_fcm_messages_in_batch(performance_manager: PerformanceManager, to
     return all_results
 
 # 배치 알림 저장 함수
-async def batch_save_notifications(init: initVar, user_data_map, notification_id, data_fields):
+async def batch_save_notifications(user_data_map, data_fields):
     """
-    여러 사용자의 알림을 일괄 처리하고 init 변수(메모리)에만 먼저 업데이트,
-    DB 저장은 조건부(중복/지연)로 실행합니다.
-
-    Args:
-        init: initVar 객체
-        user_data_map: 웹훅 URL을 키, 사용자 데이터를 값으로 하는 딕셔너리
-        notification_id: 알림 고유 ID
-        data_fields: 알림 데이터 필드
+    여러 사용자의 알림을 파일 기반으로 일괄 처리
     """
 
+    global file_notification_manager
+    
+    tasks = []
+    
     for webhook_url, user_data in user_data_map.items():
-        # 기존 알림 목록 가져오기
-        notifications = user_data.get('notifications', [])
-        if not isinstance(notifications, list):
-            try:
-                notifications = loads(notifications)
-            except:
-                notifications = []
-
-        # 이미 같은 ID의 알림이 있으면 업데이트, 없으면 추가
-        notification_exists = False
-        for idx, notification in enumerate(notifications):
-            if notification.get('id') == notification_id:
-                notifications[idx] = data_fields  # 중복 알림이면 업데이트
-                notification_exists = True
-                break
-
-        if not notification_exists:
-            notifications.append(data_fields)  # 새 알림 추가
-
-        # 알림 개수 제한 (최신 10000개만 유지)
-        if len(notifications) > 10000:
-            notifications = notifications[-10000:]
-
-        # 메모리(init.userStateData) 업데이트 (웹훅 URL이 인덱스에 있는 경우만)
-        if webhook_url in init.userStateData.index:
-            # 로컬(메모리)에는 항상 즉시 반영
-            init.userStateData.loc[webhook_url, 'notifications'] = notifications
-
-            # DB 저장 결정을 위한 마지막 저장 시간 확인
-            last_db_save = init.userStateData.loc[webhook_url].get('last_db_save_time')
-            save_to_db = False
-
-            # 마지막 저장 시간이 없거나, 15초 이상 경과했으면 DB에 저장
-            if last_db_save is None or if_after_time(init.userStateData.loc[webhook_url, 'last_db_save_time'], 300):
-                save_to_db = True
-                init.userStateData.loc[webhook_url, 'last_db_save_time'] = datetime.now().astimezone().isoformat()
-
-            # DB에 저장이 필요한 경우만 저장 실행
-            if save_to_db:
-                 # 분리한 함수를 호출하여 저장
-                await save_user_notifications(
-                    init.supabase,
-                    webhook_url,
-                    init.userStateData.loc[webhook_url, 'notifications'],
-                    init.userStateData.loc[webhook_url, 'last_db_save_time']
-                )
-            else:
-                # print(f"{datetime.now()} 알림을 로컬에만 저장 (DB 저장 건너뜀) - URL: {webhook_url}")
-                pass
+        # 파일에 알림 추가
+        task = asyncio.create_task(
+            asyncio.to_thread(
+                file_notification_manager.add_notification,
+                webhook_url,
+                data_fields
+            )
+        )
+        tasks.append(task)
+    
+    # 모든 저장 작업 완료 대기
+    if tasks:
+        try:
+            await asyncio.wait_for(
+                asyncio.gather(*tasks, return_exceptions=True),
+                timeout=30
+            )
+        except asyncio.TimeoutError:
+            print(f"{datetime.now()} 일부 알림 파일 저장 작업 시간 초과")
 
 # init에서 사용자 정보 추출
 def get_user_data_from_init(init: initVar, webhook_url):
@@ -365,15 +504,7 @@ def get_notification_data(json_data):
 # 푸시 알림 전송 함수
 async def send_push_notification(webhook_urls, json_data, firebase_initialized_globally=True):
     """
-    fcm_tokens_data만 사용하여 푸시 알림을 전송하는 함수
-    
-    Args:
-        webhook_urls: 웹훅 URL 목록
-        json_data: 알림 데이터
-        firebase_initialized_globally: Firebase 초기화 상태
-    
-    Returns:
-        bool: 성공 여부
+    파일 기반 저장을 사용하는 푸시 알림 전송 함수
     """
     # init 객체 가져오기
     state = StateManager.get_instance()
@@ -381,19 +512,16 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
     performance_manager = state.get_performance_manager()
     init = await state.initialize()
     
-    if init.DO_TEST: return
+    if init.DO_TEST: 
+        return
 
-    # 성능 측정 시작
-    start_time = datetime.now()
-    recipient_count = len(webhook_urls)
-    
     # Firebase 초기화 확인
     if not initialize_firebase(firebase_initialized_globally):
         print(f"{datetime.now()} Firebase 초기화 실패")
         return False
         
     try:
-        # 알림 ID와 시간 생성 (한 번만)
+        # 알림 ID와 시간 생성
         notification_id = str(uuid4())
         notification_time = datetime.now().astimezone().isoformat()
         
@@ -428,10 +556,8 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         # 누락된 사용자가 있으면 Supabase에서 직접 가져오기
         if missing_users:
             try:
-                # IN 연산자로 일괄 조회
                 result = init.supabase.table("userStateData").select("*").in_("discordURL", missing_users).execute()
                 
-                # 결과 처리
                 for user_data in result.data:
                     webhook_url = user_data.get("discordURL")
                     if webhook_url:
@@ -439,23 +565,22 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             except Exception as e:
                 print(f"{datetime.now()} 누락된 사용자 데이터 조회 실패: {e}")
         
-        # 알림 처리 (배치로)
+        # 파일 기반 알림 저장 (배치로)
         notification_tasks = []
         fcm_tasks = []
         
-        # 알림 업데이트 준비 (50명씩 배치 처리)
+        # 알림 저장을 위한 배치 처리 (50명씩)
         user_batches = [list(all_users.items())[i:i+50] for i in range(0, len(all_users), 50)]
         
         for batch in user_batches:
             batch_dict = {url: data for url, data in batch}
             task = asyncio.create_task(
-                batch_save_notifications(init, batch_dict, notification_id, data_fields)
+                batch_save_notifications(batch_dict, data_fields)
             )
             notification_tasks.append(task)
         
-        # FCM 토큰 처리 및 메시지 전송 - 간소화된 방식
+        # FCM 토큰 처리 및 메시지 전송
         for webhook_url, user_data in all_users.items():
-            # 개선된 형식의 토큰 데이터 가져오기
             tokens_data = user_data.get("fcm_tokens_data", [])
             
             if not tokens_data or not isinstance(tokens_data, list):
@@ -480,7 +605,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             )
             fcm_tasks.append(batch_task)
         
-        # FCM 작업 대기 (타임아웃 설정)
+        # FCM 작업 대기
         if fcm_tasks:
             try:
                 await asyncio.wait_for(
@@ -490,24 +615,20 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             except asyncio.TimeoutError:
                 print(f"{datetime.now()} 일부 FCM 메시지 작업 시간 초과 ({len(fcm_tasks)}개 배치)")
         
-        # 알림 저장 작업 대기 (타임아웃 설정)
+        # 알림 저장 작업 대기
         if notification_tasks:
             try:
                 await asyncio.wait_for(
                     asyncio.gather(*notification_tasks, return_exceptions=True),
-                    timeout=10
+                    timeout=30
                 )
             except asyncio.TimeoutError:
-                print(f"{datetime.now()} 일부 알림 저장 작업 시간 초과 ({len(notification_tasks)}개 배치)")
-        
-        # 성능 보고
-        end_time = datetime.now()
-        duration = (end_time - start_time).total_seconds()
+                print(f"{datetime.now()} 일부 알림 파일 저장 작업 시간 초과 ({len(notification_tasks)}개 배치)")
         
         return True
         
     except Exception as e:
-        print(f"{datetime.now()} 푸시 알림 오류: {e}")
+        print(f"{datetime.now()} 파일 기반 푸시 알림 오류: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -650,6 +771,22 @@ def setup_scheduled_tasks():
         hour=3,  # 새벽 3시
         minute=0
     )
+
+    """파일 기반 알림 시스템의 정리 작업"""
+    # 매시간마다 캐시 강제 저장
+    scheduler.add_job(
+        func=lambda: file_notification_manager.force_save_all_cache(),
+        trigger="cron",
+        minute=0  # 매시 정각
+    )
+    
+    # 매일 새벽 2시에 30일 이상 된 알림 정리
+    scheduler.add_job(
+        func=lambda: asyncio.run(cleanup_old_notifications_for_all_users()),
+        trigger="cron",
+        hour=2,
+        minute=0
+    )
     
     scheduler.start()
     
@@ -709,3 +846,29 @@ def remove_fcm_token(token):
     except Exception as e:
         print(f"{datetime.now()} FCM 토큰 제거 중 오류: {e}")
         return
+
+#모든 사용자의 오래된 알림 정리
+async def cleanup_old_notifications_for_all_users():
+    try:
+        # 알림 디렉토리의 모든 파일 확인
+        notification_files = list(file_notification_manager.notifications_dir.glob("notifications_*.json"))
+        
+        cleaned_count = 0
+        for file_path in notification_files:
+            try:
+                # 파일에서 webhook_url 추출을 위해 파일 내용 확인
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    webhook_url = data.get('webhook_url')
+                    
+                    if webhook_url:
+                        if file_notification_manager.cleanup_old_notifications(webhook_url, max_age_days=30):
+                            cleaned_count += 1
+                            
+            except Exception as e:
+                print(f"파일 정리 중 오류 ({file_path}): {e}")
+        
+        print(f"{datetime.now()} 오래된 알림 정리 완료: {cleaned_count}개 사용자")
+        
+    except Exception as e:
+        print(f"{datetime.now()} 전체 알림 정리 오류: {e}")

@@ -312,7 +312,7 @@ class BaseHotClipDetector(ABC):
                 asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
                 
                 # 알림 보낸 클립으로 기록
-                self.hot_clip_data.loc[self.channel_id, 'sent_clip_uids'].add(clip.clipUID)
+                self.hot_clip_data.loc[self.channel_id, 'sent_clip_uids'].append(clip.clipUID)
                 
                 # 연속 알림 간 간격
                 await asyncio.sleep(1)
