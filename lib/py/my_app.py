@@ -1217,6 +1217,46 @@ def cleanup_highlight_data():
             "message": f"하이라이트 데이터 정리 실패: {str(e)}"
         }), 500
     
+@app.route("/get_memory_highlights_summary", methods=["GET"])
+def get_memory_highlights_summary():
+    """현재 메모리(chat_analyzer)에 있는 하이라이트 요약 정보 - 저장 전 상태 확인용"""
+    try:
+        state_manager = StateManager.get_instance()
+        
+        # 하이라이트가 있는 인스턴스들 가져오기 (메모리에서)
+        instances_with_highlights = state_manager.get_chat_instances_with_highlights()
+        
+        # 전체 챗 인스턴스 통계
+        all_chat_instances = state_manager.get_chat_instances()
+        total_chzzk_instances = len(all_chat_instances.get('chzzk', {}))
+        total_afreeca_instances = len(all_chat_instances.get('afreeca', {}))
+        
+        # 메모리 상태 요약 (저장되지 않은 하이라이트만)
+        memory_summary = {
+            'total_chat_instances': {
+                'chzzk': total_chzzk_instances,
+                'afreeca': total_afreeca_instances,
+                'total': total_chzzk_instances + total_afreeca_instances
+            },
+            'channels_with_unsaved_highlights': len(instances_with_highlights),
+            'total_unsaved_highlights': sum(info['highlights_count'] for info in instances_with_highlights),
+            'unsaved_highlight_details': instances_with_highlights,
+            'ready_for_save': len(instances_with_highlights) > 0
+        }
+
+        return jsonify({
+            "status": "success",
+            "memory_highlights_summary": memory_summary,
+            "note": "이것은 아직 저장되지 않은 메모리의 하이라이트 데이터입니다",
+            "checked_at": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"메모리 하이라이트 상태 확인 실패: {str(e)}"
+        }), 500
+    
 # 하이라이트 챗 캐시 데이터 저장 (메모리 관리)
 @app.route("/save_highlight_data", methods=["GET"])
 def save_highlight_data():
