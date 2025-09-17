@@ -12,6 +12,17 @@ class StateManager:
             cls._instance = cls()
             cls._instance.init_var = None  # 초기화 변수 선언
             cls._instance.performance_manager = None  # 성능 매니저 선언
+            cls._instance.global_instances = {  # 전역 인스턴스 저장소 추가
+                'cafe': {},
+                'chzzk_video': {},
+                'afreeca_video': {},
+                'chzzk_live': {},
+                'afreeca_live': {},
+                'chzzk_hot_clips': {},
+                'afreeca_hot_clips': {},
+                'chzzk_chat': {},
+                'afreeca_chat': {},
+            }
         return cls._instance
 
     # 초기화 함수 - 필요한 데이터 로드
@@ -27,7 +38,7 @@ class StateManager:
             await DataBaseVars(self.init_var)  # db의 데이터 로드
             await userDataVar(self.init_var)  # 사용자 데이터 로드
 
-            
+
 
         return self.init_var
 
@@ -58,6 +69,107 @@ class StateManager:
         """성능 매니저 인스턴스 반환"""
         return self.performance_manager
     
+    # 전역 인스턴스 저장소 반환
+    def get_global_instances(self):
+        """전역 인스턴스 저장소 반환"""
+        return self.global_instances
+    
+    # 특정 타입의 인스턴스 가져오기
+    def get_instance_by_type(self, instance_type: str, channel_id: str = None):
+        """
+        특정 타입의 인스턴스를 가져오는 함수
+        
+        Args:
+            instance_type: 인스턴스 타입 (예: 'chzzk_chat', 'afreeca_chat')
+            channel_id: 채널 ID (선택사항)
+        
+        Returns:
+            인스턴스 또는 인스턴스 딕셔너리
+        """
+        if instance_type not in self.global_instances:
+            return None
+            
+        if channel_id:
+            return self.global_instances[instance_type].get(channel_id)
+        else:
+            return self.global_instances[instance_type]
+    
+    # 인스턴스 저장
+    def set_instance(self, instance_type: str, channel_id: str, instance):
+        """
+        인스턴스를 전역 저장소에 저장하는 함수
+        
+        Args:
+            instance_type: 인스턴스 타입
+            channel_id: 채널 ID  
+            instance: 저장할 인스턴스
+        """
+        if instance_type not in self.global_instances:
+            self.global_instances[instance_type] = {}
+            
+        self.global_instances[instance_type][channel_id] = instance
+    
+    # 챗 인스턴스들만 가져오기 (편의 함수)
+    def get_chat_instances(self, platform: str = None):
+        """
+        챗 인스턴스들을 가져오는 편의 함수
+        
+        Args:
+            platform: 플랫폼명 ('chzzk', 'afreeca') 또는 None (전체)
+        
+        Returns:
+            챗 인스턴스 딕셔너리
+        """
+        if platform:
+            chat_key = f'{platform}_chat'
+            return self.global_instances.get(chat_key, {})
+        else:
+            return {
+                'chzzk': self.global_instances.get('chzzk_chat', {}),
+                'afreeca': self.global_instances.get('afreeca_chat', {})
+            }
+
+    # 하이라이트가 있는 챗 인스턴스들 찾기
+    def get_chat_instances_with_highlights(self):
+        """
+        하이라이트 데이터가 있는 챗 인스턴스들을 찾는 함수
+        
+        Returns:
+            하이라이트가 있는 인스턴스 정보 리스트
+        """
+        instances_with_highlights = []
+        
+        for platform in ['chzzk', 'afreeca']:
+            chat_instances = self.get_chat_instances(platform)
+            
+            for channel_id, chat_instance in chat_instances.items():
+                if (hasattr(chat_instance, 'chat_analyzer') and 
+                    chat_instance.chat_analyzer and
+                    hasattr(chat_instance.chat_analyzer, 'highlights')):
+                    
+                    highlights_count = len(chat_instance.chat_analyzer.highlights)
+                    if highlights_count > 0:
+                        # 채널명 가져오기
+                        try:
+                            if platform == 'chzzk':
+                                channel_name = self.init_var.chzzkIDList.loc[channel_id, 'channelName']
+                            elif platform == 'afreeca':
+                                channel_name = self.init_var.afreecaIDList.loc[channel_id, 'channelName']
+                            else:
+                                channel_name = "Unknown"
+                        except:
+                            channel_name = "Unknown"
+                        
+                        instances_with_highlights.append({
+                            'channel_id': channel_id,
+                            'channel_name': channel_name,
+                            'platform': platform,
+                            'highlights_count': highlights_count,
+                            'instance': chat_instance
+                        })
+        
+        return instances_with_highlights
+    
     # API 성능 로깅을 위한 편의 함수
     async def log_api_performance(self, api_type: str, response_time_ms: int, 
                                 is_success: bool, **kwargs):
@@ -83,5 +195,9 @@ class StateManager:
                 print("성능 매니저 정리 완료")
             except Exception as e:
                 print(f"성능 매니저 정리 중 오류: {e}")
+        
+        # 전역 인스턴스들 정리
+        for instance_type in self.global_instances:
+            self.global_instances[instance_type].clear()
         
         print("StateManager 종료 완료")

@@ -512,8 +512,8 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
     performance_manager = state.get_performance_manager()
     init = await state.initialize()
     
-    if init.DO_TEST: 
-        return
+    # if init.DO_TEST: 
+    #     return
 
     # Firebase 초기화 확인
     if not initialize_firebase(firebase_initialized_globally):
