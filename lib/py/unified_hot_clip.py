@@ -56,6 +56,7 @@ class BaseHotClipDetector(ABC):
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id: str, platform_name: str):
         self.init = init_var
         self.performance_manager = performance_manager
+        self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.channel_id = channel_id
         self.platform_name = platform_name
         
@@ -352,7 +353,7 @@ class BaseHotClipDetector(ABC):
                 
                 # 알림 전송
                 asyncio.create_task(send_push_notification(list_of_urls, json_data))
-                asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
+                asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
                 
                 # 알림 보낸 클립으로 기록
                 self.sent_notifications.add(clip.clipUID)

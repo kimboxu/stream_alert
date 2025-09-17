@@ -174,6 +174,7 @@ class ChatAnalyzer:
     def __init__(self, init: initVar, performance_manager: PerformanceManager, channel_id: str, channel_name: str = ""):
         self.init = init
         self.performance_manager = performance_manager
+        self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.channel_id = channel_id
         self.channel_name = channel_name
 
@@ -805,7 +806,7 @@ class ChatAnalyzer:
             # 알림 전송
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
-            asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
+            asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
             
         except Exception as e:
             await log_error(f"디스코드 알림 오류: {e}")

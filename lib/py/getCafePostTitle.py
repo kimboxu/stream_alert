@@ -40,6 +40,7 @@ class getCafePostTitle:
         self.cafeData = init_var.cafeData                    # 카페 데이터
         self.channel_id: str = channel_id                    # 채널 ID
         self.performance_manager = performance_manager
+        self.DiscordWebhookSender_class = DiscordWebhookSender()
 
     async def start(self):
         try:
@@ -165,7 +166,7 @@ class getCafePostTitle:
 
                 # 푸시 알림 및 디스코드 웹훅 전송
                 asyncio.create_task(send_push_notification(list_of_urls, json_data))
-                asyncio.create_task(DiscordWebhookSender().send_messages(list_of_urls, json_data))
+                asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
 
             # 카페 데이터 저장
             await saveCafeData(self.cafeData, self.channel_id)
