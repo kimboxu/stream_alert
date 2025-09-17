@@ -23,22 +23,10 @@ nest_asyncio.apply()
 # 환경 변수 로드
 load_dotenv()
 
-GLOBAL_INSTANCES = {
-    'cafe': {},
-    'chzzk_video': {},
-    'afreeca_video': {},
-    'chzzk_live': {},
-    'afreeca_live': {},
-    'chzzk_hot_clips': {},
-    'afreeca_hot_clips': {},
-    'chzzk_chat': {},
-    'afreeca_chat': {},
-}
-
 # 전역 상태 관리자
 state_manager = StateManager.get_instance()
 
-# 플라스크 앱 설정 함수
+# Flask 앱 설정 함수
 def setup_flask_app():
     from my_app import app, init_background_tasks
     
@@ -54,29 +42,39 @@ def setup_flask_app():
 
 def get_or_create_instance(instance_type, init, performance_manager, channel_id):
     """인스턴스를 가져오거나 생성하는 헬퍼 함수"""
-    instances = GLOBAL_INSTANCES[instance_type]
+    # StateManager에서 인스턴스 확인
+    existing_instance = state_manager.get_instance_by_type(instance_type, channel_id)
     
-    if channel_id not in instances:
-        if instance_type == 'cafe':
-            instances[channel_id] = getCafePostTitle(init, performance_manager, channel_id)
-        elif instance_type == 'chzzk_video':
-            instances[channel_id] = chzzk_vod(init, performance_manager, channel_id)
-        elif instance_type == 'afreeca_video':
-            instances[channel_id] = afreeca_vod(init, performance_manager, channel_id)
-        elif instance_type == 'chzzk_live':
-            instances[channel_id] = chzzk_live_message(init, performance_manager, channel_id)
-        elif instance_type == 'afreeca_live':
-            instances[channel_id] = afreeca_live_message(init, performance_manager, channel_id)
-        elif instance_type == 'chzzk_chat':
-            instances[channel_id] = chzzk_chat_message(init, performance_manager, channel_id)
-        elif instance_type == 'afreeca_chat':
-            instances[channel_id] = afreeca_chat_message(init, performance_manager, channel_id)
-        elif instance_type == 'chzzk_hot_clips':
-            instances[channel_id] = ChzzkHotClipDetector(init, performance_manager, channel_id)
-        elif instance_type == 'afreeca_hot_clips':
-            instances[channel_id] = AfreecaHotClipDetector(init, performance_manager, channel_id)
-            
-    return instances[channel_id]
+    if existing_instance is not None:
+        return existing_instance
+    
+    # 인스턴스가 없으면 새로 생성
+    new_instance = None
+    
+    if instance_type == 'cafe':
+        new_instance = getCafePostTitle(init, performance_manager, channel_id)
+    elif instance_type == 'chzzk_video':
+        new_instance = chzzk_vod(init, performance_manager, channel_id)
+    elif instance_type == 'afreeca_video':
+        new_instance = afreeca_vod(init, performance_manager, channel_id)
+    elif instance_type == 'chzzk_live':
+        new_instance = chzzk_live_message(init, performance_manager, channel_id)
+    elif instance_type == 'afreeca_live':
+        new_instance = afreeca_live_message(init, performance_manager, channel_id)
+    elif instance_type == 'chzzk_chat':
+        new_instance = chzzk_chat_message(init, performance_manager, channel_id)
+    elif instance_type == 'afreeca_chat':
+        new_instance = afreeca_chat_message(init, performance_manager, channel_id)
+    elif instance_type == 'chzzk_hot_clips':
+        new_instance = ChzzkHotClipDetector(init, performance_manager, channel_id)
+    elif instance_type == 'afreeca_hot_clips':
+        new_instance = AfreecaHotClipDetector(init, performance_manager, channel_id)
+    
+    # 생성된 인스턴스를 StateManager에 저장
+    if new_instance is not None:
+        state_manager.set_instance(instance_type, channel_id, new_instance)
+    
+    return new_instance
 
 # 디스코드 봇 메인 루프
 async def main_loop(init: initVar, performance_manager: PerformanceManager):
@@ -193,7 +191,9 @@ async def generic_chat(init: initVar, performance_manager: PerformanceManager, p
             # 기존 실행 중인 태스크를 유지하면서, 새로운 채널이 추가되면 실행
             for channel_id in id_list["channelID"]:
                 if channel_id not in tasks or tasks[channel_id].done():
-                    tasks[channel_id] = asyncio.create_task(get_or_create_instance(chat_class, init, performance_manager, channel_id).start())
+                    # StateManager를 활용하여 인스턴스 생성/재사용
+                    chat_instance = get_or_create_instance(chat_class, init, performance_manager, channel_id)
+                    tasks[channel_id] = asyncio.create_task(chat_instance.start())
             
             await asyncio.sleep(1)  # 1초마다 체크
         
@@ -224,9 +224,8 @@ async def generic_hot_clip(init: initVar, performance_manager: PerformanceManage
             # 각 채널별 모니터링 태스크 관리
             for channel_id in id_list["channelID"]:
                 if channel_id not in tasks or tasks[channel_id].done():
-                    tasks[channel_id] = asyncio.create_task(
-                        get_or_create_instance(hot_clip_class, init, performance_manager, channel_id).start_monitoring()
-                    )
+                    hot_clip_instance = get_or_create_instance(hot_clip_class, init, performance_manager, channel_id)
+                    tasks[channel_id] = asyncio.create_task(hot_clip_instance.start_monitoring())
             
             await asyncio.sleep(60)
             
@@ -281,11 +280,6 @@ def main():
     firebase_initialized = initialize_firebase(False)
     if not firebase_initialized:
         print("경고: Firebase 초기화에 실패했습니다. 푸시 알림 기능이 작동하지 않을 수 있습니다.")
-
-    # 성능 통계 스케줄러 시작
-    # setup_performance_scheduler()
-    # print("성능 통계 스케줄러가 시작되었습니다.")
-    
     # 디스코드 봇 스레드 시작
     bot_thread = threading.Thread(target=run_bot_thread, daemon=True)
     bot_thread.start()

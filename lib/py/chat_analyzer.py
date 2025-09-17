@@ -93,14 +93,29 @@ class ChatMessageWithAnalyzer:
         # 로그 저장
         if not self.is_save_log:
             self.is_save_log = True
+        
+            await self.highlight_processing()
+
+    async def highlight_processing(self):
+        """하이라이트 처리"""
+        try:
+            print(f"{datetime.now()} 하이라이트 처리 시작: {self.chat_analyzer.channel_name}")
+
             await self.chat_analyzer.save_detailed_logs_to_file(save_cache=True,force_save=True)
-            print(f"{datetime.now()} 로그 저장 완료: {self.chat_analyzer.channel_name}")
+
+            # 하이라이트 생성
             timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
             self.chat_analyzer.highlights = []
             self.chat_analyzer.update_highlight_chat(timeline_comments)
 
             # 하이라이트 채팅 업데이트 직후 파일로 저장
             await self._save_completed_highlight_chat_after_update()
+            
+            return True
+            
+        except Exception as e:
+            await log_error(f"하이라이트 처리 오류: {e}")
+            return False
 
     async def _save_completed_highlight_chat_after_update(self):
         """하이라이트 채팅 저장"""

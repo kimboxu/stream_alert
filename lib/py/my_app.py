@@ -16,6 +16,7 @@ from notification_service import (
     cleanup_all_invalid_tokens,
     setup_scheduled_tasks,
     save_tokens_data,
+    file_notification_manager,
 )
 
 load_dotenv()
@@ -437,18 +438,14 @@ def get_notifications():
     discordWebhooksURL = request.args.get("discordWebhooksURL")
     username = request.args.get("username")
     page = request.args.get("page", default=1, type=int)
-    limit = request.args.get(
-        "limit", default=50, type=int
-    )  # 한 번에 가져올 알림 수 제한
+    limit = request.args.get("limit", default=50, type=int)
 
     if not discordWebhooksURL or not username:
         return (
-            jsonify(
-                {
-                    "status": "error",
-                    "message": "디스코드 웹훅 URL과 사용자명이 필요합니다",
-                }
-            ),
+            jsonify({
+                "status": "error",
+                "message": "디스코드 웹훅 URL과 사용자명이 필요합니다",
+            }),
             400,
         )
 
@@ -460,28 +457,22 @@ def get_notifications():
     else:
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
 
+    try:
+        # 파일에서 알림 내역 로드
+        notifications = file_notification_manager.load_notifications(discordWebhooksURL)
+        
+        # 전체 알림 수
+        total_count = len(notifications)
 
-    if discordWebhooksURL not in app.init.userStateData.index:
-        return jsonify({"status": "error", "message": "설정을 찾을 수 없습니다"}), 404
+        # 페이지네이션 적용 (최신 순으로 정렬 후 페이지 계산)
+        sorted_notifications = sorted(
+            notifications, key=lambda x: x.get("timestamp", ""), reverse=True
+        )
+        start = (page - 1) * limit
+        end = min(start + limit, len(sorted_notifications))
+        paginated_notifications = sorted_notifications[start:end]
 
-    user_data = app.init.userStateData.loc[discordWebhooksURL]
-
-    # 알림 내역 추출
-    notifications = user_data.get("notifications", [])
-
-    # 전체 알림 수
-    total_count = len(notifications)
-
-    # 페이지네이션 적용 (최신 순으로 정렬 후 페이지 계산)
-    sorted_notifications = sorted(
-        notifications, key=lambda x: x.get("timestamp", ""), reverse=True
-    )
-    start = (page - 1) * limit
-    end = min(start + limit, len(sorted_notifications))
-    paginated_notifications = sorted_notifications[start:end]
-
-    return jsonify(
-        {
+        return jsonify({
             "status": "success",
             "notifications": paginated_notifications,
             "pagination": {
@@ -490,17 +481,21 @@ def get_notifications():
                 "limit": limit,
                 "pages": (total_count + limit - 1) // limit,
             },
-        }
-    )
+        })
+        
+    except Exception as e:
+        print(f"{datetime.now()} 알림 조회 중 오류: {e}")
+        return jsonify({
+            "status": "error",
+            "message": f"알림을 가져오는 중 오류가 발생했습니다: {str(e)}"
+        }), 500
 
 # 알림 읽음 표시 엔드포인트
 @app.route("/mark_notifications_read", methods=["POST"])
 def mark_notifications_read():
-    # JSON 데이터 처리
     if request.is_json:
         data = request.get_json()
     else:
-        # form-data 처리
         data = request.form
 
     discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
@@ -509,12 +504,10 @@ def mark_notifications_read():
 
     if not discordWebhooksURL or not username:
         return (
-            jsonify(
-                {
-                    "status": "error",
-                    "message": "디스코드 웹훅 URL과 사용자명이 필요합니다",
-                }
-            ),
+            jsonify({
+                "status": "error",
+                "message": "디스코드 웹훅 URL과 사용자명이 필요합니다",
+            }),
             400,
         )
 
@@ -531,33 +524,42 @@ def mark_notifications_read():
     else:
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
 
-    if discordWebhooksURL not in app.init.userStateData.index:
-        return jsonify({"status": "error", "message": "설정을 찾을 수 없습니다"}), 404
+    try:
+        # 파일에서 알림 내역 로드
+        notifications = file_notification_manager.load_notifications(discordWebhooksURL)
 
-    user_data = app.init.userStateData.loc[discordWebhooksURL]
+        # 읽음 표시 업데이트
+        updated_notifications = []
+        for notification in notifications:
+            if notification.get("id") in notification_ids:
+                notification["read"] = True
+            updated_notifications.append(notification)
 
-    # 알림 내역 추출
-    notifications = user_data.get("notifications", [])
-
-    # 읽음 표시 업데이트
-    updated_notifications = []
-    for notification in notifications:
-        if notification.get("id") in notification_ids:
-            notification["read"] = True
-        updated_notifications.append(notification)
-
-    save_notifications(app.init, discordWebhooksURL, updated_notifications)
-
-    return jsonify({"status": "success", "message": "알림이 읽음으로 표시되었습니다"})
+        # 파일에 저장
+        success = file_notification_manager.save_notifications(
+            discordWebhooksURL, 
+            updated_notifications,
+            force_save=True  # 읽음 표시는 즉시 저장
+        )
+        
+        if success:
+            return jsonify({"status": "success", "message": "알림이 읽음으로 표시되었습니다"})
+        else:
+            return jsonify({"status": "error", "message": "알림 상태 업데이트에 실패했습니다"}), 500
+            
+    except Exception as e:
+        print(f"{datetime.now()} 알림 읽음 표시 중 오류: {e}")
+        return jsonify({
+            "status": "error", 
+            "message": f"알림 상태 업데이트 중 오류가 발생했습니다: {str(e)}"
+        }), 500
 
 # 알림 전체 삭제 엔드포인트
 @app.route("/clear_notifications", methods=["POST"])
 def clear_notifications():
-    # JSON 데이터 처리
     if request.is_json:
         data = request.get_json()
     else:
-        # form-data 처리
         data = request.form
 
     discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
@@ -565,12 +567,10 @@ def clear_notifications():
 
     if not discordWebhooksURL or not username:
         return (
-            jsonify(
-                {
-                    "status": "error",
-                    "message": "디스코드 웹훅 URL과 사용자명이 필요합니다",
-                }
-            ),
+            jsonify({
+                "status": "error",
+                "message": "디스코드 웹훅 URL과 사용자명이 필요합니다",
+            }),
             400,
         )
 
@@ -582,11 +582,25 @@ def clear_notifications():
     else:
         return jsonify({"status": "error", "message": "사용자를 찾을 수 없습니다"}), 404
 
-    save_user_data(discordWebhooksURL, username)
-
-    
-
-    return jsonify({"status": "success", "message": "모든 알림이 삭제되었습니다"})
+    try:
+        # 빈 알림 목록으로 덮어쓰기 (모든 알림 삭제)
+        success = file_notification_manager.save_notifications(
+            discordWebhooksURL, 
+            [],  # 빈 목록
+            force_save=True
+        )
+        
+        if success:
+            return jsonify({"status": "success", "message": "모든 알림이 삭제되었습니다"})
+        else:
+            return jsonify({"status": "error", "message": "알림 삭제에 실패했습니다"}), 500
+            
+    except Exception as e:
+        print(f"{datetime.now()} 알림 삭제 중 오류: {e}")
+        return jsonify({
+            "status": "error", 
+            "message": f"알림 삭제 중 오류가 발생했습니다: {str(e)}"
+        }), 500
 
 # FCM 토큰 등록 엔드포인트
 @app.route("/register_fcm_token", methods=["POST"])
@@ -1202,6 +1216,92 @@ def cleanup_highlight_data():
             "status": "error",
             "message": f"하이라이트 데이터 정리 실패: {str(e)}"
         }), 500
+    
+# 하이라이트 챗 캐시 데이터 저장 (메모리 관리)
+@app.route("/save_highlight_data", methods=["GET"])
+def save_highlight_data():
+    """하이라이트 챗 캐시 데이터 저장 (관리자용) - StateManager 활용"""
+    try:
+        # StateManager에서 init과 하이라이트 인스턴스들 가져오기
+        state_manager = StateManager.get_instance()
+        init = state_manager.get_init()
+        
+        if not init:
+            return jsonify({
+                "status": "error",
+                "message": "시스템 초기화가 완료되지 않았습니다."
+            }), 500
+
+        save_results = {
+            "processed_channels": [],
+            "total_highlights_saved": 0,
+            "errors": []
+        }
+        
+        # 비동기 작업을 위한 이벤트 루프 설정
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            # StateManager에서 하이라이트가 있는 챗 인스턴스들 가져오기
+            instances_with_highlights = state_manager.get_chat_instances_with_highlights()
+            
+            print(f"{datetime.now()} 하이라이트 데이터가 있는 채널 {len(instances_with_highlights)}개 발견")
+            
+            # 각 인스턴스에 대해 highlight_processing 실행
+            for instance_info in instances_with_highlights:
+                try:
+                    channel_id = instance_info['channel_id']
+                    channel_name = instance_info['channel_name']
+                    platform = instance_info['platform']
+                    highlights_count = instance_info['highlights_count']
+                    chat_instance = instance_info['instance']
+                    
+                    print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 중...")
+                    
+                    # highlight_processing 실행하여 하이라이트 저장
+                    loop.run_until_complete(chat_instance.highlight_processing())
+                    
+                    save_results["processed_channels"].append({
+                        "channel_id": channel_id,
+                        "channel_name": channel_name,
+                        "platform": platform,
+                        "highlights_saved": highlights_count
+                    })
+                    save_results["total_highlights_saved"] += highlights_count
+                    
+                    print(f"{datetime.now()} [{platform}] {channel_name}: 하이라이트 저장 완료")
+                    
+                except Exception as channel_error:
+                    error_msg = f"채널 {instance_info.get('channel_name', 'Unknown')} 처리 중 오류: {str(channel_error)}"
+                    save_results["errors"].append(error_msg)
+                    print(f"{datetime.now()} {error_msg}")
+                    continue
+            
+            # 결과 반환
+            if save_results["total_highlights_saved"] > 0:
+                return jsonify({
+                    "status": "success",
+                    "message": f"하이라이트 챗 캐시 데이터 저장 완료: 총 {save_results['total_highlights_saved']}개 하이라이트 저장",
+                    "details": save_results,
+                    "saved_at": datetime.now().isoformat()
+                })
+            else:
+                return jsonify({
+                    "status": "success", 
+                    "message": "저장할 하이라이트 데이터가 없습니다",
+                    "details": save_results,
+                    "checked_at": datetime.now().isoformat()
+                })
+                
+        finally:
+            loop.close()
+            
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"하이라이트 데이터 저장 실패: {str(e)}"
+        }), 500
 
 #성능 통계 조회 엔드포인트
 @app.route("/get_performance_stats", methods=["GET"])
@@ -1625,34 +1725,8 @@ def trigger_daily_stats():
             "message": f"일일 통계 계산 실패: {str(e)}"
         }), 500
 
-def save_notifications(init, discordWebhooksURL, notifications):
-    init.userStateData.loc[discordWebhooksURL, "notifications"] = notifications
-
-    # 업데이트된 알림 저장
-    init.supabase.table("userStateData").update({"notifications": init.userStateData.loc[discordWebhooksURL, "notifications"]}).eq(
-        "discordURL", discordWebhooksURL
-    ).execute()
-
-    # asyncio.run(update_flag('user_date', True))
-
-async def force_save_all(init):
-    # 모든 userStateData를 supabase에 upsert (비동기)
-    for webhook_url in init.userStateData.index:
-        try:
-            await asyncio.to_thread(
-                lambda: init.supabase.table('userStateData')
-                    .upsert({
-                        'discordURL': webhook_url,
-                        'notifications': init.userStateData.loc[webhook_url, 'notifications'],
-                        'last_db_save_time': datetime.now().astimezone().isoformat()
-                    })
-                    .execute()
-            )
-        except Exception as e:
-            print(f"{datetime.now()} [종료시 저장오류] {webhook_url}: {e}")
 
 if __name__ == "__main__":
-
     # Only initialize once for the main process, not the reloader
     if environ.get("WERKZEUG_RUN_MAIN") != "true":
         # Initialize Firebase here
@@ -1664,8 +1738,9 @@ if __name__ == "__main__":
         asyncio.run(cleanup_all_invalid_tokens())
         print(f"{datetime.now()} FCM 토큰 정리 작업이 완료되었습니다.")
 
-    # 예약 작업 설정 (추가됨)
+    # 예약 작업 설정
     setup_scheduled_tasks()
+    
 
     # App initialization
     with app.app_context():
