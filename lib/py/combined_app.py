@@ -151,7 +151,7 @@ async def youtube_task(init: initVar, performance_manager: PerformanceManager):
     while True:
         try:
             for youtubeChannelID in init.youtubeData["YoutubeChannelID"]:
-                if not init.youtube_TF:
+                if not init.is_youtube:
                     await asyncio.sleep(3)
                     continue
                     
