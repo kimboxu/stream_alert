@@ -625,7 +625,7 @@ class afreeca_vod(base_vod):
         self.data.videoNo = data["title_no"]
         self.data.videoTitle = data["title_name"]
         self.data.publishDate = get_started_at(data.get("reg_date"))
-        self.data.videoCategoryValue = data["ucc"].get("category_tags", "")
+        self.data.videoCategoryValue = ','.join(data["ucc"].get("category_tags", []))
         
         # 썸네일 URL 생성 (https: 접두사 추가)
         thumb_url = data["ucc"].get("thumb", "")
@@ -645,12 +645,13 @@ class afreeca_vod(base_vod):
         username = channel_data['channelName']
         avatar_url = channel_data['profile_image']
         afreeca_id = channel_data['afreecaID']
+        video_url = f"https://www.sooplive.co.kr/station/{afreeca_id}"
         
         embed = {
             "color": 629759,
             "author": {
                 "name": username,
-                "url": f"https://bj.sooplive.co.kr/{afreeca_id}",
+                "url": video_url,
                 "icon_url": avatar_url
             },
             "title": videoTitle,
