@@ -1225,7 +1225,10 @@ def get_memory_highlights_summary():
         
         # 하이라이트가 있는 인스턴스들 가져오기 (메모리에서)
         instances_with_highlights = state_manager.get_chat_instances_with_highlights()
-        
+        for instances_with_highlight in instances_with_highlights:
+            if instances_with_highlight['instance']:
+                del instances_with_highlight['instance']
+
         # 전체 챗 인스턴스 통계
         all_chat_instances = state_manager.get_chat_instances()
         total_chzzk_instances = len(all_chat_instances.get('chzzk', {}))

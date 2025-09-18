@@ -123,6 +123,10 @@ async def userDataVar(init: initVar):
 			
 		if update_data['all_date']:
 			tasks.append(DataBaseVars(init))
+
+		if update_data['save_highlight_data']:
+			save_highlight_data(init)
+			await update_flag('save_highlight_data', False)
 			
 		# 모든 작업 기다리기
 		if tasks:
@@ -218,6 +222,68 @@ async def DataBaseVars(init: initVar):
 			asyncio.create_task(log_error((f"Error in DataBaseVars: {e}")))
 			if init.count != 0: break
 			await asyncio.sleep(0.1)
+
+def save_highlight_data(init):
+	# StateManager에서 init과 하이라이트 인스턴스들 가져오기
+	from shared_state import StateManager
+	state_manager = StateManager.get_instance()
+	
+	if not init:
+		return {
+			"status": "error",
+			"message": "시스템 초기화가 완료되지 않았습니다."
+		}
+
+	save_results = {
+		"processed_channels": [],
+		"total_highlights_saved": 0,
+		"errors": []
+	}
+	try:
+		# StateManager에서 하이라이트가 있는 챗 인스턴스들 가져오기
+		instances_with_highlights = state_manager.get_chat_instances_with_highlights()
+		
+		print(f"{datetime.now()} 하이라이트 데이터가 있는 채널 {len(instances_with_highlights)}개 발견")
+		
+		# 각 인스턴스에 대해 highlight_processing 실행
+		for instance_info in instances_with_highlights:
+			try:
+				channel_id = instance_info['channel_id']
+				channel_name = instance_info['channel_name']
+				platform = instance_info['platform']
+				highlights_count = instance_info['highlights_count']
+				chat_instance = instance_info['instance']
+				
+				print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 중...")
+				
+				# highlight_processing 실행하여 하이라이트 저장
+				chat_instance.highlight_processing()
+				
+				save_results["processed_channels"].append({
+					"channel_id": channel_id,
+					"channel_name": channel_name,
+					"platform": platform,
+					"highlights_saved": highlights_count
+				})
+				save_results["total_highlights_saved"] += highlights_count
+				
+				print(f"{datetime.now()} [{platform}] {channel_name}: 하이라이트 저장 완료")
+				
+			except Exception as channel_error:
+				error_msg = f"채널 {instance_info.get('channel_name', 'Unknown')} 처리 중 오류: {str(channel_error)}"
+				save_results["errors"].append(error_msg)
+				print(f"{datetime.now()} {error_msg}")
+				continue
+		
+		# 결과 반환
+		if save_results["total_highlights_saved"] > 0:
+			print(f"{datetime.now()} 하이라이트 챗 캐시 데이터 저장 완료: 총 {save_results['total_highlights_saved']}개 하이라이트 저장")
+			print(f"save_results:{save_results}")
+		else:
+			print(f"{datetime.now()} 저장할 하이라이트 데이터가 없습니다")
+	
+	except Exception as e:
+		asyncio.create_task(log_error(f"하이라이트 데이터 저장 실패: {str(e)}"))
 
 # db에서 데이터 가져오는 함수
 async def fetch_data(supabase, date_name):
