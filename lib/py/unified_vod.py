@@ -57,8 +57,11 @@ class base_vod(ABC):
         self.duration_diff = 0
         self.thumb_check_times = {}
         self.max_check_thumb_min = 3
-        self.small_fun_difference = 40
-        self.big_fun_difference = 70
+        self.fun_difference1 = 15
+        self.fun_difference2 = 30
+        self.fun_difference3 = 40
+        self.fun_difference4 = 60
+        self.fun_difference5 = 70
         
         # 플랫폼별 데이터 초기화
         self._initialize_platform_data()
@@ -300,13 +303,20 @@ class base_vod(ABC):
             
             if not formatted_time:
                 continue
-                
-            if score_difference > self.small_fun_difference:
-                description = f"*{description}"
-            if score_difference > self.big_fun_difference:
-                description = f"*{description}"
+            
+            fun_score = 0
+            if score_difference > self.fun_difference1:
+                fun_score += 1
+            if score_difference > self.fun_difference2:
+                fun_score += 1
+            if score_difference > self.fun_difference3:
+                fun_score += 1
+            if score_difference > self.fun_difference4:
+                fun_score += 1
+            if score_difference > self.fun_difference5:
+                fun_score += 1
 
-            comment_line = f"{formatted_time}- {description}"
+            comment_line = f"{formatted_time}- 재미 점수:{fun_score} - {description}"
             comment_lines.append(comment_line)
 
             chunks = self._split_comments_with_notice(comment_lines)
