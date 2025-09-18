@@ -285,7 +285,7 @@ async def save_highlight_data(init):
 			print(f"save_results:{save_results}")
 		else:
 			print(f"{datetime.now()} 저장할 하이라이트 데이터가 없습니다")
-			await update_flag('save_highlight_data', False)
+		await update_flag('save_highlight_data', False)
 	
 	except Exception as e:
 		asyncio.create_task(log_error(f"하이라이트 데이터 저장 실패: {str(e)}"))
