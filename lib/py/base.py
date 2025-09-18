@@ -285,7 +285,7 @@ async def save_highlight_data(init):
 			print(f"save_results:{save_results}")
 		else:
 			print(f"{datetime.now()} 저장할 하이라이트 데이터가 없습니다")
-			
+
 		await update_flag('save_highlight_data', False)
 	
 	except Exception as e:
@@ -763,6 +763,42 @@ async def save_profile_data(IDList, platform: str, id):
 			break
 		except Exception as e:
 			asyncio.create_task(log_error(f"error saving profile data {e}"))
+			await asyncio.sleep(0.1)
+
+# VOD 알림 상태 변경 함수
+async def change_is_vod_json_state(is_vod_json, channel_id, chat_rejoin = True):
+	is_vod_json[channel_id] = chat_rejoin
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	for _ in range(3):  # 최대 3번 시도
+		try:
+			supabase.table('date_update').upsert({"idx": 0, "is_vod_json": is_vod_json}).execute()
+			break
+		except Exception as e:
+			asyncio.create_task(log_error(f"echange_chat_join_state {e}"))
+			await asyncio.sleep(0.1)
+
+# VOD 채팅 알림 연결 상태 변경 함수
+async def change_is_vod_chat_json_state(is_vod_chat_json, channel_id, chat_rejoin = True):
+	is_vod_chat_json[channel_id] = chat_rejoin
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	for _ in range(3):  # 최대 3번 시도
+		try:
+			supabase.table('date_update').upsert({"idx": 0, "is_vod_chat_json": is_vod_chat_json}).execute()
+			break
+		except Exception as e:
+			asyncio.create_task(log_error(f"echange_chat_join_state {e}"))
+			await asyncio.sleep(0.1)
+
+# 핫클립 알림 상태 변경 함수
+async def change_is_hot_clip_state(is_hot_clip, channel_id, chat_rejoin = True):
+	is_hot_clip[channel_id] = chat_rejoin
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	for _ in range(3):  # 최대 3번 시도
+		try:
+			supabase.table('date_update').upsert({"idx": 0, "is_hot_clip": is_hot_clip}).execute()
+			break
+		except Exception as e:
+			asyncio.create_task(log_error(f"echange_chat_join_state {e}"))
 			await asyncio.sleep(0.1)
 
 # 채팅 연결 상태 변경 함수
