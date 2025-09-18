@@ -130,7 +130,6 @@ async def userDataVar(init: initVar):
 
 		if update_data['save_highlight_data']:
 			asyncio.create_task(save_highlight_data(init))
-			await update_flag('save_highlight_data', False)
 			
 		# 모든 작업 기다리기
 		if tasks:
@@ -286,9 +285,11 @@ async def save_highlight_data(init):
 			print(f"save_results:{save_results}")
 		else:
 			print(f"{datetime.now()} 저장할 하이라이트 데이터가 없습니다")
+			await update_flag('save_highlight_data', False)
 	
 	except Exception as e:
 		asyncio.create_task(log_error(f"하이라이트 데이터 저장 실패: {str(e)}"))
+		await update_flag('save_highlight_data', False)
 
 # db에서 데이터 가져오는 함수
 async def fetch_data(supabase, date_name):
