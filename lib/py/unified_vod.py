@@ -194,21 +194,23 @@ class base_vod(ABC):
             channel_name = self.id_list.loc[self.channel_id, 'channelName']
             print(f"{datetime.now()} VOD upload {channel_name} {self.data.videoTitle}")
 
-            # 알림을 보낼 웹훅 URL들 가져오기
-            list_of_urls = get_list_of_urls(
-                self.DO_TEST, 
-                self.userStateData, 
-                channel_name, 
-                self.channel_id, 
-                "VOD 알림"
-            )
+            if self.init.is_vod_json[self.channel_id]:
+                # 알림을 보낼 웹훅 URL들 가져오기
+                list_of_urls = get_list_of_urls(
+                    self.DO_TEST, 
+                    self.userStateData, 
+                    channel_name, 
+                    self.channel_id, 
+                    "VOD 알림"
+                )
 
-            # 푸시 알림 및 디스코드 웹훅 전송
-            asyncio.create_task(send_push_notification(list_of_urls, json_data))
-            asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
+                # 푸시 알림 및 디스코드 웹훅 전송
+                asyncio.create_task(send_push_notification(list_of_urls, json_data))
+                asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
 
-            # 하이라이트 채팅 처리
-            asyncio.create_task(self._process_highlight_chat())
+            if self.init.is_vod_chat_json[self.channel_id]:
+                # 하이라이트 채팅 처리
+                asyncio.create_task(self._process_highlight_chat())
 
         except Exception as e:
             asyncio.create_task(log_error(f"post video message error: {e}"))
