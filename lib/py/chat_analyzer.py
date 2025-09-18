@@ -685,7 +685,7 @@ class ChatAnalyzer:
         # if not self.init.DO_TEST:
         #     await self._save_highlight_to_db(highlight)
 
-        if len(self.highlights) > 10:
+        if len(self.highlights) > 30:
             timeline_comments = await self._make_highlight_chat(self.highlights[:-1])
             self.update_highlight_chat(timeline_comments)
             self.highlights = [self.highlights[-1]]
@@ -1003,7 +1003,7 @@ class ChatAnalyzer:
             
             print(f"{datetime.now()} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
 
-            response = self.init.model.generate_content(msg_list)
+            response = await asyncio.to_thread(self.init.model.generate_content, msg_list)
 
             # JSON 파싱
             try:
