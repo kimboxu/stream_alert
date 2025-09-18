@@ -61,39 +61,58 @@ class ChatMessageWithAnalyzer:
 
     async def start_analyzer(self):
         """분석기 시작 - start() 메서드에서 호출"""
-        if not self.analysis_task or self.analysis_task.done():
-            self.analysis_task = asyncio.create_task(self._run_analyzer())
-            print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
+        try:
+            if not self.analysis_task or self.analysis_task.done():
+                self.analysis_task = asyncio.create_task(self._run_analyzer())
+                print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
 
-            # 주기적 로그 저장 태스크 시작
-            self.log_save_task = asyncio.create_task(self.chat_analyzer.save_logs_periodically())
-            print(f"{datetime.now()} 로그 저장 태스크 시작: 30분마다 자동 저장")
+                # 주기적 로그 저장 태스크 시작
+                self.log_save_task = asyncio.create_task(self.chat_analyzer.save_logs_periodically())
+                print(f"{datetime.now()} 로그 저장 태스크 시작: 30분마다 자동 저장")
+        except Exception as e:
+            await log_error(f"start_analyzer 에러: {e}")
+            # 태스크 초기화 실패 시 None으로 설정
+            self.analysis_task = None
+            self.log_save_task = None
 
     async def stop_analyzer(self):
         """분석기 중지"""
-        # 분석 태스크 중지
-        if self.analysis_task and not self.analysis_task.done():
-            self.analysis_task.cancel()
-        
-        # 로그 저장 태스크 중지
-        if self.log_save_task and not self.log_save_task.done():
-            self.log_save_task.cancel()
-            
         try:
-            await self.analysis_task
-        except asyncio.CancelledError:
-            pass
+            # 분석 태스크 중지
+            if self.analysis_task and not self.analysis_task.done():
+                self.analysis_task.cancel()
             
-        try:
-            await self.log_save_task
-        except asyncio.CancelledError:
-            pass
-
+            # 로그 저장 태스크 중지
+            if self.log_save_task and not self.log_save_task.done():
+                self.log_save_task.cancel()
+                
+            # 태스크 완료 대기 (None 체크)
+            if self.analysis_task is not None:
+                try:
+                    await self.analysis_task
+                except asyncio.CancelledError:
+                    pass
+                except Exception as e:
+                    await log_error(f"analysis_task 정리 중 에러: {e}")
+                    
+            if self.log_save_task is not None:
+                try:
+                    await self.log_save_task
+                except asyncio.CancelledError:
+                    pass
+                except Exception as e:
+                    await log_error(f"log_save_task 정리 중 에러: {e}")
+                    
+        except Exception as e:
+            await log_error(f"stop_analyzer 에러: {e}")
+        finally:
+            # 태스크 참조 정리
+            self.analysis_task = None
+            self.log_save_task = None
     async def should_offLine(self):
         # 로그 저장
         if not self.is_save_log:
             self.is_save_log = True
-        
             asyncio.create_task(self.highlight_processing())
 
     async def highlight_processing(self):
@@ -101,7 +120,7 @@ class ChatMessageWithAnalyzer:
         try:
             print(f"{datetime.now()} 하이라이트 처리 시작: {self.chat_analyzer.channel_name}")
 
-            await self.chat_analyzer.save_detailed_logs_to_file(save_cache=True,force_save=True)
+            await self.chat_analyzer.save_detailed_logs_to_file(save_cache=True, force_save=True)
 
             # 하이라이트 생성
             timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
@@ -161,28 +180,33 @@ class ChatMessageWithAnalyzer:
                 print(f"{datetime.now()} timeline_comments가 비어있음: {channel_name}")
                 
         except Exception as e:
-            from base import log_error
             await log_error(f"하이라이트 채팅 저장 오류 ({channel_name}): {e}")
             print(f"{datetime.now()} 하이라이트 채팅 저장 오류: {e}")
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
-        while True:
-            try:
-                # 5초마다 분석
-                await asyncio.sleep(self.chat_analyzer.analysis_interval) 
+        try:
+            while True:
+                try:
+                    # 5초마다 분석
+                    await asyncio.sleep(self.chat_analyzer.analysis_interval) 
 
-                # 분석 실행
-                detailed_log = await self.chat_analyzer.analyze()
+                    # 분석 실행
+                    detailed_log = await self.chat_analyzer.analyze()
 
-                # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 디테일 점수{detailed_log}")
-                      
-            except asyncio.CancelledError:
-                break
+                    # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 디테일 점수{detailed_log}")
+                          
+                except asyncio.CancelledError:
+                    print(f"{datetime.now()} 분석기 정상적으로 취소됨: {self.chat_analyzer.channel_name}")
+                    break
 
-            except Exception as e:
-                await log_error(f"분석기 실행 오류: {e}")
-                await asyncio.sleep(10)  # 오류시 10초 대기
+                except Exception as e:
+                    await log_error(f"분석기 실행 오류: {e}")
+                    await asyncio.sleep(10)  # 오류시 10초 대기
+        except asyncio.CancelledError:
+            print(f"{datetime.now()} 분석기 태스크 취소됨: {self.chat_analyzer.channel_name}")
+        except Exception as e:
+            await log_error(f"_run_analyzer 예상치 못한 오류: {e}")
 
 class ChatAnalyzer:
     """채팅 데이터를 분석하여 재미있는 순간을 감지하는 클래스"""
