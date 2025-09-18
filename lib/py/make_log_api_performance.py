@@ -367,35 +367,64 @@ class APIStatisticsCalculator:
         """포괄적인 통계 계산 - 모든 API 타입 지원"""
         try:
             logs = await self.logger.get_logs_in_period(start_date, end_date)
-            
-            # 실제 로그에서 사용된 API 타입들 찾기
-            actual_api_types = await self.get_all_api_types_from_logs(logs)
-            
-            # 모든 API 타입에 대한 통계 계산
+
+            # 집계용 딕셔너리
+            stats_acc = {}
+            for log in logs:
+                api_type = log["api_type"]
+                if api_type not in stats_acc:
+                    stats_acc[api_type] = {
+                        "total_requests": 0,
+                        "successful_requests": 0,
+                        "failed_requests": 0,
+                        "response_time_sum": 0,
+                        "success_count": 0
+                    }
+
+                entry = stats_acc[api_type]
+                entry["total_requests"] += 1
+
+                if log["is_success"]:
+                    entry["successful_requests"] += 1
+                    entry["response_time_sum"] += log["response_time_ms"]
+                    entry["success_count"] += 1
+                else:
+                    entry["failed_requests"] += 1
+
+            # 최종 계산 (평균, 성공률 등)
             api_performance = {}
-            
-            for api_type in actual_api_types:
-                api_performance[api_type] = await self.get_api_statistics_by_type(api_type, logs)
-            
+            for api_type, acc in stats_acc.items():
+                avg_response_time = (
+                    round(acc["response_time_sum"] / acc["success_count"], 2)
+                    if acc["success_count"] > 0 else 0
+                )
+                success_rate = round((acc["successful_requests"] / acc["total_requests"]) * 100, 2)
+
+                api_performance[api_type] = {
+                    "total_requests": acc["total_requests"],
+                    "successful_requests": acc["successful_requests"],
+                    "failed_requests": acc["failed_requests"],
+                    "avg_response_time_ms": avg_response_time,
+                    "success_rate_percent": success_rate,
+                }
+
             # 전체 요약 통계
-            total_requests = sum(stats['total_requests'] for stats in api_performance.values())
-            total_errors = sum(stats['failed_requests'] for stats in api_performance.values())
-            total_successful = total_requests - total_errors
-            
+            total_requests = sum(stats["total_requests"] for stats in api_performance.values())
+            total_successful = sum(stats["successful_requests"] for stats in api_performance.values())
+            total_errors = sum(stats["failed_requests"] for stats in api_performance.values())
+
             overall_success_rate = (
-                round((total_successful / total_requests) * 100, 2) 
-                if total_requests > 0 else 100.0
+                round((total_successful / total_requests) * 100, 2) if total_requests > 0 else 100.0
             )
-            
-            # 기존 호환성을 위한 알림 통계
+
+            # 알림 통계
             notification_stats = await self.get_notification_statistics(logs)
-            
-            # 통합된 형식으로 반환
+
             return {
                 "period": {
                     "start": start_date.isoformat(),
                     "end": end_date.isoformat(),
-                    "duration_days": (end_date.date() - start_date.date()).days + 1
+                    "duration_days": (end_date.date() - start_date.date()).days + 1,
                 },
                 "api_performance": api_performance,
                 "summary": {
@@ -403,14 +432,12 @@ class APIStatisticsCalculator:
                     "successful_requests": total_successful,
                     "failed_requests": total_errors,
                     "overall_success_rate_percent": overall_success_rate,
-                    "unique_api_types": len(actual_api_types),
-                    "active_api_types": actual_api_types
+                    "unique_api_types": len(api_performance),
+                    "active_api_types": list(api_performance.keys()),
                 },
-                # 기존 호환성 유지
                 "notification_summary": notification_stats,
-                "calculated_at": datetime.now().isoformat()
+                "calculated_at": datetime.now().isoformat(),
             }
-            
         except Exception as e:
             await log_error(f"포괄적 통계 계산 오류: {e}")
             return {}
@@ -955,11 +982,11 @@ class PerformanceManager:
                 id='force_save_logs'
             )
             
-            # 매일 새벽 1시에 전날 일일 통계 계산
+            # 매일 새벽 3시에 전날 일일 통계 계산
             self.scheduler.add_job(
                 func=lambda: asyncio.run(self.calculate_and_save_daily_statistics()),
                 trigger="cron",
-                hour=1,
+                hour=3,
                 minute=0,
                 id='daily_statistics'
             )
