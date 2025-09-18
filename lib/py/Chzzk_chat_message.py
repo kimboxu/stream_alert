@@ -101,14 +101,20 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
     # 태스크 정리 함수
     async def _cleanup_tasks(self):
+        """태스크 정리 함수"""
         for task in self.tasks:
             if task and not task.done() and not task.cancelled():
                 try:
                     task.cancel()
                     await asyncio.wait([task], timeout=2)
                 except Exception as cancel_error:
-                    await log_error(f"Error cancelling task for {self.data.channel_id}: {cancel_error}")
-        await self.stop_analyzer()
+                    await log_error(f"Error cancelling task for {self.channel_id}: {cancel_error}")
+        
+        # 분석기 정리에서 예외 처리
+        try:
+            await self.stop_analyzer()
+        except Exception as e:
+            await log_error(f"stop_analyzer 에러 ({self.channel_id}): {e}")
 
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
