@@ -245,6 +245,7 @@ class base_live_message:
     def onLineTime(self, message):
         if message == "뱅온!":
             self.title_data.loc[self.channel_id,'update_time'] = self.getStarted_at("openDate")
+            asyncio.create_task(update_flag('chat_json', True))
 
     #방송 종료 시 상태 업데이트
     def offLineTitle(self):
