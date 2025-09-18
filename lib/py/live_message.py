@@ -17,6 +17,7 @@ from base import (
     userDataVar,
     save_airing_data,
     update_flag,
+    change_chat_join_state,
     if_after_time,
     save_profile_data,
     save_airing_data,
@@ -245,7 +246,7 @@ class base_live_message:
     def onLineTime(self, message):
         if message == "뱅온!":
             self.title_data.loc[self.channel_id,'update_time'] = self.getStarted_at("openDate")
-            asyncio.create_task(update_flag('chat_json', True))
+            asyncio.create_task(change_chat_join_state(self.init.chat_json, self.channel_id, True))
 
     #방송 종료 시 상태 업데이트
     def offLineTitle(self):
