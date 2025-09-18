@@ -94,7 +94,7 @@ class ChatMessageWithAnalyzer:
         if not self.is_save_log:
             self.is_save_log = True
         
-            await self.highlight_processing()
+            asyncio.create_task(self.highlight_processing())
 
     async def highlight_processing(self):
         """하이라이트 처리"""
@@ -685,7 +685,7 @@ class ChatAnalyzer:
         # if not self.init.DO_TEST:
         #     await self._save_highlight_to_db(highlight)
 
-        if len(self.highlights) > 30:
+        if len(self.highlights) > 10:
             timeline_comments = await self._make_highlight_chat(self.highlights[:-1])
             self.update_highlight_chat(timeline_comments)
             self.highlights = [self.highlights[-1]]
