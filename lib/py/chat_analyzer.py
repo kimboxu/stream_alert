@@ -192,7 +192,8 @@ class ChatMessageWithAnalyzer:
                     await asyncio.sleep(self.chat_analyzer.analysis_interval) 
 
                     # 분석 실행
-                    detailed_log = await self.chat_analyzer.analyze()
+                    if not self.is_save_log:
+                        detailed_log = await self.chat_analyzer.analyze()
 
                     # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 디테일 점수{detailed_log}")
                           
