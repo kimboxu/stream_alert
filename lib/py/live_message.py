@@ -742,14 +742,15 @@ class afreeca_live_message(base_live_message):
     #아프리카 오프라인 상태 처리
     async def _handle_offline_status(self):
         message = "뱅종"
-        json_data = self.getOffJson()
+        current_time = datetime.now()
+        json_data = self.getOffJson(current_time)
         
         self.offLineTitle()
 
         self.data.livePostList.append((message, json_data))
         
-        self.title_data.loc[self.channel_id, 'state_update_time']["closeDate"] = datetime.now().isoformat()
-        self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
+        self.title_data.loc[self.channel_id, 'state_update_time']["closeDate"] = current_time.isoformat()
+        self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = current_time.isoformat()
     
         stream_end_id = get_stream_start_id(self.channel_id, self.title_data.loc[self.channel_id, 'state_update_time']["closeDate"])
         self.init.highlight_chat[self.channel_id][self.stream_start_id].stream_end_id = stream_end_id
@@ -873,13 +874,15 @@ class afreeca_live_message(base_live_message):
 	# 			"timestamp": changeUTCtime(started_at)}]}
 
     #뱅종 JSON 데이터 생성
-    def getOffJson(self):
+    def getOffJson(self, current_time: datetime):
         embeds = {
             "color": int(self.id_list.loc[self.channel_id, 'channel_color']),
             "author": self.get_author(),
             "title": self.channel_name +" 방송 종료\n",
-            "footer": {"icon_url": iconLinkData().soop_icon},
+            "footer": { "text": f"방종 시간", "inline": True, "icon_url": iconLinkData().soop_icon},
+            "timestamp": changeUTCtime(current_time.isoformat())
         }
+        
         return {"username": self.channel_name, 
                 "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
                 "embeds": [embeds]}
