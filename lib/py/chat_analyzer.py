@@ -770,9 +770,7 @@ class ChatAnalyzer:
                 self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
                 self.highlights = self.highlights[:-1]
                 return
-                
-            await log_error(f"error change_score_to_peak: idx None")
-            print(f"{datetime.now()} {self.detailed_logs}")
+
 
     #하이라이트 DB 저장
     async def _save_highlight_to_db(self, highlight: StreamHighlight):

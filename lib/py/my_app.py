@@ -1291,7 +1291,7 @@ def save_highlight_data():
             
             print(f"{datetime.now()} 하이라이트 데이터가 있는 채널 {len(instances_with_highlights)}개 발견")
             
-            # 각 인스턴스에 대해 should_offLine 실행
+            # 각 인스턴스에 대해 highlight_processing 실행
             for instance_info in instances_with_highlights:
                 try:
                     channel_id = instance_info['channel_id']
@@ -1302,8 +1302,8 @@ def save_highlight_data():
                     
                     print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 중...")
                     
-                    # should_offLine 실행하여 하이라이트 저장
-                    loop.run_until_complete(chat_instance.should_offLine())
+                    # highlight_processing 실행하여 하이라이트 저장
+                    loop.run_until_complete(chat_instance.highlight_processing())
                     
                     save_results["processed_channels"].append({
                         "channel_id": channel_id,
