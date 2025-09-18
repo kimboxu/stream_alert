@@ -114,6 +114,9 @@ class BaseHotClipDetector(ABC):
                 
                 if analysis_result and analysis_result.hot_clips:
                     await self._send_hot_clip_notifications(analysis_result)
+
+                    # 알림 기록 저장
+                    asyncio.create_task(save_sent_notifications(self.init.supabase, self.channel_id, self.hot_clip_data))
                 
                 await asyncio.sleep(self.analysis_interval)
                 
@@ -304,22 +307,19 @@ class BaseHotClipDetector(ABC):
                     "avatar_url": channel_data['profile_image'],
                     "embeds": [embed]
                 }
+                if self.init.is_hot_clip[self.channel_id]:
                 
-                print(f"{datetime.now()} 핫클립 알림 전송: {channel_name} - {clip.clipTitle} (점수: {clip.hotScore:.1f})")
-                
-                # 알림 전송
-                asyncio.create_task(send_push_notification(list_of_urls, json_data))
-                asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
+                    print(f"{datetime.now()} 핫클립 알림 전송: {channel_name} - {clip.clipTitle} (점수: {clip.hotScore:.1f})")
+                    
+                    # 알림 전송
+                    asyncio.create_task(send_push_notification(list_of_urls, json_data))
+                    asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
                 
                 # 알림 보낸 클립으로 기록
                 self.hot_clip_data.loc[self.channel_id, 'sent_clip_uids'].append(clip.clipUID)
                 
                 # 연속 알림 간 간격
                 await asyncio.sleep(1)
-            
-            # 알림 기록 저장
-            asyncio.create_task(save_sent_notifications(self.init.supabase, self.channel_id, self.hot_clip_data))
-            # self._save_sent_notifications()
             
         except Exception as e:
             await log_error(f"핫클립 알림 전송 오류: {e}")
