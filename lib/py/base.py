@@ -129,7 +129,7 @@ async def userDataVar(init: initVar):
 			tasks.append(DataBaseVars(init))
 
 		if update_data['save_highlight_data']:
-			save_highlight_data(init)
+			asyncio.create_task(save_highlight_data(init))
 			await update_flag('save_highlight_data', False)
 			
 		# 모든 작업 기다리기
@@ -227,7 +227,8 @@ async def DataBaseVars(init: initVar):
 			if init.count != 0: break
 			await asyncio.sleep(0.1)
 
-def save_highlight_data(init):
+# 하이라이트 챗 캐시 데이터 저장 (메모리 관리), 프로그램 종료 직전에만 사용하기
+async def save_highlight_data(init):
 	# StateManager에서 init과 하이라이트 인스턴스들 가져오기
 	from shared_state import StateManager
 	state_manager = StateManager.get_instance()
@@ -249,7 +250,7 @@ def save_highlight_data(init):
 		
 		print(f"{datetime.now()} 하이라이트 데이터가 있는 채널 {len(instances_with_highlights)}개 발견")
 		
-		# 각 인스턴스에 대해 highlight_processing 실행
+		# 각 인스턴스에 대해 should_offLine 실행
 		for instance_info in instances_with_highlights:
 			try:
 				channel_id = instance_info['channel_id']
@@ -260,8 +261,8 @@ def save_highlight_data(init):
 				
 				print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 중...")
 				
-				# highlight_processing 실행하여 하이라이트 저장
-				chat_instance.highlight_processing()
+				# should_offLine 실행하여 하이라이트 저장
+				await chat_instance.should_offLine()
 				
 				save_results["processed_channels"].append({
 					"channel_id": channel_id,
