@@ -1730,7 +1730,6 @@ def trigger_daily_stats():
                 }), 400
         
         state_manager = StateManager.get_instance()
-        asyncio.create_task(state_manager.initialize())
         performance_manager = state_manager.get_performance_manager()
         
         if not performance_manager:
