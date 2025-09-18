@@ -234,7 +234,7 @@ class base_live_message:
                 after_openDate = str(after_openDate).split('.')[0]
                 after_openDate = format_time_for_comment(after_openDate)
                 self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.append({
-                    "after_openDate": after_openDate, 
+                    "comment_after_openDate": after_openDate, 
                     "text": f"방제 변경: {self.data.title}",
                     "description": f"방제 변경: {self.data.title}",
                 })
