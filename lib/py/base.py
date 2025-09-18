@@ -107,7 +107,7 @@ async def userDataVar(init: initVar):
 
 		# 단순 속성 설정
 		for attr, value in {
-			'youtube_TF': update_data['youtube_TF'],
+			'is_youtube': update_data['is_youtube'],
 			'chat_json': update_data['chat_json']
 		}.items():
 			setattr(init, attr, value)
