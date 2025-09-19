@@ -338,13 +338,10 @@ def get_streamers():
         afreecaIDList = app.init.afreecaIDList.to_dict('records')
         chzzkIDList = app.init.chzzkIDList.to_dict('records')
         cafeData = app.init.cafeData.to_dict('records')
-        chzzk_video = app.init.chzzk_video.to_dict('records')
-        afreeca_video = app.init.afreeca_video.to_dict('records')
+        videoData = app.init.video_data.to_dict('records')
         youtubeData = app.init.youtubeData.to_dict('records')
         chzzk_chatFilter = app.init.chzzk_chatFilter.to_dict('records')
         afreeca_chatFilter = app.init.afreeca_chatFilter.to_dict('records')
-
-        videoData = chzzk_video + afreeca_video
 
         return jsonify(
             {

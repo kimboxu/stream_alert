@@ -179,8 +179,8 @@ async def DataBaseVars(init: initVar):
 				'userStateData', 'twitch_titleData', 'chzzk_titleData', 
 				'afreeca_titleData', 'twitchIDList', 'chzzkIDList', 
 				'afreecaIDList', 'youtubeData', 'twitch_chatFilter',
-				'chzzk_chatFilter', 'afreeca_chatFilter', 'chzzk_video', 
-				'afreeca_video', 'cafeData', 'hot_clip_data',
+				'chzzk_chatFilter', 'afreeca_chatFilter', 'video_data',
+				'cafeData', 'hot_clip_data',
 			]
 			
 			# 모든 테이블의 데이터를 비동기로 가져오기
@@ -207,8 +207,7 @@ async def DataBaseVars(init: initVar):
 				'youtubeData': 'YoutubeChannelID',
 				'afreeca_chatFilter': 'channelID',
 				'cafeData': 'channelID',
-				'chzzk_video': 'channelID',
-				'afreeca_video': 'channelID',
+				'video_data': 'channelID',
 				'hot_clip_data': 'channelID',
 			}
 			

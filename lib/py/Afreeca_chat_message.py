@@ -61,7 +61,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # 비동기 태스크 관리 리스트
         self.tasks = []
 
-        self.setup_analyzer(channel_id, channel_name)
+        self.setup_analyzer(channel_id, channel_name, 'afreeca')
 
     # SSL 컨텍스트 생성
     @staticmethod
