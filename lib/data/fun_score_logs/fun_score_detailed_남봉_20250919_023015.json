@@ -1,0 +1,45 @@
+{
+  "channel_id": "nambong94",
+  "channel_name": "남봉",
+  "save_timestamp": "2025-09-19T02:30:15.624124",
+  "total_logs": 1,
+  "logs": [
+    {
+      "timestamp": "2025-09-19T02:30:15.623097",
+      "fun_score": 5.338937858961553,
+      "score_components": {
+        "chat_spike_score": 3.563217643362683,
+        "reaction_score": 3.105847221474143e-05,
+        "diversity_score": 40.91799260395728,
+        "viewer_trend_score": 0,
+        "final_score": 5.338937858961553,
+        "baseline_chat_count": 6.029171217048529,
+        "baseline_viewer_count": 470.5515669793049,
+        "baseline_threshold": 5.400901032908893,
+        "highlights": false,
+        "big_highlights": false,
+        "score_difference": 1.916280570585002,
+        "should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 484,
+        "fun_keywords": {
+          "excitement": 2
+        }
+      },
+      "after_openDate": "00:21:00",
+      "comment_after_openDate": "00:21:00",
+      "chat_context": [
+        "우주를넘어서: 알람봇 숔닷셋업 없나?",
+        "1일1재하: 포탑 봤고",
+        "1일1재하: 드론으로",
+        "제이티스타: 알파 위치가 ㅇㅇ",
+        "1일1재하: 오",
+        "파아란1: 오"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

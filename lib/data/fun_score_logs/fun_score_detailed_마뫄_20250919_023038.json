@@ -1,0 +1,49 @@
+{
+  "channel_id": "ma_mwa",
+  "channel_name": "마뫄",
+  "save_timestamp": "2025-09-19T02:30:38.445687",
+  "total_logs": 1,
+  "logs": [
+    {
+      "timestamp": "2025-09-19T02:30:34.750517",
+      "fun_score": 6.104627542568334,
+      "score_components": {
+        "chat_spike_score": 5.795944572636292,
+        "reaction_score": 8.405680902960353e-05,
+        "diversity_score": 40.760133194220195,
+        "viewer_trend_score": 0,
+        "final_score": 6.104627542568334,
+        "baseline_chat_count": 7.23400263945325,
+        "baseline_viewer_count": 1684.0617716156135,
+        "baseline_threshold": 5.403363812645734,
+        "highlights": false,
+        "big_highlights": false,
+        "score_difference": 1.4275124322094435,
+        "should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1713,
+        "fun_keywords": {
+          "surprise": 2,
+          "excitement": 2
+        }
+      },
+      "after_openDate": "00:21:19",
+      "comment_after_openDate": "00:21:19",
+      "chat_context": [
+        "팩토리얼: 쇽닷도 못깼는데 서러워",
+        "팩토리얼: 어 이게",
+        "강보민: 띠용",
+        "버찌이: ????",
+        "동그리도토리: 어라",
+        "팩토리얼: 이게 흐름이 이렇게?",
+        "Sunflower1423: 와",
+        "버찌이: 총구에 머리넣엇어",
+        "안지워지는 유성매직: 티원 패자조라서 G2랑 한다는데 어캅"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

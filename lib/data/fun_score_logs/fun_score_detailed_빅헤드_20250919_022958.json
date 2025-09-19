@@ -1,0 +1,52 @@
+{
+  "channel_id": "bighead033",
+  "channel_name": "빅헤드",
+  "save_timestamp": "2025-09-19T02:29:58.229333",
+  "total_logs": 1,
+  "logs": [
+    {
+      "timestamp": "2025-09-19T02:29:57.419258",
+      "fun_score": 5.511290436703292,
+      "score_components": {
+        "chat_spike_score": 1.2425288614085719,
+        "reaction_score": 1.3840068576017787e-05,
+        "diversity_score": 50.76399799182861,
+        "viewer_trend_score": 0,
+        "final_score": 5.511290436703292,
+        "baseline_chat_count": 23.782154673938454,
+        "baseline_viewer_count": 1030.7571119363174,
+        "baseline_threshold": 9.502196995802322,
+        "highlights": false,
+        "big_highlights": false,
+        "score_difference": 1.1299131170423955,
+        "should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 1023,
+        "fun_keywords": {
+          "laugh": 3,
+          "excitement": 1,
+          "surprise": 1
+        }
+      },
+      "after_openDate": "09:50:05",
+      "comment_after_openDate": "09:50:05",
+      "chat_context": [
+        "융융이이: ㅋㅋㅋㅋㅋㅋㅋ",
+        "l전설l: 로이드인가",
+        "가시돌이: 프로틴이네 ㅋㅋㅋ",
+        "에린윈드: 퓨 덷",
+        "빅치킨: 그와중에 근육모양 이쁜거보소",
+        "리춘향: 체지방률 몇일까",
+        "곱댕이: 살갗이 어꺠에만있네",
+        "PANAz: 신선한 gdb주스",
+        "INVISION: 로이더 로이더!!!",
+        "백 군: 턱이 없으니까 뭘 못씹겠네",
+        "융융이이: 진짜 근육이랑 가죽밖에 없네 ㅋㅋㅋㅋ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
