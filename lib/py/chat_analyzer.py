@@ -49,15 +49,12 @@ class StreamHighlight:
     image: PILImage.Image = None
 
 class ChatMessageWithAnalyzer:
-    def setup_analyzer(self, channel_id: str, channel_name: str):
+    def setup_analyzer(self, channel_id: str, channel_name: str, platform_name: str):
         """분석기 초기화"""
-        self.chat_analyzer = ChatAnalyzer(self.init, self.performance_manager, channel_id, channel_name)
+        self.chat_analyzer = ChatAnalyzer(self.init, self.performance_manager, channel_id, channel_name, platform_name)
         self.analysis_task = None
         self.log_save_task = None
         self.is_save_log = False
-
-        # 하이라이트 채팅 저장기 추가
-        self.highlight_saver = HighlightChatSaver()
 
     async def start_analyzer(self):
         """분석기 시작 - start() 메서드에서 호출"""
@@ -113,75 +110,8 @@ class ChatMessageWithAnalyzer:
         # 로그 저장
         if not self.is_save_log:
             self.is_save_log = True
-            asyncio.create_task(self.highlight_processing())
+            asyncio.create_task(self.chat_analyzer.highlight_processing(self.is_save_log))
 
-    async def highlight_processing(self):
-        """하이라이트 처리"""
-        try:
-            print(f"{datetime.now()} 하이라이트 처리 시작: {self.chat_analyzer.channel_name}")
-
-            await self.chat_analyzer.save_detailed_logs_to_file(save_cache=True, force_save=True)
-
-            # 하이라이트 생성
-            timeline_comments = await self.chat_analyzer._make_highlight_chat(self.chat_analyzer.highlights)
-            self.chat_analyzer.highlights = []
-            self.chat_analyzer.update_highlight_chat(timeline_comments)
-
-            # 하이라이트 채팅 업데이트 직후 파일로 저장
-            await self._save_completed_highlight_chat_after_update()
-            
-            return True
-            
-        except Exception as e:
-            await log_error(f"하이라이트 처리 오류: {e}")
-            return False
-
-    async def _save_completed_highlight_chat_after_update(self):
-        """하이라이트 채팅 저장"""
-        try:
-            channel_id = self.chat_analyzer.channel_id
-            channel_name = self.chat_analyzer.channel_name
-            
-            # 현재 스트림의 stream_start_id 가져오기
-            stream_start_time = self.init.stream_status[channel_id].start_at['openDate']
-            stream_start_id = get_stream_start_id(channel_id, stream_start_time)
-            
-            # 해당 채널의 하이라이트 데이터 확인
-            if (channel_id not in self.init.highlight_chat or 
-                stream_start_id not in self.init.highlight_chat[channel_id]):
-                print(f"{datetime.now()} 저장할 하이라이트 데이터 없음: {channel_name} - {stream_start_id}")
-                return
-
-            # 현재 스트림의 하이라이트 데이터 가져오기
-            highlight_data = self.init.highlight_chat[channel_id][stream_start_id]
-            
-            # timeline_comments가 업데이트되었는지 확인
-            if (hasattr(highlight_data, 'timeline_comments') and 
-                highlight_data.timeline_comments):
-                
-                print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}")
-                print(f"  - 스트림 ID: {stream_start_id}")
-                print(f"  - 하이라이트 개수: {len(highlight_data.timeline_comments)}개")
-                
-                # 파일로 저장
-                file_path = await self.highlight_saver.save_completed_stream_highlight(
-                    channel_id, channel_name, stream_start_id, highlight_data
-                )
-                
-                if file_path:
-                    print(f"{datetime.now()} 하이라이트 채팅 저장 성공: {file_path}")
-                    
-                    # 저장 성공 후 메모리에서 제거
-                    del self.init.highlight_chat[channel_id][stream_start_id]
-                    print(f"{datetime.now()} 메모리에서 제거 완료: {stream_start_id}")
-                else:
-                    print(f"{datetime.now()} 하이라이트 채팅 저장 실패: {channel_name}")
-            else:
-                print(f"{datetime.now()} timeline_comments가 비어있음: {channel_name}")
-                
-        except Exception as e:
-            await log_error(f"하이라이트 채팅 저장 오류 ({channel_name}): {e}")
-            print(f"{datetime.now()} 하이라이트 채팅 저장 오류: {e}")
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
@@ -211,12 +141,14 @@ class ChatMessageWithAnalyzer:
 
 class ChatAnalyzer:
     """채팅 데이터를 분석하여 재미있는 순간을 감지하는 클래스"""
-    def __init__(self, init: initVar, performance_manager: PerformanceManager, channel_id: str, channel_name: str = ""):
+    def __init__(self, init: initVar, performance_manager: PerformanceManager, channel_id: str, channel_name: str = "", platform_name: str = ""):
         self.init = init
         self.performance_manager = performance_manager
         self.DiscordWebhookSender_class = DiscordWebhookSender()
+        self.highlight_saver = HighlightChatSaver()
         self.channel_id = channel_id
         self.channel_name = channel_name
+        self.platform_name = platform_name
 
         # 분석 설정
         self.window_size = 30       # 30초 윈도우
@@ -249,6 +181,7 @@ class ChatAnalyzer:
         self.highlights: List[StreamHighlight] = []
         self.last_highlight = None
         self.last_analysis_time = datetime.now()
+        self.check_after_openDate = False
 
         # 임계값 설정
         self.small_fun_difference   = 15    # 작은 재미 차이
@@ -375,6 +308,10 @@ class ChatAnalyzer:
         # 하이라이트 체크
         if score_details['highlights'] or self.init.DO_TEST:
             await self._create_highlight(detailed_log)
+
+        #치지직 방송 17시간 경과시 해당 시점까지의 하이라이트 생성
+        if self.is_check_after_openDate(detailed_log):
+            asyncio.create_task(self.highlight_processing())
 
         # 분석 기록 저장
         self.analysis_history.append((analysis, score_details['final_score']))
@@ -715,6 +652,86 @@ class ChatAnalyzer:
             self.update_highlight_chat(timeline_comments)
             self.highlights = [self.highlights[-1]]
 
+    # 치지직 방송 시간이 17시간이 넘었는지 최초 1회 확인
+    def is_check_after_openDate(self, detailed_log):
+        parts = str(detailed_log['after_openDate']).strip().split(':')
+        hours = int(parts[0])
+
+        if not self.check_after_openDate and self.platform_name == 'chzzk' and hours >= 17:
+            self.check_after_openDate = True
+            return True
+        
+        return False
+    
+    async def highlight_processing(self, is_save_log = False):
+        """하이라이트 처리"""
+        try:
+            print(f"{datetime.now()} 하이라이트 처리 시작: {self.channel_name}")
+
+            await self.save_detailed_logs_to_file(save_cache=True, force_save=True)
+
+            # 하이라이트 생성
+            timeline_comments = await self._make_highlight_chat(self.highlights)
+            self.highlights = []
+            self.update_highlight_chat(timeline_comments)
+
+            # 하이라이트 채팅 업데이트 직후 파일로 저장
+            await self._save_completed_highlight_chat_after_update(is_save_log)
+            
+            return True
+            
+        except Exception as e:
+            await log_error(f"하이라이트 처리 오류: {e}")
+            return False
+
+    async def _save_completed_highlight_chat_after_update(self, is_save_log):
+        """하이라이트 채팅 저장"""
+        try:
+            channel_id = self.channel_id
+            channel_name = self.channel_name
+            
+            # 현재 스트림의 stream_start_id 가져오기
+            stream_start_time = self.init.stream_status[channel_id].start_at['openDate']
+            stream_start_id = get_stream_start_id(channel_id, stream_start_time)
+            
+            # 해당 채널의 하이라이트 데이터 확인
+            if (channel_id not in self.init.highlight_chat or 
+                stream_start_id not in self.init.highlight_chat[channel_id]):
+                print(f"{datetime.now()} 저장할 하이라이트 데이터 없음: {channel_name} - {stream_start_id}")
+                return
+
+            # 현재 스트림의 하이라이트 데이터 가져오기
+            highlight_data = self.init.highlight_chat[channel_id][stream_start_id]
+            
+            # timeline_comments가 업데이트되었는지 확인
+            if (hasattr(highlight_data, 'timeline_comments') and 
+                highlight_data.timeline_comments):
+                
+                print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}")
+                print(f"  - 스트림 ID: {stream_start_id}")
+                print(f"  - 하이라이트 개수: {len(highlight_data.timeline_comments)}개")
+                
+                # 파일로 저장
+                file_path = await self.highlight_saver.save_completed_stream_highlight(
+                    channel_id, channel_name, stream_start_id, highlight_data
+                )
+                
+                if file_path:
+                    print(f"{datetime.now()} 하이라이트 채팅 저장 성공: {file_path}")
+                    
+                    # 저장 성공 후 메모리에서 제거
+                    if is_save_log:
+                        del self.init.highlight_chat[channel_id][stream_start_id]
+                        print(f"{datetime.now()} 메모리에서 제거 완료: {stream_start_id}")
+                else:
+                    print(f"{datetime.now()} 하이라이트 채팅 저장 실패: {channel_name}")
+            else:
+                print(f"{datetime.now()} timeline_comments가 비어있음: {channel_name}")
+                
+        except Exception as e:
+            await log_error(f"하이라이트 채팅 저장 오류 ({channel_name}): {e}")
+            print(f"{datetime.now()} 하이라이트 채팅 저장 오류: {e}")
+
     #하이라이트 이유 생성
     def _determine_highlight_reason(self, analysis: ChatAnalysisData, score_details: dict) -> str:
         reasons = []
@@ -770,7 +787,6 @@ class ChatAnalyzer:
                 self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
                 self.highlights = self.highlights[:-1]
                 return
-
 
     #하이라이트 DB 저장
     async def _save_highlight_to_db(self, highlight: StreamHighlight):
