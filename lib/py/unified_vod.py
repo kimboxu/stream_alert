@@ -19,6 +19,7 @@ from base import (
     getDefaultHeaders,
     calculate_stream_duration,
     format_time_for_comment,
+    get_timestamp_from_stream_id,
 )
 
 @dataclass
@@ -55,7 +56,7 @@ class base_vod(ABC):
         self.platform_name = self.video_data.loc[channel_id, 'platform_name']
         self.channel_id = channel_id
         self.time_offset = 20
-        self.duration_diff = 0
+        self.duration_diff = 10
         self.thumb_check_times = {}
         self.max_check_thumb_min = 3
         self.fun_difference1 = 15
@@ -260,7 +261,6 @@ class base_vod(ABC):
                     # 지속시간 매칭 확인 (stream_start_id와 stream_end_id 이용)
                     stream_start_id = data.get('stream_start_id', '')
                     stream_end_id = data.get('stream_end_id', '')
-                    saved_at = data.get('saved_at', '')
                     
                     if stream_start_id and stream_end_id:
                         broadcast_duration = calculate_stream_duration(stream_start_id, stream_end_id)
@@ -271,8 +271,10 @@ class base_vod(ABC):
                             self.duration_diff = max(broadcast_duration - self.data.duration, 0)
                             return data
                         
-                    # if self.platform_name == 'chzzk' and saved_at:
-                    #     timestamp = datetime.fromisoformat(str(saved_at).replace('Z', '+00:00'))
+                    # 치지직 방송 중인데, 방송 시간이 길어서 VOD가 분할 된 경우
+                    if self.platform_name == 'chzzk' and not stream_end_id:
+                        return self._match_chzzk_vod_segment(data)
+
                             
                 except Exception as e:
                     print(f"하이라이트 파일 처리 오류 {file_path}: {e}")
@@ -284,6 +286,39 @@ class base_vod(ABC):
             await log_error(f"하이라이트 파일 로딩 오류: {e}")
             return None
 
+    async def _match_chzzk_vod_segment(self, data):
+        """치지직 17시간 이상 장시간 방송 VOD 세그먼트 매칭 로직"""
+        try:
+            stream_start_id = data.get('stream_start_id', '')
+            start_time = get_timestamp_from_stream_id(stream_start_id)
+            
+            # 기존 로직으로 한 번 더 시도 (17시간 이상 단일 방송)
+            timestamp = datetime.fromisoformat(str(data.get('last_updated', '')))
+
+            is_done = False
+            segment_duration = 17 * 3600
+            # 17시간 단위로 체크하여 해당 세그먼트 찾기
+            for i in range(1, 60):  # 최대 60개 세그먼트 (1000시간)
+                hours_threshold = 17 * i
+                if (timestamp - timedelta(hours=hours_threshold)) >= start_time:
+                    data['vod_segment_start_offset'] = (i - 1) * segment_duration
+                    data['vod_segment_number'] = i - 1
+                    is_done = True
+                else: 
+                    break
+ 
+            if not is_done:
+                await log_error(f"{self.channel_id} 매칭 실패!")
+                print(data)
+                return None
+            else:
+                print(f"{self.channel_id} 성공!")       
+                return data
+            
+        except Exception as e:
+            print(f"치지직 VOD 세그먼트 매칭 오류: {e}")
+            return None
+
     def _get_highlight_msg_from_file(self, highlight_data):
         """파일에서 로드된 하이라이트 데이터를 VOD 댓글로 변환"""
         timeline_comments = highlight_data.get('timeline_comments', [])
@@ -291,12 +326,19 @@ class base_vod(ABC):
         if not timeline_comments or not isinstance(timeline_comments, list):
             return []
         
+        # VOD 세그먼트 정보 가져오기
+        segment_start_offset = highlight_data.get('vod_segment_start_offset', 0)  # 초 단위
+        segment_number = highlight_data.get('vod_segment_number', 0)
+        
         timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
         comment_lines = []
         
         auto_notice = "🤖 이 댓글은 방송 하이라이트를 자동 분석하여 생성된 타임라인입니다."
+        
         comment_lines.append(auto_notice)
 
+        processed_count = 0
+        
         for comment in timeline_comments:
             time_str = comment.get('comment_after_openDate', '')
             description = comment.get('description', '') or comment.get('text', '')
@@ -304,13 +346,31 @@ class base_vod(ABC):
             
             if not time_str or not description:
                 continue
-                
+            
+            # 하이라이트 시간을 초로 변환 (방송 시작부터의 누적 시간)
+            comment_absolute_seconds = self._parse_time_to_seconds(time_str)
+            
+            # 이 VOD 세그먼트 범위 내의 댓글인지 확인
+            segment_end_offset = segment_start_offset + self.data.duration
+            
+            # 세그먼트 범위를 벗어나는 댓글은 제외
+            if comment_absolute_seconds < segment_start_offset or comment_absolute_seconds >= segment_end_offset:
+                continue
+            
+            # VOD 내에서의 상대적 시간 계산
+            comment_relative_seconds = comment_absolute_seconds - segment_start_offset
+            
+            # 상대적 시간을 문자열로 변환
+            relative_time_str = self._seconds_to_time_string(comment_relative_seconds)
+            
+            # 기존 오프셋 적용
             del_sec = int(self.time_offset + (self.duration_diff - 10))
-            formatted_time = format_time_for_comment(time_str, del_sec)
+            formatted_time = format_time_for_comment(relative_time_str, del_sec)
             
             if not formatted_time:
                 continue
             
+            # 재미 점수 계산
             fun_score = 0
             if score_difference > self.fun_difference1:
                 fun_score += 1
@@ -325,10 +385,49 @@ class base_vod(ABC):
 
             comment_line = f"{formatted_time}- 재미 점수:{fun_score} - {description}"
             comment_lines.append(comment_line)
+            processed_count += 1
 
-            chunks = self._split_comments_with_notice(comment_lines)
+        print(f"{datetime.now()} 세그먼트 {segment_number} 댓글 처리 완료:")
+        print(f"  - 전체 하이라이트: {len(timeline_comments)}개")
+        print(f"  - 이 세그먼트 해당: {processed_count}개")
+        print(f"  - 세그먼트 범위: {segment_start_offset}초 ~ {segment_start_offset + self.data.duration}초")
+
+        if processed_count == 0:
+            # 해당 세그먼트에 댓글이 없는 경우
+            comment_lines.append("🤖 이 구간에는 하이라이트가 없습니다.")
+
+        chunks = self._split_comments_with_notice(comment_lines)
         
         return chunks
+
+    def _parse_time_to_seconds(self, time_str):
+        """시간 문자열을 초로 변환 (예: "1:23:45" -> 5025초)"""
+        try:
+            parts = time_str.split(':')
+            if len(parts) == 3:  # HH:MM:SS
+                hours, minutes, seconds = map(int, parts)
+                return hours * 3600 + minutes * 60 + seconds
+            elif len(parts) == 2:  # MM:SS
+                minutes, seconds = map(int, parts)
+                return minutes * 60 + seconds
+            else:  # SS
+                return int(parts[0])
+        except (ValueError, IndexError):
+            return 0
+
+    def _seconds_to_time_string(self, seconds):
+        """초를 시간 문자열로 변환 (예: 5025초 -> "1:23:45")"""
+        try:
+            hours = int(seconds // 3600)
+            minutes = int((seconds % 3600) // 60)
+            secs = int(seconds % 60)
+            
+            if hours > 0:
+                return f"{hours}:{minutes:02d}:{secs:02d}"
+            else:
+                return f"{minutes}:{secs:02d}"
+        except:
+            return "0:00"
 
     def _split_comments_with_notice(self, comment_lines, split_len = 100):
         """댓글 분할"""
