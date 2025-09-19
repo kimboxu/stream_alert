@@ -813,7 +813,7 @@ async def change_chat_join_state(chat_json, channel_id, chat_rejoin = True):
 			await asyncio.sleep(0.1)
 	
 # 비디오 데이터 저장 함수
-async def save_video_data(video_data, platform: str, _id): 
+async def save_video_data(video_data, _id): 
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	data = {
 		"channelID": _id,
@@ -821,7 +821,7 @@ async def save_video_data(video_data, platform: str, _id):
 	}
 	for _ in range(3):  # 최대 3번 시도
 		try:
-			supabase.table(f'{platform}_video').upsert(data).execute()
+			supabase.table(f'video_data').upsert(data).execute()
 			break
 		except Exception as e:
 			asyncio.create_task(log_error(f"error saving profile data {e}"))
@@ -889,7 +889,7 @@ async def save_user_notifications(supabase, webhook_url, notifications, last_db_
 	
 	return False  # 모든 시도 실패
 
-# 림 보낸 클립 UID 저장 함수
+# 보낸 클립 UID 저장 함수
 async def save_sent_notifications(supabase, channel_id, hot_clip_data):
 	data = {
                 'channelID': channel_id,

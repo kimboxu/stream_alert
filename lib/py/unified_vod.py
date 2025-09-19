@@ -129,7 +129,7 @@ class base_vod(ABC):
         # 비디오 데이터 JSON 생성 및 저장
         json_data = await self._get_video_json()
         self._update_video_list()
-        asyncio.create_task(save_video_data(self.video_data, self.platform_name, self.channel_id))
+        asyncio.create_task(save_video_data(self.video_data, self.channel_id))
 
         # 알림 목록에 추가
         self.data.video_alarm_List.append(json_data)
