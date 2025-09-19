@@ -657,7 +657,7 @@ class ChatAnalyzer:
         parts = str(detailed_log['after_openDate']).strip().split(':')
         hours = int(parts[0])
 
-        if not self.check_after_openDate < hours//17 and self.platform_name == 'chzzk':
+        if self.check_after_openDate < hours//17 and self.platform_name == 'chzzk':
             self.check_after_openDate += 1
             return True
         
