@@ -110,8 +110,10 @@ class ChatMessageWithAnalyzer:
         # 로그 저장
         if not self.is_save_log:
             self.is_save_log = True
-            asyncio.create_task(self.chat_analyzer.highlight_processing(self.is_save_log))
+            await self.chat_analyzer.highlight_processing(self.is_save_log)
 
+    async def highlight_processing(self):
+        await self.chat_analyzer.highlight_processing(self.is_save_log)
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
