@@ -838,24 +838,30 @@ class ChatAnalyzer:
             first_comment = timeline_comments[0] if timeline_comments else {}
             text = first_comment.get("text", "하이라이트 주석")
             description = first_comment.get("description", "분석 결과를 가져올 수 없습니다")
-
-            # 알림 JSON 생성
-            json_data = {"username": channel_name, 
-             "avatar_url": self.init.stream_status[highlight.channel_id].profile_image,
-                "embeds": [
-                    {"color": int(channel_color),
-                    "fields": [
-                        {"name": "방제", "value": self.init.stream_status[highlight.channel_id].title, "inline": True},
-                        {"name": ':busts_in_silhouette: 시청자수',
-                        "value": self.init.stream_status[highlight.channel_id].view_count, "inline": True},
-                        {"name": 'Description', "value": description}
-                        ],
-                    "title": f"{channel_name} {message}: 재미도: {highlight.fun_score:.0f}/100\n",
-                    # "description": description,
-                "url": self.init.stream_status[highlight.channel_id].channel_url,
+   
+            embeds = {
+                "color": int(channel_color),
+                "author": self.get_author(),
+                "fields": [
+                    {"name": "방제", "value": self.init.stream_status[self.channel_id].title, "inline": True},
+                    {"name": ':busts_in_silhouette: 시청자수',
+                    "value": self.init.stream_status[self.channel_id].view_count, "inline": True},
+                    {"name": 'Description', "value": description}
+                    ],
+                "title": f"{channel_name} {message}: 재미도: {highlight.fun_score:.0f}/100\n",
+                # "description": description,
+                "url": self.init.stream_status[self.channel_id].channel_url,
                 "image": {"url": image_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": icon },
-                "timestamp": changeUTCtime(openDate)}]}
+                "timestamp": changeUTCtime(openDate)}
+            
+            # 알림 JSON 생성
+            json_data = {
+                "username": channel_name, 
+                "avatar_url": self.init.stream_status[self.channel_id].profile_image,
+                "embeds": [embeds]
+            }
+
             print(f"{datetime.now()} {json_data}")
             # 알림 전송
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
@@ -864,6 +870,19 @@ class ChatAnalyzer:
             
         except Exception as e:
             await log_error(f"디스코드 알림 오류: {e}")
+
+
+    def get_author(self):
+        avatar_url = self.id_list.loc[self.channel_id, 'profile_image']
+        channel_data = self.id_list.loc[self.channel_id]
+        video_url = f"https://chzzk.naver.com/{channel_data['channel_code']}" if self.platform_name == 'chzzk' else f"https://www.sooplive.co.kr/station/{channel_data['afreecaID']}"
+        
+        author = {
+            "name": self.channel_name,
+            "url": video_url,
+            "icon_url": avatar_url
+        }
+        return author
 
     #detailed_logs를 파일에 저장
     async def save_detailed_logs_to_file(self, save_cache=False, force_save=False):
