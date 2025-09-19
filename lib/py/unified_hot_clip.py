@@ -238,6 +238,18 @@ class BaseHotClipDetector(ABC):
         else:
             return 10.0
         
+    def get_author(self):
+        avatar_url = self.id_list.loc[self.channel_id, 'profile_image']
+        channel_data = self.id_list.loc[self.channel_id]
+        video_url = f"https://chzzk.naver.com/{channel_data['channel_code']}" if self.platform_name == 'chzzk' else f"https://www.sooplive.co.kr/station/{channel_data['afreecaID']}"
+        
+        author = {
+            "name": self.channel_name,
+            "url": video_url,
+            "icon_url": avatar_url
+        }
+        return author
+
     async def _send_hot_clip_notifications(self, result: HotClipAnalysisResult):
         """모든 핫클립에 대해 알림 전송"""
         try:
@@ -273,6 +285,7 @@ class BaseHotClipDetector(ABC):
             for clip in new_hot_clips:
                 embed = {
                     "color": channel_color,
+                    "author": self.get_author(),
                     "title": f"🔥 핫클립: {clip.clipTitle}",
                     "url": clip.clipUrl,
                     "description": f"👀 조회수: {clip.readCount:,}회\n",
