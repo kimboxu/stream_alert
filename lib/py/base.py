@@ -471,10 +471,10 @@ def format_time_for_comment(time_str: str, del_sec = 0) -> str:
 		return "" 
 
 #두 스트림 ID 사이의 시간 차이를 초 단위로 계산
-def calculate_stream_duration(start_stream_id: str, end_stream_id: str) -> float:
+def calculate_stream_duration(stream_start_id: str, stream_end_id: str) -> float:
     try:
-        start_time = get_timestamp_from_stream_id(start_stream_id)
-        end_time = get_timestamp_from_stream_id(end_stream_id)
+        start_time = get_timestamp_from_stream_id(stream_start_id)
+        end_time = get_timestamp_from_stream_id(stream_end_id)
         return (end_time - start_time).total_seconds()
     except ValueError as e:
         print(f"{datetime.now()} 스트림 지속시간 계산 오류: {e}")
