@@ -181,7 +181,7 @@ class ChatAnalyzer:
         self.highlights: List[StreamHighlight] = []
         self.last_highlight = None
         self.last_analysis_time = datetime.now()
-        self.check_after_openDate = False
+        self.check_after_openDate = 0
 
         # 임계값 설정
         self.small_fun_difference   = 15    # 작은 재미 차이
@@ -309,7 +309,7 @@ class ChatAnalyzer:
         if score_details['highlights'] or self.init.DO_TEST:
             await self._create_highlight(detailed_log)
 
-        #치지직 방송 17시간 경과시 해당 시점까지의 하이라이트 생성
+        # 치지직 방송 시간이 17시간이 지날 때마다 해당 시점까지의 하이라이트 생성
         if self.is_check_after_openDate(detailed_log):
             asyncio.create_task(self.highlight_processing())
 
@@ -652,13 +652,13 @@ class ChatAnalyzer:
             self.update_highlight_chat(timeline_comments)
             self.highlights = [self.highlights[-1]]
 
-    # 치지직 방송 시간이 17시간이 넘었는지 최초 1회 확인
+    # 치지직 방송 시간이 17시간이 지날 때마다
     def is_check_after_openDate(self, detailed_log):
         parts = str(detailed_log['after_openDate']).strip().split(':')
         hours = int(parts[0])
 
-        if not self.check_after_openDate and self.platform_name == 'chzzk' and hours >= 17:
-            self.check_after_openDate = True
+        if not self.check_after_openDate < hours//17 and self.platform_name == 'chzzk':
+            self.check_after_openDate += 1
             return True
         
         return False
