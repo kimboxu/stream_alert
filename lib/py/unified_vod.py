@@ -36,7 +36,7 @@ class VOD_Data:
 class base_vod(ABC):
     """모든 VOD 처리 플랫폼에 공통으로 사용되는 기본 클래스"""
     
-    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id, platform_name):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
         """
         초기화 함수
         
@@ -51,7 +51,8 @@ class base_vod(ABC):
         self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.DO_TEST = init_var.DO_TEST
         self.userStateData = init_var.userStateData
-        self.platform_name = platform_name
+        self.video_data = self.init.video_data
+        self.platform_name = self.video_data.loc[channel_id, 'platform_name']
         self.channel_id = channel_id
         self.time_offset = 20
         self.duration_diff = 0
@@ -66,7 +67,7 @@ class base_vod(ABC):
         # 플랫폼별 데이터 초기화
         self._initialize_platform_data()
         
-        self.data = VOD_Data(platform_name=platform_name)
+        self.data = VOD_Data(platform_name=self.platform_name)
 
     @abstractmethod
     def _initialize_platform_data(self):
@@ -259,6 +260,7 @@ class base_vod(ABC):
                     # 지속시간 매칭 확인 (stream_start_id와 stream_end_id 이용)
                     stream_start_id = data.get('stream_start_id', '')
                     stream_end_id = data.get('stream_end_id', '')
+                    saved_at = data.get('saved_at', '')
                     
                     if stream_start_id and stream_end_id:
                         broadcast_duration = calculate_stream_duration(stream_start_id, stream_end_id)
@@ -268,6 +270,9 @@ class base_vod(ABC):
                         if duration_diff < 60:
                             self.duration_diff = max(broadcast_duration - self.data.duration, 0)
                             return data
+                        
+                    # if self.platform_name == 'chzzk' and saved_at:
+                    #     timestamp = datetime.fromisoformat(str(saved_at).replace('Z', '+00:00'))
                             
                 except Exception as e:
                     print(f"하이라이트 파일 처리 오류 {file_path}: {e}")
@@ -366,13 +371,12 @@ class base_vod(ABC):
 class chzzk_vod(base_vod):
     """치지직 VOD 처리 클래스"""
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
-        super().__init__(init_var, performance_manager, channel_id, "chzzk")
+        super().__init__(init_var, performance_manager, channel_id)
     
     def _initialize_platform_data(self):
         """치지직 플랫폼 데이터 초기화"""
         self.id_list = self.init.chzzkIDList
-        self.video_data = self.init.chzzk_video
-
+        
     async def _get_video_data(self):
         """치지직 비디오 API 데이터 가져오기"""
         def get_link(uid):
@@ -578,12 +582,11 @@ class chzzk_vod(base_vod):
 class afreeca_vod(base_vod):
     """아프리카TV VOD 처리 클래스"""
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
-        super().__init__(init_var, performance_manager, channel_id, "afreeca")
+        super().__init__(init_var, performance_manager, channel_id)
     
     def _initialize_platform_data(self):
         """아프리카TV 플랫폼 데이터 초기화"""
         self.id_list = self.init.afreecaIDList
-        self.video_data = self.init.afreeca_video
 
     async def _get_video_data(self):
         """아프리카TV 비디오 API 데이터 가져오기"""
