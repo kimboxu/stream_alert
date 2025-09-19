@@ -1,0 +1,43 @@
+{
+  "channel_id": "jinu6734",
+  "channel_name": "지누",
+  "save_timestamp": "2025-09-19T16:22:54.355632",
+  "total_logs": 1,
+  "logs": [
+    {
+      "timestamp": "2025-09-19T16:22:54.352140",
+      "fun_score": 5.480550397991903,
+      "score_components": {
+        "chat_spike_score": 1.0972597798900807,
+        "reaction_score": 6.133882401004537e-06,
+        "diversity_score": 50.96507021477413,
+        "viewer_trend_score": 0,
+        "final_score": 5.480550397991903,
+        "baseline_chat_count": 10.0,
+        "baseline_viewer_count": 100.0,
+        "baseline_threshold": 15,
+        "highlights": false,
+        "big_highlights": false,
+        "score_difference": 0,
+        "should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1958,
+        "fun_keywords": {
+          "excitement": 1
+        }
+      },
+      "after_openDate": "00:59:25",
+      "comment_after_openDate": "00:59:25",
+      "chat_context": [
+        "후드 H00D: 5배가 뛰었는데",
+        "프로민: 옹",
+        "코인매수자: q누르시면 공명켜저서 더 쎄져요",
+        "아명: 화려하네"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

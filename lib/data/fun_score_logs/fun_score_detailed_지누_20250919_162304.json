@@ -1,0 +1,44 @@
+{
+  "channel_id": "jinu6734",
+  "channel_name": "지누",
+  "save_timestamp": "2025-09-19T16:23:04.357993",
+  "total_logs": 1,
+  "logs": [
+    {
+      "timestamp": "2025-09-19T16:23:04.353737",
+      "fun_score": 4.20220730250908,
+      "score_components": {
+        "chat_spike_score": 1.338570184856971,
+        "reaction_score": 6.133882401004537e-06,
+        "diversity_score": 37.33705284256179,
+        "viewer_trend_score": 0,
+        "final_score": 4.20220730250908,
+        "baseline_chat_count": 10.0,
+        "baseline_viewer_count": 100.0,
+        "baseline_threshold": 15,
+        "highlights": false,
+        "big_highlights": false,
+        "score_difference": 0,
+        "should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 1954,
+        "fun_keywords": {
+          "excitement": 1
+        }
+      },
+      "after_openDate": "00:59:35",
+      "comment_after_openDate": "00:59:35",
+      "chat_context": [
+        "코인매수자: q누르시면 공명켜저서 더 쎄져요",
+        "아명: 화려하네",
+        "후드 H00D: 오",
+        "코인매수자: 10강 이전까지는 아무곳에서 가능합니다",
+        "후드 H00D: 즉석 강화가 되네"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

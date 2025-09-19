@@ -1,0 +1,43 @@
+{
+  "channel_id": "jinu6734",
+  "channel_name": "지누",
+  "save_timestamp": "2025-09-19T16:22:34.337068",
+  "total_logs": 1,
+  "logs": [
+    {
+      "timestamp": "2025-09-19T16:22:34.336552",
+      "fun_score": 5.442997517886846,
+      "score_components": {
+        "chat_spike_score": 1.0972597798900807,
+        "reaction_score": 1.2352121908286102e-05,
+        "diversity_score": 50.589516540765544,
+        "viewer_trend_score": 0,
+        "final_score": 5.442997517886846,
+        "baseline_chat_count": 10.0,
+        "baseline_viewer_count": 100.0,
+        "baseline_threshold": 15,
+        "highlights": false,
+        "big_highlights": false,
+        "score_difference": 0,
+        "should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1958,
+        "fun_keywords": {
+          "excitement": 2
+        }
+      },
+      "after_openDate": "00:59:05",
+      "comment_after_openDate": "00:59:05",
+      "chat_context": [
+        "눈꽃송이011: 신기한게임이네",
+        "그림자 사냥꾼4523: 오오",
+        "후드 H00D: 5배가 뛰었는데",
+        "프로민: 옹"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
