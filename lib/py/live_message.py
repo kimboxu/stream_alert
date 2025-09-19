@@ -449,21 +449,6 @@ class chzzk_live_message(base_live_message):
     def _should_process_offline_status(self):
         return (self.checkStateTransition("CLOSE") and 
           if_after_time(self.data.state_update_time["openDate"], sec=15))
-   
-    # async def _handle_online_status(self, state_data):
-    #     message = self.getMessage()
-    #     json_data = await self.getOnAirJson(message, state_data)
-
-    #     self.onLineTime(message)
-    #     self.onLineTitle(message)
-
-    #     self.data.livePostList.append((message, json_data))
-
-    #     await save_profile_data(self.id_list, self.platform_name, self.channel_id)
-
-    #     if message == "뱅온!": 
-    #         self.title_data.loc[self.channel_id, 'state_update_time']["openDate"] = datetime.now().isoformat()
-    #     self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
 
     #치지직 오프라인 상태 처리
     async def _handle_offline_status(self):
@@ -589,8 +574,8 @@ class chzzk_live_message(base_live_message):
             "author": self.get_author(),
             "fields": [
                 {"name": "방제", "value": self.data.title, "inline": True},
-                # {"name": ':busts_in_silhouette: 시청자수',
-                # "value": self.data.view_count, "inline": True}
+                {"name": ':busts_in_silhouette: 시청자수',
+                "value": self.data.view_count, "inline": True}
                 ],
             "title": f"{self.channel_name} {message}\n",
             "url": self.data.channel_url,
@@ -623,20 +608,6 @@ class chzzk_live_message(base_live_message):
         return {"username": self.channel_name, 
                 "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
                 "embeds": [embeds]}
-
-# return {"username": self.chzzkIDList.loc[chzzkID, 'channelName'], "avatar_url": self.chzzkIDList.loc[chzzkID, 'profile_image'],
-		# 		"embeds": [
-		# 			{"color": int(self.chzzkIDList.loc[chzzkID, 'channel_color']),
-		# 			"fields": [
-		# 				{"name": "이전 방제", "value": str(self.titleData.loc[chzzkID,'title1']), "inline": True},
-		# 				{"name": "현재 방제", "value": title, "inline": True},
-		# 				{"name": ':busts_in_silhouette: 시청자수',
-		# 				"value": viewer_count, "inline": True}],
-		# 			"title":  f"{self.chzzkIDList.loc[chzzkID, 'channelName']} {message}\n",
-		# 		"url": url,
-		# 		"image": {"url": thumbnail},
-		# 		"footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
-		# 		"timestamp": changeUTCtime(started_at)}]}
 
     #오프라인 상태에서의 방제 변경 메시지 JSON 데이터 생성
     def get_state_data_change_title_json(self, message):
@@ -724,21 +695,6 @@ class afreeca_live_message(base_live_message):
         return (self.turnOffline() and
                   if_after_time(self.data.state_update_time["openDate"], sec=15))
     
-    # async def _handle_online_status(self, state_data):
-    #     message = self.getMessage()
-    #     json_data = await self.getOnAirJson(message, state_data)
-        
-    #     self.onLineTime(message)
-    #     self.onLineTitle(message)
-        
-    #     self.data.livePostList.append((message, json_data))
-        
-    #     await save_profile_data(self.id_list, self.platform_name, self.channel_id)
-
-    #     if message == "뱅온!": 
-    #         self.title_data.loc[self.channel_id, 'state_update_time']["openDate"] = datetime.now().isoformat()
-    #     self.title_data.loc[self.channel_id, 'state_update_time']["titleChangeDate"] = datetime.now().isoformat()
-
     #아프리카 오프라인 상태 처리
     async def _handle_offline_status(self):
         message = "뱅종"
@@ -860,19 +816,6 @@ class afreeca_live_message(base_live_message):
                 "avatar_url": avatar_url,
                 "embeds": [embeds]}
     
-    # def get_online_titleChange_state_json(self, message, title, url, started_at, thumbnail):
-	# 	return {"username": self.channel_name, "avatar_url": self.afreecaIDList.loc[self.channel_id, 'profile_image'],\
-	# 			"embeds": [
-	# 				{"color": int(self.afreecaIDList.loc[self.channel_id, 'channel_color']),
-	# 				"fields": [
-	# 					{"name": "이전 방제", "value": str(self.titleData.loc[self.channel_id,'title1']), "inline": True},
-	# 					{"name": "현재 방제", "value": title, "inline": True}],
-	# 				"title":  f"{self.channel_name} {message}\n",\
-	# 			"url": url, \
-	# 			"image": {"url": thumbnail},
-	# 			"footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().soop_icon },
-	# 			"timestamp": changeUTCtime(started_at)}]}
-
     #뱅종 JSON 데이터 생성
     def getOffJson(self, current_time: datetime):
         embeds = {
