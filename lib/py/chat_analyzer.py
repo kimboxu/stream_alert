@@ -820,17 +820,17 @@ class ChatAnalyzer:
         try:
             message = "🎉 하이라이트"
             channel_name = self.channel_name
-            channel_color = self.init.stream_status[highlight.channel_id].id_list.loc[highlight.channel_id, 'channel_color']
+            channel_color = self.init.stream_status[self.channel_id].id_list.loc[self.channel_id, 'channel_color']
             openDate=self.init.stream_status[self.channel_id].state_update_time['openDate']
 
-            thumbnail_url = self.init.stream_status[highlight.channel_id].thumbnail_url
-            platform_name= self.init.stream_status[highlight.channel_id].platform_name
+            thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
+            platform_name= self.init.stream_status[self.channel_id].platform_name
             icon = iconLinkData().chzzk_icon if platform_name == 'chzzk' else iconLinkData().afreeca_icon
 
             if self.init.DO_TEST: 
                 image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
             else:
-                image_url = upload_image_to_imgur(self.init.stream_status[highlight.channel_id], highlight.channel_id, thumbnail_url, platform_prefix = platform_name)
+                image_url = upload_image_to_imgur(self.init.stream_status[self.channel_id], self.channel_id, thumbnail_url, platform_prefix = platform_name)
             
  
             timeline_comments = await self._make_highlight_chat([highlight])
@@ -873,8 +873,8 @@ class ChatAnalyzer:
 
 
     def get_author(self):
-        avatar_url = self.id_list.loc[self.channel_id, 'profile_image']
-        channel_data = self.id_list.loc[self.channel_id]
+        avatar_url = self.init.stream_status[self.channel_id].id_list.loc[self.channel_id, 'profile_image']
+        channel_data = self.init.stream_status[self.channel_id].id_list.loc[self.channel_id]
         video_url = f"https://chzzk.naver.com/{channel_data['channel_code']}" if self.platform_name == 'chzzk' else f"https://www.sooplive.co.kr/station/{channel_data['afreecaID']}"
         
         author = {
