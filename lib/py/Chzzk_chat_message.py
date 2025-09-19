@@ -50,7 +50,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         self.profile_cache_ttl = 1800  # 프로필 캐시 유효 시간 (초)
         self.tasks = []  # 비동기 태스크
 
-        self.setup_analyzer(channel_id, channel_name)
+        self.setup_analyzer(channel_id, channel_name, 'chzzk')
 
     # 메인 실행 함수
     async def start(self):
