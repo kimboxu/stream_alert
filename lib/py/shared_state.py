@@ -23,7 +23,69 @@ class StateManager:
                 'chzzk_chat': {},
                 'afreeca_chat': {},
             }
+            cls._instance.task_status = {}
+            cls._instance.max_task_history = 10  # 최대 작업 이력 보관
         return cls._instance
+    
+    def add_task_status(self, task_id: str, initial_data: dict):
+        """새 작업 상태 추가 (개수 제한 포함)"""
+        # 최대 개수 초과 시 가장 오래된 완료 작업 제거
+        if len(self.task_status) >= self.max_task_history:
+            completed_tasks = [
+                (tid, data) for tid, data in self.task_status.items() 
+                if data.get('status') in ['completed', 'error']
+            ]
+            
+            if completed_tasks:
+                # 가장 오래된 완료 작업 제거
+                oldest_task = min(completed_tasks, 
+                    key=lambda x: x[1].get('started_at', ''))
+                del self.task_status[oldest_task[0]]
+                print(f"오래된 작업 제거: {oldest_task[0]}")
+        
+        self.task_status[task_id] = initial_data
+
+    def get_task_status(self, task_id: str = None):
+        """작업 상태 조회"""
+        if task_id:
+            return self.task_status.get(task_id)
+        return self.task_status
+
+    def update_task_status(self, task_id: str, update_data: dict):
+        """작업 상태 업데이트"""
+        if task_id in self.task_status:
+            self.task_status[task_id].update(update_data)
+        else:
+            self.task_status[task_id] = update_data
+
+    def remove_task_status(self, task_id: str):
+        """특정 작업 상태 제거"""
+        if task_id in self.task_status:
+            del self.task_status[task_id]
+            return True
+        return False
+
+    def cleanup_completed_tasks(self, hours_old: int = 6):
+        """완료된 작업 정리"""
+        from datetime import datetime, timedelta
+        
+        current_time = datetime.now()
+        cutoff_time = current_time - timedelta(hours=hours_old)
+        
+        tasks_to_remove = []
+        for task_id, task_data in self.task_status.items():
+            try:
+                if task_data.get('status') in ['completed', 'error']:
+                    started_at = datetime.fromisoformat(task_data.get('started_at', ''))
+                    if started_at < cutoff_time:
+                        tasks_to_remove.append(task_id)
+            except:
+                tasks_to_remove.append(task_id)
+        
+        for task_id in tasks_to_remove:
+            del self.task_status[task_id]
+        
+        return len(tasks_to_remove)
 
     # 초기화 함수 - 필요한 데이터 로드
     async def initialize(self):
