@@ -1288,20 +1288,47 @@ def save_highlight_data():
             
             print(f"{datetime.now()} 하이라이트 데이터가 있는 채널 {len(instances_with_highlights)}개 발견")
             
-            # 각 인스턴스에 대해 highlight_processing 실행
-            for instance_info in instances_with_highlights:
-                try:
+            # 병렬 처리 함수
+            async def process_all_highlights():
+                tasks = []
+                
+                for instance_info in instances_with_highlights:
                     channel_id = instance_info['channel_id']
                     channel_name = instance_info['channel_name']
                     platform = instance_info['platform']
                     highlights_count = instance_info['highlights_count']
                     chat_instance = instance_info['instance']
                     
-                    print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 중...")
+                    print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 준비")
                     
-                    # highlight_processing 실행하여 하이라이트 저장
-                    loop.run_until_complete(chat_instance.highlight_processing())
-                    
+                    # 각 채널의 highlight_processing을 태스크로 추가
+                    task = chat_instance.highlight_processing()
+                    tasks.append((task, instance_info))
+                
+                if not tasks:
+                    return []
+                
+                # 모든 태스크를 병렬로 실행
+                print(f"{datetime.now()} {len(tasks)}개 채널 병렬 처리 시작")
+                results = await asyncio.gather(*[task for task, _ in tasks], return_exceptions=True)
+                
+                return list(zip(results, [info for _, info in tasks]))
+            
+            # 병렬 처리 실행
+            results = loop.run_until_complete(process_all_highlights())
+            
+            # 결과 처리
+            for result, instance_info in results:
+                channel_id = instance_info['channel_id']
+                channel_name = instance_info['channel_name']
+                platform = instance_info['platform']
+                highlights_count = instance_info['highlights_count']
+                
+                if isinstance(result, Exception):
+                    error_msg = f"채널 {channel_name} 처리 중 오류: {str(result)}"
+                    save_results["errors"].append(error_msg)
+                    print(f"{datetime.now()} {error_msg}")
+                else:
                     save_results["processed_channels"].append({
                         "channel_id": channel_id,
                         "channel_name": channel_name,
@@ -1309,14 +1336,7 @@ def save_highlight_data():
                         "highlights_saved": highlights_count
                     })
                     save_results["total_highlights_saved"] += highlights_count
-                    
                     print(f"{datetime.now()} [{platform}] {channel_name}: 하이라이트 저장 완료")
-                    
-                except Exception as channel_error:
-                    error_msg = f"채널 {instance_info.get('channel_name', 'Unknown')} 처리 중 오류: {str(channel_error)}"
-                    save_results["errors"].append(error_msg)
-                    print(f"{datetime.now()} {error_msg}")
-                    continue
             
             # 결과 반환
             if save_results["total_highlights_saved"] > 0:
