@@ -553,9 +553,7 @@ class chzzk_vod(base_vod):
 
     def _has_valid_thumbnail(self):
         """치지직 유효한 썸네일 확인"""
-        return (self.data.thumbnailImageUrl and 
-                ("https://video-phinf.pstatic.net" in self.data.thumbnailImageUrl or 
-                 "https://livecloud-thumb.akamaized.net" in self.data.thumbnailImageUrl))
+        return (self.data.thumbnailImageUrl and "https://" in self.data.thumbnailImageUrl)
 
     async def _get_video_json(self):
         """치지직 비디오 웹훅 JSON 데이터 생성"""
