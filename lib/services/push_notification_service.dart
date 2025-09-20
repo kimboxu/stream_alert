@@ -176,18 +176,14 @@ class PushNotificationService {
 
       // 웹에서 알림 권한 요청
       if (kIsWeb) {
-        // 웹에서는 알림 권한을 요청하지 않음 (브라우저 팝업 알림 비활성화)
-        debugPrint('웹 환경: 브라우저 알림 비활성화, 앱 내 알림만 사용');
-        return;
-        // final settings = await _messaging.getNotificationSettings();
-        // if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-        //   await _messaging.requestPermission(
-        //     alert: true,
-        //     badge: true,
-        //     sound: true,
-        //   );
-        // }
-
+        final settings = await _messaging.getNotificationSettings();
+        if (settings.authorizationStatus != AuthorizationStatus.authorized) {
+          await _messaging.requestPermission(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+        }
       }
 
       // iOS 알림 권한 요청
@@ -212,11 +208,11 @@ class PushNotificationService {
       }
 
       // 백그라운드 핸들러 설정
-      if (!kIsWeb) {
-        FirebaseMessaging.onBackgroundMessage(
-          _firebaseMessagingBackgroundHandler,
-        );
-      }
+      // if (!kIsWeb) {
+      //   FirebaseMessaging.onBackgroundMessage(
+      //     _firebaseMessagingBackgroundHandler,
+      //   );
+      // }
       // 안드로이드용 로컬 알림 설정
       const AndroidInitializationSettings androidSettings =
           AndroidInitializationSettings('@mipmap/launcher_icon');
