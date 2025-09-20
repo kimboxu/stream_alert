@@ -395,14 +395,22 @@ class SessionBasedFunScoreAnalyzer:
         print(f"💾 세션 CSV 저장: {csv_path} ({len(df)}행)")
         return str(csv_path)
     
+
     def export_highlights_to_text(self, session_logs, session_stats):
         from base import format_time_for_comment
-        """하이라이트 데이터를 간단한 텍스트 형태로 추출"""
+        """하이라이트 데이터를 VOD 댓글 형식의 타임라인 텍스트로 추출"""
         if not session_logs:
             return None
         
         # 하이라이트 데이터 수집
         highlight_lines = []
+        
+        # 재미도 점수 기준점들 (VOD와 동일한 기준)
+        fun_difference1 = 15
+        fun_difference2 = 30
+        fun_difference3 = 40
+        fun_difference4 = 60
+        fun_difference5 = 70
         
         for log in session_logs:
             score_components = log.get('score_components', {})
@@ -414,16 +422,48 @@ class SessionBasedFunScoreAnalyzer:
                 after_open = log['comment_after_openDate']
                 after_open = format_time_for_comment(after_open, 25)
                 score_diff = score_components.get('score_difference', 0)
-                star = ""
-                if score_diff > 40:
-                    star = f"*{star}"
-                if score_diff > 70:
-                    star = f"*{star}"
-
-                highlight_lines.append(f"{after_open}- {star}상대적 재미 점수 차이: {score_diff:.1f}")
+                
+                # 재미 점수 계산 (VOD 시스템과 동일)
+                fun_score = 0
+                if score_diff > fun_difference1:
+                    fun_score += 1
+                if score_diff > fun_difference2:
+                    fun_score += 1
+                if score_diff > fun_difference3:
+                    fun_score += 1
+                if score_diff > fun_difference4:
+                    fun_score += 1
+                if score_diff > fun_difference5:
+                    fun_score += 1
+                
+                # 간단한 설명 생성
+                analysis_data = log.get('analysis_data', {})
+                fun_keywords = analysis_data.get('fun_keywords', {})
+                message_count = analysis_data.get('message_count', 0)
+                
+                # 주요 반응 키워드 확인
+                main_reaction = ""
+                if fun_keywords.get('laugh', 0) >= max(message_count/3, 1):
+                    main_reaction = "폭소"
+                elif fun_keywords.get('excitement', 0) >= max(message_count/3, 1):
+                    main_reaction = "흥분"
+                elif fun_keywords.get('surprise', 0) >= max(message_count/3, 1):
+                    main_reaction = "놀람"
+                elif score_components.get('chat_spike_score', 0) >= 50:
+                    main_reaction = "채팅폭증"
+                else:
+                    main_reaction = "재미구간"
+                
+                description = f"재미 점수:{fun_score} - {main_reaction}"
+                
+                # VOD 댓글 형식으로 라인 생성
+                highlight_lines.append(f"{after_open}- {description}")
         
         if not highlight_lines:
             return None
+        
+        # 자동 생성 안내 추가
+        final_content = "\n\n".join(highlight_lines)
         
         # 파일 저장
         start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
@@ -431,7 +471,7 @@ class SessionBasedFunScoreAnalyzer:
         file_path = self.reports_dir / filename
         
         with open(file_path, 'w', encoding='utf-8') as f:
-            f.write('\n'.join(highlight_lines))
+            f.write(final_content)
         
         print(f"하이라이트 텍스트 저장: {file_path}")
         
@@ -454,28 +494,33 @@ class SessionBasedFunScoreAnalyzer:
         total_big_highlights = sum([s['big_highlights'] for s in all_session_stats])
         avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
         
-        print(f"총 방송 시간: {total_duration:.1f}시간")
+        print(f"이 방송 시간: {total_duration:.1f}시간")
         print(f"전체 평균 재미도: {avg_score_overall:.2f}")
-        print(f"총 하이라이트: {total_highlights}회")
-        print(f"총 대형 하이라이트: {total_big_highlights}회")
+        print(f"이 하이라이트: {total_highlights}회")
+        print(f"이 대형 하이라이트: {total_big_highlights}회")
         print(f"시간당 하이라이트: {total_highlights/total_duration:.1f}회/시간")
         
         print(f"\n각 세션별 상세:")
-        print(f"{'세션':>4} {'날짜':>12} {'시간':>8} {'길이':>6} {'평균점수':>8} {'하이라':>6} {'대형':>4} {'최대시청':>7}")
-        print(f"{'-'*60}")
+        # 헤더 출력 수정
+        header = f"{'번호':>4} {'날짜':>10} {'시작시간':>8} {'길이':>7} {'평균점수':>8} {'하이라이트':>8} {'대형':>4} {'최대시청':>8}"
+        print(header)
+        print(f"{'-'*len(header)}")
         
-        for stats in all_session_stats:
+        # 각 세션 정보 출력 수정
+        for i, stats in enumerate(all_session_stats, 1):
             start_date = datetime.fromisoformat(stats['start_time']).strftime('%m/%d')
             start_time = datetime.fromisoformat(stats['start_time']).strftime('%H:%M')
             
-            print(f"{stats['date_str']:>4} {start_date:>12} {start_time:>8} "
-                  f"{stats['duration_hours']:>5.1f}h {stats['avg_score']:>7.1f} "
-                  f"{stats['highlights']:>5}회 {stats['big_highlights']:>3}회 "
-                  f"{stats['max_viewers']:>6}명")
+            row = f"{i:>4} {start_date:>10} {start_time:>8} " \
+                f"{stats['duration_hours']:>6.1f}h {stats['avg_score']:>7.1f} " \
+                f"{stats['highlights']:>7}회 {stats['big_highlights']:>3}회 " \
+                f"{stats['max_viewers']:>7}명"
+            print(row)
         
         # 요약 리포트를 파일로 저장
         self._save_summary_report(all_session_stats)
     
+
     def _save_summary_report(self, all_session_stats):
         """요약 리포트를 텍스트 파일로 저장"""
         if not all_session_stats:
@@ -498,25 +543,29 @@ class SessionBasedFunScoreAnalyzer:
             avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
             
             f.write(f"전체 통계:\n")
-            f.write(f"- 총 세션 수: {len(all_session_stats)}개\n")
-            f.write(f"- 총 방송 시간: {total_duration:.1f}시간\n")
+            f.write(f"- 이 세션 수: {len(all_session_stats)}개\n")
+            f.write(f"- 이 방송 시간: {total_duration:.1f}시간\n")
             f.write(f"- 전체 평균 재미도: {avg_score_overall:.2f}\n")
-            f.write(f"- 총 하이라이트: {total_highlights}회\n")
-            f.write(f"- 총 대형 하이라이트: {total_big_highlights}회\n")
+            f.write(f"- 이 하이라이트: {total_highlights}회\n")
+            f.write(f"- 이 대형 하이라이트: {total_big_highlights}회\n")
             f.write(f"- 시간당 하이라이트: {total_highlights/total_duration:.1f}회/시간\n\n")
             
             f.write(f"세션별 상세:\n")
-            f.write(f"{'날짜':>12} {'시간':>8} {'길이':>6} {'평균점수':>8} {'하이라':>6} {'대형':>4} {'최대시청':>7}\n")
-            f.write(f"{'-'*60}\n")
+            # 헤더 수정
+            header = f"{'번호':>4} {'날짜':>10} {'시작시간':>8} {'길이':>7} {'평균점수':>8} {'하이라이트':>8} {'대형':>4} {'최대시청':>8}"
+            f.write(header + "\n")
+            f.write(f"{'-'*len(header)}\n")
             
-            for stats in all_session_stats:
+            # 각 세션 정보 출력 수정
+            for i, stats in enumerate(all_session_stats, 1):
                 start_date = datetime.fromisoformat(stats['start_time']).strftime('%m/%d')
                 start_time = datetime.fromisoformat(stats['start_time']).strftime('%H:%M')
                 
-                f.write(f"{start_date:>12} {start_time:>8} "
-                       f"{stats['duration_hours']:>5.1f}h {stats['avg_score']:>7.1f} "
-                       f"{stats['highlights']:>5}회 {stats['big_highlights']:>3}회 "
-                       f"{stats['max_viewers']:>6}명\n")
+                row = f"{i:>4} {start_date:>10} {start_time:>8} " \
+                    f"{stats['duration_hours']:>6.1f}h {stats['avg_score']:>7.1f} " \
+                    f"{stats['highlights']:>7}회 {stats['big_highlights']:>3}회 " \
+                    f"{stats['max_viewers']:>7}명"
+                f.write(row + "\n")
         
         print(f"📄 요약 리포트 저장: {report_path}")
     
