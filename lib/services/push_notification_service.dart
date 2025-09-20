@@ -20,6 +20,12 @@ enum LoadDirection {
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // 웹에서는 백그라운드 알림을 처리하지 않음
+  if (kIsWeb) {
+    debugPrint("웹 환경에서는 백그라운드 알림을 처리하지 않습니다.");
+    return;
+  }
+
   await Firebase.initializeApp();
 
   // 알림 데이터를 SharedPreferences에 임시 저장
