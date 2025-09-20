@@ -4,16 +4,28 @@ from datetime import datetime
 import glob
 import argparse
 import sys
+import asyncio
 from pathlib import Path
+
+# AI 기능을 위한 추가 임포트
+try:
+    from base import initVar, format_time_for_comment
+    from chat_analyzer import StreamHighlight
+    AI_AVAILABLE = True
+except ImportError as e:
+    print(f"AI 기능을 사용할 수 없습니다: {e}")
+    AI_AVAILABLE = False
 
 class SessionBasedFunScoreAnalyzer:
     """방송 세션별로 재미도 로그를 분석하는 클래스"""
     
-    def __init__(self, channel_name, date, base_dir=None):
-
+    def __init__(self, channel_name, date, use_ai=False, base_dir=None):
         # 임계값
         self.small_fun_difference   = 15    # 작은 재미 차이
         self.big_fun_difference     = 70    # 큰 재미 차이
+        
+        # AI 사용 여부 설정
+        self.use_ai = use_ai
 
         # 기본 디렉토리 설정 (스크립트 위치 기준)
         if base_dir is None:
@@ -54,12 +66,13 @@ class SessionBasedFunScoreAnalyzer:
             
     def _print_project_info(self):
         """프로젝트 구조 정보 출력"""
-        print(f"📁 프로젝트 구조:")
+        print(f"프로젝트 구조:")
         print(f"   Base: {self.base_dir}")
         print(f"   Logs: {self.log_dir}")
         print(f"   CSV: {self.csv_dir}")
         print(f"   Plots: {self.plots_dir}")
         print(f"   Reports: {self.reports_dir}")
+        print(f"   AI 사용: {'예' if self.use_ai else '아니오'}")
         
     def parse_time_string(self, time_str):
         """after_openDate 시간 문자열을 초로 변환"""
@@ -396,89 +409,310 @@ class SessionBasedFunScoreAnalyzer:
         return str(csv_path)
     
 
-    def export_highlights_to_text(self, session_logs, session_stats):
-        from base import format_time_for_comment
+    async def export_highlights_to_text(self, session_logs, session_stats):
         """하이라이트 데이터를 VOD 댓글 형식의 타임라인 텍스트로 추출"""
         if not session_logs:
             return None
         
-        # 하이라이트 데이터 수집
-        highlight_lines = []
+        # AI 사용 여부에 따라 분기
+        if self.use_ai:
+            return await self._export_highlights_with_ai(session_logs, session_stats)
+        else:
+            return await self._export_highlights_basic(session_logs, session_stats)
+
+    async def _export_highlights_with_ai(self, session_logs, session_stats):
+        """AI를 사용한 하이라이트 댓글 생성"""
         
-        # 재미도 점수 기준점들 (VOD와 동일한 기준)
-        fun_difference1 = 15
-        fun_difference2 = 30
-        fun_difference3 = 40
-        fun_difference4 = 60
-        fun_difference5 = 70
-        
-        for log in session_logs:
-            score_components = log.get('score_components', {})
+        try:
+            if not AI_AVAILABLE:
+                print(f"{datetime.now()} AI 모듈을 가져올 수 없어서 기본 로직을 사용합니다.")
+                return await self._export_highlights_basic(session_logs, session_stats)
             
-            # 하이라이트인지 확인
-            if (score_components.get('highlights', False) and 
-                score_components.get('should_create_new_highlight', True)):
+            # initVar에서 AI 모델 가져오기
+            init_var = initVar()
+            model = init_var.model
+            
+            print(f"{datetime.now()} AI 모델 로드 완료")
+            
+            # 1단계: 하이라이트 데이터 수집 및 StreamHighlight 객체 생성
+            highlights = []
+            
+            for log in session_logs:
+                score_components = log.get('score_components', {})
                 
-                after_open = log['comment_after_openDate']
-                after_open = format_time_for_comment(after_open, 25)
-                score_diff = score_components.get('score_difference', 0)
-                
-                # 재미 점수 계산 (VOD 시스템과 동일)
-                fun_score = 0
-                if score_diff > fun_difference1:
-                    fun_score += 1
-                if score_diff > fun_difference2:
-                    fun_score += 1
-                if score_diff > fun_difference3:
-                    fun_score += 1
-                if score_diff > fun_difference4:
-                    fun_score += 1
-                if score_diff > fun_difference5:
-                    fun_score += 1
-                
-                # 간단한 설명 생성
-                analysis_data = log.get('analysis_data', {})
-                fun_keywords = analysis_data.get('fun_keywords', {})
-                message_count = analysis_data.get('message_count', 0)
-                
-                # 주요 반응 키워드 확인
-                main_reaction = ""
-                if fun_keywords.get('laugh', 0) >= max(message_count/3, 1):
-                    main_reaction = "폭소"
-                elif fun_keywords.get('excitement', 0) >= max(message_count/3, 1):
-                    main_reaction = "흥분"
-                elif fun_keywords.get('surprise', 0) >= max(message_count/3, 1):
-                    main_reaction = "놀람"
-                elif score_components.get('chat_spike_score', 0) >= 50:
-                    main_reaction = "채팅폭증"
+                # 하이라이트인지 확인
+                if (score_components.get('highlights', False) and 
+                    score_components.get('should_create_new_highlight', True)):
+                    
+                    # StreamHighlight 객체 생성
+                    highlight = StreamHighlight(
+                        timestamp=log['timestamp'],
+                        channel_id="log_analyzer_dummy",  # 로그 분석용 더미 값
+                        channel_name=self.channel_name,
+                        fun_score=log['fun_score'],
+                        reason=log.get('reason', '재미있는 순간 감지'),
+                        chat_context=log.get('chat_context', []),
+                        duration=30,  # 기본값
+                        after_openDate=log['after_openDate'],
+                        comment_after_openDate=log['comment_after_openDate'],
+                        score_details=score_components,
+                        image=log.get('image', ""),
+                        analysis_data=log.get('analysis_data', {}),
+                    )
+                    highlights.append(highlight)
+            
+            if not highlights:
+                print(f"{datetime.now()} 하이라이트가 없어서 AI 텍스트 생성을 건너뜁니다.")
+                return None
+            
+            # 2단계: ChatAnalyzer의 _make_highlight_chat 로직 재현
+            timeline_comments = await self._ai_make_highlight_chat(highlights, model)
+            
+            if not timeline_comments:
+                print(f"{datetime.now()} AI 댓글 생성 실패, 기본 로직으로 fallback")
+                return await self._export_highlights_basic(session_logs, session_stats)
+            
+            # 3단계: 텍스트 형식으로 변환
+            highlight_lines = []
+            
+            for comment in timeline_comments:
+                try:
+                    after_open = comment.get('comment_after_openDate', '00:00:00')
+                    after_open = format_time_for_comment(after_open, 25)
+                    
+                    # AI가 생성한 description 사용
+                    description = comment.get('description', comment.get('text', '재미구간'))
+                    
+                    # 재미 점수 정보 추가 (선택적)
+                    score_diff = float(comment.get('score_difference', 0))
+                    if score_diff:
+                        fun_score = self._calculate_fun_score_from_diff(score_diff)
+                        final_text = f"재미 점수:{fun_score} - {description}"
+                    else:
+                        final_text = description
+                    
+                    highlight_lines.append(f"{after_open}- {final_text}")
+                    
+                except Exception as comment_error:
+                    print(f"{datetime.now()} 댓글 처리 중 오류: {comment_error}")
+                    continue
+            
+            if not highlight_lines:
+                print(f"{datetime.now()} 유효한 AI 댓글이 없어서 기본 로직 사용")
+                return await self._export_highlights_basic(session_logs, session_stats)
+            
+            # 4단계: 파일 저장
+            final_content = "\n\n".join(highlight_lines)
+            start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+            filename = f"{self.channel_name}_{start_date}_highlights_ai.txt"
+            file_path = self.reports_dir / filename
+            
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(final_content)
+            
+            print(f"{datetime.now()} AI 기반 하이라이트 텍스트 저장: {file_path}")
+            print(f"{datetime.now()} 생성된 댓글 수: {len(highlight_lines)}개")
+            
+            return {
+                'highlights_count': len(highlight_lines),
+                'file_path': str(file_path),
+                'method': 'ai_generated',
+                'ai_comments': timeline_comments
+            }
+            
+        except Exception as e:
+            print(f"{datetime.now()} AI 하이라이트 텍스트 생성 중 오류: {e}")
+            return await self._export_highlights_basic(session_logs, session_stats)
+
+    async def _ai_make_highlight_chat(self, highlights: list[StreamHighlight], model):
+        """ChatAnalyzer의 _make_highlight_chat 로직을 재현"""
+        if not highlights:
+            return []
+        
+        try:
+            # 하이라이트 데이터 구성 (ChatAnalyzer와 동일한 형식)
+            highlight_data = []
+            images_with_labels = []  # 이미지가 없으므로 빈 리스트
+            
+            for i, highlight in enumerate(highlights):
+                try:
+                    analysis_data = highlight.analysis_data
+                    fun_keywords = analysis_data.get('fun_keywords', {})
+                    score_details = highlight.score_details
+
+                    highlight_data.append({
+                        "하이라이트_ID": f"HIGHLIGHT_{i+1}",
+                        "재미도_점수": highlight.fun_score,
+                        "하이라이트_이유": highlight.reason,
+                        "최근_채팅": highlight.chat_context,
+                        "최고점수_시간": highlight.after_openDate,
+                        "VOD_타임라인_시간": highlight.comment_after_openDate,
+                        "방송_썸네일": f"이미지_{i+1}",  # 이미지가 없지만 형식 유지
+                        "메시지_갯수": analysis_data['message_count'],
+                        "시청자_수": analysis_data['viewer_count'],
+                        "웃음_키워드_수": fun_keywords.get('laugh', 0),
+                        "놀람_키워드_수": fun_keywords.get('surprise', 0),
+                        "흥분_키워드_수": fun_keywords.get('excitement', 0),
+                        "일반반응_키워드_수": fun_keywords.get('reaction', 0),
+                        "인사_키워드_수": fun_keywords.get('greeting', 0),
+                        "채팅_급증_점수": score_details['chat_spike_score'],
+                        "리액션_점수": score_details['reaction_score'],
+                        "다양성_점수": score_details['diversity_score'],
+                        "시청자_급증_점수": score_details['viewer_trend_score'],
+                        "기준_채팅_수": score_details['baseline_chat_count'],
+                        "기준_시청자_수": score_details['baseline_viewer_count'],
+                        "하이라이트_여부": score_details['highlights'],
+                        "큰_하이라이트_여부": score_details['big_highlights'],
+                        "재미도_점수_차이": score_details['score_difference'],
+                    })
+                    images_with_labels.append(highlight.image)
+
+                except Exception as e:
+                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
+                    continue
+
+            if not highlight_data:
+                return []
+
+            # AI 프롬프트 생성 (ChatAnalyzer와 동일)
+            prompt = f"""다음 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
+
+                중요: 각 하이라이트의 "방송 썸네일" 필드에 표시된 이미지 번호와 제공된 이미지 순서가 일치합니다.
+                - 첫 번째 이미지는 "이미지_1"에 해당
+                - 두 번째 이미지는 "이미지_2"에 해당
+                - 이런 식으로 순서대로 매핑됩니다.
+
+                각 하이라이트의 "하이라이트_ID"를 참조하여 해당하는 이미지를 분석해주세요.
+
+                분석 데이터:
+                {json.dumps(highlight_data, ensure_ascii=False, indent=2)}"""
+            
+            # 프롬프트와 모든 이미지를 순서대로 전송
+            msg_list = [prompt] + images_with_labels
+            
+            print(f"{datetime.now()} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
+
+            # AI 모델 호출 (비동기)
+            response = await asyncio.to_thread(model.generate_content, msg_list)
+
+            # JSON 파싱
+            try:
+                timeline_comments = json.loads(response.text)
+                if isinstance(timeline_comments, list):
+                    # 시간순으로 정렬
+                    timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
+                    print(f"{datetime.now()} AI 댓글 생성 완료: {len(timeline_comments)}개 댓글")
+                    return timeline_comments
                 else:
-                    main_reaction = "재미구간"
-                
-                description = f"재미 점수:{fun_score} - {main_reaction}"
-                
-                # VOD 댓글 형식으로 라인 생성
-                highlight_lines.append(f"{after_open}- {description}")
+                    raise ValueError("응답이 리스트 형태가 아닙니다")
+
+            except (json.JSONDecodeError, ValueError, KeyError) as e:
+                print(f"{datetime.now()} AI JSON 파싱 오류: {e}")
+                print(f"{datetime.now()} 응답 내용: {response.text[:500]}...")
+                return []
+                        
+        except Exception as e:
+            print(f"{datetime.now()} AI 타임라인 댓글 생성 오류: {e}")
+            return []
+
+    def _calculate_fun_score_from_diff(self, score_diff):
+        """점수 차이를 기반으로 재미 점수 계산 (ChatAnalyzer와 동일한 로직)"""
+        fun_score = 0
+        thresholds = [15, 30, 40, 60, 70]
         
-        if not highlight_lines:
+        for threshold in thresholds:
+            if score_diff > threshold:
+                fun_score += 1
+        
+        return fun_score
+
+    async def _export_highlights_basic(self, session_logs, session_stats):
+        """기본 로직을 사용한 하이라이트 댓글 생성"""
+        from base import format_time_for_comment
+        
+        try:
+            highlight_lines = []
+            
+            # 재미도 점수 기준점들 (VOD와 동일한 기준)
+            fun_difference1 = 15
+            fun_difference2 = 30
+            fun_difference3 = 40
+            fun_difference4 = 60
+            fun_difference5 = 70
+            
+            for log in session_logs:
+                score_components = log.get('score_components', {})
+                
+                # 하이라이트인지 확인
+                if (score_components.get('highlights', False) and 
+                    score_components.get('should_create_new_highlight', True)):
+                    
+                    after_open = log['comment_after_openDate']
+                    after_open = format_time_for_comment(after_open, 25)
+                    score_diff = score_components.get('score_difference', 0)
+                    
+                    # 재미 점수 계산 (VOD 시스템과 동일)
+                    fun_score = 0
+                    if score_diff > fun_difference1:
+                        fun_score += 1
+                    if score_diff > fun_difference2:
+                        fun_score += 1
+                    if score_diff > fun_difference3:
+                        fun_score += 1
+                    if score_diff > fun_difference4:
+                        fun_score += 1
+                    if score_diff > fun_difference5:
+                        fun_score += 1
+                    
+                    # 간단한 설명 생성
+                    analysis_data = log.get('analysis_data', {})
+                    fun_keywords = analysis_data.get('fun_keywords', {})
+                    message_count = analysis_data.get('message_count', 0)
+                    
+                    # 주요 반응 키워드 확인
+                    main_reaction = ""
+                    if fun_keywords.get('laugh', 0) >= max(message_count/3, 1):
+                        main_reaction = "폭소"
+                    elif fun_keywords.get('excitement', 0) >= max(message_count/3, 1):
+                        main_reaction = "흥분"
+                    elif fun_keywords.get('surprise', 0) >= max(message_count/3, 1):
+                        main_reaction = "놀람"
+                    elif score_components.get('chat_spike_score', 0) >= 50:
+                        main_reaction = "채팅폭증"
+                    else:
+                        main_reaction = "재미구간"
+                    
+                    description = f"재미 점수:{fun_score} - {main_reaction}"
+                    
+                    # VOD 댓글 형식으로 라인 생성
+                    highlight_lines.append(f"{after_open} - {description}")
+            
+            if not highlight_lines:
+                return None
+            
+            # 자동 생성 안내 추가
+            final_content = "\n\n".join(highlight_lines)
+            
+            # 파일 저장
+            start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+            method_suffix = "_ai" if self.use_ai else "_basic"
+            filename = f"{self.channel_name}_{start_date}_highlights{method_suffix}.txt"
+            file_path = self.reports_dir / filename
+            
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(final_content)
+            
+            print(f"하이라이트 텍스트 저장: {file_path}")
+            
+            return {
+                'highlights_count': len(highlight_lines),
+                'file_path': str(file_path),
+                'method': 'ai' if self.use_ai else 'basic'
+            }
+            
+        except Exception as e:
+            print(f"{datetime.now()} 기본 하이라이트 텍스트 생성 중 오류: {e}")
             return None
-        
-        # 자동 생성 안내 추가
-        final_content = "\n\n".join(highlight_lines)
-        
-        # 파일 저장
-        start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
-        filename = f"{self.channel_name}_{start_date}_highlights.txt"
-        file_path = self.reports_dir / filename
-        
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(final_content)
-        
-        print(f"하이라이트 텍스트 저장: {file_path}")
-        
-        return {
-            'highlights_count': len(highlight_lines),
-            'file_path': str(file_path)
-        }
 
     def create_session_summary(self, all_session_stats):
         """모든 세션의 요약 통계"""
@@ -569,7 +803,7 @@ class SessionBasedFunScoreAnalyzer:
         
         print(f"📄 요약 리포트 저장: {report_path}")
     
-    def full_session_analysis(self):
+    async def full_session_analysis(self):
         """전체 세션별 분석 실행"""
         print("🔍 세션별 재미도 로그 분석을 시작합니다...")
         
@@ -614,7 +848,7 @@ class SessionBasedFunScoreAnalyzer:
             csv_file = self.export_session_to_csv(session_logs, session_stats)
 
             # 하이라이트 텍스트 파일 생성
-            self.export_highlights_to_text(session_logs, session_stats)
+            await self.export_highlights_to_text(session_logs, session_stats)
             
             # 그래프 생성
             try:
@@ -649,6 +883,7 @@ def parse_arguments():
   python3 py/log_analyzer.py                    # 기본 설정으로 실행
   python3 py/log_analyzer.py 빅헤드             # 특정 채널 분석
   python3 py/log_analyzer.py --channel 빅헤드 --date 2025-09-06  # 특정 날짜 분석
+  python3 py/log_analyzer.py --use-ai           # AI 기반 댓글 생성 사용
         """
     )
     
@@ -672,6 +907,14 @@ def parse_arguments():
         help='분석할 날짜 지정 (YYYY-MM-DD 형태, 기본값: 모든 날짜)'
     )
     
+    # AI 사용 여부 옵션 (기본값: False)
+    parser.add_argument(
+        '--use-ai',
+        action='store_true',
+        default=False,
+        help='하이라이트 댓글 생성 시 AI 사용 (기본값: 사용하지 않음)'
+    )
+    
     parser.add_argument(
         '--version',
         action='version',
@@ -681,41 +924,55 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def main():
+async def main():
     """메인 실행 함수"""
     try:
         # 명령행 인자 파싱
         args = parse_arguments()
         
-        # 채널명 결정 (--channel 옵션이 있으면 우선 사용)
+        # 채널명 결정
         channel_name = args.channel if args.channel else args.channel_name
         date = args.date if args.date != '모든 날짜' else '모든 날짜'
+        use_ai = args.use_ai
+
+
+        channel_name, date, use_ai = "빅헤드", '2025-09-20', True
         
-        print(f"🚀 === Stream Alert 재미도 로그 분석 시작 ===")
-        print(f"📺 채널명: {channel_name}")
-        print(f"📅 분석할 날짜: {date}")
+        # AI 사용 가능 여부 확인
+        if use_ai and not AI_AVAILABLE:
+            print(f"경고: AI 기능을 사용할 수 없습니다. 필요한 모듈이 없습니다.")
+            print(f"기본 로직으로 진행합니다.")
+            use_ai = False
+        
+        print(f"=== Stream Alert 재미도 로그 분석 시작 ===")
+        print(f"채널명: {channel_name}")
+        print(f"분석할 날짜: {date}")
+        print(f"AI 사용: {'예' if use_ai else '아니오'}")
+        if use_ai:
+            print(f"AI 모델: Gemini 2.0 Flash (base.py에서 로드)")
         print("="*60)
         
         # 분석기 생성 및 실행
-        analyzer = SessionBasedFunScoreAnalyzer(channel_name, date)
-        sessions = analyzer.full_session_analysis()
+        analyzer = SessionBasedFunScoreAnalyzer(channel_name, date, use_ai=use_ai)
+        sessions = await analyzer.full_session_analysis()
         
         if sessions:
             filtered_sessions = [s for date_str, s in sessions if date == "모든 날짜" or date == date_str]
-            print(f"\n✅ 분석 완료! {len(filtered_sessions)}개 세션을 분석했습니다.")
-            print(f"📁 결과 파일들이 output/ 폴더에 저장되었습니다.")
+            print(f"\n분석 완료! {len(filtered_sessions)}개 세션을 분석했습니다.")
+            print(f"결과 파일들이 output/ 폴더에 저장되었습니다.")
+            if use_ai:
+                print(f"AI 기반 자연스러운 댓글이 생성되었습니다.")
         else:
-            print("\n❌ 분석할 데이터가 없습니다.")
+            print("\n분석할 데이터가 없습니다.")
             
     except KeyboardInterrupt:
-        print("\n\n⏹️ 사용자에 의해 중단되었습니다.")
+        print("\n\n사용자에 의해 중단되었습니다.")
         sys.exit(1)
     except Exception as e:
-        print(f"\n❌ 예상치 못한 오류가 발생했습니다: {e}")
+        print(f"\n예상치 못한 오류가 발생했습니다: {e}")
         print("문제가 지속되면 개발자에게 문의해주세요.")
         sys.exit(1)
 
-
 # 스크립트가 직접 실행될 때만 main() 함수 호출
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
