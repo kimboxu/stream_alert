@@ -14,6 +14,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 from base import update_flag
 from make_log_api_performance import PerformanceManager
+import threading
+from copy import deepcopy
 
 class FileNotificationManager:
     """파일 기반 사용자 알림 관리 클래스"""
@@ -33,6 +35,9 @@ class FileNotificationManager:
         # 캐시된 알림 데이터 (메모리 최적화를 위해)
         self.notification_cache = {}
         self.last_save_times = {}
+        
+        # 스레드 안전성을 위한 락
+        self._cache_lock = threading.RLock()  # 재진입 가능한 락
     
     def _get_file_path(self, webhook_url: str) -> Path:
         """웹훅 URL에서 안전한 파일명 생성"""
@@ -48,9 +53,10 @@ class FileNotificationManager:
     def load_notifications(self, webhook_url: str) -> list:
         """사용자 알림 데이터 로드"""
         try:
-            # 캐시에서 먼저 확인
-            if webhook_url in self.notification_cache:
-                return self.notification_cache[webhook_url].copy()
+            with self._cache_lock:
+                # 캐시에서 먼저 확인
+                if webhook_url in self.notification_cache:
+                    return self.notification_cache[webhook_url].copy()
             
             file_path = self._get_file_path(webhook_url)
             
@@ -60,15 +66,15 @@ class FileNotificationManager:
                     notifications = data.get('notifications', [])
                     
                     # 캐시에 저장
-                    self.notification_cache[webhook_url] = notifications.copy()
-                    
-                    # 마지막 저장 시간도 캐시
-                    self.last_save_times[webhook_url] = data.get('last_save_time')
+                    with self._cache_lock:
+                        self.notification_cache[webhook_url] = notifications.copy()
+                        self.last_save_times[webhook_url] = data.get('last_save_time')
                     
                     return notifications.copy()
             
             # 파일이 없으면 빈 리스트 반환
-            self.notification_cache[webhook_url] = []
+            with self._cache_lock:
+                self.notification_cache[webhook_url] = []
             return []
             
         except Exception as e:
@@ -98,10 +104,12 @@ class FileNotificationManager:
             
             # 강제 저장이 아닌 경우 시간 간격 확인 (5분)
             if not force_save:
-                last_save = self.last_save_times.get(webhook_url)
+                with self._cache_lock:
+                    last_save = self.last_save_times.get(webhook_url)
                 if last_save and not if_after_time(last_save, 300):  # 5분
                     # 캐시만 업데이트
-                    self.notification_cache[webhook_url] = notifications.copy()
+                    with self._cache_lock:
+                        self.notification_cache[webhook_url] = notifications.copy()
                     return True
             
             file_path = self._get_file_path(webhook_url)
@@ -133,8 +141,9 @@ class FileNotificationManager:
             temp_path.replace(file_path)
             
             # 캐시 업데이트
-            self.notification_cache[webhook_url] = notifications.copy()
-            self.last_save_times[webhook_url] = current_time
+            with self._cache_lock:
+                self.notification_cache[webhook_url] = notifications.copy()
+                self.last_save_times[webhook_url] = current_time
             
             print(f"{datetime.now()} 알림을 파일에 저장함 - URL: {webhook_url}, 개수: {len(notifications)}")
             return True
@@ -142,7 +151,7 @@ class FileNotificationManager:
         except Exception as e:
             print(f"알림 파일 저장 오류 ({webhook_url}): {e}")
             return False
-    
+   
     def add_notification(self, webhook_url: str, notification_data: dict) -> bool:
         """알림 추가"""
         try:
@@ -209,12 +218,35 @@ class FileNotificationManager:
     def force_save_all_cache(self):
         """캐시된 모든 데이터를 강제로 파일에 저장"""
         saved_count = 0
-        for webhook_url, notifications in self.notification_cache.items():
-            if self.save_notifications(webhook_url, notifications, force_save=True):
-                saved_count += 1
+        failed_count = 0
         
-        print(f"{datetime.now()} 캐시된 알림 데이터 강제 저장 완료: {saved_count}개 사용자")
-        return saved_count
+        try:
+            # 캐시 내용을 안전하게 복사
+            with self._cache_lock:
+                cache_snapshot = deepcopy(self.notification_cache)
+            
+            print(f"{datetime.now()} 캐시 강제 저장 시작: {len(cache_snapshot)}개 사용자")
+            
+            # 복사본으로 작업 수행
+            for webhook_url, notifications in cache_snapshot.items():
+                try:
+                    if self.save_notifications(webhook_url, notifications, force_save=True):
+                        saved_count += 1
+                    else:
+                        failed_count += 1
+                except Exception as e:
+                    print(f"사용자 {webhook_url} 저장 실패: {e}")
+                    failed_count += 1
+            
+            print(f"{datetime.now()} 캐시된 알림 데이터 강제 저장 완료: "
+                  f"{saved_count}개 성공, {failed_count}개 실패")
+            
+            return saved_count
+            
+        except Exception as e:
+            print(f"전체 캐시 저장 중 오류: {e}")
+            return saved_count
+    
 
 file_notification_manager = FileNotificationManager()
 
