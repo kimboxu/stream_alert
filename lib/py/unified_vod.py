@@ -286,9 +286,6 @@ class base_vod(ABC):
                     with open(file_path, 'r', encoding='utf-8') as f:
                         data = load(f)
                     
-                    # 제목 매칭 확인
-                    if data.get('last_title') != self.data.videoTitle:
-                        continue
                     
                     # 지속시간 매칭 확인 (stream_start_id와 stream_end_id 이용)
                     stream_start_id = data.get('stream_start_id', '')
@@ -304,6 +301,10 @@ class base_vod(ABC):
                         if duration_diff < 60:
                             self.duration_diff = max(broadcast_duration - self.data.duration, 0)
                             return data
+                        
+                    # 제목 매칭 확인
+                    if data.get('last_title') != self.data.videoTitle:
+                        continue
                         
                     # 치지직 방송 중인데, 방송 시간이 길어서 VOD가 분할 된 경우
                     if self.platform_name == 'chzzk' and not stream_end_id:

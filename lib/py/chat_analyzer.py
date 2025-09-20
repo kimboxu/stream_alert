@@ -336,6 +336,7 @@ class ChatAnalyzer:
             'after_openDate': after_openDate,
             'comment_after_openDate': after_openDate,
             'chat_context': [ f"{chat['nickname']}: {chat['message']}" for chat in window_chats[-30:]],  # 최근 30개 메시지
+            'image': ""
         }
         
         self.detailed_logs.append(detailed_log)
@@ -651,6 +652,8 @@ class ChatAnalyzer:
             except Exception as e:
                 await log_error(f"썸네일 가져오기 실패: {e}")
                 return
+            
+        self.detailed_logs[-1]['image'] = image
 
         highlight = StreamHighlight(
             timestamp=detailed_log['timestamp'],
