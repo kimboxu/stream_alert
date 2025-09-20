@@ -55,7 +55,7 @@ class base_vod(ABC):
         self.video_data = self.init.video_data
         self.platform_name = self.video_data.loc[channel_id, 'platform_name']
         self.channel_id = channel_id
-        self.time_offset = 20
+        self.time_offset = 25
         self.duration_diff = 10
         self.thumb_check_times = {}
         self.max_check_thumb_min = 3
