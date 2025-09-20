@@ -32,6 +32,7 @@ class initVar:
 
 	stream_status = {}
 	highlight_chat = {}
+	wait_make_highlight_chat = {}
 	system_instruction = '''
 		방송 하이라이트 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
 

@@ -108,6 +108,9 @@ class base_live_message:
 
         if not init_var.highlight_chat.get(channel_id):
             init_var.highlight_chat[channel_id] = {}
+
+        if not init_var.wait_make_highlight_chat.get(channel_id):
+            init_var.wait_make_highlight_chat[channel_id] = False
         
     async def start(self):
         await self.addMSGList()

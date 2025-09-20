@@ -668,6 +668,7 @@ class ChatAnalyzer:
     async def highlight_processing(self, is_save_log = False):
         """하이라이트 처리"""
         try:
+            self.init.wait_make_highlight_chat[self.channel_id] = True
             print(f"{datetime.now()} 하이라이트 처리 시작: {self.channel_name}")
 
             await self.save_detailed_logs_to_file(save_cache=True, force_save=True)
@@ -680,11 +681,15 @@ class ChatAnalyzer:
             # 하이라이트 채팅 업데이트 직후 파일로 저장
             await self._save_completed_highlight_chat_after_update(is_save_log)
             
+            print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
             return True
             
         except Exception as e:
             await log_error(f"하이라이트 처리 오류: {e}")
             return False
+        finally:
+            self.init.wait_make_highlight_chat[self.channel_id] = False
+            print(f"{datetime.now()} 하이라이트 처리 상태 해제: {self.channel_name}")
 
     async def _save_completed_highlight_chat_after_update(self, is_save_log):
         """하이라이트 채팅 저장"""
