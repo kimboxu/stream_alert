@@ -347,10 +347,8 @@ class base_vod(ABC):
             time_str = comment.get('comment_after_openDate', '')
             description = comment.get('description', '') or comment.get('text', '')
             score_difference = float(comment.get('score_difference', 0))
-            print(f"{datetime.now()} [DEBUG] Comment {i}: time_str={time_str}, description={description[:50]}...")
             
             if not time_str or not description:
-                print(f"{datetime.now()} [DEBUG] Comment {i} 스킵: time_str 또는 description 없음")
                 continue
             
             # 하이라이트 시간을 초로 변환 (방송 시작부터의 누적 시간)
@@ -372,10 +370,8 @@ class base_vod(ABC):
             # 기존 오프셋 적용
             del_sec = int(self.time_offset + (self.duration_diff - 10))
             formatted_time = format_time_for_comment(relative_time_str, del_sec)
-            print(f"{datetime.now()} [DEBUG] Comment {i}: formatted_time={formatted_time}")
             
             if not formatted_time:
-                print(f"{datetime.now()} [DEBUG] Comment {i} 스킵: formatted_time이 None")
                 continue
             
             # 재미 점수 계산
@@ -398,7 +394,6 @@ class base_vod(ABC):
             comment_line = f"{formatted_time}- {description}"
             comment_lines.append(comment_line)
             processed_count += 1
-            print(f"{datetime.now()} [DEBUG] Comment {i} 추가됨: {comment_line[:100]}...")
 
         print(f"{datetime.now()} 세그먼트 {segment_number} 댓글 처리 완료:")
         print(f"  - 전체 하이라이트: {len(timeline_comments)}개")
@@ -724,18 +719,8 @@ class afreeca_vod(base_vod):
                 return datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S').isoformat()
             except ValueError:
                 return None
-            
-        current_time = [None, 0]
-        for i, data in enumerate(state_data["data"]):
-            publishDate = get_started_at(data.get("reg_date"))
-            if current_time[0] is None:
-                current_time = publishDate, i
-            
-            else:
-                if current_time[0] < publishDate:
-                    current_time = publishDate, i
 
-        data = state_data["data"][current_time[1]]
+        data = state_data["data"][0]
         self.data.duration = data["ucc"]["total_file_duration"] // 1000  # 밀리초를 초로 변환
         self.data.videoNo = data["title_no"]
         self.data.videoTitle = data["title_name"]
