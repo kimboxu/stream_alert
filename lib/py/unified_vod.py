@@ -368,7 +368,7 @@ class base_vod(ABC):
             relative_time_str = self._seconds_to_time_string(comment_relative_seconds)
             
             # 기존 오프셋 적용
-            del_sec = int(self.time_offset + (self.duration_diff - 10))
+            del_sec = int(self.time_offset + min((self.duration_diff - 10), 0))
             formatted_time = format_time_for_comment(relative_time_str, del_sec)
             
             if not formatted_time:
