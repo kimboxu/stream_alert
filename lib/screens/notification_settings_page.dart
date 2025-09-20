@@ -779,6 +779,11 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
             streamers: _streamers,
             selectedStreamers: _selectedStreamers,
             onStreamerTap: _openStreamerSettings,
+            selectedVideoDataUsers: _selectedVideoDataUsers,
+            selectedYoutubeUsers: _selectedyoutubrUsers,
+            selectedCafeUsers: _selectedCafeUsers,
+            selectedChzzkChatUsers: _selectedChzzkChatUsers,
+            selectedAfreecaChatUsers: _selectedAfreecaChatUsers,
           ),
           SizedBox(height: 24),
           // 알림 설정 요약 위젯

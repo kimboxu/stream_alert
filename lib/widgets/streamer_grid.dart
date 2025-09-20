@@ -6,6 +6,11 @@ class StreamerGrid extends StatelessWidget {
   final List<StreamerData> streamers; // 표시할 스트리머 목록
   final Map<String, Set<String>> selectedStreamers; // 선택된 스트리머 정보
   final Function(StreamerData) onStreamerTap; // 스트리머 선택 시 콜백
+  final Map<String, Set<String>> selectedVideoDataUsers; // VOD 알림 설정
+  final Map<String, Set<String>> selectedYoutubeUsers; // 유튜브 알림 설정
+  final Map<String, Set<String>> selectedCafeUsers; // 카페 알림 설정
+  final Map<String, Set<String>> selectedChzzkChatUsers; // 치지직 채팅 필터
+  final Map<String, Set<String>> selectedAfreecaChatUsers; // 아프리카 채팅 필터
 
   // UI 관련 상수 정의
   static const double _borderWidth = 1.0;
@@ -28,6 +33,11 @@ class StreamerGrid extends StatelessWidget {
     required this.streamers,
     required this.selectedStreamers,
     required this.onStreamerTap,
+    this.selectedVideoDataUsers = const {},
+    this.selectedYoutubeUsers = const {},
+    this.selectedCafeUsers = const {},
+    this.selectedChzzkChatUsers = const {},
+    this.selectedAfreecaChatUsers = const {},
   });
 
   @override
@@ -46,8 +56,8 @@ class StreamerGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         final streamer = streamers[index];
 
-        // 성능 최적화: 선택 검사 로직 개선
-        final isSelected = _isStreamerSelected(streamer.name);
+        // 성능 최적화: 선택 검사 로직 (모든 설정 포함)
+        final isSelected = _isStreamerSelected(streamer);
 
         // 개별 스트리머 아이템 구성
         return _buildStreamerItem(context, streamer, isSelected);
@@ -55,9 +65,50 @@ class StreamerGrid extends StatelessWidget {
     );
   }
 
-  // 스트리머 선택 여부 확인하는 메서드
-  bool _isStreamerSelected(String streamerName) {
-    return selectedStreamers.values.any((set) => set.contains(streamerName));
+  // 스트리머 선택 여부 확인하는 메서드 (모든 설정 포함)
+  bool _isStreamerSelected(StreamerData streamer) {
+    // 1. 기본 알림 설정 확인 (뱅온, 방제 변경, 방종, 하이라이트, 핫클립)
+    bool hasBasicNotification = selectedStreamers.values.any(
+      (set) => set.contains(streamer.name),
+    );
+
+    if (hasBasicNotification) {
+      return true;
+    }
+
+    final channelID = streamer.channelID;
+
+    // 2. VOD 알림 설정 확인
+    if (selectedVideoDataUsers.containsKey(channelID) &&
+        selectedVideoDataUsers[channelID]!.isNotEmpty) {
+      return true;
+    }
+
+    // 3. 유튜브 알림 설정 확인
+    if (selectedYoutubeUsers.containsKey(channelID) &&
+        selectedYoutubeUsers[channelID]!.isNotEmpty) {
+      return true;
+    }
+
+    // 4. 카페 알림 설정 확인
+    if (selectedCafeUsers.containsKey(channelID) &&
+        selectedCafeUsers[channelID]!.isNotEmpty) {
+      return true;
+    }
+
+    // 5. 치지직 채팅 필터 설정 확인
+    if (selectedChzzkChatUsers.containsKey(channelID) &&
+        selectedChzzkChatUsers[channelID]!.isNotEmpty) {
+      return true;
+    }
+
+    // 6. 아프리카 채팅 필터 설정 확인
+    if (selectedAfreecaChatUsers.containsKey(channelID) &&
+        selectedAfreecaChatUsers[channelID]!.isNotEmpty) {
+      return true;
+    }
+
+    return false;
   }
 
   // 스트리머 아이템 UI 생성하는 메서드
