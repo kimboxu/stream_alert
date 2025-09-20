@@ -57,10 +57,10 @@ class NotificationModel {
   /// JSON으로부터 알림 객체 생성하는 팩토리 메서드
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     // embeds 디버깅 출력
-    if (json['embeds'] != null) {
-      debugPrint('원본 embeds 데이터: ${json['embeds']}');
-      debugPrint('embeds 타입: ${json['embeds'].runtimeType}');
-    }
+    // if (json['embeds'] != null) {
+    //   debugPrint('원본 embeds 데이터: ${json['embeds']}');
+    //   debugPrint('embeds 타입: ${json['embeds'].runtimeType}');
+    // }
 
     // embeds 파싱 처리 - 문자열 또는 리스트 형태로 받을 수 있음
     List<dynamic>? embedsList;
@@ -71,12 +71,12 @@ class NotificationModel {
           // 문자열로 받은 경우 JSON 파싱
           embedsList = jsonDecode(json['embeds']);
 
-          debugPrint('문자열에서 파싱된 embeds: $embedsList');
+          // debugPrint('문자열에서 파싱된 embeds: $embedsList');
         } else if (json['embeds'] is List) {
           // 이미 리스트인 경우 그대로 사용
           embedsList = json['embeds'];
 
-          debugPrint('리스트로 받은 embeds: $embedsList');
+          // debugPrint('리스트로 받은 embeds: $embedsList');
         }
       } catch (e) {
         debugPrint('Embeds 파싱 오류: $e');
@@ -91,7 +91,7 @@ class NotificationModel {
         embed = Map<String, dynamic>.from(embedsList.first);
         originalEmbed = Map<String, dynamic>.from(embed); // 원본 임베드 데이터 저장
 
-        debugPrint('첫 번째 embed: $embed');
+        // debugPrint('첫 번째 embed: $embed');
       }
     }
 
