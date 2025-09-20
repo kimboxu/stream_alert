@@ -599,14 +599,17 @@ class PushNotificationService {
   // FCM 토큰 등록
   Future<void> registerToken() async {
     try {
+      // 웹에서는 토큰 등록을 하지 않음
+      if (kIsWeb) {
+        debugPrint('웹 환경에서는 푸시 토큰을 등록하지 않습니다.');
+        return;
+      }
+
       // 먼저 토큰 가져오기
       final fcmToken = await _messaging.getToken();
       if (fcmToken != null) {
         debugPrint('FCM 토큰: $fcmToken');
-
         await _updateTokenToServer(fcmToken);
-
-        // 로컬에 현재 토큰 저장
         await _saveCurrentToken(fcmToken);
       }
 
