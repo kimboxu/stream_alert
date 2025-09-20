@@ -383,7 +383,11 @@ class base_vod(ABC):
             if score_difference > self.fun_difference5:
                 fun_score += 1
 
-            comment_line = f"{formatted_time}- 재미 점수:{fun_score} - {description}"
+            if score_difference != 0:
+                description = f"재미 점수:{fun_score} - {description}"
+
+
+            comment_line = f"{formatted_time}- {description}"
             comment_lines.append(comment_line)
             processed_count += 1
 
