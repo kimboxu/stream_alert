@@ -176,14 +176,8 @@ class PushNotificationService {
 
       // 웹에서 알림 권한 요청
       if (kIsWeb) {
-        final settings = await _messaging.getNotificationSettings();
-        if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-          await _messaging.requestPermission(
-            alert: true,
-            badge: true,
-            sound: true,
-          );
-        }
+        debugPrint('웹 환경에서는 푸시 알림을 비활성화합니다.');
+        return;
       }
 
       // iOS 알림 권한 요청
