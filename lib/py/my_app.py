@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS
 import asyncio
 import signal
+import threading
+from uuid import uuid4
 from json import loads, dumps
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
@@ -1260,107 +1262,232 @@ def get_memory_highlights_summary():
 # 하이라이트 챗 캐시 데이터 저장 (메모리 관리), 프로그램 종료 직전에만 사용하기
 @app.route("/save_highlight_data", methods=["GET"])
 def save_highlight_data():
-    """하이라이트 챗 캐시 데이터 저장 (관리자용) - StateManager 활용"""
+    """하이라이트 챗 캐시 데이터 저장 (관리자용) - """
     try:
-        # StateManager에서 init과 하이라이트 인스턴스들 가져오기
-        state_manager = StateManager.get_instance()
-        init = state_manager.get_init()
+        task_id = str(uuid4())
         
-        if not init:
-            return jsonify({
-                "status": "error",
-                "message": "시스템 초기화가 완료되지 않았습니다."
-            }), 500
+        # StateManager에서 작업 상태 관리
+        state_manager = StateManager.get_instance()
+        
+        initial_data = {
+            "status": "starting",
+            "started_at": datetime.now().isoformat(),
+            "message": "작업 초기화 중...",
+            "progress": 0
+        }
+        
+        # StateManager에 작업 상태 추가 (자동으로 개수 제한 적용)
+        state_manager.add_task_status(task_id, initial_data)
+        
+        # 즉시 응답 반환
+        response_data = {
+            "status": "started",
+            "message": "하이라이트 저장 작업이 시작되었습니다",
+            "task_id": task_id,
+            "started_at": datetime.now().isoformat()
+        }
+        
+        # 백그라운드 스레드에서 실행
+        thread = threading.Thread(
+            target=run_background_save_with_state_manager, 
+            args=(task_id,),
+            daemon=True
+        )
+        thread.start()
+        
+        return jsonify(response_data)
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"작업 시작 실패: {str(e)}"
+        }), 500
 
+def run_background_save_with_state_manager(task_id):
+    """StateManager를 활용한 백그라운드 저장 작업"""
+    try:
+        # 새로운 이벤트 루프 생성
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        # 비동기 작업 실행
+        loop.run_until_complete(background_save_task_with_state_manager(task_id))
+        
+    except Exception as e:
+        # StateManager에 에러 상태 업데이트
+        state_manager = StateManager.get_instance()
+        state_manager.update_task_status(task_id, {
+            "status": "error",
+            "error": f"이벤트 루프 생성 실패: {str(e)}",
+            "failed_at": datetime.now().isoformat()
+        })
+        print(f"백그라운드 작업 실패: {e}")
+    finally:
+        try:
+            loop.close()
+        except:
+            pass
+
+async def background_save_task_with_state_manager(task_id):
+    """StateManager를 활용한 실제 저장 작업"""
+    try:
+        # StateManager 인스턴스 가져오기
+        state_manager = StateManager.get_instance()
+        
+        # 작업 시작 상태로 업데이트
+        state_manager.update_task_status(task_id, {
+            "status": "processing",
+            "message": "하이라이트 데이터 수집 중...",
+            "progress": 5
+        })
+        
+        # StateManager에서 하이라이트 인스턴스들 가져오기
+        instances_with_highlights = state_manager.get_chat_instances_with_highlights()
+        total_channels = len(instances_with_highlights)
+        
+        if total_channels == 0:
+            state_manager.update_task_status(task_id, {
+                "status": "completed",
+                "progress": 100,
+                "message": "저장할 하이라이트 데이터가 없습니다",
+                "results": {
+                    "processed_channels": [],
+                    "total_highlights_saved": 0,
+                    "errors": []
+                },
+                "completed_at": datetime.now().isoformat()
+            })
+            return
+        
+        # 진행률 업데이트
+        state_manager.update_task_status(task_id, {
+            "total_channels": total_channels,
+            "processed_channels": 0,
+            "message": f"총 {total_channels}개 채널 처리 시작",
+            "progress": 10
+        })
+        
         save_results = {
             "processed_channels": [],
             "total_highlights_saved": 0,
             "errors": []
         }
         
-        # 비동기 작업을 위한 이벤트 루프 설정
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        
-        try:
-            # StateManager에서 하이라이트가 있는 챗 인스턴스들 가져오기
-            instances_with_highlights = state_manager.get_chat_instances_with_highlights()
-            
-            print(f"{datetime.now()} 하이라이트 데이터가 있는 채널 {len(instances_with_highlights)}개 발견")
-            
-            # 병렬 처리 함수
-            async def process_all_highlights():
-                tasks = []
-                
-                for instance_info in instances_with_highlights:
-                    channel_id = instance_info['channel_id']
-                    channel_name = instance_info['channel_name']
-                    platform = instance_info['platform']
-                    highlights_count = instance_info['highlights_count']
-                    chat_instance = instance_info['instance']
-                    
-                    print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 준비")
-                    
-                    # 각 채널의 highlight_processing을 태스크로 추가
-                    task = chat_instance.highlight_processing()
-                    tasks.append((task, instance_info))
-                
-                if not tasks:
-                    return []
-                
-                # 모든 태스크를 병렬로 실행
-                print(f"{datetime.now()} {len(tasks)}개 채널 병렬 처리 시작")
-                results = await asyncio.gather(*[task for task, _ in tasks], return_exceptions=True)
-                
-                return list(zip(results, [info for _, info in tasks]))
-            
-            # 병렬 처리 실행
-            results = loop.run_until_complete(process_all_highlights())
-            
-            # 결과 처리
-            for result, instance_info in results:
+        # 각 채널 순차 처리
+        for i, instance_info in enumerate(instances_with_highlights):
+            try:
                 channel_id = instance_info['channel_id']
                 channel_name = instance_info['channel_name']
                 platform = instance_info['platform']
                 highlights_count = instance_info['highlights_count']
+                chat_instance = instance_info['instance']
                 
-                if isinstance(result, Exception):
-                    error_msg = f"채널 {channel_name} 처리 중 오류: {str(result)}"
-                    save_results["errors"].append(error_msg)
-                    print(f"{datetime.now()} {error_msg}")
-                else:
-                    save_results["processed_channels"].append({
-                        "channel_id": channel_id,
-                        "channel_name": channel_name,
-                        "platform": platform,
-                        "highlights_saved": highlights_count
-                    })
-                    save_results["total_highlights_saved"] += highlights_count
-                    print(f"{datetime.now()} [{platform}] {channel_name}: 하이라이트 저장 완료")
-            
-            # 결과 반환
-            if save_results["total_highlights_saved"] > 0:
-                return jsonify({
-                    "status": "success",
-                    "message": f"하이라이트 챗 캐시 데이터 저장 완료: 총 {save_results['total_highlights_saved']}개 하이라이트 저장",
-                    "details": save_results,
-                    "saved_at": datetime.now().isoformat()
-                })
-            else:
-                return jsonify({
-                    "status": "success", 
-                    "message": "저장할 하이라이트 데이터가 없습니다",
-                    "details": save_results,
-                    "checked_at": datetime.now().isoformat()
+                # 현재 처리 중인 채널 표시
+                progress = 10 + int((i / total_channels) * 80)  # 10~90% 구간
+                state_manager.update_task_status(task_id, {
+                    "progress": progress,
+                    "processed_channels": i,
+                    "current_channel": channel_name,
+                    "message": f"[{platform}] {channel_name} 처리 중... ({i+1}/{total_channels})"
                 })
                 
-        finally:
-            loop.close()
-            
+                print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 시작")
+                
+                # 하이라이트 처리 실행
+                await chat_instance.highlight_processing()
+                
+                save_results["processed_channels"].append({
+                    "channel_id": channel_id,
+                    "channel_name": channel_name,
+                    "platform": platform,
+                    "highlights_saved": highlights_count
+                })
+                save_results["total_highlights_saved"] += highlights_count
+                
+                print(f"{datetime.now()} [{platform}] {channel_name}: 하이라이트 저장 완료")
+                
+            except Exception as channel_error:
+                error_msg = f"채널 {instance_info.get('channel_name', 'Unknown')} 처리 중 오류: {str(channel_error)}"
+                save_results["errors"].append(error_msg)
+                print(f"{datetime.now()} {error_msg}")
+                continue
+        
+        # 완료 상태 업데이트
+        state_manager.update_task_status(task_id, {
+            "status": "completed",
+            "progress": 100,
+            "processed_channels": total_channels,
+            "results": save_results,
+            "message": f"완료: {save_results['total_highlights_saved']}개 하이라이트 저장",
+            "completed_at": datetime.now().isoformat()
+        })
+        
+        print(f"{datetime.now()} 하이라이트 저장 작업 완료: 총 {save_results['total_highlights_saved']}개")
+        
+    except Exception as e:
+        state_manager.update_task_status(task_id, {
+            "status": "error",
+            "error": str(e),
+            "message": f"작업 실패: {str(e)}",
+            "failed_at": datetime.now().isoformat()
+        })
+        print(f"{datetime.now()} 하이라이트 저장 작업 실패: {e}")
+
+@app.route("/get_task_status/<task_id>", methods=["GET"])
+def get_task_status(task_id):
+    """StateManager를 통한 작업 상태 조회"""
+    state_manager = StateManager.get_instance()
+    task_data = state_manager.get_task_status(task_id)
+    
+    if task_data is None:
+        return jsonify({
+            "status": "error",
+            "message": "작업을 찾을 수 없습니다"
+        }), 404
+    
+    return jsonify({
+        "status": "success",
+        "task_data": task_data
+    })
+
+@app.route("/get_all_active_tasks", methods=["GET"])
+def get_all_active_tasks():
+    """StateManager를 통한 모든 작업 상태 조회"""
+    state_manager = StateManager.get_instance()
+    all_tasks = state_manager.get_task_status()
+    
+    # 활성 작업만 필터링
+    active_tasks = {
+        task_id: task_data for task_id, task_data in all_tasks.items()
+        if task_data.get('status') not in ['completed', 'error']
+    }
+    
+    return jsonify({
+        "status": "success",
+        "total_tasks": len(all_tasks),
+        "active_tasks": len(active_tasks),
+        "tasks": all_tasks
+    })
+
+@app.route("/cleanup_old_tasks", methods=["POST"])
+def cleanup_old_tasks():
+    """StateManager를 통한 오래된 작업 정리"""
+    try:
+        hours = request.args.get('hours', default=6, type=int)
+        
+        state_manager = StateManager.get_instance()
+        removed_count = state_manager.cleanup_completed_tasks(hours)
+        
+        return jsonify({
+            "status": "success",
+            "message": f"{removed_count}개의 오래된 작업이 정리되었습니다",
+            "remaining_tasks": len(state_manager.get_task_status())
+        })
+        
     except Exception as e:
         return jsonify({
             "status": "error",
-            "message": f"하이라이트 데이터 저장 실패: {str(e)}"
+            "message": f"작업 정리 실패: {str(e)}"
         }), 500
 
 #성능 통계 조회 엔드포인트
