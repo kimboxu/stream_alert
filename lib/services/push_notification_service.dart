@@ -208,11 +208,11 @@ class PushNotificationService {
       }
 
       // 백그라운드 핸들러 설정
-      // if (!kIsWeb) {
-      //   FirebaseMessaging.onBackgroundMessage(
-      //     _firebaseMessagingBackgroundHandler,
-      //   );
-      // }
+      if (!kIsWeb) {
+        FirebaseMessaging.onBackgroundMessage(
+          _firebaseMessagingBackgroundHandler,
+        );
+      }
       // 안드로이드용 로컬 알림 설정
       const AndroidInitializationSettings androidSettings =
           AndroidInitializationSettings('@mipmap/launcher_icon');
