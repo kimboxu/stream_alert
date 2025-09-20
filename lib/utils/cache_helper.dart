@@ -74,7 +74,7 @@ class CacheHelper {
 
       if (cachedData != null) {
         // 캐시된 이미지 데이터 디코딩
-        final imageData = await ImageUtils.fetchAndProcessImage(url);
+        final imageData = await ImageUtils.fetchAndProcessImage(url, preserveTransparency: false);
         // 메모리 캐시에 추가
         if (imageData != null) {
           _memoryImageCache[url] = imageData;
@@ -84,7 +84,7 @@ class CacheHelper {
       }
 
       // 캐시에 없으면 네트워크에서 가져와 이미지 처리
-      final processedImage = await ImageUtils.fetchAndProcessImage(url);
+      final processedImage = await ImageUtils.fetchAndProcessImage(url, preserveTransparency: false);
 
       if (processedImage != null) {
         // 처리된 이미지를 메모리와 디스크에 캐싱

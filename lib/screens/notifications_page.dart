@@ -89,6 +89,7 @@ class _NotificationsPageState extends State<NotificationsPage>
       NotificationType.streamChange,
       NotificationType.streamEnd,
       NotificationType.streamHighlight,
+      NotificationType.streamHotClip,
       NotificationType.chat,
     };
 
@@ -1150,6 +1151,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                               NotificationType.streamChange,
                               NotificationType.streamEnd,
                               NotificationType.streamHighlight,
+                              NotificationType.streamHotClip,
                               NotificationType.chat,
                             };
                           });
