@@ -265,6 +265,8 @@ class base_vod(ABC):
                     if stream_start_id and stream_end_id:
                         broadcast_duration = calculate_stream_duration(stream_start_id, stream_end_id)
                         duration_diff = abs(broadcast_duration - self.data.duration)
+                        print(f"{datetime.now()} stream_time,{stream_start_id}, {stream_end_id}")
+                        print(f"{datetime.now()} duration,{broadcast_duration}, {self.data.duration}")
                         
                         # 지속시간 차이가 1분 미만이면 매칭된 것으로 판단
                         if duration_diff < 60:
@@ -322,8 +324,10 @@ class base_vod(ABC):
     def _get_highlight_msg_from_file(self, highlight_data):
         """파일에서 로드된 하이라이트 데이터를 VOD 댓글로 변환"""
         timeline_comments = highlight_data.get('timeline_comments', [])
+        print(f"{datetime.now()} [DEBUG] timeline_comments 수: {len(timeline_comments)}")
         
         if not timeline_comments or not isinstance(timeline_comments, list):
+            print(f"{datetime.now()} [DEBUG] timeline_comments가 비어있거나 리스트가 아님")
             return []
         
         # VOD 세그먼트 정보 가져오기
@@ -343,8 +347,10 @@ class base_vod(ABC):
             time_str = comment.get('comment_after_openDate', '')
             description = comment.get('description', '') or comment.get('text', '')
             score_difference = float(comment.get('score_difference', 0))
+            print(f"{datetime.now()} [DEBUG] Comment {i}: time_str={time_str}, description={description[:50]}...")
             
             if not time_str or not description:
+                print(f"{datetime.now()} [DEBUG] Comment {i} 스킵: time_str 또는 description 없음")
                 continue
             
             # 하이라이트 시간을 초로 변환 (방송 시작부터의 누적 시간)
@@ -366,8 +372,10 @@ class base_vod(ABC):
             # 기존 오프셋 적용
             del_sec = int(self.time_offset + (self.duration_diff - 10))
             formatted_time = format_time_for_comment(relative_time_str, del_sec)
+            print(f"{datetime.now()} [DEBUG] Comment {i}: formatted_time={formatted_time}")
             
             if not formatted_time:
+                print(f"{datetime.now()} [DEBUG] Comment {i} 스킵: formatted_time이 None")
                 continue
             
             # 재미 점수 계산
@@ -390,6 +398,7 @@ class base_vod(ABC):
             comment_line = f"{formatted_time}- {description}"
             comment_lines.append(comment_line)
             processed_count += 1
+            print(f"{datetime.now()} [DEBUG] Comment {i} 추가됨: {comment_line[:100]}...")
 
         print(f"{datetime.now()} 세그먼트 {segment_number} 댓글 처리 완료:")
         print(f"  - 전체 하이라이트: {len(timeline_comments)}개")
@@ -694,7 +703,7 @@ class afreeca_vod(base_vod):
     async def _get_video_data(self):
         """아프리카TV 비디오 API 데이터 가져오기"""
         afreeca_id = self.id_list.loc[self.channel_id, "afreecaID"]
-        link = f"https://chapi.sooplive.co.kr/api/{afreeca_id}/vods"
+        link = f"https://chapi.sooplive.co.kr/api/{afreeca_id}/vods/review?keyword=&orderby=reg_date&perPage=20&field=title,contents,user_nick,user_id&page={1}&start_date=&end_date="
         return await get_message(self.performance_manager, "afreeca", link)
 
     def _should_process_video(self, state_data):
