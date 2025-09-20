@@ -185,14 +185,16 @@ class PushNotificationService {
 
       // 웹에서 알림 권한 요청
       if (kIsWeb) {
-        final settings = await _messaging.getNotificationSettings();
-        if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-          await _messaging.requestPermission(
-            alert: true,
-            badge: true,
-            sound: true,
-          );
-        }
+        // 웹에서는 알림 권한을 요청하지 않음 (브라우저 팝업 알림 비활성화)
+        debugPrint('웹 환경: 브라우저 알림 비활성화, 앱 내 알림만 사용');
+        // final settings = await _messaging.getNotificationSettings();
+        // if (settings.authorizationStatus != AuthorizationStatus.authorized) {
+        //   await _messaging.requestPermission(
+        //     alert: true,
+        //     badge: true,
+        //     sound: true,
+        //   );
+        // }
       }
 
       if (!kIsWeb) {
@@ -599,17 +601,14 @@ class PushNotificationService {
   // FCM 토큰 등록
   Future<void> registerToken() async {
     try {
-      // 웹에서는 토큰 등록을 하지 않음
-      if (kIsWeb) {
-        debugPrint('웹 환경에서는 푸시 토큰을 등록하지 않습니다.');
-        return;
-      }
-
       // 먼저 토큰 가져오기
       final fcmToken = await _messaging.getToken();
       if (fcmToken != null) {
         debugPrint('FCM 토큰: $fcmToken');
+
         await _updateTokenToServer(fcmToken);
+
+        // 로컬에 현재 토큰 저장
         await _saveCurrentToken(fcmToken);
       }
 
