@@ -1,0 +1,67 @@
+{
+  "channel_id": "nambong94",
+  "channel_name": "남봉",
+  "save_timestamp": "2025-09-20T19:53:42.229144",
+  "total_logs": 2,
+  "logs": [
+    {
+      "timestamp": "2025-09-20T19:51:29.836343",
+      "fun_score": 7.465286241540993,
+      "score_components": {
+        "chat_spike_score": 2.757957208978949,
+        "reaction_score": 3.0459959025520697e-06,
+        "diversity_score": 50,
+        "viewer_trend_score": 10,
+        "final_score": 7.465286241540993,
+        "baseline_chat_count": 1.1560301755191564,
+        "baseline_viewer_count": 1358.1112536292503,
+        "baseline_threshold": 6.407601540629765,
+        "highlights": false,
+        "big_highlights": false,
+        "score_difference": 0.34163969473263567,
+        "should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1315,
+        "fun_keywords": {}
+      },
+      "after_openDate": "02:06:21",
+      "comment_after_openDate": "02:06:21",
+      "chat_context": [
+        "50원이자깨지면죽음: 회의중입니다~"
+      ]
+    },
+    {
+      "timestamp": "2025-09-20T19:51:35.139483",
+      "fun_score": 7.488080925104475,
+      "score_components": {
+        "chat_spike_score": 2.8230848763031826,
+        "reaction_score": 3.0459959025520697e-06,
+        "diversity_score": 50,
+        "viewer_trend_score": 10,
+        "final_score": 7.488080925104475,
+        "baseline_chat_count": 1.140427157967241,
+        "baseline_viewer_count": 1354.7601282663254,
+        "baseline_threshold": 6.441955588834675,
+        "highlights": false,
+        "big_highlights": false,
+        "score_difference": 0.3343561772524586,
+        "should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1315,
+        "fun_keywords": {}
+      },
+      "after_openDate": "02:06:26",
+      "comment_after_openDate": "02:06:26",
+      "chat_context": [
+        "50원이자깨지면죽음: 회의중입니다~"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
