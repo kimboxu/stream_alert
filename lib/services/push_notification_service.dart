@@ -173,6 +173,9 @@ class PushNotificationService {
   // 알림 서비스 초기화
   Future<void> initialize() async {
     try {
+      // 플랫폼 정보 출력
+      _printPlatformInfo();
+
       // Firebase 초기화는 main.dart에서 이미 했지만 혹시 모르니 추가
       try {
         await Firebase.initializeApp();
@@ -293,6 +296,31 @@ class PushNotificationService {
       }
     } catch (e) {
       debugPrint('알림 서비스 초기화 중 오류: $e');
+    }
+  }
+
+  // 플랫폼 정보를 출력하는 메서드
+  void _printPlatformInfo() {
+    if (kIsWeb) {
+      debugPrint('🌐 현재 플랫폼: 웹 (Web)');
+    } else {
+      try {
+        if (Platform.isAndroid) {
+          debugPrint('🤖 현재 플랫폼: 안드로이드 (Android)');
+        } else if (Platform.isIOS) {
+          debugPrint('🍎 현재 플랫폼: iOS');
+        } else if (Platform.isMacOS) {
+          debugPrint('💻 현재 플랫폼: macOS');
+        } else if (Platform.isWindows) {
+          debugPrint('🪟 현재 플랫폼: Windows');
+        } else if (Platform.isLinux) {
+          debugPrint('🐧 현재 플랫폼: Linux');
+        } else {
+          debugPrint('❓ 현재 플랫폼: 알 수 없음');
+        }
+      } catch (e) {
+        debugPrint('⚠️ 플랫폼 정보 확인 중 오류: $e');
+      }
     }
   }
 
