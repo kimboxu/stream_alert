@@ -197,25 +197,57 @@ class base_vod(ABC):
             print(f"{datetime.now()} VOD upload {channel_name} {self.data.videoTitle}")
 
             if self.init.is_vod_json[self.channel_id]:
-                # 알림을 보낼 웹훅 URL들 가져오기
-                list_of_urls = get_list_of_urls(
-                    self.DO_TEST, 
-                    self.userStateData, 
-                    channel_name, 
-                    self.channel_id, 
-                    "VOD 알림"
-                )
-
-                # 푸시 알림 및 디스코드 웹훅 전송
-                asyncio.create_task(send_push_notification(list_of_urls, json_data))
-                asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
+                # 일반 VOD 알림 전송
+                await self._send_vod_notification(json_data, channel_name)
 
             if self.init.is_vod_chat_json[self.channel_id]:
-                # 하이라이트 채팅 처리
-                asyncio.create_task(self._process_highlight_chat())
+                # 하이라이트 채팅 대기 및 처리
+                await self._wait_and_process_highlight_chat(channel_name)
 
         except Exception as e:
-            asyncio.create_task(log_error(f"post video message error: {e}"))
+            await log_error(f"post_video 오류: {e}")
+
+    async def _send_vod_notification(self, json_data, channel_name):
+        """VOD 알림 전송"""
+        list_of_urls = get_list_of_urls(
+            self.DO_TEST, 
+            self.userStateData, 
+            channel_name, 
+            self.channel_id, 
+            "VOD 알림"
+        )
+
+        # 푸시 알림 및 디스코드 웹훅 전송
+        asyncio.create_task(send_push_notification(list_of_urls, json_data))
+        asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
+
+    async def _wait_and_process_highlight_chat(self, channel_name):
+        """하이라이트 채팅 대기 및 처리"""
+        max_wait_time = 300  # 5분
+        check_interval = 2   # 2초마다 체크
+        wait_count = 0
+        max_checks = max_wait_time // check_interval
+        
+        print(f"{datetime.now()} 하이라이트 처리 대기 시작: {channel_name}")
+        
+        while wait_count < max_checks:
+            # 하이라이트 처리가 완료되었는지 확인
+            if not self.init.wait_make_highlight_chat.get(self.channel_id, False):
+                print(f"{datetime.now()} 하이라이트 처리 완료 감지, 채팅 처리 시작: {channel_name}")
+                await self._process_highlight_chat()
+                return
+            
+            # 2초 대기
+            await asyncio.sleep(check_interval)
+            wait_count += 1
+            
+            if wait_count % 30 == 0:  # 1분마다 로그
+                remaining_time = max_wait_time - (wait_count * check_interval)
+                print(f"{datetime.now()} 하이라이트 대기 중: {channel_name} (남은 시간: {remaining_time}초)")
+        
+        # 타임아웃 시 기본 처리
+        print(f"{datetime.now()} 하이라이트 대기 시간 초과, 기본 처리: {channel_name}")
+        await self._process_highlight_chat()
 
     async def _process_highlight_chat(self):
         """하이라이트 채팅 처리 - 파일에서 직접 로드"""
