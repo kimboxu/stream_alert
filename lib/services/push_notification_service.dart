@@ -20,12 +20,6 @@ enum LoadDirection {
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // 웹에서는 백그라운드 알림을 처리하지 않음
-  if (kIsWeb) {
-    debugPrint("웹 환경에서는 백그라운드 알림을 처리하지 않습니다.");
-    return;
-  }
-
   await Firebase.initializeApp();
 
   // 알림 데이터를 SharedPreferences에 임시 저장
@@ -173,9 +167,6 @@ class PushNotificationService {
   // 알림 서비스 초기화
   Future<void> initialize() async {
     try {
-      // 플랫폼 정보 출력
-      _printPlatformInfo();
-
       // Firebase 초기화는 main.dart에서 이미 했지만 혹시 모르니 추가
       try {
         await Firebase.initializeApp();
@@ -187,6 +178,7 @@ class PushNotificationService {
       if (kIsWeb) {
         // 웹에서는 알림 권한을 요청하지 않음 (브라우저 팝업 알림 비활성화)
         debugPrint('웹 환경: 브라우저 알림 비활성화, 앱 내 알림만 사용');
+        return;
         // final settings = await _messaging.getNotificationSettings();
         // if (settings.authorizationStatus != AuthorizationStatus.authorized) {
         //   await _messaging.requestPermission(
@@ -195,30 +187,32 @@ class PushNotificationService {
         //     sound: true,
         //   );
         // }
+
       }
 
+      // iOS 알림 권한 요청
+      if (Platform.isIOS) {
+        await _messaging.requestPermission(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+      }
+
+      // 안드로이드 알림 권한 요청
+      if (Platform.isAndroid) {
+        final authStatus = await _messaging.requestPermission(
+          alert: true,
+          badge: true,
+          sound: true,
+          provisional: false,
+        );
+
+        debugPrint('알림 권한 상태: ${authStatus.authorizationStatus}');
+      }
+
+      // 백그라운드 핸들러 설정
       if (!kIsWeb) {
-        // iOS 알림 권한 요청
-        if (Platform.isIOS) {
-          await _messaging.requestPermission(
-            alert: true,
-            badge: true,
-            sound: true,
-          );
-        }
-
-        // 안드로이드 알림 권한 요청
-        if (Platform.isAndroid) {
-          final authStatus = await _messaging.requestPermission(
-            alert: true,
-            badge: true,
-            sound: true,
-            provisional: false,
-          );
-          debugPrint('알림 권한 상태: ${authStatus.authorizationStatus}');
-        }
-
-        // 백그라운드 핸들러 설정
         FirebaseMessaging.onBackgroundMessage(
           _firebaseMessagingBackgroundHandler,
         );
@@ -297,31 +291,6 @@ class PushNotificationService {
       }
     } catch (e) {
       debugPrint('알림 서비스 초기화 중 오류: $e');
-    }
-  }
-
-  // 플랫폼 정보를 출력하는 메서드
-  void _printPlatformInfo() {
-    if (kIsWeb) {
-      debugPrint('🌐 현재 플랫폼: 웹 (Web)');
-    } else {
-      try {
-        if (Platform.isAndroid) {
-          debugPrint('🤖 현재 플랫폼: 안드로이드 (Android)');
-        } else if (Platform.isIOS) {
-          debugPrint('🍎 현재 플랫폼: iOS');
-        } else if (Platform.isMacOS) {
-          debugPrint('💻 현재 플랫폼: macOS');
-        } else if (Platform.isWindows) {
-          debugPrint('🪟 현재 플랫폼: Windows');
-        } else if (Platform.isLinux) {
-          debugPrint('🐧 현재 플랫폼: Linux');
-        } else {
-          debugPrint('❓ 현재 플랫폼: 알 수 없음');
-        }
-      } catch (e) {
-        debugPrint('⚠️ 플랫폼 정보 확인 중 오류: $e');
-      }
     }
   }
 
