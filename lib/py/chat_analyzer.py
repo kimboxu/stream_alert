@@ -171,6 +171,27 @@ class ChatAnalyzer:
         'greeting': re.compile(r'^.하$|^.바$|^.ㅎ$|^.ㅂ$|ㅎㅇ|안녕|반갑'),
         }
 
+        self.length_score_tiers = {
+            'laugh': [
+                (1, 5, 1.0), (6, 15, 1.2), (16, 30, 1.5), 
+                (31, 50, 1.8), (51, float('inf'), 2.0)
+            ],
+            'excitement': [
+                (1, 5, 1.0), (6, 10, 1.2), (11, 20, 1.4), 
+                (21, float('inf'), 1.6)
+            ],
+            'surprise': [
+                (1, float('inf'), 1.0)
+            ],
+            'reaction': [
+                (1, 5, 1.0), (6, 10, 1.1), (11, 20, 1.3), 
+                (21, float('inf'), 1.5)
+            ],
+            'greeting': [
+                (1, float('inf'), 1.0)
+            ]
+        }
+
         # 가중 평균으로 최종 점수
         self.weights = {
             'chat_spike': 0.35,     # 채팅 급증 
@@ -232,16 +253,31 @@ class ChatAnalyzer:
 
         self.chat_buffer.append(chat_data)
 
-    def _extract_keywords(self, message: str) -> Dict[str, int]:
-        """메시지에서 재미 키워드 추출"""
-        keywords = {}
+    def _extract_keywords(self, message: str) -> Dict[str, float]:
+        """길이에 따른 구간별 점수로 키워드 추출"""
+        keyword_scores = {}
 
         for pattern_name, pattern in self.fun_patterns.items():
             matches = pattern.findall(message.lower())
+            
             if matches:
-                keywords[pattern_name] = len(matches)
+                total_score = 0.0
                 
-        return keywords
+                for match in matches:
+                    match_length = len(match)
+                    score = 1.0  # 기본값
+                    
+                    tiers = self.length_score_tiers.get(pattern_name, [(1, float('inf'), 1.0)])
+                    for min_len, max_len, tier_score in tiers:
+                        if min_len <= match_length <= max_len:
+                            score = tier_score
+                            break
+                    
+                    total_score += score
+                
+                keyword_scores[pattern_name] = total_score
+                
+        return keyword_scores
     
     async def analyze(self) -> Optional[Tuple[float, ChatAnalysisData]]:
         """현재 시점 분석 수행"""
@@ -404,7 +440,7 @@ class ChatAnalyzer:
     #채팅 급증 점수 계산
     def _calculate_chat_spike_score(self, analysis: ChatAnalysisData) -> float:
         # 인사 반응(방송 시작 직후 or 방송 종료 직전의 인사는 제외)
-        del_greeting_message_count = analysis.message_count - analysis.fun_keywords.get("greeting",0)
+        del_greeting_message_count = analysis.message_count - int(analysis.fun_keywords.get("greeting", 0.0))
 
         # 정규화된 점수 (기존 대비 상대적으로 3배 일 경우 50점)
         count_ratio = del_greeting_message_count / self.baseline_metrics['avg_chat_count']
