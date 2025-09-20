@@ -306,7 +306,7 @@ class DiscordNotificationWidget extends StatelessWidget {
                     height: thumbnailSize,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
-                      color: Colors.grey[300], // 로딩 배경색
+                      // 투명한 배경 사용
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4),
@@ -319,7 +319,10 @@ class DiscordNotificationWidget extends StatelessWidget {
                             (context, error, stackTrace) => Container(
                               width: thumbnailSize,
                               height: thumbnailSize,
-                              color: Colors.grey[400],
+                              decoration: BoxDecoration(
+                                color: Colors.grey[400],
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                               child: Center(
                                 child: Icon(
                                   Icons.broken_image,
@@ -329,15 +332,24 @@ class DiscordNotificationWidget extends StatelessWidget {
                             ),
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value:
-                                  loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
-                              strokeWidth: 2,
-                              color: Colors.grey[500],
+                          return Container(
+                            width: thumbnailSize,
+                            height: thumbnailSize,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300], // 로딩 중에만 배경색 표시
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                value:
+                                    loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                strokeWidth: 2,
+                                color: Colors.grey[500],
+                              ),
                             ),
                           );
                         },
@@ -352,14 +364,13 @@ class DiscordNotificationWidget extends StatelessWidget {
           if (notification.imageUrl.isNotEmpty)
             Container(
               width: double.infinity,
-              // 유튜브 임베드인 경우 더 큰 고정 높이 사용
               constraints: BoxConstraints(
                 minHeight: embedHeightMin,
                 maxHeight: embedHeightMax,
               ),
               decoration: BoxDecoration(
-                color: Colors.grey[800], // 로딩 배경색
                 borderRadius: BorderRadius.circular(4),
+                // 투명한 배경 사용
               ),
               child: AspectRatio(
                 aspectRatio: embedImageRatio,
@@ -370,7 +381,10 @@ class DiscordNotificationWidget extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorBuilder:
                         (context, error, stackTrace) => Container(
-                          color: Colors.grey[400],
+                          decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                           child: Center(
                             child: Icon(
                               Icons.broken_image,
@@ -381,15 +395,21 @@ class DiscordNotificationWidget extends StatelessWidget {
                         ),
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value:
-                              loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                  : null,
-                          strokeWidth: 2,
-                          color: Colors.grey[500],
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[800], // 로딩 중에만 배경색 표시
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            value:
+                                loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                            strokeWidth: 2,
+                            color: Colors.grey[500],
+                          ),
                         ),
                       );
                     },
@@ -416,7 +436,9 @@ class DiscordNotificationWidget extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: Image.network(
-                          ApiService.processImageUrl(notification.footerIconUrl),
+                          ApiService.processImageUrl(
+                            notification.footerIconUrl,
+                          ),
                           fit: BoxFit.cover,
                           errorBuilder:
                               (context, error, stackTrace) => SizedBox(

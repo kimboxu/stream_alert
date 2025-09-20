@@ -16,14 +16,14 @@ class ImageUtils {
   static const int maxHeight = 1200;
 
   // 네트워크에서 이미지를 가져와 처리하는 메서드
-  static Future<Uint8List?> fetchAndProcessImage(String url) async {
+  static Future<Uint8List?> fetchAndProcessImage(String url, {bool preserveTransparency = true}) async {
     try {
       debugPrint('Fetching image from $url');
 
       if (kIsWeb) {
         url = ApiService.processImageUrl(url);
       }
-      // 타임아웃 설정으로 네트워크 지연 방지
+      
       final response = await _client.get(
             Uri.parse(url),
             headers: {
@@ -35,7 +35,7 @@ class ImageUtils {
         throw Exception('Failed to load image: ${response.statusCode}');
       }
 
-      return compute(_processImageBytes, response.bodyBytes);
+      return compute((bytes) => _processImageBytes(bytes, preserveTransparency: preserveTransparency), response.bodyBytes);
     } catch (e) {
       debugPrint('Error loading image: $e');
       return null;
@@ -43,7 +43,7 @@ class ImageUtils {
   }
 
   // 별도 isolate에서 실행되는 이미지 처리 함수
-  static Uint8List? _processImageBytes(Uint8List bytes) {
+  static Uint8List? _processImageBytes(Uint8List bytes, {bool preserveTransparency = true}) {
     try {
       final image = img.decodeImage(bytes);
 
@@ -62,17 +62,23 @@ class ImageUtils {
         );
       }
 
-      // 투명도가 있는 이미지 처리 (배경 추가)
+      // 투명도 처리 방식 결정
       if (_hasTransparency(processedImage)) {
-        final withBackground = img.Image(
-          width: processedImage.width,
-          height: processedImage.height,
-        );
-        img.fill(withBackground, color: img.ColorUint8.rgb(255, 255, 255)); // 흰색 배경
-        img.compositeImage(withBackground, processedImage);
+        if (preserveTransparency) {
+          // 투명도 보존
+          return Uint8List.fromList(img.encodePng(processedImage, level: 6));
+        } else {
+          // 흰색 배경 추가
+          final withBackground = img.Image(
+            width: processedImage.width,
+            height: processedImage.height,
+          );
+          img.fill(withBackground, color: img.ColorUint8.rgb(255, 255, 255));
+          img.compositeImage(withBackground, processedImage);
 
-        // JPG 형식으로 변환하여 용량 감소
-        return Uint8List.fromList(img.encodeJpg(withBackground, quality: 85));
+          // JPG 형식으로 변환하여 용량 감소
+          return Uint8List.fromList(img.encodeJpg(withBackground, quality: 85));
+        }
       } else {
         return Uint8List.fromList(img.encodeJpg(processedImage, quality: 85));
       }
