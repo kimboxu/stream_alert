@@ -195,29 +195,28 @@ class PushNotificationService {
         }
       }
 
-      // iOS 알림 권한 요청
-      if (Platform.isIOS) {
-        await _messaging.requestPermission(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-      }
-
-      // 안드로이드 알림 권한 요청
-      if (Platform.isAndroid) {
-        final authStatus = await _messaging.requestPermission(
-          alert: true,
-          badge: true,
-          sound: true,
-          provisional: false,
-        );
-
-        debugPrint('알림 권한 상태: ${authStatus.authorizationStatus}');
-      }
-
-      // 백그라운드 핸들러 설정
       if (!kIsWeb) {
+        // iOS 알림 권한 요청
+        if (Platform.isIOS) {
+          await _messaging.requestPermission(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+        }
+
+        // 안드로이드 알림 권한 요청
+        if (Platform.isAndroid) {
+          final authStatus = await _messaging.requestPermission(
+            alert: true,
+            badge: true,
+            sound: true,
+            provisional: false,
+          );
+          debugPrint('알림 권한 상태: ${authStatus.authorizationStatus}');
+        }
+
+        // 백그라운드 핸들러 설정
         FirebaseMessaging.onBackgroundMessage(
           _firebaseMessagingBackgroundHandler,
         );
