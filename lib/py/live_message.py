@@ -146,7 +146,7 @@ class base_live_message:
             if self._should_process_online_status():
                 await self._handle_online_status(state_data)
             elif self._should_process_offline_status():
-                await self._handle_offline_status()
+                await self._handle_offline_status(state_data)
 
         except Exception as e:
             error_msg = f"error get state_data {self.platform_name} live {e}.{self.channel_id}"
@@ -312,7 +312,7 @@ class base_live_message:
     async def getOnAirJson(self, message, state_data):
         raise NotImplementedError
     
-    async def _handle_offline_status(self):
+    async def _handle_offline_status(self, state_data):
         raise NotImplementedError
     
     #시작/종료 시간 ISO 형식으로 반환
@@ -456,9 +456,9 @@ class chzzk_live_message(base_live_message):
           if_after_time(self.data.state_update_time["openDate"], sec=15))
 
     #치지직 오프라인 상태 처리
-    async def _handle_offline_status(self):
+    async def _handle_offline_status(self, state_data):
         message = "뱅종"
-        json_data = await self.getOffJson()
+        json_data = await self.getOffJson(state_data)
 
         self.offLineTitle()
         self.offLineTime()
@@ -631,15 +631,22 @@ class chzzk_live_message(base_live_message):
                 "embeds": [embeds]}
 
     #뱅종 JSON 데이터 생성
-    async def getOffJson(self):
-        # thumbnail_url = await self.get_live_thumbnail_image(state_data, message)
+    async def getOffJson(self, state_data):
         embeds =  {
             "color": int(self.id_list.loc[self.channel_id, 'channel_color']),
             "author": self.get_author(),
             "title": self.channel_name +" 방송 종료\n",
-            # "image": {"url": thumbnail_url},
             "footer": { "text": f"방종 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
-            "timestamp": changeUTCtime(self.getStarted_at("closeDate"))}
+            "timestamp": changeUTCtime(self.getStarted_at("closeDate"))
+        }
+        thumbnail_url = await self.get_live_thumbnail_image(state_data, "방종")
+        defaultThumbnailImageUrl = state_data['content']['defaultThumbnailImageUrl']
+
+        if not thumbnail_url is None:
+            embeds['image'] = {"url": thumbnail_url}
+
+        elif not defaultThumbnailImageUrl is None:
+            embeds['image'] = {"url": defaultThumbnailImageUrl}
 
         return {"username": self.channel_name, 
                 "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
@@ -701,7 +708,7 @@ class afreeca_live_message(base_live_message):
                   if_after_time(self.data.state_update_time["openDate"], sec=15))
     
     #아프리카 오프라인 상태 처리
-    async def _handle_offline_status(self):
+    async def _handle_offline_status(self, state_data):
         message = "뱅종"
         current_time = datetime.now()
         json_data = self.getOffJson(current_time)
