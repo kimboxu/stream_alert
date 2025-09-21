@@ -748,8 +748,7 @@ class ChatAnalyzer:
             highlight_data = self.init.highlight_chat[channel_id][stream_start_id]
             
             # timeline_comments가 업데이트되었는지 확인
-            if (hasattr(highlight_data, 'timeline_comments') and 
-                highlight_data.timeline_comments):
+            if (hasattr(highlight_data, 'timeline_comments') and highlight_data.timeline_comments) or is_save_log:
                 
                 print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}")
                 print(f"  - 스트림 ID: {stream_start_id}")
