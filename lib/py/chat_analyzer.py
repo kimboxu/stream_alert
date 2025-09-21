@@ -114,6 +114,7 @@ class ChatMessageWithAnalyzer:
             await self.chat_analyzer.highlight_processing(self.is_save_log)
 
     async def highlight_processing(self):
+        print(f"{datetime.now()} {self.channel_id} highlight_processing ")
         await self.chat_analyzer.highlight_processing(self.is_save_log)
 
     async def _run_analyzer(self):
@@ -350,6 +351,7 @@ class ChatAnalyzer:
 
         # 치지직 방송 시간이 17시간이 지날 때마다 해당 시점까지의 하이라이트 생성
         if self.is_check_after_openDate(detailed_log):
+            print(f"{datetime.now()} {self.channel_id} is_check_after_openDate ")
             asyncio.create_task(self.highlight_processing())
 
         # 분석 기록 저장
@@ -644,7 +646,7 @@ class ChatAnalyzer:
                 thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
                 image_content = await get_message(self.performance_manager, "image", thumbnail_url)
                 if not image_content:
-                    print(f"_create_highlight 썸네일 가져오기 실패")
+                    print(f"{datetime.now()} _create_highlight 썸네일 가져오기 실패")
                     await asyncio.sleep(0.1)
                     continue
                 image = PILImage.open(BytesIO(image_content))
