@@ -58,7 +58,7 @@ class base_vod(ABC):
         self.time_offset = 25
         self.duration_diff = 10
         self.thumb_check_times = {}
-        self.max_check_thumb_min = 3
+        self.max_check_thumb_min = 10
         self.fun_difference1 = 15
         self.fun_difference2 = 30
         self.fun_difference3 = 40
