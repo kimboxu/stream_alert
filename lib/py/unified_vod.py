@@ -290,11 +290,11 @@ class base_vod(ABC):
                     # 지속시간 매칭 확인 (stream_start_id와 stream_end_id 이용)
                     stream_start_id = data.get('stream_start_id', '')
                     stream_end_id = data.get('stream_end_id', '')
-                    
+                    print(f"{datetime.now()} stream_time,{stream_start_id}, {stream_end_id}")
+
                     if stream_start_id and stream_end_id:
                         broadcast_duration = calculate_stream_duration(stream_start_id, stream_end_id)
                         duration_diff = abs(broadcast_duration - self.data.duration)
-                        print(f"{datetime.now()} stream_time,{stream_start_id}, {stream_end_id}")
                         print(f"{datetime.now()} duration,{broadcast_duration}, {self.data.duration}")
                         
                         # 지속시간 차이가 1분 미만이면 매칭된 것으로 판단
