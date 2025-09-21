@@ -907,6 +907,8 @@ class ChatAnalyzer:
 
             print(f"{datetime.now()} {json_data}")
             # 알림 전송
+            if self.init.DO_TEST:
+                return
             list_of_urls = get_list_of_urls(self.init.DO_TEST, self.init.userStateData, highlight.channel_name, highlight.channel_id, "하이라이트 알림")
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
             asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
