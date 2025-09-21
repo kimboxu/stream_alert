@@ -21,6 +21,7 @@ from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
 from highlight_chat_saver import HighlightChatSaver
+from genai_model import get_genai_model
 
 @dataclass
 class ChatAnalysisData:
@@ -1106,7 +1107,9 @@ class ChatAnalyzer:
             
             print(f"{datetime.now()} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
 
-            response = await asyncio.to_thread(self.init.model.generate_content, msg_list)
+            self.init.genai_cnt = (self.init.genai_cnt+1)%(10*len(environ['GOOGLE_API_KEY'].split(",")))
+            model = get_genai_model(self.init.genai_cnt)
+            response = await asyncio.to_thread(model.generate_content, msg_list)
 
             # JSON 파싱
             try:

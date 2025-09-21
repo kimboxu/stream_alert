@@ -9,8 +9,9 @@ from pathlib import Path
 
 # AI 기능을 위한 추가 임포트
 try:
-    from base import initVar, format_time_for_comment
+    from base import format_time_for_comment
     from chat_analyzer import StreamHighlight
+    from genai_model import get_genai_model
     AI_AVAILABLE = True
 except ImportError as e:
     print(f"AI 기능을 사용할 수 없습니다: {e}")
@@ -428,9 +429,7 @@ class SessionBasedFunScoreAnalyzer:
                 print(f"{datetime.now()} AI 모듈을 가져올 수 없어서 기본 로직을 사용합니다.")
                 return await self._export_highlights_basic(session_logs, session_stats)
             
-            # initVar에서 AI 모델 가져오기
-            init_var = initVar()
-            model = init_var.model
+            model = get_genai_model(0)
             
             print(f"{datetime.now()} AI 모델 로드 완료")
             
