@@ -862,7 +862,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def check_live_state_close(self):
         try:
             # 채널의 라이브 상태가 "CLOSE"인지 확인
-            if not if_after_time(self.state_update_time["openDate"], sec = 60) and await self.change_chatChannelId():
+            if not if_after_time(self.state_update_time["openDate"], sec = 60) and await self.get_check_channel_id() and await self.change_chatChannelId():
+                print(f"{datetime.now()} check {self.data.channel_id},cid check_live_state_close")
                 asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
                 
             return self.init.chzzk_titleData.loc[self.data.channel_id, 'live_state'] == "CLOSE"

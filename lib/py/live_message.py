@@ -17,7 +17,6 @@ from base import (
     userDataVar,
     save_airing_data,
     update_flag,
-    change_chat_join_state,
     if_after_time,
     save_profile_data,
     save_airing_data,
