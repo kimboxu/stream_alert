@@ -59,7 +59,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id, False))
             
             # 방송이 종료되었다면 대기(5초 마다 확인)
-            if self.check_live_state_close():
+            if await self.check_live_state_close():
                 await asyncio.sleep(5)
                 continue
             
@@ -119,7 +119,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            if (is_close:= self.check_live_state_close()):
+            if (is_close:= await self.check_live_state_close()):
                 asyncio.create_task(self.should_offLine())
             return ((is_close and if_after_time(self.data.last_chat_time)) 
                     or self.init.chat_json[self.data.channel_id])
@@ -170,7 +170,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 
             except (JSONDecodeError, ConnectionError, RuntimeError, websockets.exceptions.ConnectionClosed) as e:
                 # 연결 오류 처리
-                if not self.check_live_state_close():
+                if not await self.check_live_state_close():
                     asyncio.create_task(log_error(f"{datetime.now()} last_chat_time{self.data.channel_id} 2.{self.data.last_chat_time}.{e}"))
                     try: await self.data.sock.close()
                     except Exception: pass
@@ -859,9 +859,12 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if byement: self._send(byement)
 
     # 방송 상태가 종료인지 확인하는 함수
-    def check_live_state_close(self):
+    async def check_live_state_close(self):
         try:
             # 채널의 라이브 상태가 "CLOSE"인지 확인
+            if not if_after_time(self.state_update_time["openDate"], sec = 60) and await self.change_chatChannelId():
+                asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
+                
             return self.init.chzzk_titleData.loc[self.data.channel_id, 'live_state'] == "CLOSE"
         except Exception as e:
             # 예외 발생 시 로그 기록 후 기본값으로 True(종료) 반환
