@@ -109,7 +109,7 @@ class ChatMessageWithAnalyzer:
             self.log_save_task = None
     async def should_offLine(self):
         # 로그 저장
-        print(f"{datetime.now()} {self.channel_id} should_offLine")
+        print(f"{datetime.now()} {self.chat_analyzer.channel_id} should_offLine")
         if not self.is_save_log:
             self.is_save_log = True
             await self.chat_analyzer.highlight_processing(self.is_save_log)

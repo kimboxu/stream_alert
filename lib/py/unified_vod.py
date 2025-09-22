@@ -311,7 +311,7 @@ class base_vod(ABC):
                         
                     # 치지직 방송 중인데, 방송 시간이 길어서 VOD가 분할 된 경우
                     if self.platform_name == 'chzzk' and not stream_end_id:
-                        return self._match_chzzk_vod_segment(data)
+                        return await self._match_chzzk_vod_segment(data)
 
                             
                 except Exception as e:
