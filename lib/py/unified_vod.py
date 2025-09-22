@@ -129,7 +129,7 @@ class base_vod(ABC):
         # 비디오 데이터 JSON 생성 및 저장
         json_data = await self._get_video_json()
         self._update_video_list()
-        asyncio.create_task(save_video_data(self.video_data, self.channel_id))
+        # asyncio.create_task(save_video_data(self.video_data, self.channel_id))
 
         # 알림 목록에 추가
         self.data.video_alarm_List.append(json_data)
@@ -278,7 +278,7 @@ class base_vod(ABC):
             # 채널의 모든 하이라이트 파일 검색
             channel_name = self.id_list.loc[self.channel_id, 'channelName']
             pattern = f"highlight_chat_{channel_name}_*.json"
-            files = reversed(list(highlight_dir.glob(pattern)))
+            files = reversed(list(sorted(highlight_dir.glob(pattern))))
             
             # VOD 제목과 지속시간으로 매칭
             for file_path in files:
