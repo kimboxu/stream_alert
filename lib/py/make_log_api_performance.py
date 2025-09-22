@@ -10,9 +10,12 @@ from os import environ
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 from discord_webhook_sender import DiscordWebhookSender
+from concurrent.futures import ThreadPoolExecutor
+import time
 
 async def log_error(message, webhook_url = environ.get('errorPostBotURL')):
 	await DiscordWebhookSender()._log_error(message, webhook_url)
+
 @dataclass
 class APIPerformanceLog:
     """API 성능 로그 데이터 클래스"""
@@ -53,9 +56,11 @@ class APIPerformanceLogger:
         self._memory_lock = asyncio.Lock()  # 메모리 액세스용 락
         self._save_lock = asyncio.Lock()    # 파일 저장용 락
         
-        
         # 마지막 저장 시간
         self._last_save_time = datetime.now()
+        
+        # 스레드 풀 초기화 (파일 I/O용)
+        self._thread_pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="perf_logger")
         
         print(f"{datetime.now()} API 성능 로거 초기화 완료: {self.log_dir}")
 
@@ -107,38 +112,14 @@ class APIPerformanceLogger:
                 self.memory_logs.clear()               # 원본 클리어
             
             try:
-                # 파일 저장 로직
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                filename = f"api_performance_{timestamp}.json"
-                file_path = self.log_dir / filename
-                
-                # 복사본을 딕셔너리로 변환
-                logs_data = []
-                for log_entry in logs_to_save:
-                    logs_data.append({
-                        "timestamp": log_entry.timestamp.isoformat(),
-                        "api_type": log_entry.api_type,
-                        "response_time_ms": log_entry.response_time_ms,
-                        "is_success": log_entry.is_success,
-                        "http_status_code": log_entry.http_status_code,
-                        "error_type": log_entry.error_type,
-                        "error_message": log_entry.error_message,
-                        "retry_count": log_entry.retry_count
-                    })
-                
-                save_data = {
-                    "created_at": datetime.now().isoformat(),
-                    "log_count": len(logs_data),
-                    "logs": logs_data
-                }
-                
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    dump(save_data, f, ensure_ascii=False, indent=2)
-                
-                print(f"{datetime.now()} API 성능 로그 저장 완료: {file_path} ({len(logs_data)}개 기록)")
+                # 파일 저장을 스레드 풀에서 실행 (논블로킹)
+                await asyncio.get_event_loop().run_in_executor(
+                    self._thread_pool,
+                    self._sync_save_logs,
+                    logs_to_save
+                )
                 
                 self._last_save_time = datetime.now()
-                await self._cleanup_old_files()
                 
             except Exception as e:
                 # 저장 실패 시 데이터 복구
@@ -149,31 +130,69 @@ class APIPerformanceLogger:
                         
                 await log_error(f"API 성능 로그 파일 저장 실패: {e}")
 
+    def _sync_save_logs(self, logs_to_save):
+        """동기적 파일 저장 (스레드 풀에서 실행)"""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"api_performance_{timestamp}.json"
+        file_path = self.log_dir / filename
+        
+        # 복사본을 딕셔너리로 변환
+        logs_data = []
+        for log_entry in logs_to_save:
+            logs_data.append({
+                "timestamp": log_entry.timestamp.isoformat(),
+                "api_type": log_entry.api_type,
+                "response_time_ms": log_entry.response_time_ms,
+                "is_success": log_entry.is_success,
+                "http_status_code": log_entry.http_status_code,
+                "error_type": log_entry.error_type,
+                "error_message": log_entry.error_message,
+                "retry_count": log_entry.retry_count
+            })
+        
+        save_data = {
+            "created_at": datetime.now().isoformat(),
+            "log_count": len(logs_data),
+            "logs": logs_data
+        }
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            dump(save_data, f, ensure_ascii=False, indent=2)
+        
+        print(f"{datetime.now()} API 성능 로그 저장 완료: {file_path} ({len(logs_data)}개 기록)")
+
     async def _cleanup_old_files(self):
         """오래된 로그 파일 삭제"""
         try:
-            cutoff_date = datetime.now() - timedelta(days=self.max_file_age_days)
-            pattern = str(self.log_dir / "api_performance_*.json")
-            
-            for file_path in glob.glob(pattern):
-                file_path = Path(file_path)
-                
-                # 파일명에서 날짜 추출
-                try:
-                    filename = file_path.stem
-                    date_part = filename.split('_')[2] + "_" + filename.split('_')[3]
-                    file_date = datetime.strptime(date_part, "%Y%m%d_%H%M%S")
-                    
-                    if file_date < cutoff_date:
-                        file_path.unlink()
-                        print(f"{datetime.now()} 오래된 로그 파일 삭제: {file_path}")
-                        
-                except (IndexError, ValueError):
-                    # 파일명 형식이 맞지 않으면 건너뛰기
-                    continue
-                    
+            # 파일 정리를 스레드 풀에서 실행
+            await asyncio.get_event_loop().run_in_executor(
+                self._thread_pool,
+                self._sync_cleanup_old_files
+            )
         except Exception as e:
             await log_error(f"오래된 로그 파일 정리 실패: {e}")
+
+    def _sync_cleanup_old_files(self):
+        """동기적 파일 정리 (스레드 풀에서 실행)"""
+        cutoff_date = datetime.now() - timedelta(days=self.max_file_age_days)
+        pattern = str(self.log_dir / "api_performance_*.json")
+        
+        for file_path in glob.glob(pattern):
+            file_path = Path(file_path)
+            
+            # 파일명에서 날짜 추출
+            try:
+                filename = file_path.stem
+                date_part = filename.split('_')[2] + "_" + filename.split('_')[3]
+                file_date = datetime.strptime(date_part, "%Y%m%d_%H%M%S")
+                
+                if file_date < cutoff_date:
+                    file_path.unlink()
+                    print(f"{datetime.now()} 오래된 로그 파일 삭제: {file_path}")
+                    
+            except (IndexError, ValueError):
+                # 파일명 형식이 맞지 않으면 건너뛰기
+                continue
 
     async def get_logs_in_period(self, start_date: datetime, end_date: datetime) -> List[Dict]:
         """특정 기간의 로그 데이터 조회"""
@@ -198,25 +217,89 @@ class APIPerformanceLogger:
                         "retry_count": log_entry.retry_count
                     })
             
-            # 파일의 로그 추가
-            pattern = str(self.log_dir / "api_performance_*.json")
-            for file_path in glob.glob(pattern):
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        file_data = load(f)
-                        
-                    for log_data in file_data.get('logs', []):
-                        log_time = datetime.fromisoformat(log_data['timestamp'])
-                        if start_date <= log_time <= end_date:
-                            all_logs.append(log_data)
-                            
-                except (JSONDecodeError, FileNotFoundError, KeyError):
-                    continue
+            # 파일 기반 로그를 비동기적으로 읽기
+            file_logs = await self._read_logs_from_files_async(start_date, end_date)
+            all_logs.extend(file_logs)
             
             return sorted(all_logs, key=lambda x: x['timestamp'])
             
         except Exception as e:
             await log_error(f"로그 조회 실패: {e}")
+            return []
+
+    async def _read_logs_from_files_async(self, start_date: datetime, end_date: datetime) -> List[Dict]:
+        """파일에서 로그를 비동기적으로 읽기"""
+        pattern = str(self.log_dir / "api_performance_*.json")
+        file_paths = glob.glob(pattern)
+        
+        if not file_paths:
+            return []
+        
+        print(f"{datetime.now()} 파일 로그 읽기 시작: {len(file_paths)}개 파일")
+        start_time = time.time()
+        
+        # 배치 크기 설정 (메모리 사용량 제어)
+        batch_size = 10
+        all_logs = []
+        
+        # 파일을 배치로 나누어 처리
+        for i in range(0, len(file_paths), batch_size):
+            batch_files = file_paths[i:i + batch_size]
+            
+            # 각 배치를 스레드 풀에서 처리
+            batch_tasks = []
+            for file_path in batch_files:
+                task = asyncio.get_event_loop().run_in_executor(
+                    self._thread_pool,
+                    self._read_single_file_sync,
+                    file_path, start_date, end_date
+                )
+                batch_tasks.append(task)
+            
+            # 배치 완료 대기
+            try:
+                batch_results = await asyncio.wait_for(
+                    asyncio.gather(*batch_tasks, return_exceptions=True),
+                    timeout=30  # 30초 타임아웃
+                )
+                
+                # 결과 처리
+                for result in batch_results:
+                    if isinstance(result, list):
+                        all_logs.extend(result)
+                    elif isinstance(result, Exception):
+                        print(f"파일 읽기 오류: {result}")
+                
+                # 배치 간 양보 (다른 작업에게 제어권 양보)
+                await asyncio.sleep(0.1)
+                
+            except asyncio.TimeoutError:
+                print(f"배치 {i//batch_size + 1} 타임아웃 - 일부 파일 건너뜀")
+                continue
+        
+        elapsed = time.time() - start_time
+        print(f"{datetime.now()} 파일 로그 읽기 완료: {elapsed:.2f}초, {len(all_logs)}개 로그")
+        
+        return all_logs
+
+    def _read_single_file_sync(self, file_path: str, start_date: datetime, end_date: datetime) -> List[Dict]:
+        """단일 파일을 동기적으로 읽기 (스레드 풀에서 실행)"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                file_data = load(f)
+            
+            logs = []
+            for log_data in file_data.get('logs', []):
+                try:
+                    log_time = datetime.fromisoformat(log_data['timestamp'])
+                    if start_date <= log_time <= end_date:
+                        logs.append(log_data)
+                except (ValueError, KeyError):
+                    continue
+            
+            return logs
+            
+        except (JSONDecodeError, FileNotFoundError, KeyError):
             return []
 
     async def force_save(self):
@@ -243,6 +326,11 @@ class APIPerformanceLogger:
                 "last_save_time": datetime.now().isoformat(),
                 "next_auto_save_in_minutes": 0
             }
+
+    def cleanup(self):
+        """리소스 정리"""
+        if hasattr(self, '_thread_pool'):
+            self._thread_pool.shutdown(wait=True)
 
 class APIStatisticsCalculator:
     """API 통계 계산을 담당하는 클래스"""
@@ -893,14 +981,19 @@ class PerformanceManager:
             
         try:
             print(f"{datetime.now()} 일일 통계 계산 시작: {target_date}")
+            start_calculation_time = time.time()
             
             # 해당 날짜의 시작과 끝 시간 설정
             start_datetime = datetime.combine(target_date, datetime.min.time())
             end_datetime = datetime.combine(target_date, datetime.max.time())
             
             # 통계 계산
+            print(f"{datetime.now()} 로그 데이터 수집 중...")
             comprehensive_stats = await self.calculator.calculate_comprehensive_statistics(
                 start_datetime, end_datetime)
+            
+            calculation_time = time.time() - start_calculation_time
+            print(f"{datetime.now()} 통계 계산 완료: {calculation_time:.2f}초 소요")
             
             # 일일 통계
             daily_stat = {
@@ -912,7 +1005,8 @@ class PerformanceManager:
             # 일일 통계 저장
             await self._save_daily_statistics(daily_stat)
             
-            print(f"{datetime.now()} 일일 통계 저장 완료: {target_date}")
+            total_time = time.time() - start_calculation_time
+            print(f"{datetime.now()} 일일 통계 저장 완료: {target_date} (총 {total_time:.2f}초)")
             
             # 요약 정보 출력
             api_performance = comprehensive_stats.get('api_performance', {})
@@ -942,32 +1036,41 @@ class PerformanceManager:
     async def _save_daily_statistics(self, daily_stat):
         """일일 통계를 파일에 저장"""
         try:
-            # 기존 데이터 로드
-            existing_stats = {}
-            if self.daily_stats_file.exists():
-                with open(self.daily_stats_file, 'r', encoding='utf-8') as f:
-                    try:
-                        existing_stats = load(f)
-                    except JSONDecodeError:
-                        existing_stats = {}
-            
-            # 새 통계 추가 (날짜를 키로 사용)
-            date_key = daily_stat['date']
-            existing_stats[date_key] = daily_stat
-            
-            # 오래된 데이터 제거 (30일 이상된 데이터)
-            cutoff_date = datetime.now().date() - timedelta(days=30)
-            filtered_stats = {
-                date: stat for date, stat in existing_stats.items()
-                if datetime.fromisoformat(date).date() > cutoff_date
-            }
-            
-            # 파일에 저장
-            with open(self.daily_stats_file, 'w', encoding='utf-8') as f:
-                dump(filtered_stats, f, ensure_ascii=False, indent=2)
+            # 파일 저장을 스레드 풀에서 실행 (논블로킹)
+            await asyncio.get_event_loop().run_in_executor(
+                self.logger._thread_pool,
+                self._sync_save_daily_statistics,
+                daily_stat
+            )
                 
         except Exception as e:
             await log_error(f"일일 통계 파일 저장 실패: {e}")
+
+    def _sync_save_daily_statistics(self, daily_stat):
+        """동기적 일일 통계 저장 (스레드 풀에서 실행)"""
+        # 기존 데이터 로드
+        existing_stats = {}
+        if self.daily_stats_file.exists():
+            with open(self.daily_stats_file, 'r', encoding='utf-8') as f:
+                try:
+                    existing_stats = load(f)
+                except JSONDecodeError:
+                    existing_stats = {}
+        
+        # 새 통계 추가 (날짜를 키로 사용)
+        date_key = daily_stat['date']
+        existing_stats[date_key] = daily_stat
+        
+        # 오래된 데이터 제거 (30일 이상된 데이터)
+        cutoff_date = datetime.now().date() - timedelta(days=30)
+        filtered_stats = {
+            date: stat for date, stat in existing_stats.items()
+            if datetime.fromisoformat(date).date() > cutoff_date
+        }
+        
+        # 파일에 저장
+        with open(self.daily_stats_file, 'w', encoding='utf-8') as f:
+            dump(filtered_stats, f, ensure_ascii=False, indent=2)
 
     def setup_scheduler(self):
         """정기적인 작업 스케줄러 설정"""
@@ -987,7 +1090,7 @@ class PerformanceManager:
                 func=lambda: asyncio.run(self.calculate_and_save_daily_statistics()),
                 trigger="cron",
                 hour=3,
-                minute=0,
+                minute=10,
                 id='daily_statistics'
             )
             
@@ -996,7 +1099,7 @@ class PerformanceManager:
                 func=lambda: asyncio.run(self.logger._cleanup_old_files()),
                 trigger="cron",
                 hour=2,
-                minute=0,
+                minute=10,
                 id='cleanup_old_files'
             )
             
@@ -1010,6 +1113,9 @@ class PerformanceManager:
         """시스템 종료시 정리 작업"""
         # 남은 로그 강제 저장
         await self.logger.force_save()
+        
+        # 스레드 풀 정리
+        self.logger.cleanup()
         
         # 스케줄러 종료
         if self.scheduler:
