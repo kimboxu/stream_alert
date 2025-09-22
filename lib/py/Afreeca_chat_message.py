@@ -489,7 +489,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     # 비밀번호 설정 여부 확인 
     async def check_is_passwordDict(self):
         stateData = await get_message(self.performance_manager, "afreeca", afreeca_getLink(self.init.afreecaIDList["afreecaID"][self.data.channel_id]))
-        return stateData.get('broad',{}).get('is_password',{False})
+        return stateData is not None and stateData.get('broad',{}).get('is_password',{False})
     
     # 방송 종료 여부 확인 
     def check_live_state_close(self):
