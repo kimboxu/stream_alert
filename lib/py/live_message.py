@@ -505,17 +505,17 @@ class chzzk_live_message(base_live_message):
     #치지직 썸네일 이미지(실시간 방송 화면 이미지로 변환 후) 가져오기
     async def get_live_thumbnail_image(self, state_data, message):
         self.wait_get_live_thumbnail_image = True
-        for count in range(20):
-            time_difference = (datetime.now() - datetime.fromisoformat(self.title_data.loc[self.channel_id, 'update_time'])).total_seconds()
+        for count in range(40):
+            # time_difference = (datetime.now() - datetime.fromisoformat(self.title_data.loc[self.channel_id, 'update_time'])).total_seconds()
 
-            if message == "뱅온!" or self.title_data.loc[self.channel_id, 'live_state'] == "CLOSE" or time_difference < 15: 
-                thumbnail_image = ""
-                break
+            # if message == "뱅온!" or self.title_data.loc[self.channel_id, 'live_state'] == "CLOSE" or time_difference < 15: 
+            #     thumbnail_image = ""
+            #     break
 
             thumbnail_image = self.get_thumbnail_image(state_data)
             if thumbnail_image is None:
                 print(f"{datetime.now()} wait make thumbnail1 {count}")
-                await asyncio.sleep(0.05)
+                await asyncio.sleep(0.1)
                 continue
             break
 
@@ -580,7 +580,7 @@ class chzzk_live_message(base_live_message):
                 ],
             "title": f"{self.channel_name} {message}\n",
             "url": self.data.channel_url,
-            # "image": {"url": thumbnail_url},
+            "image": {"url": thumbnail_url},
             "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
             "timestamp": changeUTCtime(self.getStarted_at("openDate"))}
         
@@ -635,13 +635,11 @@ class chzzk_live_message(base_live_message):
             "footer": { "text": f"방종 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
             "timestamp": changeUTCtime(self.getStarted_at("closeDate"))
         }
-        thumbnail_url = await self.get_live_thumbnail_image(state_data, "방종")
+        # thumbnail_url = await self.get_live_thumbnail_image(state_data, "방종")
         defaultThumbnailImageUrl = state_data['content']['defaultThumbnailImageUrl']
 
-        if not thumbnail_url is None:
-            embeds['image'] = {"url": thumbnail_url}
 
-        elif not defaultThumbnailImageUrl is None:
+        if not defaultThumbnailImageUrl is None:
             embeds['image'] = {"url": defaultThumbnailImageUrl}
 
         return {"username": self.channel_name, 
