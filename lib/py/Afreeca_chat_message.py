@@ -199,7 +199,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     async def _receive_messages(self):
         # 연결 종료 여부 확인 함수
         async def should_close_connection():
-            if (is_close:= self.check_live_state_close()):
+            if (is_close:= self.check_live_state_close() or self.init.chat_json[self.data.channel_id]):
                 asyncio.create_task(self.should_offLine())
 
             return (is_close and if_after_time(self.data.last_chat_time) 
@@ -225,7 +225,6 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
                 # 메시지 수신
                 raw_message = await asyncio.wait_for(self.data.sock.recv(), timeout=1)
-                self.data.last_chat_time = datetime.now().isoformat()
                 # await self.data.message_queue.put(raw_message)
 
                 # 메시지 버퍼에 추가
@@ -331,6 +330,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
         # print(f"{datetime.now()} [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
 
+        self.data.last_chat_time = datetime.now().isoformat()
         # 채팅 메시지인 경우 분석기로 전달
         if chat_type == "채팅":
             

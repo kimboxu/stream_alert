@@ -55,12 +55,12 @@ class ChatMessageWithAnalyzer:
         self.chat_analyzer = ChatAnalyzer(self.init, self.performance_manager, channel_id, channel_name, platform_name)
         self.analysis_task = None
         self.log_save_task = None
-        self.is_save_log = False
 
     async def start_analyzer(self):
         """분석기 시작 - start() 메서드에서 호출"""
         try:
             if not self.analysis_task or self.analysis_task.done():
+                self.is_save_log = False
                 self.analysis_task = asyncio.create_task(self._run_analyzer())
                 print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
 
@@ -109,12 +109,12 @@ class ChatMessageWithAnalyzer:
             self.log_save_task = None
     async def should_offLine(self):
         # 로그 저장
+        print(f"{datetime.now()} {self.channel_id} should_offLine")
         if not self.is_save_log:
             self.is_save_log = True
             await self.chat_analyzer.highlight_processing(self.is_save_log)
 
     async def highlight_processing(self):
-        print(f"{datetime.now()} {self.channel_id} highlight_processing ")
         await self.chat_analyzer.highlight_processing(self.is_save_log)
 
     async def _run_analyzer(self):
