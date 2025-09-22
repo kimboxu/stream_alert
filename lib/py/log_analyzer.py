@@ -503,7 +503,7 @@ class SessionBasedFunScoreAnalyzer:
             # 4단계: 파일 저장
             final_content = "\n\n".join(highlight_lines)
             start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
-            filename = f"{self.channel_name}_{start_date}_highlights_ai.txt"
+            filename = f"{self.channel_name}_{start_date}_highlights.txt"
             file_path = self.reports_dir / filename
             
             with open(file_path, 'w', encoding='utf-8') as f:
