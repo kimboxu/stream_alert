@@ -14,6 +14,7 @@ from base import (
     iconLinkData, 
     initVar, 
     save_video_data, 
+    if_after_time,
     log_error,
     getChzzkCookie,
     getDefaultHeaders,
@@ -232,7 +233,9 @@ class base_vod(ABC):
         
         while wait_count < max_checks:
             # 하이라이트 처리가 완료되었는지 확인
-            if not self.init.wait_make_highlight_chat.get(self.channel_id, False):
+            state_update_time = self.title_data.loc[self.channel_id, 'state_update_time']
+            
+            if not self.init.wait_make_highlight_chat.get(self.channel_id, False) and if_after_time(state_update_time["closeDate"], sec=30):
                 print(f"{datetime.now()} 하이라이트 처리 완료 감지, 채팅 처리 시작: {channel_name}")
                 await self._process_highlight_chat()
                 return
@@ -516,6 +519,7 @@ class chzzk_vod(base_vod):
     def _initialize_platform_data(self):
         """치지직 플랫폼 데이터 초기화"""
         self.id_list = self.init.chzzkIDList
+        self.title_data = self.init.chzzk_titleData
         
     async def _get_video_data(self):
         """치지직 비디오 API 데이터 가져오기"""
@@ -724,6 +728,7 @@ class afreeca_vod(base_vod):
     def _initialize_platform_data(self):
         """아프리카TV 플랫폼 데이터 초기화"""
         self.id_list = self.init.afreecaIDList
+        self.title_data = self.init.afreeca_titleData
 
     async def _get_video_data(self):
         """아프리카TV 비디오 API 데이터 가져오기"""
