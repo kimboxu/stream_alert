@@ -38,7 +38,7 @@ class ChzzkChatData:
 
 # Chzzk 채팅 메시지 처리 클래스
 class chzzk_chat_message(ChatMessageWithAnalyzer):
-    def __init__(self, init_var, performance_manager: PerformanceManager, channel_id):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
         self.init = init_var
         self.performance_manager = performance_manager
         channel_name = init_var.chzzkIDList.loc[channel_id, 'channelName']
@@ -119,7 +119,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            if (is_close:= await self.check_live_state_close()):
+            if (is_close:= await self.check_live_state_close() or self.init.chat_json[self.data.channel_id]):
                 asyncio.create_task(self.should_offLine())
             return ((is_close and if_after_time(self.data.last_chat_time)) 
                     or self.init.chat_json[self.data.channel_id])
