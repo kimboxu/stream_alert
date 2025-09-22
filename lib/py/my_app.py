@@ -1329,7 +1329,7 @@ def run_background_save_with_state_manager(task_id):
             pass
 
 async def background_save_task_with_state_manager(task_id):
-    """StateManager를 활용한 실제 저장 작업"""
+    """StateManager를 활용한 하이라이트 저장 작업"""
     try:
         # StateManager 인스턴스 가져오기
         state_manager = StateManager.get_instance()
@@ -1363,7 +1363,7 @@ async def background_save_task_with_state_manager(task_id):
         state_manager.update_task_status(task_id, {
             "total_channels": total_channels,
             "processed_channels": 0,
-            "message": f"총 {total_channels}개 채널 처리 시작",
+            "message": f"총 {total_channels}개 채널 병렬 처리 시작",
             "progress": 10
         })
         
@@ -1373,44 +1373,62 @@ async def background_save_task_with_state_manager(task_id):
             "errors": []
         }
         
-        # 각 채널 순차 처리
-        for i, instance_info in enumerate(instances_with_highlights):
-            try:
-                channel_id = instance_info['channel_id']
-                channel_name = instance_info['channel_name']
-                platform = instance_info['platform']
-                highlights_count = instance_info['highlights_count']
-                chat_instance = instance_info['instance']
+        # 병렬 처리를 위한 세마포어 (최대 3개 동시 실행)
+        max_concurrent = min(3, total_channels)
+        semaphore = asyncio.Semaphore(max_concurrent)
+        completed_count = 0
+        
+        async def process_single_channel(instance_info):
+            """단일 채널 처리 함수 (세마포어 적용)"""
+            nonlocal completed_count
+            
+            async with semaphore:
+                try:
+                    channel_id = instance_info['channel_id']
+                    channel_name = instance_info['channel_name']
+                    platform = instance_info['platform']
+                    highlights_count = instance_info['highlights_count']
+                    chat_instance = instance_info['instance']
+                    
+                    print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 시작")
+                    
+                    # 하이라이트 처리 실행
+                    await chat_instance.highlight_processing()
+                    
+                    # 결과 추가 (thread-safe하게)
+                    result = {
+                        "channel_id": channel_id,
+                        "channel_name": channel_name,
+                        "platform": platform,
+                        "highlights_saved": highlights_count
+                    }
+                    save_results["processed_channels"].append(result)
+                    save_results["total_highlights_saved"] += highlights_count
+                    
+                    print(f"{datetime.now()} [{platform}] {channel_name}: 하이라이트 저장 완료")
+                    
+                except Exception as channel_error:
+                    error_msg = f"채널 {instance_info.get('channel_name', 'Unknown')} 처리 중 오류: {str(channel_error)}"
+                    save_results["errors"].append(error_msg)
+                    print(f"{datetime.now()} {error_msg}")
                 
-                # 현재 처리 중인 채널 표시
-                progress = 10 + int((i / total_channels) * 80)  # 10~90% 구간
-                state_manager.update_task_status(task_id, {
-                    "progress": progress,
-                    "processed_channels": i,
-                    "current_channel": channel_name,
-                    "message": f"[{platform}] {channel_name} 처리 중... ({i+1}/{total_channels})"
-                })
-                
-                print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 시작")
-                
-                # 하이라이트 처리 실행
-                await chat_instance.highlight_processing()
-                
-                save_results["processed_channels"].append({
-                    "channel_id": channel_id,
-                    "channel_name": channel_name,
-                    "platform": platform,
-                    "highlights_saved": highlights_count
-                })
-                save_results["total_highlights_saved"] += highlights_count
-                
-                print(f"{datetime.now()} [{platform}] {channel_name}: 하이라이트 저장 완료")
-                
-            except Exception as channel_error:
-                error_msg = f"채널 {instance_info.get('channel_name', 'Unknown')} 처리 중 오류: {str(channel_error)}"
-                save_results["errors"].append(error_msg)
-                print(f"{datetime.now()} {error_msg}")
-                continue
+                finally:
+                    # 완료 카운트 업데이트
+                    completed_count += 1
+                    progress = 10 + int((completed_count / total_channels) * 80)  # 10~90% 구간
+                    
+                    state_manager.update_task_status(task_id, {
+                        "progress": progress,
+                        "processed_channels": completed_count,
+                        "message": f"처리 완료: {completed_count}/{total_channels} (병렬 처리 중...)"
+                    })
+        
+        # 모든 채널을 병렬로 처리
+        print(f"{datetime.now()} 병렬 처리 시작: {max_concurrent}개 동시 실행")
+        
+        # asyncio.gather를 사용하여 모든 작업을 동시에 실행
+        tasks = [process_single_channel(instance) for instance in instances_with_highlights]
+        await asyncio.gather(*tasks, return_exceptions=True)
         
         # 완료 상태 업데이트
         state_manager.update_task_status(task_id, {
