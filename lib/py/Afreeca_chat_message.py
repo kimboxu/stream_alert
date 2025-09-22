@@ -339,7 +339,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 await self.chat_analyzer.add_chat_message(nickname, chat)
 
         # 테스트 모드가 아니고 필터링된 채널이 아니면 무시
-        if not self.init.DO_TEST and user_id not in [*self.init.afreeca_chatFilter["channelID"]]: 
+        if user_id not in [*self.init.afreeca_chatFilter["channelID"]]: 
             return
         
         # 사용자 정보 가져오기
