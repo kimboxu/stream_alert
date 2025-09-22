@@ -685,6 +685,8 @@ class chzzk_vod(base_vod):
             async with aiohttp.ClientSession() as session:
                 for i, message in enumerate(reply_messages):
                     try:
+                        # 답글 간 간격 (너무 빠르게 보내지 않도록)
+                        await asyncio.sleep(6)
                         async with session.post(
                             get_link(),
                             json=get_reply_json(message),
@@ -706,9 +708,6 @@ class chzzk_vod(base_vod):
                                     print(f"{datetime.now()} 답글 {i+1} 파싱 오류: {parse_error}")
                             else:
                                 print(f"{datetime.now()} 답글 {i+1} HTTP 오류: {response.status}")
-                        
-                        # 답글 간 간격 (너무 빠르게 보내지 않도록)
-                        await asyncio.sleep(5)
                         
                     except Exception as reply_error:
                         print(f"{datetime.now()} 답글 {i+1} 전송 오류: {reply_error}")
