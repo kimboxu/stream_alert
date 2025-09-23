@@ -119,10 +119,12 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            if (is_close:= await self.check_live_state_close() or await self.check_change_chatChannel() or self.init.chat_json[self.data.channel_id]):
+            if (is_close:= await self.check_live_state_close() or await self.check_change_chatChannel(connect_time) or self.init.chat_json[self.data.channel_id]):
                 asyncio.create_task(self.should_offLine())
             return ((is_close and if_after_time(self.data.last_chat_time)) 
                     or self.init.chat_json[self.data.channel_id])
+
+        connect_time = datetime.now().isoformat()
 
         json_loads = loads
         message_buffer = []
@@ -868,8 +870,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             asyncio.create_task(log_error(f"Error in check_live_state_close: {e}"))
             return True
         
-    async def check_change_chatChannel(self):
-        if not if_after_time(self.state_update_time["openDate"], sec = 60) and await self.get_check_channel_id() and await self.change_chatChannelId():
+    async def check_change_chatChannel(self, connect_time):
+        if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60) and await self.get_check_channel_id() and await self.change_chatChannelId():
             print(f"{datetime.now()} check {self.data.channel_id},{self.data.cid},cid check_live_state_close")
             # asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
             return True
