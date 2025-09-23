@@ -870,7 +870,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         
     async def check_change_chatChannel(self):
         if not if_after_time(self.state_update_time["openDate"], sec = 60) and await self.get_check_channel_id() and await self.change_chatChannelId():
-            print(f"{datetime.now()} check {self.data.channel_id},cid check_live_state_close")
+            print(f"{datetime.now()} check {self.data.channel_id},{self.data.cid},cid check_live_state_close")
             # asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
             return True
         return False
