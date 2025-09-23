@@ -506,11 +506,11 @@ class chzzk_live_message(base_live_message):
     async def get_live_thumbnail_image(self, state_data, message):
         self.wait_get_live_thumbnail_image = True
         for count in range(40):
-            # time_difference = (datetime.now() - datetime.fromisoformat(self.title_data.loc[self.channel_id, 'update_time'])).total_seconds()
+            time_difference = (datetime.now() - datetime.fromisoformat(self.title_data.loc[self.channel_id, 'update_time'])).total_seconds()
 
-            # if message == "뱅온!" or self.title_data.loc[self.channel_id, 'live_state'] == "CLOSE" or time_difference < 15: 
-            #     thumbnail_image = ""
-            #     break
+            if message == "뱅온!" or self.title_data.loc[self.channel_id, 'live_state'] == "CLOSE" or time_difference < 15: 
+                thumbnail_image = ""
+                break
 
             thumbnail_image = self.get_thumbnail_image(state_data)
             if thumbnail_image is None:
@@ -575,12 +575,12 @@ class chzzk_live_message(base_live_message):
             "author": self.get_author(),
             "fields": [
                 {"name": "방제", "value": self.data.title, "inline": True},
-                {"name": ':busts_in_silhouette: 시청자수',
-                "value": self.data.view_count, "inline": True}
+                # {"name": ':busts_in_silhouette: 시청자수',
+                # "value": self.data.view_count, "inline": True}
                 ],
             "title": f"{self.channel_name} {message}\n",
             "url": self.data.channel_url,
-            "image": {"url": thumbnail_url},
+            # "image": {"url": thumbnail_url},
             "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
             "timestamp": changeUTCtime(self.getStarted_at("openDate"))}
         
