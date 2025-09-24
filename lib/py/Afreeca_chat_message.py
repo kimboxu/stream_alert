@@ -117,6 +117,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     # 웹소켓 연결 및 메시지 처리
     async def _connect_and_run(self):   
         self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
+        asyncio.create_task(log_error(f"{self.data.channel_id} 방송 켜짐", webhook_url=environ['chat_post_url']))
         # 웹소켓 연결
         async with websockets.connect(f"wss://{self.CHDOMAIN}:{self.CHPT}/Websocket/{self.data.BID}",
                                 subprotocols=['chat'],
