@@ -890,6 +890,9 @@ def upload_image_to_imgur(stream_status :LiveData, channel_id, image_url, platfo
         else:
             print(f"{datetime.now()} Imgur 업로드 실패: {imgur_response.status_code}")
             print(f"응답: {imgur_response.text}")
+            #,"status":"Too Many Requests"
+            if imgur_response.status_code == 429:
+                return ""
             return None
     
     except Exception as e:
