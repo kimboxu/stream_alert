@@ -1085,20 +1085,20 @@ class PerformanceManager:
                 id='force_save_logs'
             )
             
-            # 매일 새벽 3시에 전날 일일 통계 계산
+            # 매일 새벽 6시에 전날 일일 통계 계산
             self.scheduler.add_job(
                 func=lambda: asyncio.run(self.calculate_and_save_daily_statistics()),
                 trigger="cron",
-                hour=3,
+                hour=6,
                 minute=10,
                 id='daily_statistics'
             )
             
-            # 매일 새벽 2시에 오래된 파일 정리
+            # 매일 새벽 5시에 오래된 파일 정리
             self.scheduler.add_job(
                 func=lambda: asyncio.run(self.logger._cleanup_old_files()),
                 trigger="cron",
-                hour=2,
+                hour=5,
                 minute=10,
                 id='cleanup_old_files'
             )
