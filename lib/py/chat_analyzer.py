@@ -688,7 +688,7 @@ class ChatAnalyzer:
         # if not self.init.DO_TEST:
         #     await self._save_highlight_to_db(highlight)
 
-        if len(self.highlights) > 30:
+        if len(self.highlights) > 20:
             timeline_comments = await self._make_highlight_chat(self.highlights[:-1])
             self.update_highlight_chat(timeline_comments)
             self.highlights = [self.highlights[-1]]
@@ -1126,7 +1126,7 @@ class ChatAnalyzer:
 
             except (json.JSONDecodeError, ValueError, KeyError) as e:
                 print(f"{datetime.now()} JSON 파싱 오류: {e}")
-                print(f"{datetime.now()} 응답 내용: {response.text[:500]}...")
+                print(f"{datetime.now()} 응답 내용: {response.text}")
                 return []
                         
         except Exception as e:
