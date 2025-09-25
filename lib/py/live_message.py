@@ -619,8 +619,9 @@ class chzzk_live_message(base_live_message):
                 {"name": "이전 방제", "value": str(self._get_title()), "inline": True},
                 {"name": "현재 방제", "value": self.data.title, "inline": True}],
             "title": f"{self.channel_name} {message}\n",
+            "url": self.data.channel_url,
             "footer": { "icon_url": iconLinkData().chzzk_icon },
-            "url": self.data.channel_url}
+            }
 
         return {"username": self.channel_name, 
                 "avatar_url": self.id_list.loc[self.channel_id, 'profile_image'],
