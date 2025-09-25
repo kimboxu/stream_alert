@@ -4,6 +4,7 @@ import asyncio
 import aiohttp
 from json import loads
 import pandas as pd
+from random import randint
 from requests import post, get
 from requests.exceptions import HTTPError, ReadTimeout, ConnectTimeout, SSLError
 from http.client import RemoteDisconnected
@@ -33,7 +34,7 @@ class initVar:
 	wait_make_highlight_chat = {}
 
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])  # Supabase DB 클라이언트
-	genai_cnt = 0
+	genai_cnt = randint(0, 29)
 
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
 
