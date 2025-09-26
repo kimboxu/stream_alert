@@ -533,15 +533,7 @@ class chzzk_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL(state_data)
             
-            return asyncio.create_task(
-                upload_image_to_imgur(
-                    self.data, 
-                    self.channel_id, 
-                    self.data.thumbnail_url, 
-                    platform_prefix="chzzk",
-                    performance_manager=self.performance_manager
-                )
-            )
+            return upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
                 
         except Exception as e:
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
@@ -785,15 +777,7 @@ class afreeca_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL()
             
-            return asyncio.create_task(
-                upload_image_to_imgur(
-                    self.data, 
-                    self.channel_id, 
-                    self.data.thumbnail_url, 
-                    platform_prefix="afreeca",
-                    performance_manager=self.performance_manager
-                )
-            )
+            return upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
         
         except Exception as e:
             print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
