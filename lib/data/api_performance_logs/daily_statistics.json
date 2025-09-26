@@ -484,5 +484,86 @@
       "fcm": 23,
       "total": 4700
     }
+  },
+  "2025-09-25": {
+    "date": "2025-09-25",
+    "calculated_at": "2025-09-26T06:34:23.957238",
+    "period": {
+      "start": "2025-09-25T00:00:00",
+      "end": "2025-09-25T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "cafe_api": {
+        "total_requests": 400529,
+        "successful_requests": 400526,
+        "failed_requests": 3,
+        "avg_response_time_ms": 200.49,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1284326,
+        "successful_requests": 1284317,
+        "failed_requests": 9,
+        "avg_response_time_ms": 437.49,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 813284,
+        "successful_requests": 813281,
+        "failed_requests": 3,
+        "avg_response_time_ms": 588.99,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 3422,
+        "successful_requests": 3418,
+        "failed_requests": 4,
+        "avg_response_time_ms": 651.69,
+        "success_rate_percent": 99.88
+      },
+      "image_api": {
+        "total_requests": 2770,
+        "successful_requests": 2770,
+        "failed_requests": 0,
+        "avg_response_time_ms": 375.3,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 31,
+        "successful_requests": 31,
+        "failed_requests": 0,
+        "avg_response_time_ms": 473.29,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 14,
+        "successful_requests": 14,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1074.57,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2504376,
+      "successful_requests": 2504357,
+      "failed_requests": 19,
+      "overall_success_rate_percent": 100.0,
+      "unique_api_types": 7,
+      "active_api_types": [
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "discord_webhook",
+        "image_api",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 3418,
+      "fcm": 31,
+      "total": 3449
+    }
   }
 }
