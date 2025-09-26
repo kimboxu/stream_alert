@@ -505,7 +505,7 @@ class chzzk_live_message(base_live_message):
     #치지직 썸네일 이미지(실시간 방송 화면 이미지로 변환 후) 가져오기
     async def get_live_thumbnail_image(self, state_data, message):
         self.wait_get_live_thumbnail_image = True
-        for count in range(50):
+        for count in range(10):
             # time_difference = (datetime.now() - datetime.fromisoformat(self.title_data.loc[self.channel_id, 'update_time'])).total_seconds()
 
             # if message == "뱅온!" or self.title_data.loc[self.channel_id, 'live_state'] == "CLOSE" or time_difference < 15: 
@@ -515,7 +515,7 @@ class chzzk_live_message(base_live_message):
             thumbnail_image = self.get_thumbnail_image(state_data)
             if thumbnail_image is None:
                 print(f"{datetime.now()} wait make thumbnail1 {count}")
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.5)
                 continue
             break
 
@@ -533,7 +533,15 @@ class chzzk_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL(state_data)
             
-            return upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
+            return asyncio.create_task(
+                upload_image_to_imgur(
+                    self.data, 
+                    self.channel_id, 
+                    self.data.thumbnail_url, 
+                    platform_prefix="chzzk",
+                    performance_manager=self.performance_manager
+                )
+            )
                 
         except Exception as e:
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
@@ -759,11 +767,11 @@ class afreeca_live_message(base_live_message):
     #아프리카 썸네일 이미지 가져오기
     async def get_live_thumbnail_image(self, state_data, message=None):
         self.wait_get_live_thumbnail_image = True
-        for count in range(40):
+        for count in range(10):
             thumbnail_image = self.get_thumbnail_image()
             if thumbnail_image is None: 
                 print(f"{datetime.now()} wait make thumbnail 1 .{count}.{str(self.getImageURL())}")
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.5)
                 continue
             break
         else: thumbnail_image = ""
@@ -777,7 +785,15 @@ class afreeca_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL()
             
-            return upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
+            return asyncio.create_task(
+                upload_image_to_imgur(
+                    self.data, 
+                    self.channel_id, 
+                    self.data.thumbnail_url, 
+                    platform_prefix="afreeca",
+                    performance_manager=self.performance_manager
+                )
+            )
         
         except Exception as e:
             print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
@@ -838,10 +854,10 @@ class afreeca_live_message(base_live_message):
                 "embeds": [embeds]}
     
 # 썸네일 이미지를 Imgur에 업로드하는 공통 메서드
-def upload_image_to_imgur(stream_status :LiveData, channel_id, image_url, platform_prefix="thumbnail"):
-    try:
-        # 이미지 다운로드
-        response = get(image_url, timeout=5)
+async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, platform_prefix="thumbnail", performance_manager=None):
+    try: 
+        # 비동기 이미지 다운로드
+        response = await asyncio.to_thread(get,image_url, timeout=5)
         
         if response.status_code != 200:
             print(f"{datetime.now()} 이미지 다운로드 실패: {response.status_code}")
@@ -853,9 +869,13 @@ def upload_image_to_imgur(stream_status :LiveData, channel_id, image_url, platfo
             print(f"{datetime.now()} Imgur 클라이언트 ID가 설정되지 않았습니다")
             return None
         
+        print(f"{datetime.now()} Imgur 업로드 준비 시작 - 이미지 크기: {len(response.content)} bytes")
+        print(f"{datetime.now()} Imgur 업로드 준비: {image_url}")
+
         # 이미지 데이터를 base64로 인코딩
-        image_data = BytesIO(response.content).getvalue()
-        b64_image = base64.b64encode(image_data).decode('utf-8')
+        b64_image = base64.b64encode(response.content).decode('utf-8')
+        
+        print(f"{datetime.now()} Base64 인코딩 완료 - 크기: {len(b64_image)} chars")
         
         # 채널 정보 및 타임스탬프
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -882,11 +902,9 @@ def upload_image_to_imgur(stream_status :LiveData, channel_id, image_url, platfo
         if imgur_response.status_code == 200:
             imgur_data = imgur_response.json()
             thumbnail_url = imgur_data['data']['link']
-            
-            # 삭제 해시 기록 (필요시 나중에 이미지 삭제에 사용 가능)
             delete_hash = imgur_data['data']['deletehash']
             print(f"{datetime.now()} Imgur 업로드 성공: {thumbnail_url} (삭제 해시: {delete_hash})")
-            
+
             return thumbnail_url
         else:
             print(f"{datetime.now()} Imgur 업로드 실패: {imgur_response.status_code}")
