@@ -61,6 +61,8 @@ class APIPerformanceLogger:
         
         # 스레드 풀 초기화 (파일 I/O용)
         self._thread_pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="perf_logger")
+        #CPU 경합 제거: 단일 스레드 사용으로 컨텍스트 스위칭 오버헤드 제거
+        # self._thread_pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="perf_logger")
         
         print(f"{datetime.now()} API 성능 로거 초기화 완료: {self.log_dir}")
 
@@ -198,7 +200,7 @@ class APIPerformanceLogger:
         """특정 기간의 로그 데이터 조회"""
         try:
             all_logs = []
-            
+            print(f"{datetime.now()} 로그 조회 시작")
             # 메모리 락으로 안전하게 복사
             async with self._memory_lock:
                 memory_logs_copy = list(self.memory_logs)
@@ -220,7 +222,9 @@ class APIPerformanceLogger:
             # 파일 기반 로그를 비동기적으로 읽기
             file_logs = await self._read_logs_from_files_async(start_date, end_date)
             all_logs.extend(file_logs)
-            
+
+            print(f"{datetime.now()} 로그 조회 완료")
+
             return sorted(all_logs, key=lambda x: x['timestamp'])
             
         except Exception as e:
@@ -239,7 +243,7 @@ class APIPerformanceLogger:
         start_time = time.time()
         
         # 배치 크기 설정 (메모리 사용량 제어)
-        batch_size = 10
+        batch_size = 5
         all_logs = []
         
         # 파일을 배치로 나누어 처리
@@ -458,26 +462,42 @@ class APIStatisticsCalculator:
 
             # 집계용 딕셔너리
             stats_acc = {}
-            for log in logs:
-                api_type = log["api_type"]
-                if api_type not in stats_acc:
-                    stats_acc[api_type] = {
-                        "total_requests": 0,
-                        "successful_requests": 0,
-                        "failed_requests": 0,
-                        "response_time_sum": 0,
-                        "success_count": 0
-                    }
+            
+            # 메모리 점진적 해제를 위한 청크 처리
+            chunk_size = 1000  # 1000개씩 처리
+            
+            for chunk_start in range(0, len(logs), chunk_size):
+                chunk_end = min(chunk_start + chunk_size, len(logs))
+                chunk_logs = logs[chunk_start:chunk_end]
+                
+                for log in chunk_logs:
+                    api_type = log["api_type"]
+                    if api_type not in stats_acc:
+                        stats_acc[api_type] = {
+                            "total_requests": 0,
+                            "successful_requests": 0,
+                            "failed_requests": 0,
+                            "response_time_sum": 0,
+                            "success_count": 0
+                        }
 
-                entry = stats_acc[api_type]
-                entry["total_requests"] += 1
+                    entry = stats_acc[api_type]
+                    entry["total_requests"] += 1
 
-                if log["is_success"]:
-                    entry["successful_requests"] += 1
-                    entry["response_time_sum"] += log["response_time_ms"]
-                    entry["success_count"] += 1
-                else:
-                    entry["failed_requests"] += 1
+                    if log["is_success"]:
+                        entry["successful_requests"] += 1
+                        entry["response_time_sum"] += log["response_time_ms"]
+                        entry["success_count"] += 1
+                    else:
+                        entry["failed_requests"] += 1
+                
+                # CPU 양보 간격 추가 (매 청크마다)
+                await asyncio.sleep(0.1)
+                
+                # 메모리 정리 힌트 (큰 청크 처리 후)
+                if chunk_start > 0 and chunk_start % (chunk_size * 10) == 0:
+                    import gc
+                    gc.collect()  # 가비지 컬렉션 실행
 
             # 최종 계산 (평균, 성공률 등)
             api_performance = {}
@@ -526,6 +546,7 @@ class APIStatisticsCalculator:
                 "notification_summary": notification_stats,
                 "calculated_at": datetime.now().isoformat(),
             }
+            
         except Exception as e:
             await log_error(f"포괄적 통계 계산 오류: {e}")
             return {}
@@ -1001,6 +1022,9 @@ class PerformanceManager:
                 "calculated_at": datetime.now().isoformat(),
                 **comprehensive_stats
             }
+
+            # CPU 양보
+            await asyncio.sleep(0.1)
             
             # 일일 통계 저장
             await self._save_daily_statistics(daily_stat)
@@ -1013,8 +1037,8 @@ class PerformanceManager:
             summary = comprehensive_stats.get('summary', {})
             
             print(f"총 {summary.get('unique_api_types', 0)}개 API 타입, "
-                  f"{summary.get('total_requests', 0)}건 요청, "
-                  f"{summary.get('overall_success_rate_percent', 0)}% 성공률")
+                f"{summary.get('total_requests', 0)}건 요청, "
+                f"{summary.get('overall_success_rate_percent', 0)}% 성공률")
             
             # 상위 API 타입들 출력
             sorted_apis = sorted(
@@ -1024,8 +1048,8 @@ class PerformanceManager:
             )
             for api_type, stats in sorted_apis[:5]:  # 상위 5개만
                 print(f"  {api_type}: {stats.get('total_requests', 0)}건, "
-                      f"{stats.get('avg_response_time_ms', 0)}ms, "
-                      f"{stats.get('success_rate_percent', 0)}%")
+                    f"{stats.get('avg_response_time_ms', 0)}ms, "
+                    f"{stats.get('success_rate_percent', 0)}%")
             
             return daily_stat
             
@@ -1091,6 +1115,7 @@ class PerformanceManager:
                 trigger="cron",
                 hour=6,
                 minute=10,
+                # second=0,
                 id='daily_statistics'
             )
             
