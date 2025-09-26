@@ -505,7 +505,7 @@ class chzzk_live_message(base_live_message):
     #치지직 썸네일 이미지(실시간 방송 화면 이미지로 변환 후) 가져오기
     async def get_live_thumbnail_image(self, state_data, message):
         self.wait_get_live_thumbnail_image = True
-        for count in range(10):
+        for count in range(50):
             # time_difference = (datetime.now() - datetime.fromisoformat(self.title_data.loc[self.channel_id, 'update_time'])).total_seconds()
 
             # if message == "뱅온!" or self.title_data.loc[self.channel_id, 'live_state'] == "CLOSE" or time_difference < 15: 
@@ -515,7 +515,7 @@ class chzzk_live_message(base_live_message):
             thumbnail_image = await self.get_thumbnail_image(state_data)
             if thumbnail_image is None:
                 print(f"{datetime.now()} wait make thumbnail1 {count}")
-                await asyncio.sleep(0.5)
+                await asyncio.sleep(0.1)
                 continue
             break
 
@@ -533,7 +533,7 @@ class chzzk_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL(state_data)
             
-            return await upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
+            return await upload_image_to_imgbb(self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
                 
         except Exception as e:
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
@@ -759,11 +759,11 @@ class afreeca_live_message(base_live_message):
     #아프리카 썸네일 이미지 가져오기
     async def get_live_thumbnail_image(self, state_data, message=None):
         self.wait_get_live_thumbnail_image = True
-        for count in range(10):
+        for count in range(50):
             thumbnail_image = await self.get_thumbnail_image()
             if thumbnail_image is None: 
                 print(f"{datetime.now()} wait make thumbnail 1 .{count}.{str(self.getImageURL())}")
-                await asyncio.sleep(0.5)
+                await asyncio.sleep(0.1)
                 continue
             break
         else: thumbnail_image = ""
@@ -777,7 +777,7 @@ class afreeca_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL()
             
-            return await upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
+            return await upload_image_to_imgbb(self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
         
         except Exception as e:
             print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
@@ -838,7 +838,7 @@ class afreeca_live_message(base_live_message):
                 "embeds": [embeds]}
     
 # 썸네일 이미지를 Imgur에 업로드하는 공통 메서드
-async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, platform_prefix="thumbnail", performance_manager=None):
+async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, platform_prefix="thumbnail"):
     try: 
         # 비동기 이미지 다운로드
         response = await asyncio.to_thread(get,image_url, timeout=5)
@@ -912,6 +912,100 @@ async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, 
         traceback.print_exc()
         return None
 
+
+async def upload_image_to_imgbb(channel_id: str, image_url: str, platform_prefix: str = "thumbnail"):
+    try:
+        # ImgBB API 키 확인
+        api_key = environ.get("IMGBB_API_KEY")
+        if not api_key:
+            print(f"{datetime.now()} ImgBB API 키가 설정되지 않았습니다")
+            return None
+        
+        # 이미지 다운로드 (비동기)
+        response = await asyncio.to_thread(get, image_url, timeout=10)
+        
+        if response.status_code != 200:
+            print(f"{datetime.now()} 이미지 다운로드 실패: {response.status_code}")
+            return None
+        
+        # 이미지 크기 확인
+        image_size = len(response.content)
+        max_size = 32 * 1024 * 1024  # 32MB
+        
+        print(f"{datetime.now()} ImgBB 업로드 준비 시작 - 이미지 크기: {image_size} bytes")
+        
+        if image_size > max_size:
+            print(f"{datetime.now()} 이미지 크기가 너무 큼: {image_size/1024/1024:.1f}MB")
+            return None
+        
+        # Base64 인코딩
+        try:
+            b64_image = base64.b64encode(response.content).decode('utf-8')
+            print(f"{datetime.now()} Base64 인코딩 완료 - 크기: {len(b64_image)} chars")
+        except Exception as e:
+            print(f"{datetime.now()} Base64 인코딩 실패: {e}")
+            return None
+            
+        # 메타데이터 준비
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f'{platform_prefix}_{channel_id}_{timestamp}.jpg'
+        
+        # ImgBB API 요청 데이터
+        data = {
+            'key': api_key,
+            'image': b64_image,
+            'name': filename,
+            'expiration': 0  # 만료 없음
+        }
+        
+        # ImgBB 업로드 요청
+        print(f"{datetime.now()} ImgBB 업로드 시작...")
+        imgbb_response = await asyncio.to_thread(
+            post,
+            'https://api.imgbb.com/1/upload',
+            data=data,
+            timeout=15
+        )
+        
+        # 응답 처리
+        if imgbb_response.status_code == 200:
+            try:
+                result_data = imgbb_response.json()
+                if result_data.get('success'):
+                    thumbnail_url = result_data['data']['url']
+                    delete_url = result_data['data'].get('delete_url', 'N/A')
+                    print(f"{datetime.now()} ImgBB 업로드 성공: {thumbnail_url}")
+                    return thumbnail_url
+                else:
+                    error_msg = result_data.get('error', {}).get('message', 'Unknown error')
+                    print(f"{datetime.now()} ImgBB API 오류: {error_msg}")
+                    return None
+            except Exception as e:
+                print(f"{datetime.now()} ImgBB 응답 파싱 실패: {e}")
+                return None
+                
+        elif imgbb_response.status_code == 429:
+            print(f"{datetime.now()} ImgBB 레이트 제한 (429)")
+            return ""  # 빈 문자열로 재시도 방지
+            
+        elif imgbb_response.status_code == 400:
+            print(f"{datetime.now()} ImgBB 잘못된 요청 (400): {imgbb_response.text}")
+            return ""  # 빈 문자열로 재시도 방지
+            
+        else:
+            print(f"{datetime.now()} ImgBB 업로드 실패: {imgbb_response.status_code}")
+            print(f"응답: {imgbb_response.text}")
+            return None
+            
+    except asyncio.TimeoutError:
+        print(f"{datetime.now()} ImgBB 업로드 시간 초과")
+        return None
+        
+    except Exception as e:
+        print(f"{datetime.now()} ImgBB 업로드 중 예외 발생: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
 
  # 디버깅 용도 실행 함수
 async def main_loop(init):

@@ -15,7 +15,7 @@ import pandas as pd
 import glob
 from uuid import uuid4
 from pathlib import Path
-from live_message import upload_image_to_imgur
+from live_message import upload_image_to_imgbb
 from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar, get_stream_start_id, format_time_for_comment, get_message
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
@@ -875,7 +875,7 @@ class ChatAnalyzer:
             if self.init.DO_TEST: 
                 image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
             else:
-                image_url = upload_image_to_imgur(self.init.stream_status[self.channel_id], self.channel_id, thumbnail_url, platform_prefix = platform_name)
+                image_url = upload_image_to_imgbb(self.channel_id, thumbnail_url, platform_prefix = platform_name)
             
  
             timeline_comments = await self._make_highlight_chat([highlight])
