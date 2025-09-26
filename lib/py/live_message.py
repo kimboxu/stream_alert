@@ -847,6 +847,9 @@ async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, 
             print(f"{datetime.now()} 이미지 다운로드 실패: {response.status_code}")
             return None
         
+        # Imgur 요청 전 잠시 대기 (혹시 모를 상황 대비)
+        await asyncio.sleep(1)
+        
         # 환경 변수에서 Imgur 클라이언트 ID 가져오기
         client_id = environ.get("IMGUR_CLIENT_ID")
         if not client_id:
