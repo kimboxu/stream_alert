@@ -512,7 +512,7 @@ class chzzk_live_message(base_live_message):
             #     thumbnail_image = ""
             #     break
 
-            thumbnail_image = self.get_thumbnail_image(state_data)
+            thumbnail_image = await self.get_thumbnail_image(state_data)
             if thumbnail_image is None:
                 print(f"{datetime.now()} wait make thumbnail1 {count}")
                 await asyncio.sleep(0.5)
@@ -525,7 +525,7 @@ class chzzk_live_message(base_live_message):
         return thumbnail_image
     
     #치지직 썸네일 이미지 처리
-    def get_thumbnail_image(self, state_data): 
+    async def get_thumbnail_image(self, state_data): 
         try:
             if state_data['content']['liveImageUrl'] is None:
                 return None
@@ -533,7 +533,7 @@ class chzzk_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL(state_data)
             
-            return upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
+            return await upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
                 
         except Exception as e:
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
@@ -760,7 +760,7 @@ class afreeca_live_message(base_live_message):
     async def get_live_thumbnail_image(self, state_data, message=None):
         self.wait_get_live_thumbnail_image = True
         for count in range(10):
-            thumbnail_image = self.get_thumbnail_image()
+            thumbnail_image = await self.get_thumbnail_image()
             if thumbnail_image is None: 
                 print(f"{datetime.now()} wait make thumbnail 1 .{count}.{str(self.getImageURL())}")
                 await asyncio.sleep(0.5)
@@ -772,12 +772,12 @@ class afreeca_live_message(base_live_message):
         return thumbnail_image
     
     #아프리카 썸네일 이미지 처리
-    def get_thumbnail_image(self): 
+    async def get_thumbnail_image(self): 
         try:
             # 이미지 URL 가져오기
             self.getImageURL()
             
-            return upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
+            return await upload_image_to_imgur(self.data, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
         
         except Exception as e:
             print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
