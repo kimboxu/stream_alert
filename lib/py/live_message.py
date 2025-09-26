@@ -868,7 +868,12 @@ async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
         # Imgur에 이미지 업로드
-        headers = {'Authorization': f'Client-ID {client_id}'}
+        headers = {
+            'Authorization': f'Client-ID {client_id}',
+            'User-Agent': 'streamAlert/1.0 (kimboxu@gmail.com)',  
+            'X-Forwarded-For': '127.0.0.1',  # 선택적
+        }
+        
         channel_name = stream_status.id_list.loc[channel_id, 'channelName']
         data = {
             'image': b64_image,
