@@ -73,7 +73,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
     # 웹소켓 연결 및 메시지 처리 실행
     async def _connect_and_run(self):
-        print(f"{self.data.channel_id} 방송 켜짐")
+        print(f"{datetime.now()} {self.data.channel_id} 방송 켜짐")
         async with websockets.connect('wss://kr-ss3.chat.naver.com/chat', 
                                     subprotocols=['chat'], 
                                     ping_interval=None) as sock:
@@ -84,6 +84,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             await self.get_check_channel_id()
             if not if_after_time(self.state_update_time["openDate"], sec = 60) and not await self.change_chatChannelId():
                 return
+            
+            if not if_after_time(self.state_update_time["closeDate"], sec = 300):
+                asyncio.sleep(10)
             
             await self.change_chatChannelId()
             await self.connect()  # 연결 수립
@@ -123,9 +126,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             is_change_chatChannel = await self.check_change_chatChannel(connect_time)
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = await self.check_live_state_close()
+            is_old_chatChannel = not if_after_time(self.state_update_time["openDate"], sec = 300) and if_after_time(self.data.last_chat_time, sec = 120)
+
             if (is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
-            return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat
+            return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel
 
         connect_time = datetime.now().isoformat()
 
