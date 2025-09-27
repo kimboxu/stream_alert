@@ -481,8 +481,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         if messages[1] == self.data.BID or (messages[2] == self.data.BID and len(messages) == 11):
             return 0
         
-        # len(messages) < 10인지
-        if len(messages) < 10:
+        # len(messages) < 11인지
+        if len(messages) < 11:
             return 0
                 
         return 1
