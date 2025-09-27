@@ -606,9 +606,11 @@ class chzzk_vod(base_vod):
             comment_id = await self._first_send_comment(message_list[0])
             if comment_id:
                 await self._send_reply_comments(comment_id, message_list[1:])
+            return comment_id
                         
         except Exception as e:
             await log_error(f"치지직 댓글 전송 오류: {e}")
+            return None
 
     async def _first_send_comment(self, message):
         """치지직 댓글 전송"""
