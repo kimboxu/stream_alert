@@ -17,6 +17,54 @@ from make_log_api_performance import PerformanceManager
 import threading
 from copy import deepcopy
 
+def sanitize_data_for_json(data):
+    """
+    JSON 직렬화가 불가능한 객체들을 정리하는 함수
+    
+    Args:
+        data: 정리할 데이터 (dict, list, 또는 기본 타입)
+        
+    Returns:
+        JSON 직렬화 가능한 데이터
+    """
+    import asyncio
+    import inspect
+    from datetime import datetime
+    
+    if isinstance(data, dict):
+        return {k: sanitize_data_for_json(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [sanitize_data_for_json(item) for item in data]
+    elif asyncio.iscoroutine(data):
+        # 코루틴 객체는 문자열로 변환
+        print(f"경고: 코루틴 객체가 발견되어 문자열로 변환됩니다: {data}")
+        return str(data)
+    elif inspect.isgenerator(data):
+        # 제너레이터는 리스트로 변환
+        return list(data)
+    elif callable(data):
+        # 함수나 메서드는 문자열로 변환
+        return str(data)
+    elif isinstance(data, datetime):
+        # datetime 객체는 ISO 형식 문자열로 변환
+        return data.isoformat()
+    elif hasattr(data, '__dict__'):
+        # 커스텀 객체는 딕셔너리로 변환
+        try:
+            return sanitize_data_for_json(data.__dict__)
+        except:
+            return str(data)
+    else:
+        # 기본 타입 (str, int, float, bool, None)은 그대로 반환
+        try:
+            # JSON 직렬화 테스트
+            import json
+            json.dumps(data)
+            return data
+        except (TypeError, ValueError):
+            # 직렬화 실패시 문자열로 변환
+            return str(data)
+
 class FileNotificationManager:
     """파일 기반 사용자 알림 관리 클래스"""
     
@@ -123,12 +171,15 @@ class FileNotificationManager:
                 except Exception as e:
                     print(f"백업 파일 생성 실패 ({webhook_url}): {e}")
             
+            # 알림 데이터를 JSON 직렬화 가능하도록 정리
+            clean_notifications = sanitize_data_for_json(notifications)
+            
             # 저장할 데이터 구조
             save_data = {
                 'webhook_url': webhook_url,
-                'notifications': notifications,
+                'notifications': clean_notifications,
                 'last_save_time': current_time,
-                'notification_count': len(notifications)
+                'notification_count': len(clean_notifications)
             }
             
             # 임시 파일에 먼저 저장 후 이동 (원자적 저장)
@@ -142,14 +193,16 @@ class FileNotificationManager:
             
             # 캐시 업데이트
             with self._cache_lock:
-                self.notification_cache[webhook_url] = notifications.copy()
+                self.notification_cache[webhook_url] = clean_notifications.copy()
                 self.last_save_times[webhook_url] = current_time
             
-            print(f"{datetime.now()} 알림을 파일에 저장함 - URL: {webhook_url}, 개수: {len(notifications)}")
+            print(f"{datetime.now()} 알림을 파일에 저장함 - URL: {webhook_url}, 개수: {len(clean_notifications)}")
             return True
             
         except Exception as e:
             print(f"알림 파일 저장 오류 ({webhook_url}): {e}")
+            import traceback
+            traceback.print_exc()
             return False
    
     def add_notification(self, webhook_url: str, notification_data: dict) -> bool:
@@ -453,35 +506,31 @@ async def send_fcm_messages_in_batch(performance_manager: PerformanceManager, to
     return all_results
 
 # 배치 알림 저장 함수
-async def batch_save_notifications(user_data_map, data_fields):
+def batch_save_notifications(user_data_map, data_fields):
     """
     여러 사용자의 알림을 파일 기반으로 일괄 처리
     """
-
     global file_notification_manager
     
-    tasks = []
+    save_results = []
     
     for webhook_url, user_data in user_data_map.items():
-        # 파일에 알림 추가
-        task = asyncio.create_task(
-            asyncio.to_thread(
-                file_notification_manager.add_notification,
-                webhook_url,
-                data_fields
-            )
-        )
-        tasks.append(task)
-    
-    # 모든 저장 작업 완료 대기
-    if tasks:
         try:
-            await asyncio.wait_for(
-                asyncio.gather(*tasks, return_exceptions=True),
-                timeout=30
+            # data_fields가 JSON 직렬화 가능한지 확인
+            clean_data_fields = sanitize_data_for_json(data_fields)
+            
+            # 파일에 알림 추가
+            result = file_notification_manager.add_notification(
+                webhook_url,
+                clean_data_fields
             )
-        except asyncio.TimeoutError:
-            print(f"{datetime.now()} 일부 알림 파일 저장 작업 시간 초과")
+            save_results.append(result)
+            
+        except Exception as e:
+            print(f"{datetime.now()} 알림 저장 오류 ({webhook_url}): {e}")
+            save_results.append(False)
+    
+    return save_results
 
 # init에서 사용자 정보 추출
 def get_user_data_from_init(init: initVar, webhook_url):
@@ -574,6 +623,9 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         if "embeds" in json_data and json_data["embeds"]:
             data_fields["embeds"] = json_data["embeds"]
         
+        # JSON 직렬화 가능하도록 데이터 정리
+        data_fields = sanitize_data_for_json(data_fields)
+        
         # init에서 사용자 데이터 수집
         all_users = {}
         missing_users = []
@@ -597,8 +649,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             except Exception as e:
                 print(f"{datetime.now()} 누락된 사용자 데이터 조회 실패: {e}")
         
-        # 파일 기반 알림 저장 (배치로)
-        notification_tasks = []
+        # 파일 기반 알림 저장 (동기 처리)
         fcm_tasks = []
         
         # 알림 저장을 위한 배치 처리 (50명씩)
@@ -606,10 +657,10 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         
         for batch in user_batches:
             batch_dict = {url: data for url, data in batch}
-            task = asyncio.create_task(
+            try:
                 batch_save_notifications(batch_dict, data_fields)
-            )
-            notification_tasks.append(task)
+            except Exception as e:
+                print(f"{datetime.now()} 배치 알림 저장 오류: {e}")
         
         # FCM 토큰 처리 및 메시지 전송
         for webhook_url, user_data in all_users.items():
@@ -646,16 +697,6 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
                 )
             except asyncio.TimeoutError:
                 print(f"{datetime.now()} 일부 FCM 메시지 작업 시간 초과 ({len(fcm_tasks)}개 배치)")
-        
-        # 알림 저장 작업 대기
-        if notification_tasks:
-            try:
-                await asyncio.wait_for(
-                    asyncio.gather(*notification_tasks, return_exceptions=True),
-                    timeout=30
-                )
-            except asyncio.TimeoutError:
-                print(f"{datetime.now()} 일부 알림 파일 저장 작업 시간 초과 ({len(notification_tasks)}개 배치)")
         
         return True
         
