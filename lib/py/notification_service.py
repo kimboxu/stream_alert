@@ -18,52 +18,65 @@ import threading
 from copy import deepcopy
 
 def sanitize_data_for_json(data):
-    """
-    JSON 직렬화가 불가능한 객체들을 정리하는 함수
-    
-    Args:
-        data: 정리할 데이터 (dict, list, 또는 기본 타입)
-        
-    Returns:
-        JSON 직렬화 가능한 데이터
-    """
-    import asyncio
+    """ JSON 직렬화 데이터 정리"""
     import inspect
-    from datetime import datetime
     
-    if isinstance(data, dict):
-        return {k: sanitize_data_for_json(v) for k, v in data.items()}
-    elif isinstance(data, list):
-        return [sanitize_data_for_json(item) for item in data]
-    elif asyncio.iscoroutine(data):
-        # 코루틴 객체는 문자열로 변환
-        print(f"경고: 코루틴 객체가 발견되어 문자열로 변환됩니다: {data}")
-        return str(data)
-    elif inspect.isgenerator(data):
-        # 제너레이터는 리스트로 변환
-        return list(data)
-    elif callable(data):
-        # 함수나 메서드는 문자열로 변환
-        return str(data)
-    elif isinstance(data, datetime):
-        # datetime 객체는 ISO 형식 문자열로 변환
-        return data.isoformat()
-    elif hasattr(data, '__dict__'):
-        # 커스텀 객체는 딕셔너리로 변환
-        try:
-            return sanitize_data_for_json(data.__dict__)
-        except:
-            return str(data)
-    else:
-        # 기본 타입 (str, int, float, bool, None)은 그대로 반환
-        try:
-            # JSON 직렬화 테스트
-            import json
-            json.dumps(data)
-            return data
-        except (TypeError, ValueError):
-            # 직렬화 실패시 문자열로 변환
-            return str(data)
+    def _sanitize_recursive(obj, depth=0, max_depth=10):
+        if depth > max_depth:
+            return str(obj)
+            
+        if isinstance(obj, dict):
+            result = {}
+            for k, v in obj.items():
+                try:
+                    result[k] = _sanitize_recursive(v, depth + 1, max_depth)
+                except (TypeError, ValueError, RecursionError, MemoryError):
+                    result[k] = str(v)
+            return result
+            
+        elif isinstance(obj, list):
+            result = []
+            for item in obj:
+                try:
+                    result.append(_sanitize_recursive(item, depth + 1, max_depth))
+                except (TypeError, ValueError, RecursionError, MemoryError):
+                    result.append(str(item))
+            return result
+            
+        elif asyncio.iscoroutine(obj):
+            return str(obj)
+        elif inspect.isgenerator(obj):
+            return f"<generator: {type(obj).__name__}>"
+        elif callable(obj):
+            return str(obj)
+        elif isinstance(obj, datetime):
+            return obj.isoformat()
+        elif hasattr(obj, '__dict__'):
+            try:
+                return _sanitize_recursive(obj.__dict__, depth + 1, max_depth)
+            except:
+                return str(obj)
+        else:
+            try:
+                import json
+                json.dumps(obj)
+                return obj
+            except (TypeError, ValueError):
+                return str(obj)
+    
+    try:
+        result = _sanitize_recursive(data)
+        
+        # 대용량 데이터 처리 후 가비지 컬렉션
+        if isinstance(data, (list, dict)) and len(str(data)) > 50000:  # 50KB 이상
+            import gc
+            gc.collect()
+            
+        return result
+        
+    except Exception as e:
+        print(f"데이터 정리 중 오류: {e}")
+        return {"error": "데이터 정리 실패", "original_type": str(type(data))}
 
 class FileNotificationManager:
     """파일 기반 사용자 알림 관리 클래스"""
@@ -149,13 +162,12 @@ class FileNotificationManager:
         """사용자 알림 데이터 저장"""
         try:
             current_time = datetime.now().astimezone().isoformat()
-            
+
             # 강제 저장이 아닌 경우 시간 간격 확인 (5분)
             if not force_save:
                 with self._cache_lock:
                     last_save = self.last_save_times.get(webhook_url)
-                if last_save and not if_after_time(last_save, 300):  # 5분
-                    # 캐시만 업데이트
+                if last_save and not if_after_time(last_save, 300):
                     with self._cache_lock:
                         self.notification_cache[webhook_url] = notifications.copy()
                     return True
@@ -163,18 +175,22 @@ class FileNotificationManager:
             file_path = self._get_file_path(webhook_url)
             backup_path = self._get_backup_file_path(webhook_url)
             
-            # 기존 파일이 있으면 백업 생성
+            # 기존 파일 백업
             if file_path.exists():
-                import shutil
                 try:
+                    import shutil
                     shutil.copy2(file_path, backup_path)
+                    del shutil
                 except Exception as e:
                     print(f"백업 파일 생성 실패 ({webhook_url}): {e}")
             
             # 알림 데이터를 JSON 직렬화 가능하도록 정리
             clean_notifications = sanitize_data_for_json(notifications)
             
-            # 저장할 데이터 구조
+            # 원본 notifications 해제
+            del notifications
+            
+            # 저장할 데이터 구조 생성
             save_data = {
                 'webhook_url': webhook_url,
                 'notifications': clean_notifications,
@@ -182,27 +198,47 @@ class FileNotificationManager:
                 'notification_count': len(clean_notifications)
             }
             
-            # 임시 파일에 먼저 저장 후 이동 (원자적 저장)
+            # 임시 파일에 저장
             temp_path = file_path.with_suffix('.tmp')
             
-            with open(temp_path, 'w', encoding='utf-8') as f:
-                json.dump(save_data, f, ensure_ascii=False, indent=2)
+            try:
+                with open(temp_path, 'w', encoding='utf-8') as f:
+                    json.dump(save_data, f, ensure_ascii=False, indent=2)
+                
+                # 파일 쓰기 완료 후 메모리 정리
+                del save_data
+                
+                if len(clean_notifications) > 3000:
+                    import gc
+                    gc.collect()
+                
+            except Exception as e:
+                if temp_path.exists():
+                    temp_path.unlink()
+                raise e
             
             # 임시 파일을 실제 파일로 이동
             temp_path.replace(file_path)
             
             # 캐시 업데이트
             with self._cache_lock:
-                self.notification_cache[webhook_url] = clean_notifications.copy()
+                self.notification_cache[webhook_url] = clean_notifications
                 self.last_save_times[webhook_url] = current_time
             
             print(f"{datetime.now()} 알림을 파일에 저장함 - URL: {webhook_url}, 개수: {len(clean_notifications)}")
+            del clean_notifications
+            
             return True
             
         except Exception as e:
             print(f"알림 파일 저장 오류 ({webhook_url}): {e}")
             import traceback
             traceback.print_exc()
+            
+            # 오류 발생시 메모리 정리
+            import gc
+            gc.collect()
+            
             return False
    
     def add_notification(self, webhook_url: str, notification_data: dict) -> bool:
@@ -269,35 +305,52 @@ class FileNotificationManager:
             return False
     
     def force_save_all_cache(self):
-        """캐시된 모든 데이터를 강제로 파일에 저장"""
+        """메모리 캐시 전체 저장"""
         saved_count = 0
         failed_count = 0
         
         try:
-            # 캐시 내용을 안전하게 복사
+            print(f"{datetime.now()} 캐시 강제 저장 시작")
+            
+            # 캐시 내용을 배치로 처리
             with self._cache_lock:
-                cache_snapshot = deepcopy(self.notification_cache)
+                cache_items = list(self.notification_cache.items())
             
-            print(f"{datetime.now()} 캐시 강제 저장 시작: {len(cache_snapshot)}개 사용자")
+            batch_size = 10
             
-            # 복사본으로 작업 수행
-            for webhook_url, notifications in cache_snapshot.items():
-                try:
-                    if self.save_notifications(webhook_url, notifications, force_save=True):
-                        saved_count += 1
-                    else:
+            for i in range(0, len(cache_items), batch_size):
+                batch = cache_items[i:i + batch_size]
+                
+                for webhook_url, notifications in batch:
+                    try:
+                        if self.save_notifications(webhook_url, notifications.copy(), force_save=True):
+                            saved_count += 1
+                        else:
+                            failed_count += 1
+                    except Exception as e:
+                        print(f"사용자 {webhook_url} 저장 실패: {e}")
                         failed_count += 1
-                except Exception as e:
-                    print(f"사용자 {webhook_url} 저장 실패: {e}")
-                    failed_count += 1
+                
+                # 배치 처리 후 메모리 정리
+                del batch
+                
+                # 주기적으로 가비지 컬렉션 실행
+                if i > 0 and i % (batch_size * 5) == 0:  # 50개마다
+                    import gc
+                    gc.collect()
+                    
+                # 배치 간 잠깐 대기
+                import time
+                time.sleep(0.01)
             
-            print(f"{datetime.now()} 캐시된 알림 데이터 강제 저장 완료: "
-                  f"{saved_count}개 성공, {failed_count}개 실패")
+            print(f"{datetime.now()} 캐시된 알림 데이터 강제 저장 완료: {saved_count}개 성공, {failed_count}개 실패")
             
             return saved_count
             
         except Exception as e:
             print(f"전체 캐시 저장 중 오류: {e}")
+            import gc
+            gc.collect()
             return saved_count
     
 
@@ -742,35 +795,62 @@ async def validate_fcm_token(token):
 
 # 사용자의 FCM 토큰 정리 함수
 async def cleanup_user_tokens(user_data):
-    """
-    사용자의 FCM 토큰 목록에서 유효하지 않은 토큰 제거
+    """FCM 토큰 정리"""
+    tokens_data = user_data.get("fcm_tokens_data", [])
     
-    Args:
-        user_data: 데이터베이스의 사용자 데이터
-        
-    Returns:
-        tuple: (변경 여부, 업데이트된 토큰 목록)
-    """
-    fcm_tokens = user_data.get('fcm_tokens', [])
-    
-    if not fcm_tokens:
+    if not tokens_data or not isinstance(tokens_data, list):
         return False, []
     
-    original_count = len(fcm_tokens)
+    # 토큰만 추출
+    tokens = []
+    for item in tokens_data:
+        if isinstance(item, dict) and item.get("token"):
+            tokens.append(item.get("token"))
     
-    # 각 토큰 검사
-    validation_tasks = [validate_fcm_token(token) for token in fcm_tokens]
-    validation_results = await asyncio.gather(*validation_tasks)
+    if not tokens:
+        return False, tokens_data
     
-    # 유효한 토큰만 필터링
-    valid_tokens = [token for token, is_valid in zip(fcm_tokens, validation_results) if is_valid]
+    original_count = len(tokens)
+    
+    batch_size = 20
+    valid_tokens = set()
+    
+    for i in range(0, len(tokens), batch_size):
+        batch_tokens = tokens[i:i + batch_size]
+        validation_tasks = [validate_fcm_token(token) for token in batch_tokens]
+        
+        try:
+            validation_results = await asyncio.wait_for(
+                asyncio.gather(*validation_tasks, return_exceptions=True),
+                timeout=30
+            )
+            
+            # 유효한 토큰만 필터링
+            for token, is_valid in zip(batch_tokens, validation_results):
+                if isinstance(is_valid, bool) and is_valid:
+                    valid_tokens.add(token)
+                elif isinstance(is_valid, Exception):
+                    # 예외 발생시 유효하다고 가정
+                    valid_tokens.add(token)
+                    
+        except asyncio.TimeoutError:
+            print(f"토큰 검증 타임아웃 - 배치를 유효하다고 가정")
+            valid_tokens.update(batch_tokens)
+        
+        # 배치 간 CPU 양보
+        await asyncio.sleep(0.1)
+    
+    # 원본 tokens_data에서 유효한 토큰만 필터링
+    filtered_tokens_data = [
+        item for item in tokens_data 
+        if isinstance(item, dict) and item.get("token") in valid_tokens
+    ]
     
     # 변경 사항 확인
-    if len(valid_tokens) == original_count:
-        return False, fcm_tokens  # 변경 없음
+    if len(filtered_tokens_data) == original_count:
+        return False, tokens_data
         
-    # 업데이트된 토큰 목록 반환
-    return True, valid_tokens
+    return True, filtered_tokens_data
 
 # 모든 사용자의 유효하지 않은 FCM 토큰 정리 함수
 async def cleanup_all_invalid_tokens():
