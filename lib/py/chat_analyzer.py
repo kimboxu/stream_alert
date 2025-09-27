@@ -1105,7 +1105,7 @@ class ChatAnalyzer:
             # 프롬프트와 모든 이미지를 순서대로 전송
             msg_list = [prompt] + images_with_labels
             
-            print(f"{datetime.now()} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
+            print(f"{datetime.now()} {highlight.channel_name} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
 
             self.init.genai_cnt = (self.init.genai_cnt+1)%(10*len(environ['GOOGLE_API_KEY'].split(",")))
             model = get_genai_model(self.init.genai_cnt)
