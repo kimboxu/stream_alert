@@ -86,7 +86,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 return
             
             if not if_after_time(self.state_update_time["closeDate"], sec = 300):
-                asyncio.sleep(10)
+                await asyncio.sleep(10)
             
             await self.change_chatChannelId()
             await self.connect()  # 연결 수립
