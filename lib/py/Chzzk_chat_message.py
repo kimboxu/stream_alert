@@ -440,27 +440,50 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
     # 연결 수립 함수
     async def connect(self):
-        # 액세스 토큰과 추가 토큰 가져오기
-        self.data.accessToken, self.data.extraToken = chzzk_api.fetch_accessToken(self.data.cid, getChzzkCookie())
-        
-        # 연결 요청 전송
-        await self.data.sock.send(dumps(self._CHZZK_CHAT_DICT("connect")))
-        sock_response = loads(await self.data.sock.recv())
-        self.data.sid = sock_response['bdy']['sid']
-        # 최근 메시지 요청
-        await self.data.sock.send(dumps(self._CHZZK_CHAT_DICT("recentMessageCount", num = 50)))
-        sock_response = loads(await self.data.sock.recv())
-
-        # 임시 제한 상태 확인
-        bdy = await self.check_TEMPORARY_RESTRICT(sock_response)
-        chzzk_chat_list = self.get_chzzk_chat_list(bdy)
+        """연결 수립 함수"""
         try:
-            messageTime = chzzk_chat_list[-1].get('messageTime') or chzzk_chat_list[-1].get('msgTime')
-        except Exception as e: print(f"test messageTime {e}")
+            # 액세스 토큰과 추가 토큰 가져오기
+            self.data.accessToken, self.data.extraToken = chzzk_api.fetch_accessToken(self.data.cid, getChzzkCookie())
+            
+            # 연결 요청 전송
+            await self.data.sock.send(dumps(self._CHZZK_CHAT_DICT("connect")))
+            sock_response = loads(await self.data.sock.recv())
+            self.data.sid = sock_response['bdy']['sid']
+            
+            # 최근 메시지 요청
+            await self.data.sock.send(dumps(self._CHZZK_CHAT_DICT("recentMessageCount", num = 50)))
+            sock_response = loads(await self.data.sock.recv())
 
-        self.data.last_chat_time = datetime.fromtimestamp(messageTime/1000).isoformat()
+            # 임시 제한 상태 확인
+            bdy = await self.check_TEMPORARY_RESTRICT(sock_response)
+            chzzk_chat_list = self.get_chzzk_chat_list(bdy)
+            
+            try:
+                if chzzk_chat_list:
+                    messageTime = chzzk_chat_list[-1].get('messageTime') or chzzk_chat_list[-1].get('msgTime')
+                    self.data.last_chat_time = datetime.fromtimestamp(messageTime/1000).isoformat()
+                    
+                    # 최근 채팅 3개 샘플 출력
+                    print(f"{datetime.now()} {self.data.channel_id} 최근 채팅 {len(chzzk_chat_list)}개 확인:")
+                    for i, chat in enumerate(chzzk_chat_list[-3:]):  # 최근 3개
+                        nickname = self.get_nickname(chat)
+                        content = chat.get('msg', chat.get('content', ''))
+                        chat_time = chat.get('messageTime', chat.get('msgTime', 0))
+                        time_str = datetime.fromtimestamp(chat_time/1000).strftime('%H:%M:%S')
+                        print(f"  [{time_str}] {nickname}: {content}")
+                else:
+                    self.data.last_chat_time = datetime.now().isoformat()
+                    print(f"{datetime.now()} {self.data.channel_id} 새로 시작된 방송이거나 채팅 활동이 없는 상태")
+                    
+            except Exception as e: 
+                print(f"messageTime 처리 오류 {e}")
+                self.data.last_chat_time = datetime.now().isoformat()
 
-        asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {self.data.cid}", webhook_url=environ['chat_post_url']))
+            asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {self.data.cid}", webhook_url=environ['chat_post_url']))
+
+        except Exception as e:
+            print(f"{datetime.now()} {self.data.channel_id} 연결 실패: {e}")
+            raise
 
     # 메시지 전송 함수
     def _send(self, message):
