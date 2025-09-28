@@ -142,15 +142,17 @@ async def main_loop(init: initVar, performance_manager: PerformanceManager):
 
 # 유튜브 작업 함수
 async def youtube_task(init: initVar, performance_manager: PerformanceManager):
+    from random import shuffle
     await asyncio.sleep(2)
 
     developer_keys = environ['developerKeyList'].split(",")
-    key_index = 0
+    YoutubeChannelID_list = list(init.youtubeData["YoutubeChannelID"]).copy()
     if init.DO_TEST:
         return
     while True:
         try:
-            for youtubeChannelID in init.youtubeData["YoutubeChannelID"]:
+            shuffle(YoutubeChannelID_list)
+            for youtubeChannelID in YoutubeChannelID_list:
                 if not init.is_youtube:
                     await asyncio.sleep(3)
                     continue
@@ -158,11 +160,11 @@ async def youtube_task(init: initVar, performance_manager: PerformanceManager):
                 start_time = asyncio.get_event_loop().time()
                 
                 # 작업 실행
-                developerKey = developer_keys[key_index]
+                developerKey = developer_keys[init.youtube_key_index//len(init.youtubeData["YoutubeChannelID"])]
                 await asyncio.create_task(getYoutubeJsonData(init, performance_manager, developerKey, youtubeChannelID).start())
                 
                 # 다음 키로 순환
-                key_index = (key_index + 1) % len(developer_keys)
+                init.youtube_key_index = (init.youtube_key_index + 1) % (len(developer_keys) * len(init.youtubeData["YoutubeChannelID"]))
                 
                 # 정확히 3초 간격 유지
                 elapsed_time = asyncio.get_event_loop().time() - start_time
