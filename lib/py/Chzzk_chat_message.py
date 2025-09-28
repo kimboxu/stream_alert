@@ -106,19 +106,40 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 태스크 정리 함수
     async def _cleanup_tasks(self):
         """태스크 정리 함수"""
+        
+        # 분석기 정리
+        try:
+            await self.stop_analyzer()
+        except Exception as e:
+            await log_error(f"stop_analyzer 에러 ({self.data.channel_id}): {e}")
+        
+        # 웹소켓 연결 강제 종료 및 정리
+        try:
+            if hasattr(self, 'data') and hasattr(self.data, 'sock') and self.data.sock:
+                if not self.data.sock.closed:
+                    await self.data.sock.close()
+                self.data.sock = None
+        except Exception as e:
+            await log_error(f"웹소켓 정리 에러 ({self.data.channel_id}): {e}")
+        
+        # 모든 태스크 취소 및 완료 대기
         for task in self.tasks:
             if task and not task.done() and not task.cancelled():
                 try:
                     task.cancel()
                     await asyncio.wait([task], timeout=2)
-                except Exception as cancel_error:
-                    await log_error(f"Error cancelling task for {self.channel_id}: {cancel_error}")
+                except asyncio.CancelledError:
+                    pass
+                except Exception as e:
+                    await log_error(f"태스크 정리 중 오류 ({self.data.channel_id}): {e}")
         
-        # 분석기 정리에서 예외 처리
-        try:
-            await self.stop_analyzer()
-        except Exception as e:
-            await log_error(f"stop_analyzer 에러 ({self.channel_id}): {e}")
+        # 4. 태스크 리스트 초기화
+        self.tasks = []
+        
+        # 5. 시스템 정리 완료 대기
+        await asyncio.sleep(0.5)
+        
+        print(f"{datetime.now()} {self.data.channel_id} 연결 정리 완료")
 
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
@@ -591,11 +612,12 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         return False
 
     # 채팅 채널 ID 변경 함수
-    async def change_chatChannelId(self):
+    async def change_chatChannelId(self, is_save = True):
         if self.data.cid != self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']:
-            self.init.chzzk_titleData.loc[self.data.channel_id, 'oldChatChannelId'] = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
-            self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId'] = self.data.cid
-            asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
+            if is_save:
+                self.init.chzzk_titleData.loc[self.data.channel_id, 'oldChatChannelId'] = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
+                self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId'] = self.data.cid
+                asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
             return True
         return False
 
@@ -902,7 +924,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return True
         
     async def check_change_chatChannel(self, connect_time):
-        if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60) and await self.get_check_channel_id() and await self.change_chatChannelId():
+        if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60) and await self.get_check_channel_id() and await self.change_chatChannelId(is_save=False):
             print(f"{datetime.now()} check {self.data.channel_id},{self.data.cid},cid check_live_state_close")
             # asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
             return True
