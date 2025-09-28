@@ -1,7 +1,7 @@
 import requests
 
 # 채널 ID로부터 채팅 채널 ID를 가져오는 함수
-def fetch_chatChannelId(chzzkID: str) -> str:
+def fetch_chatChannelId(chzzkID: str, cookies: dict) -> str:
 
     url = f'https://api.chzzk.naver.com/polling/v2/channels/{chzzkID}/live-status'
     try:
@@ -9,7 +9,7 @@ def fetch_chatChannelId(chzzkID: str) -> str:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
         # API 요청 및 JSON 응답 파싱
-        response = requests.get(url, headers=headers).json()
+        response = requests.get(url, cookies=cookies, headers=headers).json()
         # 채팅 채널 ID 반환
         return response['content']['chatChannelId']
     except:
