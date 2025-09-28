@@ -583,7 +583,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def get_check_channel_id(self) -> int:
         try:
             # 채널 코드로부터 채팅 채널 ID 가져오기
-            self.data.cid = chzzk_api.fetch_chatChannelId(self.init.chzzkIDList.loc[self.data.channel_id, "channel_code"])
+            self.data.cid = chzzk_api.fetch_chatChannelId(self.init.chzzkIDList.loc[self.data.channel_id, "channel_code"], getChzzkCookie())
             return True
             
         except Exception as e: 
