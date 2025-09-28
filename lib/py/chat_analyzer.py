@@ -688,9 +688,11 @@ class ChatAnalyzer:
         #     await self._save_highlight_to_db(highlight)
 
         if len(self.highlights) > 20:
-            timeline_comments = await self._make_highlight_chat(self.highlights[:-1])
-            self.update_highlight_chat(timeline_comments)
+            highlights_to_process = self.highlights.copy()
             self.highlights = [self.highlights[-1]]
+            timeline_comments = await self._make_highlight_chat(highlights_to_process[:-1])
+            self.update_highlight_chat(timeline_comments)
+            
 
     # 치지직 방송 시간이 17시간이 지날 때마다
     def is_check_after_openDate(self, detailed_log):
@@ -712,8 +714,9 @@ class ChatAnalyzer:
             await self.save_detailed_logs_to_file(save_cache=True, force_save=True)
 
             # 하이라이트 생성
-            timeline_comments = await self._make_highlight_chat(self.highlights)
+            highlights_to_process = self.highlights.copy()
             self.highlights = []
+            timeline_comments = await self._make_highlight_chat(highlights_to_process) 
             self.update_highlight_chat(timeline_comments)
 
             # 하이라이트 채팅 업데이트 직후 파일로 저장
