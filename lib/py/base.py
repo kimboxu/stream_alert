@@ -34,7 +34,8 @@ class initVar:
 	wait_make_highlight_chat = {}
 
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])  # Supabase DB 클라이언트
-	genai_cnt = randint(0, 29)
+	genai_cnt = randint(0, 3*10-1)
+	youtube_key_index = randint(0, 17*4-1)
 
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
 

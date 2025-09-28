@@ -70,8 +70,6 @@ class getYoutubeJsonData:
 			if "RetryError" not in str(e):
 				asyncio.create_task(log_error(f"error Youtube {self.youtubeChannelID}: {str(e)}"))
 				
-
-
 	#YouTube API 할당량이 리셋되는 PST 자정까지 대기
 	async def sleep_until_youtube_quota_reset(self):
 		import pytz
@@ -195,7 +193,7 @@ class getYoutubeJsonData:
 						id=self.youtubeData.loc[self.youtubeChannelID, "channelCode"]
 					).execute
 				),
-				timeout=10  # 10초 타임아웃
+				timeout=15  # 15초 타임아웃
 			)
 			return channel_response
 		except HttpError as e:
@@ -228,7 +226,7 @@ class getYoutubeJsonData:
 						maxResults=3   # 최대 3개
 					).execute
 				),
-				timeout=3  # 3초 타임아웃
+				timeout=10  # 10초 타임아웃
 			)
 			return search_response
 		except HttpError as e:
@@ -386,7 +384,7 @@ class getYoutubeJsonData:
 						id=video_id
 					).execute()
 				),
-				timeout=5  # 5초 타임아웃
+				timeout=10  # 10초 타임아웃
 			)
 			
 			# 결과가 없으면 빈 문자열 반환
