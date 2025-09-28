@@ -7,6 +7,8 @@ from base import (
     afreeca_getLink,
     afreeca_getChannelOffStateData,
     log_error,
+    getDefaultHeaders,
+    getAfreecaCookie,
 )
 import certifi #SSL 인증서 검증용 라이브러리
 import asyncio
@@ -101,6 +103,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             adult_channel_state = -6
             subscription_Plus   = -14
             if if_adult_channel in [adult_channel_state, subscription_Plus]:
+                if adult_channel_state == if_adult_channel:
+                    await log_error(f"channel_data {channel_data}")
                 await asyncio.sleep(5)
                 continue
             
@@ -507,16 +511,18 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             'bid': self.data.BID,
             'bno': self.data.BNO,
             'type': 'live',
-            'confirm_adult': 'false',
+            'pwd': '',
             'player_type': 'html5',
+            'stream_type': 'common',
+            'quality': 'HD',
             'mode': 'landing',
             'from_api': '0',
-            'pwd': '',
-            'stream_type': 'common',
-            'quality': 'HD'}
+            'is_revive': 'false'
+            }
+        
         try:
             # API 요청으로 채널 상태 데이터 가져오기
-            response = post(f'{url}?bjid={self.data.BID}', data=data)
+            response = post(f'{url}?bjid={self.data.BID}', data=data, headers=getDefaultHeaders(), cookies=getAfreecaCookie())
             res = response.json()
         except Exception as e:
             asyncio.create_task(log_error(f"error get player live {str(e)}"))
