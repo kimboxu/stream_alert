@@ -691,7 +691,8 @@ class ChatAnalyzer:
             highlights_to_process = self.highlights.copy()
             self.highlights = [self.highlights[-1]]
             timeline_comments = await self._make_highlight_chat(highlights_to_process[:-1])
-            self.update_highlight_chat(timeline_comments)
+            stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
+            self.update_highlight_chat(timeline_comments, stream_start_time)
             
 
     # 치지직 방송 시간이 17시간이 지날 때마다
@@ -709,6 +710,7 @@ class ChatAnalyzer:
         """하이라이트 처리"""
         try:
             self.init.wait_make_highlight_chat[self.channel_id] = True
+            stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
             print(f"{datetime.now()} 하이라이트 처리 시작: {self.channel_name}")
 
             await self.save_detailed_logs_to_file(save_cache=True, force_save=True)
@@ -717,10 +719,10 @@ class ChatAnalyzer:
             highlights_to_process = self.highlights.copy()
             self.highlights = []
             timeline_comments = await self._make_highlight_chat(highlights_to_process) 
-            self.update_highlight_chat(timeline_comments)
+            self.update_highlight_chat(timeline_comments, stream_start_time)
 
             # 하이라이트 채팅 업데이트 직후 파일로 저장
-            await self._save_completed_highlight_chat_after_update(is_save_log)
+            await self._save_completed_highlight_chat_after_update(is_save_log, stream_start_time)
             
             print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
             return True
@@ -732,14 +734,12 @@ class ChatAnalyzer:
             self.init.wait_make_highlight_chat[self.channel_id] = False
             print(f"{datetime.now()} 하이라이트 처리 상태 해제: {self.channel_name}")
 
-    async def _save_completed_highlight_chat_after_update(self, is_save_log):
+    async def _save_completed_highlight_chat_after_update(self, is_save_log, stream_start_time):
         """하이라이트 채팅 저장"""
         try:
             channel_id = self.channel_id
             channel_name = self.channel_name
             
-            # 현재 스트림의 stream_start_id 가져오기
-            stream_start_time = self.init.stream_status[channel_id].start_at['openDate']
             stream_start_id = get_stream_start_id(channel_id, stream_start_time)
             
             # 해당 채널의 하이라이트 데이터 확인
@@ -1135,8 +1135,7 @@ class ChatAnalyzer:
             await log_error(f"{datetime.now()}타임라인 댓글 생성 오류: {e}")
             return []
 
-    def update_highlight_chat(self, timeline_comments):
-        stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
+    def update_highlight_chat(self, timeline_comments, stream_start_time):
         stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
         self.init.highlight_chat[self.channel_id][stream_start_id].timeline_comments.extend(timeline_comments)
                 
