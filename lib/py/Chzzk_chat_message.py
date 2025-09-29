@@ -612,12 +612,14 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         return False
 
     # 채팅 채널 ID 변경 함수
-    async def change_chatChannelId(self, is_save = True):
-        if self.data.cid != self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']:
-            if is_save:
-                self.init.chzzk_titleData.loc[self.data.channel_id, 'oldChatChannelId'] = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
-                self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId'] = self.data.cid
-                asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
+    async def change_chatChannelId(self, cid = None):
+        if cid is None:
+            cid = self.data.cid
+
+        if cid != self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']:
+            self.init.chzzk_titleData.loc[self.data.channel_id, 'oldChatChannelId'] = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
+            self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId'] = cid
+            asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
             return True
         return False
 
@@ -677,7 +679,6 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if chat_type == "후원": payAmount = loads(chat_data['extras'])['payAmount']
         else: payAmount = None
         return payAmount
-
 
    # 메시지 출력 형식 함수 - 채팅 메시지의 타입에 따라 적절한 형식으로 변환
     def print_msg(self, chat_data, chat_type) -> str:
@@ -924,12 +925,13 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return True
         
     async def check_change_chatChannel(self, connect_time):
-        if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60) and await self.get_check_channel_id() and await self.change_chatChannelId(is_save=False):
-            print(f"{datetime.now()} check {self.data.channel_id},{self.data.cid},cid check_live_state_close")
-            # asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
-            return True
+        if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60):
+            cid = chzzk_api.fetch_chatChannelId(self.init.chzzkIDList.loc[self.data.channel_id, "channel_code"], getChzzkCookie())
+            if await self.change_chatChannelId(cid):
+                print(f"{datetime.now()} check {self.data.channel_id},{self.data.cid},cid check_live_state_close")
+                # asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
+                return True
         return False
-
 
 #일반 채팅 처리 함수(디버깅 용도)
 async def generic_chat(init: initVar, platform_name: str, message_class):
