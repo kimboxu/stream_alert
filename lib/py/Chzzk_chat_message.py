@@ -160,6 +160,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         buffer_size = 5  # 버퍼 크기
         buffer_timeout = 0.05  # 버퍼 타임아웃(초)
         last_buffer_flush= datetime.now().isoformat()
+        self.data.last_chat_time= datetime.now().isoformat()
 
         while True:
             # 논블로킹 방식으로 메시지 수신 시도
