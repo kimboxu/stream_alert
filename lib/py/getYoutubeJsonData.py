@@ -1,3 +1,4 @@
+import ssl
 import asyncio
 import aiohttp
 from datetime import datetime, timedelta
@@ -179,9 +180,17 @@ class getYoutubeJsonData:
 			return None
 
 	# 채널 정보 요청 함수 (재시도 로직 포함)
-	@retry(stop=stop_after_attempt(5), 
-		wait=wait_exponential(multiplier=1, min=2, max=5),
-		retry=retry_if_exception_type((asyncio.TimeoutError, ConnectionError)))
+	@retry(
+		stop=stop_after_attempt(5), 
+		wait=wait_exponential(multiplier=1, min=2, max=10),
+		retry=retry_if_exception_type((
+			asyncio.TimeoutError, 
+			ConnectionError,
+			ssl.SSLError,           # SSL 에러
+			aiohttp.ClientError,    # aiohttp 관련 에러
+			HttpError               # YouTube API HTTP 에러
+		))
+	)
 	async def get_youtube_channels_response(self, youtube_build):
 		try:
 			# 채널 통계 정보 요청
@@ -196,17 +205,35 @@ class getYoutubeJsonData:
 				timeout=15  # 15초 타임아웃
 			)
 			return channel_response
+			
 		except HttpError as e:
+			# 503은 일시적 서버 문제 - 재시도 대상
 			if e.resp.status == 503:
-				# 503 에러는 일시적인 서버 문제
 				print(f"{datetime.now()} YouTube API 일시적 오류 (채널: {self.youtubeChannelID})")
-			raise  # 다른 HTTP 에러는 그대로 발생
+				raise  # 재시도를 위해 예외 다시 발생
+			
+			# 429는 Rate Limit - 더 긴 대기 후 재시도
+			elif e.resp.status == 429:
+				print(f"{datetime.now()} YouTube API Rate Limit (채널: {self.youtubeChannelID})")
+				await asyncio.sleep(5)  # Rate Limit 시 추가 대기
+				raise
+			
+			# 그 외 HTTP 에러도 재시도
+			raise
+		
+		except ssl.SSLError as e:
+			# SSL 에러는 로그 남기고 재시도
+			print(f"{datetime.now()} SSL Error for {self.youtubeChannelID}: {str(e)}")
+			raise
+			
 		except asyncio.TimeoutError:
 			print(f"{datetime.now()} Channel response timeout for {self.youtubeChannelID}")
 			raise
+			
 		except Exception as e:
-			asyncio.create_task(log_error(f"error channel_response {e}"))
-			return
+			# 예상치 못한 에러는 로그만 남기고 None 반환
+			asyncio.create_task(log_error(f"error channel_response {self.youtubeChannelID}: {str(e)}"))
+			return None
 
 	# 비디오 검색 요청 함수 (재시도 로직 포함)
 	@retry(stop=stop_after_attempt(5), 
