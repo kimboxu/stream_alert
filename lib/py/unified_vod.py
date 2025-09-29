@@ -1,4 +1,6 @@
 import asyncio
+import aiohttp
+from os import environ
 from pathlib import Path
 from json import loads, load
 from datetime import datetime, timedelta
@@ -6,7 +8,6 @@ from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
-from live_message import highlight_chat_Data
 from make_log_api_performance import PerformanceManager
 from base import (
     changeUTCtime, 
@@ -18,6 +19,7 @@ from base import (
     log_error,
     getChzzkCookie,
     getDefaultHeaders,
+    getAfreecaCookie,      
     calculate_stream_duration,
     format_time_for_comment,
     get_timestamp_from_stream_id,
@@ -672,6 +674,9 @@ class chzzk_vod(base_vod):
             reply_messages: 답글 메시지 리스트
         """
         try:
+            # 쿠키와 헤더 준비
+            headers = getDefaultHeaders()
+            cookies = getChzzkCookie()
             def get_link():
                 return f"https://apis.naver.com/nng_main/nng_comment_api/v1/type/STREAMING_VIDEO/id/{self.data.videoNo}/comments"
             
@@ -687,8 +692,6 @@ class chzzk_vod(base_vod):
                     "secret": False
                 }
             
-            import aiohttp
-            
             async with aiohttp.ClientSession() as session:
                 for i, message in enumerate(reply_messages):
                     try:
@@ -697,13 +700,12 @@ class chzzk_vod(base_vod):
                         async with session.post(
                             get_link(),
                             json=get_reply_json(message),
-                            headers=getDefaultHeaders(),
-                            cookies=getChzzkCookie()
+                            headers=headers,
+                            cookies=cookies
                         ) as response:
                             
                             print(f"{datetime.now()} 답글 {i+1} 응답 상태: {response.status}")
                             response_text = await response.text()
-                            await asyncio.sleep(5.1)
                             if response.status == 200:
                                 try:
                                     response_data = loads(response_text)
@@ -721,7 +723,7 @@ class chzzk_vod(base_vod):
                         continue
                         
         except Exception as e:
-            await log_error(f"_send_reply_comments 오류: {e}")
+            await log_error(f"chzzk _send_reply_comments 오류: {e}")
 
 class afreeca_vod(base_vod):
     """아프리카TV VOD 처리 클래스"""
@@ -732,6 +734,7 @@ class afreeca_vod(base_vod):
         """아프리카TV 플랫폼 데이터 초기화"""
         self.id_list = self.init.afreecaIDList
         self.title_data = self.init.afreeca_titleData
+        self.base_url = 'https://stbbs.sooplive.co.kr/api/bbs_memo_action.php'
 
     async def _get_video_data(self):
         """아프리카TV 비디오 API 데이터 가져오기"""
@@ -768,7 +771,6 @@ class afreeca_vod(base_vod):
         # 썸네일 URL 생성 (https: 접두사 추가)
         thumb_url = data["ucc"].get("thumb", "")
         self.data.thumbnailImageUrl = f"https:{thumb_url}" if thumb_url.startswith("//") else thumb_url
-        
 
     def _has_valid_thumbnail(self):
         """아프리카TV 유효한 썸네일 확인"""
@@ -813,28 +815,117 @@ class afreeca_vod(base_vod):
             "avatar_url": avatar_url,
             "embeds": [embed]
         }
-
-    async def _send_comment(self, message_list):
-        """아프리카TV 댓글 전송"""
+    
+    async def get_recent_comments(self, page: int = 1):
         try:
-            import aiohttp
-            from base import getAfreecaCookie, getDefaultHeaders
-            
-            # 쿠키와 헤더 준비
             headers = getDefaultHeaders()
             cookies = getAfreecaCookie()
             
-            # 아프리카TV VOD 댓글 작성을 위한 데이터 준비
             vod_info = {
                 'title_no': str(self.data.videoNo),
                 'bj_id': self.id_list.loc[self.channel_id, 'afreecaID']
             }
-            
-            message = "\n\n".join(message_list)
-            
+
             post_data = {
                 'nTitleNo': vod_info['title_no'],
                 'bj_id': vod_info['bj_id'],
+                'nPageNo': str(page),
+                'nOrderNo': '1',
+                'nBoardType': '105',
+                'szAction': 'get',
+                'nVod': '1',
+                'nLastNo': '0'
+            }
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    self.base_url,
+                    data=post_data,
+                    headers=headers,
+                    cookies=cookies,
+                    timeout=15
+                ) as response:
+            
+                    if response.status == 200:
+                        response_text = await response.text()
+                        response_text = response_text.strip()
+                        data = loads(response_text)
+
+                        print(f"[DEBUG] 댓글 조회 응답: {str(data)[:500]}")
+
+                        # API 응답 구조에 따라 댓글 리스트 추출
+                        if 'CHANNEL' in data and 'DATA' in data['CHANNEL']:
+                            channel_data = data['CHANNEL']['DATA']
+                            if isinstance(channel_data, dict):
+                                memo_list = channel_data.get('list_data', [])
+                                if isinstance(memo_list, list):
+                                    print(f"[DEBUG] 댓글 {len(memo_list)}개 조회됨")
+                                    return memo_list
+          
+                        print("[DEBUG] 댓글 목록을 찾을 수 없음")
+                        return []
+        
+                    print(f"[DEBUG] HTTP 오류: {response.status}")
+                    return None
+            
+        except Exception as e:
+            print(f"댓글 조회 오류: {e}")
+            return None
+
+    async def find_comment_by_content(self, max_wait: int = 10):
+        # 댓글이 반영될 때까지 잠시 대기
+        my_afreeca_id = environ.get('MY_afreeca_ID')
+        if not my_afreeca_id:
+            print("[ERROR] 환경변수 MY_afreeca_ID가 설정되지 않았습니다")
+            return None
+        
+        for attempt in range(max_wait):
+            comments = await self.get_recent_comments()
+        
+            if comments:
+                for comment in comments:
+                    # 댓글 찾기
+                    comment_user = comment.get('user_id', '')
+                    comment_text = comment.get('comment', '')
+                    if comment_user == my_afreeca_id and "🤖" in comment_text:
+                        # 댓글 ID 추출
+                        comment_id = comment.get('p_comment_no')
+                        if comment_id:
+                            print(f"  ✓ 댓글 ID 찾음: {comment_id}")
+                            return int(comment_id)
+            
+            if attempt < max_wait - 1:
+                print(f"  댓글 검색 중... ({attempt + 1}/{max_wait})")
+                await asyncio.sleep(1)
+        
+        print(f"  ✗ 댓글 ID를 찾지 못했습니다 (최대 {max_wait}회 시도)")
+        return None
+
+    async def _send_comment(self, message_list):
+        """아프리카TV 댓글 전송"""
+        try:
+            is_success = await self._first_send_comment(message_list[0])
+            if is_success:
+                comment_id = await self.find_comment_by_content()
+                if comment_id:
+                    await self._send_reply_comments(comment_id, message_list[1:])
+            return comment_id
+        
+        except Exception as e:
+            await log_error(f"아프리카TV 댓글 전송 오류: {e}")
+            return None
+
+    async def _first_send_comment(self, message):
+
+        try:
+            # 쿠키와 헤더 준비
+            headers = getDefaultHeaders()
+            cookies = getAfreecaCookie()
+            
+            bj_id = self.id_list.loc[self.channel_id, 'afreecaID']
+
+            post_data = {
+                'nTitleNo': str(self.data.videoNo),
+                'bj_id': bj_id,
                 'nBoardType': '105',
                 'szContent': message,
                 'szAction': 'write',
@@ -844,15 +935,15 @@ class afreeca_vod(base_vod):
                 'szFileType': 'REVIEW'
             }
             
-            
             async with aiohttp.ClientSession() as session:
                 async with session.post(
-                    'https://stbbs.sooplive.co.kr/api/bbs_memo_action.php',
+                    self.base_url,
                     data=post_data,
                     headers=headers,
                     cookies=cookies,
                     timeout=15
                 ) as response:
+                    print(f"{datetime.now()} 첫 번째 댓글 응답 상태: {response.status}")
                     
                     if response.status == 200:
                         response_text = await response.text()
@@ -890,3 +981,59 @@ class afreeca_vod(base_vod):
         except Exception as e:
             await log_error(f"아프리카TV 댓글 전송 오류: {e}")
             return False
+        
+    async def _send_reply_comments(self, parent_comment_id: int, reply_messages: str):
+        # 쿠키와 헤더 준비
+        headers = getDefaultHeaders()
+        cookies = getAfreecaCookie()
+
+        bj_id = self.id_list.loc[self.channel_id, 'afreecaID']
+
+        def get_reply_json(message):
+            return {
+                'nTitleNo': str(self.data.videoNo),
+                'bj_id': bj_id,
+                'nBoardType': '105',
+                'szContent': message,
+                'szAction': 'write',
+                'nParentCommentNo': str(parent_comment_id),
+                'nCommentPhotoType': '1',
+                'szCommentPhoto': '',
+                'szFileType': 'REVIEW'
+            }
+           
+        try:
+            async with aiohttp.ClientSession() as session:
+                for i, message in enumerate(reply_messages):
+                    await asyncio.sleep(6)
+                    try:
+                        async with session.post(
+                            self.base_url,
+                            data=get_reply_json(message),
+                            headers=headers,
+                            cookies=cookies,
+                            timeout=15
+                        ) as response:
+                            print(f"{datetime.now()} 답글 {i+1} 응답 상태: {response.status}")
+
+                            if response.status == 200:
+                                response_text = await response.text()
+                                response_text = response_text.strip()
+                                try:
+                                    # JSON 응답 파싱 시도
+                                    response_data = loads(response_text)
+                                    if 'CHANNEL' in response_data:
+                                        if response_data['CHANNEL'].get('RESULT', 0) == 1:
+                                            print(f"{datetime.now()} 답글 {i+1} 작성 성공!")
+                                        else:
+                                            print(f"{datetime.now()} 답글 {i+1} 실패: {response_data}")
+                                except Exception as parse_error:
+                                    print(f"{datetime.now()} 답글 {i+1} 파싱 오류: {parse_error}")
+                            else:
+                                print(f"{datetime.now()} 답글 {i+1} HTTP 오류: {response.status}")
+                    except Exception as reply_error:
+                        print(f"{datetime.now()} 답글 {i+1} 전송 오류: {reply_error}")
+                        continue
+            
+        except Exception as e:
+            await log_error(f"afreeca _send_reply_comments 오류: {e}")
