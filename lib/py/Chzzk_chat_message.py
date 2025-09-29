@@ -147,7 +147,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             is_change_chatChannel = await self.check_change_chatChannel(connect_time)
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = await self.check_live_state_close()
-            is_old_chatChannel = not if_after_time(self.state_update_time["openDate"], sec = 300) and if_after_time(self.data.last_chat_time, sec = 120)
+            is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
+                                  and if_after_time(self.data.last_chat_time, sec = 60) 
+                                  and if_after_time(join_time, sec = 30))
 
             if (is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
@@ -160,7 +162,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         buffer_size = 5  # 버퍼 크기
         buffer_timeout = 0.05  # 버퍼 타임아웃(초)
         last_buffer_flush= datetime.now().isoformat()
-        self.data.last_chat_time= datetime.now().isoformat()
+        join_time= datetime.now().isoformat()
 
         while True:
             # 논블로킹 방식으로 메시지 수신 시도
