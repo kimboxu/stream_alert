@@ -908,7 +908,8 @@ class afreeca_vod(base_vod):
                 comment_id = await self.find_comment_by_content()
                 if comment_id:
                     await self._send_reply_comments(comment_id, message_list[1:])
-            return comment_id
+                return comment_id
+            return None
         
         except Exception as e:
             await log_error(f"아프리카TV 댓글 전송 오류: {e}")
