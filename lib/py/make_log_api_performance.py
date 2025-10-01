@@ -196,11 +196,80 @@ class APIPerformanceLogger:
                 # 파일명 형식이 맞지 않으면 건너뛰기
                 continue
 
+    def _parse_filename_datetime(self, filename: str) -> Optional[datetime]:
+        """파일명에서 날짜/시간 추출
+        
+        Args:
+            filename: 'api_performance_20241001_143025.json' 형식의 파일명
+            
+        Returns:
+            파싱된 datetime 객체 또는 None
+        """
+        try:
+            # 'api_performance_' 제거하고 '.json' 제거
+            name_part = Path(filename).stem  # 확장자 제거
+            parts = name_part.split('_')
+            
+            # api_performance_YYYYMMDD_HHMMSS 형식 검증
+            if len(parts) >= 3 and parts[0] == 'api' and parts[1] == 'performance':
+                date_part = parts[2]  # YYYYMMDD
+                time_part = parts[3]  # HHMMSS
+                datetime_str = f"{date_part}_{time_part}"
+                return datetime.strptime(datetime_str, "%Y%m%d_%H%M%S")
+        except (IndexError, ValueError):
+            pass
+        return None
+
+    def _filter_files_by_date_range(self, file_paths: List[str], 
+                                     start_date: datetime, 
+                                     end_date: datetime) -> List[str]:
+        """파일명 기반으로 날짜 범위에 해당하는 파일만 필터링
+        
+        파일을 시간순으로 정렬하여 각 파일의 실제 로그 범위를 계산:
+        - file[i]는 [file[i-1]의 시간, file[i]의 시간] 범위의 로그를 포함
+        - 첫 번째 파일은 그 이전 모든 로그를 포함할 수 있음
+        """
+        # 파일명과 파싱된 시간을 함께 저장
+        files_with_time = []
+        for file_path in file_paths:
+            file_datetime = self._parse_filename_datetime(file_path)
+            if file_datetime is not None:
+                files_with_time.append((file_path, file_datetime))
+            else:
+                # 파싱 실패한 파일은 안전하게 포함 (하위 호환성)
+                files_with_time.append((file_path, None))
+        
+        # 시간순으로 정렬 (None은 맨 앞에 배치)
+        files_with_time.sort(key=lambda x: x[1] if x[1] is not None else datetime.min)
+        
+        filtered_files = []
+        
+        for i, (file_path, file_time) in enumerate(files_with_time):
+            # 파싱 실패한 파일은 포함
+            if file_time is None:
+                filtered_files.append(file_path)
+                continue
+            
+            # 이전 파일의 시간 (첫 파일은 매우 오래된 시간으로 간주)
+            prev_time = files_with_time[i-1][1] if i > 0 and files_with_time[i-1][1] is not None else datetime.min
+            
+            # 현재 파일의 로그 범위: [prev_time, file_time]
+            # 조회 범위 [start_date, end_date]와 겹치는지 확인
+            
+            # 범위가 겹치는 조건:
+            # 1. 파일의 끝(file_time)이 조회 시작(start_date)보다 이후
+            # 2. 파일의 시작(prev_time)이 조회 끝(end_date)보다 이전
+            if file_time >= start_date and prev_time <= end_date:
+                filtered_files.append(file_path)
+        
+        return filtered_files
+
     async def get_logs_in_period(self, start_date: datetime, end_date: datetime) -> List[Dict]:
         """특정 기간의 로그 데이터 조회"""
         try:
             all_logs = []
-            print(f"{datetime.now()} 로그 조회 시작")
+            print(f"{datetime.now()} 로그 조회 시작: {start_date} ~ {end_date}")
+            
             # 메모리 락으로 안전하게 복사
             async with self._memory_lock:
                 memory_logs_copy = list(self.memory_logs)
@@ -223,7 +292,7 @@ class APIPerformanceLogger:
             file_logs = await self._read_logs_from_files_async(start_date, end_date)
             all_logs.extend(file_logs)
 
-            print(f"{datetime.now()} 로그 조회 완료")
+            print(f"{datetime.now()} 로그 조회 완료: 총 {len(all_logs)}개")
 
             return sorted(all_logs, key=lambda x: x['timestamp'])
             
@@ -234,12 +303,15 @@ class APIPerformanceLogger:
     async def _read_logs_from_files_async(self, start_date: datetime, end_date: datetime) -> List[Dict]:
         """파일에서 로그를 비동기적으로 읽기"""
         pattern = str(self.log_dir / "api_performance_*.json")
-        file_paths = glob.glob(pattern)
+        all_file_paths = glob.glob(pattern)
         
-        if not file_paths:
+        if not all_file_paths:
             return []
         
-        print(f"{datetime.now()} 파일 로그 읽기 시작: {len(file_paths)}개 파일")
+        # 1단계: 파일명 기반으로 필요한 파일만 필터링
+        file_paths = self._filter_files_by_date_range(all_file_paths, start_date, end_date)
+        
+        print(f"{datetime.now()} 파일 로그 읽기 시작: 전체 {len(all_file_paths)}개 중 {len(file_paths)}개 파일 선택")
         start_time = time.time()
         
         # 배치 크기 설정 (메모리 사용량 제어)
