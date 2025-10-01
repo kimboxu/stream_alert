@@ -456,9 +456,9 @@ class ChatAnalyzer:
         
         # 키워드별 가중치 (감정 강도 반영)
         keyword_weights = {
-            'laugh': 5.5,      # 웃음 - 강한 긍정 반응
-            'excitement': 4.5,  # 흥분 - 강한 에너지
-            'surprise': 3.5,   # 놀람 - 예상치 못한 재미
+            'laugh': 4.0,      # 웃음 - 강한 긍정 반응
+            'excitement': 3.5,  # 흥분 - 강한 에너지
+            'surprise': 2.5,   # 놀람 - 예상치 못한 재미
             'reaction': 1.0,   # 일반 반응
             # 'greeting': 0.0,   # 인사 반응(방송 시작 직후 or 방송 종료 직전의 인사는 제외)
         }
