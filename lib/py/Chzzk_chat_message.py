@@ -718,7 +718,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     def format_message(self, msg_type, chat_type, nickname, message, time, **kwargs):
         base = f"[{chat_type} - {self.data.channel_name}] {nickname}"  # 기본 메시지 형식
         formatted_time = datetime.fromtimestamp(time/1000)  # 밀리초 타임스탬프를 datetime으로 변환
-        if not len(message):
+        if message is None or not len(message):
             message = "(메시지 없음)"
         # 다양한 메시지 타입에 대한 포맷 정의
         message_formats = {
