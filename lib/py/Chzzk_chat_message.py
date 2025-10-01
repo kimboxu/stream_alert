@@ -360,10 +360,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 message = self.print_msg(chat_data, chat_type)
                 if not self.init.DO_TEST and (((chat_type == "후원" and self.get_msgTypeCode(chat_data) != "채팅")) or userRoleCode in ["streamer", "streaming_chat_manager"]):
                     asyncio.create_task(log_error(
-                        message, webhook_url=environ['donation_post_url']
+                        message[0], webhook_url=environ['donation_post_url']
                     ))
                 else:
-                    print(f"{datetime.now()} {message}")
+                    print(f"{datetime.now()} {message[0]}")
 
                 # 채팅 메시지인 경우 분석기로 전달
                 if chat_type == "채팅":
@@ -383,7 +383,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
                 # self.data.chzzk_chat_msg_List.append([chat_data, chat_type])
                 # 채팅 전송 태스크 생성
-                task = asyncio.create_task(self._post_chat(chat_data, chat_type))
+                task = asyncio.create_task(self._post_chat(chat_data, message))
                 processing_tasks.append(task)
 
             except Exception as e:
@@ -394,11 +394,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             await asyncio.gather(*processing_tasks, return_exceptions=True)
 
     # 채팅 전송 함수
-    async def _post_chat(self, chat_data, chat_type):
+    async def _post_chat(self, chat_data, message):
         try:
             async with self.post_chat_semaphore:  # 동시 실행 제한
                 nickname = self.get_nickname(chat_data)
-                chat = self.get_chat(chat_data)
+                chat = message[1]
                 uid = self.get_uid(chat_data)
                 
                 # 프로필 이미지 가져오기
@@ -418,7 +418,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 webhook_task = asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
                 webhook_task.add_done_callback(lambda t: self._handle_webhook_result(t))
                 
-                print(f"{datetime.now()} post chat {self.print_msg(chat_data, chat_type)}")
+                print(f"{datetime.now()} post chat {message[0]}")
         except Exception as e:
             asyncio.create_task(log_error(f"error postChat: {str(e)}"))
 
@@ -718,34 +718,35 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     def format_message(self, msg_type, chat_type, nickname, message, time, **kwargs):
         base = f"[{chat_type} - {self.data.channel_name}] {nickname}"  # 기본 메시지 형식
         formatted_time = datetime.fromtimestamp(time/1000)  # 밀리초 타임스탬프를 datetime으로 변환
-
+        if not len(message):
+            message = "(메시지 없음)"
         # 다양한 메시지 타입에 대한 포맷 정의
         message_formats = {
             # 후원 채팅 메시지 형식
-            "후원채팅": lambda: f"{base} ({kwargs.get('amount')}치즈): {message}, {formatted_time}",
+            "후원채팅": lambda: [f"{base} ({kwargs.get('amount')}치즈): {message}, {formatted_time}", f"({kwargs.get('amount')}치즈): {message}"], 
 
             # 영상 후원 메시지 형식
-            "영상후원": lambda: f"{base} ({kwargs.get('amount')}치즈) 영상후원: {message}, {formatted_time}",
+            "영상후원": lambda: [f"{base} ({kwargs.get('amount')}치즈) 영상후원: {message}, {formatted_time}", f"({kwargs.get('amount')}치즈) 영상후원: {message}"],
             
             # 모금함 미션 생성 메시지 형식
-            "후원미션걸기": lambda: f"{base} ({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}, {formatted_time}",
+            "후원미션걸기": lambda: [f"{base} ({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}, {formatted_time}", f"({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}"],
             
             # 모금함 미션 추가 메시지 형식
-            "후원미션추가": lambda: f"{base} ({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}, {formatted_time}",
+            "후원미션추가": lambda: [f"{base} ({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}, {formatted_time}", f"({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}"],
 
-            "파티후원": lambda: f"{base} ({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}, {formatted_time}",
+            "파티후원": lambda: [f"{base} ({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}, {formatted_time}", f"({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}"],
             
             # 구독 메시지 형식
-            "구독": lambda: f"{base} ({kwargs.get('month')}개월 동안 구독): {message}, {formatted_time}",
+            "구독": lambda: [f"{base} ({kwargs.get('month')}개월 동안 구독): {message}, {formatted_time}", f"({kwargs.get('month')}개월 동안 구독): {message}"],
             
             # 구독 선물 메시지 형식 여러개
-            "구독선물": lambda: f"{base} ({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}, {formatted_time}",
+            "구독선물": lambda: [f"{base} ({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}, {formatted_time}", f"({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}"],
 
             # 구독 선물 메시지 형식 1개
-            "단일구독선물": lambda: f"{base} ({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}, {formatted_time}",
+            "단일구독선물": lambda: [f"{base} ({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}, {formatted_time}", f"({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}"],
 
             # 기본 메시지 형식
-            "default": lambda: f"{base}: {message}, {formatted_time}"
+            "default": lambda: [f"{base}: {message}, {formatted_time}", f"{message}"]
         }
 
         # 메시지 타입에 맞는 포맷터 선택 및 실행
