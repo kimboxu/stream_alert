@@ -413,30 +413,25 @@ class ChatAnalyzer:
     
     #채널별 기준값 자동 업데이트
     def _update_baselines(self):
-        if len(self.analysis_history) < 20:
+        if not len(self.analysis_history):
             return
-            
-        recent_20 = list(self.analysis_history)[-20:]
-        
-        # 최근 20개 데이터의 평균으로 기준값 업데이트
-        recent_chat_counts = [a[0].message_count for a in recent_20]
-        recent_viewers = [a[0].viewer_count for a in recent_20]
-        recent_final_score = [a[1] for a in recent_20]
+     
+        # 직전 데이터의 값
+        chat_counts = list(self.analysis_history)[-1][0].message_count
+        viewers     = list(self.analysis_history)[-1][0].viewer_count
+        final_score = list(self.analysis_history)[-1][1]
         
         # 지수 이동 평균으로 부드럽게 업데이트(최근 60분의 데이터가 90% 반영되도록[α=1 − 0.1 ^1/720]) (alpha=0.0032)
         alpha = 0.0032
-        avg_count = sum(recent_chat_counts) / len(recent_chat_counts)
-        avg_viewers = sum(recent_viewers) / len(recent_viewers)
-        avg_final_score = sum(recent_final_score) / len(recent_final_score)
         
         self.baseline_metrics['avg_chat_count'] = (
-            alpha * avg_count + (1 - alpha) * self.baseline_metrics['avg_chat_count']
+            alpha * chat_counts + (1 - alpha) * self.baseline_metrics['avg_chat_count']
         )
         self.baseline_metrics['avg_viewer_count'] = (
-            alpha * avg_viewers + (1 - alpha) * self.baseline_metrics['avg_viewer_count']
+            alpha * viewers + (1 - alpha) * self.baseline_metrics['avg_viewer_count']
         )
         self.baseline_metrics['avg_threshold_score'] = (
-            alpha * avg_final_score + (1 - alpha) * self.baseline_metrics['avg_threshold_score']
+            alpha * final_score + (1 - alpha) * self.baseline_metrics['avg_threshold_score']
         )
 
     #채팅 급증 점수 계산
@@ -485,7 +480,7 @@ class ChatAnalyzer:
         unique_users = len(set(chat['nickname'] for chat in window_chats))
 
         # 사용자 다양성 점수 (채팅 대비)
-        user_diversity = min((unique_users / len(window_chats)) * 60, 50)
+        user_diversity = min((unique_users / len(window_chats)) * 50, 50)
 
         # 메시지 길이 다양성
         msg_lengths = [len(chat['message']) for chat in window_chats]
