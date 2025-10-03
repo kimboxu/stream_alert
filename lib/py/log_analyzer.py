@@ -167,19 +167,19 @@ class SessionBasedFunScoreAnalyzer:
             return {}
         
         scores = [log['fun_score'] for log in session_logs]
-        
+        test_scores = [log.get('test_fun_score', 0) for log in session_logs]
+
         # 세션 시작/종료 시간
         start_time = session_logs[0]['timestamp']
         end_time = session_logs[-1]['timestamp']
         start_after_open = session_logs[0]['after_openDate']
         end_after_open = session_logs[-1]['after_openDate']
-        
-        # 방송 지속 시간 계산
+
         start_seconds = self.parse_time_string(start_after_open)
         end_seconds = self.parse_time_string(end_after_open)
         duration_seconds = end_seconds - start_seconds
         duration_hours = duration_seconds / 3600
-        
+
         # 하이라이트 정보
         highlights = sum(1 for log in session_logs 
                         if log.get('score_components', {}).get('highlights', False) 
@@ -187,23 +187,39 @@ class SessionBasedFunScoreAnalyzer:
         big_highlights = sum(1 for log in session_logs 
                             if log.get('score_components', {}).get('big_highlights', False)
                             and log.get('score_components', {}).get('should_create_new_highlight', True))
-        
+
+        # test 하이라이트
+        test_highlights = sum(1 for log in session_logs 
+                            if log.get('score_components', {}).get('test_highlights', False) 
+                            and log.get('score_components', {}).get('should_create_new_highlight', True))
+        test_big_highlights = sum(1 for log in session_logs 
+                                if log.get('score_components', {}).get('test_big_highlights', False)
+                                and log.get('score_components', {}).get('should_create_new_highlight', True))
+
         # 동적 임계값 및 점수 차이 통계
-        baseline_thresholdss = []
+        baseline_thresholds = []
         score_differences = []
-        
+        test_score_differences = []
+
         for log in session_logs:
             score_comp = log.get('score_components', {})
             if 'baseline_threshold' in score_comp:
-                baseline_thresholdss.append(score_comp['baseline_threshold'])
+                baseline_thresholds.append(score_comp['baseline_threshold'])
             if 'score_difference' in score_comp:
                 score_differences.append(score_comp['score_difference'])
-        
-        avg_baseline_thresholds = sum(baseline_thresholdss) / len(baseline_thresholdss) if baseline_thresholdss else 50
+            if 'test_score_difference' in score_comp:
+                test_score_differences.append(score_comp['test_score_difference'])
+            else:
+                # fallback: test용 별도 값 없으면 score_difference 그대로 활용
+                test_score_differences.append(score_comp.get('score_difference', 0))
+
+        avg_baseline_thresholds = sum(baseline_thresholds) / len(baseline_thresholds) if baseline_thresholds else 50
         avg_score_difference = sum(score_differences) / len(score_differences) if score_differences else 0
         max_score_difference = max(score_differences) if score_differences else 0
-        
-        # 기본 통계
+
+        avg_test_score_difference = sum(test_score_differences) / len(test_score_differences) if test_score_differences else 0
+        max_test_score_difference = max(test_score_differences) if test_score_differences else 0
+
         stats = {
             'date_str': date_str,
             'start_time': start_time,
@@ -212,22 +228,39 @@ class SessionBasedFunScoreAnalyzer:
             'end_after_open': end_after_open,
             'duration_hours': duration_hours,
             'total_analyses': len(session_logs),
+
+            # 점수
             'avg_score': sum(scores) / len(scores),
+            'avg_test_score': sum(test_scores) / len(test_scores) if test_scores else 0,
             'max_score': max(scores),
             'min_score': min(scores),
+
+            # 하이라이트
             'highlights': highlights,
             'big_highlights': big_highlights,
-            'max_viewers': max([log['analysis_data']['viewer_count'] for log in session_logs]),
-            'avg_viewers': sum([log['analysis_data']['viewer_count'] for log in session_logs]) / len(session_logs),
-            
+            'test_highlights': test_highlights,
+            'test_big_highlights': test_big_highlights,
+
             # 동적 하이라이트 관련 통계
             'avg_baseline_thresholds': avg_baseline_thresholds,
             'avg_score_difference': avg_score_difference,
             'max_score_difference': max_score_difference,
+
+            # 점수 차이 (test 버전)
+            'avg_test_score_difference': avg_test_score_difference,
+            'max_test_score_difference': max_test_score_difference,
+
+            # 하이라이트 비율
             'highlight_rate': highlights / len(scores) * 100,
             'big_highlight_rate': big_highlights / len(scores) * 100,
+            'test_highlight_rate': test_highlights / len(scores) * 100 if test_scores else 0,
+            'test_big_highlight_rate': test_big_highlights / len(scores) * 100 if test_scores else 0,
+
+            # 뷰어 수
+            'max_viewers': max([log['analysis_data']['viewer_count'] for log in session_logs]),
+            'avg_viewers': sum([log['analysis_data']['viewer_count'] for log in session_logs]) / len(session_logs),
         }
-        
+
         return stats
     
     def create_session_plot(self, session_logs, session_stats, save_plot=True):
@@ -722,32 +755,42 @@ class SessionBasedFunScoreAnalyzer:
         print(f"전체 세션 요약 ({len(all_session_stats)}개 세션)")
         print(f"{'='*60}")
         
+        # 총합/평균 계산 (원래 + test 비교)
         total_duration = sum([s['duration_hours'] for s in all_session_stats])
         total_highlights = sum([s['highlights'] for s in all_session_stats])
         total_big_highlights = sum([s['big_highlights'] for s in all_session_stats])
+        total_test_highlights = sum([s['test_highlights'] for s in all_session_stats])
+        total_test_big_highlights = sum([s['test_big_highlights'] for s in all_session_stats])
+
+        # 평균 재미도 (가중 평균)
         avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
+        avg_test_score_overall = sum([s['avg_test_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
         
         print(f"이 방송 시간: {total_duration:.1f}시간")
-        print(f"전체 평균 재미도: {avg_score_overall:.2f}")
-        print(f"이 하이라이트: {total_highlights}회")
-        print(f"이 대형 하이라이트: {total_big_highlights}회")
-        print(f"시간당 하이라이트: {total_highlights/total_duration:.1f}회/시간")
+        print(f"전체 평균 재미도: {avg_score_overall:.2f} (대조: Test {avg_test_score_overall:.2f})")
+        print(f"이 하이라이트: {total_highlights}회 (대조: Test {total_test_highlights}회)")
+        print(f"이 대형 하이라이트: {total_big_highlights}회 (대조: Test {total_test_big_highlights}회)")
+        print(f"시간당 하이라이트: {total_highlights/total_duration:.1f}회/시간 (대조: Test {total_test_highlights/total_duration:.1f})")
         
-        print(f"\n각 세션별 상세:")
-        # 헤더 출력 수정
-        header = f"{'번호':>4} {'날짜':>10} {'시작시간':>8} {'길이':>7} {'평균점수':>8} {'하이라이트':>8} {'대형':>4} {'최대시청':>8}"
+        print(f"\n각 세션별 상세 비교:")
+        # 헤더 확장 (평균점수, 하이라이트 수 -> 원 vs Test 비교)
+        header = f"{'번호':>3} {'날짜':>8} {'시작시간':>6} {'길이':>6} " \
+                f"{'평균점수':>8} {'Test평균':>9} " \
+                f"{'HL':>5} {'TestHL':>7} " \
+                f"{'대형HL':>6} {'Test대형':>8} "
         print(header)
         print(f"{'-'*len(header)}")
         
-        # 각 세션 정보 출력 수정
+        # 각 세션별 출력
         for i, stats in enumerate(all_session_stats, 1):
             start_date = datetime.fromisoformat(stats['start_time']).strftime('%m/%d')
             start_time = datetime.fromisoformat(stats['start_time']).strftime('%H:%M')
             
-            row = f"{i:>4} {start_date:>10} {start_time:>8} " \
-                f"{stats['duration_hours']:>6.1f}h {stats['avg_score']:>7.1f} " \
-                f"{stats['highlights']:>7}회 {stats['big_highlights']:>3}회 " \
-                f"{stats['max_viewers']:>7}명"
+            row = f"{i:>3} {start_date:>8} {start_time:>6} " \
+                f"{stats['duration_hours']:>5.1f}h " \
+                f"{stats['avg_score']:>8.1f} {stats['avg_test_score']:>9.1f} " \
+                f"{stats['highlights']:>5} {stats['test_highlights']:>7} " \
+                f"{stats['big_highlights']:>6} {stats['test_big_highlights']:>8}"
             print(row)
         
         # 요약 리포트를 파일로 저장
@@ -927,15 +970,16 @@ async def main():
     """메인 실행 함수"""
     try:
         # 명령행 인자 파싱
-        args = parse_arguments()
+        try:
+            args = parse_arguments()
         
-        # 채널명 결정
-        channel_name = args.channel if args.channel else args.channel_name
-        date = args.date if args.date != '모든 날짜' else '모든 날짜'
-        use_ai = args.use_ai
+            # 채널명 결정
+            channel_name = args.channel if args.channel else args.channel_name
+            date = args.date if args.date != '모든 날짜' else '모든 날짜'
+            use_ai = args.use_ai
 
-
-        # channel_name, date, use_ai = "빅헤드", '2025-10-01', True
+        except:
+            channel_name, date, use_ai = "빅헤드", '2025-10-01', True
         
         # AI 사용 가능 여부 확인
         if use_ai and not AI_AVAILABLE:
