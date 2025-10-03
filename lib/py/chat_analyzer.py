@@ -32,6 +32,7 @@ class ChatAnalysisData:
     viewer_count: int = 0
     threshold: int = 0
     fun_keywords: Dict[str, int] = field(default_factory=dict)
+    test_fun_keywords: Dict[str, int] = field(default_factory=dict)
 
 @dataclass
 class StreamHighlight:
@@ -242,6 +243,7 @@ class ChatAnalyzer:
 
         # 키워드 추출
         keywords = self._extract_keywords(message)
+        test_keywords = self._test_extract_keywords(message)
 
         # 채팅 데이터 저장
         chat_data = {
@@ -249,6 +251,7 @@ class ChatAnalyzer:
         'nickname': nickname,
         'message': message,
         'keywords': keywords,
+        'test_keywords': test_keywords,
         'keyword_count': sum(keywords.values())
         }
 
@@ -277,6 +280,19 @@ class ChatAnalyzer:
                     total_score += score
                 
                 keyword_scores[pattern_name] = total_score
+                
+        return keyword_scores
+    
+    def _test_extract_keywords(self, message: str) -> Dict[str, float]:
+        """단순 키워드 추출"""
+        keyword_scores = {}
+
+        for pattern_name, pattern in self.fun_patterns.items():
+            matches = pattern.findall(message.lower())
+            
+            if matches:
+                score = 1.0        
+                keyword_scores[pattern_name] = score
                 
         return keyword_scores
     
@@ -309,11 +325,17 @@ class ChatAnalyzer:
 
         # 키워드 집계
         keyword_counter = Counter()
+        test_keyword_counter = Counter()
         for chat in window_chats:
             for key, count in chat['keywords'].items():
                 keyword_counter[key] += count
 
+        for chat in window_chats:
+            for key, count in chat['test_keywords'].items():
+                test_keyword_counter[key] += count
+
         analysis.fun_keywords = dict(keyword_counter)
+        analysis.test_fun_keywords = dict(test_keyword_counter)
 
         # 상세 점수 계산
         score_details = self._calculate_fun_score(current_time, analysis, window_chats)
@@ -327,12 +349,14 @@ class ChatAnalyzer:
         detailed_log = {
             'timestamp': current_time.isoformat(),
             'fun_score': score_details['final_score'],
+            'test_fun_score': score_details['test_reaction_score'],
             'score_components': score_details,
             'reason': self._determine_highlight_reason(analysis, score_details),
             'analysis_data': {
                 'message_count': analysis.message_count,
                 'viewer_count': analysis.viewer_count,
-                'fun_keywords': analysis.fun_keywords
+                'fun_keywords': analysis.fun_keywords,
+                'test_keyword_counter': analysis.test_fun_keywords,
             },
             'after_openDate': after_openDate,
             'comment_after_openDate': after_openDate,
@@ -354,7 +378,7 @@ class ChatAnalyzer:
             asyncio.create_task(self.highlight_processing())
 
         # 분석 기록 저장
-        self.analysis_history.append((analysis, score_details['final_score']))
+        self.analysis_history.append((analysis, score_details['final_score'], score_details['test_reaction_score']))
 
         return detailed_log
     
@@ -364,6 +388,7 @@ class ChatAnalyzer:
         if not hasattr(self, 'baseline_metrics'):
             self.baseline_metrics = {
                 'avg_chat_count': 10.0,
+                'test_avg_chat_count': 10.0,
                 'avg_viewer_count': 100.0,
                 'avg_threshold_score': self.small_fun_difference,
             }
@@ -375,7 +400,7 @@ class ChatAnalyzer:
         chat_spike_score = self._calculate_chat_spike_score(analysis)
             
         # 2. 반응 강도 점수 (40% 가중치) - 최대 100점
-        reaction_score = self._calculate_reaction_score(analysis)
+        reaction_score, test_reaction_score = self._calculate_reaction_score(analysis)
         
         # 3. 다양성 점수 (10% 가중치) - 최대 100점
         diversity_score = self._calculate_diversity_score(window_chats)
@@ -396,15 +421,19 @@ class ChatAnalyzer:
         score_details = {
             'chat_spike_score': chat_spike_score,
             'reaction_score': reaction_score,
+            'test_reaction_score': test_reaction_score,
             'diversity_score': diversity_score,
             'viewer_trend_score': viewer_trend_score,
             'final_score': final_score,
 
             'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
+            'test_baseline_chat_count': self.baseline_metrics['test_avg_chat_count'],
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
             'baseline_threshold': self.baseline_metrics['avg_threshold_score'],
             'highlights': self._is_highlight(final_score, self.small_fun_difference),
+            'test_highlights': self._test_is_highlight(final_score, self.small_fun_difference),
             'big_highlights': self._is_highlight(final_score, self.big_fun_difference),
+            'test_big_highlights': self._test_is_highlight(final_score, self.big_fun_difference),
             'score_difference': self.get_score_difference(final_score),
             'should_create_new_highlight':self._should_create_new_highlight(final_score, current_time),
         }
@@ -427,6 +456,9 @@ class ChatAnalyzer:
         self.baseline_metrics['avg_chat_count'] = (
             alpha * chat_counts + (1 - alpha) * self.baseline_metrics['avg_chat_count']
         )
+        self.baseline_metrics['test_avg_chat_count'] = (
+            alpha * chat_counts + (1 - alpha) * self.baseline_metrics['test_avg_chat_count']
+        )
         self.baseline_metrics['avg_viewer_count'] = (
             alpha * viewers + (1 - alpha) * self.baseline_metrics['avg_viewer_count']
         )
@@ -448,6 +480,7 @@ class ChatAnalyzer:
     #반응 강도 점수 계산
     def _calculate_reaction_score(self, analysis: ChatAnalysisData) -> float:
         keywords = analysis.fun_keywords
+        test_fun_keywords = analysis.test_fun_keywords
         
         # 키워드별 가중치 (감정 강도 반영)
         keyword_weights = {
@@ -468,8 +501,19 @@ class ChatAnalyzer:
         keyword_density = total_weighted_keywords / self.baseline_metrics['avg_chat_count']
         # 밀도 3.0 (평균 채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
         reaction_score = min(self._sigmoid_transform(keyword_density, 3.0*3.0) * 100, 100)
+
+        total_weighted_keywords = 0
+        for keyword, count in test_fun_keywords.items():
             
-        return reaction_score
+            weight = keyword_weights.get(keyword, 1.0)
+            total_weighted_keywords += count * weight
+        
+        # 채팅 수 대비 키워드 밀도로 정규화
+        keyword_density = total_weighted_keywords / self.baseline_metrics['test_avg_chat_count']
+        # 밀도 3.0 (평균 채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
+        test_reaction_score = min(self._sigmoid_transform(keyword_density, 3.0*3.0) * 100, 100)
+            
+        return reaction_score, test_reaction_score
 
     #사용자 참여의 다양성 점수 계산
     def _calculate_diversity_score(self, window_chats: List[Dict]) -> float:
@@ -601,6 +645,20 @@ class ChatAnalyzer:
 
         return True
     
+    def _test_is_highlight(self, fun_score, fun_difference):
+        if self.init.DO_TEST:
+            return True
+        
+
+        if len(self.analysis_history) < int(self.history_1min*2):
+            return False
+        
+        #이전 1분 중 가장 작은 점수가 fun_difference점 이상 높아진 경우
+        if self.test_get_score_difference(fun_score) < fun_difference:
+            return False
+
+        return True
+    
         #새 하이라이트를 생성해야 하는지 판단
     def _should_create_new_highlight(self, fun_score, current_time: datetime):
         if not self._is_highlight(fun_score, self.small_fun_difference):
@@ -631,6 +689,15 @@ class ChatAnalyzer:
 
         #이전 1분 중 가장 작은 점수와의 차이
         return max(fun_score - min(a[1] for a in bef_recent_scores), 0)
+    
+    def test_get_score_difference(self, fun_score):
+        if len(self.analysis_history) < int(self.history_1min):
+            return 0
+        
+        bef_recent_scores = list(self.analysis_history)[-int(self.history_1min):]
+
+        #이전 1분 중 가장 작은 점수와의 차이
+        return max(fun_score - min(a[2] for a in bef_recent_scores), 0)
 
     #하이라이트 생성
     async def _create_highlight(self, detailed_log: dict) -> None:
