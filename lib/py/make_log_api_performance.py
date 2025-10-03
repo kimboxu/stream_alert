@@ -1181,11 +1181,11 @@ class PerformanceManager:
                 id='force_save_logs'
             )
             
-            # 매일 새벽 6시에 전날 일일 통계 계산
+            # 매일 새벽 7시에 전날 일일 통계 계산
             self.scheduler.add_job(
                 func=lambda: asyncio.run(self.calculate_and_save_daily_statistics()),
                 trigger="cron",
-                hour=6,
+                hour=7,
                 minute=10,
                 # second=0,
                 id='daily_statistics'
