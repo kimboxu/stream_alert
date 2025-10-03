@@ -397,9 +397,9 @@ class ChatAnalyzer:
             'chat_spike_score': chat_spike_score,
             'reaction_score': reaction_score,
             'diversity_score': diversity_score,
-            
             'viewer_trend_score': viewer_trend_score,
             'final_score': final_score,
+
             'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
             'baseline_threshold': self.baseline_metrics['avg_threshold_score'],
