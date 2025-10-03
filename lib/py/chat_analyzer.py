@@ -423,8 +423,8 @@ class ChatAnalyzer:
         recent_viewers = [a[0].viewer_count for a in recent_20]
         recent_final_score = [a[1] for a in recent_20]
         
-        # 지수 이동 평균으로 부드럽게 업데이트 (alpha=0.10)
-        alpha = 0.10
+        # 지수 이동 평균으로 부드럽게 업데이트(최근 60분의 데이터가 90% 반영되도록[α=1 − 0.1 ^1/720]) (alpha=0.0032)
+        alpha = 0.0032
         avg_count = sum(recent_chat_counts) / len(recent_chat_counts)
         avg_viewers = sum(recent_viewers) / len(recent_viewers)
         avg_final_score = sum(recent_final_score) / len(recent_final_score)
