@@ -12,11 +12,9 @@ from base import  (
     initVar,
     getChzzkCookie, 
     get_message, 
-    change_chat_join_state,
+    change_field_state,
     save_airing_data, 
     if_after_time, 
-    DataBaseVars, 
-    userDataVar,
     log_error,
     )
 
@@ -56,7 +54,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def start(self):
         while True:
             if self.init.chat_json[self.data.channel_id]: 
-                asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id, False))
+                asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id, False))
             
             # 방송이 종료되었다면 대기(5초 마다 확인)
             if await self.check_live_state_close():
@@ -67,7 +65,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 await self._connect_and_run()   # 연결 및 실행
             except Exception as e:
                 await log_error(f"error in chat manager: {e}")
-                asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
+                asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
             finally:
                 await self._cleanup_tasks()  # 태스크 정리
 
@@ -933,7 +931,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             cid = chzzk_api.fetch_chatChannelId(self.init.chzzkIDList.loc[self.data.channel_id, "channel_code"], getChzzkCookie())
             if await self.change_chatChannelId(cid):
                 print(f"{datetime.now()} check {self.data.channel_id},{self.data.cid},cid check_live_state_close")
-                # asyncio.create_task(change_chat_join_state(self.init.chat_json, self.data.channel_id))
+                # asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
                 return True
         return False
 

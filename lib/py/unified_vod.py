@@ -308,7 +308,7 @@ class base_vod(ABC):
                             return data
                         
                     # 제목 매칭 확인
-                    if data.get('last_title') != self.data.videoTitle:
+                    if data.get('last_title') not in self.data.videoTitle:
                         continue
                         
                     # 치지직 방송 중인데, 방송 시간이 길어서 VOD가 분할 된 경우
