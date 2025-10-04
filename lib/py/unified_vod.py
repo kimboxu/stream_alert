@@ -402,7 +402,7 @@ class base_vod(ABC):
             segment_end_offset = segment_start_offset + self.data.duration
             
             # 세그먼트 범위를 벗어나는 댓글은 제외
-            if comment_absolute_seconds < segment_start_offset or comment_absolute_seconds >= segment_end_offset:
+            if comment_absolute_seconds < segment_start_offset or comment_absolute_seconds >= segment_end_offset + self.duration_diff:
                 continue
             
             # VOD 내에서의 상대적 시간 계산
