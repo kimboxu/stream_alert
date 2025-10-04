@@ -14,7 +14,8 @@ from base import (
     get_message, 
     iconLinkData, 
     initVar, 
-    save_video_data, 
+    save_video_data,
+    change_field_state,
     if_after_time,
     log_error,
     getChzzkCookie,
@@ -230,6 +231,8 @@ class base_vod(ABC):
         check_interval = 2   # 2초마다 체크
         wait_count = 0
         max_checks = max_wait_time // check_interval
+        await change_field_state("is_save_highlight_data", self.init.is_save_highlight_data, self.channel_id)
+        await asyncio.sleep(check_interval)
         
         print(f"{datetime.now()} 하이라이트 처리 대기 시작: {channel_name}")
         
@@ -284,6 +287,7 @@ class base_vod(ABC):
             channel_name = self.id_list.loc[self.channel_id, 'channelName']
             pattern = f"highlight_chat_{channel_name}_*.json"
             files = reversed(list(sorted(highlight_dir.glob(pattern))))
+            duration_diff = 0
             
             # VOD 제목과 지속시간으로 매칭
             for file_path in files:
@@ -312,7 +316,8 @@ class base_vod(ABC):
                         continue
                         
                     # 치지직 방송 중인데, 방송 시간이 길어서 VOD가 분할 된 경우
-                    if self.platform_name == 'chzzk' and not stream_end_id:
+                    segment_duration = 17 * 3600
+                    if self.platform_name == 'chzzk' and (not stream_end_id or duration_diff >= segment_duration):
                         if (data:= await self._match_chzzk_vod_segment(data)) is not None:
                             return data
                         continue
@@ -342,10 +347,10 @@ class base_vod(ABC):
             for i in range(1, 60):  # 최대 60개 세그먼트 (1000시간)
                 hours_threshold = 17 * i
                 if (timestamp - timedelta(hours=hours_threshold)) >= start_time:
-                    data['vod_segment_start_offset'] = (i - 1) * segment_duration
-                    data['vod_segment_number'] = i - 1
                     is_done = True
                 else: 
+                    data['vod_segment_start_offset'] = (i - 1) * segment_duration
+                    data['vod_segment_number'] = i - 1
                     break
  
             if not is_done:
@@ -353,7 +358,7 @@ class base_vod(ABC):
                 print(data)
                 return None
             else:
-                print(f"{self.channel_id} 성공!")       
+                print(f"{self.channel_id} 성공!")
                 return data
             
         except Exception as e:
