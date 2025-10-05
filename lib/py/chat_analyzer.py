@@ -153,6 +153,7 @@ class ChatAnalyzer:
         self.channel_id = channel_id
         self.channel_name = channel_name
         self.platform_name = platform_name
+        self.wait_make_highlight_chat = False
 
         # 분석 설정
         self.window_size = 30       # 30초 윈도우
@@ -782,6 +783,10 @@ class ChatAnalyzer:
     async def highlight_processing(self, is_save_log = False):
         """하이라이트 처리"""
         try:
+            for _ in range(300): # make_highlight_chat 실행 중 방송이 종료되어 _save_completed_highlight_chat_after_update가 실행 된 후에 make_highlight_chat이 완료되는 문제 해결을 위해 해당 상태 확인
+                if self.wait_make_highlight_chat:
+                    asyncio.sleep(1)
+
             self.init.wait_make_highlight_chat[self.channel_id] = True
             stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
             print(f"{datetime.now()} 하이라이트 처리 시작: {self.channel_name}")
@@ -1121,6 +1126,7 @@ class ChatAnalyzer:
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight]):
+        self.wait_make_highlight_chat = True
         if not highlights:
             return []
         
@@ -1186,7 +1192,7 @@ class ChatAnalyzer:
             self.init.genai_cnt = (self.init.genai_cnt+1)%(10*len(environ['GOOGLE_API_KEY'].split(",")))
             model = get_genai_model(self.init.genai_cnt)
             response = await asyncio.to_thread(model.generate_content, msg_list)
-
+            
             # JSON 파싱
             try:
                 timeline_comments = json.loads(response.text)
@@ -1207,6 +1213,8 @@ class ChatAnalyzer:
         except Exception as e:
             await log_error(f"{datetime.now()}타임라인 댓글 생성 오류: {e}")
             return []
+        finally:
+            self.wait_make_highlight_chat = False
 
     def update_highlight_chat(self, timeline_comments, stream_start_time):
         stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
