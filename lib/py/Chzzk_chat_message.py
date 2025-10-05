@@ -620,7 +620,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if cid != self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']:
             self.init.chzzk_titleData.loc[self.data.channel_id, 'oldChatChannelId'] = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
             self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId'] = cid
-            self.state_update_time["changeChatChannelIdDate"] = datetime.now()
+            self.state_update_time["changeChatChannelIdDate"] = datetime.now().isoformat()
             asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
             return True
         return False
