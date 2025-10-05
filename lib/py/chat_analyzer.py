@@ -196,8 +196,8 @@ class ChatAnalyzer:
 
         # 가중 평균으로 최종 점수
         self.weights = {
-            'chat_spike': 0.35,     # 채팅 급증 
-            'reaction': 0.40,       # 반응 강도
+            'chat_spike': 0.45,     # 채팅 급증 
+            'reaction': 0.30,       # 반응 강도
             'diversity': 0.10,      # 다양성 유지
             'viewer_spike': 0.15,   # 시청자 급증 
         }
@@ -388,7 +388,6 @@ class ChatAnalyzer:
         if not hasattr(self, 'baseline_metrics'):
             self.baseline_metrics = {
                 'avg_chat_count': 10.0,
-                'test_avg_chat_count': 10.0,
                 'avg_viewer_count': 100.0,
                 'avg_threshold_score': self.small_fun_difference,
             }
@@ -396,10 +395,10 @@ class ChatAnalyzer:
         # 기준값 자동 업데이트
         self._update_baselines()
         
-        # 1. 채팅 급증 점수 (35% 가중치) - 최대 100점
+        # 1. 채팅 급증 점수 (45% 가중치) - 최대 100점
         chat_spike_score = self._calculate_chat_spike_score(analysis)
             
-        # 2. 반응 강도 점수 (40% 가중치) - 최대 100점
+        # 2. 반응 강도 점수 (30% 가중치) - 최대 100점
         reaction_score, test_reaction_score = self._calculate_reaction_score(analysis)
         
         # 3. 다양성 점수 (10% 가중치) - 최대 100점
@@ -427,7 +426,6 @@ class ChatAnalyzer:
             'final_score': final_score,
 
             'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
-            'test_baseline_chat_count': self.baseline_metrics['test_avg_chat_count'],
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
             'baseline_threshold': self.baseline_metrics['avg_threshold_score'],
             'highlights': self._is_highlight(final_score, self.small_fun_difference),
@@ -456,9 +454,6 @@ class ChatAnalyzer:
         
         self.baseline_metrics['avg_chat_count'] = (
             alpha * chat_counts + (1 - alpha) * self.baseline_metrics['avg_chat_count']
-        )
-        self.baseline_metrics['test_avg_chat_count'] = (
-            alpha * chat_counts + (1 - alpha) * self.baseline_metrics['test_avg_chat_count']
         )
         self.baseline_metrics['avg_viewer_count'] = (
             alpha * viewers + (1 - alpha) * self.baseline_metrics['avg_viewer_count']
@@ -499,9 +494,9 @@ class ChatAnalyzer:
             total_weighted_keywords += count * weight
         
         # 채팅 수 대비 키워드 밀도로 정규화
-        keyword_density = total_weighted_keywords / analysis.message_count
+        keyword_density = total_weighted_keywords / self.baseline_metrics['avg_chat_count']
         # 채팅 대비 1키워드 * keyword_weights 비율*3.0배 를 기준으로 점수화
-        reaction_score = min(self._sigmoid_transform(keyword_density, 3.0) * 100, 100)
+        reaction_score = min(self._sigmoid_transform(keyword_density, 4.0) * 100, 100)
 
         total_weighted_keywords = 0
         for keyword, count in test_fun_keywords.items():
@@ -510,9 +505,9 @@ class ChatAnalyzer:
             total_weighted_keywords += count * weight
         
         # 채팅 수 대비 키워드 밀도로 정규화
-        keyword_density = total_weighted_keywords / analysis.message_count
+        keyword_density = total_weighted_keywords / self.baseline_metrics['avg_chat_count']
         # 밀도 3.0 (채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
-        test_reaction_score = min(self._sigmoid_transform(keyword_density, 3.0) * 100, 100)
+        test_reaction_score = min(self._sigmoid_transform(keyword_density, 4.0) * 100, 100)
             
         return reaction_score, test_reaction_score
 
