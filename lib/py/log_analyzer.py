@@ -263,6 +263,251 @@ class SessionBasedFunScoreAnalyzer:
 
         return stats
     
+    def create_integrated_session_plot(self, session_logs, session_stats, save_plot=True):
+        """원본과 Test 데이터를 통합한 3개 서브플롯 그래프 생성"""
+        if not session_logs:
+            return
+        
+        try:
+            import matplotlib.pyplot as plt
+            import platform
+            
+            # 한글 폰트 설정
+            self._setup_korean_font(plt, platform)
+            
+            # 공통 데이터 준비
+            common_data = self._prepare_common_plot_data(session_logs)
+            original_data = self._prepare_original_plot_data(session_logs)
+            test_data = self._prepare_test_plot_data(session_logs)
+            
+            # 3개 서브플롯 생성 (세로로 배치)
+            fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(15, 15))
+            
+            # 첫 번째 플롯: 원본 재미도 점수
+            self._plot_original_fun_score(ax1, common_data, original_data, session_stats)
+            
+            # 두 번째 플롯: Test 재미도 점수  
+            self._plot_test_fun_score(ax2, common_data, test_data, session_stats)
+            
+            # 세 번째 플롯: 시청자 수 (공통)
+            self._plot_viewer_count(ax3, common_data)
+            
+            plt.tight_layout()
+            
+            if save_plot:
+                self._save_integrated_plot(fig, session_stats)
+            
+            plt.show()
+            
+        except ImportError:
+            print("⚠️ matplotlib가 설치되지 않아 통합 그래프를 생성할 수 없습니다.")
+
+    def _setup_korean_font(self, plt, platform):
+        """한글 폰트 설정을 위한 헬퍼 메서드"""
+        plt.rcParams['font.family'] = ['DejaVu Sans']
+        if platform.system() == 'Windows':
+            plt.rcParams['font.family'] = ['Malgun Gothic', 'DejaVu Sans']
+        elif platform.system() == 'Darwin':
+            plt.rcParams['font.family'] = ['AppleGothic', 'DejaVu Sans']
+        else:
+            plt.rcParams['font.family'] = ['Noto Sans CJK KR', 'DejaVu Sans']
+        
+        plt.rcParams['axes.unicode_minus'] = False
+
+    def _prepare_common_plot_data(self, session_logs):
+        """모든 플롯에서 공통으로 사용되는 데이터 준비"""
+        return {
+            'after_open_times': [self.parse_time_string(log['after_openDate']) / 60 for log in session_logs],
+            'viewer_counts': [log['analysis_data']['viewer_count'] for log in session_logs]
+        }
+
+    def _prepare_original_plot_data(self, session_logs):
+        """원본 데이터 플롯용 데이터 준비"""
+        scores = [log['fun_score'] for log in session_logs]
+        baseline_thresholds = []
+        score_difference_list = []
+        highlight_times = []
+        highlight_scores = []
+        big_highlight_times = []
+        big_highlight_scores = []
+        
+        after_open_times = [self.parse_time_string(log['after_openDate']) / 60 for log in session_logs]
+        
+        for i, log in enumerate(session_logs):
+            score_comp = log.get('score_components', {})
+            
+            # 동적 임계값 데이터
+            threshold = score_comp.get('baseline_threshold', 50)
+            score_difference = score_comp.get('score_difference', 0)
+            baseline_thresholds.append(threshold)
+            score_difference_list.append(score_difference)
+            
+            # 하이라이트 데이터
+            is_highlight = score_comp.get('highlights', False)
+            is_big_highlight = score_comp.get('big_highlights', False)
+            should_create = score_comp.get('should_create_new_highlight', True)
+            
+            if is_highlight and should_create:
+                highlight_times.append(after_open_times[i])
+                highlight_scores.append(scores[i])
+            if is_big_highlight and should_create:
+                big_highlight_times.append(after_open_times[i])
+                big_highlight_scores.append(scores[i])
+        
+        return {
+            'scores': scores,
+            'baseline_thresholds': baseline_thresholds,
+            'score_difference_list': score_difference_list,
+            'highlight_times': highlight_times,
+            'highlight_scores': highlight_scores,
+            'big_highlight_times': big_highlight_times,
+            'big_highlight_scores': big_highlight_scores
+        }
+
+    def _prepare_test_plot_data(self, session_logs):
+        """Test 데이터 플롯용 데이터 준비"""
+        test_scores = [log.get('test_fun_score', 0) for log in session_logs]
+        test_baseline_thresholds = []
+        test_score_difference_list = []
+        test_highlight_times = []
+        test_highlight_scores = []
+        test_big_highlight_times = []
+        test_big_highlight_scores = []
+        
+        after_open_times = [self.parse_time_string(log['after_openDate']) / 60 for log in session_logs]
+        
+        for i, log in enumerate(session_logs):
+            score_comp = log.get('score_components', {})
+            
+            # Test 동적 임계값 데이터
+            threshold = score_comp.get('baseline_threshold', 50)
+            test_score_difference = score_comp.get('test_score_difference', 0)
+            test_baseline_thresholds.append(threshold)
+            test_score_difference_list.append(test_score_difference)
+            
+            # Test 하이라이트 데이터
+            test_is_highlight = score_comp.get('test_highlights', False)
+            test_is_big_highlight = score_comp.get('test_big_highlights', False)
+            test_should_create = score_comp.get('test_should_create_new_highlight', True)
+            
+            if test_is_highlight and test_should_create:
+                test_highlight_times.append(after_open_times[i])
+                test_highlight_scores.append(test_scores[i])
+            if test_is_big_highlight and test_should_create:
+                test_big_highlight_times.append(after_open_times[i])
+                test_big_highlight_scores.append(test_scores[i])
+        
+        return {
+            'test_scores': test_scores,
+            'test_baseline_thresholds': test_baseline_thresholds,
+            'test_score_difference_list': test_score_difference_list,
+            'test_highlight_times': test_highlight_times,
+            'test_highlight_scores': test_highlight_scores,
+            'test_big_highlight_times': test_big_highlight_times,
+            'test_big_highlight_scores': test_big_highlight_scores
+        }
+
+    def _plot_original_fun_score(self, ax, common_data, original_data, session_stats):
+        """첫 번째 서브플롯: 원본 재미도 점수"""
+        after_open_times = common_data['after_open_times']
+        
+        # 메인 라인 플롯
+        ax.plot(after_open_times, original_data['scores'], 'b-', alpha=0.7, linewidth=1.5, label='재미도 점수')
+        ax.plot(after_open_times, original_data['score_difference_list'], 'purple', linestyle='-.', alpha=0.8, label='하이라이트 동적 임계값')
+        
+        # 고정 임계값 라인
+        ax.axhline(y=self.small_fun_difference, color='darkorange', linestyle=':', alpha=0.9, linewidth=3,
+                label=f'하이라이트 기준: {self.small_fun_difference}점 차이')
+        ax.axhline(y=self.big_fun_difference, color='crimson', linestyle=':', alpha=0.9, linewidth=3,
+                label=f'대형 하이라이트 기준: {self.big_fun_difference}점 차이')
+        
+        # 영역 채우기
+        ax.fill_between(after_open_times, original_data['scores'], alpha=0.3)
+        ax.fill_between(after_open_times, original_data['score_difference_list'], alpha=0.3)
+        
+        # 하이라이트 포인트
+        if original_data['highlight_times']:
+            ax.scatter(original_data['highlight_times'], original_data['highlight_scores'], 
+                    color='orange', s=30, alpha=0.7, zorder=5, 
+                    label=f'하이라이트 ({len(original_data["highlight_times"])}개)')
+        
+        if original_data['big_highlight_times']:
+            ax.scatter(original_data['big_highlight_times'], original_data['big_highlight_scores'], 
+                    color='red', s=50, alpha=0.8, zorder=5, 
+                    label=f'대형 하이라이트 ({len(original_data["big_highlight_times"])}개)')
+        
+        # 축 설정
+        ax.set_title(f'원본 재미도 점수 변화 - ({session_stats["date_str"]})\n'
+                    f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
+                    f'{session_stats["duration_hours"]:.1f}시간, 평균 임계값: {session_stats.get("avg_baseline_thresholds", 50):.1f})')
+        ax.set_xlabel('방송 시작 후 시간 (분)')
+        ax.set_ylabel('원본 재미도 점수')
+        ax.legend()
+        ax.grid(True, alpha=0.3)
+
+    def _plot_test_fun_score(self, ax, common_data, test_data, session_stats):
+        """두 번째 서브플롯: Test 재미도 점수"""
+        after_open_times = common_data['after_open_times']
+        
+        # 메인 라인 플롯
+        ax.plot(after_open_times, test_data['test_scores'], 'r-', alpha=0.7, linewidth=1.5, label='Test 재미도 점수')
+        ax.plot(after_open_times, test_data['test_score_difference_list'], 'orange', linestyle='-.', alpha=0.8, 
+                label='Test 하이라이트 동적 임계값')
+        
+        # 고정 임계값 라인
+        ax.axhline(y=self.small_fun_difference, color='darkorange', linestyle=':', alpha=0.9, linewidth=3,
+                label=f'Test 하이라이트 기준: {self.small_fun_difference}점 차이')
+        ax.axhline(y=self.big_fun_difference, color='crimson', linestyle=':', alpha=0.9, linewidth=3,
+                label=f'Test 대형 하이라이트 기준: {self.big_fun_difference}점 차이')
+        
+        # 영역 채우기
+        ax.fill_between(after_open_times, test_data['test_scores'], alpha=0.3, color='red')
+        ax.fill_between(after_open_times, test_data['test_score_difference_list'], alpha=0.3, color='orange')
+        
+        # Test 하이라이트 포인트
+        if test_data['test_highlight_times']:
+            ax.scatter(test_data['test_highlight_times'], test_data['test_highlight_scores'], 
+                    color='orange', s=30, alpha=0.7, zorder=5, 
+                    label=f'Test 하이라이트 ({len(test_data["test_highlight_times"])}개)')
+        
+        if test_data['test_big_highlight_times']:
+            ax.scatter(test_data['test_big_highlight_times'], test_data['test_big_highlight_scores'], 
+                    color='red', s=50, alpha=0.8, zorder=5, 
+                    label=f'Test 대형 하이라이트 ({len(test_data["test_big_highlight_times"])}개)')
+        
+        # Test 통계 정보 계산
+        avg_test_baseline = sum(test_data['test_baseline_thresholds']) / len(test_data['test_baseline_thresholds']) if test_data['test_baseline_thresholds'] else 50
+        
+        # 축 설정
+        ax.set_title(f'Test 재미도 점수 변화 - ({session_stats["date_str"]})\n'
+                    f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
+                    f'{session_stats["duration_hours"]:.1f}시간, Test 평균 임계값: {avg_test_baseline:.1f})')
+        ax.set_xlabel('방송 시작 후 시간 (분)')
+        ax.set_ylabel('Test 재미도 점수')
+        ax.legend()
+        ax.grid(True, alpha=0.3)
+
+    def _plot_viewer_count(self, ax, common_data):
+        """세 번째 서브플롯: 시청자 수"""
+        after_open_times = common_data['after_open_times']
+        viewer_counts = common_data['viewer_counts']
+        
+        ax.plot(after_open_times, viewer_counts, 'g-', alpha=0.7, linewidth=1.5, label='시청자 수')
+        ax.fill_between(after_open_times, viewer_counts, alpha=0.3, color='green')
+        ax.set_xlabel('방송 시작 후 시간 (분)')
+        ax.set_ylabel('시청자 수')
+        ax.legend()
+        ax.grid(True, alpha=0.3)
+
+    def _save_integrated_plot(self, fig, session_stats):
+        """통합 그래프 저장"""
+        start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+        filename = f"{self.channel_name}_{start_date}_integrated_plot.png"
+        
+        plot_path = self.plots_dir / filename
+        fig.savefig(plot_path, dpi=150, bbox_inches='tight')
+        print(f"📈 통합 세션 그래프 저장: {plot_path}")
+
     def create_session_plot(self, session_logs, session_stats, save_plot=True):
         """세션별 그래프 생성"""
         if not session_logs:
@@ -374,6 +619,125 @@ class SessionBasedFunScoreAnalyzer:
             
         except ImportError:
             print("⚠️ matplotlib가 설치되지 않아 그래프를 생성할 수 없습니다.")
+
+    def create_test_session_plot(self, session_logs, session_stats, save_plot=True):
+        """Test 데이터 전용 세션별 그래프 생성"""
+        if not session_logs:
+            return
+        
+        try:
+            import matplotlib.pyplot as plt
+            import platform
+            
+            # 한글 폰트 설정
+            plt.rcParams['font.family'] = ['DejaVu Sans']
+            if platform.system() == 'Windows':
+                plt.rcParams['font.family'] = ['Malgun Gothic', 'DejaVu Sans']
+            elif platform.system() == 'Darwin':
+                plt.rcParams['font.family'] = ['AppleGothic', 'DejaVu Sans']
+            else:
+                plt.rcParams['font.family'] = ['Noto Sans CJK KR', 'DejaVu Sans']
+            
+            plt.rcParams['axes.unicode_minus'] = False
+            
+            # Test 데이터 준비
+            after_open_times = [self.parse_time_string(log['after_openDate']) / 60 for log in session_logs]
+            test_scores = [log.get('test_fun_score', 0) for log in session_logs]
+            viewer_counts = [log['analysis_data']['viewer_count'] for log in session_logs]
+            
+            # Test 동적 임계값 데이터
+            test_baseline_thresholds = []
+            test_score_difference_list = []
+            
+            for log in session_logs:
+                score_comp = log.get('score_components', {})
+                # Test용 기준값 (원본과 동일하게 사용)
+                threshold = score_comp.get('baseline_threshold', 50)
+                test_score_difference = score_comp.get('test_score_difference', 0)
+                
+                test_baseline_thresholds.append(threshold)
+                test_score_difference_list.append(test_score_difference)
+
+            
+            # 2개 서브플롯 생성 (Test 전용)
+            fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10))
+            
+            # 첫 번째 플롯: Test 재미도 점수
+            ax1.plot(after_open_times, test_scores, 'r-', alpha=0.7, linewidth=1.5, label='Test 재미도 점수')
+            
+            # Test 동적 임계값 라인
+            ax1.plot(after_open_times, test_score_difference_list, 'orange', linestyle='-.', alpha=0.8, 
+                    label='Test 하이라이트 동적 임계값')
+            
+            # 고정 임계값 (참고용)
+            ax1.axhline(y=self.small_fun_difference, color='darkorange', linestyle=':', alpha=0.9, linewidth=3,
+                    label=f'Test 하이라이트 기준: {self.small_fun_difference}점 차이')
+            ax1.axhline(y=self.big_fun_difference, color='crimson', linestyle=':', alpha=0.9, linewidth=3,
+                        label=f'Test 대형 하이라이트 기준: {self.big_fun_difference}점 차이')
+            
+            ax1.fill_between(after_open_times, test_scores, alpha=0.3, color='red')
+            ax1.fill_between(after_open_times, test_score_difference_list, alpha=0.3, color='orange')
+            
+            # Test 하이라이트 순간 표시
+            test_highlight_times = []
+            test_highlight_scores = []
+            test_big_highlight_times = []
+            test_big_highlight_scores = []
+            
+            for i, log in enumerate(session_logs):
+                score_comp = log.get('score_components', {})
+                test_is_highlight = score_comp.get('test_highlights', False)
+                test_is_big_highlight = score_comp.get('test_big_highlights', False)
+                test_should_create = score_comp.get('test_should_create_new_highlight', True)
+                
+                if test_is_highlight and test_should_create:
+                    test_highlight_times.append(after_open_times[i])
+                    test_highlight_scores.append(test_scores[i])
+                if test_is_big_highlight and test_should_create:
+                    test_big_highlight_times.append(after_open_times[i])
+                    test_big_highlight_scores.append(test_scores[i])
+            
+            if test_highlight_times:
+                ax1.scatter(test_highlight_times, test_highlight_scores, color='orange', s=30, alpha=0.7, 
+                        zorder=5, label=f'Test 하이라이트 ({len(test_highlight_times)}개)')
+            
+            if test_big_highlight_times:
+                ax1.scatter(test_big_highlight_times, test_big_highlight_scores, color='red', s=50, alpha=0.8, 
+                        zorder=5, label=f'Test 대형 하이라이트 ({len(test_big_highlight_times)}개)')
+            
+            # Test 통계 정보 계산
+            avg_test_baseline = sum(test_baseline_thresholds) / len(test_baseline_thresholds) if test_baseline_thresholds else 50
+            
+            ax1.set_title(f'Test 재미도 점수 변화 - ({session_stats["date_str"]})\n'
+                        f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
+                        f'{session_stats["duration_hours"]:.1f}시간, Test 평균 임계값: {avg_test_baseline:.1f})')
+            ax1.set_xlabel('방송 시작 후 시간 (분)')
+            ax1.set_ylabel('Test 재미도 점수')
+            ax1.legend()
+            ax1.grid(True, alpha=0.3)
+            
+            # 두 번째 플롯: 시청자 수 (동일)
+            ax2.plot(after_open_times, viewer_counts, 'g-', alpha=0.7, linewidth=1.5, label='시청자 수')
+            ax2.fill_between(after_open_times, viewer_counts, alpha=0.3, color='green')
+            ax2.set_xlabel('방송 시작 후 시간 (분)')
+            ax2.set_ylabel('시청자 수')
+            ax2.legend()
+            ax2.grid(True, alpha=0.3)
+            
+            plt.tight_layout()
+            
+            if save_plot:
+                start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+                filename = f"{self.channel_name}_{start_date}_test_plot.png"
+                
+                plot_path = self.plots_dir / filename
+                plt.savefig(plot_path, dpi=150, bbox_inches='tight')
+                print(f"📈 Test 세션 그래프 저장: {plot_path}")
+            
+            plt.show()
+            
+        except ImportError:
+            print("⚠️ matplotlib가 설치되지 않아 Test 그래프를 생성할 수 없습니다.")
     
     def export_session_to_csv(self, session_logs, session_stats):
         """ 데이터를 CSV 내보내기"""
@@ -390,12 +754,17 @@ class SessionBasedFunScoreAnalyzer:
                     'after_openDate': log['after_openDate'],
                     'after_open_minutes': self.parse_time_string(log['after_openDate']) / 60,
                     'fun_score': log['fun_score'],
+                    
+                    # Test 점수
+                    'test_fun_score': log.get('test_fun_score', 0),
+                    
                     'message_count': log['analysis_data']['message_count'],
                     'viewer_count': log['analysis_data']['viewer_count'],
                     
                     # 점수 구성 요소들
                     'chat_spike_score': score_components.get('chat_spike_score', 0),
                     'reaction_score': score_components.get('reaction_score', 0),
+                    'test_reaction_score': score_components.get('test_reaction_score', 0), 
                     'diversity_score': score_components.get('diversity_score', 0),
                     'viewer_trend_score': score_components.get('viewer_trend_score', 0),
                     'final_score': score_components.get('final_score', 0),
@@ -403,24 +772,41 @@ class SessionBasedFunScoreAnalyzer:
                     # 동적 하이라이트 정보
                     'baseline_threshold': score_components.get('baseline_threshold', 50),
                     'score_difference': score_components.get('score_difference', 0),
+                    'test_score_difference': score_components.get('test_score_difference', 0),
                     'baseline_chat_count': score_components.get('baseline_chat_count', 0),
                     'baseline_viewer_count': score_components.get('baseline_viewer_count', 0),
                     
-                    # 하이라이트 정보
+                    # 원본 하이라이트 정보
                     'is_highlight': score_components.get('highlights', False),
                     'is_big_highlight': score_components.get('big_highlights', False),
                     'should_create_new_highlight': score_components.get('should_create_new_highlight', True),
                     'is_actual_highlight': score_components.get('highlights', False) and score_components.get('should_create_new_highlight', True),
                     'is_actual_big_highlight': score_components.get('big_highlights', False) and score_components.get('should_create_new_highlight', True),
                     
+                    # Test 하이라이트 정보
+                    'test_is_highlight': score_components.get('test_highlights', False),
+                    'test_is_big_highlight': score_components.get('test_big_highlights', False),
+                    'test_should_create_new_highlight': score_components.get('test_should_create_new_highlight', True),
+                    'test_is_actual_highlight': score_components.get('test_highlights', False) and score_components.get('test_should_create_new_highlight', True),
+                    'test_is_actual_big_highlight': score_components.get('test_big_highlights', False) and score_components.get('test_should_create_new_highlight', True),
+                    
                     # 키워드 데이터
                     'laugh_count': log['analysis_data'].get('fun_keywords', {}).get('laugh', 0),
                     'excitement_count': log['analysis_data'].get('fun_keywords', {}).get('excitement', 0),
                     'surprise_count': log['analysis_data'].get('fun_keywords', {}).get('surprise', 0),
                     'reaction_count': log['analysis_data'].get('fun_keywords', {}).get('reaction', 0),
+                    'greeting_count': log['analysis_data'].get('fun_keywords', {}).get('greeting', 0),
+                    
+                    # Test 키워드 데이터
+                    'test_laugh_count': log['analysis_data'].get('test_keyword_counter', {}).get('laugh', 0),
+                    'test_excitement_count': log['analysis_data'].get('test_keyword_counter', {}).get('excitement', 0),
+                    'test_surprise_count': log['analysis_data'].get('test_keyword_counter', {}).get('surprise', 0),
+                    'test_reaction_count': log['analysis_data'].get('test_keyword_counter', {}).get('reaction', 0),
+                    'test_greeting_count': log['analysis_data'].get('test_keyword_counter', {}).get('greeting', 0),
                     
                     # 추가 정보
                     'total_keywords': sum(log['analysis_data'].get('fun_keywords', {}).values()),
+                    'test_total_keywords': sum(log['analysis_data'].get('test_keyword_counter', {}).values()),
                     'chat_context_sample': str(log.get('chat_context', [])[:3])
                 }
             except Exception as e:
@@ -434,13 +820,302 @@ class SessionBasedFunScoreAnalyzer:
         
         df = pd.DataFrame(data)
         start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
-        filename = f"{self.channel_name}_{start_date}.csv"
+        filename = f"{self.channel_name}_{start_date}_with_test.csv"
         
         # csv 디렉토리에 저장
         csv_path = self.csv_dir / filename
         df.to_csv(csv_path, index=False, encoding='utf-8-sig')
         print(f"💾 세션 CSV 저장: {csv_path} ({len(df)}행)")
         return str(csv_path)
+
+    async def export_test_highlights_to_text(self, session_logs, session_stats):
+        """Test 데이터 기반 하이라이트를 텍스트로 추출"""
+        if not session_logs:
+            return None
+        
+        # AI 사용 여부에 따라 분기
+        if self.use_ai:
+            return await self._export_test_highlights_with_ai(session_logs, session_stats)
+        else:
+            return await self._export_test_highlights_basic(session_logs, session_stats)
+
+    async def _export_test_highlights_with_ai(self, session_logs, session_stats):
+        """AI를 사용한 Test 하이라이트 댓글 생성"""
+        
+        try:
+            if not AI_AVAILABLE:
+                print(f"{datetime.now()} AI 모듈을 가져올 수 없어서 기본 로직을 사용합니다.")
+                return await self._export_test_highlights_basic(session_logs, session_stats)
+            
+            model = get_genai_model(0)
+            print(f"{datetime.now()} Test 하이라이트용 AI 모델 로드 완료")
+            
+            # 1단계: Test 하이라이트 데이터 수집
+            highlights = []
+            
+            for log in session_logs:
+                score_components = log.get('score_components', {})
+                
+                # Test 하이라이트인지 확인
+                if (score_components.get('test_highlights', False) and 
+                    score_components.get('test_should_create_new_highlight', True)):
+                    
+                    # StreamHighlight 객체 생성 (Test 데이터 사용)
+                    highlight = StreamHighlight(
+                        timestamp=log['timestamp'],
+                        channel_id="test_log_analyzer_dummy",
+                        channel_name=f"{self.channel_name}_TEST",
+                        fun_score=log.get('test_fun_score', 0),  # Test 점수 사용
+                        reason=log.get('reason', '테스트 재미있는 순간 감지'),
+                        chat_context=log.get('chat_context', []),
+                        duration=30,
+                        after_openDate=log['after_openDate'],
+                        comment_after_openDate=log['comment_after_openDate'],
+                        score_details=score_components,
+                        image=log.get('image', ""),
+                        analysis_data=log.get('analysis_data', {}),
+                    )
+                    highlights.append(highlight)
+            
+            if not highlights:
+                print(f"{datetime.now()} Test 하이라이트가 없어서 AI 텍스트 생성을 건너뜁니다.")
+                return None
+            
+            # 2단계: Test용 하이라이트 데이터 구성
+            timeline_comments = await self._ai_make_test_highlight_chat(highlights, model)
+            
+            if not timeline_comments:
+                print(f"{datetime.now()} Test AI 댓글 생성 실패, 기본 로직으로 fallback")
+                return await self._export_test_highlights_basic(session_logs, session_stats)
+            
+            # 3단계: 텍스트 형식으로 변환
+            highlight_lines = []
+            
+            for comment in timeline_comments:
+                try:
+                    from base import format_time_for_comment
+                    after_open = comment.get('comment_after_openDate', '00:00:00')
+                    after_open = format_time_for_comment(after_open, 25)
+                    
+                    description = comment.get('description', comment.get('text', 'Test 재미구간'))
+                    
+                    # Test 점수 정보 추가
+                    score_diff = float(comment.get('test_score_difference', 0))
+                    if score_diff:
+                        fun_score = self._calculate_fun_score_from_diff(score_diff)
+                        final_text = f"Test 재미 점수:{fun_score} - {description}"
+                    else:
+                        final_text = f"Test - {description}"
+                    
+                    highlight_lines.append(f"{after_open}- {final_text}")
+                    
+                except Exception as comment_error:
+                    print(f"{datetime.now()} Test 댓글 처리 중 오류: {comment_error}")
+                    continue
+            
+            if not highlight_lines:
+                print(f"{datetime.now()} 유효한 Test AI 댓글이 없어서 기본 로직 사용")
+                return await self._export_test_highlights_basic(session_logs, session_stats)
+            
+            # 4단계: 파일 저장
+            final_content = "\n\n".join(highlight_lines)
+            start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+            filename = f"{self.channel_name}_{start_date}_test_highlights.txt"
+            file_path = self.reports_dir / filename
+            
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(final_content)
+            
+            print(f"{datetime.now()} Test AI 기반 하이라이트 텍스트 저장: {file_path}")
+            print(f"{datetime.now()} 생성된 Test 댓글 수: {len(highlight_lines)}개")
+            
+            return {
+                'highlights_count': len(highlight_lines),
+                'file_path': str(file_path),
+                'method': 'test_ai_generated',
+                'ai_comments': timeline_comments
+            }
+            
+        except Exception as e:
+            print(f"{datetime.now()} Test AI 하이라이트 텍스트 생성 중 오류: {e}")
+            return await self._export_test_highlights_basic(session_logs, session_stats)
+
+    async def _ai_make_test_highlight_chat(self, highlights: list[StreamHighlight], model):
+        """Test 하이라이트용 AI 댓글 생성"""
+        if not highlights:
+            return []
+        
+        try:
+            # Test 하이라이트 데이터 구성
+            highlight_data = []
+            images_with_labels = []
+            
+            for i, highlight in enumerate(highlights):
+                try:
+                    analysis_data = highlight.analysis_data
+                    test_fun_keywords = analysis_data.get('test_keyword_counter', {})
+                    score_details = highlight.score_details
+
+                    highlight_data.append({
+                        "하이라이트_ID": f"TEST_HIGHLIGHT_{i+1}",
+                        "Test_재미도_점수": highlight.fun_score,  # Test 점수 사용
+                        "하이라이트_이유": highlight.reason,
+                        "최근_채팅": highlight.chat_context,
+                        "최고점수_시간": highlight.after_openDate,
+                        "VOD_타임라인_시간": highlight.comment_after_openDate,
+                        "방송_썸네일": f"이미지_{i+1}",
+                        "메시지_갯수": analysis_data['message_count'],
+                        "시청자_수": analysis_data['viewer_count'],
+                        
+                        # Test 키워드 사용
+                        "Test_웃음_키워드_수": test_fun_keywords.get('laugh', 0),
+                        "Test_놀람_키워드_수": test_fun_keywords.get('surprise', 0),
+                        "Test_흥분_키워드_수": test_fun_keywords.get('excitement', 0),
+                        "Test_일반반응_키워드_수": test_fun_keywords.get('reaction', 0),
+                        "Test_인사_키워드_수": test_fun_keywords.get('greeting', 0),
+                        
+                        # 점수 구성 요소들
+                        "채팅_급증_점수": score_details['chat_spike_score'],
+                        "Test_리액션_점수": score_details['test_reaction_score'],  # Test 리액션 점수 사용
+                        "다양성_점수": score_details['diversity_score'],
+                        "시청자_급증_점수": score_details['viewer_trend_score'],
+                        "기준_채팅_수": score_details['baseline_chat_count'],
+                        "기준_시청자_수": score_details['baseline_viewer_count'],
+                        "Test_하이라이트_여부": score_details['test_highlights'],
+                        "Test_큰_하이라이트_여부": score_details['test_big_highlights'],
+                        "Test_재미도_점수_차이": score_details.get('test_score_difference', 0),
+                    })
+                    images_with_labels.append(highlight.image)
+
+                except Exception as e:
+                    print(f"{datetime.now()} Test 하이라이트 데이터 처리 오류: {e}")
+                    continue
+
+            if not highlight_data:
+                return []
+
+            # Test용 AI 프롬프트 생성
+            prompt = f"""다음은 Test 알고리즘으로 분석된 하이라이트 데이터입니다. VOD 타임라인 댓글을 생성해주세요.
+
+                주의사항:
+                - 이는 Test 데이터이므로 기존 알고리즘과 다른 기준으로 분석되었습니다.
+                - Test_ 접두사가 붙은 데이터들을 우선적으로 참고해주세요.
+                - 각 하이라이트의 "방송 썸네일" 필드와 이미지 순서가 매핑됩니다.
+
+                Test 분석 데이터:
+                {json.dumps(highlight_data, ensure_ascii=False, indent=2)}"""
+            
+            msg_list = [prompt] + images_with_labels
+            
+            print(f"{datetime.now()} Test 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
+
+            response = await asyncio.to_thread(model.generate_content, msg_list)
+
+            # JSON 파싱
+            try:
+                timeline_comments = json.loads(response.text)
+                if isinstance(timeline_comments, list):
+                    timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
+                    print(f"{datetime.now()} Test AI 댓글 생성 완료: {len(timeline_comments)}개 댓글")
+                    return timeline_comments
+                else:
+                    raise ValueError("Test 응답이 리스트 형태가 아닙니다")
+
+            except (json.JSONDecodeError, ValueError, KeyError) as e:
+                print(f"{datetime.now()} Test AI JSON 파싱 오류: {e}")
+                print(f"{datetime.now()} Test 응답 내용: {response.text[:500]}...")
+                return []
+                    
+        except Exception as e:
+            print(f"{datetime.now()} Test AI 타임라인 댓글 생성 오류: {e}")
+            return []
+
+    async def _export_test_highlights_basic(self, session_logs, session_stats):
+        """기본 로직을 사용한 Test 하이라이트 댓글 생성"""
+        try:
+            from base import format_time_for_comment
+            
+            highlight_lines = []
+            
+            # 재미도 점수 기준점들 (동일한 기준 사용)
+            fun_difference1 = 15
+            fun_difference2 = 30
+            fun_difference3 = 40
+            fun_difference4 = 60
+            fun_difference5 = 70
+            
+            for log in session_logs:
+                score_components = log.get('score_components', {})
+                
+                # Test 하이라이트인지 확인
+                if (score_components.get('test_highlights', False) and 
+                    score_components.get('test_should_create_new_highlight', True)):
+                    
+                    after_open = log['comment_after_openDate']
+                    after_open = format_time_for_comment(after_open, 25)
+                    test_score_diff = score_components.get('test_score_difference', 0)
+                    
+                    # Test 재미 점수 계산
+                    fun_score = 0
+                    if test_score_diff > fun_difference1:
+                        fun_score += 1
+                    if test_score_diff > fun_difference2:
+                        fun_score += 1
+                    if test_score_diff > fun_difference3:
+                        fun_score += 1
+                    if test_score_diff > fun_difference4:
+                        fun_score += 1
+                    if test_score_diff > fun_difference5:
+                        fun_score += 1
+                    
+                    # Test 키워드 기반 설명 생성
+                    analysis_data = log.get('analysis_data', {})
+                    test_keywords = analysis_data.get('test_keyword_counter', {})
+                    message_count = analysis_data.get('message_count', 0)
+                    
+                    # 주요 반응 키워드 확인 (Test 데이터 사용)
+                    main_reaction = ""
+                    if test_keywords.get('laugh', 0) >= max(message_count/3, 1):
+                        main_reaction = "Test 폭소"
+                    elif test_keywords.get('excitement', 0) >= max(message_count/3, 1):
+                        main_reaction = "Test 흥분"
+                    elif test_keywords.get('surprise', 0) >= max(message_count/3, 1):
+                        main_reaction = "Test 놀람"
+                    elif score_components.get('chat_spike_score', 0) >= 50:
+                        main_reaction = "Test 채팅폭증"
+                    else:
+                        main_reaction = "Test 재미구간"
+                    
+                    description = f"Test 재미 점수:{fun_score} - {main_reaction}"
+                    
+                    # VOD 댓글 형식으로 라인 생성
+                    highlight_lines.append(f"{after_open} - {description}")
+            
+            if not highlight_lines:
+                return None
+            
+            final_content = "\n\n".join(highlight_lines)
+            
+            # 파일 저장
+            start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+            method_suffix = "_test_ai" if self.use_ai else "_test_basic"
+            filename = f"{self.channel_name}_{start_date}_highlights{method_suffix}.txt"
+            file_path = self.reports_dir / filename
+            
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(final_content)
+            
+            print(f"Test 하이라이트 텍스트 저장: {file_path}")
+            
+            return {
+                'highlights_count': len(highlight_lines),
+                'file_path': str(file_path),
+                'method': 'test_ai' if self.use_ai else 'test_basic'
+            }
+            
+        except Exception as e:
+            print(f"{datetime.now()} Test 기본 하이라이트 텍스트 생성 중 오류: {e}")
+            return None
     
     async def export_highlights_to_text(self, session_logs, session_stats):
         """하이라이트 데이터를 VOD 댓글 형식의 타임라인 텍스트로 추출"""
@@ -746,57 +1421,113 @@ class SessionBasedFunScoreAnalyzer:
             return None
 
     def create_session_summary(self, all_session_stats):
-        """모든 세션의 요약 통계"""
+        """모든 세션의 요약 통계 (Test 데이터 상세 비교 포함)"""
         if not all_session_stats:
             return
         
-        print(f"\n{'='*60}")
-        print(f"전체 세션 요약 ({len(all_session_stats)}개 세션)")
-        print(f"{'='*60}")
+        print(f"\n{'='*80}")
+        print(f"전체 세션 요약 - 원본 vs Test 알고리즘 비교 ({len(all_session_stats)}개 세션)")
+        print(f"{'='*80}")
         
-        # 총합/평균 계산 (원래 + test 비교)
+        # 총합/평균 계산
         total_duration = sum([s['duration_hours'] for s in all_session_stats])
+        total_analyses = sum([s['total_analyses'] for s in all_session_stats])
+        
+        # 원본 데이터
         total_highlights = sum([s['highlights'] for s in all_session_stats])
         total_big_highlights = sum([s['big_highlights'] for s in all_session_stats])
+        avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / total_analyses
+        
+        # Test 데이터
         total_test_highlights = sum([s['test_highlights'] for s in all_session_stats])
         total_test_big_highlights = sum([s['test_big_highlights'] for s in all_session_stats])
-
-        # 평균 재미도 (가중 평균)
-        avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
-        avg_test_score_overall = sum([s['avg_test_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
+        avg_test_score_overall = sum([s['avg_test_score'] * s['total_analyses'] for s in all_session_stats]) / total_analyses
         
-        print(f"이 방송 시간: {total_duration:.1f}시간")
-        print(f"전체 평균 재미도: {avg_score_overall:.2f} (대조: Test {avg_test_score_overall:.2f})")
-        print(f"이 하이라이트: {total_highlights}회 (대조: Test {total_test_highlights}회)")
-        print(f"이 대형 하이라이트: {total_big_highlights}회 (대조: Test {total_test_big_highlights}회)")
-        print(f"시간당 하이라이트: {total_highlights/total_duration:.1f}회/시간 (대조: Test {total_test_highlights/total_duration:.1f})")
+        # 차이 계산
+        score_difference = avg_score_overall - avg_test_score_overall
+        hl_difference = total_highlights - total_test_highlights
+        big_hl_difference = total_big_highlights - total_test_big_highlights
         
-        print(f"\n각 세션별 상세 비교:")
-        # 헤더 확장 (평균점수, 하이라이트 수 -> 원 vs Test 비교)
-        header = f"{'번호':>3} {'날짜':>8} {'시작시간':>6} {'길이':>6} " \
-                f"{'평균점수':>8} {'Test평균':>9} " \
-                f"{'HL':>5} {'TestHL':>7} " \
-                f"{'대형HL':>6} {'Test대형':>8} "
+        print(f"📊 기본 정보:")
+        print(f"   총 방송 시간: {total_duration:.1f}시간")
+        print(f"   총 분석 횟수: {total_analyses:,}회")
+        print(f"   평균 세션 길이: {total_duration/len(all_session_stats):.1f}시간")
+        
+        print(f"\n🎯 재미도 점수 비교:")
+        print(f"   원본 평균: {avg_score_overall:.2f} | Test 평균: {avg_test_score_overall:.2f} | 차이: {score_difference:+.2f}")
+        
+        print(f"\n⭐ 하이라이트 비교:")
+        print(f"   원본: {total_highlights}회 ({total_highlights/total_duration:.1f}/시간)")
+        print(f"   Test: {total_test_highlights}회 ({total_test_highlights/total_duration:.1f}/시간)")
+        print(f"   차이: {hl_difference:+d}회")
+        
+        print(f"\n🌟 대형 하이라이트 비교:")
+        print(f"   원본: {total_big_highlights}회 | Test: {total_test_big_highlights}회 | 차이: {big_hl_difference:+d}회")
+        
+        # 성능 지표
+        original_efficiency = total_highlights / total_analyses * 100
+        test_efficiency = total_test_highlights / total_analyses * 100
+        
+        print(f"\n📈 감지 효율성:")
+        print(f"   원본 감지율: {original_efficiency:.3f}% | Test 감지율: {test_efficiency:.3f}%")
+        
+        print(f"\n📋 세션별 상세 비교:")
+        print(f"{'─'*120}")
+        
+        # 확장된 헤더
+        header = f"{'No':>3} {'날짜':>8} {'시작':>6} {'길이':>6} " \
+                f"{'원본점수':>8} {'Test점수':>8} {'점수차':>7} " \
+                f"{'원본HL':>6} {'TestHL':>6} {'HL차':>5} " \
+                f"{'원본대형':>7} {'Test대형':>7} {'대형차':>6} " \
+                f"{'최대시청':>8} {'효율비교':>8}"
         print(header)
-        print(f"{'-'*len(header)}")
+        print(f"{'─'*len(header)}")
         
         # 각 세션별 출력
         for i, stats in enumerate(all_session_stats, 1):
             start_date = datetime.fromisoformat(stats['start_time']).strftime('%m/%d')
             start_time = datetime.fromisoformat(stats['start_time']).strftime('%H:%M')
             
+            score_diff = stats['avg_score'] - stats['avg_test_score']
+            hl_diff = stats['highlights'] - stats['test_highlights']
+            big_hl_diff = stats['big_highlights'] - stats['test_big_highlights']
+            
+            # 세션별 효율성 비교
+            session_orig_eff = stats['highlights'] / stats['total_analyses'] * 100
+            session_test_eff = stats['test_highlights'] / stats['total_analyses'] * 100
+            efficiency_ratio = session_test_eff / session_orig_eff if session_orig_eff > 0 else 0
+            
             row = f"{i:>3} {start_date:>8} {start_time:>6} " \
                 f"{stats['duration_hours']:>5.1f}h " \
-                f"{stats['avg_score']:>8.1f} {stats['avg_test_score']:>9.1f} " \
-                f"{stats['highlights']:>5} {stats['test_highlights']:>7} " \
-                f"{stats['big_highlights']:>6} {stats['test_big_highlights']:>8}"
+                f"{stats['avg_score']:>8.1f} {stats['avg_test_score']:>8.1f} {score_diff:>+6.1f} " \
+                f"{stats['highlights']:>6} {stats['test_highlights']:>6} {hl_diff:>+4d} " \
+                f"{stats['big_highlights']:>7} {stats['test_big_highlights']:>7} {big_hl_diff:>+5d} " \
+                f"{stats['max_viewers']:>7}명 {efficiency_ratio:>7.2f}x"
             print(row)
         
-        # 요약 리포트를 파일로 저장
+        print(f"{'─'*120}")
+        
+        # 분석 결과 해석
+        print(f"\n💡 분석 결과:")
+        if abs(score_difference) < 1.0:
+            print(f"   ✅ 두 알고리즘의 평균 점수가 유사합니다 (차이: {abs(score_difference):.2f})")
+        elif score_difference > 0:
+            print(f"   📈 원본 알고리즘이 더 높은 점수를 부여합니다 (+{score_difference:.2f})")
+        else:
+            print(f"   📉 Test 알고리즘이 더 높은 점수를 부여합니다 (+{abs(score_difference):.2f})")
+        
+        if abs(hl_difference) <= len(all_session_stats):
+            print(f"   ✅ 하이라이트 감지 횟수가 적절한 범위입니다")
+        elif hl_difference > 0:
+            print(f"   ⚠️ 원본이 {hl_difference}개 더 많은 하이라이트를 감지 (과감지 가능성)")
+        else:
+            print(f"   ⚠️ Test가 {abs(hl_difference)}개 더 많은 하이라이트를 감지 (과감지 가능성)")
+        
+        # 요약 리포트 저장 (개선된 버전)
         self._save_summary_report(all_session_stats)
     
     def _save_summary_report(self, all_session_stats):
-        """요약 리포트를 텍스트 파일로 저장"""
+        """요약 리포트를 텍스트 파일로 저장 (Test 데이터 포함)"""
         if not all_session_stats:
             return
         
@@ -806,42 +1537,121 @@ class SessionBasedFunScoreAnalyzer:
         report_path = self.reports_dir / report_filename
         
         with open(report_path, 'w', encoding='utf-8') as f:
-            f.write(f"방송 재미도 분석 리포트\n")
+            f.write(f"방송 재미도 분석 상세 리포트 (원본 vs Test 비교)\n")
             f.write(f"채널: {self.channel_name}\n")
             f.write(f"생성일시: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"{'='*60}\n\n")
+            f.write(f"{'='*80}\n\n")
             
+            # 전체 통계 계산
             total_duration = sum([s['duration_hours'] for s in all_session_stats])
             total_highlights = sum([s['highlights'] for s in all_session_stats])
             total_big_highlights = sum([s['big_highlights'] for s in all_session_stats])
-            avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / sum([s['total_analyses'] for s in all_session_stats])
+            total_test_highlights = sum([s['test_highlights'] for s in all_session_stats])
+            total_test_big_highlights = sum([s['test_big_highlights'] for s in all_session_stats])
             
-            f.write(f"전체 통계:\n")
-            f.write(f"- 이 세션 수: {len(all_session_stats)}개\n")
-            f.write(f"- 이 방송 시간: {total_duration:.1f}시간\n")
-            f.write(f"- 전체 평균 재미도: {avg_score_overall:.2f}\n")
-            f.write(f"- 이 하이라이트: {total_highlights}회\n")
-            f.write(f"- 이 대형 하이라이트: {total_big_highlights}회\n")
-            f.write(f"- 시간당 하이라이트: {total_highlights/total_duration:.1f}회/시간\n\n")
+            # 가중 평균 계산
+            total_analyses = sum([s['total_analyses'] for s in all_session_stats])
+            avg_score_overall = sum([s['avg_score'] * s['total_analyses'] for s in all_session_stats]) / total_analyses
+            avg_test_score_overall = sum([s['avg_test_score'] * s['total_analyses'] for s in all_session_stats]) / total_analyses
             
-            f.write(f"세션별 상세:\n")
-            # 헤더 수정
-            header = f"{'번호':>4} {'날짜':>10} {'시작시간':>8} {'길이':>7} {'평균점수':>8} {'하이라이트':>8} {'대형':>4} {'최대시청':>8}"
+            # 점수 차이 통계
+            avg_score_diff_overall = sum([s['avg_score_difference'] * s['total_analyses'] for s in all_session_stats]) / total_analyses
+            avg_test_score_diff_overall = sum([s['avg_test_score_difference'] * s['total_analyses'] for s in all_session_stats]) / total_analyses
+            max_score_diff_overall = max([s['max_score_difference'] for s in all_session_stats])
+            max_test_score_diff_overall = max([s['max_test_score_difference'] for s in all_session_stats])
+            
+            f.write(f"🔍 전체 통계 요약:\n")
+            f.write(f"{'─'*50}\n")
+            f.write(f"• 총 세션 수: {len(all_session_stats)}개\n")
+            f.write(f"• 총 방송 시간: {total_duration:.1f}시간\n")
+            f.write(f"• 총 분석 횟수: {total_analyses:,}회\n\n")
+            
+            f.write(f"📊 점수 비교:\n")
+            f.write(f"{'─'*30}\n")
+            f.write(f"• 원본 평균 재미도: {avg_score_overall:.2f}\n")
+            f.write(f"• Test 평균 재미도: {avg_test_score_overall:.2f}\n")
+            f.write(f"• 점수 차이: {avg_score_overall - avg_test_score_overall:+.2f}\n\n")
+            
+            f.write(f"🎯 하이라이트 비교:\n")
+            f.write(f"{'─'*35}\n")
+            f.write(f"• 원본 하이라이트: {total_highlights}회 ({total_highlights/total_duration:.1f}회/시간)\n")
+            f.write(f"• Test 하이라이트: {total_test_highlights}회 ({total_test_highlights/total_duration:.1f}회/시간)\n")
+            f.write(f"• 하이라이트 차이: {total_highlights - total_test_highlights:+d}회\n\n")
+            
+            f.write(f"🌟 대형 하이라이트 비교:\n")
+            f.write(f"{'─'*40}\n")
+            f.write(f"• 원본 대형 하이라이트: {total_big_highlights}회\n")
+            f.write(f"• Test 대형 하이라이트: {total_test_big_highlights}회\n")
+            f.write(f"• 대형 하이라이트 차이: {total_big_highlights - total_test_big_highlights:+d}회\n\n")
+            
+            f.write(f"📈 점수 차이 통계:\n")
+            f.write(f"{'─'*35}\n")
+            f.write(f"• 원본 평균 점수차이: {avg_score_diff_overall:.2f}\n")
+            f.write(f"• Test 평균 점수차이: {avg_test_score_diff_overall:.2f}\n")
+            f.write(f"• 원본 최대 점수차이: {max_score_diff_overall:.2f}\n")
+            f.write(f"• Test 최대 점수차이: {max_test_score_diff_overall:.2f}\n\n")
+            
+            f.write(f"📋 세션별 상세 비교:\n")
+            f.write(f"{'='*100}\n")
+            
+            # 헤더 
+            header = f"{'No':>3} {'날짜':>10} {'시작':>8} {'길이':>7} " \
+                    f"{'원본점수':>8} {'Test점수':>8} {'점수차':>7} " \
+                    f"{'원본HL':>6} {'TestHL':>6} {'HL차':>5} " \
+                    f"{'원본대형':>7} {'Test대형':>7} {'대형차':>6} " \
+                    f"{'최대시청':>8}"
             f.write(header + "\n")
             f.write(f"{'-'*len(header)}\n")
             
-            # 각 세션 정보 출력 수정
+            # 각 세션별 상세 정보
             for i, stats in enumerate(all_session_stats, 1):
-                start_date = datetime.fromisoformat(stats['start_time']).strftime('%m/%d')
+                start_date_str = datetime.fromisoformat(stats['start_time']).strftime('%m/%d')
                 start_time = datetime.fromisoformat(stats['start_time']).strftime('%H:%M')
                 
-                row = f"{i:>4} {start_date:>10} {start_time:>8} " \
-                    f"{stats['duration_hours']:>6.1f}h {stats['avg_score']:>7.1f} " \
-                    f"{stats['highlights']:>7}회 {stats['big_highlights']:>3}회 " \
+                score_diff = stats['avg_score'] - stats['avg_test_score']
+                hl_diff = stats['highlights'] - stats['test_highlights']
+                big_hl_diff = stats['big_highlights'] - stats['test_big_highlights']
+                
+                row = f"{i:>3} {start_date_str:>10} {start_time:>8} " \
+                    f"{stats['duration_hours']:>6.1f}h " \
+                    f"{stats['avg_score']:>7.1f} {stats['avg_test_score']:>7.1f} {score_diff:>+6.1f} " \
+                    f"{stats['highlights']:>6} {stats['test_highlights']:>6} {hl_diff:>+4d} " \
+                    f"{stats['big_highlights']:>7} {stats['test_big_highlights']:>7} {big_hl_diff:>+5d} " \
                     f"{stats['max_viewers']:>7}명"
                 f.write(row + "\n")
-        
-        print(f"📄 요약 리포트 저장: {report_path}")
+            
+            f.write(f"\n{'='*80}\n")
+            f.write(f"📝 분석 결과 해석:\n")
+            f.write(f"{'─'*30}\n")
+            
+            # 자동 분석 결과 해석
+            if avg_score_overall > avg_test_score_overall:
+                f.write(f"• 원본 알고리즘이 Test보다 {avg_score_overall - avg_test_score_overall:.2f}점 높은 평균 점수를 보입니다.\n")
+            else:
+                f.write(f"• Test 알고리즘이 원본보다 {avg_test_score_overall - avg_score_overall:.2f}점 높은 평균 점수를 보입니다.\n")
+            
+            if total_highlights > total_test_highlights:
+                f.write(f"• 원본 알고리즘이 {total_highlights - total_test_highlights}개 더 많은 하이라이트를 감지했습니다.\n")
+            elif total_highlights < total_test_highlights:
+                f.write(f"• Test 알고리즘이 {total_test_highlights - total_highlights}개 더 많은 하이라이트를 감지했습니다.\n")
+            else:
+                f.write(f"• 두 알고리즘의 하이라이트 감지 횟수가 동일합니다.\n")
+            
+            # 효율성 분석
+            original_rate = total_highlights / total_duration
+            test_rate = total_test_highlights / total_duration
+            f.write(f"• 시간당 하이라이트 감지율: 원본 {original_rate:.1f}회/시간, Test {test_rate:.1f}회/시간\n")
+            
+            f.write(f"\n💡 권장사항:\n")
+            f.write(f"{'─'*20}\n")
+            if total_test_highlights > total_highlights * 1.2:
+                f.write(f"• Test 알고리즘이 과도하게 많은 하이라이트를 감지할 수 있습니다. 임계값 조정을 고려해보세요.\n")
+            elif total_test_highlights < total_highlights * 0.8:
+                f.write(f"• Test 알고리즘이 하이라이트를 놓칠 수 있습니다. 민감도 증가를 고려해보세요.\n")
+            else:
+                f.write(f"• 두 알고리즘의 하이라이트 감지율이 적절한 범위 내에 있습니다.\n")
+
+        print(f"📄 상세 비교 리포트 저장: {report_path}")
     
     async def full_session_analysis(self):
         """전체 세션별 분석 실행"""
@@ -889,10 +1699,16 @@ class SessionBasedFunScoreAnalyzer:
 
             # 하이라이트 텍스트 파일 생성
             await self.export_highlights_to_text(session_logs, session_stats)
+
+            # Test 하이라이트 텍스트 파일 생성
+            await self.export_test_highlights_to_text(session_logs, session_stats)
+
             
             # 그래프 생성
             try:
-                self.create_session_plot(session_logs, session_stats)
+                self.create_integrated_session_plot(session_logs, session_stats)
+                # self.create_session_plot(session_logs, session_stats)
+                # self.create_test_session_plot(session_logs, session_stats)
             except Exception as e:
                 print(f"❌ 그래프 생성 실패: {e}")
         
