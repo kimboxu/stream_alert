@@ -191,10 +191,10 @@ class SessionBasedFunScoreAnalyzer:
         # test 하이라이트
         test_highlights = sum(1 for log in session_logs 
                             if log.get('score_components', {}).get('test_highlights', False) 
-                            and log.get('score_components', {}).get('should_create_new_highlight', True))
+                            and log.get('score_components', {}).get('test_should_create_new_highlight', True))
         test_big_highlights = sum(1 for log in session_logs 
                                 if log.get('score_components', {}).get('test_big_highlights', False)
-                                and log.get('score_components', {}).get('should_create_new_highlight', True))
+                                and log.get('score_components', {}).get('test_should_create_new_highlight', True))
 
         # 동적 임계값 및 점수 차이 통계
         baseline_thresholds = []
@@ -442,7 +442,6 @@ class SessionBasedFunScoreAnalyzer:
         print(f"💾 세션 CSV 저장: {csv_path} ({len(df)}행)")
         return str(csv_path)
     
-
     async def export_highlights_to_text(self, session_logs, session_stats):
         """하이라이트 데이터를 VOD 댓글 형식의 타임라인 텍스트로 추출"""
         if not session_logs:
@@ -796,7 +795,6 @@ class SessionBasedFunScoreAnalyzer:
         # 요약 리포트를 파일로 저장
         self._save_summary_report(all_session_stats)
     
-
     def _save_summary_report(self, all_session_stats):
         """요약 리포트를 텍스트 파일로 저장"""
         if not all_session_stats:
@@ -914,7 +912,6 @@ class SessionBasedFunScoreAnalyzer:
         
         return sessions
 
-
 def parse_arguments():
     """명령행 인자를 파싱하는 함수"""
     parser = argparse.ArgumentParser(
@@ -965,7 +962,6 @@ def parse_arguments():
     
     return parser.parse_args()
 
-
 async def main():
     """메인 실행 함수"""
     try:
@@ -979,7 +975,7 @@ async def main():
             use_ai = args.use_ai
 
         except:
-            channel_name, date, use_ai = "빅헤드", '2025-10-01', True
+            channel_name, date, use_ai = "빅헤드", '2025-10-04', False
         
         # AI 사용 가능 여부 확인
         if use_ai and not AI_AVAILABLE:
