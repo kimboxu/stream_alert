@@ -431,11 +431,12 @@ class ChatAnalyzer:
             'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
             'baseline_threshold': self.baseline_metrics['avg_threshold_score'],
             'highlights': self._is_highlight(final_score, self.small_fun_difference),
-            'test_highlights': self._test_is_highlight(final_score, self.small_fun_difference),
+            'test_highlights': self._test_is_highlight(test_reaction_score, self.small_fun_difference),
             'big_highlights': self._is_highlight(final_score, self.big_fun_difference),
-            'test_big_highlights': self._test_is_highlight(final_score, self.big_fun_difference),
+            'test_big_highlights': self._test_is_highlight(test_reaction_score, self.big_fun_difference),
             'score_difference': self.get_score_difference(final_score),
             'should_create_new_highlight':self._should_create_new_highlight(final_score, current_time),
+            'test_should_create_new_highlight':self._should_create_new_highlight(test_reaction_score, current_time),
         }
         
         return score_details
@@ -498,9 +499,9 @@ class ChatAnalyzer:
             total_weighted_keywords += count * weight
         
         # 채팅 수 대비 키워드 밀도로 정규화
-        keyword_density = total_weighted_keywords / self.baseline_metrics['avg_chat_count']
-        # 밀도 3.0 (평균 채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
-        reaction_score = min(self._sigmoid_transform(keyword_density, 3.0*3.0) * 100, 100)
+        keyword_density = total_weighted_keywords / analysis.message_count
+        # 채팅 대비 1키워드 * keyword_weights 비율*3.0배 를 기준으로 점수화
+        reaction_score = min(self._sigmoid_transform(keyword_density, 3.0) * 100, 100)
 
         total_weighted_keywords = 0
         for keyword, count in test_fun_keywords.items():
@@ -509,9 +510,9 @@ class ChatAnalyzer:
             total_weighted_keywords += count * weight
         
         # 채팅 수 대비 키워드 밀도로 정규화
-        keyword_density = total_weighted_keywords / self.baseline_metrics['test_avg_chat_count']
-        # 밀도 3.0 (평균 채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
-        test_reaction_score = min(self._sigmoid_transform(keyword_density, 3.0*3.0) * 100, 100)
+        keyword_density = total_weighted_keywords / analysis.message_count
+        # 밀도 3.0 (채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
+        test_reaction_score = min(self._sigmoid_transform(keyword_density, 3.0) * 100, 100)
             
         return reaction_score, test_reaction_score
 
@@ -662,6 +663,20 @@ class ChatAnalyzer:
         #새 하이라이트를 생성해야 하는지 판단
     def _should_create_new_highlight(self, fun_score, current_time: datetime):
         if not self._is_highlight(fun_score, self.small_fun_difference):
+            return False
+        
+        if self.last_highlight is None:
+            return True
+           
+        # 쿨다운: 2분 간격
+        if not self.check_cooldown(current_time, self.last_highlight.timestamp):
+            return False
+
+        return True
+    
+        # 테스트 새 하이라이트를 생성해야 하는지 판단
+    def test_should_create_new_highlight(self, fun_score, current_time: datetime):
+        if not self._test_is_highlight(fun_score, self.small_fun_difference):
             return False
         
         if self.last_highlight is None:
