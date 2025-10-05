@@ -54,9 +54,10 @@ class LiveData:
         "closeDate": "2025-01-01 00:00:00"           # 방송 종료 시간
     })
     state_update_time: Dict[str, str] = field(default_factory=lambda: {
-        "openDate": "2025-01-01T00:00:00",           # 온라인 상태 업데이트 시간
-        "closeDate": "2025-01-01T00:00:00",           # 오프라인 상태 업데이트 시간
-        "titleChangeDate": "2025-01-01T00:00:00",    # 제목 변경 업데이트 시간
+        "openDate": "2025-01-01T00:00:00",                  # 온라인 상태 업데이트 시간
+        "closeDate": "2025-01-01T00:00:00",                 # 오프라인 상태 업데이트 시간
+        "titleChangeDate": "2025-01-01T00:00:00",           # 제목 변경 업데이트 시간
+        "changeChatChannelIdDate": "2025-01-01T00:00:00",   # cid 업데이트 시간
 })
     
 @dataclass

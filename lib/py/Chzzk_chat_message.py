@@ -71,7 +71,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
     # 웹소켓 연결 및 메시지 처리 실행
     async def _connect_and_run(self):
-        print(f"{datetime.now()} {self.data.channel_id} 방송 켜짐")
+        print(f"{datetime.now()} {self.data.channel_id} 방송 켜짐, 기존  cid:{self.data.cid}")
         async with websockets.connect('wss://kr-ss3.chat.naver.com/chat', 
                                     subprotocols=['chat'], 
                                     ping_interval=None) as sock:
@@ -80,7 +80,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             # 채널 ID 확인 및 갱신
             await self.get_check_channel_id()
-            if not if_after_time(self.state_update_time["openDate"], sec = 60) and not await self.change_chatChannelId():
+            if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(self.state_update_time["changeChatChannelIdDate"], sec = 60) and not await self.change_chatChannelId():
                 return
             
             if not if_after_time(self.state_update_time["closeDate"], sec = 300):
@@ -620,6 +620,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if cid != self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']:
             self.init.chzzk_titleData.loc[self.data.channel_id, 'oldChatChannelId'] = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
             self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId'] = cid
+            self.state_update_time["changeChatChannelIdDate"] = datetime.now()
             asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
             return True
         return False
