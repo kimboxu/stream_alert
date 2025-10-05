@@ -27,7 +27,8 @@ class DiscordWebhookSender:
 
     # 여러 웹훅 URL에 메시지를 전송하는 함수
     async def send_messages(self, messages: List[str], json_data, DO_TEST = False) -> List[str]:
-        if DO_TEST: return  # 테스트 모드면 실제 전송하지 않음
+        if DO_TEST: # 테스트 모드면 실제 전송하지 않음
+            return []  
         semaphore = asyncio.Semaphore(self.MAX_CONCURRENT)  # 동시 요청 제한을 위한 세마포어
         
         # HTTP 클라이언트 세션 생성
@@ -206,24 +207,24 @@ def get_list_of_urls(DO_TEST, userStateData, name, channel_id, db_name):
         
         # 사용자 데이터에서 적절한 웹훅 URL 찾기
         for discordWebhookURL in userStateData['discordURL']:
-                try:
-                    # 해당 URL의 사용자 데이터 가져오기
-                    user_data = userStateData.loc[discordWebhookURL, db_name]
-                    
-                    # 데이터 유형 확인 후 리스트 변환
-                    if isinstance(user_data, str):
-                        name_list = user_data  # 문자열인 경우
-                    elif isinstance(user_data, dict):
-                        name_list = user_data.get(channel_id, [])  # 딕셔너리인 경우
-                    else:
-                        name_list = []  # 그 외 경우
-                    
-                    # 해당 이름이 리스트에 있으면 URL 추가
-                    if name in name_list:
-                        result_urls.append(discordWebhookURL)
-                except (KeyError, AttributeError) as e:
-                    # 특정 URL 처리 중 오류가 발생해도 다른 URL 처리는 계속
-                    continue
+            try:
+                # 해당 URL의 사용자 데이터 가져오기
+                user_data = userStateData.loc[discordWebhookURL, db_name]
+                
+                # 데이터 유형 확인 후 리스트 변환
+                if isinstance(user_data, str):
+                    name_list = user_data  # 문자열인 경우
+                elif isinstance(user_data, dict):
+                    name_list = user_data.get(channel_id, [])  # 딕셔너리인 경우
+                else:
+                    name_list = []  # 그 외 경우
+                
+                # 해당 이름이 리스트에 있으면 URL 추가
+                if name in name_list:
+                    result_urls.append(discordWebhookURL)
+            except (KeyError, AttributeError) as e:
+                # 특정 URL 처리 중 오류가 발생해도 다른 URL 처리는 계속
+                continue
                 
         return result_urls
     except Exception as e:
@@ -233,7 +234,7 @@ def get_list_of_urls(DO_TEST, userStateData, name, channel_id, db_name):
 
 # 채팅 메시지용 웹훅 JSON 데이터 생성 함수
 def get_chat_json_data(name, chat, channel_name, profile_image):
-            # 채팅 메시지 포맷
-            return {'content'   : chat,  # 채팅 내용
-                    "username"  : name + " >> " + channel_name,  # 표시될 사용자 이름
-                    "avatar_url": profile_image}  # 프로필 이미지 URL
+    # 채팅 메시지 포맷
+    return {'content'   : chat,  # 채팅 내용
+            "username"  : name + " >> " + channel_name,  # 표시될 사용자 이름
+            "avatar_url": profile_image}  # 프로필 이미지 URL
