@@ -443,14 +443,15 @@ class ChatAnalyzer:
     def _update_baselines(self):
         if not len(self.analysis_history):
             return
-     
+    
         # 직전 데이터의 값
         chat_counts = list(self.analysis_history)[-1][0].message_count
         viewers     = list(self.analysis_history)[-1][0].viewer_count
         final_score = list(self.analysis_history)[-1][1]
         
-        # 지수 이동 평균으로 부드럽게 업데이트(최근 60분의 데이터가 90% 반영되도록[α=1 − 0.1 ^1/720]) (alpha=0.0032)
-        alpha = 0.0032
+        # 지수 이동 평균으로 부드럽게 업데이트
+        # 최근 20분(240회)의 데이터가 90% 반영되도록 [α = 1 - 0.1^(1/240)]
+        alpha = 0.00958  # 1 - 0.1^(1/240) ≈ 0.00958
         
         self.baseline_metrics['avg_chat_count'] = (
             alpha * chat_counts + (1 - alpha) * self.baseline_metrics['avg_chat_count']
