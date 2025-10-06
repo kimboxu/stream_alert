@@ -373,6 +373,11 @@ class ChatAnalyzer:
         if score_details['highlights'] or self.init.DO_TEST:
             await self._create_highlight(detailed_log)
 
+        # 테스트 하이라이트 체크
+        if score_details['test_highlights'] or self.init.DO_TEST:
+            highlight = await self.make_StreamHighlight(detailed_log, is_image = False)
+            await self.test_change_score_to_peak(highlight)
+
         # 치지직 방송 시간이 17시간이 지날 때마다 해당 시점까지의 하이라이트 생성
         if self.is_check_after_openDate(detailed_log):
             print(f"{datetime.now()} {self.channel_id} is_check_after_openDate ")
@@ -710,24 +715,26 @@ class ChatAnalyzer:
 
         #이전 1분 중 가장 작은 점수와의 차이
         return max(fun_score - min(a[2] for a in bef_recent_scores), 0)
-
-    #하이라이트 생성
-    async def _create_highlight(self, detailed_log: dict) -> None:
-        for _ in range(10):
-            try:
-                # 썸네일 가져오기
-                thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
-                image_content = await get_message(self.performance_manager, "image", thumbnail_url)
-                if not image_content:
-                    print(f"{datetime.now()} _create_highlight 썸네일 가져오기 실패")
-                    await asyncio.sleep(0.1)
-                    continue
-                image = PILImage.open(BytesIO(image_content))
-                break
-            except Exception as e:
-                await log_error(f"썸네일 가져오기 실패: {e}")
-                return
-
+    
+    async def make_StreamHighlight(self,  detailed_log: dict, is_image = True):
+        if not is_image: 
+            image = ""
+        else:
+            for _ in range(10):
+                try:
+                    # 썸네일 가져오기
+                    thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
+                    image_content = await get_message(self.performance_manager, "image", thumbnail_url)
+                    if not image_content:
+                        print(f"{datetime.now()} _create_highlight 썸네일 가져오기 실패")
+                        await asyncio.sleep(0.1)
+                        continue
+                    image = PILImage.open(BytesIO(image_content))
+                    break
+                except Exception as e:
+                    await log_error(f"썸네일 가져오기 실패: {e}")
+                    return
+            
         highlight = StreamHighlight(
             timestamp=detailed_log['timestamp'],
             channel_id=self.channel_id,
@@ -746,7 +753,11 @@ class ChatAnalyzer:
                 'fun_keywords': detailed_log['analysis_data']['fun_keywords'],
             },
         )
+        return highlight
 
+    #하이라이트 생성
+    async def _create_highlight(self, detailed_log: dict) -> None:
+        highlight = await self.make_StreamHighlight(detailed_log)
 
         # 큰 재미인 경우 알림 보내기
         if highlight.score_details['big_highlights'] and highlight.score_details['should_create_new_highlight']:
@@ -910,6 +921,45 @@ class ChatAnalyzer:
                 highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
                 self.detailed_logs[-1]['comment_after_openDate'] = self.detailed_logs[-(idx+1)]['comment_after_openDate']
                 self.detailed_logs[-(idx+1)]['score_components']['should_create_new_highlight'] = False
+                self.highlights = self.highlights[:-1]
+                return
+            
+    async def test_change_score_to_peak(self, highlight: StreamHighlight):
+        if not self.highlights:
+            print(f"{datetime.now()} test highlights가 비어있어서 change_score_to_peak 건너뜀")
+            return
+        
+        is_higher_score = False
+        if highlight.fun_score > self.highlights[-1].fun_score:
+            is_higher_score = True
+            
+        
+        if (highlight.score_details['test_highlights'] and not highlight.score_details['test_should_create_new_highlight']):
+            idx = None
+            is_new_highlight_check_cnt = 0
+            for i,detailed_log in enumerate(reversed(self.detailed_logs)):
+                # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있는지
+                if not detailed_log['score_components']['test_highlights']:
+                    is_new_highlight_check_cnt += 1
+
+                if detailed_log['score_components']['test_should_create_new_highlight']:
+                    idx = i
+                    break
+
+            #직전 하이라이트의 test_should_create_new_highlight False로 변경 후 현재것을 True로 변경
+            if idx:
+                # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있다면, 직전의 하이라이트 제거하지 않고, 새로운 하이라이트 추가
+                if not is_higher_score and is_new_highlight_check_cnt < 3:
+                    return
+                
+                highlight.score_details['test_should_create_new_highlight'] = True
+
+                if is_new_highlight_check_cnt >= 3:
+                    return
+                
+                highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
+                self.detailed_logs[-1]['comment_after_openDate'] = self.detailed_logs[-(idx+1)]['comment_after_openDate']
+                self.detailed_logs[-(idx+1)]['score_components']['test_should_create_new_highlight'] = False
                 self.highlights = self.highlights[:-1]
                 return
 
