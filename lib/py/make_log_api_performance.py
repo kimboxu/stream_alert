@@ -85,13 +85,12 @@ class APIPerformanceLogger:
 
     def force_save_sync(self):
         """스케줄러용 동기 강제 저장 함수"""
+        logs_to_save = []  # try 블록 밖으로 이동
         try:
-            # deque는 thread-safe하므로 직접 접근
             if not self.memory_logs:
                 return
             
-            # 로그 복사 및 클리어 (deque의 popleft는 thread-safe)
-            logs_to_save = []
+            # 로그 복사 및 클리어
             while self.memory_logs:
                 try:
                     logs_to_save.append(self.memory_logs.popleft())
