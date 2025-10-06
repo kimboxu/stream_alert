@@ -53,8 +53,11 @@ class APIPerformanceLogger:
         self.max_file_age_days = 30  # 30일 이상된 파일 삭제
         
         # 비동기 락
-        self._memory_lock = asyncio.Lock()  # 메모리 액세스용 락
-        self._save_lock = asyncio.Lock()    # 파일 저장용 락
+        self._memory_lock = None  # 메모리 액세스용 락
+        self._save_lock = None    # 파일 저장용 락
+
+        # 락 초기화를 위한 플래그
+        self._lock_event_loop = None
         
         # 마지막 저장 시간
         self._last_save_time = datetime.now()
@@ -66,11 +69,54 @@ class APIPerformanceLogger:
         
         print(f"{datetime.now()} API 성능 로거 초기화 완료: {self.log_dir}")
 
+    def _ensure_locks(self):
+        """현재 이벤트 루프에서 락 초기화"""
+        try:
+            current_loop = asyncio.get_running_loop()
+        except RuntimeError:
+            # 이벤트 루프가 없으면 생성
+            return
+        
+        # 다른 이벤트 루프거나 락이 없으면 새로 생성
+        if self._lock_event_loop != current_loop or self._memory_lock is None:
+            self._memory_lock = asyncio.Lock()
+            self._save_lock = asyncio.Lock()
+            self._lock_event_loop = current_loop
+
+    def force_save_sync(self):
+        """스케줄러용 동기 강제 저장 함수"""
+        try:
+            # deque는 thread-safe하므로 직접 접근
+            if not self.memory_logs:
+                return
+            
+            # 로그 복사 및 클리어 (deque의 popleft는 thread-safe)
+            logs_to_save = []
+            while self.memory_logs:
+                try:
+                    logs_to_save.append(self.memory_logs.popleft())
+                except IndexError:
+                    break
+            
+            if logs_to_save:
+                self._sync_save_logs(logs_to_save)
+                self._last_save_time = datetime.now()
+                print(f"{datetime.now()} 스케줄러: 강제 저장 완료 ({len(logs_to_save)}개)")
+                
+        except Exception as e:
+            print(f"스케줄러: 강제 저장 실패 - {e}")
+            # 실패한 로그들을 다시 넣기
+            for log_entry in reversed(logs_to_save):
+                self.memory_logs.appendleft(log_entry)
+
     async def log_performance(self, api_type: str, response_time_ms: int, is_success: bool,
                             http_status_code: int = None, error_type: str = None,
                             error_message: str = None, retry_count: int = 0):
         """API 성능 데이터를 로깅"""
         try:
+            # 락 초기화 확인
+            self._ensure_locks()
+            
             log_entry = APIPerformanceLog(
                 timestamp=datetime.now(),
                 api_type=api_type,
@@ -94,6 +140,7 @@ class APIPerformanceLogger:
 
     async def _check_and_save_if_needed(self):
         """조건에 따라 파일 저장 실행"""
+        self._ensure_locks()
         current_time = datetime.now()
         time_diff = (current_time - self._last_save_time).total_seconds() / 60
         
@@ -104,6 +151,7 @@ class APIPerformanceLogger:
 
     async def _save_logs_to_file(self):
         """메모리의 로그를 시간 기반 파일에 저장"""
+        self._ensure_locks()
         async with self._save_lock:
             # 메모리 락으로 안전하게 복사 후 클리어
             async with self._memory_lock:
@@ -163,18 +211,7 @@ class APIPerformanceLogger:
         
         print(f"{datetime.now()} API 성능 로그 저장 완료: {file_path} ({len(logs_data)}개 기록)")
 
-    async def _cleanup_old_files(self):
-        """오래된 로그 파일 삭제"""
-        try:
-            # 파일 정리를 스레드 풀에서 실행
-            await asyncio.get_event_loop().run_in_executor(
-                self._thread_pool,
-                self._sync_cleanup_old_files
-            )
-        except Exception as e:
-            await log_error(f"오래된 로그 파일 정리 실패: {e}")
-
-    def _sync_cleanup_old_files(self):
+    def cleanup_old_files_sync(self):
         """동기적 파일 정리 (스레드 풀에서 실행)"""
         cutoff_date = datetime.now() - timedelta(days=self.max_file_age_days)
         pattern = str(self.log_dir / "api_performance_*.json")
@@ -269,6 +306,8 @@ class APIPerformanceLogger:
         try:
             all_logs = []
             print(f"{datetime.now()} 로그 조회 시작: {start_date} ~ {end_date}")
+
+            self._ensure_locks()
             
             # 메모리 락으로 안전하게 복사
             async with self._memory_lock:
@@ -1168,6 +1207,61 @@ class PerformanceManager:
         with open(self.daily_stats_file, 'w', encoding='utf-8') as f:
             dump(filtered_stats, f, ensure_ascii=False, indent=2)
 
+    def calculate_and_save_daily_statistics_sync(self, target_date: datetime = None):
+        """스케줄러용 동기 일일 통계 계산 함수"""
+        if target_date is None:
+            target_date = datetime.now().date() - timedelta(days=1)
+        elif isinstance(target_date, datetime):
+            target_date = target_date.date()
+        
+        try:
+            print(f"{datetime.now()} 스케줄러: 일일 통계 계산 시작 - {target_date}")
+            start_time = time.time()
+            
+            # 새 이벤트 루프 생성
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            
+            try:
+                # 해당 날짜의 시작과 끝 시간 설정
+                start_datetime = datetime.combine(target_date, datetime.min.time())
+                end_datetime = datetime.combine(target_date, datetime.max.time())
+                
+                # 비동기 함수 실행
+                comprehensive_stats = loop.run_until_complete(
+                    self.calculator.calculate_comprehensive_statistics(
+                        start_datetime, end_datetime
+                    )
+                )
+                
+                # 일일 통계 생성
+                daily_stat = {
+                    "date": target_date.isoformat(),
+                    "calculated_at": datetime.now().isoformat(),
+                    **comprehensive_stats
+                }
+                
+                # 동기 저장
+                self._sync_save_daily_statistics(daily_stat)
+                
+                elapsed = time.time() - start_time
+                print(f"{datetime.now()} 스케줄러: 일일 통계 저장 완료 - {target_date} ({elapsed:.2f}초)")
+                
+                # 요약 정보 출력
+                summary = comprehensive_stats.get('summary', {})
+                print(f"  총 {summary.get('unique_api_types', 0)}개 API 타입, "
+                      f"{summary.get('total_requests', 0)}건 요청, "
+                      f"{summary.get('overall_success_rate_percent', 0)}% 성공률")
+                
+                return daily_stat
+                
+            finally:
+                loop.close()
+                
+        except Exception as e:
+            print(f"스케줄러: 일일 통계 계산 실패 - {e}")
+            return None
+
     def setup_scheduler(self):
         """정기적인 작업 스케줄러 설정"""
         if self.scheduler is None:
@@ -1175,15 +1269,16 @@ class PerformanceManager:
             
             # 매 30분마다 강제 저장
             self.scheduler.add_job(
-                func=lambda: asyncio.run(self.logger.force_save()),
+                func=self.logger.force_save_sync,
                 trigger="interval",
                 minutes=30,
+                # second=0,
                 id='force_save_logs'
             )
             
             # 매일 새벽 7시에 전날 일일 통계 계산
             self.scheduler.add_job(
-                func=lambda: asyncio.run(self.calculate_and_save_daily_statistics()),
+                func=self.calculate_and_save_daily_statistics_sync,
                 trigger="cron",
                 hour=7,
                 minute=10,
@@ -1193,7 +1288,7 @@ class PerformanceManager:
             
             # 매일 새벽 5시에 오래된 파일 정리
             self.scheduler.add_job(
-                func=lambda: asyncio.run(self.logger._cleanup_old_files()),
+                func=self.logger.cleanup_old_files_sync,
                 trigger="cron",
                 hour=5,
                 minute=10,
