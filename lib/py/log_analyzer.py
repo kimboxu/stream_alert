@@ -188,7 +188,7 @@ class SessionBasedFunScoreAnalyzer:
                             if log.get('score_components', {}).get('big_highlights', False)
                             and log.get('score_components', {}).get('should_create_new_highlight', True))
 
-        # test 하이라이트
+        # 단순 키워드 기반 하이라이트
         test_highlights = sum(1 for log in session_logs 
                             if log.get('score_components', {}).get('test_highlights', False) 
                             and log.get('score_components', {}).get('test_should_create_new_highlight', True))
@@ -286,7 +286,7 @@ class SessionBasedFunScoreAnalyzer:
             # 첫 번째 플롯: 원본 재미도 점수
             self._plot_original_fun_score(ax1, common_data, original_data, session_stats)
             
-            # 두 번째 플롯: Test 재미도 점수  
+            # 두 번째 플롯: 단순 키워드 기반 재미도 점수  
             self._plot_test_fun_score(ax2, common_data, test_data, session_stats)
             
             # 세 번째 플롯: 시청자 수 (공통)
@@ -385,7 +385,7 @@ class SessionBasedFunScoreAnalyzer:
             test_baseline_thresholds.append(threshold)
             test_score_difference_list.append(test_score_difference)
             
-            # Test 하이라이트 데이터
+            # 단순 키워드 기반 하이라이트 데이터
             test_is_highlight = score_comp.get('test_highlights', False)
             test_is_big_highlight = score_comp.get('test_big_highlights', False)
             test_should_create = score_comp.get('test_should_create_new_highlight', True)
@@ -446,44 +446,44 @@ class SessionBasedFunScoreAnalyzer:
         ax.grid(True, alpha=0.3)
 
     def _plot_test_fun_score(self, ax, common_data, test_data, session_stats):
-        """두 번째 서브플롯: Test 재미도 점수"""
+        """두 번째 서브플롯: 단순 키워드 기반 재미도 점수"""
         after_open_times = common_data['after_open_times']
         
         # 메인 라인 플롯
-        ax.plot(after_open_times, test_data['test_scores'], 'r-', alpha=0.7, linewidth=1.5, label='Test 재미도 점수')
+        ax.plot(after_open_times, test_data['test_scores'], 'r-', alpha=0.7, linewidth=1.5, label='단순 키워드 기반 재미도 점수')
         ax.plot(after_open_times, test_data['test_score_difference_list'], 'orange', linestyle='-.', alpha=0.8, 
-                label='Test 하이라이트 동적 임계값')
+                label='단순 키워드 기반 하이라이트 동적 임계값')
         
         # 고정 임계값 라인
         ax.axhline(y=self.small_fun_difference, color='darkorange', linestyle=':', alpha=0.9, linewidth=3,
-                label=f'Test 하이라이트 기준: {self.small_fun_difference}점 차이')
+                label=f'단순 키워드 기반 하이라이트 기준: {self.small_fun_difference}점 차이')
         ax.axhline(y=self.big_fun_difference, color='crimson', linestyle=':', alpha=0.9, linewidth=3,
-                label=f'Test 대형 하이라이트 기준: {self.big_fun_difference}점 차이')
+                label=f'단순 키워드 기반 대형 하이라이트 기준: {self.big_fun_difference}점 차이')
         
         # 영역 채우기
         ax.fill_between(after_open_times, test_data['test_scores'], alpha=0.3, color='red')
         ax.fill_between(after_open_times, test_data['test_score_difference_list'], alpha=0.3, color='orange')
         
-        # Test 하이라이트 포인트
+        # 단순 키워드 기반 하이라이트 포인트
         if test_data['test_highlight_times']:
             ax.scatter(test_data['test_highlight_times'], test_data['test_highlight_scores'], 
                     color='orange', s=30, alpha=0.7, zorder=5, 
-                    label=f'Test 하이라이트 ({len(test_data["test_highlight_times"])}개)')
+                    label=f'단순 키워드 기반 하이라이트 ({len(test_data["test_highlight_times"])}개)')
         
         if test_data['test_big_highlight_times']:
             ax.scatter(test_data['test_big_highlight_times'], test_data['test_big_highlight_scores'], 
                     color='red', s=50, alpha=0.8, zorder=5, 
-                    label=f'Test 대형 하이라이트 ({len(test_data["test_big_highlight_times"])}개)')
+                    label=f'단순 키워드 기반 대형 하이라이트 ({len(test_data["test_big_highlight_times"])}개)')
         
         # Test 통계 정보 계산
         avg_test_baseline = sum(test_data['test_baseline_thresholds']) / len(test_data['test_baseline_thresholds']) if test_data['test_baseline_thresholds'] else 50
         
         # 축 설정
-        ax.set_title(f'Test 재미도 점수 변화 - ({session_stats["date_str"]})\n'
+        ax.set_title(f'단순 키워드 기반 재미도 점수 변화 - ({session_stats["date_str"]})\n'
                     f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
-                    f'{session_stats["duration_hours"]:.1f}시간, Test 평균 임계값: {avg_test_baseline:.1f})')
+                    f'{session_stats["duration_hours"]:.1f}시간, 단순 키워드 평균 임계값: {avg_test_baseline:.1f})')
         ax.set_xlabel('방송 시작 후 시간 (분)')
-        ax.set_ylabel('Test 재미도 점수')
+        ax.set_ylabel('단순 키워드 기반 재미도 점수')
         ax.legend()
         ax.grid(True, alpha=0.3)
 
@@ -662,23 +662,23 @@ class SessionBasedFunScoreAnalyzer:
             # 2개 서브플롯 생성 (Test 전용)
             fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10))
             
-            # 첫 번째 플롯: Test 재미도 점수
-            ax1.plot(after_open_times, test_scores, 'r-', alpha=0.7, linewidth=1.5, label='Test 재미도 점수')
+            # 첫 번째 플롯: 단순 키워드 기반 재미도 점수
+            ax1.plot(after_open_times, test_scores, 'r-', alpha=0.7, linewidth=1.5, label='단순 키워드 기반 재미도 점수')
             
             # Test 동적 임계값 라인
             ax1.plot(after_open_times, test_score_difference_list, 'orange', linestyle='-.', alpha=0.8, 
-                    label='Test 하이라이트 동적 임계값')
+                    label='단순 키워드 기반 하이라이트 동적 임계값')
             
             # 고정 임계값 (참고용)
             ax1.axhline(y=self.small_fun_difference, color='darkorange', linestyle=':', alpha=0.9, linewidth=3,
-                    label=f'Test 하이라이트 기준: {self.small_fun_difference}점 차이')
+                    label=f'단순 키워드 기반 하이라이트 기준: {self.small_fun_difference}점 차이')
             ax1.axhline(y=self.big_fun_difference, color='crimson', linestyle=':', alpha=0.9, linewidth=3,
-                        label=f'Test 대형 하이라이트 기준: {self.big_fun_difference}점 차이')
+                        label=f'단순 키워드 기반 대형 하이라이트 기준: {self.big_fun_difference}점 차이')
             
             ax1.fill_between(after_open_times, test_scores, alpha=0.3, color='red')
             ax1.fill_between(after_open_times, test_score_difference_list, alpha=0.3, color='orange')
             
-            # Test 하이라이트 순간 표시
+            # 단순 키워드 기반 하이라이트 순간 표시
             test_highlight_times = []
             test_highlight_scores = []
             test_big_highlight_times = []
@@ -699,20 +699,20 @@ class SessionBasedFunScoreAnalyzer:
             
             if test_highlight_times:
                 ax1.scatter(test_highlight_times, test_highlight_scores, color='orange', s=30, alpha=0.7, 
-                        zorder=5, label=f'Test 하이라이트 ({len(test_highlight_times)}개)')
+                        zorder=5, label=f'단순 키워드 기반 하이라이트 ({len(test_highlight_times)}개)')
             
             if test_big_highlight_times:
                 ax1.scatter(test_big_highlight_times, test_big_highlight_scores, color='red', s=50, alpha=0.8, 
-                        zorder=5, label=f'Test 대형 하이라이트 ({len(test_big_highlight_times)}개)')
+                        zorder=5, label=f'단순 키워드 기반 대형 하이라이트 ({len(test_big_highlight_times)}개)')
             
             # Test 통계 정보 계산
             avg_test_baseline = sum(test_baseline_thresholds) / len(test_baseline_thresholds) if test_baseline_thresholds else 50
             
-            ax1.set_title(f'Test 재미도 점수 변화 - ({session_stats["date_str"]})\n'
+            ax1.set_title(f'단순 키워드 기반 재미도 점수 변화 - ({session_stats["date_str"]})\n'
                         f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]}, '
-                        f'{session_stats["duration_hours"]:.1f}시간, Test 평균 임계값: {avg_test_baseline:.1f})')
+                        f'{session_stats["duration_hours"]:.1f}시간, 단순 키워드 평균 임계값: {avg_test_baseline:.1f})')
             ax1.set_xlabel('방송 시작 후 시간 (분)')
-            ax1.set_ylabel('Test 재미도 점수')
+            ax1.set_ylabel('단순 키워드 기반 재미도 점수')
             ax1.legend()
             ax1.grid(True, alpha=0.3)
             
@@ -783,7 +783,7 @@ class SessionBasedFunScoreAnalyzer:
                     'is_actual_highlight': score_components.get('highlights', False) and score_components.get('should_create_new_highlight', True),
                     'is_actual_big_highlight': score_components.get('big_highlights', False) and score_components.get('should_create_new_highlight', True),
                     
-                    # Test 하이라이트 정보
+                    # 단순 키워드 기반 하이라이트 정보
                     'test_is_highlight': score_components.get('test_highlights', False),
                     'test_is_big_highlight': score_components.get('test_big_highlights', False),
                     'test_should_create_new_highlight': score_components.get('test_should_create_new_highlight', True),
@@ -840,7 +840,7 @@ class SessionBasedFunScoreAnalyzer:
             return await self._export_test_highlights_basic(session_logs, session_stats)
 
     async def _export_test_highlights_with_ai(self, session_logs, session_stats):
-        """AI를 사용한 Test 하이라이트 댓글 생성"""
+        """AI를 사용한 단순 키워드 기반 하이라이트 댓글 생성"""
         
         try:
             if not AI_AVAILABLE:
@@ -848,15 +848,15 @@ class SessionBasedFunScoreAnalyzer:
                 return await self._export_test_highlights_basic(session_logs, session_stats)
             
             model = get_genai_model(0)
-            print(f"{datetime.now()} Test 하이라이트용 AI 모델 로드 완료")
+            print(f"{datetime.now()} 단순 키워드 기반 하이라이트용 AI 모델 로드 완료")
             
-            # 1단계: Test 하이라이트 데이터 수집
+            # 1단계: 단순 키워드 기반 하이라이트 데이터 수집
             highlights = []
             
             for log in session_logs:
                 score_components = log.get('score_components', {})
                 
-                # Test 하이라이트인지 확인
+                # 단순 키워드 기반 하이라이트인지 확인
                 if (score_components.get('test_highlights', False) and 
                     score_components.get('test_should_create_new_highlight', True)):
                     
@@ -878,7 +878,7 @@ class SessionBasedFunScoreAnalyzer:
                     highlights.append(highlight)
             
             if not highlights:
-                print(f"{datetime.now()} Test 하이라이트가 없어서 AI 텍스트 생성을 건너뜁니다.")
+                print(f"{datetime.now()} 단순 키워드 기반 하이라이트가 없어서 AI 텍스트 생성을 건너뜁니다.")
                 return None
             
             # 2단계: Test용 하이라이트 데이터 구성
@@ -941,12 +941,12 @@ class SessionBasedFunScoreAnalyzer:
             return await self._export_test_highlights_basic(session_logs, session_stats)
 
     async def _ai_make_test_highlight_chat(self, highlights: list[StreamHighlight], model):
-        """Test 하이라이트용 AI 댓글 생성"""
+        """단순 키워드 기반 하이라이트용 AI 댓글 생성"""
         if not highlights:
             return []
         
         try:
-            # Test 하이라이트 데이터 구성
+            # 단순 키워드 기반 하이라이트 데이터 구성
             highlight_data = []
             images_with_labels = []
             
@@ -988,7 +988,7 @@ class SessionBasedFunScoreAnalyzer:
                     images_with_labels.append(highlight.image)
 
                 except Exception as e:
-                    print(f"{datetime.now()} Test 하이라이트 데이터 처리 오류: {e}")
+                    print(f"{datetime.now()} 단순 키워드 기반 하이라이트 데이터 처리 오류: {e}")
                     continue
 
             if not highlight_data:
@@ -1031,7 +1031,7 @@ class SessionBasedFunScoreAnalyzer:
             return []
 
     async def _export_test_highlights_basic(self, session_logs, session_stats):
-        """기본 로직을 사용한 Test 하이라이트 댓글 생성"""
+        """기본 로직을 사용한 단순 키워드 기반 하이라이트 댓글 생성"""
         try:
             from base import format_time_for_comment
             
@@ -1047,7 +1047,7 @@ class SessionBasedFunScoreAnalyzer:
             for log in session_logs:
                 score_components = log.get('score_components', {})
                 
-                # Test 하이라이트인지 확인
+                # 단순 키워드 기반 하이라이트인지 확인
                 if (score_components.get('test_highlights', False) and 
                     score_components.get('test_should_create_new_highlight', True)):
                     
@@ -1105,7 +1105,7 @@ class SessionBasedFunScoreAnalyzer:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(final_content)
             
-            print(f"Test 하이라이트 텍스트 저장: {file_path}")
+            print(f"단순 키워드 기반 하이라이트 텍스트 저장: {file_path}")
             
             return {
                 'highlights_count': len(highlight_lines),
@@ -1454,7 +1454,7 @@ class SessionBasedFunScoreAnalyzer:
         print(f"   평균 세션 길이: {total_duration/len(all_session_stats):.1f}시간")
         
         print(f"\n🎯 재미도 점수 비교:")
-        print(f"   원본 평균: {avg_score_overall:.2f} | Test 평균: {avg_test_score_overall:.2f} | 차이: {score_difference:+.2f}")
+        print(f"   원본 평균: {avg_score_overall:.2f} | 단순 키워드 평균: {avg_test_score_overall:.2f} | 차이: {score_difference:+.2f}")
         
         print(f"\n⭐ 하이라이트 비교:")
         print(f"   원본: {total_highlights}회 ({total_highlights/total_duration:.1f}/시간)")
@@ -1569,25 +1569,25 @@ class SessionBasedFunScoreAnalyzer:
             f.write(f"📊 점수 비교:\n")
             f.write(f"{'─'*30}\n")
             f.write(f"• 원본 평균 재미도: {avg_score_overall:.2f}\n")
-            f.write(f"• Test 평균 재미도: {avg_test_score_overall:.2f}\n")
+            f.write(f"• 단순 키워드 평균 재미도: {avg_test_score_overall:.2f}\n")
             f.write(f"• 점수 차이: {avg_score_overall - avg_test_score_overall:+.2f}\n\n")
             
             f.write(f"🎯 하이라이트 비교:\n")
             f.write(f"{'─'*35}\n")
             f.write(f"• 원본 하이라이트: {total_highlights}회 ({total_highlights/total_duration:.1f}회/시간)\n")
-            f.write(f"• Test 하이라이트: {total_test_highlights}회 ({total_test_highlights/total_duration:.1f}회/시간)\n")
+            f.write(f"• 단순 키워드 기반 하이라이트: {total_test_highlights}회 ({total_test_highlights/total_duration:.1f}회/시간)\n")
             f.write(f"• 하이라이트 차이: {total_highlights - total_test_highlights:+d}회\n\n")
             
             f.write(f"🌟 대형 하이라이트 비교:\n")
             f.write(f"{'─'*40}\n")
             f.write(f"• 원본 대형 하이라이트: {total_big_highlights}회\n")
-            f.write(f"• Test 대형 하이라이트: {total_test_big_highlights}회\n")
+            f.write(f"• 단순 키워드 기반 대형 하이라이트: {total_test_big_highlights}회\n")
             f.write(f"• 대형 하이라이트 차이: {total_big_highlights - total_test_big_highlights:+d}회\n\n")
             
             f.write(f"📈 점수 차이 통계:\n")
             f.write(f"{'─'*35}\n")
             f.write(f"• 원본 평균 점수차이: {avg_score_diff_overall:.2f}\n")
-            f.write(f"• Test 평균 점수차이: {avg_test_score_diff_overall:.2f}\n")
+            f.write(f"• 단순 키워드 평균 점수차이: {avg_test_score_diff_overall:.2f}\n")
             f.write(f"• 원본 최대 점수차이: {max_score_diff_overall:.2f}\n")
             f.write(f"• Test 최대 점수차이: {max_test_score_diff_overall:.2f}\n\n")
             
@@ -1700,7 +1700,7 @@ class SessionBasedFunScoreAnalyzer:
             # 하이라이트 텍스트 파일 생성
             await self.export_highlights_to_text(session_logs, session_stats)
 
-            # Test 하이라이트 텍스트 파일 생성
+            # 단순 키워드 기반 하이라이트 텍스트 파일 생성
             await self.export_test_highlights_to_text(session_logs, session_stats)
 
             
