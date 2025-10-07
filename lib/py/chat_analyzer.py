@@ -439,6 +439,7 @@ class ChatAnalyzer:
             'big_highlights': self._is_highlight(final_score, self.big_fun_difference),
             'test_big_highlights': self._test_is_highlight(test_reaction_score, self.big_fun_difference),
             'score_difference': self.get_score_difference(final_score),
+            'test_score_difference': self.test_get_score_difference(test_reaction_score),
             'should_create_new_highlight':self._should_create_new_highlight(final_score, current_time),
             'test_should_create_new_highlight':self._should_create_new_highlight(test_reaction_score, current_time),
         }
