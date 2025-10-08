@@ -450,8 +450,8 @@ class SessionBasedFunScoreAnalyzer:
         after_open_times = common_data['after_open_times']
         
         # 메인 라인 플롯
-        ax.plot(after_open_times, test_data['test_scores'], 'r-', alpha=0.7, linewidth=1.5, label='단순 키워드 기반 재미도 점수')
-        ax.plot(after_open_times, test_data['test_score_difference_list'], 'orange', linestyle='-.', alpha=0.8, 
+        ax.plot(after_open_times, test_data['test_scores'], 'b-', alpha=0.7, linewidth=1.5, label='단순 키워드 기반 재미도 점수')
+        ax.plot(after_open_times, test_data['test_score_difference_list'], 'purple', linestyle='-.', alpha=0.8, 
                 label='단순 키워드 기반 하이라이트 동적 임계값')
         
         # 고정 임계값 라인
