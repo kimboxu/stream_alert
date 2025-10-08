@@ -48,6 +48,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         self.profile_cache_ttl = 1800  # 프로필 캐시 유효 시간 (초)
         self.tasks = []  # 비동기 태스크
 
+        self.is_connect = False
+
         self.setup_analyzer(channel_id, channel_name, 'chzzk')
 
     # 메인 실행 함수
@@ -146,7 +148,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = await self.check_live_state_close()
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
-                                  and if_after_time(self.data.last_chat_time, sec = 60) 
+                                  and (if_after_time(self.data.last_chat_time, sec = 60) and not self.is_connect)
                                   and if_after_time(join_time, sec = 30))
 
             if (is_close or is_change_chatChannel or check_chat):
@@ -484,7 +486,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             # 임시 제한 상태 확인
             bdy = await self.check_TEMPORARY_RESTRICT(sock_response)
             chzzk_chat_list = self.get_chzzk_chat_list(bdy)
-            
+
+            if self.get_nickname(chzzk_chat_list[0]) == "(알 수 없음)" and chzzk_chat_list[0].get('msg', chzzk_chat_list[0].get('content', '')) == "채팅방이 생성되었습니다.":
+                self.is_connect = True
+            else:
+                self.is_connect = False
             try:
                 if chzzk_chat_list:
                     messageTime = chzzk_chat_list[-1].get('messageTime') or chzzk_chat_list[-1].get('msgTime')
