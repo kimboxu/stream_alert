@@ -206,6 +206,7 @@ class ChatAnalyzer:
         # 하이라이트 저장
         self.highlights: List[StreamHighlight] = []
         self.last_highlight = None
+        self.test_last_highlight = None
         self.last_analysis_time = datetime.now()
         self.check_after_openDate = 0
 
@@ -377,6 +378,7 @@ class ChatAnalyzer:
         if score_details['test_highlights'] or self.init.DO_TEST:
             highlight = await self.make_StreamHighlight(detailed_log, is_image = False)
             await self.test_change_score_to_peak(highlight)
+            self.test_last_highlight = highlight
 
         # 치지직 방송 시간이 17시간이 지날 때마다 해당 시점까지의 하이라이트 생성
         if self.is_check_after_openDate(detailed_log):
@@ -682,11 +684,11 @@ class ChatAnalyzer:
         if not self._test_is_highlight(fun_score, self.small_fun_difference):
             return False
         
-        if self.last_highlight is None:
+        if self.test_last_highlight is None:
             return True
            
         # 쿨다운: 2분 간격
-        if not self.check_cooldown(current_time, self.last_highlight.timestamp):
+        if not self.check_cooldown(current_time, self.test_last_highlight.timestamp):
             return False
 
         return True
@@ -961,7 +963,6 @@ class ChatAnalyzer:
                 highlight.comment_after_openDate = self.detailed_logs[-(idx+1)]['comment_after_openDate']
                 self.detailed_logs[-1]['comment_after_openDate'] = self.detailed_logs[-(idx+1)]['comment_after_openDate']
                 self.detailed_logs[-(idx+1)]['score_components']['test_should_create_new_highlight'] = False
-                self.highlights = self.highlights[:-1]
                 return
 
     #하이라이트 DB 저장
