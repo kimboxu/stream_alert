@@ -487,7 +487,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             bdy = await self.check_TEMPORARY_RESTRICT(sock_response)
             chzzk_chat_list = self.get_chzzk_chat_list(bdy)
 
-            if self.get_nickname(chzzk_chat_list[0]) == "(알 수 없음)" and chzzk_chat_list[0].get('msg', chzzk_chat_list[0].get('content', '')) == "채팅방이 생성되었습니다.":
+            if chzzk_chat_list and self.get_nickname(chzzk_chat_list[0]) == "(알 수 없음)" and chzzk_chat_list[0].get('msg', chzzk_chat_list[0].get('content', '')) == "채팅방이 생성되었습니다.":
                 self.is_connect = True
             else:
                 self.is_connect = False
