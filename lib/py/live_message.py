@@ -9,6 +9,7 @@ from dataclasses import dataclass, field
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
+from aiohttp import ClientSession, ClientError, TCPConnector
 from io import BytesIO
 
 from typing import List, Tuple, Dict, Any
@@ -285,11 +286,11 @@ class base_live_message:
     #온라인 상태 처리 (뱅온 또는 방제 변경)
     async def _handle_online_status(self, state_data):
         message = self.getMessage()
-        json_data = await self.getOnAirJson(message, state_data)
 
         self.onLineTime(message)
         self.onLineTitle(message)
         self.record_title(message)
+        json_data = await self.getOnAirJson(message, state_data)
 
         self.data.livePostList.append((message, json_data))
 
@@ -534,7 +535,7 @@ class chzzk_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL(state_data)
             
-            return await upload_image_to_imgbb(self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
+            return await upload_image_to_imgbb(self.performance_manager, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
                 
         except Exception as e:
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
@@ -778,7 +779,7 @@ class afreeca_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL()
             
-            return await upload_image_to_imgbb(self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
+            return await upload_image_to_imgbb(self.performance_manager, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
         
         except Exception as e:
             print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
@@ -914,29 +915,46 @@ async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, 
         return None
 
 
-async def upload_image_to_imgbb(channel_id: str, image_url: str, platform_prefix: str = "thumbnail"):
+async def upload_image_to_imgbb(
+    performance_manager: PerformanceManager,
+    channel_id: str, 
+    image_url: str, 
+    platform_prefix: str = "thumbnail"
+) -> str | None:
+    # 재시도 설정
+    MAX_RETRIES = 3
+    BASE_DELAY = 0.5  # 초
+    UPLOAD_TIMEOUT = 20  # 업로드 타임아웃 (초)
+    
     try:
-        # ImgBB API 키 확인
+        # API 키 확인
         api_key = environ.get("IMGBB_API_KEY")
         if not api_key:
             print(f"{datetime.now()} ImgBB API 키가 설정되지 않았습니다")
             return None
         
-        # 이미지 다운로드 (비동기)
-        response = await asyncio.to_thread(get, image_url, timeout=10)
+        # 1. 이미지 다운로드 (get_message가 자동으로 재시도 처리)
+        print(f"{datetime.now()} 이미지 다운로드 시작: {image_url[:80]}...")
         
+        response = await get_message(performance_manager, "image", image_url)
+        
+        # 다운로드 실패 체크
         if response.status_code != 200:
             print(f"{datetime.now()} 이미지 다운로드 실패: {response.status_code}")
             return None
-        
+            
         # 이미지 크기 확인
         image_size = len(response.content)
         max_size = 32 * 1024 * 1024  # 32MB
         
-        print(f"{datetime.now()} ImgBB 업로드 준비 시작 - 이미지 크기: {image_size} bytes")
+        print(f"{datetime.now()} 이미지 크기: {image_size / 1024 / 1024:.2f}MB")
         
         if image_size > max_size:
-            print(f"{datetime.now()} 이미지 크기가 너무 큼: {image_size/1024/1024:.1f}MB")
+            print(f"{datetime.now()} 이미지 크기 초과 ({image_size / 1024 / 1024:.1f}MB > 32MB)")
+            return None
+        
+        if image_size == 0:
+            print(f"{datetime.now()} 이미지 크기가 0바이트입니다")
             return None
         
         # Base64 인코딩
@@ -959,51 +977,151 @@ async def upload_image_to_imgbb(channel_id: str, image_url: str, platform_prefix
             'expiration': 0  # 만료 없음
         }
         
-        # ImgBB 업로드 요청
-        print(f"{datetime.now()} ImgBB 업로드 시작...")
-        imgbb_response = await asyncio.to_thread(
-            post,
-            'https://api.imgbb.com/1/upload',
-            data=data,
-            timeout=15
-        )
-        
-        # 응답 처리
-        if imgbb_response.status_code == 200:
-            try:
-                result_data = imgbb_response.json()
-                if result_data.get('success'):
-                    thumbnail_url = result_data['data']['url']
-                    delete_url = result_data['data'].get('delete_url', 'N/A')
-                    print(f"{datetime.now()} ImgBB 업로드 성공: {thumbnail_url}")
-                    return thumbnail_url
-                else:
-                    error_msg = result_data.get('error', {}).get('message', 'Unknown error')
-                    print(f"{datetime.now()} ImgBB API 오류: {error_msg}")
-                    return None
-            except Exception as e:
-                print(f"{datetime.now()} ImgBB 응답 파싱 실패: {e}")
-                return None
+        # aiohttp 세션으로 재시도 로직 수행
+        async with ClientSession(connector=TCPConnector(ssl=False)) as session:
+            for attempt in range(MAX_RETRIES):
+                start_time = datetime.now()
                 
-        elif imgbb_response.status_code == 429:
-            print(f"{datetime.now()} ImgBB 레이트 제한 (429)")
-            return ""  # 빈 문자열로 재시도 방지
-            
-        elif imgbb_response.status_code == 400:
-            print(f"{datetime.now()} ImgBB 잘못된 요청 (400): {imgbb_response.text}")
-            return ""  # 빈 문자열로 재시도 방지
-            
-        else:
-            print(f"{datetime.now()} ImgBB 업로드 실패: {imgbb_response.status_code}")
-            print(f"응답: {imgbb_response.text}")
-            return None
-            
-    except asyncio.TimeoutError:
-        print(f"{datetime.now()} ImgBB 업로드 시간 초과")
-        return None
+                try:
+                    print(f"{datetime.now()} ImgBB 업로드 시도 {attempt + 1}/{MAX_RETRIES}...")
+                    
+                    # aiohttp를 사용한 비동기 POST 요청
+                    async with session.post(
+                        'https://api.imgbb.com/1/upload',
+                        data=data,
+                        timeout=UPLOAD_TIMEOUT
+                    ) as imgbb_response:
+                        
+                        end_time = datetime.now()
+                        response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+                        
+                        # 성능 로깅
+                        asyncio.create_task(performance_manager.log_api_performance(
+                            api_type='imgbb_upload',
+                            response_time_ms=response_time_ms,
+                            is_success=imgbb_response.status == 200,
+                            http_status_code=imgbb_response.status,
+                            retry_count=attempt
+                        ))
+                        
+                        # 응답 처리
+                        if imgbb_response.status == 200:
+                            try:
+                                result_data = await imgbb_response.json()
+                                if result_data.get('success'):
+                                    thumbnail_url = result_data['data']['url']
+                                    print(f"{datetime.now()} ImgBB 업로드 성공: {thumbnail_url}")
+                                    return thumbnail_url
+                                else:
+                                    error_msg = result_data.get('error', {}).get('message', 'Unknown error')
+                                    print(f"{datetime.now()} ImgBB API 오류: {error_msg}")
+                                    
+                                    # 마지막 시도에서 실패한 경우
+                                    if attempt == MAX_RETRIES - 1:
+                                        return None
+                                    
+                            except Exception as e:
+                                print(f"{datetime.now()} ImgBB 응답 파싱 실패: {e}")
+                                
+                                # 마지막 시도에서 실패한 경우
+                                if attempt == MAX_RETRIES - 1:
+                                    return None
+                            
+                        elif imgbb_response.status == 429:
+                            print(f"{datetime.now()} ImgBB 레이트 제한 (429)")
+                            return ""  # 빈 문자열로 재시도 방지
+                            
+                        elif imgbb_response.status == 400:
+                            response_text = await imgbb_response.text()
+                            print(f"{datetime.now()} ImgBB 잘못된 요청 (400): {response_text[:200]}")
+                            return ""  # 빈 문자열로 재시도 방지
+                            
+                        else:
+                            response_text = await imgbb_response.text()
+                            print(f"{datetime.now()} ImgBB 업로드 실패: {imgbb_response.status}")
+                            print(f"응답: {response_text[:200]}")
+                            
+                            # 마지막 시도에서 실패한 경우
+                            if attempt == MAX_RETRIES - 1:
+                                return None
+                    
+                    # 지수 백오프 적용 (재시도가 필요한 경우)
+                    if attempt < MAX_RETRIES - 1:
+                        await asyncio.sleep(BASE_DELAY * (2 ** attempt))
+                    
+                except asyncio.TimeoutError:
+                    end_time = datetime.now()
+                    response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+                    
+                    # 타임아웃 로깅
+                    asyncio.create_task(performance_manager.log_api_performance(
+                        api_type='imgbb_upload',
+                        response_time_ms=response_time_ms,
+                        is_success=False,
+                        error_type='TimeoutError',
+                        retry_count=attempt
+                    ))
+                    
+                    print(f"{datetime.now()} ImgBB 업로드 타임아웃 (시도 {attempt + 1}/{MAX_RETRIES})")
+                    
+                    # 마지막 시도에서 실패한 경우
+                    if attempt == MAX_RETRIES - 1:
+                        return None
+                    
+                    # 지수 백오프 적용
+                    await asyncio.sleep(BASE_DELAY * (2 ** attempt))
+                    
+                except ClientError as e:
+                    end_time = datetime.now()
+                    response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+                    
+                    # 연결 오류 로깅
+                    asyncio.create_task(performance_manager.log_api_performance(
+                        api_type='imgbb_upload',
+                        response_time_ms=response_time_ms,
+                        is_success=False,
+                        error_type=type(e).__name__,
+                        error_message=str(e)[:200],
+                        retry_count=attempt
+                    ))
+                    
+                    print(f"{datetime.now()} ImgBB 연결 오류 (시도 {attempt + 1}/{MAX_RETRIES}): {type(e).__name__}")
+                    
+                    # 마지막 시도에서 실패한 경우
+                    if attempt == MAX_RETRIES - 1:
+                        return None
+                    
+                    # 지수 백오프 적용
+                    await asyncio.sleep(BASE_DELAY * (2 ** attempt))
+                    
+                except Exception as e:
+                    end_time = datetime.now()
+                    response_time_ms = int((end_time - start_time).total_seconds() * 1000)
+                    
+                    # 기타 예외 로깅
+                    asyncio.create_task(performance_manager.log_api_performance(
+                        api_type='imgbb_upload',
+                        response_time_ms=response_time_ms,
+                        is_success=False,
+                        error_type=type(e).__name__,
+                        error_message=str(e)[:200],
+                        retry_count=attempt
+                    ))
+                    
+                    print(f"{datetime.now()} ImgBB 업로드 오류 (시도 {attempt + 1}/{MAX_RETRIES}): {type(e).__name__}: {str(e)[:100]}")
+                    
+                    # 마지막 시도에서 실패한 경우
+                    if attempt == MAX_RETRIES - 1:
+                        return None
+                    
+                    # 지수 백오프 적용
+                    await asyncio.sleep(BASE_DELAY * (2 ** attempt))
         
+        # 모든 재시도 실패
+        return None
+            
     except Exception as e:
-        print(f"{datetime.now()} ImgBB 업로드 중 예외 발생: {e}")
+        print(f"{datetime.now()} ImgBB 업로드 전체 프로세스 오류: {type(e).__name__}: {str(e)[:100]}")
         import traceback
         traceback.print_exc()
         return None

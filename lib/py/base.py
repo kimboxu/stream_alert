@@ -492,7 +492,7 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
     		"needs_cookies": False,
 			"needs_params": False,
 			"url_formatter": link,
-			"response_handler": lambda response: response.content,
+			"response_handler": lambda response: response,
 		},
 	}
 	
