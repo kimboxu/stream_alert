@@ -403,5 +403,94 @@
       "fcm": 192,
       "total": 3180
     }
+  },
+  "2025-10-08": {
+    "date": "2025-10-08",
+    "calculated_at": "2025-10-09T07:33:14.323701",
+    "period": {
+      "start": "2025-10-08T00:00:00",
+      "end": "2025-10-08T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 783360,
+        "successful_requests": 783356,
+        "failed_requests": 4,
+        "avg_response_time_ms": 603.58,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 387763,
+        "successful_requests": 387761,
+        "failed_requests": 2,
+        "avg_response_time_ms": 211.8,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1243359,
+        "successful_requests": 1243355,
+        "failed_requests": 4,
+        "avg_response_time_ms": 441.55,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 8739,
+        "successful_requests": 8724,
+        "failed_requests": 15,
+        "avg_response_time_ms": 419.63,
+        "success_rate_percent": 99.83
+      },
+      "fcm_push": {
+        "total_requests": 240,
+        "successful_requests": 240,
+        "failed_requests": 0,
+        "avg_response_time_ms": 203.59,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 5773,
+        "successful_requests": 5766,
+        "failed_requests": 7,
+        "avg_response_time_ms": 708.9,
+        "success_rate_percent": 99.88
+      },
+      "youtube_api": {
+        "total_requests": 11,
+        "successful_requests": 11,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1129.45,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 20,
+        "successful_requests": 20,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1975.45,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2429265,
+      "successful_requests": 2429233,
+      "failed_requests": 32,
+      "overall_success_rate_percent": 100.0,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "cafe_api",
+        "chzzk_api",
+        "image_api",
+        "fcm_push",
+        "discord_webhook",
+        "youtube_api",
+        "imgbb_upload"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5766,
+      "fcm": 240,
+      "total": 6006
+    }
   }
 }
