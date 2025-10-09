@@ -6,6 +6,10 @@ import argparse
 import sys
 import asyncio
 from pathlib import Path
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+import platform
 
 # AI 기능을 위한 추가 임포트
 try:
@@ -161,8 +165,365 @@ class SessionBasedFunScoreAnalyzer:
         print(f"📊 총 {len(files)}개 파일에서 {len(all_logs)}개 로그 로드됨")
         return all_logs
     
+    def calculate_highlight_statistics(self, session_logs):
+        """
+        하이라이트로 판단된 점수들의 통계를 계산
+        
+        Args:
+            session_logs: 세션 로그 리스트
+            
+        Returns:
+            통계 정보를 담은 딕셔너리
+        """
+        # 원본 알고리즘 하이라이트 점수 수집
+        original_highlight_scores = []
+        original_big_highlight_scores = []
+        
+        # Test 알고리즘 하이라이트 점수 수집
+        test_highlight_scores = []
+        test_big_highlight_scores = []
+        
+        for log in session_logs:
+            score_components = log.get('score_components', {})
+            
+            # 원본 하이라이트 점수
+            if (score_components.get('highlights', False) and 
+                score_components.get('should_create_new_highlight', True)):
+                original_highlight_scores.append(log['fun_score'])
+                
+                # 대형 하이라이트인 경우
+                if score_components.get('big_highlights', False):
+                    original_big_highlight_scores.append(log['fun_score'])
+            
+            # Test 하이라이트 점수
+            if (score_components.get('test_highlights', False) and 
+                score_components.get('test_should_create_new_highlight', True)):
+                test_highlight_scores.append(log.get('test_fun_score', 0))
+                
+                # Test 대형 하이라이트인 경우
+                if score_components.get('test_big_highlights', False):
+                    test_big_highlight_scores.append(log.get('test_fun_score', 0))
+        
+        # 통계 계산 함수
+        def calc_stats(scores):
+            if not scores:
+                return {
+                    'count': 0,
+                    'mean': 0.0,
+                    'std': 0.0,
+                    'variance': 0.0,
+                    'min': 0.0,
+                    'max': 0.0,
+                    'median': 0.0
+                }
+            
+            arr = np.array(scores)
+            return {
+                'count': len(scores),
+                'mean': float(np.mean(arr)),
+                'std': float(np.std(arr, ddof=1)) if len(scores) > 1 else 0.0,  # 표본 표준편차
+                'variance': float(np.var(arr, ddof=1)) if len(scores) > 1 else 0.0,  # 표본 분산
+                'min': float(np.min(arr)),
+                'max': float(np.max(arr)),
+                'median': float(np.median(arr))
+            }
+        
+        return {
+            'original_highlights': calc_stats(original_highlight_scores),
+            'original_big_highlights': calc_stats(original_big_highlight_scores),
+            'test_highlights': calc_stats(test_highlight_scores),
+            'test_big_highlights': calc_stats(test_big_highlight_scores)
+        }
+
+    def print_highlight_statistics(self, stats, session_name=""):
+        """
+        하이라이트 통계를 보기 좋게 출력
+        
+        Args:
+            stats: calculate_highlight_statistics()의 반환값
+            session_name: 세션 이름 (출력용)
+        """
+        title = f"하이라이트 점수 통계 분석{' - ' + session_name if session_name else ''}"
+        print(f"\n{'='*80}")
+        print(f"📊 {title}")
+        print(f"{'='*80}")
+        
+        # 원본 알고리즘 통계
+        print(f"\n🔵 원본 알고리즘:")
+        print(f"{'─'*80}")
+        
+        orig_hl = stats['original_highlights']
+        print(f"  일반 하이라이트 ({orig_hl['count']}개):")
+        if orig_hl['count'] > 0:
+            print(f"    • 평균:      {orig_hl['mean']:.2f}")
+            print(f"    • 표준편차:  {orig_hl['std']:.2f}")
+            print(f"    • 분산:      {orig_hl['variance']:.2f}")
+            print(f"    • 최소/최대: {orig_hl['min']:.2f} / {orig_hl['max']:.2f}")
+            print(f"    • 중앙값:    {orig_hl['median']:.2f}")
+        else:
+            print(f"    • 데이터 없음")
+        
+        orig_big = stats['original_big_highlights']
+        print(f"\n  대형 하이라이트 ({orig_big['count']}개):")
+        if orig_big['count'] > 0:
+            print(f"    • 평균:      {orig_big['mean']:.2f}")
+            print(f"    • 표준편차:  {orig_big['std']:.2f}")
+            print(f"    • 분산:      {orig_big['variance']:.2f}")
+            print(f"    • 최소/최대: {orig_big['min']:.2f} / {orig_big['max']:.2f}")
+            print(f"    • 중앙값:    {orig_big['median']:.2f}")
+        else:
+            print(f"    • 데이터 없음")
+        
+        # Test 알고리즘 통계
+        print(f"\n🔴 단순 키워드 기반 알고리즘:")
+        print(f"{'─'*80}")
+        
+        test_hl = stats['test_highlights']
+        print(f"  일반 하이라이트 ({test_hl['count']}개):")
+        if test_hl['count'] > 0:
+            print(f"    • 평균:      {test_hl['mean']:.2f}")
+            print(f"    • 표준편차:  {test_hl['std']:.2f}")
+            print(f"    • 분산:      {test_hl['variance']:.2f}")
+            print(f"    • 최소/최대: {test_hl['min']:.2f} / {test_hl['max']:.2f}")
+            print(f"    • 중앙값:    {test_hl['median']:.2f}")
+        else:
+            print(f"    • 데이터 없음")
+        
+        test_big = stats['test_big_highlights']
+        print(f"\n  대형 하이라이트 ({test_big['count']}개):")
+        if test_big['count'] > 0:
+            print(f"    • 평균:      {test_big['mean']:.2f}")
+            print(f"    • 표준편차:  {test_big['std']:.2f}")
+            print(f"    • 분산:      {test_big['variance']:.2f}")
+            print(f"    • 최소/최대: {test_big['min']:.2f} / {test_big['max']:.2f}")
+            print(f"    • 중앙값:    {test_big['median']:.2f}")
+        else:
+            print(f"    • 데이터 없음")
+        
+        # 비교 분석
+        print(f"\n💡 비교 분석:")
+        print(f"{'─'*80}")
+        
+        if orig_hl['count'] > 0 and test_hl['count'] > 0:
+            mean_diff = orig_hl['mean'] - test_hl['mean']
+            std_diff = orig_hl['std'] - test_hl['std']
+            
+            print(f"  일반 하이라이트:")
+            print(f"    • 평균 차이:      {mean_diff:+.2f} (원본 {'>' if mean_diff > 0 else '<'} Test)")
+            print(f"    • 표준편차 차이:  {std_diff:+.2f} (원본이 {'더 분산' if std_diff > 0 else '덜 분산'})")
+            
+            # 변동계수(CV) 비교 - 상대적 변동성
+            cv_orig = (orig_hl['std'] / orig_hl['mean'] * 100) if orig_hl['mean'] != 0 else 0
+            cv_test = (test_hl['std'] / test_hl['mean'] * 100) if test_hl['mean'] != 0 else 0
+            print(f"    • 변동계수(CV):    원본 {cv_orig:.1f}% / Test {cv_test:.1f}%")
+        
+        print(f"{'='*80}\n")
+
+    def create_highlight_distribution_plots(self, session_logs, session_stats, save_plot=True):
+        """
+        하이라이트 점수의 정규분포 그래프 생성
+        - 히스토그램 + 정규분포 곡선
+        - Q-Q Plot (정규성 검정)
+        - 원본 vs Test 알고리즘 비교
+        """
+        if not session_logs:
+            return
+        
+        try:
+            
+            # 한글 폰트 설정
+            self._setup_korean_font(plt, platform)
+            
+            # 하이라이트 점수 수집
+            original_scores = []
+            test_scores = []
+            
+            for log in session_logs:
+                score_comp = log.get('score_components', {})
+                
+                # 원본 하이라이트
+                if (score_comp.get('highlights', False) and 
+                    score_comp.get('should_create_new_highlight', True)):
+                    original_scores.append(log['fun_score'])
+                
+                # Test 하이라이트
+                if (score_comp.get('test_highlights', False) and 
+                    score_comp.get('test_should_create_new_highlight', True)):
+                    test_scores.append(log.get('test_fun_score', 0))
+            
+            if not original_scores and not test_scores:
+                print("하이라이트 데이터가 없어서 정규분포 그래프를 생성할 수 없습니다.")
+                return
+            
+            # 2x2 서브플롯 생성
+            fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 12))
+            
+            # 1. 원본 알고리즘 히스토그램 + 정규분포 곡선
+            if original_scores:
+                self._plot_histogram_with_normal(
+                    ax1, original_scores, 
+                    "원본 알고리즘 하이라이트 점수 분포",
+                    'blue'
+                )
+            else:
+                ax1.text(0.5, 0.5, '원본 하이라이트 데이터 없음', 
+                        ha='center', va='center', transform=ax1.transAxes)
+            
+            # 2. Test 알고리즘 히스토그램 + 정규분포 곡선
+            if test_scores:
+                self._plot_histogram_with_normal(
+                    ax2, test_scores,
+                    "단순 키워드 기반 하이라이트 점수 분포",
+                    'red'
+                )
+            else:
+                ax2.text(0.5, 0.5, 'Test 하이라이트 데이터 없음',
+                        ha='center', va='center', transform=ax2.transAxes)
+            
+            # 3. 원본 Q-Q Plot
+            if original_scores:
+                self._plot_qq(ax3, original_scores, "원본 알고리즘 Q-Q Plot", 'blue')
+            else:
+                ax3.text(0.5, 0.5, '원본 하이라이트 데이터 없음',
+                        ha='center', va='center', transform=ax3.transAxes)
+            
+            # 4. Test Q-Q Plot
+            if test_scores:
+                self._plot_qq(ax4, test_scores, "단순 키워드 기반 Q-Q Plot", 'red')
+            else:
+                ax4.text(0.5, 0.5, 'Test 하이라이트 데이터 없음',
+                        ha='center', va='center', transform=ax4.transAxes)
+            
+            # 전체 타이틀
+            fig.suptitle(
+                f'하이라이트 점수 정규분포 분석 - {session_stats["date_str"]}\n'
+                f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]})',
+                fontsize=14, fontweight='bold'
+            )
+            
+            plt.tight_layout()
+            
+            if save_plot:
+                start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
+                filename = f"{self.channel_name}_{start_date}_distribution.png"
+                plot_path = self.plots_dir / filename
+                plt.savefig(plot_path, dpi=150, bbox_inches='tight')
+                print(f"📊 정규분포 그래프 저장: {plot_path}")
+            
+            plt.show()
+            
+        except ImportError as e:
+            print(f"⚠️ 필요한 라이브러리가 설치되지 않아 정규분포 그래프를 생성할 수 없습니다: {e}")
+            print("   scipy를 설치해주세요: pip install scipy")
+
+    def _plot_histogram_with_normal(self, ax, scores, title, color):
+        """히스토그램과 정규분포 곡선을 그리는 헬퍼 메서드"""
+        
+        scores_array = np.array(scores)
+        
+        # 통계량 계산
+        mean = np.mean(scores_array)
+        std = np.std(scores_array, ddof=1)
+        skewness = stats.skew(scores_array)
+        kurtosis = stats.kurtosis(scores_array)
+        
+        # 히스토그램
+        n, bins, patches = ax.hist(
+            scores_array, 
+            bins=20,
+            density=True,
+            alpha=0.7,
+            color=color,
+            edgecolor='black',
+            label='실제 분포'
+        )
+        
+        # 정규분포 곡선
+        x = np.linspace(scores_array.min(), scores_array.max(), 100)
+        normal_curve = stats.norm.pdf(x, mean, std)
+        ax.plot(x, normal_curve, 'k--', linewidth=2, label='이론적 정규분포')
+        
+        # 평균선
+        ax.axvline(mean, color='red', linestyle='-', linewidth=2, alpha=0.7, label=f'평균: {mean:.2f}')
+        
+        # ±1σ, ±2σ 영역 표시
+        ax.axvline(mean - std, color='orange', linestyle=':', linewidth=1.5, alpha=0.6, label=f'±1σ')
+        ax.axvline(mean + std, color='orange', linestyle=':', linewidth=1.5, alpha=0.6)
+        ax.axvline(mean - 2*std, color='green', linestyle=':', linewidth=1.5, alpha=0.5, label=f'±2σ')
+        ax.axvline(mean + 2*std, color='green', linestyle=':', linewidth=1.5, alpha=0.5)
+        
+        # 통계 정보 텍스트 박스
+        textstr = '\n'.join([
+            f'샘플 수: {len(scores)}개',
+            f'평균(μ): {mean:.2f}',
+            f'표준편차(σ): {std:.2f}',
+            f'분산(σ²): {std**2:.2f}',
+            f'왜도: {skewness:.3f}',
+            f'첨도: {kurtosis:.3f}'
+        ])
+        
+        props = dict(boxstyle='round', facecolor='wheat', alpha=0.8)
+        ax.text(0.98, 0.97, textstr, transform=ax.transAxes,
+                verticalalignment='top', horizontalalignment='right',
+                bbox=props, fontsize=9)
+        
+        # 정규성 검정 (Shapiro-Wilk test)
+        if len(scores) >= 3:
+            statistic, p_value = stats.shapiro(scores_array)
+            normality_text = f'Shapiro-Wilk 검정\np-value: {p_value:.4f}\n'
+            if p_value > 0.05:
+                normality_text += '→ 정규분포 가정 가능'
+            else:
+                normality_text += '→ 정규분포 아닐 가능성'
+            
+            ax.text(0.02, 0.97, normality_text, transform=ax.transAxes,
+                    verticalalignment='top', horizontalalignment='left',
+                    bbox=dict(boxstyle='round', facecolor='lightblue', alpha=0.8),
+                    fontsize=9)
+        
+        ax.set_title(title, fontsize=12, fontweight='bold')
+        ax.set_xlabel('하이라이트 점수', fontsize=10)
+        ax.set_ylabel('확률 밀도', fontsize=10)
+        ax.legend(loc='upper right', fontsize=9)
+        ax.grid(True, alpha=0.3)
+
+    def _plot_qq(self, ax, scores, title, color):
+        """Q-Q Plot을 그리는 헬퍼 메서드""" 
+        
+        scores_array = np.array(scores)
+        
+        # Q-Q plot 데이터 생성
+        (theoretical_quantiles, ordered_values), (slope, intercept, r) = stats.probplot(scores_array, dist="norm")
+        
+        # Q-Q plot
+        ax.scatter(theoretical_quantiles, ordered_values, alpha=0.6, color=color, s=30, label='실제 데이터')
+        
+        # 이론적 직선
+        ax.plot(theoretical_quantiles, slope * theoretical_quantiles + intercept, 
+                'r--', linewidth=2, label=f'이론적 직선 (R²={r**2:.3f})')
+        
+        # 통계 정보
+        textstr = f'결정계수(R²): {r**2:.4f}\n'
+        if r**2 > 0.95:
+            textstr += '→ 정규분포에 잘 부합'
+        elif r**2 > 0.90:
+            textstr += '→ 대체로 정규분포'
+        else:
+            textstr += '→ 정규분포 아닐 가능성'
+        
+        props = dict(boxstyle='round', facecolor='wheat', alpha=0.8)
+        ax.text(0.05, 0.95, textstr, transform=ax.transAxes,
+                verticalalignment='top', horizontalalignment='left',
+                bbox=props, fontsize=9)
+        
+        ax.set_title(title, fontsize=12, fontweight='bold')
+        ax.set_xlabel('이론적 분위수', fontsize=10)
+        ax.set_ylabel('실제 분위수', fontsize=10)
+        ax.legend(loc='lower right', fontsize=9)
+        ax.grid(True, alpha=0.3)
+
     def analyze_session(self, session_logs, date_str):
-        """ 세션 분석"""
+        """세션 분석"""
         if not session_logs:
             return {}
         
@@ -210,7 +571,6 @@ class SessionBasedFunScoreAnalyzer:
             if 'test_score_difference' in score_comp:
                 test_score_differences.append(score_comp['test_score_difference'])
             else:
-                # fallback: test용 별도 값 없으면 score_difference 그대로 활용
                 test_score_differences.append(score_comp.get('score_difference', 0))
 
         avg_baseline_thresholds = sum(baseline_thresholds) / len(baseline_thresholds) if baseline_thresholds else 50
@@ -219,6 +579,9 @@ class SessionBasedFunScoreAnalyzer:
 
         avg_test_score_difference = sum(test_score_differences) / len(test_score_differences) if test_score_differences else 0
         max_test_score_difference = max(test_score_differences) if test_score_differences else 0
+
+        # 하이라이트 점수 통계 계산
+        highlight_stats = self.calculate_highlight_statistics(session_logs)
 
         stats = {
             'date_str': date_str,
@@ -259,6 +622,9 @@ class SessionBasedFunScoreAnalyzer:
             # 뷰어 수
             'max_viewers': max([log['analysis_data']['viewer_count'] for log in session_logs]),
             'avg_viewers': sum([log['analysis_data']['viewer_count'] for log in session_logs]) / len(session_logs),
+            
+            # 하이라이트 점수 통계
+            'highlight_statistics': highlight_stats,
         }
 
         return stats
@@ -269,8 +635,6 @@ class SessionBasedFunScoreAnalyzer:
             return
         
         try:
-            import matplotlib.pyplot as plt
-            import platform
             
             # 한글 폰트 설정
             self._setup_korean_font(plt, platform)
@@ -514,8 +878,6 @@ class SessionBasedFunScoreAnalyzer:
             return
         
         try:
-            import matplotlib.pyplot as plt
-            import platform
             
             # 한글 폰트 설정
             plt.rcParams['font.family'] = ['DejaVu Sans']
@@ -626,8 +988,6 @@ class SessionBasedFunScoreAnalyzer:
             return
         
         try:
-            import matplotlib.pyplot as plt
-            import platform
             
             # 한글 폰트 설정
             plt.rcParams['font.family'] = ['DejaVu Sans']
@@ -1651,6 +2011,33 @@ class SessionBasedFunScoreAnalyzer:
             else:
                 f.write(f"• 두 알고리즘의 하이라이트 감지율이 적절한 범위 내에 있습니다.\n")
 
+            # 하이라이트 점수 통계 섹션
+            f.write(f"\n{'='*80}\n")
+            f.write(f"📊 하이라이트 점수 통계 분석\n")
+            f.write(f"{'='*80}\n")
+            
+            for i, stats in enumerate(all_session_stats, 1):
+                if 'highlight_statistics' not in stats:
+                    continue
+                
+                hl_stats = stats['highlight_statistics']
+                start_date_str = datetime.fromisoformat(stats['start_time']).strftime('%Y-%m-%d %H:%M')
+                
+                f.write(f"\n세션 {i} ({start_date_str}):\n")
+                f.write(f"{'─'*80}\n")
+                
+                # 원본 통계
+                orig_hl = hl_stats['original_highlights']
+                f.write(f"  🔵 원본 알고리즘 - 일반 하이라이트 ({orig_hl['count']}개):\n")
+                if orig_hl['count'] > 0:
+                    f.write(f"     평균: {orig_hl['mean']:.2f} | 표준편차: {orig_hl['std']:.2f} | 분산: {orig_hl['variance']:.2f}\n")
+                
+                # Test 통계
+                test_hl = hl_stats['test_highlights']
+                f.write(f"  🔴 Test 알고리즘 - 일반 하이라이트 ({test_hl['count']}개):\n")
+                if test_hl['count'] > 0:
+                    f.write(f"     평균: {test_hl['mean']:.2f} | 표준편차: {test_hl['std']:.2f} | 분산: {test_hl['variance']:.2f}\n")
+
         print(f"📄 상세 비교 리포트 저장: {report_path}")
     
     async def full_session_analysis(self):
@@ -1694,6 +2081,13 @@ class SessionBasedFunScoreAnalyzer:
             print(f"🌟 대형 하이라이트: {session_stats['big_highlights']}회 ({session_stats['big_highlight_rate']:.1f}%)")
             print(f"👥 최대 시청자: {session_stats['max_viewers']}명")
             
+            # 하이라이트 점수 통계 출력
+            if 'highlight_statistics' in session_stats:
+                self.print_highlight_statistics(
+                    session_stats['highlight_statistics'],
+                    f"{date_str} 세션"
+                )
+            
             # CSV 내보내기
             csv_file = self.export_session_to_csv(session_logs, session_stats)
 
@@ -1703,14 +2097,15 @@ class SessionBasedFunScoreAnalyzer:
             # 단순 키워드 기반 하이라이트 텍스트 파일 생성
             await self.export_test_highlights_to_text(session_logs, session_stats)
 
-            
             # 그래프 생성
             try:
                 self.create_integrated_session_plot(session_logs, session_stats)
-                # self.create_session_plot(session_logs, session_stats)
-                # self.create_test_session_plot(session_logs, session_stats)
+                
+                # 정규분포 그래프
+                self.create_highlight_distribution_plots(session_logs, session_stats)
             except Exception as e:
                 print(f"❌ 그래프 생성 실패: {e}")
+            # ===== 수정 끝 =====
         
         # 전체 요약
         self.create_session_summary(all_session_stats)
@@ -1721,7 +2116,6 @@ class SessionBasedFunScoreAnalyzer:
             start_date = datetime.fromisoformat(all_session_stats[0]['start_time']).strftime('%Y-%m-%d_%H%M')
             summary_filename = f"{self.channel_name}_summary_{start_date}.csv"
             
-            # csv 디렉토리에 저장
             summary_path = self.csv_dir / summary_filename
             summary_df.to_csv(summary_path, index=False, encoding='utf-8-sig')
             print(f"💾 세션 요약 CSV 저장: {summary_path}")
