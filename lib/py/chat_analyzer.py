@@ -443,7 +443,7 @@ class ChatAnalyzer:
             'score_difference': self.get_score_difference(final_score),
             'test_score_difference': self.test_get_score_difference(test_reaction_score),
             'should_create_new_highlight':self._should_create_new_highlight(final_score, current_time),
-            'test_should_create_new_highlight':self._should_create_new_highlight(test_reaction_score, current_time),
+            'test_should_create_new_highlight':self.test_should_create_new_highlight(test_reaction_score, current_time),
         }
         
         return score_details
