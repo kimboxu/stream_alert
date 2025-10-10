@@ -928,12 +928,12 @@ class ChatAnalyzer:
                 return
             
     async def test_change_score_to_peak(self, highlight: StreamHighlight):
-        if not self.highlights:
+        if not self.test_last_highlight:
             print(f"{datetime.now()} test highlights가 비어있어서 change_score_to_peak 건너뜀")
             return
         
         is_higher_score = False
-        if highlight.fun_score > self.highlights[-1].fun_score:
+        if highlight.fun_score > self.test_last_highlight.fun_score:
             is_higher_score = True
             
         
