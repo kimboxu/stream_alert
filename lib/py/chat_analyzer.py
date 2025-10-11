@@ -917,6 +917,7 @@ class ChatAnalyzer:
                     return
                 
                 highlight.score_details['should_create_new_highlight'] = True
+                self.detailed_logs[-1]['score_components']['should_create_new_highlight'] = True
 
                 if is_new_highlight_check_cnt >= 3:
                     return
@@ -956,6 +957,7 @@ class ChatAnalyzer:
                     return
                 
                 highlight.score_details['test_should_create_new_highlight'] = True
+                self.detailed_logs[-1]['score_components']['test_should_create_new_highlight'] = True
 
                 if is_new_highlight_check_cnt >= 3:
                     return
