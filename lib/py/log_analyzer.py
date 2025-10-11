@@ -321,102 +321,98 @@ class SessionBasedFunScoreAnalyzer:
 
     def create_highlight_distribution_plots(self, session_logs, session_stats, save_plot=True):
         """
-        하이라이트 점수의 정규분포 그래프 생성
-        - 히스토그램 + 정규분포 곡선
-        - Q-Q Plot (정규성 검정)
+        전체 + 하이라이트 재미도 점수의 정규분포 및 Q-Q Plot 생성
+        - 전체 & 하이라이트 각각에 대해 히스토그램 + 정규분포 곡선 + Q-Q Plot
         - 원본 vs Test 알고리즘 비교
         """
         if not session_logs:
             return
-        
+
         try:
-            
             # 한글 폰트 설정
             self._setup_korean_font(plt, platform)
-            
-            # 하이라이트 점수 수집
-            original_scores = []
-            test_scores = []
-            
+
+            # 전체 및 하이라이트 점수 수집
+            all_original, all_test = [], []
+            hl_original, hl_test = [], []
+
             for log in session_logs:
                 score_comp = log.get('score_components', {})
-                
-                # 원본 하이라이트
+
+                # 전체 점수
+                all_original.append(log['fun_score'])
+                all_test.append(log.get('test_fun_score', 0))
+
+                # 하이라이트 점수
                 if (score_comp.get('highlights', False) and 
                     score_comp.get('should_create_new_highlight', True)):
-                    original_scores.append(log['fun_score'])
-                
-                # Test 하이라이트
+                    hl_original.append(log['fun_score'])
                 if (score_comp.get('test_highlights', False) and 
                     score_comp.get('test_should_create_new_highlight', True)):
-                    test_scores.append(log.get('test_fun_score', 0))
-            
-            if not original_scores and not test_scores:
-                print("하이라이트 데이터가 없어서 정규분포 그래프를 생성할 수 없습니다.")
+                    hl_test.append(log.get('test_fun_score', 0))
+
+            if not any([all_original, all_test, hl_original, hl_test]):
+                print("재미도 점수 데이터가 없어 정규분포 그래프를 생성할 수 없습니다.")
                 return
-            
-            # 2x2 서브플롯 생성
-            fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 12))
-            
-            # 1. 원본 알고리즘 히스토그램 + 정규분포 곡선
-            if original_scores:
-                self._plot_histogram_with_normal(
-                    ax1, original_scores, 
-                    "원본 알고리즘 하이라이트 점수 분포",
-                    'blue'
-                )
-            else:
-                ax1.text(0.5, 0.5, '원본 하이라이트 데이터 없음', 
-                        ha='center', va='center', transform=ax1.transAxes)
-            
-            # 2. Test 알고리즘 히스토그램 + 정규분포 곡선
-            if test_scores:
-                self._plot_histogram_with_normal(
-                    ax2, test_scores,
-                    "단순 키워드 기반 하이라이트 점수 분포",
-                    'red'
-                )
-            else:
-                ax2.text(0.5, 0.5, 'Test 하이라이트 데이터 없음',
-                        ha='center', va='center', transform=ax2.transAxes)
-            
-            # 3. 원본 Q-Q Plot
-            if original_scores:
-                self._plot_qq(ax3, original_scores, "원본 알고리즘 Q-Q Plot", 'blue')
-            else:
-                ax3.text(0.5, 0.5, '원본 하이라이트 데이터 없음',
-                        ha='center', va='center', transform=ax3.transAxes)
-            
-            # 4. Test Q-Q Plot
-            if test_scores:
-                self._plot_qq(ax4, test_scores, "단순 키워드 기반 Q-Q Plot", 'red')
-            else:
-                ax4.text(0.5, 0.5, 'Test 하이라이트 데이터 없음',
-                        ha='center', va='center', transform=ax4.transAxes)
-            
+
+            # 4x2 서브플롯 (히스토그램 + Q-Q Plot)
+            fig, axes = plt.subplots(4, 2, figsize=(16, 20))
+            titles = [
+                ("원본 전체 점수 분포", "단순 키워드 기반 전체 점수 분포"),
+                ("원본 전체 Q-Q Plot", "단순 키워드 기반 전체 Q-Q Plot"),
+                ("원본 하이라이트 점수 분포", "단순 키워드 기반 하이라이트 점수 분포"),
+                ("원본 하이라이트 Q-Q Plot", "단순 키워드 기반 하이라이트 Q-Q Plot"),
+            ]
+
+            # helper
+            def plot_or_text(func, ax, data, title, color, plot_type='hist', state = "하이라이트"):
+                if data:
+                    if plot_type == 'hist':
+                        func(ax, data, title, color, state)
+                    else:
+                        func(ax, data, title, color, state)
+                else:
+                    ax.text(0.5, 0.5, '데이터 없음', ha='center', va='center', transform=ax.transAxes)
+
+            # 1행: 전체 히스토그램
+            plot_or_text(self._plot_histogram_with_normal, axes[0,0], all_original, titles[0][0], 'blue', 'hist', "재미도")
+            plot_or_text(self._plot_histogram_with_normal, axes[0,1], all_test, titles[0][1], 'red', 'hist', "재미도")
+
+            # 2행: 전체 Q-Q Plot
+            plot_or_text(self._plot_qq, axes[1,0], all_original, titles[1][0], 'blue', 'qq')
+            plot_or_text(self._plot_qq, axes[1,1], all_test, titles[1][1], 'red', 'qq')
+
+            # 3행: 하이라이트 히스토그램
+            plot_or_text(self._plot_histogram_with_normal, axes[2,0], hl_original, titles[2][0], 'blue', 'hist')
+            plot_or_text(self._plot_histogram_with_normal, axes[2,1], hl_test, titles[2][1], 'red', 'hist')
+
+            # 4행: 하이라이트 Q-Q Plot
+            plot_or_text(self._plot_qq, axes[3,0], hl_original, titles[3][0], 'blue', 'qq')
+            plot_or_text(self._plot_qq, axes[3,1], hl_test, titles[3][1], 'red', 'qq')
+
             # 전체 타이틀
             fig.suptitle(
-                f'하이라이트 점수 정규분포 분석 - {session_stats["date_str"]}\n'
-                f'({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]})',
+                f'전체 및 하이라이트 재미도 점수 정규분포 및 Q-Q Plot 분석\n'
+                f'{session_stats["date_str"]} ({session_stats["start_after_open"]} ~ {session_stats["end_after_open"]})',
                 fontsize=14, fontweight='bold'
             )
-            
+
             plt.tight_layout()
-            
+
             if save_plot:
                 start_date = datetime.fromisoformat(session_stats['start_time']).strftime('%Y-%m-%d_%H%M')
-                filename = f"{self.channel_name}_{start_date}_distribution.png"
+                filename = f"{self.channel_name}_{start_date}_distribution_full.png"
                 plot_path = self.plots_dir / filename
                 plt.savefig(plot_path, dpi=150, bbox_inches='tight')
-                print(f"📊 정규분포 그래프 저장: {plot_path}")
-            
+                print(f"📊 정규분포 + Q-Q Plot 그래프 저장: {plot_path}")
+
             plt.show()
-            
+
         except ImportError as e:
             print(f"⚠️ 필요한 라이브러리가 설치되지 않아 정규분포 그래프를 생성할 수 없습니다: {e}")
             print("   scipy를 설치해주세요: pip install scipy")
 
-    def _plot_histogram_with_normal(self, ax, scores, title, color):
+    def _plot_histogram_with_normal(self, ax, scores, title, color, state = "하이라이트"):
         """히스토그램과 정규분포 곡선을 그리는 헬퍼 메서드"""
         
         scores_array = np.array(scores)
@@ -482,12 +478,12 @@ class SessionBasedFunScoreAnalyzer:
                     fontsize=9)
         
         ax.set_title(title, fontsize=12, fontweight='bold')
-        ax.set_xlabel('하이라이트 점수', fontsize=10)
+        ax.set_xlabel(f'{state}점수', fontsize=10)
         ax.set_ylabel('확률 밀도', fontsize=10)
         ax.legend(loc='upper right', fontsize=9)
         ax.grid(True, alpha=0.3)
 
-    def _plot_qq(self, ax, scores, title, color):
+    def _plot_qq(self, ax, scores, title, color, state = "하이라이트"):
         """Q-Q Plot을 그리는 헬퍼 메서드""" 
         
         scores_array = np.array(scores)
