@@ -673,7 +673,7 @@ class ChatAnalyzer:
         if self.last_highlight is None:
             return True
            
-        # 쿨다운: 2분 간격
+        # 쿨다운: 90초 간격
         if not self.check_cooldown(current_time, self.last_highlight.timestamp):
             return False
 
@@ -687,7 +687,7 @@ class ChatAnalyzer:
         if self.test_last_highlight is None:
             return True
            
-        # 쿨다운: 2분 간격
+        # 쿨다운: 90초 간격
         if not self.check_cooldown(current_time, self.test_last_highlight.timestamp):
             return False
 
@@ -696,7 +696,7 @@ class ChatAnalyzer:
     def check_cooldown(self, current_time: datetime, last_timestamp: datetime):
         time_diff = (current_time - datetime.fromisoformat(last_timestamp)).total_seconds()
         
-        # 쿨다운: 2분 간격
+        # 쿨다운: 90초 간격
         if time_diff < self.cooldown:
             return False
         return True
