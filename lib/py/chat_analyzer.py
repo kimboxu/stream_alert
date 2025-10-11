@@ -41,6 +41,7 @@ class StreamHighlight:
     channel_id: str
     channel_name: str
     fun_score: float
+    test_fun_score: float
     reason: str
     chat_context: List[str]
     duration: int  # seconds
@@ -743,6 +744,7 @@ class ChatAnalyzer:
             channel_id=self.channel_id,
             channel_name=self.channel_name,
             fun_score=detailed_log['fun_score'],
+            test_fun_score=detailed_log['test_fun_score'],
             reason=detailed_log['reason'],
             chat_context=detailed_log['chat_context'],
             duration=self.window_size,
@@ -934,7 +936,7 @@ class ChatAnalyzer:
             return
         
         is_higher_score = False
-        if highlight.fun_score > self.test_last_highlight.fun_score:
+        if highlight.test_fun_score > self.test_last_highlight.test_fun_score:
             is_higher_score = True
             
         
