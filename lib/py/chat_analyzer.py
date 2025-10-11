@@ -903,7 +903,7 @@ class ChatAnalyzer:
             is_new_highlight_check_cnt = 0
             for i,detailed_log in enumerate(reversed(self.detailed_logs)):
                 # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있는지
-                if not detailed_log['score_components']['highlights']:
+                if not detailed_log['score_components']['should_create_new_highlight']:
                     is_new_highlight_check_cnt += 1
 
                 if detailed_log['score_components']['should_create_new_highlight']:
@@ -942,7 +942,7 @@ class ChatAnalyzer:
             is_new_highlight_check_cnt = 0
             for i,detailed_log in enumerate(reversed(self.detailed_logs)):
                 # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있는지
-                if not detailed_log['score_components']['test_highlights']:
+                if not detailed_log['score_components']['test_should_create_new_highlight']:
                     is_new_highlight_check_cnt += 1
 
                 if detailed_log['score_components']['test_should_create_new_highlight']:
