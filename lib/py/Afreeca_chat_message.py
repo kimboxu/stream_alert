@@ -55,6 +55,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         channel_name = self.init.afreecaIDList.loc[channel_id, 'channelName']
         
         # 채팅 데이터 객체 초기화
+        self.state_update_time = init_var.afreeca_titleData.loc[channel_id, 'state_update_time']
         self.data = AfreecaChatData(channel_id=channel_id, channel_name=channel_name)
         
         # 동시 채팅 요청 제한을 위한 세마포어
@@ -206,14 +207,14 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         async def should_close_connection():
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
             check_chat = self.init.chat_json[self.data.channel_id]
-            is_close = await self.check_live_state_close()
+            is_close = self.check_live_state_close()
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
                                   and (if_after_time(self.data.last_chat_time, sec = 60))
                                   and if_after_time(join_time, sec = 30))
             
             if (is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
-            return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel
+            return ((is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel)
                  
         # 메시지 버퍼링을 위한 변수들
         message_buffer = []
