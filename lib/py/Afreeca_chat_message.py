@@ -204,17 +204,23 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     async def _receive_messages(self):
         # 연결 종료 여부 확인 함수
         async def should_close_connection():
-            if (is_close:= self.check_live_state_close() or self.init.chat_json[self.data.channel_id]):
+            is_change_chatChannel = await self.check_change_chatChannel(join_time)
+            check_chat = self.init.chat_json[self.data.channel_id]
+            is_close = await self.check_live_state_close()
+            is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
+                                  and (if_after_time(self.data.last_chat_time, sec = 60))
+                                  and if_after_time(join_time, sec = 30))
+            
+            if (is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
-
-            return (is_close and if_after_time(self.data.last_chat_time) 
-                    or self.init.chat_json[self.data.channel_id])
+            return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel
                  
         # 메시지 버퍼링을 위한 변수들
         message_buffer = []
         buffer_size = 5 
         buffer_timeout = 0.05
         last_buffer_flush = datetime.now().isoformat()
+        join_time= datetime.now().isoformat()
 
         while True:
             try:
@@ -262,6 +268,15 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 asyncio.create_task(log_error(f"{self.data.channel_id} afreeca chat test except {e}"))
                 try: await self.data.sock.close()
                 except Exception: pass
+
+    async def check_change_chatChannel(self, connect_time):
+        if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60):
+            BNO = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
+            if BNO != self.data.BNO:
+                print(f"{datetime.now()} check {self.data.channel_id},{self.data.BNO},BNO check_live_state_close")
+                # asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
+                return True
+        return False
 
     # 메시지 디코딩 및 처리 
     async def _decode_message(self):
@@ -395,7 +410,6 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             except Exception as e:
                 asyncio.create_task(log_error(f"error postChat: {str(e)}"))
- 
 
     # 유저 정보 가져오기
     async def _get_user_info(self, user_id):

@@ -144,7 +144,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 메시지 수신 태스크
     async def _message_receiver(self, message_queue: asyncio.Queue):
         async def should_close_connection():
-            is_change_chatChannel = await self.check_change_chatChannel(connect_time)
+            is_change_chatChannel = await self.check_change_chatChannel(join_time)
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = await self.check_live_state_close()
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
@@ -154,8 +154,6 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             if (is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
             return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel
-
-        connect_time = datetime.now().isoformat()
 
         json_loads = loads
         message_buffer = []

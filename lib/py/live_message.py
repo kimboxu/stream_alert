@@ -20,7 +20,6 @@ from base import (
     update_flag,
     if_after_time,
     save_profile_data,
-    save_airing_data,
     get_message,
     chzzk_getLink,
     chzzk_getChannelOffStateData,
