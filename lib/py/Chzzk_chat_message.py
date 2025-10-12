@@ -59,7 +59,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id, False))
             
             # 방송이 종료되었다면 대기(5초 마다 확인)
-            if await self.check_live_state_close():
+            if self.check_live_state_close():
                 await asyncio.sleep(5)
                 continue
             
@@ -146,7 +146,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         async def should_close_connection():
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
             check_chat = self.init.chat_json[self.data.channel_id]
-            is_close = await self.check_live_state_close()
+            is_close = self.check_live_state_close()
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
                                   and (if_after_time(self.data.last_chat_time, sec = 60) and not self.is_connect)
                                   and if_after_time(join_time, sec = 30))
@@ -202,7 +202,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 
             except (JSONDecodeError, ConnectionError, RuntimeError, websockets.exceptions.ConnectionClosed) as e:
                 # 연결 오류 처리
-                if not await self.check_live_state_close():
+                if not self.check_live_state_close():
                     asyncio.create_task(log_error(f"{datetime.now()} last_chat_time{self.data.channel_id} 2.{self.data.last_chat_time}.{e}"))
                     try: await self.data.sock.close()
                     except Exception: pass
@@ -922,7 +922,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if byement: self._send(byement)
 
     # 방송 상태가 종료인지 확인하는 함수
-    async def check_live_state_close(self):
+    def check_live_state_close(self):
         try:
             # 채널의 라이브 상태가 "CLOSE"인지 확인
             return self.init.chzzk_titleData.loc[self.data.channel_id, 'live_state'] == "CLOSE"
