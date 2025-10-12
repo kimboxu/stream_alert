@@ -73,7 +73,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
     # 웹소켓 연결 및 메시지 처리 실행
     async def _connect_and_run(self):
-        print(f"{datetime.now()} {self.data.channel_id} 방송 켜짐, 기존  cid:{self.data.cid}")
+        connect_start_msg = f"{self.data.channel_id} 방송 켜짐"
+        if len(self.data.cid):
+            connect_start_msg += f", 기존  cid:{self.data.cid}"
+        print(f"{datetime.now()} {connect_start_msg}")
+
         async with websockets.connect('wss://kr-ss3.chat.naver.com/chat', 
                                     subprotocols=['chat'], 
                                     ping_interval=None) as sock:
