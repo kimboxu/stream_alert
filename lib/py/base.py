@@ -218,7 +218,7 @@ async def save_highlight_data(init, channelID = "all"):
 				highlights_count = instance_info['highlights_count']
 				chat_instance = instance_info['instance']
 
-				if channelID not in ["all"] or channelID != channel_id:
+				if channelID not in ["all"] and channelID != channel_id:
 					continue
 				
 				print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 중...")
