@@ -214,7 +214,7 @@ class ChatAnalyzer:
         # 임계값 설정
         self.small_fun_difference   = 15    # 작은 재미 차이
         self.big_fun_difference     = 70    # 큰 재미 차이
-        self.cooldown               = 90    # 쿨다운
+        self.cooldown               = 120    # 쿨다운
 
         # 로그 파일 설정
         self.detailed_logs = []  # 상세 분석 로그
@@ -674,7 +674,6 @@ class ChatAnalyzer:
         if self.last_highlight is None:
             return True
            
-        # 쿨다운: 90초 간격
         if not self.check_cooldown(current_time, self.last_highlight.timestamp):
             return False
 
@@ -688,7 +687,6 @@ class ChatAnalyzer:
         if self.test_last_highlight is None:
             return True
            
-        # 쿨다운: 90초 간격
         if not self.check_cooldown(current_time, self.test_last_highlight.timestamp):
             return False
 
@@ -697,7 +695,6 @@ class ChatAnalyzer:
     def check_cooldown(self, current_time: datetime, last_timestamp: datetime):
         time_diff = (current_time - datetime.fromisoformat(last_timestamp)).total_seconds()
         
-        # 쿨다운: 90초 간격
         if time_diff < self.cooldown:
             return False
         return True
@@ -912,7 +909,7 @@ class ChatAnalyzer:
                     idx = i
                     break
 
-            #직전 하이라이트의 should_create_new_highlight를 False로 변경 후 현재것을 True로 변경
+            #직전 하이라이트의 should_create_new_highlight를 False로 변경 후 현재 것을 True로 변경
             if idx:
                 # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있다면, 직전의 하이라이트 제거하지 않고, 새로운 하이라이트 추가
                 if not is_higher_score and is_new_highlight_check_cnt < 3:
