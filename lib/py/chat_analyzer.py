@@ -1180,6 +1180,9 @@ class ChatAnalyzer:
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight]):
         self.wait_make_highlight_chat = True
+        #최대 3번까지 재시도
+        max_retries = 3
+
         if not highlights:
             return []
         
@@ -1242,30 +1245,42 @@ class ChatAnalyzer:
             
             print(f"{datetime.now()} {highlight.channel_name} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
 
-            self.init.genai_cnt = (self.init.genai_cnt+1)%(10*len(environ['GOOGLE_API_KEY'].split(",")))
-            model = get_genai_model(self.init.genai_cnt)
-            response = await asyncio.to_thread(model.generate_content, msg_list)
-            
-            # JSON 파싱
-            try:
-                timeline_comments = json.loads(response.text)
-                if isinstance(timeline_comments, list):
-                    # 시간순으로 정렬
-                    timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
-                    print(f"{datetime.now()} 배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
-                    return timeline_comments
-                
-                else:
-                    raise ValueError("응답이 리스트 형태가 아닙니다")
+            for attempt in range(max_retries):
+                try:
+                    self.init.genai_cnt = (self.init.genai_cnt+1)%(10*len(environ['GOOGLE_API_KEY'].split(",")))
+                    model = get_genai_model(self.init.genai_cnt)
+                    response = await asyncio.to_thread(model.generate_content, msg_list)
 
-            except (json.JSONDecodeError, ValueError, KeyError) as e:
-                print(f"{datetime.now()} JSON 파싱 오류: {e}")
-                print(f"{datetime.now()} 응답 내용: {response.text}")
-                return []
-                        
-        except Exception as e:
-            await log_error(f"{datetime.now()}타임라인 댓글 생성 오류: {e}")
-            return []
+                    # JSON 파싱
+                    response_text = response.text.strip()
+                    
+                    # trailing comma 제거
+                    # 패턴: "value", } 또는 "value", ] 형태를 "value" } 또는 "value" ]로 변경
+                    response_text = re.sub(r',(\s*[}\]])', r'\1', response_text)
+                    
+                    # JSON 파싱 시도
+                    timeline_comments = json.loads(response_text)
+                    
+                    if isinstance(timeline_comments, list):
+                        # 시간순으로 정렬
+                        timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
+                        print(f"{datetime.now()} 배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
+                        return timeline_comments
+                    
+                    else:
+                        raise ValueError("응답이 리스트 형태가 아닙니다")
+
+                except (json.JSONDecodeError, ValueError) as e:
+                    print(f"{datetime.now()} JSON 파싱 실패 (시도 {attempt + 1}/{max_retries}): {e}")
+                    print(f"{datetime.now()} 응답 내용: {response.text}")
+                    
+                    if attempt < max_retries - 1:
+                        await asyncio.sleep(1)  # 1초 대기 후 재시도
+                        continue
+                    else:
+                        # 최종 실패
+                        await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
+                        return []
         finally:
             self.wait_make_highlight_chat = False
 
