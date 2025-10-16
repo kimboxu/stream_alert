@@ -726,7 +726,7 @@ class ChatAnalyzer:
                     # 썸네일 가져오기
                     thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
                     response = await get_message(self.performance_manager, "image", thumbnail_url)
-                    if response.get("status_code", None):
+                    if response.get("status_code", None) != 200:
                         print(f"{datetime.now()} _create_highlight 썸네일 가져오기 실패")
                         await asyncio.sleep(0.1)
                         continue
