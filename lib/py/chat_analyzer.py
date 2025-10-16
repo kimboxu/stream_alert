@@ -798,7 +798,7 @@ class ChatAnalyzer:
         try:
             for _ in range(300): # make_highlight_chat 실행 중 방송이 종료되어 _save_completed_highlight_chat_after_update가 실행 된 후에 make_highlight_chat이 완료되는 문제 해결을 위해 해당 상태 확인
                 if self.wait_make_highlight_chat:
-                    asyncio.sleep(1)
+                    await asyncio.sleep(1)
 
             self.init.wait_make_highlight_chat[self.channel_id] = True
             stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
