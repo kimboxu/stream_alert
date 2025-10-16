@@ -718,9 +718,8 @@ class ChatAnalyzer:
         return max(fun_score - min(a[2] for a in bef_recent_scores), 0)
     
     async def make_StreamHighlight(self,  detailed_log: dict, is_image = True):
-        if not is_image: 
-            image = ""
-        else:
+        image = ""
+        if is_image:
             for _ in range(10):
                 try:
                     # 썸네일 가져오기
@@ -735,7 +734,7 @@ class ChatAnalyzer:
                 except Exception as e:
                     await log_error(f"썸네일 가져오기 실패: {e}")
                     print(response)
-                    image = ""
+                
             
         highlight = StreamHighlight(
             timestamp=detailed_log['timestamp'],
