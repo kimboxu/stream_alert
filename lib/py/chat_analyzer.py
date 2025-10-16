@@ -734,6 +734,7 @@ class ChatAnalyzer:
                     break
                 except Exception as e:
                     await log_error(f"썸네일 가져오기 실패: {e}")
+                    print(response)
                     image = ""
             
         highlight = StreamHighlight(
