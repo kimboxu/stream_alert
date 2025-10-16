@@ -938,8 +938,8 @@ async def upload_image_to_imgbb(
         response = await get_message(performance_manager, "image", image_url)
         
         # 다운로드 실패 체크
-        if response.status_code != 200:
-            print(f"{datetime.now()} 이미지 다운로드 실패: {response.status_code}")
+        if (status_code := response.get("status_code", None)) != 200:
+            print(f"{datetime.now()} 이미지 다운로드 실패: {status_code}")
             return None
             
         # 이미지 크기 확인
