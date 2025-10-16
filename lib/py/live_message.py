@@ -943,7 +943,8 @@ async def upload_image_to_imgbb(
             return None
             
         # 이미지 크기 확인
-        image_size = len(response.content)
+        content = response.get("content", "")
+        image_size = len(content)
         max_size = 32 * 1024 * 1024  # 32MB
         
         print(f"{datetime.now()} 이미지 크기: {image_size / 1024 / 1024:.2f}MB")
@@ -958,7 +959,7 @@ async def upload_image_to_imgbb(
         
         # Base64 인코딩
         try:
-            b64_image = base64.b64encode(response.content).decode('utf-8')
+            b64_image = base64.b64encode(content).decode('utf-8')
             print(f"{datetime.now()} Base64 인코딩 완료 - 크기: {len(b64_image)} chars")
         except Exception as e:
             print(f"{datetime.now()} Base64 인코딩 실패: {e}")

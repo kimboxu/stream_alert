@@ -726,11 +726,11 @@ class ChatAnalyzer:
                     # 썸네일 가져오기
                     thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
                     response = await get_message(self.performance_manager, "image", thumbnail_url)
-                    if response.status_code != 200:
+                    if response.get("status_code", None):
                         print(f"{datetime.now()} _create_highlight 썸네일 가져오기 실패")
                         await asyncio.sleep(0.1)
                         continue
-                    image = PILImage.open(BytesIO(response.content))
+                    image = PILImage.open(BytesIO(response.get("content", "")))
                     break
                 except Exception as e:
                     await log_error(f"썸네일 가져오기 실패: {e}")
