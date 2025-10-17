@@ -240,6 +240,7 @@ class HighlightChatSaver:
             if not timeline_comments:
                 return {
                     "total_highlights": 0,
+                    "total_with_scores": 0,
                     "avg_score": 0.0,
                     "max_score": 0.0,
                     "min_score": 0.0,
@@ -264,6 +265,7 @@ class HighlightChatSaver:
             if not scores:
                 return {
                     "total_highlights": len(timeline_comments),
+                    "total_with_scores": len(scores),
                     "avg_score": 0.0,
                     "max_score": 0.0,
                     "min_score": 0.0,
@@ -299,6 +301,7 @@ class HighlightChatSaver:
             print(f"{datetime.now()} 통계 계산 오류: {e}")
             return {
                 "total_highlights": 0,
+                "total_with_scores": 0,
                 "avg_score": 0.0,
                 "max_score": 0.0,
                 "min_score": 0.0,
