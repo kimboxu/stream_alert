@@ -227,7 +227,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             try:
                 # 연결 종료 조건 확인
                 if await should_close_connection():
-                    try: await self.data.sock.close()
+                    try: 
+                        await self.data.sock.close()
+                        await self.data.sock.wait_closed()
                     except Exception: pass
 
                 # 소켓이 닫혔는지 확인
@@ -261,13 +263,17 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             except websockets.exceptions.ConnectionClosed:
                 # 연결 종료 시 로그 기록
                 asyncio.create_task(log_error(f"{self.data.channel_id}: 연결 비정상 종료"), webhook_url=environ['chat_post_url'])
-                try: await self.data.sock.close()
+                try: 
+                    await self.data.sock.close()
+                    await self.data.sock.wait_closed()
                 except Exception: pass
 
             except Exception as e: 
                 # 기타 예외 처리
                 asyncio.create_task(log_error(f"{self.data.channel_id} afreeca chat test except {e}"))
-                try: await self.data.sock.close()
+                try: 
+                    await self.data.sock.close()
+                    await self.data.sock.wait_closed()
                 except Exception: pass
 
     async def check_change_chatChannel(self, connect_time):

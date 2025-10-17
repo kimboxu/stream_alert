@@ -126,8 +126,12 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 except Exception as e:
                     await log_error(f"소켓 종료 중 에러: {e}")
                 finally:
-                    print(f"{datetime.now()} 소캣 정리 완료")
+                    print(f"{datetime.now()} CLOSED소캣 정리 완료")
                     self.data.sock = None
+            elif self.data.sock and self.data.sock.state == websockets.protocol.State.CLOSING:
+                await self.data.sock.wait_closed()
+                print(f"{datetime.now()} CLOSING소캣 정리 완료")
+                self.data.sock = None
         except Exception as e:
             await log_error(f"웹소켓 정리 에러 ({self.data.channel_id}): {e}")
         
