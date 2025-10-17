@@ -70,30 +70,30 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
             finally:
                 await self._cleanup_tasks()  # 태스크 정리
+                await asyncio.sleep(5)
 
     # 웹소켓 연결 및 메시지 처리 실행
     async def _connect_and_run(self):
         connect_start_msg = f"{self.data.channel_id} 방송 켜짐"
         if len(self.data.cid):
-            connect_start_msg += f", 기존  cid:{self.data.cid}"
+            connect_start_msg += f", 기존 cid:{self.data.cid}, 지금 {self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']}"
         print(f"{datetime.now()} {connect_start_msg}")
 
         async with websockets.connect('wss://kr-ss3.chat.naver.com/chat', 
                                     subprotocols=['chat'], 
                                     ping_interval=None) as sock:
             self.data.sock = sock
-            self.data.cid = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
+            # self.data.cid = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
 
             # 채널 ID 확인 및 갱신
             await self.get_check_channel_id()
             if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(self.state_update_time["changeChatChannelIdDate"], sec = 60) and not await self.change_chatChannelId():
                 return
-            
-            if not if_after_time(self.state_update_time["closeDate"], sec = 300):
-                await asyncio.sleep(10)
-            
+                
             await self.change_chatChannelId()
-            await self.connect()  # 연결 수립
+            if not (await self.connect()):  # 연결 수립
+                return 
+            
             message_queue = asyncio.Queue()  # 메시지 큐 생성
             await self.start_analyzer()     # 분석기 시작
 
@@ -119,10 +119,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         
         # 웹소켓 연결 강제 종료 및 정리
         try:
-            if hasattr(self, 'data') and hasattr(self.data, 'sock') and self.data.sock:
-                if not self.data.sock.closed:
+            if self.data.sock and self.data.sock.state != websockets.protocol.State.CLOSED:
+                try:
                     await self.data.sock.close()
-                self.data.sock = None
+                    await self.data.sock.wait_closed()
+                except Exception as e:
+                    await log_error(f"소켓 종료 중 에러: {e}")
+                finally:
+                    print(f"{datetime.now()} 소캣 정리 완료")
+                    self.data.sock = None
         except Exception as e:
             await log_error(f"웹소켓 정리 에러 ({self.data.channel_id}): {e}")
         
@@ -171,7 +176,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             try:
                 # 연결 종료 조건 확인
                 if await should_close_connection():
-                    try: await self.data.sock.close()
+                    try: 
+                        await self.data.sock.close()
+                        await self.data.sock.wait_closed()
                     except Exception: pass
 
                 if self.data.sock.state.name == 'CLOSED':
@@ -208,7 +215,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 # 연결 오류 처리
                 if not self.check_live_state_close():
                     asyncio.create_task(log_error(f"{datetime.now()} last_chat_time{self.data.channel_id} 2.{self.data.last_chat_time}.{e}"))
-                    try: await self.data.sock.close()
+                    try: 
+                        await self.data.sock.close()
+                        await self.data.sock.wait_closed()
                     except Exception: pass
                 asyncio.create_task(log_error(f"Test2 {self.data.channel_id}.{e}{datetime.now()}"))
                 continue
@@ -515,10 +524,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 self.data.last_chat_time = datetime.now().isoformat()
 
             asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {self.data.cid}", webhook_url=environ['chat_post_url']))
+            return True
 
         except Exception as e:
-            print(f"{datetime.now()} {self.data.channel_id} 연결 실패: {e}")
-            raise
+            print(f"{datetime.now()} {self.data.channel_id} 연결 실패: {e}, sock_response:{sock_response}")
+            return False
 
     # 메시지 전송 함수
     def _send(self, message):
