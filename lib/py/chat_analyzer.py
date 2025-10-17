@@ -1288,7 +1288,7 @@ class ChatAnalyzer:
         stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
         self.init.highlight_chat[self.channel_id][stream_start_id].timeline_comments.extend(timeline_comments)
                 
-        print(f"{datetime.now()} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
+        print(f"{datetime.now()} {self.channel_name} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
         for comment in timeline_comments:
             if 'comment_after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'description' in comment:
                 print(f"**{comment['comment_after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['description']}")
