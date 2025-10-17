@@ -933,7 +933,7 @@ async def upload_image_to_imgbb(
             return None
         
         # 1. 이미지 다운로드 (get_message가 자동으로 재시도 처리)
-        print(f"{datetime.now()} 이미지 다운로드 시작: {image_url[:80]}...")
+        print(f"{datetime.now()} 이미지 다운로드 시작: {image_url}")
         
         response = await get_message(performance_manager, "image", image_url)
         
@@ -1028,13 +1028,18 @@ async def upload_image_to_imgbb(
                                     return None
                             
                         elif imgbb_response.status == 429:
-                            print(f"{datetime.now()} ImgBB 레이트 제한 (429)")
+                            print(f"{datetime.now()} ImgBB 레이트 제한 ({imgbb_response.status})")
                             return ""  # 빈 문자열로 재시도 방지
                             
                         elif imgbb_response.status == 400:
                             response_text = await imgbb_response.text()
-                            print(f"{datetime.now()} ImgBB 잘못된 요청 (400): {response_text[:200]}")
+                            print(f"{datetime.now()} ImgBB 잘못된 요청 ({imgbb_response.status}): {response_text[:200]}")
                             return ""  # 빈 문자열로 재시도 방지
+                        
+                        elif imgbb_response.status == 503:
+                            response_text = await imgbb_response.text()
+                            if "Down for maintenance" in response_text:
+                                return "" # 빈 문자열로 재시도 방지
                             
                         else:
                             response_text = await imgbb_response.text()
