@@ -454,9 +454,18 @@ def afreeca_getLink(afreeca_id: str):
 
 # 플랫폼별 API 요청 처리 함수
 async def get_message(performance_manager: PerformanceManager, platform, link):
-	start_time = datetime.now()  # 시작 시간 기록
+	start_time = datetime.now()
 	
-	# 미리 정의된 플랫폼별 API 요청 구성
+	# 플랫폼별 타임아웃 설정
+	platform_timeout = {
+		"image": 3,        # 이미지는 3초만 대기
+		"afreeca": 10,
+		"chzzk": 10,
+		"twitch": 10,
+		"cafe": 10,
+		"youtube": 10,
+	}
+	
 	platform_config = {
 		"afreeca": {
 			"needs_cookies": False,
@@ -497,7 +506,7 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 				"text": response.text,
 				"content": getattr(response, "content", None),
 			},
-},
+		},
 	}
 	
 	try:
@@ -507,7 +516,10 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 		
 		# 기본 헤더 및 요청 설정
 		headers = {}
-		request_kwargs = {"timeout": 10}
+		
+		# 플랫폼별 타임아웃 설정 (이미지는 3초, 나머지는 10초)
+		timeout = platform_timeout.get(platform, 10)
+		request_kwargs = {"timeout": timeout}
 		
 		# 플랫폼별 헤더 설정
 		if platform == "chzzk":
@@ -544,10 +556,10 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 			elif platform == "chzzk":
 				pass
 		
-		# 재시도 설정
-		max_retries = 3
+		# 이미지 요청은 재시도 횟수 감소
+		max_retries = 1 if platform == "image" else 3
 		retry_count = 0
-		retry_delay = 2  # 초 단위
+		retry_delay = 1 if platform == "image" else 2
 		
 		# 재시도 메커니즘
 		while retry_count < max_retries:
@@ -612,28 +624,32 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 				retry_count += 1
 				error_type = type(e).__name__
 				error_msg = f"API 요청 타임아웃/연결 오류 (시도 {retry_count}/{max_retries}): {platform} - {error_type}: {str(e)}"
-				if retry_count >= max_retries: asyncio.create_task(log_error(error_msg))
-				# else: print(error_msg)
+				
+				if retry_count >= max_retries:
+					asyncio.create_task(log_error(error_msg))
+					return {}
+				# else: 
+				# 	print(error_msg)
 
-				# 연결 종료 에러의 경우 추가 대기 시간 부여
 				if "RemoteDisconnected" in error_type or "Connection aborted" in str(e):
 					await asyncio.sleep(retry_delay * 1.5)  # 일반 재시도보다 더 길게 대기
 				else:
 					await asyncio.sleep(retry_delay)
 				
 				retry_delay *= 2
-
-				if retry_count >= max_retries:
-					return {}
 				
 			except SSLError as ssl_err:
 				retry_count += 1
 				error_msg = f"SSL Error (시도 {retry_count}/{max_retries}): {platform} - {str(ssl_err)}"
-				if retry_count >= max_retries: asyncio.create_task(log_error(error_msg))
-				# else: print(error_msg)
 				
+				if retry_count >= max_retries:
+					asyncio.create_task(log_error(error_msg))
+					return {}
+				# else: 
+				# 	print(error_msg)
+
 				if retry_count < max_retries:
-					if 'requests_kwargs' in locals() and 'verify' in request_kwargs:
+					if 'request_kwargs' in locals() and 'verify' in request_kwargs:
 						request_kwargs['verify'] = not request_kwargs['verify']
 					await asyncio.sleep(retry_delay)
 					retry_delay *= 2
