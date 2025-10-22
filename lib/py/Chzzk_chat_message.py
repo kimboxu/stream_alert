@@ -377,8 +377,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     asyncio.create_task(log_error(
                         message[0], webhook_url=environ['donation_post_url']
                     ))
-                else:
-                    print(f"{datetime.now()} {message[0]}")
+                # else:
+                #     print(f"{datetime.now()} {message[0]}")
 
                 # 채팅 메시지인 경우 분석기로 전달
                 if chat_type == "채팅":

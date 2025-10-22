@@ -79,22 +79,21 @@ async def userDataVar(init: initVar):
 			setattr(init, attr, value)
 
 		# 병렬로 필요한 데이터 로드
-		tasks = []
 		
 		if update_data['user_date']:
-			tasks.append(load_user_state_data(init))
+			asyncio.create_task(load_user_state_data(init))
 			
 		if update_data['all_date']:
-			tasks.append(DataBaseVars(init))
+			asyncio.create_task(DataBaseVars(init))
+
+		if update_data['is_print_log']:
+			asyncio.create_task(print_log())
 
 		for channel_id in update_data['is_save_highlight_data']:
 			state = update_data['is_save_highlight_data'][channel_id]
 			if state:
 				asyncio.create_task(save_highlight_data(init, channel_id))
 			
-		# 모든 작업 기다리기
-		if tasks:
-			await asyncio.gather(*tasks)
 
 	except Exception as e:
 		error_details = f"Error in userDataVar: {str(e)}"
@@ -254,6 +253,10 @@ async def save_highlight_data(init, channelID = "all"):
 	except Exception as e:
 		asyncio.create_task(log_error(f"하이라이트 데이터 저장 실패: {str(e)}"))
 		await change_field_state("is_save_highlight_data", init.is_save_highlight_data, channelID, False)
+
+async def print_log():
+	print(f"{datetime.now()} is_print_log_start"+"\n"*10+ f"{datetime.now()} is_print_log_end")
+	await update_flag('is_print_log', False)
 
 # db에서 데이터 가져오는 함수
 async def fetch_data(supabase, date_name):
@@ -520,7 +523,7 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 		# 플랫폼별 타임아웃 설정 (이미지는 3초, 나머지는 10초)
 		timeout = platform_timeout.get(platform, 10)
 		request_kwargs = {"timeout": timeout}
-		
+
 		# 플랫폼별 헤더 설정
 		if platform == "chzzk":
 			headers = getDefaultHeaders()

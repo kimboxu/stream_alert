@@ -231,10 +231,10 @@ class base_vod(ABC):
         check_interval = 2   # 2초마다 체크
         wait_count = 0
         max_checks = max_wait_time // check_interval
-        await change_field_state("is_save_highlight_data", self.init.is_save_highlight_data, self.channel_id)
-        await asyncio.sleep(5)
-        
+
         print(f"{datetime.now()} 하이라이트 처리 대기 시작: {channel_name}")
+        await change_field_state("is_save_highlight_data", self.init.is_save_highlight_data, self.channel_id)
+        await asyncio.sleep(10)
         
         while wait_count < max_checks:
             # 하이라이트 처리가 완료되었는지 확인
