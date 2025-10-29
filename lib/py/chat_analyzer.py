@@ -1251,9 +1251,7 @@ class ChatAnalyzer:
 
             for attempt in range(max_retries):
                 try:
-                    self.init.genai_cnt = (self.init.genai_cnt + 1) % (
-                        len(environ['GOOGLE_API_KEY'].split(","))
-                    )
+                    self.add_genai_cnt()
                     model = get_genai_model(self.init.genai_cnt)
                     
                     response = await asyncio.wait_for(
@@ -1287,6 +1285,7 @@ class ChatAnalyzer:
                     print(f"{datetime.now()} ⏱️ API 요청 타임아웃 (시도 {attempt + 1}/{max_retries})")
                     
                     if attempt < max_retries - 1:
+                        self.add_genai_cnt(10)
                         wait_time = 2 ** attempt
                         print(f"{datetime.now()} {wait_time}초 후 재시도...")
                         await asyncio.sleep(wait_time)
@@ -1299,6 +1298,7 @@ class ChatAnalyzer:
                     print(f"{datetime.now()} 응답 내용: {response.text}")
                     
                     if attempt < max_retries - 1:
+                        self.add_genai_cnt(10)
                         await asyncio.sleep(1)
                         continue
                     else:
@@ -1309,6 +1309,7 @@ class ChatAnalyzer:
                     print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {e}")
                     
                     if attempt < max_retries - 1:
+                        self.add_genai_cnt(10)
                         wait_time = 2 ** attempt
                         await asyncio.sleep(wait_time)
                     else:
@@ -1317,6 +1318,11 @@ class ChatAnalyzer:
         
         finally:
             self.wait_make_highlight_chat = False
+    
+    def add_genai_cnt(self, num = 1):
+        self.init.genai_cnt = (self.init.genai_cnt + num) % (
+            10 * len(environ['GOOGLE_API_KEY'].split(","))
+        )
 
     def update_highlight_chat(self, timeline_comments, stream_start_time):
         stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
