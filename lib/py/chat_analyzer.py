@@ -1180,7 +1180,7 @@ class ChatAnalyzer:
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight]):
         self.wait_make_highlight_chat = True
-        max_retries = 3
+        max_retries = len(environ['GOOGLE_API_KEY'].split(","))
         request_timeout = 600
 
         if not highlights:
@@ -1252,7 +1252,7 @@ class ChatAnalyzer:
             for attempt in range(max_retries):
                 try:
                     self.init.genai_cnt = (self.init.genai_cnt + 1) % (
-                        10 * len(environ['GOOGLE_API_KEY'].split(","))
+                        len(environ['GOOGLE_API_KEY'].split(","))
                     )
                     model = get_genai_model(self.init.genai_cnt)
                     
