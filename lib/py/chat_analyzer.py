@@ -1180,47 +1180,51 @@ class ChatAnalyzer:
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight]):
         self.wait_make_highlight_chat = True
-        #최대 3번까지 재시도
         max_retries = 3
+        request_timeout = 600
 
         if not highlights:
             return []
         
-        highlight_data  = []
-        images_with_labels = []  # 라벨이 있는 이미지들
+        highlight_data = []
+        images_with_labels = []
+        
         for i, highlight in enumerate(highlights):
             try:
                 analysis_data = highlight.analysis_data
                 fun_keywords = analysis_data.get('fun_keywords', {})
                 score_details = highlight.score_details
 
-                highlight_data.append({ "하이라이트_ID"     :   f"HIGHLIGHT_{i+1}",  # 고유 식별자
-                                        "재미도 점수"       :   highlight.fun_score,
-                                        "하이라이트 이유"   :   highlight.reason,
-                                        "최근 채팅"         :   highlight.chat_context,
-                                        "최고점수_시간"     :   highlight.after_openDate,
-                                        "VOD_타임라인_시간" :   highlight.comment_after_openDate,
-                                        "방송 썸네일"       :   f"이미지_{i+1}",  # 이미지 순서 표시
-                                        "메시지 갯수"       :   analysis_data['message_count'],
-                                        "시청자 수"         :   analysis_data['viewer_count'],
-                                        "웃음 키워드 수"    :   fun_keywords.get('laugh',0),
-                                        "놀람 키워드 수"    :   fun_keywords.get('surprise',0),
-                                        "흥분 키워드 수"    :   fun_keywords.get('excitement',0),
-                                        "일반반응 키워드 수":   fun_keywords.get('reaction',0),
-                                        "인사 키워드 수"    :   fun_keywords.get('greeting',0),
-                                        "채팅 급증 점수"    :   score_details['chat_spike_score'],
-                                        "리액션 점수"       :   score_details['reaction_score'],
-                                        "다양성 점수"       :   score_details['diversity_score'],
-                                        "시청자 급증 점수"  :   score_details['viewer_trend_score'],
-                                        "기준 채팅 수"      :   score_details['baseline_chat_count'],
-                                        "기준 시청자 수"    :   score_details['baseline_viewer_count'],
-                                        "하이라이트 여부"   :   score_details['highlights'],
-                                        "큰 하이라이트 여부":   score_details['big_highlights'],
-                                        "재미도 점수 차이"  :   score_details['score_difference'],
+                highlight_data.append({
+                    "하이라이트_ID": f"HIGHLIGHT_{i+1}",
+                    "재미도_점수": highlight.fun_score,
+                    "하이라이트_이유": highlight.reason,
+                    "최근_채팅": highlight.chat_context,
+                    "최고점수_시간": highlight.after_openDate,
+                    "VOD_타임라인_시간": highlight.comment_after_openDate,
+                    "방송_인네일": f"이미지_{i+1}",
+                    "메시지_개수": analysis_data['message_count'],
+                    "시청자_수": analysis_data['viewer_count'],
+                    "웃음_키워드_수": fun_keywords.get('laugh', 0),
+                    "놀람_키워드_수": fun_keywords.get('surprise', 0),
+                    "흥분_키워드_수": fun_keywords.get('excitement', 0),
+                    "일반반응_키워드_수": fun_keywords.get('reaction', 0),
+                    "인사_키워드_수": fun_keywords.get('greeting', 0),
+                    "채팅_급증_점수": score_details['chat_spike_score'],
+                    "리액션_점수": score_details['reaction_score'],
+                    "다양성_점수": score_details['diversity_score'],
+                    "시청자_급증_점수": score_details['viewer_trend_score'],
+                    "기준_채팅_수": score_details['baseline_chat_count'],
+                    "기준_시청자_수": score_details['baseline_viewer_count'],
+                    "하이라이트_여부": score_details['highlights'],
+                    "큰_하이라이트_여부": score_details['big_highlights'],
+                    "재미도_점수_차이": score_details['score_difference'],
                 })
 
-                # 이미지에 라벨 추가하여 수집
-                images_with_labels.append(highlight.image)
+                if highlight.image:
+                    images_with_labels.append(highlight.image)
+                else:
+                    images_with_labels.append(None)
 
             except Exception as e:
                 print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
@@ -1247,40 +1251,70 @@ class ChatAnalyzer:
 
             for attempt in range(max_retries):
                 try:
-                    self.init.genai_cnt = (self.init.genai_cnt+1)%(10*len(environ['GOOGLE_API_KEY'].split(",")))
+                    self.init.genai_cnt = (self.init.genai_cnt + 1) % (
+                        10 * len(environ['GOOGLE_API_KEY'].split(","))
+                    )
                     model = get_genai_model(self.init.genai_cnt)
-                    response = await asyncio.to_thread(model.generate_content, msg_list)
+                    
+                    response = await asyncio.wait_for(
+                        asyncio.to_thread(model.generate_content, msg_list),
+                        timeout=request_timeout
+                    )
 
-                    # JSON 파싱
                     response_text = response.text.strip()
                     
-                    # trailing comma 제거
-                    # 패턴: "value", } 또는 "value", ] 형태를 "value" } 또는 "value" ]로 변경
+                    # markdown 코드 블록 제거
+                    if response_text.startswith('```json'):
+                        response_text = response_text[7:]
+                    if response_text.startswith('```'):
+                        response_text = response_text[3:]
+                    if response_text.endswith('```'):
+                        response_text = response_text[:-3]
+                    
+                    response_text = response_text.strip()
                     response_text = re.sub(r',(\s*[}\]])', r'\1', response_text)
                     
-                    # JSON 파싱 시도
                     timeline_comments = json.loads(response_text)
                     
                     if isinstance(timeline_comments, list):
-                        # 시간순으로 정렬
                         timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
                         print(f"{datetime.now()} 배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
                         return timeline_comments
-                    
                     else:
                         raise ValueError("응답이 리스트 형태가 아닙니다")
 
+                except asyncio.TimeoutError:
+                    print(f"{datetime.now()} ⏱️ API 요청 타임아웃 (시도 {attempt + 1}/{max_retries})")
+                    
+                    if attempt < max_retries - 1:
+                        wait_time = 2 ** attempt
+                        print(f"{datetime.now()} {wait_time}초 후 재시도...")
+                        await asyncio.sleep(wait_time)
+                    else:
+                        await log_error(f"API 요청 최종 실패 (타임아웃): {highlight.channel_name}")
+                        return []
+
                 except (json.JSONDecodeError, ValueError) as e:
-                    print(f"{datetime.now()} JSON 파싱 실패 (시도 {attempt + 1}/{max_retries}): {e}")
+                    print(f"{datetime.now()} JSON 파싱 오류 (시도 {attempt + 1}/{max_retries}): {e}")
                     print(f"{datetime.now()} 응답 내용: {response.text}")
                     
                     if attempt < max_retries - 1:
-                        await asyncio.sleep(1)  # 1초 대기 후 재시도
+                        await asyncio.sleep(1)
                         continue
                     else:
-                        # 최종 실패
-                        await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
+                        await log_error(f"타임라인 댓글 생성 최종 실패: {highlight.channel_name}")
                         return []
+
+                except Exception as e:
+                    print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {e}")
+                    
+                    if attempt < max_retries - 1:
+                        wait_time = 2 ** attempt
+                        await asyncio.sleep(wait_time)
+                    else:
+                        await log_error(f"타임라인 댓글 생성 최종 실패: {highlight.channel_name}")
+                        return []
+        
         finally:
             self.wait_make_highlight_chat = False
 
