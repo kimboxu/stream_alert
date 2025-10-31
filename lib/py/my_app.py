@@ -1266,41 +1266,120 @@ def save_highlight_data():
     try:
         task_id = str(uuid4())
         
-        # StateManager에서 작업 상태 관리
-        state_manager = StateManager.get_instance()
+        def generate_sse_updates():
+            """SSE 형식으로 작업 상태를 실시간 전송"""
+            
+            try:
+                state_manager = StateManager.get_instance()
+                
+                # 초기 상태 설정
+                initial_data = {
+                    "status": "starting",
+                    "task_id": task_id,
+                    "progress": 0,
+                    "message": "작업 초기화 중...",
+                    "timestamp": datetime.now().isoformat()
+                }
+                state_manager.add_task_status(task_id, initial_data)
+                
+                # 클라이언트에 초기 상태 전송
+                yield f"data: {dumps(initial_data, ensure_ascii=False)}\n\n"
+                
+                # 백그라운드 스레드에서 실제 작업 시작
+                thread = threading.Thread(
+                    target=run_background_save_with_state_manager,
+                    args=(task_id,),
+                    daemon=True
+                )
+                thread.start()
+                print(f"{datetime.now()} [{task_id}] 하이라이트 저장 작업 시작됨 (백그라운드 스레드에서 실행 중)")
+                
+                # 작업 상태를 주기적으로 확인하고 전송
+                loop = asyncio.new_event_loop()
+                
+                max_wait_time = 600  # 최대 10분 대기
+                start_time = datetime.now()
+                last_progress = 0
+                
+                while True:
+                    task_data = state_manager.get_task_status(task_id)
+                    elapsed_time = (datetime.now() - start_time).total_seconds()
+                    
+                    if elapsed_time >= max_wait_time:
+                        timeout_data = {
+                            "status": "timeout",
+                            "message": f"작업 시간 초과 ({max_wait_time}초)",
+                            "timestamp": datetime.now().isoformat()
+                        }
+                        yield f"data: {dumps(timeout_data, ensure_ascii=False)}\n\n"
+                        print(f"{datetime.now()} [{task_id}] 작업 시간 초과")
+                        break
+                    
+                    if task_data is None:
+                        error_data = {
+                            "status": "error",
+                            "message": "작업을 찾을 수 없습니다",
+                            "timestamp": datetime.now().isoformat()
+                        }
+                        yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
+                        break
+                    
+                    # 진행 상황 변경시에만 전송 (네트워크 효율성)
+                    current_progress = task_data.get('progress', 0)
+                    if current_progress != last_progress:
+                        task_data['timestamp'] = datetime.now().isoformat()
+                        yield f"data: {dumps(task_data, ensure_ascii=False)}\n\n"
+                        last_progress = current_progress
+                        print(f"{datetime.now()} [{task_id}] 진행률: {current_progress}% - {task_data.get('message', '')}")
+                    
+                    # 작업 완료 또는 에러 상태 확인
+                    status = task_data.get('status', '')
+                    if status in ['completed', 'error']:
+                        task_data['timestamp'] = datetime.now().isoformat()
+                        yield f"data: {dumps(task_data, ensure_ascii=False)}\n\n"
+                        print(f"{datetime.now()} [{task_id}] 작업 {status}: {task_data.get('message', '')}")
+                        break
+                    
+                    # 비동기 대기 (0.5초)
+                    try:
+                        loop.run_until_complete(asyncio.sleep(0.5))
+                    except:
+                        # asyncio 이벤트 루프 재생성
+                        loop = asyncio.new_event_loop()
+                        asyncio.set_event_loop(loop)
+                
+            except Exception as e:
+                error_data = {
+                    "status": "error",
+                    "message": f"SSE 스트리밍 중 오류: {str(e)}",
+                    "timestamp": datetime.now().isoformat(),
+                    "error_type": type(e).__name__
+                }
+                yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
+                print(f"{datetime.now()} SSE 스트리밍 오류: {e}")
         
-        initial_data = {
-            "status": "starting",
-            "started_at": datetime.now().isoformat(),
-            "message": "작업 초기화 중...",
-            "progress": 0
-        }
-        
-        # StateManager에 작업 상태 추가 (자동으로 개수 제한 적용)
-        state_manager.add_task_status(task_id, initial_data)
-        
-        # 즉시 응답 반환
-        response_data = {
-            "status": "started",
-            "message": "하이라이트 저장 작업이 시작되었습니다",
-            "task_id": task_id,
-            "started_at": datetime.now().isoformat()
-        }
-        
-        # 백그라운드 스레드에서 실행
-        thread = threading.Thread(
-            target=run_background_save_with_state_manager, 
-            args=(task_id,),
-            daemon=True
+        # SSE 응답 설정
+        response = Response(
+            generate_sse_updates(),
+            mimetype='text/event-stream; charset=utf-8',
+            headers={
+                'Cache-Control': 'no-cache',
+                'X-Accel-Buffering': 'no',
+                'Connection': 'keep-alive',
+                'Content-Type': 'text/event-stream; charset=utf-8',
+                'Access-Control-Allow-Origin': '*'
+            }
         )
-        thread.start()
+        response.charset = 'utf-8'
+        response.timeout = None  # 타임아웃 없음
         
-        return jsonify(response_data)
+        return response
         
     except Exception as e:
+        print(f"{datetime.now()} SSE 연결 실패: {e}")
         return jsonify({
             "status": "error",
-            "message": f"작업 시작 실패: {str(e)}"
+            "message": f"SSE 연결 실패: {str(e)}"
         }), 500
 
 def run_background_save_with_state_manager(task_id):
@@ -1451,22 +1530,127 @@ async def background_save_task_with_state_manager(task_id):
         })
         print(f"{datetime.now()} 하이라이트 저장 작업 실패: {e}")
 
-@app.route("/get_task_status/<task_id>", methods=["GET"])
 def get_task_status(task_id):
-    """StateManager를 통한 작업 상태 조회"""
-    state_manager = StateManager.get_instance()
-    task_data = state_manager.get_task_status(task_id)
-    
-    if task_data is None:
+    try:
+        # stream 파라미터 확인 (SSE 스트리밍 여부)
+        stream = request.args.get('stream', 'true').lower() == 'true'
+        
+        # 스트리밍이 아닌 경우 JSON으로 반환 (기존 동작)
+        if not stream:
+            state_manager = StateManager.get_instance()
+            task_data = state_manager.get_task_status(task_id)
+            
+            if task_data is None:
+                return jsonify({
+                    "status": "error",
+                    "message": "작업을 찾을 수 없습니다"
+                }), 404
+            
+            return jsonify({
+                "status": "success",
+                "task_data": task_data
+            })
+        
+        # SSE 스트리밍 모드
+        def generate_task_updates():
+            """작업 상태를 실시간으로 전송"""
+            try:
+                state_manager = StateManager.get_instance()
+                
+                # 첫 번째 상태 확인
+                task_data = state_manager.get_task_status(task_id)
+                if task_data is None:
+                    error_data = {
+                        "status": "error",
+                        "message": "작업을 찾을 수 없습니다",
+                        "timestamp": datetime.now().isoformat()
+                    }
+                    yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
+                    return
+                
+                # 초기 상태 전송
+                task_data['timestamp'] = datetime.now().isoformat()
+                yield f"data: {dumps(task_data, ensure_ascii=False)}\n\n"
+                
+                # 상태가 완료될 때까지 주기적으로 업데이트 전송
+                max_wait_time = 600  # 최대 10분
+                elapsed_time = 0
+                last_progress = task_data.get('progress', 0)
+                last_status = task_data.get('status', '')
+                
+                loop = asyncio.new_event_loop()
+                start_time = datetime.now()
+                
+                while True:
+                    elapsed_time = (datetime.now() - start_time).total_seconds()
+                    
+                    if elapsed_time >= max_wait_time:
+                        break
+                    
+                    # 현재 상태 확인
+                    current_task_data = state_manager.get_task_status(task_id)
+                    
+                    if current_task_data is None:
+                        break
+                    
+                    # 진행률 또는 상태가 변경되면 전송
+                    current_progress = current_task_data.get('progress', 0)
+                    current_status = current_task_data.get('status', '')
+                    
+                    if current_progress != last_progress or current_status != last_status:
+                        current_task_data['timestamp'] = datetime.now().isoformat()
+                        yield f"data: {dumps(current_task_data, ensure_ascii=False)}\n\n"
+                        last_progress = current_progress
+                        last_status = current_status
+                        
+                        print(f"{datetime.now()} [Task {task_id[:8]}...] 상태 업데이트: {current_status} - {current_progress}%")
+                    
+                    # 완료 또는 에러 상태면 종료
+                    if current_status in ['completed', 'error', 'timeout']:
+                        break
+                    
+                    # 비동기 대기 (0.5초)
+                    try:
+                        loop.run_until_complete(asyncio.sleep(0.5))
+                    except:
+                        loop = asyncio.new_event_loop()
+                        asyncio.set_event_loop(loop)
+                
+                print(f"{datetime.now()} [Task {task_id[:8]}...] SSE 스트리밍 종료")
+                
+            except Exception as e:
+                error_data = {
+                    "status": "error",
+                    "message": f"스트리밍 중 오류 발생: {str(e)}",
+                    "timestamp": datetime.now().isoformat(),
+                    "error_type": type(e).__name__
+                }
+                yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
+                print(f"{datetime.now()} Task 상태 스트리밍 오류: {e}")
+        
+        # SSE 응답 설정
+        response = Response(
+            generate_task_updates(),
+            mimetype='text/event-stream; charset=utf-8',
+            headers={
+                'Cache-Control': 'no-cache',
+                'X-Accel-Buffering': 'no',
+                'Connection': 'keep-alive',
+                'Content-Type': 'text/event-stream; charset=utf-8',
+                'Access-Control-Allow-Origin': '*'
+            }
+        )
+        response.charset = 'utf-8'
+        response.timeout = None
+        
+        return response
+        
+    except Exception as e:
+        print(f"{datetime.now()} Task 상태 조회 실패: {e}")
         return jsonify({
             "status": "error",
-            "message": "작업을 찾을 수 없습니다"
-        }), 404
-    
-    return jsonify({
-        "status": "success",
-        "task_data": task_data
-    })
+            "message": f"작업 상태 조회 실패: {str(e)}"
+        }), 500
 
 @app.route("/get_all_active_tasks", methods=["GET"])
 def get_all_active_tasks():
