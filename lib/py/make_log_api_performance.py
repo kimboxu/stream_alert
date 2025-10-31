@@ -602,7 +602,7 @@ class APIStatisticsCalculator:
                         entry["failed_requests"] += 1
                 
                 # CPU 양보 간격 추가 (매 청크마다)
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.001)
                 
                 # 메모리 정리 힌트 (큰 청크 처리 후)
                 if chunk_start > 0 and chunk_start % (chunk_size * 10) == 0:
