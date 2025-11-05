@@ -1,0 +1,76 @@
+{
+  "created_at": "2025-11-03T08:01:46.733324",
+  "log_count": 7,
+  "logs": [
+    {
+      "timestamp": "2025-11-03T08:01:46.526304",
+      "api_type": "chzzk_api",
+      "response_time_ms": 955,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-03T08:01:46.526408",
+      "api_type": "cafe_api",
+      "response_time_ms": 1046,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-03T08:01:46.526495",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1046,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-03T08:01:46.543135",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1048,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-03T08:01:46.543201",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1049,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-03T08:01:46.543229",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1050,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-03T08:01:46.544132",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1063,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "created_at": "2025-11-04T08:20:02.795676",
+  "log_count": 8,
+  "logs": [
+    {
+      "timestamp": "2025-11-04T08:18:49.119354",
+      "api_type": "afreeca_api",
+      "response_time_ms": 325776,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:18:49.120256",
+      "api_type": "afreeca_api",
+      "response_time_ms": 326146,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:00.503563",
+      "api_type": "discord_webhook",
+      "response_time_ms": 322270,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:00.531555",
+      "api_type": "discord_webhook",
+      "response_time_ms": 321821,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:00.531652",
+      "api_type": "discord_webhook",
+      "response_time_ms": 321697,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:00.531689",
+      "api_type": "discord_webhook",
+      "response_time_ms": 321623,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:01.127822",
+      "api_type": "fcm_push",
+      "response_time_ms": 42410,
+      "is_success": true,
+      "http_status_code": null,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:01.155138",
+      "api_type": "fcm_push",
+      "response_time_ms": 1216,
+      "is_success": true,
+      "http_status_code": null,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    }
+  ]
+}
