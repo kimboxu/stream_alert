@@ -1,0 +1,146 @@
+{
+  "created_at": "2025-11-04T09:49:14.558739",
+  "log_count": 14,
+  "logs": [
+    {
+      "timestamp": "2025-11-04T09:48:54.525300",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1496694,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:48:54.629291",
+      "api_type": "fcm_push",
+      "response_time_ms": 2749,
+      "is_success": true,
+      "http_status_code": null,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:48:54.631282",
+      "api_type": "fcm_push",
+      "response_time_ms": 213,
+      "is_success": true,
+      "http_status_code": null,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:12.449528",
+      "api_type": "chzzk_api",
+      "response_time_ms": 506995,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:12.449583",
+      "api_type": "chzzk_api",
+      "response_time_ms": 508806,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:12.449610",
+      "api_type": "chzzk_api",
+      "response_time_ms": 509623,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:12.449635",
+      "api_type": "chzzk_api",
+      "response_time_ms": 510170,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:12.449658",
+      "api_type": "afreeca_api",
+      "response_time_ms": 510414,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:12.449697",
+      "api_type": "chzzk_api",
+      "response_time_ms": 510795,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:12.449850",
+      "api_type": "fcm_push",
+      "response_time_ms": 1429,
+      "is_success": true,
+      "http_status_code": null,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:12.449884",
+      "api_type": "fcm_push",
+      "response_time_ms": 207,
+      "is_success": true,
+      "http_status_code": null,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:13.881712",
+      "api_type": "discord_webhook",
+      "response_time_ms": 518346,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:13.882495",
+      "api_type": "discord_webhook",
+      "response_time_ms": 518320,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T09:49:13.882581",
+      "api_type": "discord_webhook",
+      "response_time_ms": 518332,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    }
+  ]
+}

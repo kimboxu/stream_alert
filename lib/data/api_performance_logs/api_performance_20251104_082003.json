@@ -1,0 +1,96 @@
+{
+  "created_at": "2025-11-04T08:20:03.222207",
+  "log_count": 9,
+  "logs": [
+    {
+      "timestamp": "2025-11-04T08:20:02.693052",
+      "api_type": "chzzk_api",
+      "response_time_ms": 73181,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:02.694667",
+      "api_type": "chzzk_api",
+      "response_time_ms": 74005,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:02.694706",
+      "api_type": "chzzk_api",
+      "response_time_ms": 74030,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:02.694732",
+      "api_type": "chzzk_api",
+      "response_time_ms": 74070,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:02.694755",
+      "api_type": "chzzk_api",
+      "response_time_ms": 74145,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:02.760187",
+      "api_type": "discord_webhook",
+      "response_time_ms": 73557,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:02.760243",
+      "api_type": "discord_webhook",
+      "response_time_ms": 73558,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:02.760282",
+      "api_type": "discord_webhook",
+      "response_time_ms": 74105,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-04T08:20:03.126403",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1815,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    }
+  ]
+}
