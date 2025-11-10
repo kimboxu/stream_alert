@@ -190,7 +190,7 @@ async def save_highlight_data(init, channelID = "all"):
 	# StateManager에서 init과 하이라이트 인스턴스들 가져오기
 	from shared_state import StateManager
 	state_manager = StateManager.get_instance()
-	
+
 	if not init:
 		return {
 			"status": "error",
@@ -207,6 +207,7 @@ async def save_highlight_data(init, channelID = "all"):
 		instances_with_highlights = state_manager.get_chat_instances_with_highlights()
 		
 		print(f"{datetime.now()} 하이라이트 데이터가 있는 채널 {len(instances_with_highlights)}개 발견")
+		await change_field_state("is_save_highlight_data", init.is_save_highlight_data, channelID, False)
 		
 		# 각 인스턴스에 대해 highlight_processing 실행
 		for instance_info in instances_with_highlights:
@@ -247,12 +248,9 @@ async def save_highlight_data(init, channelID = "all"):
 			print(f"save_results:{save_results}")
 		else:
 			print(f"{datetime.now()} 저장할 하이라이트 데이터가 없습니다")
-
-		await change_field_state("is_save_highlight_data", init.is_save_highlight_data, channelID, False)
 	
 	except Exception as e:
 		asyncio.create_task(log_error(f"하이라이트 데이터 저장 실패: {str(e)}"))
-		await change_field_state("is_save_highlight_data", init.is_save_highlight_data, channelID, False)
 
 async def print_log():
 	print(f"{datetime.now()} is_print_log_start"+"\n"*10+ f"{datetime.now()} is_print_log_end")
