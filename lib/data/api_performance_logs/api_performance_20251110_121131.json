@@ -1,0 +1,26 @@
+{
+  "created_at": "2025-11-10T12:11:31.325244",
+  "log_count": 2,
+  "logs": [
+    {
+      "timestamp": "2025-11-10T12:11:30.423628",
+      "api_type": "afreeca_api",
+      "response_time_ms": 4504,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-10T12:11:30.520915",
+      "api_type": "afreeca_api",
+      "response_time_ms": 7404,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    }
+  ]
+}

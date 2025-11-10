@@ -1,0 +1,26 @@
+{
+  "created_at": "2025-11-10T12:11:24.428205",
+  "log_count": 2,
+  "logs": [
+    {
+      "timestamp": "2025-11-10T12:11:22.723665",
+      "api_type": "discord_webhook",
+      "response_time_ms": 390005,
+      "is_success": false,
+      "http_status_code": null,
+      "error_type": "TimeoutError",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-10T12:11:22.928899",
+      "api_type": "afreeca_api",
+      "response_time_ms": 375893,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    }
+  ]
+}
