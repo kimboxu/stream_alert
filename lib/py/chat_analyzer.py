@@ -154,7 +154,7 @@ class ChatAnalyzer:
         self.channel_id = channel_id
         self.channel_name = channel_name
         self.platform_name = platform_name
-        self.wait_make_highlight_chat = False
+        self.init.wait_make_highlight_chat[self.channel_id] = False
 
         # 분석 설정
         self.window_size = 30       # 30초 윈도우
@@ -797,10 +797,9 @@ class ChatAnalyzer:
         """하이라이트 처리"""
         try:
             for _ in range(300): # make_highlight_chat 실행 중 방송이 종료되어 _save_completed_highlight_chat_after_update가 실행 된 후에 make_highlight_chat이 완료되는 문제 해결을 위해 해당 상태 확인
-                if self.wait_make_highlight_chat:
+                if self.init.wait_make_highlight_chat[self.channel_id]:
                     await asyncio.sleep(1)
 
-            self.init.wait_make_highlight_chat[self.channel_id] = True
             stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
             print(f"{datetime.now()} 하이라이트 처리 시작: {self.channel_name}")
 
@@ -822,7 +821,6 @@ class ChatAnalyzer:
             await log_error(f"하이라이트 처리 오류: {e}")
             return False
         finally:
-            self.init.wait_make_highlight_chat[self.channel_id] = False
             print(f"{datetime.now()} 하이라이트 처리 상태 해제: {self.channel_name}")
 
     async def _save_completed_highlight_chat_after_update(self, is_save_log, stream_start_time):
@@ -1179,7 +1177,7 @@ class ChatAnalyzer:
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight]):
-        self.wait_make_highlight_chat = True
+        self.init.wait_make_highlight_chat[self.channel_id] = True
         max_retries = len(environ['GOOGLE_API_KEY'].split(","))
         request_timeout = 600
 
@@ -1317,7 +1315,7 @@ class ChatAnalyzer:
                         return []
         
         finally:
-            self.wait_make_highlight_chat = False
+            self.init.wait_make_highlight_chat[self.channel_id] = False
     
     def add_genai_cnt(self, num = 1):
         self.init.genai_cnt = (self.init.genai_cnt + num) % (
