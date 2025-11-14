@@ -231,7 +231,7 @@ class FileNotificationManager:
             return True
             
         except Exception as e:
-            print(f"알림 파일 저장 오류 ({webhook_url}): {e}")
+            print(f"{datetime.now()} 알림 파일 저장 오류 ({webhook_url}): {e}")
             import traceback
             traceback.print_exc()
             
