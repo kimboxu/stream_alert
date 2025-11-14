@@ -35,6 +35,7 @@ class initVar:
 
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])  # Supabase DB 클라이언트
 	genai_cnt = randint(0, 3*10-1)
+	GOOGLE_API_KEY_LEN = len(environ['GOOGLE_API_KEY'].split(","))
 	youtube_key_index = randint(0, 17*4-1)
 
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
