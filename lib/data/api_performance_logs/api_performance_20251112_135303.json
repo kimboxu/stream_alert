@@ -1,0 +1,4716 @@
+{
+  "created_at": "2025-11-12T13:53:03.326516",
+  "log_count": 471,
+  "logs": [
+    {
+      "timestamp": "2025-11-12T13:52:45.665329",
+      "api_type": "cafe_api",
+      "response_time_ms": 316,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:45.748160",
+      "api_type": "cafe_api",
+      "response_time_ms": 380,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:45.752432",
+      "api_type": "cafe_api",
+      "response_time_ms": 402,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:45.752779",
+      "api_type": "cafe_api",
+      "response_time_ms": 405,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:45.752812",
+      "api_type": "cafe_api",
+      "response_time_ms": 405,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:45.838511",
+      "api_type": "chzzk_api",
+      "response_time_ms": 490,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:45.934046",
+      "api_type": "chzzk_api",
+      "response_time_ms": 571,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:45.937504",
+      "api_type": "chzzk_api",
+      "response_time_ms": 588,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:45.937558",
+      "api_type": "chzzk_api",
+      "response_time_ms": 590,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.020164",
+      "api_type": "chzzk_api",
+      "response_time_ms": 598,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.022123",
+      "api_type": "chzzk_api",
+      "response_time_ms": 674,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.035786",
+      "api_type": "chzzk_api",
+      "response_time_ms": 688,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.132693",
+      "api_type": "chzzk_api",
+      "response_time_ms": 782,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.132761",
+      "api_type": "afreeca_api",
+      "response_time_ms": 700,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.224466",
+      "api_type": "afreeca_api",
+      "response_time_ms": 790,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.224558",
+      "api_type": "afreeca_api",
+      "response_time_ms": 876,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.225675",
+      "api_type": "afreeca_api",
+      "response_time_ms": 878,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.323577",
+      "api_type": "afreeca_api",
+      "response_time_ms": 888,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.324762",
+      "api_type": "chzzk_api",
+      "response_time_ms": 894,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.324797",
+      "api_type": "chzzk_api",
+      "response_time_ms": 894,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.336245",
+      "api_type": "afreeca_api",
+      "response_time_ms": 905,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.342803",
+      "api_type": "afreeca_api",
+      "response_time_ms": 910,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.424289",
+      "api_type": "chzzk_api",
+      "response_time_ms": 993,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.547575",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1112,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.547632",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1114,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.547662",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1115,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.549833",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1119,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.558447",
+      "api_type": "chzzk_api",
+      "response_time_ms": 1127,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.627065",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1190,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.735406",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1295,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.735515",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1296,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.735549",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1298,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.737417",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1304,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.819229",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1385,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.821344",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1388,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:46.960798",
+      "api_type": "afreeca_api",
+      "response_time_ms": 1206,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.007738",
+      "api_type": "cafe_api",
+      "response_time_ms": 132,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.017481",
+      "api_type": "cafe_api",
+      "response_time_ms": 140,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.023310",
+      "api_type": "cafe_api",
+      "response_time_ms": 148,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.035227",
+      "api_type": "cafe_api",
+      "response_time_ms": 156,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.044934",
+      "api_type": "chzzk_api",
+      "response_time_ms": 168,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.066738",
+      "api_type": "chzzk_api",
+      "response_time_ms": 191,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.128151",
+      "api_type": "chzzk_api",
+      "response_time_ms": 251,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.128199",
+      "api_type": "cafe_api",
+      "response_time_ms": 252,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.145422",
+      "api_type": "chzzk_api",
+      "response_time_ms": 265,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.145545",
+      "api_type": "chzzk_api",
+      "response_time_ms": 266,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.218564",
+      "api_type": "chzzk_api",
+      "response_time_ms": 342,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.220742",
+      "api_type": "chzzk_api",
+      "response_time_ms": 344,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.226823",
+      "api_type": "afreeca_api",
+      "response_time_ms": 349,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.249724",
+      "api_type": "chzzk_api",
+      "response_time_ms": 359,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.261185",
+      "api_type": "afreeca_api",
+      "response_time_ms": 377,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.262537",
+      "api_type": "afreeca_api",
+      "response_time_ms": 385,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.337550",
+      "api_type": "afreeca_api",
+      "response_time_ms": 459,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.361770",
+      "api_type": "chzzk_api",
+      "response_time_ms": 484,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.368172",
+      "api_type": "chzzk_api",
+      "response_time_ms": 490,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.380977",
+      "api_type": "afreeca_api",
+      "response_time_ms": 503,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.437923",
+      "api_type": "chzzk_api",
+      "response_time_ms": 549,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.437992",
+      "api_type": "chzzk_api",
+      "response_time_ms": 549,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.438054",
+      "api_type": "chzzk_api",
+      "response_time_ms": 559,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.449872",
+      "api_type": "afreeca_api",
+      "response_time_ms": 571,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.524187",
+      "api_type": "chzzk_api",
+      "response_time_ms": 599,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.533402",
+      "api_type": "chzzk_api",
+      "response_time_ms": 647,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.533500",
+      "api_type": "chzzk_api",
+      "response_time_ms": 653,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.533532",
+      "api_type": "afreeca_api",
+      "response_time_ms": 654,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.535306",
+      "api_type": "afreeca_api",
+      "response_time_ms": 657,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.539964",
+      "api_type": "afreeca_api",
+      "response_time_ms": 660,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.626368",
+      "api_type": "afreeca_api",
+      "response_time_ms": 742,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.626423",
+      "api_type": "afreeca_api",
+      "response_time_ms": 743,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.626449",
+      "api_type": "afreeca_api",
+      "response_time_ms": 745,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.626473",
+      "api_type": "afreeca_api",
+      "response_time_ms": 746,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.681005",
+      "api_type": "afreeca_api",
+      "response_time_ms": 801,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.957570",
+      "api_type": "afreeca_api",
+      "response_time_ms": 494,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.967941",
+      "api_type": "cafe_api",
+      "response_time_ms": 133,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.985356",
+      "api_type": "cafe_api",
+      "response_time_ms": 150,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:47.999322",
+      "api_type": "cafe_api",
+      "response_time_ms": 164,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.011854",
+      "api_type": "cafe_api",
+      "response_time_ms": 176,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.035795",
+      "api_type": "chzzk_api",
+      "response_time_ms": 197,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.038194",
+      "api_type": "chzzk_api",
+      "response_time_ms": 201,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.068425",
+      "api_type": "cafe_api",
+      "response_time_ms": 229,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.068683",
+      "api_type": "chzzk_api",
+      "response_time_ms": 233,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.127300",
+      "api_type": "chzzk_api",
+      "response_time_ms": 288,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.130681",
+      "api_type": "chzzk_api",
+      "response_time_ms": 293,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.133264",
+      "api_type": "chzzk_api",
+      "response_time_ms": 295,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.141382",
+      "api_type": "chzzk_api",
+      "response_time_ms": 305,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.220983",
+      "api_type": "chzzk_api",
+      "response_time_ms": 384,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.236449",
+      "api_type": "afreeca_api",
+      "response_time_ms": 399,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.242149",
+      "api_type": "afreeca_api",
+      "response_time_ms": 404,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.246556",
+      "api_type": "afreeca_api",
+      "response_time_ms": 408,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.324331",
+      "api_type": "afreeca_api",
+      "response_time_ms": 484,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.324406",
+      "api_type": "afreeca_api",
+      "response_time_ms": 486,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.352805",
+      "api_type": "chzzk_api",
+      "response_time_ms": 514,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.362410",
+      "api_type": "chzzk_api",
+      "response_time_ms": 524,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.424749",
+      "api_type": "chzzk_api",
+      "response_time_ms": 587,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.439652",
+      "api_type": "afreeca_api",
+      "response_time_ms": 593,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.443308",
+      "api_type": "afreeca_api",
+      "response_time_ms": 603,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.443359",
+      "api_type": "chzzk_api",
+      "response_time_ms": 605,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.451295",
+      "api_type": "chzzk_api",
+      "response_time_ms": 612,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.521596",
+      "api_type": "chzzk_api",
+      "response_time_ms": 681,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.524740",
+      "api_type": "chzzk_api",
+      "response_time_ms": 684,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.564989",
+      "api_type": "chzzk_api",
+      "response_time_ms": 726,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.606617",
+      "api_type": "afreeca_api",
+      "response_time_ms": 767,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.625710",
+      "api_type": "afreeca_api",
+      "response_time_ms": 781,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.637429",
+      "api_type": "afreeca_api",
+      "response_time_ms": 789,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.637497",
+      "api_type": "afreeca_api",
+      "response_time_ms": 792,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.637529",
+      "api_type": "afreeca_api",
+      "response_time_ms": 795,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.639835",
+      "api_type": "afreeca_api",
+      "response_time_ms": 800,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.720962",
+      "api_type": "afreeca_api",
+      "response_time_ms": 881,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:48.933159",
+      "api_type": "afreeca_api",
+      "response_time_ms": 409,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.023329",
+      "api_type": "cafe_api",
+      "response_time_ms": 146,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.029640",
+      "api_type": "cafe_api",
+      "response_time_ms": 152,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.045519",
+      "api_type": "cafe_api",
+      "response_time_ms": 164,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.045580",
+      "api_type": "cafe_api",
+      "response_time_ms": 165,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.052912",
+      "api_type": "cafe_api",
+      "response_time_ms": 173,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.127958",
+      "api_type": "chzzk_api",
+      "response_time_ms": 250,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.179586",
+      "api_type": "chzzk_api",
+      "response_time_ms": 301,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.179643",
+      "api_type": "chzzk_api",
+      "response_time_ms": 301,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.228361",
+      "api_type": "chzzk_api",
+      "response_time_ms": 307,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.228440",
+      "api_type": "chzzk_api",
+      "response_time_ms": 307,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.230154",
+      "api_type": "chzzk_api",
+      "response_time_ms": 352,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.240818",
+      "api_type": "chzzk_api",
+      "response_time_ms": 361,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.282297",
+      "api_type": "chzzk_api",
+      "response_time_ms": 404,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.329066",
+      "api_type": "afreeca_api",
+      "response_time_ms": 450,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.335710",
+      "api_type": "afreeca_api",
+      "response_time_ms": 457,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.343384",
+      "api_type": "afreeca_api",
+      "response_time_ms": 463,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.343431",
+      "api_type": "afreeca_api",
+      "response_time_ms": 465,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.346834",
+      "api_type": "afreeca_api",
+      "response_time_ms": 468,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.430345",
+      "api_type": "chzzk_api",
+      "response_time_ms": 549,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.430403",
+      "api_type": "chzzk_api",
+      "response_time_ms": 550,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.430432",
+      "api_type": "chzzk_api",
+      "response_time_ms": 551,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.430457",
+      "api_type": "afreeca_api",
+      "response_time_ms": 551,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.439545",
+      "api_type": "afreeca_api",
+      "response_time_ms": 560,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.473055",
+      "api_type": "chzzk_api",
+      "response_time_ms": 592,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.531093",
+      "api_type": "chzzk_api",
+      "response_time_ms": 594,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.538987",
+      "api_type": "chzzk_api",
+      "response_time_ms": 657,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.539078",
+      "api_type": "afreeca_api",
+      "response_time_ms": 658,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.597667",
+      "api_type": "afreeca_api",
+      "response_time_ms": 717,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.605541",
+      "api_type": "afreeca_api",
+      "response_time_ms": 724,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.622727",
+      "api_type": "afreeca_api",
+      "response_time_ms": 740,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.625440",
+      "api_type": "afreeca_api",
+      "response_time_ms": 744,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.670123",
+      "api_type": "afreeca_api",
+      "response_time_ms": 789,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.695117",
+      "api_type": "afreeca_api",
+      "response_time_ms": 814,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:49.842107",
+      "api_type": "afreeca_api",
+      "response_time_ms": 406,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:50.553248",
+      "api_type": "afreeca_api",
+      "response_time_ms": 209,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:51.265677",
+      "api_type": "afreeca_api",
+      "response_time_ms": 209,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:51.981985",
+      "api_type": "afreeca_api",
+      "response_time_ms": 214,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:52.706907",
+      "api_type": "afreeca_api",
+      "response_time_ms": 222,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:53.416081",
+      "api_type": "afreeca_api",
+      "response_time_ms": 207,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.121562",
+      "api_type": "afreeca_api",
+      "response_time_ms": 202,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.463255",
+      "api_type": "chzzk_api",
+      "response_time_ms": 5584,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.477072",
+      "api_type": "chzzk_api",
+      "response_time_ms": 5598,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.621719",
+      "api_type": "cafe_api",
+      "response_time_ms": 132,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.635404",
+      "api_type": "cafe_api",
+      "response_time_ms": 143,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.640976",
+      "api_type": "cafe_api",
+      "response_time_ms": 150,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.650592",
+      "api_type": "cafe_api",
+      "response_time_ms": 157,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.671439",
+      "api_type": "chzzk_api",
+      "response_time_ms": 181,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.739890",
+      "api_type": "chzzk_api",
+      "response_time_ms": 237,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.740063",
+      "api_type": "chzzk_api",
+      "response_time_ms": 250,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.745547",
+      "api_type": "cafe_api",
+      "response_time_ms": 251,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.745598",
+      "api_type": "chzzk_api",
+      "response_time_ms": 253,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.745623",
+      "api_type": "chzzk_api",
+      "response_time_ms": 255,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.822248",
+      "api_type": "chzzk_api",
+      "response_time_ms": 332,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.826687",
+      "api_type": "chzzk_api",
+      "response_time_ms": 334,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.897613",
+      "api_type": "afreeca_api",
+      "response_time_ms": 406,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.903037",
+      "api_type": "afreeca_api",
+      "response_time_ms": 411,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.925822",
+      "api_type": "afreeca_api",
+      "response_time_ms": 434,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.934754",
+      "api_type": "afreeca_api",
+      "response_time_ms": 443,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.947940",
+      "api_type": "afreeca_api",
+      "response_time_ms": 456,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:54.982510",
+      "api_type": "chzzk_api",
+      "response_time_ms": 491,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.004662",
+      "api_type": "afreeca_api",
+      "response_time_ms": 511,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.020413",
+      "api_type": "afreeca_api",
+      "response_time_ms": 528,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.029632",
+      "api_type": "chzzk_api",
+      "response_time_ms": 533,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.030492",
+      "api_type": "chzzk_api",
+      "response_time_ms": 539,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.075620",
+      "api_type": "chzzk_api",
+      "response_time_ms": 584,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.078554",
+      "api_type": "chzzk_api",
+      "response_time_ms": 587,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.122413",
+      "api_type": "chzzk_api",
+      "response_time_ms": 625,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.123088",
+      "api_type": "chzzk_api",
+      "response_time_ms": 631,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.129615",
+      "api_type": "chzzk_api",
+      "response_time_ms": 637,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.142169",
+      "api_type": "chzzk_api",
+      "response_time_ms": 651,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.173733",
+      "api_type": "afreeca_api",
+      "response_time_ms": 680,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.234251",
+      "api_type": "afreeca_api",
+      "response_time_ms": 735,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.234352",
+      "api_type": "afreeca_api",
+      "response_time_ms": 738,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.234385",
+      "api_type": "afreeca_api",
+      "response_time_ms": 740,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.238275",
+      "api_type": "afreeca_api",
+      "response_time_ms": 743,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.238353",
+      "api_type": "afreeca_api",
+      "response_time_ms": 745,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.303253",
+      "api_type": "afreeca_api",
+      "response_time_ms": 810,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.443814",
+      "api_type": "afreeca_api",
+      "response_time_ms": 820,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.742890",
+      "api_type": "cafe_api",
+      "response_time_ms": 133,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.748314",
+      "api_type": "chzzk_api",
+      "response_time_ms": 138,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.778616",
+      "api_type": "cafe_api",
+      "response_time_ms": 169,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.787455",
+      "api_type": "chzzk_api",
+      "response_time_ms": 178,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.794441",
+      "api_type": "cafe_api",
+      "response_time_ms": 185,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.797770",
+      "api_type": "chzzk_api",
+      "response_time_ms": 188,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.824261",
+      "api_type": "cafe_api",
+      "response_time_ms": 214,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.840573",
+      "api_type": "cafe_api",
+      "response_time_ms": 230,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.862705",
+      "api_type": "chzzk_api",
+      "response_time_ms": 251,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.862802",
+      "api_type": "chzzk_api",
+      "response_time_ms": 253,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.924292",
+      "api_type": "chzzk_api",
+      "response_time_ms": 313,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.926577",
+      "api_type": "chzzk_api",
+      "response_time_ms": 316,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.945191",
+      "api_type": "afreeca_api",
+      "response_time_ms": 334,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:55.957106",
+      "api_type": "chzzk_api",
+      "response_time_ms": 347,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.017919",
+      "api_type": "afreeca_api",
+      "response_time_ms": 406,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.037250",
+      "api_type": "afreeca_api",
+      "response_time_ms": 422,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.047157",
+      "api_type": "afreeca_api",
+      "response_time_ms": 430,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.051357",
+      "api_type": "afreeca_api",
+      "response_time_ms": 437,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.051408",
+      "api_type": "afreeca_api",
+      "response_time_ms": 438,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.057196",
+      "api_type": "afreeca_api",
+      "response_time_ms": 444,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.126431",
+      "api_type": "chzzk_api",
+      "response_time_ms": 511,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.126506",
+      "api_type": "chzzk_api",
+      "response_time_ms": 512,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.153363",
+      "api_type": "chzzk_api",
+      "response_time_ms": 542,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.162856",
+      "api_type": "chzzk_api",
+      "response_time_ms": 551,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.218981",
+      "api_type": "chzzk_api",
+      "response_time_ms": 607,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.224636",
+      "api_type": "chzzk_api",
+      "response_time_ms": 613,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.230544",
+      "api_type": "chzzk_api",
+      "response_time_ms": 617,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.267098",
+      "api_type": "chzzk_api",
+      "response_time_ms": 655,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.319887",
+      "api_type": "afreeca_api",
+      "response_time_ms": 682,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.334643",
+      "api_type": "afreeca_api",
+      "response_time_ms": 719,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.334709",
+      "api_type": "afreeca_api",
+      "response_time_ms": 721,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.337584",
+      "api_type": "afreeca_api",
+      "response_time_ms": 724,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.340154",
+      "api_type": "afreeca_api",
+      "response_time_ms": 727,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.341800",
+      "api_type": "afreeca_api",
+      "response_time_ms": 728,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.396919",
+      "api_type": "afreeca_api",
+      "response_time_ms": 783,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.561649",
+      "api_type": "afreeca_api",
+      "response_time_ms": 614,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.621435",
+      "api_type": "cafe_api",
+      "response_time_ms": 130,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.627866",
+      "api_type": "cafe_api",
+      "response_time_ms": 135,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.644158",
+      "api_type": "cafe_api",
+      "response_time_ms": 153,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.661562",
+      "api_type": "cafe_api",
+      "response_time_ms": 168,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.661610",
+      "api_type": "chzzk_api",
+      "response_time_ms": 170,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.731004",
+      "api_type": "chzzk_api",
+      "response_time_ms": 234,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.731126",
+      "api_type": "cafe_api",
+      "response_time_ms": 235,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.733741",
+      "api_type": "chzzk_api",
+      "response_time_ms": 241,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.824320",
+      "api_type": "chzzk_api",
+      "response_time_ms": 333,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.831202",
+      "api_type": "chzzk_api",
+      "response_time_ms": 338,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.831266",
+      "api_type": "chzzk_api",
+      "response_time_ms": 339,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.835838",
+      "api_type": "chzzk_api",
+      "response_time_ms": 343,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.916695",
+      "api_type": "chzzk_api",
+      "response_time_ms": 399,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.922182",
+      "api_type": "afreeca_api",
+      "response_time_ms": 429,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.927769",
+      "api_type": "afreeca_api",
+      "response_time_ms": 434,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.932918",
+      "api_type": "afreeca_api",
+      "response_time_ms": 439,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:56.937047",
+      "api_type": "afreeca_api",
+      "response_time_ms": 444,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.028226",
+      "api_type": "afreeca_api",
+      "response_time_ms": 531,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.028282",
+      "api_type": "chzzk_api",
+      "response_time_ms": 534,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.032698",
+      "api_type": "afreeca_api",
+      "response_time_ms": 539,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.036482",
+      "api_type": "afreeca_api",
+      "response_time_ms": 543,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.042714",
+      "api_type": "chzzk_api",
+      "response_time_ms": 550,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.129187",
+      "api_type": "chzzk_api",
+      "response_time_ms": 635,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.129324",
+      "api_type": "chzzk_api",
+      "response_time_ms": 636,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.132479",
+      "api_type": "chzzk_api",
+      "response_time_ms": 639,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.149354",
+      "api_type": "chzzk_api",
+      "response_time_ms": 656,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.171299",
+      "api_type": "chzzk_api",
+      "response_time_ms": 678,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.218452",
+      "api_type": "chzzk_api",
+      "response_time_ms": 723,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.223166",
+      "api_type": "afreeca_api",
+      "response_time_ms": 728,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.245436",
+      "api_type": "afreeca_api",
+      "response_time_ms": 742,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.245532",
+      "api_type": "afreeca_api",
+      "response_time_ms": 749,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.254448",
+      "api_type": "afreeca_api",
+      "response_time_ms": 752,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.335724",
+      "api_type": "afreeca_api",
+      "response_time_ms": 839,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.339993",
+      "api_type": "afreeca_api",
+      "response_time_ms": 844,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.421488",
+      "api_type": "afreeca_api",
+      "response_time_ms": 926,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.525731",
+      "api_type": "afreeca_api",
+      "response_time_ms": 394,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.706078",
+      "api_type": "cafe_api",
+      "response_time_ms": 129,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.711840",
+      "api_type": "cafe_api",
+      "response_time_ms": 135,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.722772",
+      "api_type": "cafe_api",
+      "response_time_ms": 145,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.734272",
+      "api_type": "cafe_api",
+      "response_time_ms": 157,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.747397",
+      "api_type": "chzzk_api",
+      "response_time_ms": 170,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.833501",
+      "api_type": "chzzk_api",
+      "response_time_ms": 245,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.840201",
+      "api_type": "cafe_api",
+      "response_time_ms": 258,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.840246",
+      "api_type": "chzzk_api",
+      "response_time_ms": 259,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.840271",
+      "api_type": "chzzk_api",
+      "response_time_ms": 260,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.840294",
+      "api_type": "chzzk_api",
+      "response_time_ms": 261,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.840315",
+      "api_type": "chzzk_api",
+      "response_time_ms": 263,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.955870",
+      "api_type": "chzzk_api",
+      "response_time_ms": 378,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:57.971910",
+      "api_type": "chzzk_api",
+      "response_time_ms": 394,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.003927",
+      "api_type": "afreeca_api",
+      "response_time_ms": 419,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.008662",
+      "api_type": "afreeca_api",
+      "response_time_ms": 429,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.012512",
+      "api_type": "afreeca_api",
+      "response_time_ms": 433,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.019936",
+      "api_type": "afreeca_api",
+      "response_time_ms": 441,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.070203",
+      "api_type": "chzzk_api",
+      "response_time_ms": 490,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.070270",
+      "api_type": "afreeca_api",
+      "response_time_ms": 491,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.079628",
+      "api_type": "chzzk_api",
+      "response_time_ms": 498,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.080815",
+      "api_type": "chzzk_api",
+      "response_time_ms": 499,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.133388",
+      "api_type": "afreeca_api",
+      "response_time_ms": 554,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.142737",
+      "api_type": "afreeca_api",
+      "response_time_ms": 563,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.162235",
+      "api_type": "chzzk_api",
+      "response_time_ms": 583,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.221364",
+      "api_type": "chzzk_api",
+      "response_time_ms": 638,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.223650",
+      "api_type": "chzzk_api",
+      "response_time_ms": 643,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.228818",
+      "api_type": "chzzk_api",
+      "response_time_ms": 647,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.230429",
+      "api_type": "chzzk_api",
+      "response_time_ms": 651,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.232410",
+      "api_type": "afreeca_api",
+      "response_time_ms": 651,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.327376",
+      "api_type": "afreeca_api",
+      "response_time_ms": 742,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.327465",
+      "api_type": "afreeca_api",
+      "response_time_ms": 745,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.327495",
+      "api_type": "afreeca_api",
+      "response_time_ms": 746,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.329123",
+      "api_type": "afreeca_api",
+      "response_time_ms": 748,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.366975",
+      "api_type": "afreeca_api",
+      "response_time_ms": 786,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.376108",
+      "api_type": "afreeca_api",
+      "response_time_ms": 795,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.581692",
+      "api_type": "afreeca_api",
+      "response_time_ms": 548,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.644994",
+      "api_type": "cafe_api",
+      "response_time_ms": 150,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.645175",
+      "api_type": "cafe_api",
+      "response_time_ms": 152,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.645218",
+      "api_type": "cafe_api",
+      "response_time_ms": 154,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.650512",
+      "api_type": "cafe_api",
+      "response_time_ms": 159,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.731602",
+      "api_type": "chzzk_api",
+      "response_time_ms": 235,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.731662",
+      "api_type": "cafe_api",
+      "response_time_ms": 238,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.744738",
+      "api_type": "chzzk_api",
+      "response_time_ms": 253,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.749280",
+      "api_type": "chzzk_api",
+      "response_time_ms": 258,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.750954",
+      "api_type": "chzzk_api",
+      "response_time_ms": 260,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.823639",
+      "api_type": "chzzk_api",
+      "response_time_ms": 331,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.834971",
+      "api_type": "chzzk_api",
+      "response_time_ms": 335,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.848436",
+      "api_type": "afreeca_api",
+      "response_time_ms": 355,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.851440",
+      "api_type": "chzzk_api",
+      "response_time_ms": 360,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.927728",
+      "api_type": "afreeca_api",
+      "response_time_ms": 412,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.929251",
+      "api_type": "chzzk_api",
+      "response_time_ms": 437,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.940506",
+      "api_type": "afreeca_api",
+      "response_time_ms": 444,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.942256",
+      "api_type": "afreeca_api",
+      "response_time_ms": 449,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.947423",
+      "api_type": "afreeca_api",
+      "response_time_ms": 454,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:58.955750",
+      "api_type": "afreeca_api",
+      "response_time_ms": 462,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.018990",
+      "api_type": "chzzk_api",
+      "response_time_ms": 526,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.046556",
+      "api_type": "afreeca_api",
+      "response_time_ms": 553,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.050927",
+      "api_type": "chzzk_api",
+      "response_time_ms": 558,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.125863",
+      "api_type": "chzzk_api",
+      "response_time_ms": 568,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.132481",
+      "api_type": "chzzk_api",
+      "response_time_ms": 634,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.132568",
+      "api_type": "chzzk_api",
+      "response_time_ms": 638,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.132598",
+      "api_type": "chzzk_api",
+      "response_time_ms": 639,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.142207",
+      "api_type": "chzzk_api",
+      "response_time_ms": 640,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.167405",
+      "api_type": "chzzk_api",
+      "response_time_ms": 674,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.230923",
+      "api_type": "afreeca_api",
+      "response_time_ms": 736,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.241168",
+      "api_type": "afreeca_api",
+      "response_time_ms": 738,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.241224",
+      "api_type": "afreeca_api",
+      "response_time_ms": 741,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.241254",
+      "api_type": "afreeca_api",
+      "response_time_ms": 745,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.241280",
+      "api_type": "afreeca_api",
+      "response_time_ms": 747,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.288664",
+      "api_type": "afreeca_api",
+      "response_time_ms": 794,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.294802",
+      "api_type": "afreeca_api",
+      "response_time_ms": 800,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.462567",
+      "api_type": "afreeca_api",
+      "response_time_ms": 328,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.657644",
+      "api_type": "chzzk_api",
+      "response_time_ms": 86,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.687597",
+      "api_type": "cafe_api",
+      "response_time_ms": 116,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.705262",
+      "api_type": "cafe_api",
+      "response_time_ms": 134,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.725368",
+      "api_type": "cafe_api",
+      "response_time_ms": 154,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.735641",
+      "api_type": "chzzk_api",
+      "response_time_ms": 164,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.746615",
+      "api_type": "cafe_api",
+      "response_time_ms": 175,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.750626",
+      "api_type": "chzzk_api",
+      "response_time_ms": 179,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.817771",
+      "api_type": "chzzk_api",
+      "response_time_ms": 247,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.839570",
+      "api_type": "chzzk_api",
+      "response_time_ms": 264,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.841223",
+      "api_type": "cafe_api",
+      "response_time_ms": 266,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.841273",
+      "api_type": "chzzk_api",
+      "response_time_ms": 266,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.841304",
+      "api_type": "chzzk_api",
+      "response_time_ms": 267,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.850510",
+      "api_type": "chzzk_api",
+      "response_time_ms": 278,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:52:59.956394",
+      "api_type": "afreeca_api",
+      "response_time_ms": 383,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.029374",
+      "api_type": "afreeca_api",
+      "response_time_ms": 434,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.031734",
+      "api_type": "afreeca_api",
+      "response_time_ms": 458,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.041587",
+      "api_type": "afreeca_api",
+      "response_time_ms": 467,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.047352",
+      "api_type": "afreeca_api",
+      "response_time_ms": 473,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.053926",
+      "api_type": "afreeca_api",
+      "response_time_ms": 480,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.055884",
+      "api_type": "afreeca_api",
+      "response_time_ms": 482,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.125794",
+      "api_type": "chzzk_api",
+      "response_time_ms": 552,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.131432",
+      "api_type": "chzzk_api",
+      "response_time_ms": 557,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.226885",
+      "api_type": "chzzk_api",
+      "response_time_ms": 651,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.227369",
+      "api_type": "chzzk_api",
+      "response_time_ms": 653,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.252304",
+      "api_type": "chzzk_api",
+      "response_time_ms": 655,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.252385",
+      "api_type": "chzzk_api",
+      "response_time_ms": 657,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.253314",
+      "api_type": "chzzk_api",
+      "response_time_ms": 679,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.324702",
+      "api_type": "chzzk_api",
+      "response_time_ms": 750,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.324802",
+      "api_type": "afreeca_api",
+      "response_time_ms": 750,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.374767",
+      "api_type": "afreeca_api",
+      "response_time_ms": 799,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.378506",
+      "api_type": "afreeca_api",
+      "response_time_ms": 803,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.386761",
+      "api_type": "afreeca_api",
+      "response_time_ms": 811,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.421178",
+      "api_type": "afreeca_api",
+      "response_time_ms": 814,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.423608",
+      "api_type": "afreeca_api",
+      "response_time_ms": 848,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.425399",
+      "api_type": "afreeca_api",
+      "response_time_ms": 850,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.631514",
+      "api_type": "afreeca_api",
+      "response_time_ms": 667,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.667545",
+      "api_type": "cafe_api",
+      "response_time_ms": 177,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.723487",
+      "api_type": "chzzk_api",
+      "response_time_ms": 205,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.748973",
+      "api_type": "cafe_api",
+      "response_time_ms": 258,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.758003",
+      "api_type": "cafe_api",
+      "response_time_ms": 267,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.777716",
+      "api_type": "chzzk_api",
+      "response_time_ms": 259,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.785363",
+      "api_type": "cafe_api",
+      "response_time_ms": 295,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.818067",
+      "api_type": "chzzk_api",
+      "response_time_ms": 301,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.827601",
+      "api_type": "cafe_api",
+      "response_time_ms": 336,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.841648",
+      "api_type": "chzzk_api",
+      "response_time_ms": 323,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.939157",
+      "api_type": "chzzk_api",
+      "response_time_ms": 418,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.939211",
+      "api_type": "chzzk_api",
+      "response_time_ms": 420,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.939236",
+      "api_type": "chzzk_api",
+      "response_time_ms": 420,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:00.948117",
+      "api_type": "afreeca_api",
+      "response_time_ms": 426,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.028682",
+      "api_type": "afreeca_api",
+      "response_time_ms": 509,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.041480",
+      "api_type": "afreeca_api",
+      "response_time_ms": 520,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.041539",
+      "api_type": "afreeca_api",
+      "response_time_ms": 521,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.041568",
+      "api_type": "afreeca_api",
+      "response_time_ms": 522,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.122380",
+      "api_type": "afreeca_api",
+      "response_time_ms": 538,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.126342",
+      "api_type": "chzzk_api",
+      "response_time_ms": 605,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.129571",
+      "api_type": "chzzk_api",
+      "response_time_ms": 608,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.132564",
+      "api_type": "chzzk_api",
+      "response_time_ms": 611,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.134192",
+      "api_type": "afreeca_api",
+      "response_time_ms": 614,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.232858",
+      "api_type": "chzzk_api",
+      "response_time_ms": 705,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.232938",
+      "api_type": "chzzk_api",
+      "response_time_ms": 712,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.233002",
+      "api_type": "chzzk_api",
+      "response_time_ms": 713,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.234075",
+      "api_type": "chzzk_api",
+      "response_time_ms": 714,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.250862",
+      "api_type": "chzzk_api",
+      "response_time_ms": 731,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.325964",
+      "api_type": "chzzk_api",
+      "response_time_ms": 803,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.326050",
+      "api_type": "afreeca_api",
+      "response_time_ms": 805,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.383437",
+      "api_type": "afreeca_api",
+      "response_time_ms": 862,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.385243",
+      "api_type": "afreeca_api",
+      "response_time_ms": 864,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.389758",
+      "api_type": "afreeca_api",
+      "response_time_ms": 868,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.398869",
+      "api_type": "afreeca_api",
+      "response_time_ms": 875,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.419257",
+      "api_type": "afreeca_api",
+      "response_time_ms": 879,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.419311",
+      "api_type": "afreeca_api",
+      "response_time_ms": 898,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.623288",
+      "api_type": "afreeca_api",
+      "response_time_ms": 487,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.684127",
+      "api_type": "chzzk_api",
+      "response_time_ms": 127,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.699493",
+      "api_type": "cafe_api",
+      "response_time_ms": 143,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.726482",
+      "api_type": "cafe_api",
+      "response_time_ms": 170,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.748284",
+      "api_type": "cafe_api",
+      "response_time_ms": 183,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.753408",
+      "api_type": "chzzk_api",
+      "response_time_ms": 193,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.753465",
+      "api_type": "cafe_api",
+      "response_time_ms": 194,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.755417",
+      "api_type": "chzzk_api",
+      "response_time_ms": 198,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.765567",
+      "api_type": "cafe_api",
+      "response_time_ms": 209,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.831339",
+      "api_type": "chzzk_api",
+      "response_time_ms": 273,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.845042",
+      "api_type": "chzzk_api",
+      "response_time_ms": 288,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.884809",
+      "api_type": "chzzk_api",
+      "response_time_ms": 327,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.924686",
+      "api_type": "chzzk_api",
+      "response_time_ms": 359,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.925389",
+      "api_type": "chzzk_api",
+      "response_time_ms": 363,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.930594",
+      "api_type": "afreeca_api",
+      "response_time_ms": 366,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.945942",
+      "api_type": "afreeca_api",
+      "response_time_ms": 382,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:01.956973",
+      "api_type": "afreeca_api",
+      "response_time_ms": 394,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.029256",
+      "api_type": "afreeca_api",
+      "response_time_ms": 462,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.045629",
+      "api_type": "afreeca_api",
+      "response_time_ms": 468,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.047969",
+      "api_type": "afreeca_api",
+      "response_time_ms": 483,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.057304",
+      "api_type": "chzzk_api",
+      "response_time_ms": 491,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.057368",
+      "api_type": "afreeca_api",
+      "response_time_ms": 492,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.129197",
+      "api_type": "chzzk_api",
+      "response_time_ms": 565,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.135620",
+      "api_type": "chzzk_api",
+      "response_time_ms": 572,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.162192",
+      "api_type": "chzzk_api",
+      "response_time_ms": 598,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.173332",
+      "api_type": "chzzk_api",
+      "response_time_ms": 602,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.173407",
+      "api_type": "chzzk_api",
+      "response_time_ms": 603,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.233265",
+      "api_type": "chzzk_api",
+      "response_time_ms": 668,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.234200",
+      "api_type": "chzzk_api",
+      "response_time_ms": 670,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.285128",
+      "api_type": "afreeca_api",
+      "response_time_ms": 719,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.293333",
+      "api_type": "afreeca_api",
+      "response_time_ms": 728,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.317585",
+      "api_type": "afreeca_api",
+      "response_time_ms": 730,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.321656",
+      "api_type": "afreeca_api",
+      "response_time_ms": 755,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.326324",
+      "api_type": "afreeca_api",
+      "response_time_ms": 758,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.328365",
+      "api_type": "afreeca_api",
+      "response_time_ms": 762,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.368088",
+      "api_type": "afreeca_api",
+      "response_time_ms": 802,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.540757",
+      "api_type": "afreeca_api",
+      "response_time_ms": 406,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.593147",
+      "api_type": "chzzk_api",
+      "response_time_ms": 102,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.613777",
+      "api_type": "cafe_api",
+      "response_time_ms": 123,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.637538",
+      "api_type": "chzzk_api",
+      "response_time_ms": 146,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.658588",
+      "api_type": "cafe_api",
+      "response_time_ms": 164,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.659475",
+      "api_type": "chzzk_api",
+      "response_time_ms": 168,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.663742",
+      "api_type": "cafe_api",
+      "response_time_ms": 172,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.668586",
+      "api_type": "cafe_api",
+      "response_time_ms": 178,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.727486",
+      "api_type": "chzzk_api",
+      "response_time_ms": 234,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.727550",
+      "api_type": "chzzk_api",
+      "response_time_ms": 235,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.732464",
+      "api_type": "chzzk_api",
+      "response_time_ms": 239,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.785820",
+      "api_type": "chzzk_api",
+      "response_time_ms": 294,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.830074",
+      "api_type": "chzzk_api",
+      "response_time_ms": 337,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.830143",
+      "api_type": "cafe_api",
+      "response_time_ms": 339,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.851725",
+      "api_type": "afreeca_api",
+      "response_time_ms": 359,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.860294",
+      "api_type": "afreeca_api",
+      "response_time_ms": 367,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.861386",
+      "api_type": "afreeca_api",
+      "response_time_ms": 369,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.957948",
+      "api_type": "chzzk_api",
+      "response_time_ms": 463,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.960798",
+      "api_type": "chzzk_api",
+      "response_time_ms": 466,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:02.962299",
+      "api_type": "afreeca_api",
+      "response_time_ms": 469,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.022580",
+      "api_type": "chzzk_api",
+      "response_time_ms": 529,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.027064",
+      "api_type": "afreeca_api",
+      "response_time_ms": 534,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.033079",
+      "api_type": "afreeca_api",
+      "response_time_ms": 536,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.048715",
+      "api_type": "afreeca_api",
+      "response_time_ms": 547,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.049771",
+      "api_type": "chzzk_api",
+      "response_time_ms": 557,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.128657",
+      "api_type": "chzzk_api",
+      "response_time_ms": 630,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.128747",
+      "api_type": "chzzk_api",
+      "response_time_ms": 631,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.128772",
+      "api_type": "chzzk_api",
+      "response_time_ms": 633,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.169742",
+      "api_type": "chzzk_api",
+      "response_time_ms": 676,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.173065",
+      "api_type": "afreeca_api",
+      "response_time_ms": 679,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.180995",
+      "api_type": "afreeca_api",
+      "response_time_ms": 687,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.226429",
+      "api_type": "afreeca_api",
+      "response_time_ms": 728,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.226538",
+      "api_type": "afreeca_api",
+      "response_time_ms": 730,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "timestamp": "2025-11-12T13:53:03.226569",
+      "api_type": "afreeca_api",
+      "response_time_ms": 731,
+      "is_success": true,
+      "http_status_code": 200,
+      "error_type": null,
+      "error_message": null,
+      "retry_count": 0
+    }
+  ]
+}
