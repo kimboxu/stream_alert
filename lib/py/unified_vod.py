@@ -348,7 +348,7 @@ class base_vod(ABC):
                 hours_threshold = 17 * i
                 if (timestamp - timedelta(hours=hours_threshold)) >= start_time:
                     is_done = True
-                else: 
+                if (timestamp - timedelta(hours=hours_threshold, minutes = 30)) < start_time:
                     data['vod_segment_start_offset'] = (i - 1) * segment_duration
                     data['vod_segment_number'] = i - 1
                     break
