@@ -1,0 +1,2007 @@
+{
+  "channel_id": "ma_mwa",
+  "channel_name": "마뫄",
+  "save_timestamp": "2025-11-15T02:54:02.985882",
+  "total_logs": 47,
+  "logs": [
+    {
+      "timestamp": "2025-11-15T02:47:54.529743",
+      "fun_score": 3.305038267055219,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.7049768659945916,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.17677669529664,
+        "viewer_trend_score": 0,
+        "final_score": 3.305038267055219,
+        "baseline_chat_count": 3.2159624818486985,
+        "baseline_viewer_count": 1116.3565299118884,
+        "baseline_threshold": 13.812444278901914,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 119,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:00:20",
+      "comment_after_openDate": "00:00:20",
+      "chat_context": [
+        "팩토리얼: 매뫠 도라와줘ㅓ",
+        "팩토리얼: 요즘 왜케 컴이슈가 자꾸"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:47:59.543823",
+      "fun_score": 6.748065789599542,
+      "test_fun_score": 0.5944586575545393,
+      "score_components": {
+        "chat_spike_score": 5.8433251072225145,
+        "reaction_score": 0.5944586575545393,
+        "test_reaction_score": 0.5944586575545393,
+        "diversity_score": 39.40231894083048,
+        "viewer_trend_score": 0,
+        "final_score": 6.748065789599542,
+        "baseline_chat_count": 3.2043135612725875,
+        "baseline_viewer_count": 1106.8018543553326,
+        "baseline_threshold": 13.711783329308423,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.4430275225443228,
+        "test_score_difference": 0.5273886314612437,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 119,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:25",
+      "comment_after_openDate": "00:00:25",
+      "chat_context": [
+        "팩토리얼: 매뫠 도라와줘ㅓ",
+        "팩토리얼: 요즘 왜케 컴이슈가 자꾸",
+        "카자리: 이게 머선 일이람..",
+        "됴잉: 와떠ㅏ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:48:04.617889",
+      "fun_score": 7.893759030403652,
+      "test_fun_score": 0.5913937750071177,
+      "score_components": {
+        "chat_spike_score": 5.809807972004509,
+        "reaction_score": 0.5913937750071177,
+        "test_reaction_score": 0.5913937750071177,
+        "diversity_score": 51.019273104994866,
+        "viewer_trend_score": 0,
+        "final_score": 7.893759030403652,
+        "baseline_chat_count": 3.211936237355596,
+        "baseline_viewer_count": 1097.3387125906086,
+        "baseline_threshold": 13.645070915278012,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.588720763348434,
+        "test_score_difference": 0.524323748913822,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 269,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:30",
+      "comment_after_openDate": "00:00:30",
+      "chat_context": [
+        "팩토리얼: 요즘 왜케 컴이슈가 자꾸",
+        "카자리: 이게 머선 일이람..",
+        "됴잉: 와떠ㅏ",
+        "학스리: 돌아와따"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:48:09.645807",
+      "fun_score": 19.03395965867046,
+      "test_fun_score": 0.5883879798215417,
+      "score_components": {
+        "chat_spike_score": 32.181815010538685,
+        "reaction_score": 0.5883879798215417,
+        "test_reaction_score": 0.5883879798215417,
+        "diversity_score": 43.75626509981589,
+        "viewer_trend_score": 0,
+        "final_score": 19.03395965867046,
+        "baseline_chat_count": 3.2194858882017297,
+        "baseline_viewer_count": 1089.4032277239905,
+        "baseline_threshold": 13.589973347420914,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.728921391615243,
+        "test_score_difference": 0.5213179537282461,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 269,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:35",
+      "comment_after_openDate": "00:00:35",
+      "chat_context": [
+        "팩토리얼: 요즘 왜케 컴이슈가 자꾸",
+        "카자리: 이게 머선 일이람..",
+        "됴잉: 와떠ㅏ",
+        "학스리: 돌아와따",
+        "lowHz: 돌아왔구나",
+        "팩토리얼: 아예 다 꺼졌나?",
+        "말랑깅ㅇ: {:m5:}{:m5:}{:m55:}"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:48:23.147628",
+      "fun_score": 49.50916622861892,
+      "test_fun_score": 1.0590663351973364,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 1.0590663351973364,
+        "test_reaction_score": 1.0590663351973364,
+        "diversity_score": 41.914463280597204,
+        "viewer_trend_score": 0,
+        "final_score": 49.50916622861892,
+        "baseline_chat_count": 3.2557032133927573,
+        "baseline_viewer_count": 1081.5437648023947,
+        "baseline_threshold": 13.642126736282686,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 46.20412796156371,
+        "test_score_difference": 0.9919963091040408,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 540,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:00:49",
+      "comment_after_openDate": "00:00:35",
+      "chat_context": [
+        "카자리: 이게 머선 일이람..",
+        "됴잉: 와떠ㅏ",
+        "학스리: 돌아와따",
+        "lowHz: 돌아왔구나",
+        "팩토리얼: 아예 다 꺼졌나?",
+        "말랑깅ㅇ: {:m5:}{:m5:}{:m55:}",
+        "팩토리얼: 버추얼도 꺼져있네",
+        "지지우우우: 지가깅야",
+        "마모아1: 뫄하",
+        "노도하: 돌아와따",
+        "팩토리얼: 아크 레이더스 글카 드라이버에 맞춘게 이슈가 있던건가?"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:48:33.239740",
+      "fun_score": 25.22612102875568,
+      "test_fun_score": 0.9961209414271005,
+      "score_components": {
+        "chat_spike_score": 46.47169129712899,
+        "reaction_score": 0.9961209414271005,
+        "test_reaction_score": 0.9961209414271005,
+        "diversity_score": 40.15023662619506,
+        "viewer_trend_score": 0,
+        "final_score": 25.22612102875568,
+        "baseline_chat_count": 3.3298935766084545,
+        "baseline_viewer_count": 1076.3557755355876,
+        "baseline_threshold": 13.985732974619266,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 21.92108276170046,
+        "test_score_difference": 0.9290509153338049,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 540,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:59",
+      "comment_after_openDate": "00:00:59",
+      "chat_context": [
+        "lowHz: 돌아왔구나",
+        "팩토리얼: 아예 다 꺼졌나?",
+        "말랑깅ㅇ: {:m5:}{:m5:}{:m55:}",
+        "팩토리얼: 버추얼도 꺼져있네",
+        "지지우우우: 지가깅야",
+        "마모아1: 뫄하",
+        "노도하: 돌아와따",
+        "팩토리얼: 아크 레이더스 글카 드라이버에 맞춘게 이슈가 있던건가?",
+        "마사롸있네: !업타임"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:48:46.623620",
+      "fun_score": 7.596735045614394,
+      "test_fun_score": 0.5294556816414836,
+      "score_components": {
+        "chat_spike_score": 5.135722665278529,
+        "reaction_score": 0.5294556816414836,
+        "test_reaction_score": 0.5294556816414836,
+        "diversity_score": 51.268231417466104,
+        "viewer_trend_score": 0,
+        "final_score": 7.596735045614394,
+        "baseline_chat_count": 3.3842131961445454,
+        "baseline_viewer_count": 1071.2174872059566,
+        "baseline_threshold": 14.093415892177893,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.291696778559174,
+        "test_score_difference": 0.462385655548188,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 540,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:12",
+      "comment_after_openDate": "00:01:12",
+      "chat_context": [
+        "팩토리얼: 아크 레이더스 글카 드라이버에 맞춘게 이슈가 있던건가?",
+        "마사롸있네: !업타임",
+        "롸차팍: 보통 글카나 모니터 문제일텐데",
+        "딱쓰: 어우 깜짝아 잠깐 일시정지 였는 데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:48:51.635415",
+      "fun_score": 7.586921376729331,
+      "test_fun_score": 0.5275584372377031,
+      "score_components": {
+        "chat_spike_score": 5.115179341803132,
+        "reaction_score": 0.5275584372377031,
+        "test_reaction_score": 0.5275584372377031,
+        "diversity_score": 51.268231417466104,
+        "viewer_trend_score": 0,
+        "final_score": 7.586921376729331,
+        "baseline_chat_count": 3.3901124337254807,
+        "baseline_viewer_count": 1066.1284236785234,
+        "baseline_threshold": 14.031177689667814,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.281883109674112,
+        "test_score_difference": 0.46048841114440753,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 540,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:17",
+      "comment_after_openDate": "00:01:17",
+      "chat_context": [
+        "팩토리얼: 아크 레이더스 글카 드라이버에 맞춘게 이슈가 있던건가?",
+        "마사롸있네: !업타임",
+        "롸차팍: 보통 글카나 모니터 문제일텐데",
+        "딱쓰: 어우 깜짝아 잠깐 일시정지 였는 데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:48:56.719671",
+      "fun_score": 8.659137004773832,
+      "test_fun_score": 4.056727777813952,
+      "score_components": {
+        "chat_spike_score": 5.094981647648059,
+        "reaction_score": 4.056727777813952,
+        "test_reaction_score": 4.056727777813952,
+        "diversity_score": 51.4937692998802,
+        "viewer_trend_score": 0,
+        "final_score": 8.659137004773832,
+        "baseline_chat_count": 3.3959551566103907,
+        "baseline_viewer_count": 1061.0881133796831,
+        "baseline_threshold": 13.969441714189863,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.354098737718614,
+        "test_score_difference": 3.9896577517206566,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 540,
+        "fun_keywords": {
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:01:22",
+      "comment_after_openDate": "00:01:22",
+      "chat_context": [
+        "마사롸있네: !업타임",
+        "롸차팍: 보통 글카나 모니터 문제일텐데",
+        "딱쓰: 어우 깜짝아 잠깐 일시정지 였는 데",
+        "젬베: !멤버"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:49:01.819655",
+      "fun_score": 8.64186649266957,
+      "test_fun_score": 4.02894886382142,
+      "score_components": {
+        "chat_spike_score": 5.07512200785583,
+        "reaction_score": 4.02894886382142,
+        "test_reaction_score": 4.02894886382142,
+        "diversity_score": 51.4937692998802,
+        "viewer_trend_score": 0,
+        "final_score": 8.64186649266957,
+        "baseline_chat_count": 3.4017419062100633,
+        "baseline_viewer_count": 1056.0960892535056,
+        "baseline_threshold": 13.918568995073656,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.336828225614351,
+        "test_score_difference": 3.9618788377281247,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 540,
+        "fun_keywords": {
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:01:27",
+      "comment_after_openDate": "00:01:27",
+      "chat_context": [
+        "마사롸있네: !업타임",
+        "롸차팍: 보통 글카나 모니터 문제일텐데",
+        "딱쓰: 어우 깜짝아 잠깐 일시정지 였는 데",
+        "젬베: !멤버"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:49:06.824396",
+      "fun_score": 26.799133117074607,
+      "test_fun_score": 44.535514452238814,
+      "score_components": {
+        "chat_spike_score": 15.47828773188667,
+        "reaction_score": 44.535514452238814,
+        "test_reaction_score": 44.535514452238814,
+        "diversity_score": 34.7324930205396,
+        "viewer_trend_score": 20,
+        "final_score": 26.799133117074607,
+        "baseline_chat_count": 3.407473218748571,
+        "baseline_viewer_count": 1051.151888718457,
+        "baseline_threshold": 13.868018185100624,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 23.494094850019387,
+        "test_score_difference": 44.46844442614552,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:01:32",
+      "comment_after_openDate": "00:01:32",
+      "chat_context": [
+        "딱쓰: 어우 깜짝아 잠깐 일시정지 였는 데",
+        "젬베: !멤버",
+        "팩토리얼: 1 10 1",
+        "젬베: 1 10 1",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "팩토리얼: 잠깐 튕긴 마뫄보다 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:49:22.536035",
+      "fun_score": 13.525611837092626,
+      "test_fun_score": 6.855311124059154,
+      "score_components": {
+        "chat_spike_score": 8.733429880340104,
+        "reaction_score": 6.855311124059154,
+        "test_reaction_score": 6.855311124059154,
+        "diversity_score": 30.38975053721832,
+        "viewer_trend_score": 30,
+        "final_score": 13.525611837092626,
+        "baseline_chat_count": 3.4323096253129592,
+        "baseline_viewer_count": 1048.0177736245341,
+        "baseline_threshold": 13.991898266148935,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.220573570037407,
+        "test_score_difference": 6.788241097965859,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "laugh": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:01:48",
+      "comment_after_openDate": "00:01:48",
+      "chat_context": [
+        "팩토리얼: 1 10 1",
+        "젬베: 1 10 1",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "팩토리얼: 잠깐 튕긴 마뫄보다 ㅋㅋㅋㅋㅋ",
+        "젬베: 사실 11 0 1입니다"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:49:27.814869",
+      "fun_score": 48.35276696125988,
+      "test_fun_score": 52.30387438867387,
+      "score_components": {
+        "chat_spike_score": 40.889541751496154,
+        "reaction_score": 72.06476442222454,
+        "test_reaction_score": 52.30387438867387,
+        "diversity_score": 38.33043846419248,
+        "viewer_trend_score": 30,
+        "final_score": 48.35276696125988,
+        "baseline_chat_count": 3.4473280991024606,
+        "baseline_viewer_count": 1044.913683353211,
+        "baseline_threshold": 13.987431242158575,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 45.047728694204665,
+        "test_score_difference": 52.23680436258057,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:01:53",
+      "comment_after_openDate": "00:01:32",
+      "chat_context": [
+        "팩토리얼: 1 10 1",
+        "젬베: 1 10 1",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "팩토리얼: 잠깐 튕긴 마뫄보다 ㅋㅋㅋㅋㅋ",
+        "젬베: 사실 11 0 1입니다",
+        "카자리: 1. 그래픽카드 / 2. 모니터 / 3. 잠자던 짜누",
+        "갈색햄찌: ㅋㅋㅋㅋㅋㅋㅋ",
+        "lowHz: 아무래도 3번인듯"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:49:42.733335",
+      "fun_score": 9.016459755401389,
+      "test_fun_score": 0.6614303054107756,
+      "score_components": {
+        "chat_spike_score": 1.5470875421176689,
+        "reaction_score": 1.04399764545524,
+        "test_reaction_score": 0.6614303054107756,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 20,
+        "final_score": 9.016459755401389,
+        "baseline_chat_count": 3.4909426959130587,
+        "baseline_viewer_count": 1041.839330266687,
+        "baseline_threshold": 14.316651158347565,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.268393965801847,
+        "test_score_difference": 0.1338718681730725,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:02:08",
+      "comment_after_openDate": "00:02:08",
+      "chat_context": [
+        "갈색햄찌: ㅋㅋㅋㅋㅋㅋㅋ",
+        "lowHz: 아무래도 3번인듯"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:49:47.850875",
+      "fun_score": 8.867484295419274,
+      "test_fun_score": 0.5011926342604035,
+      "score_components": {
+        "chat_spike_score": 1.5543307458033095,
+        "reaction_score": 0.5011926342604035,
+        "test_reaction_score": 0.5011926342604035,
+        "diversity_score": 50.17677669529664,
+        "viewer_trend_score": 20,
+        "final_score": 8.867484295419274,
+        "baseline_chat_count": 3.4766594648862115,
+        "baseline_viewer_count": 1038.794429482732,
+        "baseline_threshold": 14.265875324707341,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.2805629186899434,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:13",
+      "comment_after_openDate": "00:02:13",
+      "chat_context": [
+        "lowHz: 아무래도 3번인듯",
+        "카자리: ㄴㅇㅅ~"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:49:53.742189",
+      "fun_score": 7.7973428506546005,
+      "test_fun_score": 0.5053220043734115,
+      "score_components": {
+        "chat_spike_score": 0.8794361096501706,
+        "reaction_score": 0.5053220043734115,
+        "test_reaction_score": 0.5053220043734115,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 15,
+        "final_score": 7.7973428506546005,
+        "baseline_chat_count": 3.462513067212601,
+        "baseline_viewer_count": 1035.7786988482874,
+        "baseline_threshold": 14.214158738646761,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.2104214739252699,
+        "test_score_difference": 0.004129370113007957,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:19",
+      "comment_after_openDate": "00:02:19",
+      "chat_context": [
+        "카자리: ㄴㅇㅅ~"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:49:58.826238",
+      "fun_score": 7.0510187718427195,
+      "test_fun_score": 0.5123607862332148,
+      "score_components": {
+        "chat_spike_score": 0.8829123021616774,
+        "reaction_score": 0.5123607862332148,
+        "test_reaction_score": 0.5123607862332148,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.0510187718427195,
+        "baseline_chat_count": 3.4389221920287043,
+        "baseline_viewer_count": 1032.7918589133205,
+        "baseline_threshold": 14.152685642439796,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.011168151972811291,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:24",
+      "comment_after_openDate": "00:02:24",
+      "chat_context": [
+        "카자리: ㄴㅇㅅ~"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:50:03.841452",
+      "fun_score": 7.433376382140569,
+      "test_fun_score": 0.5195263605830093,
+      "score_components": {
+        "chat_spike_score": 1.5863974747975018,
+        "reaction_score": 0.5195263605830093,
+        "test_reaction_score": 0.5195263605830093,
+        "diversity_score": 50.636396103067895,
+        "viewer_trend_score": 10,
+        "final_score": 7.433376382140569,
+        "baseline_chat_count": 3.4155573174290694,
+        "baseline_viewer_count": 1029.833632904931,
+        "baseline_threshold": 14.084651673819474,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3823576102978494,
+        "test_score_difference": 0.01833372632260577,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:29",
+      "comment_after_openDate": "00:02:29",
+      "chat_context": [
+        "카자리: ㄴㅇㅅ~",
+        "팩토리얼: 드라이버쪽 이슈일 확률이 높을거같긴 한데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:50:08.915028",
+      "fun_score": 14.211555168804,
+      "test_fun_score": 2.2576080152962343,
+      "score_components": {
+        "chat_spike_score": 15.559446236443685,
+        "reaction_score": 2.2576080152962343,
+        "test_reaction_score": 2.2576080152962343,
+        "diversity_score": 35.325219578154716,
+        "viewer_trend_score": 20,
+        "final_score": 14.211555168804,
+        "baseline_chat_count": 3.401996278328099,
+        "baseline_viewer_count": 1026.9037467017017,
+        "baseline_threshold": 14.02093245652519,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.160536396961281,
+        "test_score_difference": 1.756415381035831,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 890,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:02:34",
+      "comment_after_openDate": "00:02:34",
+      "chat_context": [
+        "카자리: ㄴㅇㅅ~",
+        "팩토리얼: 드라이버쪽 이슈일 확률이 높을거같긴 한데",
+        "카자리: 어어 또",
+        "팩토리얼: 버벅인다",
+        "뫄카인: ?",
+        "닉네임임나: 3인듯 ㅇㅇ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:50:14.931613",
+      "fun_score": 11.16096064417871,
+      "test_fun_score": 0.28820773034933245,
+      "score_components": {
+        "chat_spike_score": 15.195800908572062,
+        "reaction_score": 0.28820773034933245,
+        "test_reaction_score": 0.28820773034933245,
+        "diversity_score": 42.36387916216482,
+        "viewer_trend_score": 0,
+        "final_score": 11.16096064417871,
+        "baseline_chat_count": 3.4268851539817153,
+        "baseline_viewer_count": 1025.5922088082993,
+        "baseline_threshold": 14.022758622108821,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.10994187233599,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 724,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:02:40",
+      "comment_after_openDate": "00:02:40",
+      "chat_context": [
+        "팩토리얼: 드라이버쪽 이슈일 확률이 높을거같긴 한데",
+        "카자리: 어어 또",
+        "팩토리얼: 버벅인다",
+        "뫄카인: ?",
+        "닉네임임나: 3인듯 ㅇㅇ",
+        "롸차팍: 뭐시여"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:50:20.217441",
+      "fun_score": 13.25371183391174,
+      "test_fun_score": 0.28522435555552805,
+      "score_components": {
+        "chat_spike_score": 14.848348024508,
+        "reaction_score": 0.28522435555552805,
+        "test_reaction_score": 0.28522435555552805,
+        "diversity_score": 42.36387916216482,
+        "viewer_trend_score": 15,
+        "final_score": 13.25371183391174,
+        "baseline_chat_count": 3.4515355942065704,
+        "baseline_viewer_count": 1022.7029554479158,
+        "baseline_threshold": 13.99534259748025,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.202693062069021,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 890,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:02:46",
+      "comment_after_openDate": "00:02:46",
+      "chat_context": [
+        "팩토리얼: 드라이버쪽 이슈일 확률이 높을거같긴 한데",
+        "카자리: 어어 또",
+        "팩토리얼: 버벅인다",
+        "뫄카인: ?",
+        "닉네임임나: 3인듯 ㅇㅇ",
+        "롸차팍: 뭐시여"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:50:25.234519",
+      "fun_score": 13.103356071864198,
+      "test_fun_score": 0.28234102965333285,
+      "score_components": {
+        "chat_spike_score": 14.516146326114928,
+        "reaction_score": 0.28234102965333285,
+        "test_reaction_score": 0.28234102965333285,
+        "diversity_score": 42.36387916216482,
+        "viewer_trend_score": 15,
+        "final_score": 13.103356071864198,
+        "baseline_chat_count": 3.475949883214071,
+        "baseline_viewer_count": 1021.4316611347247,
+        "baseline_threshold": 13.988237774765263,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.052337300021478,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 890,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:02:51",
+      "comment_after_openDate": "00:02:51",
+      "chat_context": [
+        "팩토리얼: 드라이버쪽 이슈일 확률이 높을거같긴 한데",
+        "카자리: 어어 또",
+        "팩토리얼: 버벅인다",
+        "뫄카인: ?",
+        "닉네임임나: 3인듯 ㅇㅇ",
+        "롸차팍: 뭐시여"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:50:30.322298",
+      "fun_score": 16.774064149839226,
+      "test_fun_score": 0.2795530718780837,
+      "score_components": {
+        "chat_spike_score": 23.83745808909265,
+        "reaction_score": 0.2795530718780837,
+        "test_reaction_score": 0.2795530718780837,
+        "diversity_score": 44.63342088184107,
+        "viewer_trend_score": 10,
+        "final_score": 16.774064149839226,
+        "baseline_chat_count": 3.5001302833328802,
+        "baseline_viewer_count": 1020.172545821054,
+        "baseline_threshold": 13.97976060805147,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.723045377996506,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 890,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:02:56",
+      "comment_after_openDate": "00:02:56",
+      "chat_context": [
+        "팩토리얼: 드라이버쪽 이슈일 확률이 높을거같긴 한데",
+        "카자리: 어어 또",
+        "팩토리얼: 버벅인다",
+        "뫄카인: ?",
+        "닉네임임나: 3인듯 ㅇㅇ",
+        "롸차팍: 뭐시여",
+        "lowHz: 귀신들렸나 곧 3시긴한데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:50:35.417754",
+      "fun_score": 12.959544369749871,
+      "test_fun_score": 0.27579466711083145,
+      "score_components": {
+        "chat_spike_score": 13.775175022522035,
+        "reaction_score": 0.27579466711083145,
+        "test_reaction_score": 0.27579466711083145,
+        "diversity_score": 51.77977209481706,
+        "viewer_trend_score": 10,
+        "final_score": 12.959544369749871,
+        "baseline_chat_count": 3.5336590352185513,
+        "baseline_viewer_count": 1018.9254928320883,
+        "baseline_threshold": 14.006530035981795,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.908525597907151,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 890,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:03:01",
+      "comment_after_openDate": "00:03:01",
+      "chat_context": [
+        "카자리: 어어 또",
+        "팩토리얼: 버벅인다",
+        "뫄카인: ?",
+        "닉네임임나: 3인듯 ㅇㅇ",
+        "롸차팍: 뭐시여",
+        "lowHz: 귀신들렸나 곧 3시긴한데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:50:40.443371",
+      "fun_score": 6.909849960416313,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.866064339085165,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.909849960416313,
+        "baseline_chat_count": 3.5572865816611574,
+        "baseline_viewer_count": 1017.6903866107568,
+        "baseline_threshold": 13.996499913299292,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 890,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:03:06",
+      "comment_after_openDate": "00:03:06",
+      "chat_context": [
+        "lowHz: 귀신들렸나 곧 3시긴한데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:51:06.521302",
+      "fun_score": 5.5368804068583275,
+      "test_fun_score": 0.4854520167696916,
+      "score_components": {
+        "chat_spike_score": 0.8694328929498221,
+        "reaction_score": 0.4854520167696916,
+        "test_reaction_score": 0.4854520167696916,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.5368804068583275,
+        "baseline_chat_count": 3.5327877762088438,
+        "baseline_viewer_count": 1016.4671127070258,
+        "baseline_threshold": 13.928609806750673,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.4183819906763959,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 849,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:32",
+      "comment_after_openDate": "00:03:32",
+      "chat_context": [
+        "팩토리얼: 흡!"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:51:16.323678",
+      "fun_score": 5.540412965414878,
+      "test_fun_score": 0.4921335437763375,
+      "score_components": {
+        "chat_spike_score": 0.8728286717377255,
+        "reaction_score": 0.4921335437763375,
+        "test_reaction_score": 0.4921335437763375,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.540412965414878,
+        "baseline_chat_count": 3.5085236693127633,
+        "baseline_viewer_count": 1014.8627777672924,
+        "baseline_threshold": 13.848217039099705,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0035325585565502138,
+        "test_score_difference": 0.42506351768304185,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 849,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:42",
+      "comment_after_openDate": "00:03:42",
+      "chat_context": [
+        "팩토리얼: 흡!"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:51:21.336185",
+      "fun_score": 5.54399384549513,
+      "test_fun_score": 0.4989350864407777,
+      "score_components": {
+        "chat_spike_score": 0.8762518212508831,
+        "reaction_score": 0.4989350864407777,
+        "test_reaction_score": 0.4989350864407777,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.54399384549513,
+        "baseline_chat_count": 3.484492012560747,
+        "baseline_viewer_count": 1013.2738123562817,
+        "baseline_threshold": 13.768628276073803,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007113438636802805,
+        "test_score_difference": 0.43186506034748207,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 849,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:47",
+      "comment_after_openDate": "00:03:47",
+      "chat_context": [
+        "팩토리얼: 흡!"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:51:26.514650",
+      "fun_score": 5.547623795674436,
+      "test_fun_score": 0.5058589225718837,
+      "score_components": {
+        "chat_spike_score": 0.8797024864508259,
+        "reaction_score": 0.5058589225718837,
+        "test_reaction_score": 0.5058589225718837,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.547623795674436,
+        "baseline_chat_count": 3.460690579080415,
+        "baseline_viewer_count": 1011.7000692339085,
+        "baseline_threshold": 13.68983627822886,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.010743388816108812,
+        "test_score_difference": 0.4387888964785881,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 849,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:52",
+      "comment_after_openDate": "00:03:52",
+      "chat_context": [
+        "팩토리얼: 흡!"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:51:31.519598",
+      "fun_score": 7.9842870680011675,
+      "test_fun_score": 6.812275952538839,
+      "score_components": {
+        "chat_spike_score": 4.956764457566254,
+        "reaction_score": 10.06499839369279,
+        "test_reaction_score": 6.812275952538839,
+        "diversity_score": 27.342435439885154,
+        "viewer_trend_score": 0,
+        "final_score": 7.9842870680011675,
+        "baseline_chat_count": 3.437117163332825,
+        "baseline_viewer_count": 1010.1414025706476,
+        "baseline_threshold": 13.611833882645989,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.44740666114284,
+        "test_score_difference": 6.745205926445544,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 849,
+        "fun_keywords": {
+          "excitement": 2.2,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:03:57",
+      "comment_after_openDate": "00:03:57",
+      "chat_context": [
+        "팩토리얼: 흡!",
+        "팩토리얼: 매뫠해줘",
+        "팩토리얼: 아으 이게 머리가",
+        "lowHz: ??????"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:51:36.554640",
+      "fun_score": 20.783616708540645,
+      "test_fun_score": 33.336793373483296,
+      "score_components": {
+        "chat_spike_score": 8.661614008346422,
+        "reaction_score": 46.201419776392704,
+        "test_reaction_score": 33.336793373483296,
+        "diversity_score": 30.25464471866943,
+        "viewer_trend_score": 0,
+        "final_score": 20.783616708540645,
+        "baseline_chat_count": 3.4425095809080966,
+        "baseline_viewer_count": 1008.5976679340208,
+        "baseline_threshold": 13.557921984161691,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.246736301682319,
+        "test_score_difference": 33.26972334739,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 849,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 1.2,
+          "surprise": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "surprise": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:04:02",
+      "comment_after_openDate": "00:04:02",
+      "chat_context": [
+        "팩토리얼: 매뫠해줘",
+        "팩토리얼: 아으 이게 머리가",
+        "lowHz: ??????",
+        "팩토리얼: 이건 뭐야",
+        "쏠라리12: 머리는 ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:51:54.428003",
+      "fun_score": 51.38257831137479,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 40.45016330761907,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.80004822946212,
+        "viewer_trend_score": 0,
+        "final_score": 51.38257831137479,
+        "baseline_chat_count": 3.457430339122997,
+        "baseline_viewer_count": 1007.0687222752128,
+        "baseline_threshold": 13.627144139621242,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 45.84569790451646,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 849,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 1.2,
+          "surprise": 1.0,
+          "laugh": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "surprise": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:04:20",
+      "comment_after_openDate": "00:04:02",
+      "chat_context": [
+        "팩토리얼: 매뫠해줘",
+        "팩토리얼: 아으 이게 머리가",
+        "lowHz: ??????",
+        "팩토리얼: 이건 뭐야",
+        "쏠라리12: 머리는 ㅋㅋㅋㅋ",
+        "팩토리얼: 이게 왜 마샬헤드가 떠 ㅋㅋㅋ",
+        "치즈주는제리: 흠",
+        "saamu: 엄"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:52:07.271477",
+      "fun_score": 6.524395416164177,
+      "test_fun_score": 0.6571267036057779,
+      "score_components": {
+        "chat_spike_score": 2.7141400947168632,
+        "reaction_score": 0.6571267036057779,
+        "test_reaction_score": 0.6571267036057779,
+        "diversity_score": 51.05894362459855,
+        "viewer_trend_score": 0,
+        "final_score": 6.524395416164177,
+        "baseline_chat_count": 3.500948156474198,
+        "baseline_viewer_count": 1005.5544239158163,
+        "baseline_threshold": 13.98884119898664,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9875150093058496,
+        "test_score_difference": 0.5900566775124823,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 859,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:04:33",
+      "comment_after_openDate": "00:04:33",
+      "chat_context": [
+        "팩토리얼: 이게 왜 마샬헤드가 떠 ㅋㅋㅋ",
+        "치즈주는제리: 흠",
+        "saamu: 엄"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:52:12.319495",
+      "fun_score": 5.903373548670932,
+      "test_fun_score": 0.6591843432146899,
+      "score_components": {
+        "chat_spike_score": 1.5444703199749479,
+        "reaction_score": 0.6591843432146899,
+        "test_reaction_score": 0.6591843432146899,
+        "diversity_score": 50.10606601717798,
+        "viewer_trend_score": 0,
+        "final_score": 5.903373548670932,
+        "baseline_chat_count": 3.496149073135175,
+        "baseline_viewer_count": 1004.1504325347028,
+        "baseline_threshold": 13.9173318083872,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3664931418126045,
+        "test_score_difference": 0.5921143171213943,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 859,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:04:38",
+      "comment_after_openDate": "00:04:38",
+      "chat_context": [
+        "saamu: 엄",
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:52:17.416682",
+      "fun_score": 5.5941072057828105,
+      "test_fun_score": 0.6654022074799937,
+      "score_components": {
+        "chat_spike_score": 0.8766367634195822,
+        "reaction_score": 0.6654022074799937,
+        "test_reaction_score": 0.6654022074799937,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.5941072057828105,
+        "baseline_chat_count": 3.48181596501454,
+        "baseline_viewer_count": 1002.7598913910203,
+        "baseline_threshold": 13.840558088259117,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.05722679892448301,
+        "test_score_difference": 0.5983321813866981,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 859,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:04:43",
+      "comment_after_openDate": "00:04:43",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:52:22.519548",
+      "fun_score": 5.598829206680889,
+      "test_fun_score": 0.675961578497454,
+      "score_components": {
+        "chat_spike_score": 0.8800905180703391,
+        "reaction_score": 0.675961578497454,
+        "test_reaction_score": 0.675961578497454,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.598829206680889,
+        "baseline_chat_count": 3.458040168069701,
+        "baseline_viewer_count": 1001.3826716314944,
+        "baseline_threshold": 13.761557088804993,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.061948799822561185,
+        "test_score_difference": 0.6088915524041584,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 859,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:04:48",
+      "comment_after_openDate": "00:04:48",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:52:27.524547",
+      "fun_score": 5.603626949558953,
+      "test_fun_score": 0.6867319090207376,
+      "score_components": {
+        "chat_spike_score": 0.8835719485616249,
+        "reaction_score": 0.6867319090207376,
+        "test_reaction_score": 0.6867319090207376,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.603626949558953,
+        "baseline_chat_count": 3.434492143259593,
+        "baseline_viewer_count": 1000.0186456372647,
+        "baseline_threshold": 13.683358155694245,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.06674654270062508,
+        "test_score_difference": 0.619661882927442,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 859,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:04:53",
+      "comment_after_openDate": "00:04:53",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:52:32.624222",
+      "fun_score": 5.608501841479608,
+      "test_fun_score": 0.6977176746812507,
+      "score_components": {
+        "chat_spike_score": 0.8870811979449614,
+        "reaction_score": 0.6977176746812507,
+        "test_reaction_score": 0.6977176746812507,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.608501841479608,
+        "baseline_chat_count": 3.4111697085271664,
+        "baseline_viewer_count": 998.6676870120598,
+        "baseline_threshold": 13.605954330739468,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.07162143462128068,
+        "test_score_difference": 0.2122656579115591,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 859,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:04:58",
+      "comment_after_openDate": "00:04:58",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:52:37.632236",
+      "fun_score": 5.61345531717752,
+      "test_fun_score": 0.7089234448047802,
+      "score_components": {
+        "chat_spike_score": 0.890618408302412,
+        "reaction_score": 0.7089234448047802,
+        "test_reaction_score": 0.7089234448047802,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.61345531717752,
+        "baseline_chat_count": 3.3880707027194763,
+        "baseline_viewer_count": 997.3296705704843,
+        "baseline_threshold": 13.52933873589236,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.07304235176264218,
+        "test_score_difference": 0.2167899010284427,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 859,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:05:03",
+      "comment_after_openDate": "00:05:03",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:52:58.123210",
+      "fun_score": 5.4225036821448,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8941837207040251,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.4225036821448,
+        "baseline_chat_count": 3.3651929853874236,
+        "baseline_viewer_count": 996.0044723264191,
+        "baseline_threshold": 13.453504572741071,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 859,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:23",
+      "comment_after_openDate": "00:05:23",
+      "chat_context": [
+        "SlashNyto: 칼이 제노헌터 모션아네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:53:03.220709",
+      "fun_score": 5.424120781652119,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8977772751647338,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.424120781652119,
+        "baseline_chat_count": 3.342534436587412,
+        "baseline_viewer_count": 994.691969481532,
+        "baseline_threshold": 13.376567584209159,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.001617099507319253,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 859,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:29",
+      "comment_after_openDate": "00:05:29",
+      "chat_context": [
+        "SlashNyto: 칼이 제노헌터 모션아네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:53:08.230159",
+      "fun_score": 5.4257506525983175,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9013992106007309,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.4257506525983175,
+        "baseline_chat_count": 3.320092956684905,
+        "baseline_viewer_count": 993.392040413899,
+        "baseline_threshold": 13.300383143840662,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.003246970453517406,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 875,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:34",
+      "comment_after_openDate": "00:05:34",
+      "chat_context": [
+        "SlashNyto: 칼이 제노헌터 모션아네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:53:13.930482",
+      "fun_score": 5.4273933569813835,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9050496647853219,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.4273933569813835,
+        "baseline_chat_count": 3.2978664661598636,
+        "baseline_viewer_count": 992.257844666734,
+        "baseline_threshold": 13.22494416457456,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.004889674836583424,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 875,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:39",
+      "comment_after_openDate": "00:05:39",
+      "chat_context": [
+        "SlashNyto: 칼이 제노헌터 모션아네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:53:18.936801",
+      "fun_score": 5.8225293256354265,
+      "test_fun_score": 0.12346813885678898,
+      "score_components": {
+        "chat_spike_score": 1.6669634331534697,
+        "reaction_score": 0.12346813885678898,
+        "test_reaction_score": 0.12346813885678898,
+        "diversity_score": 50.35355339059328,
+        "viewer_trend_score": 0,
+        "final_score": 5.8225293256354265,
+        "baseline_chat_count": 3.275852905414052,
+        "baseline_viewer_count": 991.1345145148266,
+        "baseline_threshold": 13.150243627837815,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.4000256434906264,
+        "test_score_difference": 0.05639811276349335,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 875,
+        "fun_keywords": {
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:05:44",
+      "comment_after_openDate": "00:05:44",
+      "chat_context": [
+        "SlashNyto: 칼이 제노헌터 모션아네",
+        "팩토리얼: 아으"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:53:24.015189",
+      "fun_score": 5.446984947082773,
+      "test_fun_score": 0.12375059659042015,
+      "score_components": {
+        "chat_spike_score": 0.9107994846792153,
+        "reaction_score": 0.12375059659042015,
+        "test_reaction_score": 0.12375059659042015,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.446984947082773,
+        "baseline_chat_count": 3.263630234580185,
+        "baseline_viewer_count": 990.0219458657746,
+        "baseline_threshold": 13.080044124822715,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.024481264937972647,
+        "test_score_difference": 0.05668057049712452,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 875,
+        "fun_keywords": {
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:05:49",
+      "comment_after_openDate": "00:05:49",
+      "chat_context": [
+        "팩토리얼: 아으"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:53:29.029534",
+      "fun_score": 7.91151634789197,
+      "test_fun_score": 15.920254392318563,
+      "score_components": {
+        "chat_spike_score": 3.106216558615924,
+        "reaction_score": 15.920254392318563,
+        "test_reaction_score": 15.920254392318563,
+        "diversity_score": 17.37642578819235,
+        "viewer_trend_score": 0,
+        "final_score": 7.91151634789197,
+        "baseline_chat_count": 3.241944656932907,
+        "baseline_viewer_count": 988.9200356243805,
+        "baseline_threshold": 13.006919417899967,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.48901266574717,
+        "test_score_difference": 15.853184366225268,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 875,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:05:54",
+      "comment_after_openDate": "00:05:54",
+      "chat_context": [
+        "팩토리얼: 아으",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 끼야악 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-15T02:53:34.035470",
+      "fun_score": 33.875573536523056,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 5.690911083607574,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 13.146635488996482,
+        "viewer_trend_score": 0,
+        "final_score": 33.875573536523056,
+        "baseline_chat_count": 3.2396268271194897,
+        "baseline_viewer_count": 987.8286816830989,
+        "baseline_threshold": 12.958105456489289,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 28.453069854378256,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 875,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 3.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:05:59",
+      "comment_after_openDate": "00:05:54",
+      "chat_context": [
+        "팩토리얼: 아으",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 끼야악 ㅋㅋㅋㅋㅋ",
+        "팩토리얼: 이게 꽂혔다고 ㅋㅋㅋ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
