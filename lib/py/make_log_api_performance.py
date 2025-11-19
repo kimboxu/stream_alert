@@ -385,7 +385,7 @@ class APIPerformanceLogger:
                         print(f"파일 읽기 오류: {result}")
                 
                 # 배치 간 양보 (다른 작업에게 제어권 양보)
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.2)
                 
             except asyncio.TimeoutError:
                 print(f"배치 {i//batch_size + 1} 타임아웃 - 일부 파일 건너뜀")
@@ -602,7 +602,7 @@ class APIStatisticsCalculator:
                         entry["failed_requests"] += 1
                 
                 # CPU 양보 간격 추가 (매 청크마다)
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.2)
                 
                 # 메모리 정리 힌트 (큰 청크 처리 후)
                 if chunk_start > 0 and chunk_start % (chunk_size * 10) == 0:
@@ -1134,7 +1134,7 @@ class PerformanceManager:
             }
 
             # CPU 양보
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(0.2)
             
             # 일일 통계 저장
             await self._save_daily_statistics(daily_stat)
