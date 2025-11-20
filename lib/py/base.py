@@ -80,20 +80,25 @@ async def userDataVar(init: initVar):
 			setattr(init, attr, value)
 
 		# 병렬로 필요한 데이터 로드
+		tasks = []
 		
 		if update_data['user_date']:
-			asyncio.create_task(load_user_state_data(init))
+			tasks.append(load_user_state_data(init))
 			
 		if update_data['all_date']:
-			asyncio.create_task(DataBaseVars(init))
+			tasks.append(DataBaseVars(init))
 
 		if update_data['is_print_log']:
-			asyncio.create_task(print_log())
+			tasks.append(print_log())
 
 		for channel_id in update_data['is_save_highlight_data']:
 			state = update_data['is_save_highlight_data'][channel_id]
 			if state:
-				asyncio.create_task(save_highlight_data(init, channel_id))
+				tasks.append(save_highlight_data(init, channel_id))
+			
+		# 모든 작업 기다리기
+		if tasks:
+			await asyncio.gather(*tasks)
 			
 
 	except Exception as e:
