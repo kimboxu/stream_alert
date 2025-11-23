@@ -558,7 +558,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # 성인, 구독 플러스 채널 처리
         adult_channel_state = -6
         subscription_Plus = -14
-        if live in [adult_channel_state, subscription_Plus]:  # 연령제한 채널로 썸네일링크 못 읽을 경우
+        black_list = -3
+        if live in [adult_channel_state, subscription_Plus, black_list]:  # 연령제한 채널로 썸네일링크 못 읽을 경우
             thumbnail_url = f"https://liveimg.afreecatv.com/m/{self.data.BNO}"
             return live, title, thumbnail_url, None, None, None, None, None
         
