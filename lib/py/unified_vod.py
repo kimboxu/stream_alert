@@ -664,7 +664,7 @@ class chzzk_vod(base_vod):
                             print(f"{datetime.now()} 응답 파싱 오류: {parse_error}")
                             return None
                     else:
-                        print(f"{datetime.now()} 첫 번째 댓글 HTTP 오류: {response.status}")
+                        await log_error(f"{datetime.now()} {comment_id} {self.data.videoNo}, 첫 번째 댓글 HTTP 오류: {response.status}")
                         return None
                         
         except Exception as e:
