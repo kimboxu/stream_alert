@@ -1,0 +1,2583 @@
+{
+  "2025-10-26": {
+    "date": "2025-10-26",
+    "calculated_at": "2025-10-27T07:13:06.437753",
+    "period": {
+      "start": "2025-10-26T00:00:00",
+      "end": "2025-10-26T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 325173,
+        "successful_requests": 266324,
+        "failed_requests": 58849,
+        "avg_response_time_ms": 749.44,
+        "success_rate_percent": 81.9
+      },
+      "chzzk_api": {
+        "total_requests": 316378,
+        "successful_requests": 316375,
+        "failed_requests": 3,
+        "avg_response_time_ms": 578.78,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 98080,
+        "successful_requests": 98080,
+        "failed_requests": 0,
+        "avg_response_time_ms": 315.92,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 4806,
+        "successful_requests": 4777,
+        "failed_requests": 29,
+        "avg_response_time_ms": 936.27,
+        "success_rate_percent": 99.4
+      },
+      "image_api": {
+        "total_requests": 8864,
+        "successful_requests": 8831,
+        "failed_requests": 33,
+        "avg_response_time_ms": 333.06,
+        "success_rate_percent": 99.63
+      },
+      "fcm_push": {
+        "total_requests": 284,
+        "successful_requests": 284,
+        "failed_requests": 0,
+        "avg_response_time_ms": 219.07,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 8,
+        "successful_requests": 8,
+        "failed_requests": 0,
+        "avg_response_time_ms": 816.75,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 41,
+        "successful_requests": 41,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2684.73,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 753634,
+      "successful_requests": 694720,
+      "failed_requests": 58914,
+      "overall_success_rate_percent": 92.18,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "chzzk_api",
+        "cafe_api",
+        "discord_webhook",
+        "image_api",
+        "fcm_push",
+        "youtube_api",
+        "imgbb_upload"
+      ]
+    },
+    "notification_summary": {
+      "discord": 4777,
+      "fcm": 284,
+      "total": 5061
+    }
+  },
+  "2025-10-27": {
+    "date": "2025-10-27",
+    "calculated_at": "2025-10-28T07:14:18.773453",
+    "period": {
+      "start": "2025-10-27T00:00:00",
+      "end": "2025-10-27T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "chzzk_api": {
+        "total_requests": 334858,
+        "successful_requests": 334807,
+        "failed_requests": 51,
+        "avg_response_time_ms": 500.37,
+        "success_rate_percent": 99.98
+      },
+      "cafe_api": {
+        "total_requests": 103885,
+        "successful_requests": 103885,
+        "failed_requests": 0,
+        "avg_response_time_ms": 243.81,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 343322,
+        "successful_requests": 280992,
+        "failed_requests": 62330,
+        "avg_response_time_ms": 656.52,
+        "success_rate_percent": 81.85
+      },
+      "image_api": {
+        "total_requests": 3936,
+        "successful_requests": 3904,
+        "failed_requests": 32,
+        "avg_response_time_ms": 208.33,
+        "success_rate_percent": 99.19
+      },
+      "discord_webhook": {
+        "total_requests": 1257,
+        "successful_requests": 1251,
+        "failed_requests": 6,
+        "avg_response_time_ms": 870.52,
+        "success_rate_percent": 99.52
+      },
+      "imgbb_upload": {
+        "total_requests": 33,
+        "successful_requests": 33,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1716.79,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 208,
+        "successful_requests": 208,
+        "failed_requests": 0,
+        "avg_response_time_ms": 254.03,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 10,
+        "successful_requests": 10,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1281.0,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 787509,
+      "successful_requests": 725090,
+      "failed_requests": 62419,
+      "overall_success_rate_percent": 92.07,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "chzzk_api",
+        "cafe_api",
+        "afreeca_api",
+        "image_api",
+        "discord_webhook",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 1251,
+      "fcm": 208,
+      "total": 1459
+    }
+  },
+  "2025-10-28": {
+    "date": "2025-10-28",
+    "calculated_at": "2025-10-29T07:14:48.148976",
+    "period": {
+      "start": "2025-10-28T00:00:00",
+      "end": "2025-10-28T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 6522,
+        "successful_requests": 6507,
+        "failed_requests": 15,
+        "avg_response_time_ms": 515.72,
+        "success_rate_percent": 99.77
+      },
+      "cafe_api": {
+        "total_requests": 98315,
+        "successful_requests": 98315,
+        "failed_requests": 0,
+        "avg_response_time_ms": 313.63,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 317070,
+        "successful_requests": 317067,
+        "failed_requests": 3,
+        "avg_response_time_ms": 582.6,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 326481,
+        "successful_requests": 267486,
+        "failed_requests": 58995,
+        "avg_response_time_ms": 749.26,
+        "success_rate_percent": 81.93
+      },
+      "discord_webhook": {
+        "total_requests": 5844,
+        "successful_requests": 5626,
+        "failed_requests": 218,
+        "avg_response_time_ms": 1263.19,
+        "success_rate_percent": 96.27
+      },
+      "fcm_push": {
+        "total_requests": 162,
+        "successful_requests": 162,
+        "failed_requests": 0,
+        "avg_response_time_ms": 255.42,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 29,
+        "successful_requests": 29,
+        "failed_requests": 0,
+        "avg_response_time_ms": 3714.03,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 8,
+        "successful_requests": 8,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1129.38,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 754431,
+      "successful_requests": 695200,
+      "failed_requests": 59231,
+      "overall_success_rate_percent": 92.15,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5626,
+      "fcm": 162,
+      "total": 5788
+    }
+  },
+  "2025-10-29": {
+    "date": "2025-10-29",
+    "calculated_at": "2025-10-30T07:12:22.556979",
+    "period": {
+      "start": "2025-10-29T00:00:00",
+      "end": "2025-10-29T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 324485,
+        "successful_requests": 265912,
+        "failed_requests": 58573,
+        "avg_response_time_ms": 742.19,
+        "success_rate_percent": 81.95
+      },
+      "image_api": {
+        "total_requests": 6862,
+        "successful_requests": 6855,
+        "failed_requests": 7,
+        "avg_response_time_ms": 328.13,
+        "success_rate_percent": 99.9
+      },
+      "cafe_api": {
+        "total_requests": 97625,
+        "successful_requests": 97625,
+        "failed_requests": 0,
+        "avg_response_time_ms": 303.8,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 315038,
+        "successful_requests": 315034,
+        "failed_requests": 4,
+        "avg_response_time_ms": 575.22,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 5578,
+        "successful_requests": 5477,
+        "failed_requests": 101,
+        "avg_response_time_ms": 938.81,
+        "success_rate_percent": 98.19
+      },
+      "imgbb_upload": {
+        "total_requests": 45,
+        "successful_requests": 33,
+        "failed_requests": 12,
+        "avg_response_time_ms": 1986.55,
+        "success_rate_percent": 73.33
+      },
+      "fcm_push": {
+        "total_requests": 294,
+        "successful_requests": 294,
+        "failed_requests": 0,
+        "avg_response_time_ms": 201.05,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 6,
+        "successful_requests": 6,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1976.83,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 749933,
+      "successful_requests": 691236,
+      "failed_requests": 58697,
+      "overall_success_rate_percent": 92.17,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "image_api",
+        "cafe_api",
+        "chzzk_api",
+        "discord_webhook",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5477,
+      "fcm": 294,
+      "total": 5771
+    }
+  },
+  "2025-10-30": {
+    "date": "2025-10-30",
+    "calculated_at": "2025-10-31T07:22:18.129061",
+    "period": {
+      "start": "2025-10-30T00:00:00",
+      "end": "2025-10-30T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 528279,
+        "successful_requests": 493928,
+        "failed_requests": 34351,
+        "avg_response_time_ms": 880.42,
+        "success_rate_percent": 93.5
+      },
+      "cafe_api": {
+        "total_requests": 175632,
+        "successful_requests": 175632,
+        "failed_requests": 0,
+        "avg_response_time_ms": 399.75,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 564599,
+        "successful_requests": 564595,
+        "failed_requests": 4,
+        "avg_response_time_ms": 684.52,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 9381,
+        "successful_requests": 9352,
+        "failed_requests": 29,
+        "avg_response_time_ms": 770.44,
+        "success_rate_percent": 99.69
+      },
+      "discord_webhook": {
+        "total_requests": 3576,
+        "successful_requests": 3421,
+        "failed_requests": 155,
+        "avg_response_time_ms": 2057.44,
+        "success_rate_percent": 95.67
+      },
+      "fcm_push": {
+        "total_requests": 340,
+        "successful_requests": 340,
+        "failed_requests": 0,
+        "avg_response_time_ms": 217.31,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 11,
+        "successful_requests": 11,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1545.82,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 57,
+        "successful_requests": 0,
+        "failed_requests": 57,
+        "avg_response_time_ms": 0,
+        "success_rate_percent": 0.0
+      }
+    },
+    "summary": {
+      "total_requests": 1281875,
+      "successful_requests": 1247279,
+      "failed_requests": 34596,
+      "overall_success_rate_percent": 97.3,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "cafe_api",
+        "chzzk_api",
+        "image_api",
+        "discord_webhook",
+        "fcm_push",
+        "youtube_api",
+        "imgbb_upload"
+      ]
+    },
+    "notification_summary": {
+      "discord": 3421,
+      "fcm": 340,
+      "total": 3761
+    }
+  },
+  "2025-10-31": {
+    "date": "2025-10-31",
+    "calculated_at": "2025-11-01T07:54:29.152134",
+    "period": {
+      "start": "2025-10-31T00:00:00",
+      "end": "2025-10-31T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 986783,
+        "successful_requests": 986776,
+        "failed_requests": 7,
+        "avg_response_time_ms": 762.81,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 347645,
+        "successful_requests": 347645,
+        "failed_requests": 0,
+        "avg_response_time_ms": 308.17,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1115100,
+        "successful_requests": 1115090,
+        "failed_requests": 10,
+        "avg_response_time_ms": 574.07,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 9712,
+        "successful_requests": 9645,
+        "failed_requests": 67,
+        "avg_response_time_ms": 690.01,
+        "success_rate_percent": 99.31
+      },
+      "discord_webhook": {
+        "total_requests": 3800,
+        "successful_requests": 3782,
+        "failed_requests": 18,
+        "avg_response_time_ms": 1561.52,
+        "success_rate_percent": 99.53
+      },
+      "youtube_api": {
+        "total_requests": 4,
+        "successful_requests": 4,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1615.75,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 242,
+        "successful_requests": 242,
+        "failed_requests": 0,
+        "avg_response_time_ms": 227.07,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 93,
+        "successful_requests": 32,
+        "failed_requests": 61,
+        "avg_response_time_ms": 2854.66,
+        "success_rate_percent": 34.41
+      }
+    },
+    "summary": {
+      "total_requests": 2463379,
+      "successful_requests": 2463216,
+      "failed_requests": 163,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "cafe_api",
+        "chzzk_api",
+        "image_api",
+        "discord_webhook",
+        "youtube_api",
+        "fcm_push",
+        "imgbb_upload"
+      ]
+    },
+    "notification_summary": {
+      "discord": 3782,
+      "fcm": 242,
+      "total": 4024
+    }
+  },
+  "2025-11-01": {
+    "date": "2025-11-01",
+    "calculated_at": "2025-11-02T07:41:12.877310",
+    "period": {
+      "start": "2025-11-01T00:00:00",
+      "end": "2025-11-01T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "chzzk_api": {
+        "total_requests": 998454,
+        "successful_requests": 998448,
+        "failed_requests": 6,
+        "avg_response_time_ms": 674.9,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 885718,
+        "successful_requests": 885712,
+        "failed_requests": 6,
+        "avg_response_time_ms": 868.57,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 9352,
+        "successful_requests": 9338,
+        "failed_requests": 14,
+        "avg_response_time_ms": 788.21,
+        "success_rate_percent": 99.85
+      },
+      "cafe_api": {
+        "total_requests": 311163,
+        "successful_requests": 311161,
+        "failed_requests": 2,
+        "avg_response_time_ms": 379.21,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 6220,
+        "successful_requests": 6081,
+        "failed_requests": 139,
+        "avg_response_time_ms": 1734.25,
+        "success_rate_percent": 97.77
+      },
+      "fcm_push": {
+        "total_requests": 286,
+        "successful_requests": 286,
+        "failed_requests": 0,
+        "avg_response_time_ms": 281.41,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 48,
+        "successful_requests": 48,
+        "failed_requests": 0,
+        "avg_response_time_ms": 3692.62,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 26,
+        "successful_requests": 26,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2166.35,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2211267,
+      "successful_requests": 2211100,
+      "failed_requests": 167,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "chzzk_api",
+        "afreeca_api",
+        "image_api",
+        "cafe_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 6081,
+      "fcm": 286,
+      "total": 6367
+    }
+  },
+  "2025-11-02": {
+    "date": "2025-11-02",
+    "calculated_at": "2025-11-03T08:05:26.454073",
+    "period": {
+      "start": "2025-11-02T00:00:00",
+      "end": "2025-11-02T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "cafe_api": {
+        "total_requests": 325407,
+        "successful_requests": 325407,
+        "failed_requests": 0,
+        "avg_response_time_ms": 317.36,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1043753,
+        "successful_requests": 1043751,
+        "failed_requests": 2,
+        "avg_response_time_ms": 604.78,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 925552,
+        "successful_requests": 925545,
+        "failed_requests": 7,
+        "avg_response_time_ms": 805.01,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 6930,
+        "successful_requests": 6897,
+        "failed_requests": 33,
+        "avg_response_time_ms": 746.07,
+        "success_rate_percent": 99.52
+      },
+      "discord_webhook": {
+        "total_requests": 5876,
+        "successful_requests": 5730,
+        "failed_requests": 146,
+        "avg_response_time_ms": 1603.53,
+        "success_rate_percent": 97.52
+      },
+      "fcm_push": {
+        "total_requests": 316,
+        "successful_requests": 316,
+        "failed_requests": 0,
+        "avg_response_time_ms": 269.02,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 72,
+        "successful_requests": 71,
+        "failed_requests": 1,
+        "avg_response_time_ms": 2927.04,
+        "success_rate_percent": 98.61
+      },
+      "youtube_api": {
+        "total_requests": 11,
+        "successful_requests": 11,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1948.09,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2307917,
+      "successful_requests": 2307728,
+      "failed_requests": 189,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "image_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5730,
+      "fcm": 316,
+      "total": 6046
+    }
+  },
+  "2025-11-03": {
+    "date": "2025-11-03",
+    "calculated_at": "2025-11-04T10:39:59.670292",
+    "period": {
+      "start": "2025-11-03T00:00:00",
+      "end": "2025-11-03T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "chzzk_api": {
+        "total_requests": 1100750,
+        "successful_requests": 1100742,
+        "failed_requests": 8,
+        "avg_response_time_ms": 585.18,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 975852,
+        "successful_requests": 975841,
+        "failed_requests": 11,
+        "avg_response_time_ms": 784.16,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 343247,
+        "successful_requests": 343245,
+        "failed_requests": 2,
+        "avg_response_time_ms": 304.01,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 5988,
+        "successful_requests": 5945,
+        "failed_requests": 43,
+        "avg_response_time_ms": 624.0,
+        "success_rate_percent": 99.28
+      },
+      "imgbb_upload": {
+        "total_requests": 99,
+        "successful_requests": 98,
+        "failed_requests": 1,
+        "avg_response_time_ms": 2481.69,
+        "success_rate_percent": 98.99
+      },
+      "fcm_push": {
+        "total_requests": 416,
+        "successful_requests": 416,
+        "failed_requests": 0,
+        "avg_response_time_ms": 264.79,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 1889,
+        "successful_requests": 1875,
+        "failed_requests": 14,
+        "avg_response_time_ms": 1438.89,
+        "success_rate_percent": 99.26
+      },
+      "youtube_api": {
+        "total_requests": 19,
+        "successful_requests": 19,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1693.26,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2428260,
+      "successful_requests": 2428181,
+      "failed_requests": 79,
+      "overall_success_rate_percent": 100.0,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "chzzk_api",
+        "afreeca_api",
+        "cafe_api",
+        "image_api",
+        "imgbb_upload",
+        "fcm_push",
+        "discord_webhook",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 1875,
+      "fcm": 416,
+      "total": 2291
+    }
+  },
+  "2025-11-04": {
+    "date": "2025-11-04",
+    "calculated_at": "2025-11-05T07:38:16.971419",
+    "period": {
+      "start": "2025-11-04T00:00:00",
+      "end": "2025-11-04T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 6454,
+        "successful_requests": 6446,
+        "failed_requests": 8,
+        "avg_response_time_ms": 824.65,
+        "success_rate_percent": 99.88
+      },
+      "cafe_api": {
+        "total_requests": 273200,
+        "successful_requests": 273198,
+        "failed_requests": 2,
+        "avg_response_time_ms": 423.81,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 876363,
+        "successful_requests": 876356,
+        "failed_requests": 7,
+        "avg_response_time_ms": 770.77,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 777280,
+        "successful_requests": 777268,
+        "failed_requests": 12,
+        "avg_response_time_ms": 1008.12,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 310,
+        "successful_requests": 310,
+        "failed_requests": 0,
+        "avg_response_time_ms": 456.17,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 3650,
+        "successful_requests": 3490,
+        "failed_requests": 160,
+        "avg_response_time_ms": 2070.2,
+        "success_rate_percent": 95.62
+      },
+      "imgbb_upload": {
+        "total_requests": 73,
+        "successful_requests": 71,
+        "failed_requests": 2,
+        "avg_response_time_ms": 3107.92,
+        "success_rate_percent": 97.26
+      },
+      "youtube_api": {
+        "total_requests": 10,
+        "successful_requests": 10,
+        "failed_requests": 0,
+        "avg_response_time_ms": 5887.3,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 1937340,
+      "successful_requests": 1937149,
+      "failed_requests": 191,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "fcm_push",
+        "discord_webhook",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 3490,
+      "fcm": 310,
+      "total": 3800
+    }
+  },
+  "2025-11-05": {
+    "date": "2025-11-05",
+    "calculated_at": "2025-11-06T07:47:25.393437",
+    "period": {
+      "start": "2025-11-05T00:00:00",
+      "end": "2025-11-05T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 919821,
+        "successful_requests": 919809,
+        "failed_requests": 12,
+        "avg_response_time_ms": 802.12,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1036508,
+        "successful_requests": 1036500,
+        "failed_requests": 8,
+        "avg_response_time_ms": 603.61,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 5260,
+        "successful_requests": 5162,
+        "failed_requests": 98,
+        "avg_response_time_ms": 1391.43,
+        "success_rate_percent": 98.14
+      },
+      "cafe_api": {
+        "total_requests": 323225,
+        "successful_requests": 323224,
+        "failed_requests": 1,
+        "avg_response_time_ms": 315.58,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 6235,
+        "successful_requests": 6203,
+        "failed_requests": 32,
+        "avg_response_time_ms": 676.87,
+        "success_rate_percent": 99.49
+      },
+      "fcm_push": {
+        "total_requests": 326,
+        "successful_requests": 326,
+        "failed_requests": 0,
+        "avg_response_time_ms": 228.85,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 51,
+        "successful_requests": 50,
+        "failed_requests": 1,
+        "avg_response_time_ms": 2980.4,
+        "success_rate_percent": 98.04
+      },
+      "youtube_api": {
+        "total_requests": 15,
+        "successful_requests": 15,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1363.0,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2291441,
+      "successful_requests": 2291289,
+      "failed_requests": 152,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "chzzk_api",
+        "discord_webhook",
+        "cafe_api",
+        "image_api",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5162,
+      "fcm": 326,
+      "total": 5488
+    }
+  },
+  "2025-11-06": {
+    "date": "2025-11-06",
+    "calculated_at": "2025-11-07T08:08:31.950039",
+    "period": {
+      "start": "2025-11-06T00:00:00",
+      "end": "2025-11-06T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 4847,
+        "successful_requests": 4809,
+        "failed_requests": 38,
+        "avg_response_time_ms": 733.05,
+        "success_rate_percent": 99.22
+      },
+      "discord_webhook": {
+        "total_requests": 2016,
+        "successful_requests": 1982,
+        "failed_requests": 34,
+        "avg_response_time_ms": 1761.37,
+        "success_rate_percent": 98.31
+      },
+      "chzzk_api": {
+        "total_requests": 1082363,
+        "successful_requests": 1082354,
+        "failed_requests": 9,
+        "avg_response_time_ms": 585.63,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 337554,
+        "successful_requests": 337554,
+        "failed_requests": 0,
+        "avg_response_time_ms": 310.32,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 961013,
+        "successful_requests": 960979,
+        "failed_requests": 34,
+        "avg_response_time_ms": 777.98,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 384,
+        "successful_requests": 384,
+        "failed_requests": 0,
+        "avg_response_time_ms": 217.69,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 34,
+        "successful_requests": 33,
+        "failed_requests": 1,
+        "avg_response_time_ms": 2920.82,
+        "success_rate_percent": 97.06
+      },
+      "youtube_api": {
+        "total_requests": 11,
+        "successful_requests": 11,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1541.36,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2388222,
+      "successful_requests": 2388106,
+      "failed_requests": 116,
+      "overall_success_rate_percent": 100.0,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "discord_webhook",
+        "chzzk_api",
+        "cafe_api",
+        "afreeca_api",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 1982,
+      "fcm": 384,
+      "total": 2366
+    }
+  },
+  "2025-11-07": {
+    "date": "2025-11-07",
+    "calculated_at": "2025-11-08T08:11:18.666026",
+    "period": {
+      "start": "2025-11-07T00:00:00",
+      "end": "2025-11-07T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "chzzk_api": {
+        "total_requests": 1007604,
+        "successful_requests": 1007599,
+        "failed_requests": 5,
+        "avg_response_time_ms": 661.43,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 896790,
+        "successful_requests": 896782,
+        "failed_requests": 8,
+        "avg_response_time_ms": 862.33,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 8243,
+        "successful_requests": 8202,
+        "failed_requests": 41,
+        "avg_response_time_ms": 635.84,
+        "success_rate_percent": 99.5
+      },
+      "cafe_api": {
+        "total_requests": 314182,
+        "successful_requests": 314177,
+        "failed_requests": 5,
+        "avg_response_time_ms": 365.82,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 3672,
+        "successful_requests": 3653,
+        "failed_requests": 19,
+        "avg_response_time_ms": 1265.16,
+        "success_rate_percent": 99.48
+      },
+      "fcm_push": {
+        "total_requests": 324,
+        "successful_requests": 324,
+        "failed_requests": 0,
+        "avg_response_time_ms": 229.01,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 66,
+        "successful_requests": 65,
+        "failed_requests": 1,
+        "avg_response_time_ms": 2323.65,
+        "success_rate_percent": 98.48
+      },
+      "youtube_api": {
+        "total_requests": 12,
+        "successful_requests": 12,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2282.75,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2230893,
+      "successful_requests": 2230814,
+      "failed_requests": 79,
+      "overall_success_rate_percent": 100.0,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "chzzk_api",
+        "afreeca_api",
+        "image_api",
+        "cafe_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 3653,
+      "fcm": 324,
+      "total": 3977
+    }
+  },
+  "2025-11-08": {
+    "date": "2025-11-08",
+    "calculated_at": "2025-11-09T07:47:42.222625",
+    "period": {
+      "start": "2025-11-08T00:00:00",
+      "end": "2025-11-08T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "chzzk_api": {
+        "total_requests": 885910,
+        "successful_requests": 885905,
+        "failed_requests": 5,
+        "avg_response_time_ms": 782.7,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 787737,
+        "successful_requests": 787726,
+        "failed_requests": 11,
+        "avg_response_time_ms": 1000.35,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 276123,
+        "successful_requests": 276121,
+        "failed_requests": 2,
+        "avg_response_time_ms": 443.78,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 5425,
+        "successful_requests": 5080,
+        "failed_requests": 345,
+        "avg_response_time_ms": 2656.58,
+        "success_rate_percent": 93.64
+      },
+      "image_api": {
+        "total_requests": 10350,
+        "successful_requests": 10235,
+        "failed_requests": 115,
+        "avg_response_time_ms": 1257.07,
+        "success_rate_percent": 98.89
+      },
+      "imgbb_upload": {
+        "total_requests": 184,
+        "successful_requests": 96,
+        "failed_requests": 88,
+        "avg_response_time_ms": 4856.56,
+        "success_rate_percent": 52.17
+      },
+      "fcm_push": {
+        "total_requests": 476,
+        "successful_requests": 476,
+        "failed_requests": 0,
+        "avg_response_time_ms": 455.32,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 21,
+        "successful_requests": 21,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2157.57,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 1966226,
+      "successful_requests": 1965660,
+      "failed_requests": 566,
+      "overall_success_rate_percent": 99.97,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "chzzk_api",
+        "afreeca_api",
+        "cafe_api",
+        "discord_webhook",
+        "image_api",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5080,
+      "fcm": 476,
+      "total": 5556
+    }
+  },
+  "2025-11-09": {
+    "date": "2025-11-09",
+    "calculated_at": "2025-11-10T07:56:16.065607",
+    "period": {
+      "start": "2025-11-09T00:00:00",
+      "end": "2025-11-09T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 8489,
+        "successful_requests": 8440,
+        "failed_requests": 49,
+        "avg_response_time_ms": 760.78,
+        "success_rate_percent": 99.42
+      },
+      "cafe_api": {
+        "total_requests": 297463,
+        "successful_requests": 297460,
+        "failed_requests": 3,
+        "avg_response_time_ms": 375.75,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 954343,
+        "successful_requests": 954338,
+        "failed_requests": 5,
+        "avg_response_time_ms": 701.13,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 850997,
+        "successful_requests": 850989,
+        "failed_requests": 8,
+        "avg_response_time_ms": 913.22,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 7325,
+        "successful_requests": 7187,
+        "failed_requests": 138,
+        "avg_response_time_ms": 1171.34,
+        "success_rate_percent": 98.12
+      },
+      "imgbb_upload": {
+        "total_requests": 51,
+        "successful_requests": 51,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2514.25,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 354,
+        "successful_requests": 354,
+        "failed_requests": 0,
+        "avg_response_time_ms": 224.46,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 12,
+        "successful_requests": 12,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2981.75,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2119034,
+      "successful_requests": 2118831,
+      "failed_requests": 203,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "discord_webhook",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 7187,
+      "fcm": 354,
+      "total": 7541
+    }
+  },
+  "2025-11-10": {
+    "date": "2025-11-10",
+    "calculated_at": "2025-11-11T07:41:43.370932",
+    "period": {
+      "start": "2025-11-10T00:00:00",
+      "end": "2025-11-10T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 934008,
+        "successful_requests": 933993,
+        "failed_requests": 15,
+        "avg_response_time_ms": 801.72,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 327033,
+        "successful_requests": 327031,
+        "failed_requests": 2,
+        "avg_response_time_ms": 310.34,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 5073,
+        "successful_requests": 4999,
+        "failed_requests": 74,
+        "avg_response_time_ms": 800.02,
+        "success_rate_percent": 98.54
+      },
+      "chzzk_api": {
+        "total_requests": 1048819,
+        "successful_requests": 1048809,
+        "failed_requests": 10,
+        "avg_response_time_ms": 598.53,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 1464,
+        "successful_requests": 1440,
+        "failed_requests": 24,
+        "avg_response_time_ms": 1318.27,
+        "success_rate_percent": 98.36
+      },
+      "fcm_push": {
+        "total_requests": 308,
+        "successful_requests": 308,
+        "failed_requests": 0,
+        "avg_response_time_ms": 239.62,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 46,
+        "successful_requests": 45,
+        "failed_requests": 1,
+        "avg_response_time_ms": 2726.78,
+        "success_rate_percent": 97.83
+      },
+      "youtube_api": {
+        "total_requests": 12,
+        "successful_requests": 12,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2071.25,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2316763,
+      "successful_requests": 2316637,
+      "failed_requests": 126,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "cafe_api",
+        "image_api",
+        "chzzk_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 1440,
+      "fcm": 308,
+      "total": 1748
+    }
+  },
+  "2025-11-11": {
+    "date": "2025-11-11",
+    "calculated_at": "2025-11-12T07:52:26.353966",
+    "period": {
+      "start": "2025-11-11T00:00:00",
+      "end": "2025-11-11T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "cafe_api": {
+        "total_requests": 321863,
+        "successful_requests": 321860,
+        "failed_requests": 3,
+        "avg_response_time_ms": 336.56,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1032410,
+        "successful_requests": 1032403,
+        "failed_requests": 7,
+        "avg_response_time_ms": 625.7,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 918809,
+        "successful_requests": 918794,
+        "failed_requests": 15,
+        "avg_response_time_ms": 818.6,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 4238,
+        "successful_requests": 3983,
+        "failed_requests": 255,
+        "avg_response_time_ms": 2659.04,
+        "success_rate_percent": 93.98
+      },
+      "image_api": {
+        "total_requests": 7602,
+        "successful_requests": 7589,
+        "failed_requests": 13,
+        "avg_response_time_ms": 1220.26,
+        "success_rate_percent": 99.83
+      },
+      "fcm_push": {
+        "total_requests": 310,
+        "successful_requests": 310,
+        "failed_requests": 0,
+        "avg_response_time_ms": 233.89,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 77,
+        "successful_requests": 73,
+        "failed_requests": 4,
+        "avg_response_time_ms": 3759.22,
+        "success_rate_percent": 94.81
+      },
+      "youtube_api": {
+        "total_requests": 11,
+        "successful_requests": 11,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1402.27,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2285320,
+      "successful_requests": 2285023,
+      "failed_requests": 297,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "discord_webhook",
+        "image_api",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 3983,
+      "fcm": 310,
+      "total": 4293
+    }
+  },
+  "2025-11-12": {
+    "date": "2025-11-12",
+    "calculated_at": "2025-11-13T08:14:29.446978",
+    "period": {
+      "start": "2025-11-12T00:00:00",
+      "end": "2025-11-12T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "cafe_api": {
+        "total_requests": 312964,
+        "successful_requests": 312959,
+        "failed_requests": 5,
+        "avg_response_time_ms": 348.22,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 7603,
+        "successful_requests": 7579,
+        "failed_requests": 24,
+        "avg_response_time_ms": 1239.36,
+        "success_rate_percent": 99.68
+      },
+      "afreeca_api": {
+        "total_requests": 894603,
+        "successful_requests": 894589,
+        "failed_requests": 14,
+        "avg_response_time_ms": 847.5,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1004087,
+        "successful_requests": 1004078,
+        "failed_requests": 9,
+        "avg_response_time_ms": 647.62,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 5765,
+        "successful_requests": 5496,
+        "failed_requests": 269,
+        "avg_response_time_ms": 2485.0,
+        "success_rate_percent": 95.33
+      },
+      "fcm_push": {
+        "total_requests": 546,
+        "successful_requests": 546,
+        "failed_requests": 0,
+        "avg_response_time_ms": 196.56,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 74,
+        "successful_requests": 73,
+        "failed_requests": 1,
+        "avg_response_time_ms": 4456.1,
+        "success_rate_percent": 98.65
+      },
+      "youtube_api": {
+        "total_requests": 9,
+        "successful_requests": 9,
+        "failed_requests": 0,
+        "avg_response_time_ms": 3792.56,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2225651,
+      "successful_requests": 2225329,
+      "failed_requests": 322,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "cafe_api",
+        "image_api",
+        "afreeca_api",
+        "chzzk_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5496,
+      "fcm": 546,
+      "total": 6042
+    }
+  },
+  "2025-11-13": {
+    "date": "2025-11-13",
+    "calculated_at": "2025-11-14T07:52:58.825160",
+    "period": {
+      "start": "2025-11-13T00:00:00",
+      "end": "2025-11-13T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "chzzk_api": {
+        "total_requests": 946626,
+        "successful_requests": 946618,
+        "failed_requests": 8,
+        "avg_response_time_ms": 710.68,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 844374,
+        "successful_requests": 844365,
+        "failed_requests": 9,
+        "avg_response_time_ms": 912.71,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 7480,
+        "successful_requests": 7474,
+        "failed_requests": 6,
+        "avg_response_time_ms": 1125.68,
+        "success_rate_percent": 99.92
+      },
+      "cafe_api": {
+        "total_requests": 294953,
+        "successful_requests": 294951,
+        "failed_requests": 2,
+        "avg_response_time_ms": 394.05,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 3137,
+        "successful_requests": 3053,
+        "failed_requests": 84,
+        "avg_response_time_ms": 2367.06,
+        "success_rate_percent": 97.32
+      },
+      "fcm_push": {
+        "total_requests": 510,
+        "successful_requests": 510,
+        "failed_requests": 0,
+        "avg_response_time_ms": 222.77,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 81,
+        "successful_requests": 79,
+        "failed_requests": 2,
+        "avg_response_time_ms": 3770.68,
+        "success_rate_percent": 97.53
+      },
+      "youtube_api": {
+        "total_requests": 8,
+        "successful_requests": 8,
+        "failed_requests": 0,
+        "avg_response_time_ms": 8366.62,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2097169,
+      "successful_requests": 2097058,
+      "failed_requests": 111,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "chzzk_api",
+        "afreeca_api",
+        "image_api",
+        "cafe_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 3053,
+      "fcm": 510,
+      "total": 3563
+    }
+  },
+  "2025-11-14": {
+    "date": "2025-11-14",
+    "calculated_at": "2025-11-15T07:54:57.867885",
+    "period": {
+      "start": "2025-11-14T00:00:00",
+      "end": "2025-11-14T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "cafe_api": {
+        "total_requests": 311970,
+        "successful_requests": 311969,
+        "failed_requests": 1,
+        "avg_response_time_ms": 350.98,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1001276,
+        "successful_requests": 1001270,
+        "failed_requests": 6,
+        "avg_response_time_ms": 642.46,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 892186,
+        "successful_requests": 892178,
+        "failed_requests": 8,
+        "avg_response_time_ms": 838.62,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 6687,
+        "successful_requests": 6607,
+        "failed_requests": 80,
+        "avg_response_time_ms": 805.87,
+        "success_rate_percent": 98.8
+      },
+      "discord_webhook": {
+        "total_requests": 5208,
+        "successful_requests": 5055,
+        "failed_requests": 153,
+        "avg_response_time_ms": 1596.89,
+        "success_rate_percent": 97.06
+      },
+      "imgbb_upload": {
+        "total_requests": 64,
+        "successful_requests": 61,
+        "failed_requests": 3,
+        "avg_response_time_ms": 3556.2,
+        "success_rate_percent": 95.31
+      },
+      "fcm_push": {
+        "total_requests": 318,
+        "successful_requests": 318,
+        "failed_requests": 0,
+        "avg_response_time_ms": 217.24,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 2,
+        "successful_requests": 2,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1078.5,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2217711,
+      "successful_requests": 2217460,
+      "failed_requests": 251,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "image_api",
+        "discord_webhook",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5055,
+      "fcm": 318,
+      "total": 5373
+    }
+  },
+  "2025-11-15": {
+    "date": "2025-11-15",
+    "calculated_at": "2025-11-16T07:51:23.000236",
+    "period": {
+      "start": "2025-11-15T00:00:00",
+      "end": "2025-11-15T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 9351,
+        "successful_requests": 9316,
+        "failed_requests": 35,
+        "avg_response_time_ms": 941.14,
+        "success_rate_percent": 99.63
+      },
+      "chzzk_api": {
+        "total_requests": 914857,
+        "successful_requests": 914849,
+        "failed_requests": 8,
+        "avg_response_time_ms": 789.72,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 284972,
+        "successful_requests": 284972,
+        "failed_requests": 0,
+        "avg_response_time_ms": 437.71,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 816095,
+        "successful_requests": 816089,
+        "failed_requests": 6,
+        "avg_response_time_ms": 1002.34,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 8303,
+        "successful_requests": 8014,
+        "failed_requests": 289,
+        "avg_response_time_ms": 1722.31,
+        "success_rate_percent": 96.52
+      },
+      "imgbb_upload": {
+        "total_requests": 56,
+        "successful_requests": 0,
+        "failed_requests": 56,
+        "avg_response_time_ms": 0,
+        "success_rate_percent": 0.0
+      },
+      "fcm_push": {
+        "total_requests": 486,
+        "successful_requests": 486,
+        "failed_requests": 0,
+        "avg_response_time_ms": 203.97,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 4,
+        "successful_requests": 4,
+        "failed_requests": 0,
+        "avg_response_time_ms": 4305.5,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2034124,
+      "successful_requests": 2033730,
+      "failed_requests": 394,
+      "overall_success_rate_percent": 99.98,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "chzzk_api",
+        "cafe_api",
+        "afreeca_api",
+        "discord_webhook",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 8014,
+      "fcm": 486,
+      "total": 8500
+    }
+  },
+  "2025-11-16": {
+    "date": "2025-11-16",
+    "calculated_at": "2025-11-17T07:43:13.730287",
+    "period": {
+      "start": "2025-11-16T00:00:00",
+      "end": "2025-11-16T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 9099,
+        "successful_requests": 9049,
+        "failed_requests": 50,
+        "avg_response_time_ms": 775.79,
+        "success_rate_percent": 99.45
+      },
+      "cafe_api": {
+        "total_requests": 287970,
+        "successful_requests": 287967,
+        "failed_requests": 3,
+        "avg_response_time_ms": 440.23,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 924568,
+        "successful_requests": 924563,
+        "failed_requests": 5,
+        "avg_response_time_ms": 790.47,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 826912,
+        "successful_requests": 826900,
+        "failed_requests": 12,
+        "avg_response_time_ms": 1007.35,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 8482,
+        "successful_requests": 8287,
+        "failed_requests": 195,
+        "avg_response_time_ms": 1592.86,
+        "success_rate_percent": 97.7
+      },
+      "fcm_push": {
+        "total_requests": 500,
+        "successful_requests": 500,
+        "failed_requests": 0,
+        "avg_response_time_ms": 216.06,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 73,
+        "successful_requests": 29,
+        "failed_requests": 44,
+        "avg_response_time_ms": 3146.59,
+        "success_rate_percent": 39.73
+      },
+      "youtube_api": {
+        "total_requests": 14,
+        "successful_requests": 14,
+        "failed_requests": 0,
+        "avg_response_time_ms": 4685.36,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2057618,
+      "successful_requests": 2057309,
+      "failed_requests": 309,
+      "overall_success_rate_percent": 99.98,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 8287,
+      "fcm": 500,
+      "total": 8787
+    }
+  },
+  "2025-11-17": {
+    "date": "2025-11-17",
+    "calculated_at": "2025-11-18T08:07:37.376890",
+    "period": {
+      "start": "2025-11-17T00:00:00",
+      "end": "2025-11-17T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 7923,
+        "successful_requests": 7915,
+        "failed_requests": 8,
+        "avg_response_time_ms": 813.66,
+        "success_rate_percent": 99.9
+      },
+      "cafe_api": {
+        "total_requests": 318180,
+        "successful_requests": 318175,
+        "failed_requests": 5,
+        "avg_response_time_ms": 357.13,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 910288,
+        "successful_requests": 910279,
+        "failed_requests": 9,
+        "avg_response_time_ms": 889.3,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1021057,
+        "successful_requests": 1021052,
+        "failed_requests": 5,
+        "avg_response_time_ms": 687.37,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 3098,
+        "successful_requests": 3059,
+        "failed_requests": 39,
+        "avg_response_time_ms": 1697.83,
+        "success_rate_percent": 98.74
+      },
+      "imgbb_upload": {
+        "total_requests": 61,
+        "successful_requests": 61,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2570.77,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 375,
+        "successful_requests": 375,
+        "failed_requests": 0,
+        "avg_response_time_ms": 228.57,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 23,
+        "successful_requests": 23,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2132.96,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2261005,
+      "successful_requests": 2260939,
+      "failed_requests": 66,
+      "overall_success_rate_percent": 100.0,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "cafe_api",
+        "afreeca_api",
+        "chzzk_api",
+        "discord_webhook",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 3059,
+      "fcm": 375,
+      "total": 3434
+    }
+  },
+  "2025-11-18": {
+    "date": "2025-11-18",
+    "calculated_at": "2025-11-19T07:54:04.160272",
+    "period": {
+      "start": "2025-11-18T00:00:00",
+      "end": "2025-11-18T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 856529,
+        "successful_requests": 856507,
+        "failed_requests": 22,
+        "avg_response_time_ms": 937.87,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 7133,
+        "successful_requests": 7100,
+        "failed_requests": 33,
+        "avg_response_time_ms": 1061.81,
+        "success_rate_percent": 99.54
+      },
+      "chzzk_api": {
+        "total_requests": 957290,
+        "successful_requests": 957279,
+        "failed_requests": 11,
+        "avg_response_time_ms": 733.0,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 298242,
+        "successful_requests": 298240,
+        "failed_requests": 2,
+        "avg_response_time_ms": 393.14,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 4944,
+        "successful_requests": 4722,
+        "failed_requests": 222,
+        "avg_response_time_ms": 2173.57,
+        "success_rate_percent": 95.51
+      },
+      "fcm_push": {
+        "total_requests": 298,
+        "successful_requests": 298,
+        "failed_requests": 0,
+        "avg_response_time_ms": 255.1,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 67,
+        "successful_requests": 66,
+        "failed_requests": 1,
+        "avg_response_time_ms": 3350.61,
+        "success_rate_percent": 98.51
+      },
+      "youtube_api": {
+        "total_requests": 2,
+        "successful_requests": 2,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2758.5,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2124505,
+      "successful_requests": 2124214,
+      "failed_requests": 291,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "image_api",
+        "chzzk_api",
+        "cafe_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 4722,
+      "fcm": 298,
+      "total": 5020
+    }
+  },
+  "2025-11-19": {
+    "date": "2025-11-19",
+    "calculated_at": "2025-11-20T07:55:53.644479",
+    "period": {
+      "start": "2025-11-19T00:00:00",
+      "end": "2025-11-19T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "chzzk_api": {
+        "total_requests": 994493,
+        "successful_requests": 994489,
+        "failed_requests": 4,
+        "avg_response_time_ms": 687.33,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 889392,
+        "successful_requests": 889374,
+        "failed_requests": 18,
+        "avg_response_time_ms": 890.2,
+        "success_rate_percent": 100.0
+      },
+      "cafe_api": {
+        "total_requests": 309855,
+        "successful_requests": 309855,
+        "failed_requests": 0,
+        "avg_response_time_ms": 363.89,
+        "success_rate_percent": 100.0
+      },
+      "image_api": {
+        "total_requests": 7647,
+        "successful_requests": 7595,
+        "failed_requests": 52,
+        "avg_response_time_ms": 965.57,
+        "success_rate_percent": 99.32
+      },
+      "discord_webhook": {
+        "total_requests": 5474,
+        "successful_requests": 5296,
+        "failed_requests": 178,
+        "avg_response_time_ms": 2016.58,
+        "success_rate_percent": 96.75
+      },
+      "fcm_push": {
+        "total_requests": 358,
+        "successful_requests": 358,
+        "failed_requests": 0,
+        "avg_response_time_ms": 226.26,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 77,
+        "successful_requests": 75,
+        "failed_requests": 2,
+        "avg_response_time_ms": 3375.39,
+        "success_rate_percent": 97.4
+      },
+      "youtube_api": {
+        "total_requests": 29,
+        "successful_requests": 29,
+        "failed_requests": 0,
+        "avg_response_time_ms": 1642.21,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2207325,
+      "successful_requests": 2207071,
+      "failed_requests": 254,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "chzzk_api",
+        "afreeca_api",
+        "cafe_api",
+        "image_api",
+        "discord_webhook",
+        "fcm_push",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5296,
+      "fcm": 358,
+      "total": 5654
+    }
+  },
+  "2025-11-20": {
+    "date": "2025-11-20",
+    "calculated_at": "2025-11-21T07:45:33.094527",
+    "period": {
+      "start": "2025-11-20T00:00:00",
+      "end": "2025-11-20T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 7998,
+        "successful_requests": 7991,
+        "failed_requests": 7,
+        "avg_response_time_ms": 892.26,
+        "success_rate_percent": 99.91
+      },
+      "cafe_api": {
+        "total_requests": 292573,
+        "successful_requests": 292571,
+        "failed_requests": 2,
+        "avg_response_time_ms": 387.72,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 939055,
+        "successful_requests": 939042,
+        "failed_requests": 13,
+        "avg_response_time_ms": 720.62,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 840385,
+        "successful_requests": 840360,
+        "failed_requests": 25,
+        "avg_response_time_ms": 926.55,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 418,
+        "successful_requests": 418,
+        "failed_requests": 0,
+        "avg_response_time_ms": 234.94,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 1794,
+        "successful_requests": 1769,
+        "failed_requests": 25,
+        "avg_response_time_ms": 1729.92,
+        "success_rate_percent": 98.61
+      },
+      "imgbb_upload": {
+        "total_requests": 83,
+        "successful_requests": 82,
+        "failed_requests": 1,
+        "avg_response_time_ms": 3214.28,
+        "success_rate_percent": 98.8
+      },
+      "youtube_api": {
+        "total_requests": 11,
+        "successful_requests": 11,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2868.36,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2082317,
+      "successful_requests": 2082244,
+      "failed_requests": 73,
+      "overall_success_rate_percent": 100.0,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "fcm_push",
+        "discord_webhook",
+        "imgbb_upload",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 1769,
+      "fcm": 418,
+      "total": 2187
+    }
+  },
+  "2025-11-21": {
+    "date": "2025-11-21",
+    "calculated_at": "2025-11-22T08:03:23.045977",
+    "period": {
+      "start": "2025-11-21T00:00:00",
+      "end": "2025-11-21T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "afreeca_api": {
+        "total_requests": 910610,
+        "successful_requests": 910594,
+        "failed_requests": 16,
+        "avg_response_time_ms": 854.38,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 1016824,
+        "successful_requests": 1016816,
+        "failed_requests": 8,
+        "avg_response_time_ms": 645.83,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 5501,
+        "successful_requests": 5391,
+        "failed_requests": 110,
+        "avg_response_time_ms": 1357.45,
+        "success_rate_percent": 98.0
+      },
+      "image_api": {
+        "total_requests": 5730,
+        "successful_requests": 5689,
+        "failed_requests": 41,
+        "avg_response_time_ms": 780.11,
+        "success_rate_percent": 99.28
+      },
+      "cafe_api": {
+        "total_requests": 316864,
+        "successful_requests": 316863,
+        "failed_requests": 1,
+        "avg_response_time_ms": 321.93,
+        "success_rate_percent": 100.0
+      },
+      "imgbb_upload": {
+        "total_requests": 60,
+        "successful_requests": 59,
+        "failed_requests": 1,
+        "avg_response_time_ms": 2606.19,
+        "success_rate_percent": 98.33
+      },
+      "fcm_push": {
+        "total_requests": 314,
+        "successful_requests": 314,
+        "failed_requests": 0,
+        "avg_response_time_ms": 264.54,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 9,
+        "successful_requests": 9,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2690.44,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2255912,
+      "successful_requests": 2255735,
+      "failed_requests": 177,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "afreeca_api",
+        "chzzk_api",
+        "discord_webhook",
+        "image_api",
+        "cafe_api",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 5391,
+      "fcm": 314,
+      "total": 5705
+    }
+  },
+  "2025-11-22": {
+    "date": "2025-11-22",
+    "calculated_at": "2025-11-23T07:54:10.156426",
+    "period": {
+      "start": "2025-11-22T00:00:00",
+      "end": "2025-11-22T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "cafe_api": {
+        "total_requests": 290778,
+        "successful_requests": 290777,
+        "failed_requests": 1,
+        "avg_response_time_ms": 400.61,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 933415,
+        "successful_requests": 933411,
+        "failed_requests": 4,
+        "avg_response_time_ms": 738.95,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 836061,
+        "successful_requests": 836050,
+        "failed_requests": 11,
+        "avg_response_time_ms": 953.9,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 7443,
+        "successful_requests": 6918,
+        "failed_requests": 525,
+        "avg_response_time_ms": 1864.8,
+        "success_rate_percent": 92.95
+      },
+      "image_api": {
+        "total_requests": 6755,
+        "successful_requests": 6741,
+        "failed_requests": 14,
+        "avg_response_time_ms": 1041.01,
+        "success_rate_percent": 99.79
+      },
+      "imgbb_upload": {
+        "total_requests": 59,
+        "successful_requests": 57,
+        "failed_requests": 2,
+        "avg_response_time_ms": 3175.7,
+        "success_rate_percent": 96.61
+      },
+      "fcm_push": {
+        "total_requests": 284,
+        "successful_requests": 284,
+        "failed_requests": 0,
+        "avg_response_time_ms": 227.18,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 13,
+        "successful_requests": 13,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2742.62,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2074808,
+      "successful_requests": 2074251,
+      "failed_requests": 557,
+      "overall_success_rate_percent": 99.97,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "discord_webhook",
+        "image_api",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 6918,
+      "fcm": 284,
+      "total": 7202
+    }
+  },
+  "2025-11-23": {
+    "date": "2025-11-23",
+    "calculated_at": "2025-11-24T07:43:30.468503",
+    "period": {
+      "start": "2025-11-23T00:00:00",
+      "end": "2025-11-23T23:59:59.999999",
+      "duration_days": 1
+    },
+    "api_performance": {
+      "image_api": {
+        "total_requests": 6377,
+        "successful_requests": 6367,
+        "failed_requests": 10,
+        "avg_response_time_ms": 671.6,
+        "success_rate_percent": 99.84
+      },
+      "cafe_api": {
+        "total_requests": 310624,
+        "successful_requests": 310622,
+        "failed_requests": 2,
+        "avg_response_time_ms": 344.38,
+        "success_rate_percent": 100.0
+      },
+      "chzzk_api": {
+        "total_requests": 960285,
+        "successful_requests": 960280,
+        "failed_requests": 5,
+        "avg_response_time_ms": 660.45,
+        "success_rate_percent": 100.0
+      },
+      "afreeca_api": {
+        "total_requests": 851978,
+        "successful_requests": 851964,
+        "failed_requests": 14,
+        "avg_response_time_ms": 863.1,
+        "success_rate_percent": 100.0
+      },
+      "discord_webhook": {
+        "total_requests": 8003,
+        "successful_requests": 7877,
+        "failed_requests": 126,
+        "avg_response_time_ms": 1323.08,
+        "success_rate_percent": 98.43
+      },
+      "imgbb_upload": {
+        "total_requests": 51,
+        "successful_requests": 51,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2319.45,
+        "success_rate_percent": 100.0
+      },
+      "fcm_push": {
+        "total_requests": 328,
+        "successful_requests": 328,
+        "failed_requests": 0,
+        "avg_response_time_ms": 217.7,
+        "success_rate_percent": 100.0
+      },
+      "youtube_api": {
+        "total_requests": 22,
+        "successful_requests": 22,
+        "failed_requests": 0,
+        "avg_response_time_ms": 2298.41,
+        "success_rate_percent": 100.0
+      }
+    },
+    "summary": {
+      "total_requests": 2137668,
+      "successful_requests": 2137511,
+      "failed_requests": 157,
+      "overall_success_rate_percent": 99.99,
+      "unique_api_types": 8,
+      "active_api_types": [
+        "image_api",
+        "cafe_api",
+        "chzzk_api",
+        "afreeca_api",
+        "discord_webhook",
+        "imgbb_upload",
+        "fcm_push",
+        "youtube_api"
+      ]
+    },
+    "notification_summary": {
+      "discord": 7877,
+      "fcm": 328,
+      "total": 8205
+    }
+  }
+}
