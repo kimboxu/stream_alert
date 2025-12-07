@@ -1,0 +1,517 @@
+{
+  "channel_id": "bighead033",
+  "channel_name": "빅헤드",
+  "save_timestamp": "2025-12-07T20:04:50.049516",
+  "total_logs": 13,
+  "logs": [
+    {
+      "timestamp": "2025-12-07T19:52:45.329704",
+      "fun_score": 11.359104586315064,
+      "test_fun_score": 0.10256809280870434,
+      "score_components": {
+        "chat_spike_score": 2.6770372770978974,
+        "reaction_score": 0.10256809280870434,
+        "test_reaction_score": 0.10256809280870434,
+        "diversity_score": 41.23667383778399,
+        "viewer_trend_score": 40,
+        "final_score": 11.359104586315064,
+        "baseline_chat_count": 4.70624529213342,
+        "baseline_viewer_count": 872.8567356541855,
+        "baseline_threshold": 25.484279327487496,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.2484594171887995,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 1116,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "01:43:38",
+      "comment_after_openDate": "01:43:38",
+      "chat_context": [
+        "나는 사실 누나 3400: ㄲㅂ",
+        "영웅의돌격: 방탄판만 있었어도",
+        "세미형: 순프스?",
+        "나는 사실 누나 3400: 머긴..",
+        "pasta: 방탄좀 나눠주지 ㄲㄲ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:52:51.527197",
+      "fun_score": 11.563510846270916,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.1525357802253304,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 40,
+        "final_score": 11.563510846270916,
+        "baseline_chat_count": 4.709059462234782,
+        "baseline_viewer_count": 875.1860481266184,
+        "baseline_threshold": 25.348960153467065,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4528656771446506,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1116,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:43:45",
+      "comment_after_openDate": "01:43:45",
+      "chat_context": [
+        "나는 사실 누나 3400: 머긴..",
+        "pasta: 방탄좀 나눠주지 ㄲㄲ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:52:56.618005",
+      "fun_score": 9.86076562665948,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7569880418477588,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 30,
+        "final_score": 9.86076562665948,
+        "baseline_chat_count": 4.683106672586573,
+        "baseline_viewer_count": 877.4930457855654,
+        "baseline_threshold": 25.216895549104123,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1116,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:43:50",
+      "comment_after_openDate": "01:43:50",
+      "chat_context": [
+        "pasta: 방탄좀 나눠주지 ㄲㄲ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:53:02.151994",
+      "fun_score": 11.361867621896076,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7594369201513064,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 40,
+        "final_score": 11.361867621896076,
+        "baseline_chat_count": 4.647822510663193,
+        "baseline_viewer_count": 879.7779424069397,
+        "baseline_threshold": 25.069783824447104,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5011019952365956,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1116,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:43:55",
+      "comment_after_openDate": "01:43:55",
+      "chat_context": [
+        "pasta: 방탄좀 나눠주지 ㄲㄲ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:54:26.518655",
+      "fun_score": 11.503720145549494,
+      "test_fun_score": 0.37934646485106976,
+      "score_components": {
+        "chat_spike_score": 0.7619072219613222,
+        "reaction_score": 0.5362063188896626,
+        "test_reaction_score": 0.37934646485106976,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 40,
+        "final_score": 11.503720145549494,
+        "baseline_chat_count": 4.61287637101104,
+        "baseline_viewer_count": 882.0409497186812,
+        "baseline_threshold": 24.938461987226663,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.6429545188900132,
+        "test_score_difference": 0.3122764387577741,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1141,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:45:20",
+      "comment_after_openDate": "01:45:20",
+      "chat_context": [
+        "함께하자파스텔: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:54:42.148689",
+      "fun_score": 11.507385430448565,
+      "test_fun_score": 0.3843432034352966,
+      "score_components": {
+        "chat_spike_score": 0.7643991003812665,
+        "reaction_score": 0.5446861175899842,
+        "test_reaction_score": 0.3843432034352966,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 40,
+        "final_score": 11.507385430448565,
+        "baseline_chat_count": 4.578265015376753,
+        "baseline_viewer_count": 884.5217774203762,
+        "baseline_threshold": 24.809757160383395,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.6466198037890845,
+        "test_score_difference": 0.317273177342001,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1141,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:45:35",
+      "comment_after_openDate": "01:45:35",
+      "chat_context": [
+        "함께하자파스텔: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:54:47.832947",
+      "fun_score": 27.872176045373063,
+      "test_fun_score": 27.457407133362423,
+      "score_components": {
+        "chat_spike_score": 15.470679256807426,
+        "reaction_score": 36.90775321842026,
+        "test_reaction_score": 27.457407133362423,
+        "diversity_score": 38.380444142836424,
+        "viewer_trend_score": 40,
+        "final_score": 27.872176045373063,
+        "baseline_chat_count": 4.543985236529443,
+        "baseline_viewer_count": 886.978838792689,
+        "baseline_threshold": 24.682320439210617,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 18.01141041871358,
+        "test_score_difference": 27.39033710726913,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 1141,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "surprise": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "surprise": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "01:45:41",
+      "comment_after_openDate": "01:45:41",
+      "chat_context": [
+        "함께하자파스텔: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "달콤한 버터: ㅋㅋㅋㅋ",
+        "모사불카: ?",
+        "솜솜솜솜솜: 아뜨뜨",
+        "나는 사실 누나 3400: 이걸?",
+        "미스트리어스: 유폭인가",
+        "함께하자파스텔: 죽울뻔",
+        "나는 사실 누나 3400: ??"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:55:52.824843",
+      "fun_score": 11.364138907361909,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.764484221186487,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 40,
+        "final_score": 11.364138907361909,
+        "baseline_chat_count": 4.577093857963491,
+        "baseline_viewer_count": 889.412361517055,
+        "baseline_threshold": 24.712879255917652,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5033732807024283,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1140,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:46:46",
+      "comment_after_openDate": "01:46:46",
+      "chat_context": [
+        "바미집사: 어.."
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:55:59.648719",
+      "fun_score": 11.365270364898866,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7669985712686161,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 40,
+        "final_score": 11.365270364898866,
+        "baseline_chat_count": 4.542825298804201,
+        "baseline_viewer_count": 891.8129910937216,
+        "baseline_threshold": 24.584998323378485,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.504504738239385,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1140,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:46:53",
+      "comment_after_openDate": "01:46:53",
+      "chat_context": [
+        "바미집사: 어.."
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:56:06.628156",
+      "fun_score": 9.05857466905109,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.1965636916068916,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.0,
+        "viewer_trend_score": 40,
+        "final_score": 9.05857466905109,
+        "baseline_chat_count": 4.508885032441656,
+        "baseline_viewer_count": 894.1906226390437,
+        "baseline_threshold": 24.45835332953625,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1140,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:47:00",
+      "comment_after_openDate": "01:47:00",
+      "chat_context": [
+        "바미집사: 어..",
+        "바미집사: 천마?"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:56:12.226522",
+      "fun_score": 10.23575252844479,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.8715240524854369,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 33.73445696998355,
+        "viewer_trend_score": 40,
+        "final_score": 10.23575252844479,
+        "baseline_chat_count": 4.484849913830865,
+        "baseline_viewer_count": 896.5454764741617,
+        "baseline_threshold": 24.310823449968805,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1771778593936997,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1140,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:47:05",
+      "comment_after_openDate": "01:47:05",
+      "chat_context": [
+        "바미집사: 어..",
+        "바미집사: 천마?",
+        "모사불카: 천마 또있나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:56:25.633111",
+      "fun_score": 11.36772363695582,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7724502869507377,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 40,
+        "final_score": 11.36772363695582,
+        "baseline_chat_count": 4.470625051656365,
+        "baseline_viewer_count": 898.8777708095391,
+        "baseline_threshold": 24.175984270540603,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3091489679047292,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1140,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:47:19",
+      "comment_after_openDate": "01:47:19",
+      "chat_context": [
+        "모사불카: 천마 또있나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-07T19:57:20.534561",
+      "fun_score": 11.66802719868403,
+      "test_fun_score": 0.4062247378888834,
+      "score_components": {
+        "chat_spike_score": 1.2136883940385872,
+        "reaction_score": 0.4062247378888834,
+        "test_reaction_score": 0.4062247378888834,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 40,
+        "final_score": 11.66802719868403,
+        "baseline_chat_count": 4.437376463661496,
+        "baseline_viewer_count": 901.1877217651837,
+        "baseline_threshold": 24.05328113367086,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.6094525296329394,
+        "test_score_difference": 0.33915471179558776,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1161,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:48:14",
+      "comment_after_openDate": "01:48:14",
+      "chat_context": [
+        "나는 사실 누나 3400: 연막이 읎네",
+        "에린윈드: 닉보소 ㅋㅋ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
