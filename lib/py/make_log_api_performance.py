@@ -766,6 +766,11 @@ class PerformanceManager:
     async def log_api_performance(self, api_type: str, response_time_ms: int, 
                                 is_success: bool, **kwargs):
         """API 성능 로깅 (외부 인터페이스)"""
+        # API 성능 로깅 중단
+        is_stop_logging = True
+        if is_stop_logging:
+            return
+        
         await self.logger.log_performance(
             api_type=api_type,
             response_time_ms=response_time_ms,
@@ -1276,14 +1281,14 @@ class PerformanceManager:
             )
             
             # 매일 새벽 7시에 전날 일일 통계 계산
-            self.scheduler.add_job(
-                func=self.calculate_and_save_daily_statistics_sync,
-                trigger="cron",
-                hour=7,
-                minute=10,
-                # second=0,
-                id='daily_statistics'
-            )
+            # self.scheduler.add_job(
+            #     func=self.calculate_and_save_daily_statistics_sync,
+            #     trigger="cron",
+            #     hour=7,
+            #     minute=10,
+            #     # second=0,
+            #     id='daily_statistics'
+            # )
             
             # 매일 새벽 5시에 오래된 파일 정리
             self.scheduler.add_job(
