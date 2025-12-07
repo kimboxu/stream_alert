@@ -1,0 +1,2449 @@
+{
+  "channel_id": "dokkhye",
+  "channel_name": "독고혜지_WAK",
+  "save_timestamp": "2025-11-25T17:14:54.694259",
+  "total_logs": 59,
+  "logs": [
+    {
+      "timestamp": "2025-11-25T17:08:08.150649",
+      "fun_score": 5.486899282190229,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0372850541383103,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.486899282190229,
+        "baseline_chat_count": 2.690018430314704,
+        "baseline_viewer_count": 268.31220165067214,
+        "baseline_threshold": 9.935788033898604,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.304240331509237,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 237,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:31:43",
+      "comment_after_openDate": "06:31:43",
+      "chat_context": [
+        "김해팬치: 이게 게임 가겠는데?"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:08:23.233320",
+      "fun_score": 42.54428376585413,
+      "test_fun_score": 23.505195357502444,
+      "score_components": {
+        "chat_spike_score": 18.89732551357094,
+        "reaction_score": 100,
+        "test_reaction_score": 23.505195357502444,
+        "diversity_score": 40.40487284747206,
+        "viewer_trend_score": 0,
+        "final_score": 42.54428376585413,
+        "baseline_chat_count": 2.673828053752289,
+        "baseline_viewer_count": 268.0122307588587,
+        "baseline_threshold": 9.893167679657237,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 38.361624815173144,
+        "test_score_difference": 23.43812533140915,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 236,
+        "fun_keywords": {
+          "laugh": 2.7
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:31:58",
+      "comment_after_openDate": "06:31:58",
+      "chat_context": [
+        "김해팬치: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "[WAK]삼이공: 4ap 조합 말안되네",
+        "SOMy_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "채모이: 어차피",
+        "채모이: 풀탬전이라"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:08:29.245819",
+      "fun_score": 49.15975532249026,
+      "test_fun_score": 22.49850529484822,
+      "score_components": {
+        "chat_spike_score": 35.04188261092957,
+        "reaction_score": 100,
+        "test_reaction_score": 22.49850529484822,
+        "diversity_score": 33.90908147571959,
+        "viewer_trend_score": 0,
+        "final_score": 49.15975532249026,
+        "baseline_chat_count": 2.6961127809973418,
+        "baseline_viewer_count": 267.7055535881888,
+        "baseline_threshold": 10.205965371763003,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 44.97709637180927,
+        "test_score_difference": 22.431435268754925,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 236,
+        "fun_keywords": {
+          "laugh": 2.7
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:32:04",
+      "comment_after_openDate": "06:31:58",
+      "chat_context": [
+        "김해팬치: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "[WAK]삼이공: 4ap 조합 말안되네",
+        "SOMy_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "채모이: 어차피",
+        "채모이: 풀탬전이라",
+        "채모이: 한쪽 멸망전될거같은대"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:08:35.155465",
+      "fun_score": 47.2785652651336,
+      "test_fun_score": 21.15979139287148,
+      "score_components": {
+        "chat_spike_score": 33.574176881270134,
+        "reaction_score": 95.93092506996695,
+        "test_reaction_score": 21.15979139287148,
+        "diversity_score": 33.90908147571959,
+        "viewer_trend_score": 0,
+        "final_score": 47.2785652651336,
+        "baseline_chat_count": 2.7277640205553872,
+        "baseline_viewer_count": 267.401814384814,
+        "baseline_threshold": 10.57914267949097,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 43.095906314452606,
+        "test_score_difference": 21.092721366778186,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 235,
+        "fun_keywords": {
+          "laugh": 2.7
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:32:10",
+      "comment_after_openDate": "06:32:10",
+      "chat_context": [
+        "김해팬치: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "[WAK]삼이공: 4ap 조합 말안되네",
+        "SOMy_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "채모이: 어차피",
+        "채모이: 풀탬전이라",
+        "채모이: 한쪽 멸망전될거같은대"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:08:41.244644",
+      "fun_score": 73.71647593921796,
+      "test_fun_score": 80.79856158547429,
+      "score_components": {
+        "chat_spike_score": 89.98207205500113,
+        "reaction_score": 100,
+        "test_reaction_score": 80.79856158547429,
+        "diversity_score": 32.24543514467461,
+        "viewer_trend_score": 0,
+        "final_score": 73.71647593921796,
+        "baseline_chat_count": 2.7591120412384664,
+        "baseline_viewer_count": 267.0914050030075,
+        "baseline_threshold": 10.930723147861425,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 69.53381698853697,
+        "test_score_difference": 80.731491559381,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 235,
+        "fun_keywords": {
+          "laugh": 2.7,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:32:16",
+      "comment_after_openDate": "06:31:58",
+      "chat_context": [
+        "김해팬치: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "[WAK]삼이공: 4ap 조합 말안되네",
+        "SOMy_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "채모이: 어차피",
+        "채모이: 풀탬전이라",
+        "채모이: 한쪽 멸망전될거같은대",
+        "고양이와둘기: ? 어디가여",
+        "채모이: ?"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:08:47.337580",
+      "fun_score": 77.59042116477713,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.904211647771223,
+        "viewer_trend_score": 0,
+        "final_score": 77.59042116477713,
+        "baseline_chat_count": 2.8093197478834018,
+        "baseline_viewer_count": 266.7839693430787,
+        "baseline_threshold": 11.532210659602619,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 73.40776221409614,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 235,
+        "fun_keywords": {
+          "laugh": 3.9000000000000004,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:32:22",
+      "comment_after_openDate": "06:31:58",
+      "chat_context": [
+        "김해팬치: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "[WAK]삼이공: 4ap 조합 말안되네",
+        "SOMy_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "채모이: 어차피",
+        "채모이: 풀탬전이라",
+        "채모이: 한쪽 멸망전될거같은대",
+        "고양이와둘기: ? 어디가여",
+        "채모이: ?",
+        "고양이와둘기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김해팬치: 어?"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:08:53.552159",
+      "fun_score": 12.827420177418498,
+      "test_fun_score": 5.958239693850642,
+      "score_components": {
+        "chat_spike_score": 14.816386343043742,
+        "reaction_score": 10.163150200512366,
+        "test_reaction_score": 5.958239693850642,
+        "diversity_score": 31.11101262895105,
+        "viewer_trend_score": 0,
+        "final_score": 12.827420177418498,
+        "baseline_chat_count": 2.8782064646986787,
+        "baseline_viewer_count": 266.479478916772,
+        "baseline_threshold": 12.16504831624219,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 8.644761226737506,
+        "test_score_difference": 5.891169667757346,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 235,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:32:28",
+      "comment_after_openDate": "06:32:28",
+      "chat_context": [
+        "채모이: 한쪽 멸망전될거같은대",
+        "고양이와둘기: ? 어디가여",
+        "채모이: ?",
+        "고양이와둘기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김해팬치: 어?"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:08:58.621713",
+      "fun_score": 10.129822117567606,
+      "test_fun_score": 5.777838834076276,
+      "score_components": {
+        "chat_spike_score": 7.537698819278338,
+        "reaction_score": 9.825419626952586,
+        "test_reaction_score": 5.777838834076276,
+        "diversity_score": 37.90231760806579,
+        "viewer_trend_score": 0,
+        "final_score": 10.129822117567606,
+        "baseline_chat_count": 2.898533246766865,
+        "baseline_viewer_count": 266.17790550874935,
+        "baseline_threshold": 12.171393838672259,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.645003554598301,
+        "test_score_difference": 5.71076880798298,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 235,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:32:33",
+      "comment_after_openDate": "06:32:33",
+      "chat_context": [
+        "고양이와둘기: ? 어디가여",
+        "채모이: ?",
+        "고양이와둘기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김해팬치: 어?"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:03.646913",
+      "fun_score": 18.331861499646216,
+      "test_fun_score": 5.6872542332847775,
+      "score_components": {
+        "chat_spike_score": 26.593031481063857,
+        "reaction_score": 9.656120915133226,
+        "test_reaction_score": 5.6872542332847775,
+        "diversity_score": 34.68161058627512,
+        "viewer_trend_score": 0,
+        "final_score": 18.331861499646216,
+        "baseline_chat_count": 2.9090852982628386,
+        "baseline_viewer_count": 265.8792211739755,
+        "baseline_threshold": 12.151835581584075,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 12.84704293667691,
+        "test_score_difference": 5.620184207191482,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 235,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:32:38",
+      "comment_after_openDate": "06:32:38",
+      "chat_context": [
+        "고양이와둘기: ? 어디가여",
+        "채모이: ?",
+        "고양이와둘기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김해팬치: 어?",
+        "김해팬치: 어..",
+        "nbardes: ss"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:08.716572",
+      "fun_score": 13.148600589739761,
+      "test_fun_score": 5.443662979857897,
+      "score_components": {
+        "chat_spike_score": 13.864665534313117,
+        "reaction_score": 9.201859159662726,
+        "test_reaction_score": 5.443662979857897,
+        "diversity_score": 41.48943351400041,
+        "viewer_trend_score": 0,
+        "final_score": 13.148600589739761,
+        "baseline_chat_count": 2.9386962611054805,
+        "baseline_viewer_count": 265.5833982351288,
+        "baseline_threshold": 12.21104022987911,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.6637820267704555,
+        "test_score_difference": 5.376592953764601,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 239,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:32:43",
+      "comment_after_openDate": "06:32:43",
+      "chat_context": [
+        "채모이: ?",
+        "고양이와둘기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김해팬치: 어?",
+        "김해팬치: 어..",
+        "nbardes: ss"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:13.732539",
+      "fun_score": 5.186610838676104,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 3.697838887586761,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 35.02462331434072,
+        "viewer_trend_score": 0,
+        "final_score": 5.186610838676104,
+        "baseline_chat_count": 2.95844355092409,
+        "baseline_viewer_count": 265.32872928003627,
+        "baseline_threshold": 12.220022058126576,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 239,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:32:48",
+      "comment_after_openDate": "06:32:48",
+      "chat_context": [
+        "김해팬치: 어?",
+        "김해팬치: 어..",
+        "nbardes: ss"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:18.736580",
+      "fun_score": 6.99771838387719,
+      "test_fun_score": 0.7121554275135366,
+      "score_components": {
+        "chat_spike_score": 3.6968486117417028,
+        "reaction_score": 0.7121554275135366,
+        "test_reaction_score": 0.7121554275135366,
+        "diversity_score": 51.20489880339363,
+        "viewer_trend_score": 0,
+        "final_score": 6.99771838387719,
+        "baseline_chat_count": 2.958841661706237,
+        "baseline_viewer_count": 265.07650005353355,
+        "baseline_threshold": 12.15264197864424,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.8111075452010867,
+        "test_score_difference": 0.645085401420241,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 239,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:32:53",
+      "comment_after_openDate": "06:32:53",
+      "chat_context": [
+        "김해팬치: 어..",
+        "nbardes: ss",
+        "채모이: ㄴㅇㅅ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:23.739646",
+      "fun_score": 40.003196708027204,
+      "test_fun_score": 57.66333258872189,
+      "score_components": {
+        "chat_spike_score": 43.88401453836754,
+        "reaction_score": 57.66333258872189,
+        "test_reaction_score": 57.66333258872189,
+        "diversity_score": 29.563903891452387,
+        "viewer_trend_score": 0,
+        "final_score": 40.003196708027204,
+        "baseline_chat_count": 2.959235958587091,
+        "baseline_viewer_count": 264.8266871830207,
+        "baseline_threshold": 12.10325781060637,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 34.8165858693511,
+        "test_score_difference": 57.596262562628596,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 239,
+        "fun_keywords": {
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "06:32:58",
+      "comment_after_openDate": "06:32:58",
+      "chat_context": [
+        "김해팬치: 어..",
+        "nbardes: ss",
+        "채모이: ㄴㅇㅅ",
+        "[WAK]삼이공: 오",
+        "채모이: 모르가나가",
+        "nbardes: 오 이걸",
+        "채모이: q스킬이 조호았따"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:29.654869",
+      "fun_score": 62.57437844433246,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 68.01260093936831,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 19.687080216167196,
+        "viewer_trend_score": 0,
+        "final_score": 62.57437844433246,
+        "baseline_chat_count": 2.997946478103827,
+        "baseline_viewer_count": 264.57926751980733,
+        "baseline_threshold": 12.370539225243661,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 57.38776760565636,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "🔥 뜨거운 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 232,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "06:33:04",
+      "comment_after_openDate": "06:32:58",
+      "chat_context": [
+        "nbardes: ss",
+        "채모이: ㄴㅇㅅ",
+        "[WAK]삼이공: 오",
+        "채모이: 모르가나가",
+        "nbardes: 오 이걸",
+        "채모이: q스킬이 조호았따",
+        "채모이: 오?",
+        "nbardes: 궁2개가"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:35.818870",
+      "fun_score": 75.23658248784955,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 95.48552308779954,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 22.68097098339755,
+        "viewer_trend_score": 0,
+        "final_score": 75.23658248784955,
+        "baseline_chat_count": 3.045866150843592,
+        "baseline_viewer_count": 264.26715813696757,
+        "baseline_threshold": 12.85149200496253,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 70.04997164917344,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 232,
+        "fun_keywords": {
+          "excitement": 5.0
+        },
+        "test_keyword_counter": {
+          "excitement": 5.0
+        }
+      },
+      "after_openDate": "06:33:10",
+      "comment_after_openDate": "06:32:58",
+      "chat_context": [
+        "채모이: ㄴㅇㅅ",
+        "[WAK]삼이공: 오",
+        "채모이: 모르가나가",
+        "nbardes: 오 이걸",
+        "채모이: q스킬이 조호았따",
+        "채모이: 오?",
+        "nbardes: 궁2개가",
+        "SOMy_: 오 매혹 잘맞추네",
+        "채모이: ㅔ.."
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:41.457378",
+      "fun_score": 77.3254396366736,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 23.25439636673587,
+        "viewer_trend_score": 0,
+        "final_score": 77.3254396366736,
+        "baseline_chat_count": 3.10290675311851,
+        "baseline_viewer_count": 263.9580387620154,
+        "baseline_threshold": 13.449141171788588,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.13882879799749,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 232,
+        "fun_keywords": {
+          "excitement": 5.0
+        },
+        "test_keyword_counter": {
+          "excitement": 5.0
+        }
+      },
+      "after_openDate": "06:33:16",
+      "comment_after_openDate": "06:32:58",
+      "chat_context": [
+        "채모이: ㄴㅇㅅ",
+        "[WAK]삼이공: 오",
+        "채모이: 모르가나가",
+        "nbardes: 오 이걸",
+        "채모이: q스킬이 조호았따",
+        "채모이: 오?",
+        "nbardes: 궁2개가",
+        "SOMy_: 오 매혹 잘맞추네",
+        "채모이: ㅔ..",
+        "고양이와둘기: ㅈㅈ...",
+        "nbardes: 존야"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:47.420207",
+      "fun_score": 77.55490587692285,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.549058769228445,
+        "viewer_trend_score": 0,
+        "final_score": 77.55490587692285,
+        "baseline_chat_count": 3.1785609064236344,
+        "baseline_viewer_count": 263.6518807506753,
+        "baseline_threshold": 14.061076111082187,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.36829503824674,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 234,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "06:33:22",
+      "comment_after_openDate": "06:32:58",
+      "chat_context": [
+        "[WAK]삼이공: 오",
+        "채모이: 모르가나가",
+        "nbardes: 오 이걸",
+        "채모이: q스킬이 조호았따",
+        "채모이: 오?",
+        "nbardes: 궁2개가",
+        "SOMy_: 오 매혹 잘맞추네",
+        "채모이: ㅔ..",
+        "고양이와둘기: ㅈㅈ...",
+        "nbardes: 존야"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:53.624872",
+      "fun_score": 27.67912142690276,
+      "test_fun_score": 4.900268005205694,
+      "score_components": {
+        "chat_spike_score": 51.16886442008079,
+        "reaction_score": 4.900268005205694,
+        "test_reaction_score": 4.900268005205694,
+        "diversity_score": 31.830520363046993,
+        "viewer_trend_score": 0,
+        "final_score": 27.67912142690276,
+        "baseline_chat_count": 3.243910292940096,
+        "baseline_viewer_count": 263.3678157330838,
+        "baseline_threshold": 14.66934700023894,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 22.492510588226658,
+        "test_score_difference": 4.8331979791123985,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 234,
+        "fun_keywords": {
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "06:33:28",
+      "comment_after_openDate": "06:33:28",
+      "chat_context": [
+        "채모이: 오?",
+        "nbardes: 궁2개가",
+        "SOMy_: 오 매혹 잘맞추네",
+        "채모이: ㅔ..",
+        "고양이와둘기: ㅈㅈ...",
+        "nbardes: 존야",
+        "[WAK]삼이공: 갔다",
+        "nbardes: 미드다뚤린다"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:09:59.243085",
+      "fun_score": 17.19211250933723,
+      "test_fun_score": 0.5618637634576265,
+      "score_components": {
+        "chat_spike_score": 29.76111621629714,
+        "reaction_score": 0.5618637634576265,
+        "test_reaction_score": 0.5618637634576265,
+        "diversity_score": 36.31051082966226,
+        "viewer_trend_score": 0,
+        "final_score": 17.19211250933723,
+        "baseline_chat_count": 3.2894736323337295,
+        "baseline_viewer_count": 263.0864720583608,
+        "baseline_threshold": 14.793980639246378,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 12.005501670661126,
+        "test_score_difference": 0.49479373736433085,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 234,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:33:34",
+      "comment_after_openDate": "06:33:34",
+      "chat_context": [
+        "nbardes: 궁2개가",
+        "SOMy_: 오 매혹 잘맞추네",
+        "채모이: ㅔ..",
+        "고양이와둘기: ㅈㅈ...",
+        "nbardes: 존야",
+        "[WAK]삼이공: 갔다",
+        "nbardes: 미드다뚤린다"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:04.246511",
+      "fun_score": 8.386033435547095,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 9.553172625272897,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 40.669847463463014,
+        "viewer_trend_score": 0,
+        "final_score": 8.386033435547095,
+        "baseline_chat_count": 3.325020474935972,
+        "baseline_viewer_count": 262.8078236560417,
+        "baseline_threshold": 14.816954742561848,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.199422596870991,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 234,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:33:39",
+      "comment_after_openDate": "06:33:39",
+      "chat_context": [
+        "채모이: ㅔ..",
+        "고양이와둘기: ㅈㅈ...",
+        "nbardes: 존야",
+        "[WAK]삼이공: 갔다",
+        "nbardes: 미드다뚤린다"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:09.259989",
+      "fun_score": 7.440935613743858,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 9.422630183193162,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 31.806310234789464,
+        "viewer_trend_score": 0,
+        "final_score": 7.440935613743858,
+        "baseline_chat_count": 3.3410667787860855,
+        "baseline_viewer_count": 262.5318447054168,
+        "baseline_threshold": 14.755346516440646,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.2543247750677544,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 234,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:33:44",
+      "comment_after_openDate": "06:33:44",
+      "chat_context": [
+        "고양이와둘기: ㅈㅈ...",
+        "nbardes: 존야",
+        "[WAK]삼이공: 갔다",
+        "nbardes: 미드다뚤린다",
+        "[WAK]삼이공: 근데 뭐...존야 써도"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:14.263586",
+      "fun_score": 6.339591698978676,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 5.232634250201326,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 39.64785278560091,
+        "viewer_trend_score": 0,
+        "final_score": 6.339591698978676,
+        "baseline_chat_count": 3.3569593590453146,
+        "baseline_viewer_count": 262.2585096331389,
+        "baseline_threshold": 14.68527445999281,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1529808603025726,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 234,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:33:49",
+      "comment_after_openDate": "06:33:49",
+      "chat_context": [
+        "[WAK]삼이공: 갔다",
+        "nbardes: 미드다뚤린다",
+        "[WAK]삼이공: 근데 뭐...존야 써도",
+        "김해팬치: 어...?"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:19.268639",
+      "fun_score": 6.596937029012966,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.9087534680516582,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 52.678769605617305,
+        "viewer_trend_score": 0,
+        "final_score": 6.596937029012966,
+        "baseline_chat_count": 3.3631196883856607,
+        "baseline_viewer_count": 261.9877931108534,
+        "baseline_threshold": 14.605322819142295,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4103261903368622,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 234,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:33:54",
+      "comment_after_openDate": "06:33:54",
+      "chat_context": [
+        "nbardes: 미드다뚤린다",
+        "[WAK]삼이공: 근데 뭐...존야 써도",
+        "김해팬치: 어...?"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:24.320948",
+      "fun_score": 6.24139208024113,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 5.222949974898274,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 38.709435837089174,
+        "viewer_trend_score": 0,
+        "final_score": 6.24139208024113,
+        "baseline_chat_count": 3.359641001770926,
+        "baseline_viewer_count": 261.71967005285137,
+        "baseline_threshold": 14.528602483272854,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 235,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:33:59",
+      "comment_after_openDate": "06:33:59",
+      "chat_context": [
+        "[WAK]삼이공: 근데 뭐...존야 써도",
+        "김해팬치: 어...?",
+        "구독혜지: 일하다 왔는데",
+        "구독혜지: 져있으시네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:29.326305",
+      "fun_score": 6.231478188731948,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 5.2009191048778725,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 38.709435837089174,
+        "viewer_trend_score": 0,
+        "final_score": 6.231478188731948,
+        "baseline_chat_count": 3.3657756409739603,
+        "baseline_viewer_count": 261.4636956137451,
+        "baseline_threshold": 14.449211007611808,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 235,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:34:04",
+      "comment_after_openDate": "06:34:04",
+      "chat_context": [
+        "[WAK]삼이공: 근데 뭐...존야 써도",
+        "김해팬치: 어...?",
+        "구독혜지: 일하다 왔는데",
+        "구독혜지: 져있으시네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:34.329941",
+      "fun_score": 6.221734735662818,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 5.179266986946471,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 38.709435837089174,
+        "viewer_trend_score": 0,
+        "final_score": 6.221734735662818,
+        "baseline_chat_count": 3.3718515103334297,
+        "baseline_viewer_count": 261.2101734097654,
+        "baseline_threshold": 14.370485127206939,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 235,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:34:09",
+      "comment_after_openDate": "06:34:09",
+      "chat_context": [
+        "[WAK]삼이공: 근데 뭐...존야 써도",
+        "김해팬치: 어...?",
+        "구독혜지: 일하다 왔는데",
+        "구독혜지: 져있으시네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:39.472522",
+      "fun_score": 4.769872558315431,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.8865077866235915,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 34.50823046506825,
+        "viewer_trend_score": 0,
+        "final_score": 4.769872558315431,
+        "baseline_chat_count": 3.377869172864435,
+        "baseline_viewer_count": 260.95907994849983,
+        "baseline_threshold": 14.292420098455946,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 234,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:34:14",
+      "comment_after_openDate": "06:34:14",
+      "chat_context": [
+        "김해팬치: 어...?",
+        "구독혜지: 일하다 왔는데",
+        "구독혜지: 져있으시네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:44.477642",
+      "fun_score": 3.2512965672725285,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.609121092517053,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.070710678118655,
+        "viewer_trend_score": 0,
+        "final_score": 3.2512965672725285,
+        "baseline_chat_count": 3.374249186188394,
+        "baseline_viewer_count": 260.7008119625932,
+        "baseline_threshold": 14.201194093021398,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 234,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:34:19",
+      "comment_after_openDate": "06:34:19",
+      "chat_context": [
+        "구독혜지: 일하다 왔는데",
+        "구독혜지: 져있으시네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:10:49.481327",
+      "fun_score": 3.254639440131432,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.6165496988701715,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.070710678118655,
+        "viewer_trend_score": 0,
+        "final_score": 3.254639440131432,
+        "baseline_chat_count": 3.361083878984709,
+        "baseline_viewer_count": 260.4450181839915,
+        "baseline_threshold": 14.096294074724723,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.003342872858903334,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 234,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:34:24",
+      "comment_after_openDate": "06:34:24",
+      "chat_context": [
+        "구독혜지: 일하다 왔는데",
+        "구독혜지: 져있으시네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:11:27.086037",
+      "fun_score": 5.782740203228398,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.6239986449933654,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.31819805153395,
+        "viewer_trend_score": 0,
+        "final_score": 5.782740203228398,
+        "baseline_chat_count": 3.348044695424035,
+        "baseline_viewer_count": 260.19167490978884,
+        "baseline_threshold": 13.992431023325318,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.5314436359558696,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 236,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:35:02",
+      "comment_after_openDate": "06:35:02",
+      "chat_context": [
+        "nbardes: 그래도 6렙전에 안죽었으니 무난스",
+        "김해팬치: 고클은 바쁜가보네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:11:32.091167",
+      "fun_score": 4.935105811186212,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.951984118094567,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 35.86591950215667,
+        "viewer_trend_score": 0,
+        "final_score": 4.935105811186212,
+        "baseline_chat_count": 3.3351304272418725,
+        "baseline_viewer_count": 259.95991866415307,
+        "baseline_threshold": 13.91378218526879,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.6838092439136831,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 237,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:35:07",
+      "comment_after_openDate": "06:35:07",
+      "chat_context": [
+        "nbardes: 그래도 6렙전에 안죽었으니 무난스",
+        "김해팬치: 고클은 바쁜가보네",
+        "김해팬치: 아무도 혜지랑 안놀아주네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:11:37.127390",
+      "fun_score": 4.937376497831456,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.9570300884173317,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 35.86591950215667,
+        "viewer_trend_score": 0,
+        "final_score": 4.937376497831456,
+        "baseline_chat_count": 3.3319198777488954,
+        "baseline_viewer_count": 259.7399626433505,
+        "baseline_threshold": 13.827766465605078,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.6860799305589271,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 237,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:35:12",
+      "comment_after_openDate": "06:35:12",
+      "chat_context": [
+        "nbardes: 그래도 6렙전에 안죽었으니 무난스",
+        "김해팬치: 고클은 바쁜가보네",
+        "김해팬치: 아무도 혜지랑 안놀아주네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:11:42.155221",
+      "fun_score": 5.425119254908934,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8999961046243238,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.425119254908934,
+        "baseline_chat_count": 3.328740085320061,
+        "baseline_viewer_count": 259.5221138012272,
+        "baseline_threshold": 13.742596529713806,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.173822687636406,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:35:17",
+      "comment_after_openDate": "06:35:17",
+      "chat_context": [
+        "김해팬치: 아무도 혜지랑 안놀아주네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:11:47.159815",
+      "fun_score": 5.426756992367933,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9036355211998754,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.426756992367933,
+        "baseline_chat_count": 3.306430755302695,
+        "baseline_viewer_count": 259.34467195101143,
+        "baseline_threshold": 13.662915097421175,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.1754604250954044,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:35:22",
+      "comment_after_openDate": "06:35:22",
+      "chat_context": [
+        "김해팬치: 아무도 혜지랑 안놀아주네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:11:52.162852",
+      "fun_score": 5.428407601038829,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9073035404685341,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.428407601038829,
+        "baseline_chat_count": 3.2843351486668952,
+        "baseline_viewer_count": 259.1689299937207,
+        "baseline_threshold": 13.584012702774764,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.177111033766301,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:35:27",
+      "comment_after_openDate": "06:35:27",
+      "chat_context": [
+        "김해팬치: 아무도 혜지랑 안놀아주네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:11:57.166211",
+      "fun_score": 5.503000207302036,
+      "test_fun_score": 0.3101669102757608,
+      "score_components": {
+        "chat_spike_score": 0.9110002982651286,
+        "reaction_score": 0.3101669102757608,
+        "test_reaction_score": 0.3101669102757608,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.503000207302036,
+        "baseline_chat_count": 3.2624512179426666,
+        "baseline_viewer_count": 258.9948716443809,
+        "baseline_threshold": 13.505882005900133,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.2517036400295076,
+        "test_score_difference": 0.2430968841824652,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 241,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:35:32",
+      "comment_after_openDate": "06:35:32",
+      "chat_context": [
+        "마마이용: 왁두 팬아트 도배 된거 뭐야"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:02.169645",
+      "fun_score": 5.875249182965747,
+      "test_fun_score": 0.3133574466720523,
+      "score_components": {
+        "chat_spike_score": 1.688952767841187,
+        "reaction_score": 0.3133574466720523,
+        "test_reaction_score": 0.3133574466720523,
+        "diversity_score": 50.21213203435597,
+        "viewer_trend_score": 0,
+        "final_score": 5.875249182965747,
+        "baseline_chat_count": 3.2407769352747757,
+        "baseline_viewer_count": 258.8224807740277,
+        "baseline_threshold": 13.429214398269563,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.6239526156932182,
+        "test_score_difference": 0.24628742057875666,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:35:37",
+      "comment_after_openDate": "06:35:37",
+      "chat_context": [
+        "마마이용: 왁두 팬아트 도배 된거 뭐야",
+        "김해팬치: 일부러 피하는건가"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:07.173064",
+      "fun_score": 5.879215688524288,
+      "test_fun_score": 0.3151394802335651,
+      "score_components": {
+        "chat_spike_score": 1.6965792022636035,
+        "reaction_score": 0.3151394802335651,
+        "test_reaction_score": 0.3151394802335651,
+        "diversity_score": 50.21213203435597,
+        "viewer_trend_score": 0,
+        "final_score": 5.879215688524288,
+        "baseline_chat_count": 3.2288902922348433,
+        "baseline_viewer_count": 258.61342140821256,
+        "baseline_threshold": 13.356847411506951,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.627919121251759,
+        "test_score_difference": 0.24806945414026946,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:35:42",
+      "comment_after_openDate": "06:35:42",
+      "chat_context": [
+        "마마이용: 왁두 팬아트 도배 된거 뭐야",
+        "김해팬치: 일부러 피하는건가"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:12.176091",
+      "fun_score": 5.883191421634027,
+      "test_fun_score": 0.3169275051431395,
+      "score_components": {
+        "chat_spike_score": 1.7042221481233082,
+        "reaction_score": 0.3169275051431395,
+        "test_reaction_score": 0.3169275051431395,
+        "diversity_score": 50.21213203435597,
+        "viewer_trend_score": 0,
+        "final_score": 5.883191421634027,
+        "baseline_chat_count": 3.2171175232352334,
+        "baseline_viewer_count": 258.4063648311219,
+        "baseline_threshold": 13.285211699600776,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.631894854361499,
+        "test_score_difference": 0.24985747904984387,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:35:47",
+      "comment_after_openDate": "06:35:47",
+      "chat_context": [
+        "마마이용: 왁두 팬아트 도배 된거 뭐야",
+        "김해팬치: 일부러 피하는건가"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:17.180492",
+      "fun_score": 6.694359207336395,
+      "test_fun_score": 0.3187214395585577,
+      "score_components": {
+        "chat_spike_score": 3.171299617733326,
+        "reaction_score": 0.3187214395585577,
+        "test_reaction_score": 0.3187214395585577,
+        "diversity_score": 51.7165794748883,
+        "viewer_trend_score": 0,
+        "final_score": 6.694359207336395,
+        "baseline_chat_count": 3.2054575373626397,
+        "baseline_viewer_count": 258.20129185603975,
+        "baseline_threshold": 13.214300345337854,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.443062640063866,
+        "test_score_difference": 0.2516514134652621,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 242,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:35:52",
+      "comment_after_openDate": "06:35:52",
+      "chat_context": [
+        "마마이용: 왁두 팬아트 도배 된거 뭐야",
+        "김해팬치: 일부러 피하는건가",
+        "구독혜지: 어제도 잘놀았는데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:22.184162",
+      "fun_score": 6.696066870667694,
+      "test_fun_score": 0.31902655935726737,
+      "score_components": {
+        "chat_spike_score": 3.1748910119370732,
+        "reaction_score": 0.31902655935726737,
+        "test_reaction_score": 0.31902655935726737,
+        "diversity_score": 51.7165794748883,
+        "viewer_trend_score": 0,
+        "final_score": 6.696066870667694,
+        "baseline_chat_count": 3.2034892541547055,
+        "baseline_viewer_count": 258.0460834800589,
+        "baseline_threshold": 13.151839309235799,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.4414274305362618,
+        "test_score_difference": 0.2519565332639717,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 242,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:35:57",
+      "comment_after_openDate": "06:35:57",
+      "chat_context": [
+        "마마이용: 왁두 팬아트 도배 된거 뭐야",
+        "김해팬치: 일부러 피하는건가",
+        "구독혜지: 어제도 잘놀았는데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:27.190853",
+      "fun_score": 5.791634696967181,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.714474864753761,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.791634696967181,
+        "baseline_chat_count": 3.201539827099903,
+        "baseline_viewer_count": 257.8923620003199,
+        "baseline_threshold": 13.089993009274314,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8565288857809694,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 242,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:02",
+      "comment_after_openDate": "06:36:02",
+      "chat_context": [
+        "김해팬치: 일부러 피하는건가",
+        "구독혜지: 어제도 잘놀았는데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:32.197312",
+      "fun_score": 5.4357899950809045,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9237088605620355,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.4357899950809045,
+        "baseline_chat_count": 3.1900290755562857,
+        "baseline_viewer_count": 257.7401131723568,
+        "baseline_threshold": 13.020074736642412,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5006841838946929,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 243,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:07",
+      "comment_after_openDate": "06:36:07",
+      "chat_context": [
+        "구독혜지: 어제도 잘놀았는데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:37.200593",
+      "fun_score": 5.437510881854794,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9275330533929007,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.437510881854794,
+        "baseline_chat_count": 3.1690485970124564,
+        "baseline_viewer_count": 257.59890288816564,
+        "baseline_threshold": 12.947417288818253,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5001343840233385,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 243,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:12",
+      "comment_after_openDate": "06:36:12",
+      "chat_context": [
+        "구독혜지: 어제도 잘놀았는데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:42.209352",
+      "fun_score": 5.43924501954854,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9313866927123364,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.43924501954854,
+        "baseline_chat_count": 3.148269111453077,
+        "baseline_viewer_count": 257.459045398497,
+        "baseline_threshold": 12.875472385439542,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.014125764639605798,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 243,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:17",
+      "comment_after_openDate": "06:36:17",
+      "chat_context": [
+        "구독혜지: 어제도 잘놀았는데"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:12:57.228154",
+      "fun_score": 5.440992465308253,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9352699055116983,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.440992465308253,
+        "baseline_chat_count": 3.1276886933653567,
+        "baseline_viewer_count": 257.32052774357936,
+        "baseline_threshold": 12.804233327274305,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.014235472940320015,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 245,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:32",
+      "comment_after_openDate": "06:36:32",
+      "chat_context": [
+        "김해팬치: 맞네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:13:02.231307",
+      "fun_score": 3.3635895911871523,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.7800937255288232,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.424264068711928,
+        "viewer_trend_score": 0,
+        "final_score": 3.3635895911871523,
+        "baseline_chat_count": 3.1073054356829166,
+        "baseline_viewer_count": 257.20249708779585,
+        "baseline_threshold": 12.73369347981667,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 245,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:37",
+      "comment_after_openDate": "06:36:37",
+      "chat_context": [
+        "김해팬치: 맞네",
+        "김해팬치: 어제 방송 봐놓고 까먹었네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:13:07.259427",
+      "fun_score": 3.3670981090415473,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.7878904318719233,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.424264068711928,
+        "viewer_trend_score": 0,
+        "final_score": 3.3670981090415473,
+        "baseline_chat_count": 3.0966974496090742,
+        "baseline_viewer_count": 257.08559716569476,
+        "baseline_threshold": 12.6439278845636,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.003508517854394988,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 246,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:42",
+      "comment_after_openDate": "06:36:42",
+      "chat_context": [
+        "김해팬치: 맞네",
+        "김해팬치: 어제 방송 봐놓고 까먹었네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:13:12.262846",
+      "fun_score": 3.3706119528989333,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.7956989737772262,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.424264068711928,
+        "viewer_trend_score": 0,
+        "final_score": 3.3706119528989333,
+        "baseline_chat_count": 3.086191088041819,
+        "baseline_viewer_count": 256.9793971448474,
+        "baseline_threshold": 12.555055855314098,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0070223617117810555,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 246,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:47",
+      "comment_after_openDate": "06:36:47",
+      "chat_context": [
+        "김해팬치: 맞네",
+        "김해팬치: 어제 방송 봐놓고 까먹었네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:13:17.328201",
+      "fun_score": 3.374130937681329,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.8035189399603277,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.424264068711928,
+        "viewer_trend_score": 0,
+        "final_score": 3.374130937681329,
+        "baseline_chat_count": 3.075785377418378,
+        "baseline_viewer_count": 256.87421452019976,
+        "baseline_threshold": 12.467068882728961,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.010541346494176818,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 246,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:52",
+      "comment_after_openDate": "06:36:52",
+      "chat_context": [
+        "김해팬치: 맞네",
+        "김해팬치: 어제 방송 봐놓고 까먹었네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:13:22.333744",
+      "fun_score": 3.3776548773860124,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.811349917081846,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.424264068711928,
+        "viewer_trend_score": 0,
+        "final_score": 3.3776548773860124,
+        "baseline_chat_count": 3.0654793535027096,
+        "baseline_viewer_count": 256.7700395450962,
+        "baseline_threshold": 12.379958537215405,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.01406528619886016,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 247,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:36:57",
+      "comment_after_openDate": "06:36:57",
+      "chat_context": [
+        "김해팬치: 맞네",
+        "김해팬치: 어제 방송 봐놓고 까먹었네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:13:27.338416",
+      "fun_score": 5.447389416120784,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9494853517617687,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.447389416120784,
+        "baseline_chat_count": 3.0552720612961535,
+        "baseline_viewer_count": 256.6764425662542,
+        "baseline_threshold": 12.293716468154239,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.083799824933632,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 247,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:37:02",
+      "comment_after_openDate": "06:37:02",
+      "chat_context": [
+        "김해팬치: 어제 방송 봐놓고 까먹었네"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:14:08.090860",
+      "fun_score": 3.345674484665178,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.8345632818604203,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.0,
+        "viewer_trend_score": 0,
+        "final_score": 3.345674484665178,
+        "baseline_chat_count": 3.0355825549489364,
+        "baseline_viewer_count": 256.58374224646946,
+        "baseline_threshold": 12.228128654995759,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 245,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:37:43",
+      "comment_after_openDate": "06:37:43",
+      "chat_context": [
+        "순애의기사: pp",
+        "순애의기사: ㅔㅔ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:14:13.120503",
+      "fun_score": 3.349216188493573,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.8424337348124091,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.0,
+        "viewer_trend_score": 0,
+        "final_score": 3.349216188493573,
+        "baseline_chat_count": 3.0256616740725253,
+        "baseline_viewer_count": 256.47276999574825,
+        "baseline_threshold": 12.143034744043991,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0035417038283949154,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 240,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:37:48",
+      "comment_after_openDate": "06:37:48",
+      "chat_context": [
+        "순애의기사: pp",
+        "순애의기사: ㅔㅔ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:14:18.124042",
+      "fun_score": 9.88970420185423,
+      "test_fun_score": 0.2524319807730371,
+      "score_components": {
+        "chat_spike_score": 12.782791326856902,
+        "reaction_score": 0.2524319807730371,
+        "test_reaction_score": 0.2524319807730371,
+        "diversity_score": 40.61718510536712,
+        "viewer_trend_score": 0,
+        "final_score": 9.88970420185423,
+        "baseline_chat_count": 3.01583583523491,
+        "baseline_viewer_count": 256.314960859189,
+        "baseline_threshold": 12.058789962281818,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.544029717189051,
+        "test_score_difference": 0.18536195467974145,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 240,
+        "fun_keywords": {
+          "reaction": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0
+        }
+      },
+      "after_openDate": "06:37:53",
+      "comment_after_openDate": "06:37:53",
+      "chat_context": [
+        "순애의기사: pp",
+        "순애의기사: ㅔㅔ",
+        "도넛츤식이: ㅠㅠ",
+        "샤우버거: 앗",
+        "채모이: ㅔㅔ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:14:23.127566",
+      "fun_score": 33.39835030393921,
+      "test_fun_score": 0.4833255193697167,
+      "score_components": {
+        "chat_spike_score": 65.13112041274466,
+        "reaction_score": 0.4833255193697167,
+        "test_reaction_score": 0.4833255193697167,
+        "diversity_score": 39.443484623931994,
+        "viewer_trend_score": 0,
+        "final_score": 33.39835030393921,
+        "baseline_chat_count": 3.0348441279333596,
+        "baseline_viewer_count": 256.15866353415794,
+        "baseline_threshold": 12.03801012069692,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 30.052675819274032,
+        "test_score_difference": 0.4162554932764211,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 240,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:37:58",
+      "comment_after_openDate": "06:37:58",
+      "chat_context": [
+        "순애의기사: pp",
+        "순애의기사: ㅔㅔ",
+        "도넛츤식이: ㅠㅠ",
+        "샤우버거: 앗",
+        "채모이: ㅔㅔ",
+        "마마이용: 수고하셨습니당",
+        "채모이: 혜바",
+        "김해팬치: 좋았습니다",
+        "A-NS★C9세구: ㅇㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:14:28.532663",
+      "fun_score": 49.07461080369882,
+      "test_fun_score": 0.8879834126982098,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.8879834126982098,
+        "test_reaction_score": 0.8879834126982098,
+        "diversity_score": 38.082157798893526,
+        "viewer_trend_score": 0,
+        "final_score": 49.07461080369882,
+        "baseline_chat_count": 3.0919903211877577,
+        "baseline_viewer_count": 256.0038635375007,
+        "baseline_threshold": 12.242642179652382,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 45.728936319033636,
+        "test_score_difference": 0.8209133866049142,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 232,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "06:38:03",
+      "comment_after_openDate": "06:37:58",
+      "chat_context": [
+        "순애의기사: pp",
+        "순애의기사: ㅔㅔ",
+        "도넛츤식이: ㅠㅠ",
+        "샤우버거: 앗",
+        "채모이: ㅔㅔ",
+        "마마이용: 수고하셨습니당",
+        "채모이: 혜바",
+        "김해팬치: 좋았습니다",
+        "A-NS★C9세구: ㅇㅋ",
+        "도넛츤식이: 퇴근시간되가니까 끝난다니 ",
+        "고양이와둘기: 잉..",
+        "구독혜지: ㅂㅂ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:14:34.636881",
+      "fun_score": 49.15581202333855,
+      "test_fun_score": 0.828617793474739,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.828617793474739,
+        "test_reaction_score": 0.828617793474739,
+        "diversity_score": 39.07226685296126,
+        "viewer_trend_score": 0,
+        "final_score": 49.15581202333855,
+        "baseline_chat_count": 3.177329053910779,
+        "baseline_viewer_count": 255.77390652481142,
+        "baseline_threshold": 12.595492439070746,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 45.810137538673374,
+        "test_score_difference": 0.7615477673814434,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 232,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "06:38:09",
+      "comment_after_openDate": "06:37:58",
+      "chat_context": [
+        "순애의기사: pp",
+        "순애의기사: ㅔㅔ",
+        "도넛츤식이: ㅠㅠ",
+        "샤우버거: 앗",
+        "채모이: ㅔㅔ",
+        "마마이용: 수고하셨습니당",
+        "채모이: 혜바",
+        "김해팬치: 좋았습니다",
+        "A-NS★C9세구: ㅇㅋ",
+        "도넛츤식이: 퇴근시간되가니까 끝난다니 ",
+        "고양이와둘기: 잉..",
+        "구독혜지: ㅂㅂ",
+        "비니빈3: ㅂㅂㅂㅂㅂ"
+      ]
+    },
+    {
+      "timestamp": "2025-11-25T17:14:54.675360",
+      "fun_score": 5.857858823092043,
+      "test_fun_score": 0.12357002558114064,
+      "score_components": {
+        "chat_spike_score": 1.6696944572326993,
+        "reaction_score": 0.12357002558114064,
+        "test_reaction_score": 0.12357002558114064,
+        "diversity_score": 50.69425309662986,
+        "viewer_trend_score": 0,
+        "final_score": 5.857858823092043,
+        "baseline_chat_count": 3.2714302415743135,
+        "baseline_viewer_count": 255.54615250030372,
+        "baseline_threshold": 12.94574030068803,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.5121843384268647,
+        "test_score_difference": 0.05649999948784501,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 232,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:38:29",
+      "comment_after_openDate": "06:38:29",
+      "chat_context": [
+        "고양이와둘기: 잉..",
+        "구독혜지: ㅂㅂ",
+        "비니빈3: ㅂㅂㅂㅂㅂ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
