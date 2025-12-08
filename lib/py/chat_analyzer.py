@@ -1181,9 +1181,9 @@ class ChatAnalyzer:
         self.init.wait_make_highlight_chat[self.channel_id] = True
         max_retries = self.init.GOOGLE_API_KEY_LEN
         request_timeout = 600
-
+        emergency_timeline_comments = []
         if not highlights:
-            return []
+            return emergency_timeline_comments
         
         highlight_data = []
         images_with_labels = []
@@ -1218,6 +1218,13 @@ class ChatAnalyzer:
                     "하이라이트_여부": score_details['highlights'],
                     "큰_하이라이트_여부": score_details['big_highlights'],
                     "재미도_점수_차이": score_details['score_difference'],
+                })
+
+                emergency_timeline_comments.append({
+                    {"comment_after_openDate": highlight.comment_after_openDate, 
+                     "score_difference": score_details['score_difference'],
+                     "text": highlight.reason, 
+                     "description": highlight.reason}
                 })
 
                 if highlight.image:
@@ -1290,7 +1297,7 @@ class ChatAnalyzer:
                         await asyncio.sleep(wait_time)
                     else:
                         await log_error(f"API 요청 최종 실패 (타임아웃): {highlight.channel_name}")
-                        return []
+                        return emergency_timeline_comments
 
                 except (json.JSONDecodeError, ValueError) as e:
                     print(f"{datetime.now()} JSON 파싱 오류 (시도 {attempt + 1}/{max_retries}): {e}")
@@ -1302,7 +1309,7 @@ class ChatAnalyzer:
                         continue
                     else:
                         await log_error(f"타임라인 댓글 생성 최종 실패: {highlight.channel_name}")
-                        return []
+                        return emergency_timeline_comments
 
                 except Exception as e:
                     print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {e}")
@@ -1313,7 +1320,7 @@ class ChatAnalyzer:
                         await asyncio.sleep(wait_time)
                     else:
                         await log_error(f"타임라인 댓글 생성 최종 실패: {highlight.channel_name}")
-                        return []
+                        return emergency_timeline_comments
         
         finally:
             self.init.wait_make_highlight_chat[self.channel_id] = False
