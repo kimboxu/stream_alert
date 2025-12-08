@@ -40,9 +40,17 @@ class APIPerformanceLogger:
             else:
                 project_root = current_file.parent
             log_dir = project_root / "data" / "api_performance_logs"
+            fun_dir = project_root / "data" / "fun_score_logs"
+            chat_dir = project_root / "data" / "highlight_chats"
         
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(parents=True, exist_ok=True)
+        
+        self.fun_dir = Path(fun_dir)
+        self.fun_dir.mkdir(parents=True, exist_ok=True)
+        
+        self.chat_dir = Path(chat_dir)
+        self.chat_dir.mkdir(parents=True, exist_ok=True)
         
         # 메모리 캐시 설정
         self.max_memory_logs = max_memory_logs
@@ -213,24 +221,28 @@ class APIPerformanceLogger:
     def cleanup_old_files_sync(self):
         """동기적 파일 정리 (스레드 풀에서 실행)"""
         cutoff_date = datetime.now() - timedelta(days=self.max_file_age_days)
-        pattern = str(self.log_dir / "api_performance_*.json")
+        patterns = []
+        patterns.append(str(self.log_dir / "api_performance_*.json"))
+        patterns.append(str(self.fun_dir / "fun_score_detailed_*.json"))
+        patterns.append(str(self.chat_dir / "highlight_chat_*.json"))
         
-        for file_path in glob.glob(pattern):
-            file_path = Path(file_path)
-            
-            # 파일명에서 날짜 추출
-            try:
-                filename = file_path.stem
-                date_part = filename.split('_')[2] + "_" + filename.split('_')[3]
-                file_date = datetime.strptime(date_part, "%Y%m%d_%H%M%S")
+        for pattern in patterns:
+            for file_path in glob.glob(pattern):
+                file_path = Path(file_path)
                 
-                if file_date < cutoff_date:
-                    file_path.unlink()
-                    print(f"{datetime.now()} 오래된 로그 파일 삭제: {file_path}")
+                # 파일명에서 날짜 추출
+                try:
+                    filename = file_path.stem
+                    date_part = filename.split('_')[2] + "_" + filename.split('_')[3]
+                    file_date = datetime.strptime(date_part, "%Y%m%d_%H%M%S")
                     
-            except (IndexError, ValueError):
-                # 파일명 형식이 맞지 않으면 건너뛰기
-                continue
+                    if file_date < cutoff_date:
+                        file_path.unlink()
+                        print(f"{datetime.now()} 오래된 로그 파일 삭제: {file_path}")
+                        
+                except (IndexError, ValueError):
+                    # 파일명 형식이 맞지 않으면 건너뛰기
+                    continue
 
     def _parse_filename_datetime(self, filename: str) -> Optional[datetime]:
         """파일명에서 날짜/시간 추출
