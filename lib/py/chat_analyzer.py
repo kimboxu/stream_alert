@@ -116,7 +116,8 @@ class ChatMessageWithAnalyzer:
             await self.chat_analyzer.highlight_processing(self.is_save_log)
 
     async def highlight_processing(self):
-        await self.chat_analyzer.highlight_processing(self.is_save_log)
+        is_emergency = True
+        await self.chat_analyzer.highlight_processing(self.is_save_log, is_emergency)
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
@@ -793,7 +794,7 @@ class ChatAnalyzer:
         
         return False
     
-    async def highlight_processing(self, is_save_log = False):
+    async def highlight_processing(self, is_save_log = False, is_emergency = False):
         """하이라이트 처리"""
         try:
             for _ in range(300): # make_highlight_chat 실행 중 방송이 종료되어 _save_completed_highlight_chat_after_update가 실행 된 후에 make_highlight_chat이 완료되는 문제 해결을 위해 해당 상태 확인
@@ -808,7 +809,7 @@ class ChatAnalyzer:
             # 하이라이트 생성
             highlights_to_process = self.highlights.copy()
             self.highlights = []
-            timeline_comments = await self._make_highlight_chat(highlights_to_process) 
+            timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
             self.update_highlight_chat(timeline_comments, stream_start_time)
 
             # 하이라이트 채팅 업데이트 직후 파일로 저장
@@ -1176,7 +1177,7 @@ class ChatAnalyzer:
                 print(f"{datetime.now()} ⚠ 주기적 로그 저장 오류: {e}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
-    async def _make_highlight_chat(self, highlights: list[StreamHighlight]):
+    async def _make_highlight_chat(self, highlights: list[StreamHighlight], is_emergency = False):
         self.init.wait_make_highlight_chat[self.channel_id] = True
         max_retries = self.init.GOOGLE_API_KEY_LEN
         request_timeout = 600
@@ -1250,7 +1251,7 @@ class ChatAnalyzer:
             for attempt in range(max_retries):
                 try:
                     self.add_genai_cnt()
-                    model = get_genai_model(self.init.genai_cnt)
+                    model = get_genai_model(self.init.genai_cnt, is_emergency)
                     
                     response = await asyncio.wait_for(
                         asyncio.to_thread(model.generate_content, msg_list),

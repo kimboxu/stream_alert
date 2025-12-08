@@ -65,16 +65,20 @@ class GenAIModelManager:
                 description: "아서스 또 있네 ㅋㅋㅋ" (썸네일에서 특정 캐릭터 확인시)
             '''
     
-    def get_model(self, num: int) -> genai.GenerativeModel:
+    def get_model(self, num: int, is_emergency: bool = False) -> genai.GenerativeModel:
         """
         API 키 순서에 맞는 모델을 가져옴 - 이미 만든 건 재사용
         매번 새로 만들면 메모리 낭비가 심해서 캐싱해서 쓰는 방식
         """
         try:
-            # 환경변수에서 API 키들 가져와서 순서대로 돌려가며 사용
-            GOOGLE_API_KEY_LIST = environ['GOOGLE_API_KEY'].split(",")
-            api_key_index = (num // 10) % len(GOOGLE_API_KEY_LIST)
-            target_api_key = GOOGLE_API_KEY_LIST[api_key_index]
+            if not is_emergency:
+                # 환경변수에서 API 키들 가져와서 순서대로 돌려가며 사용
+                GOOGLE_API_KEY_LIST = environ['GOOGLE_API_KEY'].split(",")
+                api_key_index = (num // 10) % len(GOOGLE_API_KEY_LIST)
+                target_api_key = GOOGLE_API_KEY_LIST[api_key_index]
+            else:
+                target_api_key = environ['EMERGENCY_GOOGLE_API_KEY']
+                api_key_index = len(GOOGLE_API_KEY_LIST)
             
             # 각 API 키별로 모델을 구분해서 저장
             cache_key = f"model_{api_key_index}"
@@ -126,11 +130,11 @@ class GenAIModelManager:
 _model_manager = GenAIModelManager()
 
 
-def get_genai_model(num: int) -> genai.GenerativeModel:
+def get_genai_model(num: int, is_emergency: bool = False) -> genai.GenerativeModel:
     """
     내부적으로는 캐싱된 모델을 반환해서 성능 향상
     """
-    return _model_manager.get_model(num)
+    return _model_manager.get_model(num, is_emergency)
 
 
 def clear_genai_cache():
