@@ -1222,6 +1222,7 @@ class SessionBasedFunScoreAnalyzer:
                         channel_id="test_log_analyzer_dummy",
                         channel_name=f"{self.channel_name}_TEST",
                         fun_score=log.get('test_fun_score', 0),  # Test 점수 사용
+                        test_fun_score=log.get('test_fun_score', 0), 
                         reason=log.get('reason', '테스트 재미있는 순간 감지'),
                         chat_context=log.get('chat_context', []),
                         duration=30,
@@ -1512,6 +1513,7 @@ class SessionBasedFunScoreAnalyzer:
                         channel_id="log_analyzer_dummy",  # 로그 분석용 더미 값
                         channel_name=self.channel_name,
                         fun_score=log['fun_score'],
+                        test_fun_score=log['test_fun_score'],
                         reason=log.get('reason', '재미있는 순간 감지'),
                         chat_context=log.get('chat_context', []),
                         duration=30,  # 기본값
