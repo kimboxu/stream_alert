@@ -1220,12 +1220,12 @@ class ChatAnalyzer:
                     "재미도_점수_차이": score_details['score_difference'],
                 })
 
-                emergency_timeline_comments.append({
+                emergency_timeline_comments.append(
                     {"comment_after_openDate": highlight.comment_after_openDate, 
                      "score_difference": score_details['score_difference'],
                      "text": highlight.reason, 
                      "description": highlight.reason}
-                })
+                )
 
                 if highlight.image:
                     images_with_labels.append(highlight.image)
