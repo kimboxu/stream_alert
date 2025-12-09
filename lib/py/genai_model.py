@@ -97,7 +97,7 @@ class GenAIModelManager:
             self._current_api_key = target_api_key
             
             model = genai.GenerativeModel(
-                "gemini-2.0-flash-live", 
+                "gemini-2.5-flash", 
                 system_instruction=self._system_instruction, 
                 generation_config={"response_mime_type": "application/json"}
             )
