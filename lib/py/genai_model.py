@@ -19,6 +19,7 @@ class GenAIModelManager:
         # 처음 한 번만 초기화됨
         if not hasattr(self, '_initialized'):
             self._initialized = True
+            self.GOOGLE_API_KEY_LIST = environ['GOOGLE_API_KEY'].split(",")
             # 시스템 프롬프트 - VOD 댓글 생성용
             self._system_instruction = '''
                 방송 하이라이트 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
@@ -73,12 +74,11 @@ class GenAIModelManager:
         try:
             if not is_emergency:
                 # 환경변수에서 API 키들 가져와서 순서대로 돌려가며 사용
-                GOOGLE_API_KEY_LIST = environ['GOOGLE_API_KEY'].split(",")
-                api_key_index = (num // 10) % len(GOOGLE_API_KEY_LIST)
-                target_api_key = GOOGLE_API_KEY_LIST[api_key_index]
+                api_key_index = (num // 10) % len(self.GOOGLE_API_KEY_LIST)
+                target_api_key = self.GOOGLE_API_KEY_LIST[api_key_index]
             else:
                 target_api_key = environ['EMERGENCY_GOOGLE_API_KEY']
-                api_key_index = len(GOOGLE_API_KEY_LIST)
+                api_key_index = len(self.GOOGLE_API_KEY_LIST)
             
             # 각 API 키별로 모델을 구분해서 저장
             cache_key = f"model_{api_key_index}"
