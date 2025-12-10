@@ -1010,7 +1010,7 @@ class ChatAnalyzer:
                 image_url = await upload_image_to_imgbb(self.performance_manager, self.channel_id, thumbnail_url, platform_prefix = platform_name)
             
  
-            timeline_comments = await self._make_highlight_chat([highlight])
+            timeline_comments = await self._make_highlight_chat([highlight], is_use_description = self.init.is_vod_chat_json[self.channel_id])
         
             first_comment = timeline_comments[0] if timeline_comments else {}
             text = first_comment.get("text", "하이라이트 주석")
@@ -1177,12 +1177,13 @@ class ChatAnalyzer:
                 print(f"{datetime.now()} ⚠ 주기적 로그 저장 오류: {e}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
-    async def _make_highlight_chat(self, highlights: list[StreamHighlight], is_emergency = False):
+    async def _make_highlight_chat(self, highlights: list[StreamHighlight], is_emergency = False, is_use_description = True):
         self.init.wait_make_highlight_chat[self.channel_id] = True
         max_retries = self.init.GOOGLE_API_KEY_LEN
         request_timeout = 600
         emergency_timeline_comments = []
-        if not highlights:
+
+        if not is_use_description and (not highlights): #or not self.init.is_vod_chat_json[self.channel_id]
             return emergency_timeline_comments
         
         highlight_data = []
