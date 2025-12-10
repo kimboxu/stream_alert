@@ -1328,7 +1328,7 @@ class ChatAnalyzer:
         finally:
             self.init.wait_make_highlight_chat[self.channel_id] = False
     
-    def add_genai_cnt(self, num = 1):
+    def add_genai_cnt(self, num = 2):
         self.init.genai_cnt = (self.init.genai_cnt + num) % (
             10 * len(self.init.GOOGLE_API_KEY_LIST)
         )
