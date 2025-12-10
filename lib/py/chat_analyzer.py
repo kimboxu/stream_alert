@@ -775,7 +775,7 @@ class ChatAnalyzer:
         # if not self.init.DO_TEST:
         #     await self._save_highlight_to_db(highlight)
 
-        if len(self.highlights) > 20:
+        if len(self.highlights) > 40:
             highlights_to_process = self.highlights.copy()
             self.highlights = [self.highlights[-1]]
             timeline_comments = await self._make_highlight_chat(highlights_to_process[:-1])
