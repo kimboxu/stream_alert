@@ -1,0 +1,3488 @@
+{
+  "channel_id": "madaomm",
+  "channel_name": "마다옴_",
+  "save_timestamp": "2025-12-12T02:28:53.434383",
+  "total_logs": 77,
+  "logs": [
+    {
+      "timestamp": "2025-12-12T01:55:45.931130",
+      "fun_score": 5.379405283793071,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.798409502144628,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.379405283793071,
+        "baseline_chat_count": 4.161906331248135,
+        "baseline_viewer_count": 155.122203782164,
+        "baseline_threshold": 19.862082873687925,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 151,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:58:35",
+      "comment_after_openDate": "07:58:35",
+      "chat_context": [
+        "282: 젊탱다옴"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:55:50.936912",
+      "fun_score": 47.96061379444551,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 32.40193765108111,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 33.79741851459001,
+        "viewer_trend_score": 0,
+        "final_score": 47.96061379444551,
+        "baseline_chat_count": 4.131615268594778,
+        "baseline_viewer_count": 155.0827130699309,
+        "baseline_threshold": 19.723338822376732,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 42.58120851065244,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 5.6,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 5.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:58:40",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "구르므빵: 어리다고 놀리지 말아요오~",
+        "어디있다옴: 앗",
+        "wooyas: T야?",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋ",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㄷㄷ",
+        "구르므빵: 영포티 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋ",
+        "쵸코로키: 영포티 ㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:55:57.538880",
+      "fun_score": 53.69105684855869,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 45.82310964112825,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.706575100509795,
+        "viewer_trend_score": 0,
+        "final_score": 53.69105684855869,
+        "baseline_chat_count": 4.178254394321639,
+        "baseline_viewer_count": 155.07234067872096,
+        "baseline_threshold": 19.993851916609152,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 48.31165156476562,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 6.6,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 6.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:58:46",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "구르므빵: 어리다고 놀리지 말아요오~",
+        "어디있다옴: 앗",
+        "wooyas: T야?",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋ",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㄷㄷ",
+        "구르므빵: 영포티 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋ",
+        "쵸코로키: 영포티 ㅋㅋ",
+        "혼큐.: 슬슬 기빨리시나본데 ㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:06.520774",
+      "fun_score": 70.61423507575765,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 83.56846942364648,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.084238351167368,
+        "viewer_trend_score": 0,
+        "final_score": 70.61423507575765,
+        "baseline_chat_count": 4.234026717224038,
+        "baseline_viewer_count": 155.0620676550188,
+        "baseline_threshold": 20.316671139857228,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 65.23482979196457,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 7.8,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 7.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:58:55",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "구르므빵: 어리다고 놀리지 말아요오~",
+        "어디있다옴: 앗",
+        "wooyas: T야?",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋ",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㄷㄷ",
+        "구르므빵: 영포티 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋ",
+        "쵸코로키: 영포티 ㅋㅋ",
+        "혼큐.: 슬슬 기빨리시나본데 ㅋㅋ",
+        "xentlelover: 호감작 실패중이신거같은데",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:13.153754",
+      "fun_score": 77.58710722682116,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.871072268211616,
+        "viewer_trend_score": 0,
+        "final_score": 77.58710722682116,
+        "baseline_chat_count": 4.308424741273031,
+        "baseline_viewer_count": 155.05189304688372,
+        "baseline_threshold": 20.79852180236315,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.20770194302808,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "laugh": 7.8,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "laugh": 7.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:59:02",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "구르므빵: 어리다고 놀리지 말아요오~",
+        "어디있다옴: 앗",
+        "wooyas: T야?",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋ",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㄷㄷ",
+        "구르므빵: 영포티 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋ",
+        "쵸코로키: 영포티 ㅋㅋ",
+        "혼큐.: 슬슬 기빨리시나본데 ㅋㅋ",
+        "xentlelover: 호감작 실패중이신거같은데",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 호감작 실패작",
+        "큰아빠햄부기: 앗"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:19.245557",
+      "fun_score": 42.203368691413544,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 17.181106733174452,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 44.71870661485042,
+        "viewer_trend_score": 0,
+        "final_score": 42.203368691413544,
+        "baseline_chat_count": 4.401270032251635,
+        "baseline_viewer_count": 155.02265591149458,
+        "baseline_threshold": 21.34255645072946,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 36.823963407620475,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "laugh": 5.2,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "07:59:08",
+      "comment_after_openDate": "07:59:08",
+      "chat_context": [
+        "쵸코로키: 영포티 ㅋㅋ",
+        "혼큐.: 슬슬 기빨리시나본데 ㅋㅋ",
+        "xentlelover: 호감작 실패중이신거같은데",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 호감작 실패작",
+        "큰아빠햄부기: 앗",
+        "어디있다옴: 아군 ㅋㅋ",
+        "282: 호감도 뚝뚝 떨어지는중 ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:25.070164",
+      "fun_score": 40.05160290500173,
+      "test_fun_score": 83.40499621868365,
+      "score_components": {
+        "chat_spike_score": 11.000300940261587,
+        "reaction_score": 100,
+        "test_reaction_score": 83.40499621868365,
+        "diversity_score": 51.01467481884013,
+        "viewer_trend_score": 0,
+        "final_score": 40.05160290500173,
+        "baseline_chat_count": 4.435745865342665,
+        "baseline_viewer_count": 154.99369886786246,
+        "baseline_threshold": 21.542403031995214,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 34.67219762120866,
+        "test_score_difference": 83.33792619259036,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "laugh": 4.2,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "07:59:14",
+      "comment_after_openDate": "07:59:14",
+      "chat_context": [
+        "혼큐.: 슬슬 기빨리시나본데 ㅋㅋ",
+        "xentlelover: 호감작 실패중이신거같은데",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 호감작 실패작",
+        "큰아빠햄부기: 앗",
+        "어디있다옴: 아군 ㅋㅋ",
+        "282: 호감도 뚝뚝 떨어지는중 ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:30.467439",
+      "fun_score": 16.670393845585842,
+      "test_fun_score": 20.48050022069088,
+      "score_components": {
+        "chat_spike_score": 7.048630129709789,
+        "reaction_score": 28.07711348814627,
+        "test_reaction_score": 20.48050022069088,
+        "diversity_score": 50.75376240772554,
+        "viewer_trend_score": 0,
+        "final_score": 16.670393845585842,
+        "baseline_chat_count": 4.460311419952681,
+        "baseline_viewer_count": 154.96501923270836,
+        "baseline_threshold": 21.719721166778616,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 11.290988561792771,
+        "test_score_difference": 20.413430194597588,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "laugh": 3.2,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "07:59:19",
+      "comment_after_openDate": "07:59:19",
+      "chat_context": [
+        "xentlelover: 호감작 실패중이신거같은데",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 호감작 실패작",
+        "큰아빠햄부기: 앗",
+        "어디있다옴: 아군 ㅋㅋ",
+        "282: 호감도 뚝뚝 떨어지는중 ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:35.490880",
+      "fun_score": 16.496769785072345,
+      "test_fun_score": 20.129981355324453,
+      "score_components": {
+        "chat_spike_score": 6.9885751548074415,
+        "reaction_score": 27.588449082121485,
+        "test_reaction_score": 20.129981355324453,
+        "diversity_score": 50.75376240772554,
+        "viewer_trend_score": 0,
+        "final_score": 16.496769785072345,
+        "baseline_chat_count": 4.475061636549534,
+        "baseline_viewer_count": 154.93661434845902,
+        "baseline_threshold": 21.671348611041587,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 11.117364501279274,
+        "test_score_difference": 20.06291132923116,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "laugh": 3.2,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "07:59:24",
+      "comment_after_openDate": "07:59:24",
+      "chat_context": [
+        "xentlelover: 호감작 실패중이신거같은데",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 호감작 실패작",
+        "큰아빠햄부기: 앗",
+        "어디있다옴: 아군 ㅋㅋ",
+        "282: 호감도 뚝뚝 떨어지는중 ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:42.043552",
+      "fun_score": 36.40046840658934,
+      "test_fun_score": 78.96565860187022,
+      "score_components": {
+        "chat_spike_score": 6.929965960910868,
+        "reaction_score": 96.46708725968502,
+        "test_reaction_score": 78.96565860187022,
+        "diversity_score": 43.41857546273945,
+        "viewer_trend_score": 0,
+        "final_score": 36.40046840658934,
+        "baseline_chat_count": 4.489670546071389,
+        "baseline_viewer_count": 154.9084815830008,
+        "baseline_threshold": 21.621776145888802,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 31.02106312279627,
+        "test_score_difference": 78.89858857577693,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 153,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 4.2
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "07:59:31",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "큰아빠햄부기: 앗",
+        "어디있다옴: 아군 ㅋㅋ",
+        "282: 호감도 뚝뚝 떨어지는중 ㅋㅋㅋㅋ",
+        "282: 머쓱타드",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:48.948537",
+      "fun_score": 6.841010489524354,
+      "test_fun_score": 2.313977421066183,
+      "score_components": {
+        "chat_spike_score": 1.8609313578085453,
+        "reaction_score": 3.284696156270987,
+        "test_reaction_score": 2.313977421066183,
+        "diversity_score": 50.18182531629213,
+        "viewer_trend_score": 0,
+        "final_score": 6.841010489524354,
+        "baseline_chat_count": 4.504139502240025,
+        "baseline_viewer_count": 154.89019832943566,
+        "baseline_threshold": 21.76335601774631,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4616052057312832,
+        "test_score_difference": 2.2469073949728875,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 153,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "07:59:38",
+      "comment_after_openDate": "07:59:38",
+      "chat_context": [
+        "282: 머쓱타드",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:53.953189",
+      "fun_score": 15.517806340890054,
+      "test_fun_score": 19.788937073541657,
+      "score_components": {
+        "chat_spike_score": 6.929729799912606,
+        "reaction_score": 27.112720558880117,
+        "test_reaction_score": 19.788937073541657,
+        "diversity_score": 42.65611763265346,
+        "viewer_trend_score": 0,
+        "final_score": 15.517806340890054,
+        "baseline_chat_count": 4.489729845808565,
+        "baseline_viewer_count": 154.87209022943966,
+        "baseline_threshold": 21.62039994758594,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.138401057096983,
+        "test_score_difference": 19.721867047448363,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 153,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "surprise": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "surprise": 2.0
+        }
+      },
+      "after_openDate": "07:59:43",
+      "comment_after_openDate": "07:59:43",
+      "chat_context": [
+        "282: 머쓱타드",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋ",
+        "쵸코로키: 너무 어____색 한데 ",
+        "wooyas: 헉",
+        "큰아빠햄부기: 헉"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:56:59.762843",
+      "fun_score": 27.48131345265096,
+      "test_fun_score": 49.29387008889622,
+      "score_components": {
+        "chat_spike_score": 10.51219490873634,
+        "reaction_score": 63.62908144774019,
+        "test_reaction_score": 49.29387008889622,
+        "diversity_score": 36.6210130939755,
+        "viewer_trend_score": 0,
+        "final_score": 27.48131345265096,
+        "baseline_chat_count": 4.5041982338857185,
+        "baseline_viewer_count": 154.85415560504163,
+        "baseline_threshold": 21.561937100833795,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 22.10190816885789,
+        "test_score_difference": 49.22680006280292,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 153,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "surprise": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "surprise": 3.0
+        }
+      },
+      "after_openDate": "07:59:49",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "282: 머쓱타드",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋ",
+        "쵸코로키: 너무 어____색 한데 ",
+        "wooyas: 헉",
+        "큰아빠햄부기: 헉",
+        "쵸코로키: 헉"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:57:08.464112",
+      "fun_score": 48.417295409191766,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 34.07012856235874,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.85737556130336,
+        "viewer_trend_score": 0,
+        "final_score": 48.417295409191766,
+        "baseline_chat_count": 4.528108014805093,
+        "baseline_viewer_count": 154.83639279434533,
+        "baseline_threshold": 21.618644726284202,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 41.576284919667415,
+        "test_score_difference": 97.68602257893382,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "laugh": 7.000000000000001,
+          "surprise": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "surprise": 3.0
+        }
+      },
+      "after_openDate": "07:59:57",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "쵸코로키: ㅋㅋㅋㅋㅋ",
+        "쵸코로키: 너무 어____색 한데 ",
+        "wooyas: 헉",
+        "큰아빠햄부기: 헉",
+        "쵸코로키: 헉",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:57:14.524992",
+      "fun_score": 47.77116959478013,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 32.66504863746714,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.71897707919921,
+        "viewer_trend_score": 0,
+        "final_score": 47.77116959478013,
+        "baseline_chat_count": 4.58052874002326,
+        "baseline_viewer_count": 154.8283801513755,
+        "baseline_threshold": 21.875375799826458,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 40.93015910525578,
+        "test_score_difference": 97.68602257893382,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "surprise": 3.0,
+          "laugh": 7.5
+        },
+        "test_keyword_counter": {
+          "surprise": 3.0,
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "08:00:03",
+      "comment_after_openDate": "08:00:03",
+      "chat_context": [
+        "쵸코로키: 너무 어____색 한데 ",
+        "wooyas: 헉",
+        "큰아빠햄부기: 헉",
+        "쵸코로키: 헉",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:57:20.372334",
+      "fun_score": 53.737556867449975,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 44.50921019267919,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 37.08412280744335,
+        "viewer_trend_score": 0,
+        "final_score": 53.737556867449975,
+        "baseline_chat_count": 4.6324472746938365,
+        "baseline_viewer_count": 154.82044426952535,
+        "baseline_threshold": 22.123457504382113,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 46.89654637792562,
+        "test_score_difference": 97.68602257893382,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "surprise": 3.0,
+          "laugh": 7.5
+        },
+        "test_keyword_counter": {
+          "surprise": 3.0,
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "08:00:09",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "wooyas: 헉",
+        "큰아빠햄부기: 헉",
+        "쵸코로키: 헉",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "282: 영포티다옴",
+        "xentlelover: 허 허 허 허"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:57:26.127162",
+      "fun_score": 52.793824591623704,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 42.409919450168054,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 37.09360839048071,
+        "viewer_trend_score": 0,
+        "final_score": 52.793824591623704,
+        "baseline_chat_count": 4.693448429802269,
+        "baseline_viewer_count": 154.8125844134233,
+        "baseline_threshold": 22.426320576280304,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 45.95281410209935,
+        "test_score_difference": 97.68602257893382,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 155,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 9.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "08:00:15",
+      "comment_after_openDate": "08:00:15",
+      "chat_context": [
+        "쵸코로키: 헉",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "282: 영포티다옴",
+        "xentlelover: 허 허 허 허",
+        "쵸코로키: 허허허허",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:57:31.725761",
+      "fun_score": 58.475522963068556,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 55.717595330399675,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 34.02605064388699,
+        "viewer_trend_score": 0,
+        "final_score": 58.475522963068556,
+        "baseline_chat_count": 4.753865193844764,
+        "baseline_viewer_count": 154.81437985474273,
+        "baseline_threshold": 22.717241264747294,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 51.634512473544206,
+        "test_score_difference": 97.68602257893382,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 155,
+        "fun_keywords": {
+          "laugh": 11.7
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "08:00:21",
+      "comment_after_openDate": "07:58:40",
+      "chat_context": [
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "282: 영포티다옴",
+        "xentlelover: 허 허 허 허",
+        "쵸코로키: 허허허허",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋ",
+        "282: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:57:40.425612",
+      "fun_score": 46.2535911685891,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 27.093740996682858,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 40.61407720081808,
+        "viewer_trend_score": 0,
+        "final_score": 46.2535911685891,
+        "baseline_chat_count": 4.82328316528773,
+        "baseline_viewer_count": 154.8161580957343,
+        "baseline_threshold": 23.05980560341721,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 39.412580679064746,
+        "test_score_difference": 97.68602257893382,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 155,
+        "fun_keywords": {
+          "laugh": 9.1
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "08:00:29",
+      "comment_after_openDate": "08:00:29",
+      "chat_context": [
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "282: 영포티다옴",
+        "xentlelover: 허 허 허 허",
+        "쵸코로키: 허허허허",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋ",
+        "282: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: 호감작 실패네 ㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:57:48.346738",
+      "fun_score": 46.82603570710782,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 26.120371158383932,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.71868685835046,
+        "viewer_trend_score": 10,
+        "final_score": 46.82603570710782,
+        "baseline_chat_count": 4.872876112564273,
+        "baseline_viewer_count": 154.81791930117717,
+        "baseline_threshold": 23.282002069131558,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 39.98502521758347,
+        "test_score_difference": 97.68602257893382,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "laugh": 8.600000000000001
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "08:00:37",
+      "comment_after_openDate": "08:00:37",
+      "chat_context": [
+        "쵸코로키: 허허허허",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋ",
+        "282: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: 호감작 실패네 ㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "혼큐.: 모솔 ㅋㅋㅋ",
+        "쵸코로키: 난 호감작 실패작이야",
+        "프릴푸릴: 달려라 달려 마다옴"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:57:55.144174",
+      "fun_score": 41.361227799674786,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 12.025409611352362,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 44.497934745662214,
+        "viewer_trend_score": 10,
+        "final_score": 41.361227799674786,
+        "baseline_chat_count": 4.921993959405907,
+        "baseline_viewer_count": 154.8100836342719,
+        "baseline_threshold": 23.507553911383372,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 34.52021731015043,
+        "test_score_difference": 97.68602257893382,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "laugh": 7.1000000000000005
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "08:00:44",
+      "comment_after_openDate": "08:00:44",
+      "chat_context": [
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋ",
+        "282: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: 호감작 실패네 ㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "혼큐.: 모솔 ㅋㅋㅋ",
+        "쵸코로키: 난 호감작 실패작이야",
+        "프릴푸릴: 달려라 달려 마다옴"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:00.984962",
+      "fun_score": 10.582599444934983,
+      "test_fun_score": 8.19491686388714,
+      "score_components": {
+        "chat_spike_score": 3.6671295075239954,
+        "reaction_score": 11.146669088066348,
+        "test_reaction_score": 8.19491686388714,
+        "diversity_score": 40.88390440129281,
+        "viewer_trend_score": 10,
+        "final_score": 10.582599444934983,
+        "baseline_chat_count": 4.951481257274799,
+        "baseline_viewer_count": 154.8023230330556,
+        "baseline_threshold": 23.678592107233204,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.741588955410629,
+        "test_score_difference": 5.880939442820957,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "08:00:50",
+      "comment_after_openDate": "08:00:50",
+      "chat_context": [
+        "차가운사자: 호감작 실패네 ㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "혼큐.: 모솔 ㅋㅋㅋ",
+        "쵸코로키: 난 호감작 실패작이야",
+        "프릴푸릴: 달려라 달려 마다옴"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:06.017844",
+      "fun_score": 7.402603657362735,
+      "test_fun_score": 0.33694273544926906,
+      "score_components": {
+        "chat_spike_score": 1.6514778544759725,
+        "reaction_score": 0.33694273544926906,
+        "test_reaction_score": 0.33694273544926906,
+        "diversity_score": 50.58355802213766,
+        "viewer_trend_score": 10,
+        "final_score": 7.402603657362735,
+        "baseline_chat_count": 4.951946066830106,
+        "baseline_viewer_count": 154.7946367783989,
+        "baseline_threshold": 23.553132497528384,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5615931678383808,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 155,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:00:55",
+      "comment_after_openDate": "08:00:55",
+      "chat_context": [
+        "혼큐.: 모솔 ㅋㅋㅋ",
+        "쵸코로키: 난 호감작 실패작이야",
+        "프릴푸릴: 달려라 달려 마다옴"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:11.021682",
+      "fun_score": 7.406616173302248,
+      "test_fun_score": 0.3390088973241093,
+      "score_components": {
+        "chat_spike_score": 1.6590171153138864,
+        "reaction_score": 0.3390088973241093,
+        "test_reaction_score": 0.3390088973241093,
+        "diversity_score": 50.58355802213766,
+        "viewer_trend_score": 10,
+        "final_score": 7.406616173302248,
+        "baseline_chat_count": 4.933246423509874,
+        "baseline_viewer_count": 154.79660415806185,
+        "baseline_threshold": 23.398410431239597,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.004012515939512795,
+        "test_score_difference": 0.0020661618748402666,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 155,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:01:00",
+      "comment_after_openDate": "08:01:00",
+      "chat_context": [
+        "혼큐.: 모솔 ㅋㅋㅋ",
+        "쵸코로키: 난 호감작 실패작이야",
+        "프릴푸릴: 달려라 달려 마다옴"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:16.032083",
+      "fun_score": 6.854003308992577,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7419606692546409,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.854003308992577,
+        "baseline_chat_count": 4.914725922772649,
+        "baseline_viewer_count": 154.79855269022764,
+        "baseline_threshold": 23.245209042248554,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 155,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "08:01:05",
+      "comment_after_openDate": "08:01:05",
+      "chat_context": [
+        "프릴푸릴: 달려라 달려 마다옴"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:31.045465",
+      "fun_score": 6.855045815632829,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7442773506774243,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.855045815632829,
+        "baseline_chat_count": 4.877222848432487,
+        "baseline_viewer_count": 154.80048255545526,
+        "baseline_threshold": 23.088181291323963,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0010425066402524052,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 154,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "08:01:20",
+      "comment_after_openDate": "08:01:20",
+      "chat_context": [
+        "wooyas: 왼쪽"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:36.048963",
+      "fun_score": 4.540864748904702,
+      "test_fun_score": 0.10137049331353572,
+      "score_components": {
+        "chat_spike_score": 1.126484593343795,
+        "reaction_score": 0.10137049331353572,
+        "test_reaction_score": 0.10137049331353572,
+        "diversity_score": 25.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 4.540864748904702,
+        "baseline_chat_count": 4.840079053544503,
+        "baseline_viewer_count": 154.792813932574,
+        "baseline_threshold": 22.932667853466842,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.03430046722024009,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "08:01:25",
+      "comment_after_openDate": "08:01:25",
+      "chat_context": [
+        "wooyas: 왼쪽",
+        "wooyas: 아니군"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:41.052736",
+      "fun_score": 4.543296245485157,
+      "test_fun_score": 0.10160744917986812,
+      "score_components": {
+        "chat_spike_score": 1.1317299485005865,
+        "reaction_score": 0.10160744917986812,
+        "test_reaction_score": 0.10160744917986812,
+        "diversity_score": 25.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 4.543296245485157,
+        "baseline_chat_count": 4.8128710962115475,
+        "baseline_viewer_count": 154.78521877509996,
+        "baseline_threshold": 22.756474379725134,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0024314965804554944,
+        "test_score_difference": 0.0345374230865725,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "08:01:30",
+      "comment_after_openDate": "08:01:30",
+      "chat_context": [
+        "wooyas: 왼쪽",
+        "wooyas: 아니군"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:46.055556",
+      "fun_score": 3.99708866705401,
+      "test_fun_score": 0.10184534556367827,
+      "score_components": {
+        "chat_spike_score": 1.721761253039955,
+        "reaction_score": 0.10184534556367827,
+        "test_reaction_score": 0.10184534556367827,
+        "diversity_score": 16.917424995169267,
+        "viewer_trend_score": 10,
+        "final_score": 3.99708866705401,
+        "baseline_chat_count": 4.785923791109841,
+        "baseline_viewer_count": 154.7968563792345,
+        "baseline_threshold": 22.581992133199115,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.03477531947038265,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "08:01:35",
+      "comment_after_openDate": "08:01:35",
+      "chat_context": [
+        "wooyas: 왼쪽",
+        "wooyas: 아니군",
+        "wooyas: 위엔가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:51.128906",
+      "fun_score": 4.000597021337317,
+      "test_fun_score": 0.10199807665495544,
+      "score_components": {
+        "chat_spike_score": 1.7294557751642303,
+        "reaction_score": 0.10199807665495544,
+        "test_reaction_score": 0.10199807665495544,
+        "diversity_score": 16.917424995169267,
+        "viewer_trend_score": 10,
+        "final_score": 4.000597021337317,
+        "baseline_chat_count": 4.768814641191009,
+        "baseline_viewer_count": 154.80838249512144,
+        "baseline_threshold": 22.403948757993444,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0035083542833067582,
+        "test_score_difference": 0.03492805056165982,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "08:01:40",
+      "comment_after_openDate": "08:01:40",
+      "chat_context": [
+        "wooyas: 왼쪽",
+        "wooyas: 아니군",
+        "wooyas: 위엔가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:58:56.131798",
+      "fun_score": 4.004112017173977,
+      "test_fun_score": 0.10215065672017785,
+      "score_components": {
+        "chat_spike_score": 1.737165156979993,
+        "reaction_score": 0.10215065672017785,
+        "test_reaction_score": 0.10215065672017785,
+        "diversity_score": 16.917424995169267,
+        "viewer_trend_score": 10,
+        "final_score": 4.004112017173977,
+        "baseline_chat_count": 4.751869396928399,
+        "baseline_viewer_count": 154.81979819081818,
+        "baseline_threshold": 22.227644648356275,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00702335011996702,
+        "test_score_difference": 0.03508063062688223,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "08:01:45",
+      "comment_after_openDate": "08:01:45",
+      "chat_context": [
+        "wooyas: 왼쪽",
+        "wooyas: 아니군",
+        "wooyas: 위엔가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:01.134951",
+      "fun_score": 4.54692999912532,
+      "test_fun_score": 0.10230307875432984,
+      "score_components": {
+        "chat_spike_score": 1.1471979455533803,
+        "reaction_score": 0.10230307875432984,
+        "test_reaction_score": 0.10230307875432984,
+        "diversity_score": 25.0,
+        "viewer_trend_score": 10,
+        "final_score": 4.54692999912532,
+        "baseline_chat_count": 4.735086488105824,
+        "baseline_viewer_count": 154.83110452415013,
+        "baseline_threshold": 22.05306320574955,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5498413320713098,
+        "test_score_difference": 0.035233052661034214,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "08:01:50",
+      "comment_after_openDate": "08:01:50",
+      "chat_context": [
+        "wooyas: 아니군",
+        "wooyas: 위엔가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:06.138380",
+      "fun_score": 6.859973175008343,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.755227038178565,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.859973175008343,
+        "baseline_chat_count": 4.708884359549771,
+        "baseline_viewer_count": 154.8518825428088,
+        "baseline_threshold": 21.88535444963009,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.862884507954333,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 157,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "08:01:55",
+      "comment_after_openDate": "08:01:55",
+      "chat_context": [
+        "wooyas: 위엔가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:11.326941",
+      "fun_score": 6.75339863692629,
+      "test_fun_score": 0.10287517609720252,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.10287517609720252,
+        "test_reaction_score": 0.10287517609720252,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.75339863692629,
+        "baseline_chat_count": 4.6733532473852835,
+        "baseline_viewer_count": 154.8724615080487,
+        "baseline_threshold": 21.741411297019212,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.75630996987228,
+        "test_score_difference": 0.035805150003906897,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "08:02:00",
+      "comment_after_openDate": "08:02:00",
+      "chat_context": [
+        "어디있다옴: ㄲㅂ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:17.344404",
+      "fun_score": 6.75349895901573,
+      "test_fun_score": 0.10320958306200136,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.10320958306200136,
+        "test_reaction_score": 0.10320958306200136,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.75349895901573,
+        "baseline_chat_count": 4.638162523275332,
+        "baseline_viewer_count": 154.8928433268016,
+        "baseline_threshold": 21.59782613573552,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.7564102919617204,
+        "test_score_difference": 0.03613955696870573,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "08:02:06",
+      "comment_after_openDate": "08:02:06",
+      "chat_context": [
+        "어디있다옴: ㄲㅂ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:22.958266",
+      "fun_score": 6.753600160534706,
+      "test_fun_score": 0.10354692145858771,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.10354692145858771,
+        "test_reaction_score": 0.10354692145858771,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.753600160534706,
+        "baseline_chat_count": 4.603308926302354,
+        "baseline_viewer_count": 154.90344988773083,
+        "baseline_threshold": 21.455617481382543,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.756511493480696,
+        "test_score_difference": 0.036476895365292084,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "08:02:12",
+      "comment_after_openDate": "08:02:12",
+      "chat_context": [
+        "어디있다옴: ㄲㅂ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:27.961261",
+      "fun_score": 5.491792838566416,
+      "test_fun_score": 0.4798903489014117,
+      "score_components": {
+        "chat_spike_score": 0.7650893333112421,
+        "reaction_score": 0.4798903489014117,
+        "test_reaction_score": 0.4798903489014117,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.491792838566416,
+        "baseline_chat_count": 4.568789226788377,
+        "baseline_viewer_count": 154.9139548378064,
+        "baseline_threshold": 21.31477215544882,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4947041715124056,
+        "test_score_difference": 0.4128203228081161,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "08:02:17",
+      "comment_after_openDate": "08:02:17",
+      "chat_context": [
+        "어디있다옴: ㄲㅂ",
+        "wooyas: 올"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:32.964273",
+      "fun_score": 9.759866337149226,
+      "test_fun_score": 10.055797446085487,
+      "score_components": {
+        "chat_spike_score": 6.718649936403409,
+        "reaction_score": 10.055797446085487,
+        "test_reaction_score": 10.055797446085487,
+        "diversity_score": 37.19734631942047,
+        "viewer_trend_score": 0,
+        "final_score": 9.759866337149226,
+        "baseline_chat_count": 4.544180225995745,
+        "baseline_viewer_count": 154.92435915046022,
+        "baseline_threshold": 21.163188013593086,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.7627776700952165,
+        "test_score_difference": 9.988727419992191,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "08:02:22",
+      "comment_after_openDate": "08:02:22",
+      "chat_context": [
+        "어디있다옴: ㄲㅂ",
+        "wooyas: 올",
+        "혼큐.: 나이챠",
+        "어디있다옴: 오우 까끔스",
+        "큰아빠햄부기: 와웅",
+        "다옴챤세구: 나이챠",
+        "어디있다옴: 깔끔"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:38.030672",
+      "fun_score": 16.873913072609533,
+      "test_fun_score": 26.708122682195455,
+      "score_components": {
+        "chat_spike_score": 10.090006214151522,
+        "reaction_score": 26.708122682195455,
+        "test_reaction_score": 26.708122682195455,
+        "diversity_score": 43.209734715827096,
+        "viewer_trend_score": 0,
+        "final_score": 16.873913072609533,
+        "baseline_chat_count": 4.567706979430705,
+        "baseline_viewer_count": 154.9442437897988,
+        "baseline_threshold": 21.053944191932754,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 12.876824405555523,
+        "test_score_difference": 26.64105265610216,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "08:02:27",
+      "comment_after_openDate": "08:02:27",
+      "chat_context": [
+        "wooyas: 올",
+        "혼큐.: 나이챠",
+        "어디있다옴: 오우 까끔스",
+        "큰아빠햄부기: 와웅",
+        "다옴챤세구: 나이챠",
+        "어디있다옴: 깔끔",
+        "쵸코로키: 와"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:43.034622",
+      "fun_score": 21.729364296997133,
+      "test_fun_score": 25.99630873319167,
+      "score_components": {
+        "chat_spike_score": 22.225162738537723,
+        "reaction_score": 25.99630873319167,
+        "test_reaction_score": 25.99630873319167,
+        "diversity_score": 39.29148444697654,
+        "viewer_trend_score": 0,
+        "final_score": 21.729364296997133,
+        "baseline_chat_count": 4.591008346567758,
+        "baseline_viewer_count": 154.96393793429255,
+        "baseline_threshold": 21.013899493809635,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 17.732275629943125,
+        "test_score_difference": 25.929238707098374,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "08:02:32",
+      "comment_after_openDate": "08:02:32",
+      "chat_context": [
+        "wooyas: 올",
+        "혼큐.: 나이챠",
+        "어디있다옴: 오우 까끔스",
+        "큰아빠햄부기: 와웅",
+        "다옴챤세구: 나이챠",
+        "어디있다옴: 깔끔",
+        "쵸코로키: 와",
+        "쵸코로키: 깔끔",
+        "xentlelover: 호감도 1 상승"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:49.250611",
+      "fun_score": 25.08897936219354,
+      "test_fun_score": 24.76446419206101,
+      "score_components": {
+        "chat_spike_score": 31.329886684075465,
+        "reaction_score": 24.76446419206101,
+        "test_reaction_score": 24.76446419206101,
+        "diversity_score": 35.611910967412776,
+        "viewer_trend_score": 0,
+        "final_score": 25.08897936219354,
+        "baseline_chat_count": 4.633246486607638,
+        "baseline_viewer_count": 154.98344340888204,
+        "baseline_threshold": 21.020753646624172,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 21.091890695139533,
+        "test_score_difference": 24.697394165967715,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "08:02:38",
+      "comment_after_openDate": "08:02:32",
+      "chat_context": [
+        "wooyas: 올",
+        "혼큐.: 나이챠",
+        "어디있다옴: 오우 까끔스",
+        "큰아빠햄부기: 와웅",
+        "다옴챤세구: 나이챠",
+        "어디있다옴: 깔끔",
+        "쵸코로키: 와",
+        "쵸코로키: 깔끔",
+        "xentlelover: 호감도 1 상승",
+        "쵸코로키: 반했다 분명"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T01:59:58.143443",
+      "fun_score": 77.40268374926401,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 98.84778047772215,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 29.21182534289042,
+        "viewer_trend_score": 0,
+        "final_score": 77.40268374926401,
+        "baseline_chat_count": 4.684659985265936,
+        "baseline_viewer_count": 155.00276202102495,
+        "baseline_threshold": 21.059727248979325,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 73.4020867279267,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 5.6
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "08:02:47",
+      "comment_after_openDate": "08:02:27",
+      "chat_context": [
+        "혼큐.: 나이챠",
+        "어디있다옴: 오우 까끔스",
+        "큰아빠햄부기: 와웅",
+        "다옴챤세구: 나이챠",
+        "어디있다옴: 깔끔",
+        "쵸코로키: 와",
+        "쵸코로키: 깔끔",
+        "xentlelover: 호감도 1 상승",
+        "쵸코로키: 반했다 분명",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: 이모티콘 ㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:00:06.160824",
+      "fun_score": 46.72439309957411,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 28.11423557585725,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 40.72987090438347,
+        "viewer_trend_score": 0,
+        "final_score": 46.72439309957411,
+        "baseline_chat_count": 4.773900942607089,
+        "baseline_viewer_count": 155.02189556086353,
+        "baseline_threshold": 21.599492772252052,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 42.720281082400135,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "laugh": 8.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "08:02:55",
+      "comment_after_openDate": "08:02:55",
+      "chat_context": [
+        "쵸코로키: 깔끔",
+        "xentlelover: 호감도 1 상승",
+        "쵸코로키: 반했다 분명",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: 이모티콘 ㅋㅋ",
+        "다옴챤세구: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:00:14.237778",
+      "fun_score": 42.40309522423033,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 18.750889940894332,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 39.65194750827879,
+        "viewer_trend_score": 0,
+        "final_score": 42.40309522423033,
+        "baseline_chat_count": 4.823966971576913,
+        "baseline_viewer_count": 155.04084580139045,
+        "baseline_threshold": 21.840189317387797,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 37.85616522510501,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "laugh": 9.2
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0
+        }
+      },
+      "after_openDate": "08:03:03",
+      "comment_after_openDate": "08:03:03",
+      "chat_context": [
+        "쵸코로키: 반했다 분명",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: 이모티콘 ㅋㅋ",
+        "다옴챤세구: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:03:13.544416",
+      "fun_score": 76.45605767398334,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 14.56057673983339,
+        "viewer_trend_score": 0,
+        "final_score": 76.45605767398334,
+        "baseline_chat_count": 4.863973367989206,
+        "baseline_viewer_count": 155.05961449861314,
+        "baseline_threshold": 22.03718195597535,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 70.96426483541693,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 35,
+        "viewer_count": 159,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "surprise": 1.0,
+          "reaction": 2.0,
+          "laugh": 21.499999999999996
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "surprise": 1.0,
+          "reaction": 2.0,
+          "laugh": 18.0
+        }
+      },
+      "after_openDate": "08:06:02",
+      "comment_after_openDate": "08:06:02",
+      "chat_context": [
+        "쵸코로키: 제리라르",
+        "혼큐.: 내적 호감도 올랐다 이건",
+        "wooyas: 사실 못 만남",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "xentlelover: 후리랜소",
+        "큰아빠햄부기: 호감도 -10",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 카페이 사쵸",
+        "282: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋ",
+        "xentlelover: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: 호감도 - 15",
+        "282: 누나는 책임질 수 있어요",
+        "xentlelover: 팩트는 맞긴한데 왜 이렇게 꼴보기싫죠",
+        "당고애소리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 내가 해줄꼐",
+        "어디있다옴: 실시간 감소중",
+        "혼큐.: 수익 어필 ㅋㅋ",
+        "lsm010643472: 아니 ㅋㅋ무슨 여유로움이여 일중독같으니",
+        "쵸코로키: 여자분인줄알고 ㄷㄷ",
+        "wooyas: 여자마음 모르는 마다옴",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 남자 맘만 안다 마다옴 확인",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "당고애소리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:07:00.139664",
+      "fun_score": 6.289742397484728,
+      "test_fun_score": 1.8013315173983562,
+      "score_components": {
+        "chat_spike_score": 4.963317652322624,
+        "reaction_score": 1.8013315173983562,
+        "test_reaction_score": 1.8013315173983562,
+        "diversity_score": 35.1584999872004,
+        "viewer_trend_score": 0,
+        "final_score": 6.289742397484728,
+        "baseline_chat_count": 5.152676503123869,
+        "baseline_viewer_count": 155.09736339171644,
+        "baseline_threshold": 22.558514785353864,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7979495589183125,
+        "test_score_difference": 1.6984563413011537,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 167,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "reaction": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "reaction": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:09:49",
+      "comment_after_openDate": "08:09:49",
+      "chat_context": [
+        "혼큐.: 오 정면돌파",
+        "어디있다옴: 제기라르",
+        "당고애소리: 안된다 ㅜㅜ",
+        "wooyas: 양각인가",
+        "혼큐.: 아이고 ㅋㅋ",
+        "wooyas: 흑흑"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:07:05.550298",
+      "fun_score": 77.37593495312457,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 23.759349531245764,
+        "viewer_trend_score": 0,
+        "final_score": 77.37593495312457,
+        "baseline_chat_count": 5.160793862223942,
+        "baseline_viewer_count": 155.2113906504238,
+        "baseline_threshold": 22.402659945878078,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 71.88414211455816,
+        "test_score_difference": 99.896790416938,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 166,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "reaction": 1.0,
+          "laugh": 7.800000000000001
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "reaction": 1.0,
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "08:09:54",
+      "comment_after_openDate": "08:09:54",
+      "chat_context": [
+        "혼큐.: 오 정면돌파",
+        "어디있다옴: 제기라르",
+        "당고애소리: 안된다 ㅜㅜ",
+        "wooyas: 양각인가",
+        "혼큐.: 아이고 ㅋㅋ",
+        "wooyas: 흑흑",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋㅋㅋㅋㅋ",
+        "xentlelover: ㅋㅋㅋ 같이하기 ㄱㄱ",
+        "쵸코로키: 앞에 있는애가 뒤로 간거같은",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 같이 하기 ㄱㄱ",
+        "쵸코로키: 플러팅 더 가자",
+        "KimBuRal: 내일도 일 있어서 자러간다~ 미션은 알아서 성공 눌러. 대충 아무 닭이나 찍어서 가라쳐도 별말 안함",
+        "wooyas: 플러팅그",
+        "xentlelover: 나쁜남자라 다음 사냥감을 찾으시는구나",
+        "어디있다옴: ㅋㅋㅋㅋ",
+        "혼큐.: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:08:05.140717",
+      "fun_score": 5.56798938515861,
+      "test_fun_score": 0.3044822516329447,
+      "score_components": {
+        "chat_spike_score": 1.0513537239173192,
+        "reaction_score": 0.3044822516329447,
+        "test_reaction_score": 0.3044822516329447,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.56798938515861,
+        "baseline_chat_count": 5.283793457023837,
+        "baseline_viewer_count": 155.31474552799273,
+        "baseline_threshold": 22.9293039204475,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0761965465921941,
+        "test_score_difference": 0.20093533017435697,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 160,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:10:54",
+      "comment_after_openDate": "08:10:54",
+      "chat_context": [
+        "쵸코로키: 춤 탐나네",
+        "어디있다옴: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:08:10.750683",
+      "fun_score": 5.417468766839851,
+      "test_fun_score": 0.30725173052838345,
+      "score_components": {
+        "chat_spike_score": 0.7228738837363011,
+        "reaction_score": 0.30725173052838345,
+        "test_reaction_score": 0.30725173052838345,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.417468766839851,
+        "baseline_chat_count": 5.252334715705548,
+        "baseline_viewer_count": 155.35963026583457,
+        "baseline_threshold": 22.76298252719943,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0027694788954387706,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 158,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:11:00",
+      "comment_after_openDate": "08:11:00",
+      "chat_context": [
+        "어디있다옴: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:08:15.754121",
+      "fun_score": 6.549585263162315,
+      "test_fun_score": 1.4350394137263853,
+      "score_components": {
+        "chat_spike_score": 1.5554860026171586,
+        "reaction_score": 1.9457058535579292,
+        "test_reaction_score": 1.4350394137263853,
+        "diversity_score": 52.65904805917214,
+        "viewer_trend_score": 0,
+        "final_score": 6.549585263162315,
+        "baseline_chat_count": 5.211597349129089,
+        "baseline_viewer_count": 155.3849250078879,
+        "baseline_threshold": 22.596812505375183,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.132116496322464,
+        "test_score_difference": 1.1305571620934407,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 158,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "08:11:05",
+      "comment_after_openDate": "08:11:05",
+      "chat_context": [
+        "어디있다옴: ㅋㅋㅋㅋ",
+        "282: ㄱㅇㅇ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:08:20.936591",
+      "fun_score": 6.560879101949769,
+      "test_fun_score": 1.4530049542003494,
+      "score_components": {
+        "chat_spike_score": 1.562755936456369,
+        "reaction_score": 1.9724470820906288,
+        "test_reaction_score": 1.4530049542003494,
+        "diversity_score": 52.65904805917214,
+        "viewer_trend_score": 0,
+        "final_score": 6.560879101949769,
+        "baseline_chat_count": 5.190410246524432,
+        "baseline_viewer_count": 155.40997742631234,
+        "baseline_threshold": 22.44308006839478,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1434103351099187,
+        "test_score_difference": 1.1485227025674047,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 158,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "08:11:10",
+      "comment_after_openDate": "08:11:10",
+      "chat_context": [
+        "어디있다옴: ㅋㅋㅋㅋ",
+        "282: ㄱㅇㅇ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:08:31.432028",
+      "fun_score": 5.630911307934118,
+      "test_fun_score": 0.3148378614084461,
+      "score_components": {
+        "chat_spike_score": 1.0690156104894404,
+        "reaction_score": 0.4288035992609114,
+        "test_reaction_score": 0.3148378614084461,
+        "diversity_score": 50.21213203435597,
+        "viewer_trend_score": 0,
+        "final_score": 5.630911307934118,
+        "baseline_chat_count": 5.169426116362728,
+        "baseline_viewer_count": 155.43478984256828,
+        "baseline_threshold": 22.29092858313624,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.21344254109426775,
+        "test_score_difference": 0.010355609775501429,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:11:20",
+      "comment_after_openDate": "08:11:20",
+      "chat_context": [
+        "282: ㄱㅇㅇ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:08:39.438240",
+      "fun_score": 25.13664081556006,
+      "test_fun_score": 29.029363792381176,
+      "score_components": {
+        "chat_spike_score": 7.2823820612205274,
+        "reaction_score": 60.34227989114527,
+        "test_reaction_score": 29.029363792381176,
+        "diversity_score": 37.56884920667242,
+        "viewer_trend_score": 0,
+        "final_score": 25.13664081556006,
+        "baseline_chat_count": 5.139063014167973,
+        "baseline_viewer_count": 155.44978455587648,
+        "baseline_threshold": 22.131325617639803,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 19.71917204872021,
+        "test_score_difference": 28.724881540748232,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "laugh": 4.6000000000000005
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "08:11:28",
+      "comment_after_openDate": "08:11:28",
+      "chat_context": [
+        "282: ㄱㅇㅇ",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: ㅋㅋㅋ",
+        "당고애소리: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: 비이이잉",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: 다옴님은 배그 왜 17랩이여"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:08:51.744449",
+      "fun_score": 9.25909788298475,
+      "test_fun_score": 6.805062385329644,
+      "score_components": {
+        "chat_spike_score": 3.388484366913246,
+        "reaction_score": 12.297018764585903,
+        "test_reaction_score": 6.805062385329644,
+        "diversity_score": 40.451742884980185,
+        "viewer_trend_score": 0,
+        "final_score": 9.25909788298475,
+        "baseline_chat_count": 5.156890790492243,
+        "baseline_viewer_count": 155.46463561983117,
+        "baseline_threshold": 22.160116537235876,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.8416291161449,
+        "test_score_difference": 6.500580133696699,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 155,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "08:11:41",
+      "comment_after_openDate": "08:11:41",
+      "chat_context": [
+        "어디있다옴: ㅋㅋㅋ",
+        "당고애소리: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: 비이이잉",
+        "큰아빠햄부기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "wooyas: 다옴님은 배그 왜 17랩이여"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:09:02.644524",
+      "fun_score": 4.843746596937561,
+      "test_fun_score": 0.3161653088180486,
+      "score_components": {
+        "chat_spike_score": 3.390368088602077,
+        "reaction_score": 0.43097281839775037,
+        "test_reaction_score": 0.3161653088180486,
+        "diversity_score": 31.887891115473014,
+        "viewer_trend_score": 0,
+        "final_score": 4.843746596937561,
+        "baseline_chat_count": 5.155387776719327,
+        "baseline_viewer_count": 155.4601844105932,
+        "baseline_threshold": 22.03652477852815,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.011683057185103929,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 155,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:11:52",
+      "comment_after_openDate": "08:11:52",
+      "chat_context": [
+        "wooyas: 다옴님은 배그 왜 17랩이여",
+        "쵸코로키: 동굴에서 하는듯",
+        "구르므빵: 배 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 배타고",
+        "쵸코로키: 고동배 뭐냐"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:09:10.138131",
+      "fun_score": 9.74902037758854,
+      "test_fun_score": 6.822842710762243,
+      "score_components": {
+        "chat_spike_score": 4.960644263938032,
+        "reaction_score": 16.45247397531324,
+        "test_reaction_score": 6.822842710762243,
+        "diversity_score": 25.809882662224542,
+        "viewer_trend_score": 0,
+        "final_score": 9.74902037758854,
+        "baseline_chat_count": 5.153899161818356,
+        "baseline_viewer_count": 155.45577584393973,
+        "baseline_threshold": 21.871817963548512,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.905273780650979,
+        "test_score_difference": 6.5183604591292985,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "laugh": 3.5999999999999996
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "08:11:59",
+      "comment_after_openDate": "08:11:59",
+      "chat_context": [
+        "쵸코로키: 동굴에서 하는듯",
+        "구르므빵: 배 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 배타고",
+        "쵸코로키: 고동배 뭐냐",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋ",
+        "욜로다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:09:15.227471",
+      "fun_score": 9.70147431065503,
+      "test_fun_score": 6.774818880278223,
+      "score_components": {
+        "chat_spike_score": 4.942988335913558,
+        "reaction_score": 16.32047097757158,
+        "test_reaction_score": 6.774818880278223,
+        "diversity_score": 25.809882662224542,
+        "viewer_trend_score": 0,
+        "final_score": 9.70147431065503,
+        "baseline_chat_count": 5.162004807848136,
+        "baseline_viewer_count": 155.4609895113548,
+        "baseline_threshold": 21.755681562675015,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.857727713717469,
+        "test_score_difference": 6.470336628645279,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "laugh": 3.5999999999999996
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "08:12:04",
+      "comment_after_openDate": "08:12:04",
+      "chat_context": [
+        "쵸코로키: 동굴에서 하는듯",
+        "구르므빵: 배 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 배타고",
+        "쵸코로키: 고동배 뭐냐",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋ",
+        "욜로다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:09:20.253302",
+      "fun_score": 29.56170968404131,
+      "test_fun_score": 28.115924533946462,
+      "score_components": {
+        "chat_spike_score": 10.379007251731052,
+        "reaction_score": 72.12829844942198,
+        "test_reaction_score": 28.115924533946462,
+        "diversity_score": 32.526668859357464,
+        "viewer_trend_score": 0,
+        "final_score": 29.56170968404131,
+        "baseline_chat_count": 5.170032801788951,
+        "baseline_viewer_count": 155.46615323183602,
+        "baseline_threshold": 21.640202257200663,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 24.71796308710375,
+        "test_score_difference": 27.811442282313518,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "laugh": 4.8
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "08:12:09",
+      "comment_after_openDate": "08:12:09",
+      "chat_context": [
+        "쵸코로키: 동굴에서 하는듯",
+        "구르므빵: 배 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "쵸코로키: 배타고",
+        "쵸코로키: 고동배 뭐냐",
+        "쵸코로키: ㅋㅋㅋㅋㅋㅋ",
+        "욜로다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "차가운사자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "어디있다옴: 무슨 소릴까"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:14:00.617586",
+      "fun_score": 6.846727526318156,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7257922633114816,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.846727526318156,
+        "baseline_chat_count": 5.197143887547813,
+        "baseline_viewer_count": 155.47126748387504,
+        "baseline_threshold": 21.716090298349794,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.0029809293805947,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 151,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "08:16:50",
+      "comment_after_openDate": "08:16:50",
+      "chat_context": [
+        "wooyas: 뭐지"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:14:24.841223",
+      "fun_score": 11.308288743735634,
+      "test_fun_score": 14.213333692294682,
+      "score_components": {
+        "chat_spike_score": 3.3884286794762337,
+        "reaction_score": 14.213333692294682,
+        "test_reaction_score": 14.213333692294682,
+        "diversity_score": 40.19495730282924,
+        "viewer_trend_score": 10,
+        "final_score": 11.308288743735634,
+        "baseline_chat_count": 5.156935249105104,
+        "baseline_viewer_count": 155.4284327413795,
+        "baseline_threshold": 21.57364180299373,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.464542146798073,
+        "test_score_difference": 14.146263666201387,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 151,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "08:17:14",
+      "comment_after_openDate": "08:17:14",
+      "chat_context": [
+        "어디있다옴: ㄴㅇㅊ",
+        "wooyas: 올",
+        "어디있다옴: 오우",
+        "xentlelover: 와우",
+        "당고애소리: 캬"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:14:33.232280",
+      "fun_score": 11.315412646457002,
+      "test_fun_score": 14.234253745421304,
+      "score_components": {
+        "chat_spike_score": 3.3903128723281912,
+        "reaction_score": 14.234253745421304,
+        "test_reaction_score": 14.234253745421304,
+        "diversity_score": 40.19495730282924,
+        "viewer_trend_score": 10,
+        "final_score": 11.315412646457002,
+        "baseline_chat_count": 5.155431809418678,
+        "baseline_viewer_count": 155.3860083557171,
+        "baseline_threshold": 21.47529972068604,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.471666049519441,
+        "test_score_difference": 14.167183719328008,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 151,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "08:17:22",
+      "comment_after_openDate": "08:17:22",
+      "chat_context": [
+        "어디있다옴: ㄴㅇㅊ",
+        "wooyas: 올",
+        "어디있다옴: 오우",
+        "xentlelover: 와우",
+        "당고애소리: 캬"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:14:39.028981",
+      "fun_score": 23.843479194600874,
+      "test_fun_score": 45.972685292131,
+      "score_components": {
+        "chat_spike_score": 10.474492671899347,
+        "reaction_score": 45.972685292131,
+        "test_reaction_score": 45.972685292131,
+        "diversity_score": 38.38151904606867,
+        "viewer_trend_score": 10,
+        "final_score": 23.843479194600874,
+        "baseline_chat_count": 5.153942772684447,
+        "baseline_viewer_count": 155.34399039566935,
+        "baseline_threshold": 21.377968002514926,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 18.999732597663314,
+        "test_score_difference": 45.9056152660377,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 151,
+        "fun_keywords": {
+          "excitement": 5.0
+        },
+        "test_keyword_counter": {
+          "excitement": 5.0
+        }
+      },
+      "after_openDate": "08:17:28",
+      "comment_after_openDate": "08:17:28",
+      "chat_context": [
+        "어디있다옴: ㄴㅇㅊ",
+        "wooyas: 올",
+        "어디있다옴: 오우",
+        "xentlelover: 와우",
+        "당고애소리: 캬",
+        "꿀당고마이쪙: 워~~~~~~~",
+        "혼큐.: 와~",
+        "꿀당고마이쪙: 지린덩"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:14:50.231752",
+      "fun_score": 12.139127437664023,
+      "test_fun_score": 13.881134191762131,
+      "score_components": {
+        "chat_spike_score": 4.901621822673024,
+        "reaction_score": 13.881134191762131,
+        "test_reaction_score": 13.881134191762131,
+        "diversity_score": 42.69057359932521,
+        "viewer_trend_score": 10,
+        "final_score": 12.139127437664023,
+        "baseline_chat_count": 5.18120800092213,
+        "baseline_viewer_count": 155.30237496767884,
+        "baseline_threshold": 21.40158759973511,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.2953808407264615,
+        "test_score_difference": 13.814064165668835,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 151,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "08:17:39",
+      "comment_after_openDate": "08:17:39",
+      "chat_context": [
+        "어디있다옴: 오우",
+        "xentlelover: 와우",
+        "당고애소리: 캬",
+        "꿀당고마이쪙: 워~~~~~~~",
+        "혼큐.: 와~",
+        "꿀당고마이쪙: 지린덩"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:14:55.238515",
+      "fun_score": 5.346776567448959,
+      "test_fun_score": 0.2582103981849345,
+      "score_components": {
+        "chat_spike_score": 2.289902456195849,
+        "reaction_score": 0.2582103981849345,
+        "test_reaction_score": 0.2582103981849345,
+        "diversity_score": 27.388573427053462,
+        "viewer_trend_score": 10,
+        "final_score": 5.346776567448959,
+        "baseline_chat_count": 5.189052028273296,
+        "baseline_viewer_count": 155.26115821548848,
+        "baseline_threshold": 21.312853231382466,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5030299705113981,
+        "test_score_difference": 0.1911403720916389,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "08:17:44",
+      "comment_after_openDate": "08:17:44",
+      "chat_context": [
+        "꿀당고마이쪙: 워~~~~~~~",
+        "혼큐.: 와~",
+        "꿀당고마이쪙: 지린덩",
+        "혼큐.: 수류탄 팅구는거 좀 멋있었다"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:15:01.024098",
+      "fun_score": 5.350467361286931,
+      "test_fun_score": 0.2589768739017073,
+      "score_components": {
+        "chat_spike_score": 2.2975932364690506,
+        "reaction_score": 0.2589768739017073,
+        "test_reaction_score": 0.2589768739017073,
+        "diversity_score": 27.388573427053462,
+        "viewer_trend_score": 10,
+        "final_score": 5.350467361286931,
+        "baseline_chat_count": 5.177660909842437,
+        "baseline_viewer_count": 155.2299163197841,
+        "baseline_threshold": 21.159898216941983,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5067207643493701,
+        "test_score_difference": 0.1919068478084117,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "08:17:50",
+      "comment_after_openDate": "08:17:50",
+      "chat_context": [
+        "꿀당고마이쪙: 워~~~~~~~",
+        "혼큐.: 와~",
+        "꿀당고마이쪙: 지린덩",
+        "혼큐.: 수류탄 팅구는거 좀 멋있었다"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:15:08.544207",
+      "fun_score": 6.847474104885459,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7274513267943766,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.847474104885459,
+        "baseline_chat_count": 5.166378918326147,
+        "baseline_viewer_count": 155.19897372144058,
+        "baseline_threshold": 21.00844386934481,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.0037275079478976,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 152,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "08:17:57",
+      "comment_after_openDate": "08:17:57",
+      "chat_context": [
+        "혼큐.: 수류탄 팅구는거 좀 멋있었다"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:15:13.624392",
+      "fun_score": 6.848458645958827,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7296391958463077,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.848458645958827,
+        "baseline_chat_count": 5.126465008288582,
+        "baseline_viewer_count": 155.1683275531892,
+        "baseline_threshold": 20.87278177900129,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.0047120490212658,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 152,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "08:18:03",
+      "comment_after_openDate": "08:18:03",
+      "chat_context": [
+        "혼큐.: 수류탄 팅구는거 좀 멋있었다"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:15:19.841188",
+      "fun_score": 8.349451960283465,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7318465610121698,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 20,
+        "final_score": 8.349451960283465,
+        "baseline_chat_count": 5.086933473509177,
+        "baseline_viewer_count": 155.13797497522964,
+        "baseline_threshold": 20.738428763386743,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.0026753928345062,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 152,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "08:18:09",
+      "comment_after_openDate": "08:18:09",
+      "chat_context": [
+        "혼큐.: 수류탄 팅구는거 좀 멋있었다"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:15:40.740355",
+      "fun_score": 8.410772686037125,
+      "test_fun_score": 0.2681319315978752,
+      "score_components": {
+        "chat_spike_score": 0.7340735701283624,
+        "reaction_score": 0.2681319315978752,
+        "test_reaction_score": 0.2681319315978752,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 20,
+        "final_score": 8.410772686037125,
+        "baseline_chat_count": 5.047780650832959,
+        "baseline_viewer_count": 155.10791317496694,
+        "baseline_threshold": 20.619742365613014,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.0639961185881663,
+        "test_score_difference": 0.20106190550457956,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 149,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "08:18:30",
+      "comment_after_openDate": "08:18:30",
+      "chat_context": [
+        "wooyas: 오호"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:15:45.821785",
+      "fun_score": 8.412650794269535,
+      "test_fun_score": 0.2710220902645257,
+      "score_components": {
+        "chat_spike_score": 0.7363203715337273,
+        "reaction_score": 0.2710220902645257,
+        "test_reaction_score": 0.2710220902645257,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 20,
+        "final_score": 8.412650794269535,
+        "baseline_chat_count": 5.009002912197978,
+        "baseline_viewer_count": 155.04939936675075,
+        "baseline_threshold": 20.502780436082674,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.0658742268205756,
+        "test_score_difference": 0.20395206417123005,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 149,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "08:18:35",
+      "comment_after_openDate": "08:18:35",
+      "chat_context": [
+        "wooyas: 오호"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:15:51.018626",
+      "fun_score": 6.576234204363897,
+      "test_fun_score": 1.362373709778637,
+      "score_components": {
+        "chat_spike_score": 1.1024360272136746,
+        "reaction_score": 1.8748677419602646,
+        "test_reaction_score": 1.362373709778637,
+        "diversity_score": 25.17677669529664,
+        "viewer_trend_score": 20,
+        "final_score": 6.576234204363897,
+        "baseline_chat_count": 4.970596664299121,
+        "baseline_viewer_count": 154.99144612081727,
+        "baseline_threshold": 20.3869569941141,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.2294576369149377,
+        "test_score_difference": 1.2953036836853413,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 150,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:18:40",
+      "comment_after_openDate": "08:18:40",
+      "chat_context": [
+        "wooyas: 오호",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:15:57.139938",
+      "fun_score": 6.58934243616451,
+      "test_fun_score": 1.3860891836674571,
+      "score_components": {
+        "chat_spike_score": 1.1075280945600694,
+        "reaction_score": 1.9109237469427165,
+        "test_reaction_score": 1.3860891836674571,
+        "diversity_score": 25.17677669529664,
+        "viewer_trend_score": 20,
+        "final_score": 6.58934243616451,
+        "baseline_chat_count": 4.942138348255136,
+        "baseline_viewer_count": 154.94362806697984,
+        "baseline_threshold": 20.254650269788293,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.242565868715551,
+        "test_score_difference": 1.3190191575741614,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 150,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:18:46",
+      "comment_after_openDate": "08:18:46",
+      "chat_context": [
+        "wooyas: 오호",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:16:02.147192",
+      "fun_score": 9.502747592087548,
+      "test_fun_score": 5.733234737716369,
+      "score_components": {
+        "chat_spike_score": 1.666892246748769,
+        "reaction_score": 7.853121822762303,
+        "test_reaction_score": 5.733234737716369,
+        "diversity_score": 33.96709534221912,
+        "viewer_trend_score": 20,
+        "final_score": 9.502747592087548,
+        "baseline_chat_count": 4.9139526628788515,
+        "baseline_viewer_count": 154.8962681100982,
+        "baseline_threshold": 20.123736620742175,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.155971024638589,
+        "test_score_difference": 5.666164711623074,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 150,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "08:18:51",
+      "comment_after_openDate": "08:18:51",
+      "chat_context": [
+        "wooyas: 오호",
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋ",
+        "당고애소리: 오"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:16:07.150255",
+      "fun_score": 7.83717369827599,
+      "test_fun_score": 1.4263592165687335,
+      "score_components": {
+        "chat_spike_score": 1.6744685808649522,
+        "reaction_score": 1.9722896018974367,
+        "test_reaction_score": 1.4263592165687335,
+        "diversity_score": 34.9197595631753,
+        "viewer_trend_score": 20,
+        "final_score": 7.83717369827599,
+        "baseline_chat_count": 4.895616996368472,
+        "baseline_viewer_count": 154.84936186160346,
+        "baseline_threshold": 20.02198754584766,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.4903971308270307,
+        "test_score_difference": 1.3592891904754378,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "08:18:56",
+      "comment_after_openDate": "08:18:56",
+      "chat_context": [
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋ",
+        "당고애소리: 오",
+        "wooyas: 나이사"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:16:12.373116",
+      "fun_score": 7.363663291989374,
+      "test_fun_score": 1.4426061355428665,
+      "score_components": {
+        "chat_spike_score": 2.5239279752007713,
+        "reaction_score": 1.9970969233095301,
+        "test_reaction_score": 1.4426061355428665,
+        "diversity_score": 26.28766626156168,
+        "viewer_trend_score": 20,
+        "final_score": 7.363663291989374,
+        "baseline_chat_count": 4.877456985543262,
+        "baseline_viewer_count": 154.8220649749693,
+        "baseline_threshold": 19.905257029187922,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.0168867245404147,
+        "test_score_difference": 1.3755361094495708,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "08:19:01",
+      "comment_after_openDate": "08:19:01",
+      "chat_context": [
+        "wooyas: ㅋㅋㅋㅋㅋㅋㅋ",
+        "당고애소리: 오",
+        "wooyas: 나이사",
+        "wooyas: 까푸치노"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:16:17.521665",
+      "fun_score": 8.007411171290638,
+      "test_fun_score": 0.2821144688044539,
+      "score_components": {
+        "chat_spike_score": 2.5309944774490383,
+        "reaction_score": 0.2821144688044539,
+        "test_reaction_score": 0.2821144688044539,
+        "diversity_score": 37.83829315797235,
+        "viewer_trend_score": 20,
+        "final_score": 8.007411171290638,
+        "baseline_chat_count": 4.869050947621757,
+        "baseline_viewer_count": 154.79502959250908,
+        "baseline_threshold": 19.78510856118556,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.660634603841679,
+        "test_score_difference": 0.21504444271115827,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "08:19:06",
+      "comment_after_openDate": "08:19:06",
+      "chat_context": [
+        "당고애소리: 오",
+        "wooyas: 나이사",
+        "wooyas: 까푸치노",
+        "큰아빠햄부기: 이야"
+      ]
+    },
+    {
+      "timestamp": "2025-12-12T02:16:27.220409",
+      "fun_score": 8.141402500248937,
+      "test_fun_score": 1.1883743534383249,
+      "score_components": {
+        "chat_spike_score": 3.8053701107583193,
+        "reaction_score": 1.1883743534383249,
+        "test_reaction_score": 1.1883743534383249,
+        "diversity_score": 30.72473644376195,
+        "viewer_trend_score": 20,
+        "final_score": 8.141402500248937,
+        "baseline_chat_count": 4.86072543954354,
+        "baseline_viewer_count": 154.76825320901284,
+        "baseline_threshold": 19.672278220190364,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.7909351389620056,
+        "test_score_difference": 1.1213043273450292,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "08:19:16",
+      "comment_after_openDate": "08:19:16",
+      "chat_context": [
+        "당고애소리: 오",
+        "wooyas: 나이사",
+        "wooyas: 까푸치노",
+        "큰아빠햄부기: 이야",
+        "당고애소리: 오늘 좀 메서운데"
+      ]
+    }
+  ],
+  "save_type": "partial"
+}
