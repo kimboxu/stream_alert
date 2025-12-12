@@ -75,6 +75,7 @@ async def userDataVar(init: initVar):
 			'is_vod_json': update_data['is_vod_json'],
 			'is_vod_chat_json': update_data['is_vod_chat_json'],
 			'is_use_description': update_data['is_use_description'],
+			'is_use_AI': update_data['is_use_AI'],
 			'is_hot_clip': update_data['is_hot_clip'],
 			'is_save_highlight_data': update_data['is_save_highlight_data'],
 		}.items():
