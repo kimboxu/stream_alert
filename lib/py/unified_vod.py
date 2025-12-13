@@ -481,7 +481,7 @@ class base_vod(ABC):
         except:
             return "0:00"
 
-    def _split_comments_with_notice(self, comment_lines, split_len = 100):
+    def _split_comments_with_notice(self, comment_lines, split_len = 90):
         """댓글 분할"""
         chunks = []
         current_chunk = []
