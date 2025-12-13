@@ -1203,7 +1203,7 @@ class SessionBasedFunScoreAnalyzer:
                 print(f"{datetime.now()} AI 모듈을 가져올 수 없어서 기본 로직을 사용합니다.")
                 return await self._export_test_highlights_basic(session_logs, session_stats)
             
-            model = get_genai_model(0)
+            model = get_genai_model(0, is_emergency = True)
             print(f"{datetime.now()} 단순 키워드 기반 하이라이트용 AI 모델 로드 완료")
             
             # 1단계: 단순 키워드 기반 하이라이트 데이터 수집
@@ -1493,7 +1493,7 @@ class SessionBasedFunScoreAnalyzer:
                 print(f"{datetime.now()} AI 모듈을 가져올 수 없어서 기본 로직을 사용합니다.")
                 return await self._export_highlights_basic(session_logs, session_stats)
             
-            model = get_genai_model(0)
+            model = get_genai_model(0, is_emergency = True)
             
             print(f"{datetime.now()} AI 모델 로드 완료")
             
@@ -1530,7 +1530,7 @@ class SessionBasedFunScoreAnalyzer:
                 return None
             
             # 2단계: ChatAnalyzer의 _make_highlight_chat 로직 재현
-            timeline_comments = await self._ai_make_highlight_chat(highlights, model)
+            timeline_comments = await self._ai_make_highlight_chat(highlights[i:i+40], model)
             
             if not timeline_comments:
                 print(f"{datetime.now()} AI 댓글 생성 실패, 기본 로직으로 fallback")
@@ -2175,6 +2175,7 @@ async def main():
     try:
         # 명령행 인자 파싱
         try:
+            raise
             args = parse_arguments()
         
             # 채널명 결정
@@ -2183,7 +2184,7 @@ async def main():
             use_ai = args.use_ai
 
         except:
-            channel_name, date, use_ai = "빅헤드", '2025-10-04', False
+            channel_name, date, use_ai = "빅헤드", '2025-12-12', True
         
         # AI 사용 가능 여부 확인
         if use_ai and not AI_AVAILABLE:
