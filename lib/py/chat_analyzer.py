@@ -778,8 +778,7 @@ class ChatAnalyzer:
         if len(self.highlights) > 40:
             highlights_to_process = self.highlights.copy()
             self.highlights = [self.highlights[-1]]
-            stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
-            asyncio.create_task(self.update_highlight_chat(await self._make_highlight_chat(highlights_to_process[:-1]), stream_start_time))
+            asyncio.create_task(self._process_highlights_background(highlights_to_process[:-1]))
             
 
     # 치지직 방송 시간이 17시간이 지날 때마다
@@ -810,7 +809,8 @@ class ChatAnalyzer:
             # 하이라이트 생성
             highlights_to_process = self.highlights.copy()
             self.highlights = []
-            self.update_highlight_chat(await self._make_highlight_chat(highlights_to_process, is_emergency) , stream_start_time)
+            timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
+            self.update_highlight_chat(timeline_comments, stream_start_time)
 
             # 하이라이트 채팅 업데이트 직후 파일로 저장
             await self._save_completed_highlight_chat_after_update(is_save_log, stream_start_time)
@@ -1345,3 +1345,11 @@ class ChatAnalyzer:
         for comment in timeline_comments:
             if 'comment_after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'description' in comment:
                 print(f"**{comment['comment_after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['description']}")
+
+    async def _process_highlights_background(self, highlights):
+        try:
+            timeline_comments = await self._make_highlight_chat(highlights)
+            stream_start_time = self.init.stream_status[self.channel_id].start_at['openDate']
+            self.update_highlight_chat(timeline_comments, stream_start_time)
+        except Exception as e:
+            await log_error(f"Background highlight processing failed: {e}")
