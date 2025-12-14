@@ -1481,7 +1481,7 @@ async def background_save_task_with_state_manager(task_id):
                     max_wait_time = 300  # 최대 5분 대기
                     wait_interval = 1    # 1초마다 체크
                     elapsed_time = 0
-                    
+                    await asyncio.sleep(5)
                     while elapsed_time < max_wait_time:
                         # 현재 상태 확인
                         is_completed = init.wait_make_highlight_chat.get(channel_id, True)
