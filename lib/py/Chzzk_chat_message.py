@@ -565,7 +565,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             "retry": False,
             "sid": self.data.sid,
             "bdy": {
-                "msg": "ai코딩 봇: "+ message,
+                "msg": "[" + message + "]",
                 "msgTypeCode": 1,
                 "extras": dumps(extras),
                 "msgTime": int(datetime.now().timestamp())
@@ -916,7 +916,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 챗팅 명령어
     async def chat_command(self, userRoleCode: str, nickname: str, chat: str):
         # 빅헤드가 아니면 동작 안함
-        if "ai코딩 봇:" in chat or self.data.channel_id not in ["bighead033", "kimboxu"]:
+        if (nickname == "ai코딩" and chat[0] == "[" and chat[-1] == "]") in chat or self.data.channel_id not in ["bighead033", "kimboxu"]:
             return True
         
         special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임"]
