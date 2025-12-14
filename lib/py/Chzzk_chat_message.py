@@ -923,12 +923,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
-        if sp_chat[0] == "!멤버" or (len(sp_chat) >= 2 and sp_chat[1] == "수정" and (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")):
-            if len(sp_chat) == 2:
+        if sp_chat[0] == "!멤버수정" or (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (sp_chat[0] == "!멤버" or self.is_fix_authority(userRoleCode, nickname)):
+            if (len(sp_chat) == 2 and sp_chat[0] == "!멤버") or (len(sp_chat) == 1 and sp_chat[0] == "!멤버수정"):
                 save_text = " "
+            elif len(sp_chat) == 2 and sp_chat[0] == "!멤버수정":
+                save_text = " ".join(sp_chat[1:])
             else:
                 save_text = " ".join(sp_chat[2:])
-            await self._send(f"{save_text}로 수정되었습니다.")
+
+            await self._send(f"{save_text}로 변경되었습니다.")
             self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]] = save_text
             await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
             return
@@ -956,6 +959,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             send_command = chat_command[sp_chat[0]]
             await self._send(send_command)
         return
+
+    def is_fix_authority(self, userRoleCode, nickname):
+        return (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")
 
     async def uptime_command(self):
         start_time_str = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['openDate']
