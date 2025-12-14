@@ -371,7 +371,20 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     continue
                 
                 userRoleCode = self.get_userRoleCode(chat_data)
-                
+
+                # 채팅 메시지인 경우 분석기로 전달
+                if chat_type == "채팅":
+                    chat = self.get_chat(chat_data)
+
+                    if await self.chat_command(userRoleCode, nickname, chat):
+                        continue 
+                    
+                    if nickname and chat:
+                        # 분석기로 메시지 전달
+                        time = chat_data.get('msgTime') or chat_data.get('messageTime')
+                        timestamp = datetime.fromtimestamp(time/1000)
+                        await self.chat_analyzer.add_chat_message(nickname, chat, timestamp)
+
                 # 메시지 출력
                 message = self.print_msg(chat_data, chat_type)
                 if not self.init.DO_TEST and (((chat_type == "후원" and self.get_msgTypeCode(chat_data) != "채팅")) or userRoleCode in ["streamer", "streaming_chat_manager"]):
@@ -380,18 +393,6 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     ))
                 # else:
                 #     print(f"{datetime.now()} {message[0]}")
-
-                # 채팅 메시지인 경우 분석기로 전달
-                if chat_type == "채팅":
-                    chat = self.get_chat(chat_data)
-
-                    await self.chat_command(userRoleCode, nickname, chat)
-                    
-                    if nickname and chat:
-                        # 분석기로 메시지 전달
-                        time = chat_data.get('msgTime') or chat_data.get('messageTime')
-                        timestamp = datetime.fromtimestamp(time/1000)
-                        await self.chat_analyzer.add_chat_message(nickname, chat, timestamp)
 
                 # chzzk_chatFilter에 없는 사람 채팅은 제거
                 # if not self.init.DO_TEST and nickname not in [*self.init.chzzk_chatFilter["channelName"]]:
@@ -562,7 +563,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             "retry": False,
             "sid": self.data.sid,
             "bdy": {
-                "msg": message,
+                "msg": "ai코딩 봇: "+ message,
                 "msgTypeCode": 1,
                 "extras": dumps(extras),
                 "msgTime": int(datetime.now().timestamp())
@@ -913,8 +914,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 챗팅 명령어
     async def chat_command(self, userRoleCode: str, nickname: str, chat: str):
         # 빅헤드가 아니면 동작 안함
-        if self.data.channel_id not in ["bighead033", "kimboxu"]:
-            return
+        if "ai코딩 봇:" in chat or self.data.channel_id not in ["bighead033", "kimboxu"]:
+            return True
         
         special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임"]
 
@@ -952,6 +953,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             send_command = chat_command[sp_chat[0]]
             await self._send(send_command)
+        return
 
     async def uptime_command(self):
         start_time_str = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['openDate']
