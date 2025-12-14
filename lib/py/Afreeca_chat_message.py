@@ -113,7 +113,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 await self._connect_and_run()   # 웹소켓 연결 및 메시지 처리 실행
             except Exception as e:
                 # 오류 발생 시 로그 기록
-                await log_error(f"error in chat manager afreeca", e)
+                await log_error(f"error in chat manager afreeca", str(e))
                 asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
             finally:
                 # 실행 중인 태스크 정리
