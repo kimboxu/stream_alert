@@ -148,7 +148,7 @@ async def DataBaseVars(init: initVar):
 				'afreeca_titleData', 'twitchIDList', 'chzzkIDList', 
 				'afreecaIDList', 'youtubeData', 'twitch_chatFilter',
 				'chzzk_chatFilter', 'afreeca_chatFilter', 'video_data',
-				'cafeData', 'hot_clip_data',
+				'cafeData', 'hot_clip_data', 'chat_commands',
 			]
 			
 			# 모든 테이블의 데이터를 비동기로 가져오기
@@ -177,6 +177,7 @@ async def DataBaseVars(init: initVar):
 				'cafeData': 'channelID',
 				'video_data': 'channelID',
 				'hot_clip_data': 'channelID',
+				'chat_commands': 'channelID',
 			}
 			
 			for table_name, index_col in index_mappings.items():
@@ -870,3 +871,18 @@ async def save_sent_notifications(supabase, channel_id, hot_clip_data):
 			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
 	
 	return False  # 모든 시도 실패
+
+# 챗 명령어 데이터 저장 함수
+async def save_chat_command_data(chat_command_data, _id): 
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	data = {
+		"channelID": _id,
+		'chat_command': chat_command_data.loc[_id, 'chat_command']
+	}
+	for _ in range(3):  # 최대 3번 시도
+		try:
+			supabase.table(f'chat_commands').upsert(data).execute()
+			break
+		except Exception as e:
+			asyncio.create_task(log_error(f"error saving chat_command data {e}"))
+			await asyncio.sleep(0.1)
