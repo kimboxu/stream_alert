@@ -1266,6 +1266,7 @@ def save_highlight_data():
     try:
         task_id = str(uuid4())
         
+        # SSE 응답 생성 함수
         def generate_sse_updates():
             """SSE 형식으로 작업 상태를 실시간 전송"""
             
@@ -1297,7 +1298,7 @@ def save_highlight_data():
                 # 작업 상태를 주기적으로 확인하고 전송
                 loop = asyncio.new_event_loop()
                 
-                max_wait_time = 600  # 최대 10분 대기
+                max_wait_time = 600
                 start_time = datetime.now()
                 last_progress = 0
                 
@@ -1324,13 +1325,13 @@ def save_highlight_data():
                         yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
                         break
                     
-                    # 진행 상황 변경시에만 전송 (네트워크 효율성)
+                    # 진행 상황 변경시에만 전송
                     current_progress = task_data.get('progress', 0)
                     if current_progress != last_progress:
                         task_data['timestamp'] = datetime.now().isoformat()
                         yield f"data: {dumps(task_data, ensure_ascii=False)}\n\n"
                         last_progress = current_progress
-                        print(f"{datetime.now()} [{task_id}] 진행률: {current_progress}% - {task_data.get('message', '')}")
+                        print(f"{datetime.now()} [{task_id}] 진행율: {current_progress}% - {task_data.get('message', '')}")
                     
                     # 작업 완료 또는 에러 상태 확인
                     status = task_data.get('status', '')
@@ -1344,19 +1345,18 @@ def save_highlight_data():
                     try:
                         loop.run_until_complete(asyncio.sleep(0.5))
                     except:
-                        # asyncio 이벤트 루프 재생성
                         loop = asyncio.new_event_loop()
                         asyncio.set_event_loop(loop)
                 
             except Exception as e:
                 error_data = {
                     "status": "error",
-                    "message": f"SSE 스트리밍 중 오류: {str(e)}",
+                    "message": f"SSE 스트림 중 오류: {str(e)}",
                     "timestamp": datetime.now().isoformat(),
                     "error_type": type(e).__name__
                 }
                 yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
-                print(f"{datetime.now()} SSE 스트리밍 오류: {e}")
+                print(f"{datetime.now()} SSE 스트림 오류: {e}")
         
         # SSE 응답 설정
         response = Response(
@@ -1367,11 +1367,13 @@ def save_highlight_data():
                 'X-Accel-Buffering': 'no',
                 'Connection': 'keep-alive',
                 'Content-Type': 'text/event-stream; charset=utf-8',
-                'Access-Control-Allow-Origin': '*'
+                'Access-Control-Allow-Origin': '*',
+                'Transfer-Encoding': 'chunked',
+                'Content-Encoding': 'utf-8'  # 명시적 UTF-8 인코딩
             }
         )
         response.charset = 'utf-8'
-        response.timeout = None  # 타임아웃 없음
+        response.timeout = None
         
         return response
         
@@ -1412,7 +1414,7 @@ async def background_save_task_with_state_manager(task_id):
     try:
         # StateManager 인스턴스 가져오기
         state_manager = StateManager.get_instance()
-        
+        init = state_manager.get_init()
         # 작업 시작 상태로 업데이트
         state_manager.update_task_status(task_id, {
             "status": "processing",
@@ -1474,12 +1476,39 @@ async def background_save_task_with_state_manager(task_id):
                     # 하이라이트 처리 실행
                     await chat_instance.highlight_processing()
                     
-                    # 결과 추가 (thread-safe하게)
+                    # 작업 완료 대기 로직
+                    # wait_make_highlight_chat이 True가 될 때까지 대기
+                    max_wait_time = 300  # 최대 5분 대기
+                    wait_interval = 1    # 1초마다 체크
+                    elapsed_time = 0
+                    
+                    while elapsed_time < max_wait_time:
+                        # 현재 상태 확인
+                        is_completed = init.wait_make_highlight_chat.get(channel_id, False)
+                        
+                        if is_completed:
+                            print(f"{datetime.now()} [{platform}] {channel_name}: 작업 완료 감지")
+                            break
+                        
+                        # 1초 대기
+                        await asyncio.sleep(wait_interval)
+                        elapsed_time += wait_interval
+                        
+                        # 진행 상황 출력 (매 10초마다)
+                        if elapsed_time % 10 == 0:
+                            print(f"{datetime.now()} [{platform}] {channel_name}: 작업 대기 중... ({elapsed_time}초)")
+                    
+                    if elapsed_time >= max_wait_time:
+                        print(f"{datetime.now()} [{platform}] {channel_name}: 작업 시간 초과 (최대 {max_wait_time}초)")
+                    
+                    # 결과 수집
                     result = {
                         "channel_id": channel_id,
                         "channel_name": channel_name,
                         "platform": platform,
-                        "highlights_saved": highlights_count
+                        "highlights_saved": highlights_count,
+                        "wait_completed": init.wait_make_highlight_chat.get(channel_id, False),
+                        "wait_time_seconds": elapsed_time,
                     }
                     save_results["processed_channels"].append(result)
                     save_results["total_highlights_saved"] += highlights_count
@@ -1494,7 +1523,7 @@ async def background_save_task_with_state_manager(task_id):
                 finally:
                     # 완료 카운트 업데이트
                     completed_count += 1
-                    progress = 10 + int((completed_count / total_channels) * 80)  # 10~90% 구간
+                    progress = 10 + int((completed_count / total_channels) * 80)
                     
                     state_manager.update_task_status(task_id, {
                         "progress": progress,
