@@ -44,6 +44,7 @@ class LiveData:
     id_list: list = field(default_factory=list)         # 스트리머 개인 값
     title: str = ""                                     # 방송 제목
     view_count: int = 0                                 # 시청자 수
+    category: str = ""                                  # 카테고리
     thumbnail_url: str = ""                             # 썸네일 URL
     channel_url: str = ""                               # 채널 URL
     profile_image: str = ""                             # 프로필 이미지 URL
@@ -99,7 +100,8 @@ class base_live_message:
         
         self.channel_name = self.id_list.loc[channel_id, 'channelName']
         state_update_time = self.title_data.loc[self.channel_id, 'state_update_time']
-        self.data = LiveData(state_update_time = state_update_time, id_list = self.id_list, platform_name = platform_name)
+        category = self.title_data.loc[self.channel_id, 'category']
+        self.data = LiveData(state_update_time = state_update_time, id_list = self.id_list, category = category, platform_name = platform_name)
 
         self.stream_start_id = get_stream_start_id(self.channel_id, self.data.start_at["openDate"])
 
@@ -138,6 +140,7 @@ class base_live_message:
             if self.data.live in ["OPEN", 1]:
                 self.get_channel_url()
                 self.getViewer_count(state_data)
+                self.getCategory(state_data)
                 self.getImageURL(state_data)
                 self.init_highlight_chat()
                 self.get_init_last_title()
@@ -326,6 +329,9 @@ class base_live_message:
     def getViewer_count(self, state_data):
         raise NotImplementedError
     
+    def getCategory(self, state_data):
+        raise NotImplementedError
+    
     def getImageURL(self, state_data):
         raise NotImplementedError
     
@@ -482,6 +488,14 @@ class chzzk_live_message(base_live_message):
     def getViewer_count(self, state_data):
         view_count = state_data['content']['concurrentUserCount']
         self.data.view_count = view_count
+
+    #치지직 카테고리 가져오기
+    def getCategory(self, state_data):
+        category = state_data['content']['liveCategoryValue']
+        if self.data.category != category:
+            self.data.category = category
+            self.title_data.loc[self.channel_id, 'category'] = category
+            asyncio.create_task(save_airing_data(self.title_data, self.platform_name, self.channel_id))
 
     #상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self) -> str: 
@@ -731,6 +745,10 @@ class afreeca_live_message(base_live_message):
     def getViewer_count(self, state_data):
         view_count = state_data['broad']['current_sum_viewer']
         self.data.view_count = view_count
+
+    #아프리카 카테고리 가져오기
+    def getCategory(self, state_data):
+        pass
     
     #상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self):
