@@ -1237,7 +1237,7 @@ class ChatAnalyzer:
                 print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
                 continue
         
-        if not self.init.is_use_AI[self.channel_id]:
+        if not self.init.is_use_AI[self.channel_id] or self.init.DO_TEST:
             return emergency_timeline_comments
 
         try:

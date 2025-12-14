@@ -129,6 +129,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                                 ssl=self.ssl_context,
                                 ping_interval=None) as sock:
             self.data.sock = sock
+            self.run_analyzer = True
 
             # 채팅 채널에 연결
             await self.connect()
@@ -212,8 +213,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                                   and (if_after_time(self.data.last_chat_time, sec = 60))
                                   and if_after_time(join_time, sec = 30))
             
-            if (is_close or is_change_chatChannel or check_chat):
+            if (self.run_analyzer and is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
+                self.run_analyzer = False
             return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel
                  
         # 메시지 버퍼링을 위한 변수들
