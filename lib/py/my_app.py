@@ -1484,9 +1484,9 @@ async def background_save_task_with_state_manager(task_id):
                     
                     while elapsed_time < max_wait_time:
                         # 현재 상태 확인
-                        is_completed = init.wait_make_highlight_chat.get(channel_id, False)
+                        is_completed = init.wait_make_highlight_chat.get(channel_id, True)
                         
-                        if is_completed:
+                        if not is_completed:
                             print(f"{datetime.now()} [{platform}] {channel_name}: 작업 완료 감지")
                             break
                         
@@ -1507,7 +1507,7 @@ async def background_save_task_with_state_manager(task_id):
                         "channel_name": channel_name,
                         "platform": platform,
                         "highlights_saved": highlights_count,
-                        "wait_completed": init.wait_make_highlight_chat.get(channel_id, False),
+                        "wait_completed": init.wait_make_highlight_chat.get(channel_id, True),
                         "wait_time_seconds": elapsed_time,
                     }
                     save_results["processed_channels"].append(result)
