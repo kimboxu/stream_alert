@@ -67,7 +67,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             try:
                 await self._connect_and_run()   # 연결 및 실행
             except Exception as e:
-                await log_error(f"error in chat manager: {e}")
+                await log_error(f"error in chat manager: {self.data.channel_name}.{e}")
                 asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
             finally:
                 await self._cleanup_tasks()  # 태스크 정리
