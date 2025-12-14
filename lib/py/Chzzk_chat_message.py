@@ -916,11 +916,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if self.data.channel_id not in ["bighead033", "kimboxu"]:
             return
         
-        special_command_list = ["!업타임", "!방제", "!명령어"]
+        special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임"]
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
-        if sp_chat[0] == "멤버" or (len(sp_chat) == 3 and sp_chat[1] == "!수정" and (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")):
+        if sp_chat[0] == "멤버" or (len(sp_chat) == 3 and sp_chat[1] == "수정" and (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")):
             self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]] = sp_chat[2]
             save_chat_command_data(self.init.chat_commands)
             return
@@ -936,6 +936,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 
                 if sp_chat[0] == "!명령어":
                     self.command_list()
+
+                if sp_chat[0] in ["!카테고리", "!게임"]:
+                    self.category_command()
 
             send_command = self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]]
             self._send(send_command)
@@ -954,7 +957,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             secs = remaining_seconds % 60
             
             # 0이 아닌 항목만 포함하여 출력
-            parts = ["방송시간: "]
+            parts = ["업타임 : "]
             
             if hours > 0:
                 parts.append(f"{hours}시간")
@@ -969,11 +972,16 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     
     def title_command(self):
         title = self.init.chzzk_titleData.loc[self.data.channel_id, 'title1']
-        self._send(title)
+        
+        self._send("방제 : " + title)
 
     def command_list(self):
         command = str(list(self.init.chat_commands.loc[self.data.channel_id, "chat_command"].keys()))
         self._send(command)
+
+    def category_command(self):
+        category = self.init.chzzk_titleData.loc[self.channel_id, 'category']
+        self._send("카테고리 : " + category)
 
     # 채팅방 입장 시 인사 메시지 전송 함수
     async def sendHi(self, himent):
