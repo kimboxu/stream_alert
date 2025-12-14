@@ -764,7 +764,7 @@ class ChatAnalyzer:
 
         # 큰 재미인 경우 알림 보내기
         if highlight.score_details['big_highlights'] and highlight.score_details['should_create_new_highlight']:
-            await self._send_notification(highlight)
+            asyncio.create_task(self._send_notification(highlight))
 
         #하이라이트의 피크 점수로 수정
         await self.change_score_to_peak(highlight)
