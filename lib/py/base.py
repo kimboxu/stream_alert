@@ -733,6 +733,7 @@ async def save_airing_data(titleData, platform: str, id_):
 				"chatChannelId": titleData.loc[id_, "chatChannelId"],
 				"oldChatChannelId": titleData.loc[id_, "oldChatChannelId"],
 				"state_update_time": titleData.loc[id_, "state_update_time"],
+				"category": titleData.loc[id_, "category"],
 		}
 
 	for _ in range(3):  # 최대 3번 시도
