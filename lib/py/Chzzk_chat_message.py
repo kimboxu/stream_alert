@@ -385,7 +385,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 if chat_type == "채팅":
                     chat = self.get_chat(chat_data)
 
-                    self.chat_command(userRoleCode, nickname, chat)
+                    await self.chat_command(userRoleCode, nickname, chat)
                     
                     if nickname and chat:
                         # 분석기로 메시지 전달
@@ -538,7 +538,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return False
 
     # 메시지 전송 함수
-    def _send(self, message):
+    async def _send(self, message):
         # 기본 딕셔너리
         default_dict = {
             "ver": 2,
@@ -569,7 +569,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             }
         }
 
-        self.data.sock.send(dumps(dict(send_dict, **default_dict)))
+        await self.data.sock.send(dumps(dict(send_dict, **default_dict)))
 
     # Chzzk 채팅 딕셔너리 생성 함수
     def _CHZZK_CHAT_DICT(self, option = "connect", num = 50):
@@ -925,25 +925,30 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             save_chat_command_data(self.init.chat_commands)
             return
         
+        chat_command = self.init.chat_commands.loc[self.data.channel_id, "chat_command"]
         # 메시지 보네기
-        if len(sp_chat) == 1 and sp_chat[0] in self.init.chat_commands.loc[self.data.channel_id, "chat_command"]:
+        if len(sp_chat) == 1 and sp_chat[0] in list(chat_command.keys()) + special_command_list:
             if sp_chat[0] in special_command_list:
                 if sp_chat[0] == "!업타임":
-                    self.uptime_command()
+                    await self.uptime_command()
+                    return
 
                 if sp_chat[0] == "!방제":
-                    self.title_command()
+                    await self.title_command()
+                    return
                 
                 if sp_chat[0] == "!명령어":
-                    self.command_list()
+                    await self.command_list(chat_command, special_command_list)
+                    return
 
                 if sp_chat[0] in ["!카테고리", "!게임"]:
-                    self.category_command()
+                    await self.category_command()
+                    return
 
-            send_command = self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]]
-            self._send(send_command)
+            send_command = chat_command[sp_chat[0]]
+            await self._send(send_command)
 
-    def uptime_command(self):
+    async def uptime_command(self):
         start_time_str = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['openDate']
         current_time = datetime.now()
         start_time = datetime.fromisoformat(start_time_str)
@@ -968,30 +973,30 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             return " ".join(parts)
             
-        self._send(format_time(int(uptime.total_seconds())))
+        await self._send(format_time(int(uptime.total_seconds())))
     
-    def title_command(self):
+    async def title_command(self):
         title = self.init.chzzk_titleData.loc[self.data.channel_id, 'title1']
         
-        self._send("방제 : " + title)
+        await self._send("방제 : " + title)
 
-    def command_list(self):
-        command = str(list(self.init.chat_commands.loc[self.data.channel_id, "chat_command"].keys()))
-        self._send(command)
+    async def command_list(self, chat_command, special_command_list):
+        command = str(list(chat_command.keys()) + special_command_list)
+        await self._send(command)
 
-    def category_command(self):
-        category = self.init.chzzk_titleData.loc[self.channel_id, 'category']
-        self._send("카테고리 : " + category)
+    async def category_command(self):
+        category = self.init.chzzk_titleData.loc[self.data.channel_id, 'category']
+        await self._send("카테고리 : " + category)
 
     # 채팅방 입장 시 인사 메시지 전송 함수
     async def sendHi(self, himent):
         if await self.get_check_channel_id():  # 채널 ID 확인
             await self.change_chatChannelId()  # 채널 ID 갱신
             asyncio.create_task(log_error(f"send hi {self.init.chzzkIDList.loc[self.data.channel_id, 'channelName']} {self.data.cid}"))
-            self._send(himent)  # 인사 메시지 전송
+            await self._send(himent)  # 인사 메시지 전송
 
     # 방송 시작 시 자동 인사 메시지 함수
-    def onAirChat(self, message):
+    async def onAirChat(self, message):
         himent = None
         if message != "뱅온!":return  # "뱅온!" 메시지가 아니면 무시
         
@@ -1001,10 +1006,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if self.data.channel_id == "bighead033"	: himent = "빅하"
         
         # 인사말이 설정된 경우 전송
-        if himent: self._send(himent)
+        if himent: await self._send(himent)
 
     # 방송 종료 시 자동 작별 인사 메시지 함수
-    def offAirChat(self):
+    async def offAirChat(self):
         byement = None
         
         # 채널별 맞춤 작별 인사말 설정
@@ -1013,7 +1018,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if self.data.channel_id =="bighead033": byement = "빅바"
         
         # 작별 인사말이 설정된 경우 전송
-        if byement: self._send(byement)
+        if byement: await self._send(byement)
 
     # 방송 상태가 종료인지 확인하는 함수
     def check_live_state_close(self):
