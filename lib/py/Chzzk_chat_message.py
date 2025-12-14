@@ -920,9 +920,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
-        if sp_chat[0] == "멤버" or (len(sp_chat) == 3 and sp_chat[1] == "수정" and (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")):
-            self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]] = sp_chat[2]
-            save_chat_command_data(self.init.chat_commands)
+        if sp_chat[0] == "멤버" or (len(sp_chat) >= 3 and sp_chat[1] == "수정" and (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")):
+            self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]] = sp_chat[2:]
+            await save_chat_command_data(self.init.chat_commands)
             return
         
         chat_command = self.init.chat_commands.loc[self.data.channel_id, "chat_command"]
