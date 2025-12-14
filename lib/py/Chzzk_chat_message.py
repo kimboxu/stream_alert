@@ -16,6 +16,7 @@ from base import  (
     save_airing_data, 
     if_after_time, 
     log_error,
+    save_chat_command_data,
     )
 
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
@@ -383,6 +384,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 # 채팅 메시지인 경우 분석기로 전달
                 if chat_type == "채팅":
                     chat = self.get_chat(chat_data)
+
+                    self.chat_command(userRoleCode, nickname, chat)
                     
                     if nickname and chat:
                         # 분석기로 메시지 전달
@@ -906,6 +909,71 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         asyncio.create_task(log_error(f"Unknown _handle_unknowne: {self.get_msgTypeCode(chat_data)}.{chat_type}"))
         print(f"{datetime.now()} Unknown _handle_unknowne: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
+
+    # 챗팅 명령어
+    async def chat_command(self, userRoleCode: str, nickname: str, chat: str):
+        # 빅헤드가 아니면 동작 안함
+        if self.data.channel_id not in ["bighead033", "kimboxu"]:
+            return
+        
+        special_command_list = ["!업타임", "!방제", "!명령어"]
+
+        # 명령어 수정 기능
+        sp_chat = chat.split(" ")
+        if sp_chat[0] == "멤버" or (len(sp_chat) == 3 and sp_chat[1] == "!수정" and (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")):
+            self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]] = sp_chat[2]
+            save_chat_command_data(self.init.chat_commands)
+            return
+        
+        # 메시지 보네기
+        if len(sp_chat) == 1 and sp_chat[0] in self.init.chat_commands.loc[self.data.channel_id, "chat_command"]:
+            if sp_chat[0] in special_command_list:
+                if sp_chat[0] == "!업타임":
+                    self.uptime_command()
+
+                if sp_chat[0] == "!방제":
+                    self.title_command()
+                
+                if sp_chat[0] == "!명령어":
+                    self.command_list()
+
+            send_command = self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]]
+            self._send(send_command)
+
+    def uptime_command(self):
+        start_time_str = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['openDate']
+        current_time = datetime.now()
+        start_time = datetime.fromisoformat(start_time_str)
+        uptime = current_time - start_time
+
+        def format_time(seconds: int) -> str:
+            # 시간, 분, 초로 변환
+            hours = seconds // 3600
+            remaining_seconds = seconds % 3600
+            minutes = remaining_seconds // 60
+            secs = remaining_seconds % 60
+            
+            # 0이 아닌 항목만 포함하여 출력
+            parts = ["방송시간: "]
+            
+            if hours > 0:
+                parts.append(f"{hours}시간")
+            if minutes > 0:
+                parts.append(f"{minutes}분")
+            if secs > 0 or not parts:  # 0초만 남은 경우도 표시
+                parts.append(f"{secs}초")
+
+            return " ".join(parts)
+            
+        self._send(format_time(int(uptime.total_seconds())))
+    
+    def title_command(self):
+        title = self.init.chzzk_titleData.loc[self.data.channel_id, 'title1']
+        self._send(title)
+
+    def command_list(self):
+        command = str(list(self.init.chat_commands.loc[self.data.channel_id, "chat_command"].keys()))
+        self._send(command)
 
     # 채팅방 입장 시 인사 메시지 전송 함수
     async def sendHi(self, himent):
