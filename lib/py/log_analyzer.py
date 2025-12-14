@@ -1530,7 +1530,7 @@ class SessionBasedFunScoreAnalyzer:
                 return None
             
             # 2단계: ChatAnalyzer의 _make_highlight_chat 로직 재현
-            timeline_comments = await self._ai_make_highlight_chat(highlights[i:i+40], model)
+            timeline_comments = await self._ai_make_highlight_chat(highlights, model)
             
             if not timeline_comments:
                 print(f"{datetime.now()} AI 댓글 생성 실패, 기본 로직으로 fallback")
