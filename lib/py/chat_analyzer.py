@@ -1183,7 +1183,7 @@ class ChatAnalyzer:
         request_timeout = 600
         emergency_timeline_comments = []
 
-        if not is_use_description and (not highlights): #or not self.init.is_vod_chat_json[self.channel_id]
+        if not is_use_description or (not highlights): #or not self.init.is_vod_chat_json[self.channel_id]
             return emergency_timeline_comments
         
         highlight_data = []
@@ -1257,7 +1257,7 @@ class ChatAnalyzer:
             # 프롬프트와 모든 이미지를 순서대로 전송
             msg_list = [prompt] + images_with_labels
             
-            print(f"{datetime.now()} {highlight.channel_name} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
+            print(f"{datetime.now()} {self.channel_name} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
 
             for attempt in range(max_retries):
                 try:
@@ -1300,7 +1300,7 @@ class ChatAnalyzer:
                         print(f"{datetime.now()} {wait_time}초 후 재시도...")
                         await asyncio.sleep(wait_time)
                     else:
-                        await log_error(f"API 요청 최종 실패 (타임아웃): {highlight.channel_name}")
+                        await log_error(f"API 요청 최종 실패 (타임아웃): {self.channel_name}")
                         return emergency_timeline_comments
 
                 except (json.JSONDecodeError, ValueError) as e:
@@ -1312,7 +1312,7 @@ class ChatAnalyzer:
                         await asyncio.sleep(1)
                         continue
                     else:
-                        await log_error(f"타임라인 댓글 생성 최종 실패: {highlight.channel_name}")
+                        await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
                         return emergency_timeline_comments
 
                 except Exception as e:
@@ -1323,7 +1323,7 @@ class ChatAnalyzer:
                         wait_time = 2 ** attempt
                         await asyncio.sleep(wait_time)
                     else:
-                        await log_error(f"타임라인 댓글 생성 최종 실패: {highlight.channel_name}")
+                        await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
                         return emergency_timeline_comments
         
         finally:

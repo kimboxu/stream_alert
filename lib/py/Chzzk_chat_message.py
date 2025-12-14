@@ -84,6 +84,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                                     subprotocols=['chat'], 
                                     ping_interval=None) as sock:
             self.data.sock = sock
+            self.run_analyzer = True
             # self.data.cid = self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']
 
             # 채널 ID 확인 및 갱신
@@ -165,9 +166,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                                   and (if_after_time(self.data.last_chat_time, sec = 60) and not self.is_connect)
                                   and if_after_time(join_time, sec = 30))
 
-            if (is_close or is_change_chatChannel or check_chat):
+            if (self.run_analyzer and is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
-            return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel
+                self.run_analyzer = False
+            return is_change_chatChannel or check_chat or is_old_chatChannel
 
         json_loads = loads
         message_buffer = []
@@ -921,12 +923,12 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
-        if sp_chat[0] == "멤버" or (len(sp_chat) >= 2 and sp_chat[1] == "수정" and (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")):
+        if sp_chat[0] == "!멤버" or (len(sp_chat) >= 2 and sp_chat[1] == "수정" and (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")):
             if len(sp_chat) == 2:
                 save_text = " "
             else:
                 save_text = " ".join(sp_chat[2:])
-
+            await self._send(f"{save_text}로 수정되었습니다.")
             self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]] = save_text
             await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
             return
