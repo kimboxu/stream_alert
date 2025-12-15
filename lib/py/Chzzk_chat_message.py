@@ -923,9 +923,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
-        if (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (sp_chat[0] == "!멤버" or self.is_fix_authority(userRoleCode, nickname)):
-            if (len(sp_chat) == 2 and sp_chat[0] == "!멤버"):
+        if sp_chat[0] == "!멤버수정" or (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (sp_chat[0] == "!멤버" or self.is_fix_authority(userRoleCode, nickname)):
+            if (len(sp_chat) == 2 and sp_chat[0] == "!멤버") or (len(sp_chat) == 1 and sp_chat[0] == "!멤버수정"):
                 save_text = " "
+            elif len(sp_chat) == 2 and sp_chat[0] == "!멤버수정":
+                save_text = " ".join(sp_chat[1:])
             else:
                 save_text = " ".join(sp_chat[2:])
 
