@@ -175,6 +175,9 @@ class FileNotificationManager:
             file_path = self._get_file_path(webhook_url)
             backup_path = self._get_backup_file_path(webhook_url)
             
+            # 디렉토리 존재 확인 및 생성
+            self.notifications_dir.mkdir(parents=True, exist_ok=True)
+            
             # 기존 파일 백업
             if file_path.exists():
                 try:
@@ -202,6 +205,7 @@ class FileNotificationManager:
             temp_path = file_path.with_suffix('.tmp')
             
             try:
+                # 임시 파일 작성
                 with open(temp_path, 'w', encoding='utf-8') as f:
                     json.dump(save_data, f, ensure_ascii=False, indent=2)
                 
@@ -212,13 +216,29 @@ class FileNotificationManager:
                     import gc
                     gc.collect()
                 
-            except Exception as e:
-                if temp_path.exists():
+                # 임시 파일이 정상적으로 생성되었는지 확인
+                if not temp_path.exists():
+                    raise FileNotFoundError(f"임시 파일 생성 실패: {temp_path}")
+                
+                # 임시 파일을 실제 파일로 이동 (원자적 연산)
+                try:
+                    temp_path.replace(file_path)
+                except OSError as e:
+                    # replace 실패 시 대체 방법 시도
+                    print(f"파일 이동(replace) 실패, 복사 후 삭제 방식 시도: {e}")
+                    import shutil
+                    shutil.copy2(temp_path, file_path)
                     temp_path.unlink()
+                    del shutil
+                
+            except Exception as e:
+                # 임시 파일 정리
+                if temp_path.exists():
+                    try:
+                        temp_path.unlink()
+                    except:
+                        pass
                 raise e
-            
-            # 임시 파일을 실제 파일로 이동
-            temp_path.replace(file_path)
             
             # 캐시 업데이트
             with self._cache_lock:
