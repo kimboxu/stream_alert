@@ -236,6 +236,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
                 # 소켓이 닫혔는지 확인
                 if self.data.sock.state.name == 'CLOSED':
+                    asyncio.create_task(self.should_offLine())
                     asyncio.create_task(log_error(f"{self.data.channel_id}: 연결 종료", webhook_url=environ['chat_post_url']))
                     break
 

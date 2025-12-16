@@ -189,6 +189,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     except Exception: pass
 
                 if self.data.sock.state.name == 'CLOSED':
+                    asyncio.create_task(self.should_offLine())
                     asyncio.create_task(log_error(f"{self.data.channel_id} 연결 종료 {self.data.cid}", webhook_url=environ['chat_post_url']))
                     break
 
