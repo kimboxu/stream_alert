@@ -1,0 +1,45 @@
+{
+  "channel_id": "dokkhye",
+  "channel_name": "독고혜지_WAK",
+  "save_timestamp": "2025-12-14T15:09:27.177068",
+  "total_logs": 1,
+  "logs": [
+    {
+      "timestamp": "2025-12-14T15:09:09.241742",
+      "fun_score": 6.896148341145894,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8356162962620121,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.896148341145894,
+        "baseline_chat_count": 3.8002315522336048,
+        "baseline_viewer_count": 138.48217545872706,
+        "baseline_threshold": 12.956558023169443,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.01507970820742166,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 138,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "03:08:13",
+      "comment_after_openDate": "03:08:13",
+      "chat_context": [
+        "DHz.풍경: 라칸 잘하면 이제 금빛섬광 됨"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

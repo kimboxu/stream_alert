@@ -1,0 +1,874 @@
+{
+  "channel_id": "mawang0216",
+  "channel_name": "마왕0216",
+  "save_timestamp": "2025-12-14T19:48:26.140389",
+  "total_logs": 16,
+  "logs": [
+    {
+      "timestamp": "2025-12-14T19:46:46.050284",
+      "fun_score": 5.261066344069899,
+      "test_fun_score": 0.1284341999092334,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.1284341999092334,
+        "test_reaction_score": 0.1284341999092334,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.261066344069899,
+        "baseline_chat_count": 6.153974516546488,
+        "baseline_viewer_count": 214.87229884400924,
+        "baseline_threshold": 9.479611802939196,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1085269805910034,
+        "test_score_difference": 0.061364173815937784,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 303,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "04:47:37",
+      "comment_after_openDate": "04:47:37",
+      "chat_context": [
+        "sunjine33: ㅇㅎ",
+        "안뇨세요: 아하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:46:51.121556",
+      "fun_score": 5.926288897910945,
+      "test_fun_score": 0.21058699976222242,
+      "score_components": {
+        "chat_spike_score": 0.6852262808860263,
+        "reaction_score": 2.059790238374111,
+        "test_reaction_score": 0.21058699976222242,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.926288897910945,
+        "baseline_chat_count": 6.114179440677973,
+        "baseline_viewer_count": 215.71656222108362,
+        "baseline_threshold": 9.439198137443228,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7737495344320493,
+        "test_score_difference": 0.1435169736689268,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 303,
+        "fun_keywords": {
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:47:42",
+      "comment_after_openDate": "04:47:42",
+      "chat_context": [
+        "알피돌: 와! 플레그!"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:46:56.318055",
+      "fun_score": 6.085705930223049,
+      "test_fun_score": 0.21254150477281195,
+      "score_components": {
+        "chat_spike_score": 0.9541227012710948,
+        "reaction_score": 2.1171250373848642,
+        "test_reaction_score": 0.21254150477281195,
+        "diversity_score": 50.21213203435597,
+        "viewer_trend_score": 0,
+        "final_score": 6.085705930223049,
+        "baseline_chat_count": 6.065185601636278,
+        "baseline_viewer_count": 216.55273755500562,
+        "baseline_threshold": 9.405544466928507,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9331665667441529,
+        "test_score_difference": 0.14547147867951632,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:47:47",
+      "comment_after_openDate": "04:47:47",
+      "chat_context": [
+        "알피돌: 와! 플레그!",
+        "Xhon34: 뫙넴 8시에 어디가세요?"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:01.329632",
+      "fun_score": 8.721626078166564,
+      "test_fun_score": 0.8052494302876176,
+      "score_components": {
+        "chat_spike_score": 1.3327928433446519,
+        "reaction_score": 10.21332121356406,
+        "test_reaction_score": 0.8052494302876176,
+        "diversity_score": 50.57872934592252,
+        "viewer_trend_score": 0,
+        "final_score": 8.721626078166564,
+        "baseline_chat_count": 6.0262411235726026,
+        "baseline_viewer_count": 217.37132232922866,
+        "baseline_threshold": 9.37374041374687,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.9837843577092045,
+        "test_score_difference": 0.738179404194322,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:47:52",
+      "comment_after_openDate": "04:47:52",
+      "chat_context": [
+        "알피돌: 와! 플레그!",
+        "Xhon34: 뫙넴 8시에 어디가세요?",
+        "베니로포: 플레그 ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:06.330892",
+      "fun_score": 14.9109353667805,
+      "test_fun_score": 2.5950489093444347,
+      "score_components": {
+        "chat_spike_score": 4.990089046192262,
+        "reaction_score": 30.105762420521316,
+        "test_reaction_score": 2.5950489093444347,
+        "diversity_score": 36.33666569837587,
+        "viewer_trend_score": 0,
+        "final_score": 14.9109353667805,
+        "baseline_chat_count": 5.9972497336087764,
+        "baseline_viewer_count": 218.18206506131463,
+        "baseline_threshold": 9.36749315841201,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.650351370667435,
+        "test_score_difference": 2.527978883251139,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "excitement": 4.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:47:57",
+      "comment_after_openDate": "04:47:57",
+      "chat_context": [
+        "알피돌: 와! 플레그!",
+        "Xhon34: 뫙넴 8시에 어디가세요?",
+        "베니로포: 플레그 ㅋㅋㅋㅋㅋㅋㅋ",
+        "알피돌: 히든",
+        "베니로포: 8시 히든런이유~",
+        "boraJoa●: 히든",
+        "박가방: 우와 여기 어디에요?"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:11.332279",
+      "fun_score": 35.51141110905175,
+      "test_fun_score": 9.433744055657444,
+      "score_components": {
+        "chat_spike_score": 9.45428440323529,
+        "reaction_score": 92.89637706698285,
+        "test_reaction_score": 9.433744055657444,
+        "diversity_score": 33.880700075010154,
+        "viewer_trend_score": 0,
+        "final_score": 35.51141110905175,
+        "baseline_chat_count": 6.006856081160804,
+        "baseline_viewer_count": 218.98504087802723,
+        "baseline_threshold": 9.42059933476818,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 30.250827112938687,
+        "test_score_difference": 9.366674029564148,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "excitement": 4.0,
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "04:48:02",
+      "comment_after_openDate": "04:48:02",
+      "chat_context": [
+        "알피돌: 와! 플레그!",
+        "Xhon34: 뫙넴 8시에 어디가세요?",
+        "베니로포: 플레그 ㅋㅋㅋㅋㅋㅋㅋ",
+        "알피돌: 히든",
+        "베니로포: 8시 히든런이유~",
+        "boraJoa●: 히든",
+        "박가방: 우와 여기 어디에요?",
+        "박가방: 3계층?",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:17.464562",
+      "fun_score": 40.787988160247004,
+      "test_fun_score": 9.222740280880421,
+      "score_components": {
+        "chat_spike_score": 23.35053413068411,
+        "reaction_score": 91.04190818296523,
+        "test_reaction_score": 9.222740280880421,
+        "diversity_score": 29.676753465495853,
+        "viewer_trend_score": 0,
+        "final_score": 40.787988160247004,
+        "baseline_chat_count": 6.035530399903283,
+        "baseline_viewer_count": 219.78032418641573,
+        "baseline_threshold": 9.670549311565818,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 35.52740416413394,
+        "test_score_difference": 9.155670254787125,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "excitement": 4.0,
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "04:48:08",
+      "comment_after_openDate": "04:48:02",
+      "chat_context": [
+        "알피돌: 와! 플레그!",
+        "Xhon34: 뫙넴 8시에 어디가세요?",
+        "베니로포: 플레그 ㅋㅋㅋㅋㅋㅋㅋ",
+        "알피돌: 히든",
+        "베니로포: 8시 히든런이유~",
+        "boraJoa●: 히든",
+        "박가방: 우와 여기 어디에요?",
+        "박가방: 3계층?",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: 부유성입니다~",
+        "저먼핀셔: 부유성일걸요",
+        "boraJoa●: 부유"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:25.027585",
+      "fun_score": 36.82356627138817,
+      "test_fun_score": 10.313502238972376,
+      "score_components": {
+        "chat_spike_score": 64.26073386105672,
+        "reaction_score": 16.838544275334424,
+        "test_reaction_score": 10.313502238972376,
+        "diversity_score": 28.546727513123155,
+        "viewer_trend_score": 0,
+        "final_score": 36.82356627138817,
+        "baseline_chat_count": 6.09267001867221,
+        "baseline_viewer_count": 220.56798868070985,
+        "baseline_threshold": 9.968654375736184,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 31.562982275275104,
+        "test_score_difference": 10.187484725542745,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 300,
+        "fun_keywords": {
+          "laugh": 3.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:48:16",
+      "comment_after_openDate": "04:48:16",
+      "chat_context": [
+        "베니로포: 플레그 ㅋㅋㅋㅋㅋㅋㅋ",
+        "알피돌: 히든",
+        "베니로포: 8시 히든런이유~",
+        "boraJoa●: 히든",
+        "박가방: 우와 여기 어디에요?",
+        "박가방: 3계층?",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: 부유성입니다~",
+        "저먼핀셔: 부유성일걸요",
+        "boraJoa●: 부유",
+        "이종소형: ㅋㅋㅋㅋ",
+        "박가방: 아 여기가 부유성",
+        "박가방: 그 고래 있는곳인가",
+        "한국놈: 이게 찐마단이야",
+        "뜌땨땨뜌땨: 뫙뿔",
+        "알피돌: 두칠님 없는 추억"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:31.728147",
+      "fun_score": 39.0112583981823,
+      "test_fun_score": 8.20581658451808,
+      "score_components": {
+        "chat_spike_score": 60.7987471225924,
+        "reaction_score": 29.315534025062057,
+        "test_reaction_score": 8.20581658451808,
+        "diversity_score": 28.571619854971,
+        "viewer_trend_score": 0,
+        "final_score": 39.0112583981823,
+        "baseline_chat_count": 6.187582239893329,
+        "baseline_viewer_count": 221.32894734914862,
+        "baseline_threshold": 10.22592443169653,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 33.75067440206924,
+        "test_score_difference": 8.079395382456347,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 300,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "04:48:22",
+      "comment_after_openDate": "04:48:22",
+      "chat_context": [
+        "알피돌: 히든",
+        "베니로포: 8시 히든런이유~",
+        "boraJoa●: 히든",
+        "박가방: 우와 여기 어디에요?",
+        "박가방: 3계층?",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: 부유성입니다~",
+        "저먼핀셔: 부유성일걸요",
+        "boraJoa●: 부유",
+        "이종소형: ㅋㅋㅋㅋ",
+        "박가방: 아 여기가 부유성",
+        "박가방: 그 고래 있는곳인가",
+        "한국놈: 이게 찐마단이야",
+        "뜌땨땨뜌땨: 뫙뿔",
+        "알피돌: 두칠님 없는 추억",
+        "베니로포: 찐마단 가즈아ㅏㅏㅏ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:37.357574",
+      "fun_score": 59.10334440263584,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 57.574286812054645,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.949153372112505,
+        "viewer_trend_score": 0,
+        "final_score": 59.10334440263584,
+        "baseline_chat_count": 6.28158520203515,
+        "baseline_viewer_count": 222.08261603354376,
+        "baseline_threshold": 10.501687931095463,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 53.84276040652278,
+        "test_score_difference": 99.87317362661355,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 300,
+        "fun_keywords": {
+          "laugh": 7.300000000000001,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:48:28",
+      "comment_after_openDate": "04:48:02",
+      "chat_context": [
+        "박가방: 3계층?",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: 부유성입니다~",
+        "저먼핀셔: 부유성일걸요",
+        "boraJoa●: 부유",
+        "이종소형: ㅋㅋㅋㅋ",
+        "박가방: 아 여기가 부유성",
+        "박가방: 그 고래 있는곳인가",
+        "한국놈: 이게 찐마단이야",
+        "뜌땨땨뜌땨: 뫙뿔",
+        "알피돌: 두칠님 없는 추억",
+        "베니로포: 찐마단 가즈아ㅏㅏㅏ",
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "순금백돈: ㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "알피돌: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:51.352789",
+      "fun_score": 40.69472503250219,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 14.50074959852252,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 41.69387713167055,
+        "viewer_trend_score": 0,
+        "final_score": 40.69472503250219,
+        "baseline_chat_count": 6.374687615799653,
+        "baseline_viewer_count": 222.8290645719424,
+        "baseline_threshold": 10.96729180009282,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 35.433981479092644,
+        "test_score_difference": 99.8726417689586,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 300,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 9.899999999999999
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 8.0
+        }
+      },
+      "after_openDate": "04:48:42",
+      "comment_after_openDate": "04:48:42",
+      "chat_context": [
+        "뜌땨땨뜌땨: 뫙뿔",
+        "알피돌: 두칠님 없는 추억",
+        "베니로포: 찐마단 가즈아ㅏㅏㅏ",
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "순금백돈: ㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "알피돌: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "머머머머머: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "boraJoa●: 완ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:57.445278",
+      "fun_score": 77.581126599703,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.81126599702993,
+        "viewer_trend_score": 0,
+        "final_score": 77.581126599703,
+        "baseline_chat_count": 6.4189981084402925,
+        "baseline_viewer_count": 223.5683621333432,
+        "baseline_threshold": 11.2520806104593,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.32022226536093,
+        "test_score_difference": 99.87210583251685,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "laugh": 24.599999999999994
+        },
+        "test_keyword_counter": {
+          "laugh": 20.0
+        }
+      },
+      "after_openDate": "04:48:48",
+      "comment_after_openDate": "04:48:02",
+      "chat_context": [
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "순금백돈: ㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "알피돌: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "머머머머머: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "boraJoa●: 완ㅋㅋㅋㅋㅋㅋㅋ",
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: -완-",
+        "Hull: 행복 버튼 온",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "초코나가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: -완-",
+        "뉴뉴암암: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: ㅋㅋㅋㅋㅋㅋ",
+        "Hull: 완ㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "boraJoa●: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: 나중에 ai로 합성하면 됨요 ㅋㅋㅋ",
+        "boraJoa●: 다음 기회에",
+        "한국놈: 두개재"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:03.471166",
+      "fun_score": 77.40324314840849,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 24.032431484084977,
+        "viewer_trend_score": 0,
+        "final_score": 77.40324314840849,
+        "baseline_chat_count": 6.606584106561434,
+        "baseline_viewer_count": 224.31973722410575,
+        "baseline_threshold": 11.887512871036254,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.14217680433859,
+        "test_score_difference": 99.87156580009076,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 28,
+        "viewer_count": 303,
+        "fun_keywords": {
+          "laugh": 24.599999999999994,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 20.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "04:48:54",
+      "comment_after_openDate": "04:48:54",
+      "chat_context": [
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "순금백돈: ㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "알피돌: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "머머머머머: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "boraJoa●: 완ㅋㅋㅋㅋㅋㅋㅋ",
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: -완-",
+        "Hull: 행복 버튼 온",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "초코나가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: -완-",
+        "뉴뉴암암: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: ㅋㅋㅋㅋㅋㅋ",
+        "Hull: 완ㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "boraJoa●: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: 나중에 ai로 합성하면 됨요 ㅋㅋㅋ",
+        "boraJoa●: 다음 기회에",
+        "한국놈: 두개재",
+        "Hull: 마크  신기해",
+        "boraJoa●: ㄹㅇ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:09.226416",
+      "fun_score": 77.43563573697921,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 24.356357369792118,
+        "viewer_trend_score": 0,
+        "final_score": 77.43563573697921,
+        "baseline_chat_count": 6.811533030820575,
+        "baseline_viewer_count": 225.0734941414988,
+        "baseline_threshold": 12.51515356709348,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 71.50934683906826,
+        "test_score_difference": 99.78941300023777,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 303,
+        "fun_keywords": {
+          "laugh": 15.899999999999999,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 13.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "04:49:00",
+      "comment_after_openDate": "04:49:00",
+      "chat_context": [
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: -완-",
+        "Hull: 행복 버튼 온",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "초코나가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: -완-",
+        "뉴뉴암암: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: ㅋㅋㅋㅋㅋㅋ",
+        "Hull: 완ㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "boraJoa●: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: 나중에 ai로 합성하면 됨요 ㅋㅋㅋ",
+        "boraJoa●: 다음 기회에",
+        "한국놈: 두개재",
+        "Hull: 마크  신기해",
+        "boraJoa●: ㄹㅇ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:14.869988",
+      "fun_score": 77.23293563230573,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 22.329356323057205,
+        "viewer_trend_score": 0,
+        "final_score": 77.23293563230573,
+        "baseline_chat_count": 6.947458544385314,
+        "baseline_viewer_count": 225.82003006762324,
+        "baseline_threshold": 13.137091786280985,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 71.14722970208268,
+        "test_score_difference": 99.78745849522718,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 303,
+        "fun_keywords": {
+          "laugh": 15.899999999999999,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 13.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "04:49:05",
+      "comment_after_openDate": "04:49:05",
+      "chat_context": [
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: -완-",
+        "Hull: 행복 버튼 온",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "초코나가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: -완-",
+        "뉴뉴암암: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: ㅋㅋㅋㅋㅋㅋ",
+        "Hull: 완ㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "boraJoa●: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: 나중에 ai로 합성하면 됨요 ㅋㅋㅋ",
+        "boraJoa●: 다음 기회에",
+        "한국놈: 두개재",
+        "Hull: 마크  신기해",
+        "boraJoa●: ㄹㅇ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: 2마리에 2페?",
+        "Hull: 빡세네"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:21.059811",
+      "fun_score": 77.14450903427468,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 21.445090342746795,
+        "viewer_trend_score": 0,
+        "final_score": 77.14450903427468,
+        "baseline_chat_count": 7.101241891530102,
+        "baseline_viewer_count": 226.55941417957538,
+        "baseline_threshold": 13.751129970325902,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 68.42288295610811,
+        "test_score_difference": 99.19475056971238,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 24,
+        "viewer_count": 303,
+        "fun_keywords": {
+          "laugh": 15.899999999999999,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 13.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "04:49:12",
+      "comment_after_openDate": "04:49:12",
+      "chat_context": [
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: -완-",
+        "Hull: 행복 버튼 온",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "초코나가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "베니로포: -완-",
+        "뉴뉴암암: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: ㅋㅋㅋㅋㅋㅋ",
+        "Hull: 완ㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "sunjine33: ㅋㅋㅋㅋㅋ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "boraJoa●: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: 나중에 ai로 합성하면 됨요 ㅋㅋㅋ",
+        "boraJoa●: 다음 기회에",
+        "한국놈: 두개재",
+        "Hull: 마크  신기해",
+        "boraJoa●: ㄹㅇ",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Hull: 2마리에 2페?",
+        "Hull: 빡세네",
+        "베니로포: 후...."
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

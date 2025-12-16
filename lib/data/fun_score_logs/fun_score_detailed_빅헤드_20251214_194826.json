@@ -1,0 +1,934 @@
+{
+  "channel_id": "bighead033",
+  "channel_name": "빅헤드",
+  "save_timestamp": "2025-12-14T19:48:26.041253",
+  "total_logs": 17,
+  "logs": [
+    {
+      "timestamp": "2025-12-14T19:46:47.541331",
+      "fun_score": 6.230769635652204,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 4.137804997871093,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 43.48636378782223,
+        "viewer_trend_score": 0,
+        "final_score": 6.230769635652204,
+        "baseline_chat_count": 13.067294856995915,
+        "baseline_viewer_count": 1186.8637088450573,
+        "baseline_threshold": 17.586398033985084,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.17154744700968116,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1679,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:58:29",
+      "comment_after_openDate": "00:58:29",
+      "chat_context": [
+        "화밀이: 엔진 수리는 좀 빡셈",
+        "라비렌스: 탄창이랑 탄약?",
+        "tZINE: 탄창 탄",
+        "원숭이손들: 박으면 바로 간다",
+        "R시아: 탄창이랑 탄",
+        "이상이란: 용접마스크도 챙기자",
+        "짜친: 탄창 탄 챙기쇼",
+        "지나가던 노예: 탄은 왜 안챙기시지",
+        "움치땃쥐: 살균된 붕대도 있네요",
+        "IAMBORI: 탄이랑 탄창은 패싱 함?",
+        "필람: 대탄아녔냐",
+        "tZINE: 굿굿",
+        "R시아: 마스크 무조건이지",
+        "레오나홀딩: 마스크 좋아요"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:46:52.726473",
+      "fun_score": 5.609926173972113,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.262416798938842,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 45.717176066216446,
+        "viewer_trend_score": 0,
+        "final_score": 5.609926173972113,
+        "baseline_chat_count": 13.076230172265893,
+        "baseline_viewer_count": 1191.5783745143217,
+        "baseline_threshold": 17.477611113929054,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 1679,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:58:35",
+      "comment_after_openDate": "00:58:35",
+      "chat_context": [
+        "R시아: 탄창이랑 탄",
+        "이상이란: 용접마스크도 챙기자",
+        "짜친: 탄창 탄 챙기쇼",
+        "지나가던 노예: 탄은 왜 안챙기시지",
+        "움치땃쥐: 살균된 붕대도 있네요",
+        "IAMBORI: 탄이랑 탄창은 패싱 함?",
+        "필람: 대탄아녔냐",
+        "tZINE: 굿굿",
+        "R시아: 마스크 무조건이지",
+        "레오나홀딩: 마스크 좋아요"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:46:57.737237",
+      "fun_score": 5.13172721799595,
+      "test_fun_score": 0.1146668338705032,
+      "score_components": {
+        "chat_spike_score": 2.27015775093018,
+        "reaction_score": 0.1146668338705032,
+        "test_reaction_score": 0.1146668338705032,
+        "diversity_score": 40.75756179916218,
+        "viewer_trend_score": 0,
+        "final_score": 5.13172721799595,
+        "baseline_chat_count": 13.046759887215586,
+        "baseline_viewer_count": 1196.2478736864746,
+        "baseline_threshold": 17.363918692204265,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.04759680777720757,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 1679,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:58:40",
+      "comment_after_openDate": "00:58:40",
+      "chat_context": [
+        "IAMBORI: 탄이랑 탄창은 패싱 함?",
+        "필람: 대탄아녔냐",
+        "tZINE: 굿굿",
+        "R시아: 마스크 무조건이지",
+        "레오나홀딩: 마스크 좋아요",
+        "블제로: 굿",
+        "하른하늘여우: 타길라 마스크 굿",
+        "레오나홀딩: 타길라 됨 굳굳",
+        "픽커: 캬 강해보인다",
+        "tZINE: cqcm on"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:02.743583",
+      "fun_score": 5.640023507177,
+      "test_fun_score": 0.3918792977655168,
+      "score_components": {
+        "chat_spike_score": 3.5877175050989094,
+        "reaction_score": 0.3918792977655168,
+        "test_reaction_score": 0.3918792977655168,
+        "diversity_score": 39.07986840552835,
+        "viewer_trend_score": 0,
+        "final_score": 5.640023507177,
+        "baseline_chat_count": 13.01757192749606,
+        "baseline_viewer_count": 1200.8726390565582,
+        "baseline_threshold": 17.24673429788135,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5082962891810503,
+        "test_score_difference": 0.3248092716722212,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1679,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:58:45",
+      "comment_after_openDate": "00:58:45",
+      "chat_context": [
+        "필람: 대탄아녔냐",
+        "tZINE: 굿굿",
+        "R시아: 마스크 무조건이지",
+        "레오나홀딩: 마스크 좋아요",
+        "블제로: 굿",
+        "하른하늘여우: 타길라 마스크 굿",
+        "레오나홀딩: 타길라 됨 굳굳",
+        "픽커: 캬 강해보인다",
+        "tZINE: cqcm on",
+        "솔플하는 마법사9421: 타길라? ㅋㅋㅋㅋ",
+        "RadioCandy86: 타길라다",
+        "콘치즈덮밥: cqcm이다",
+        "하른하늘여우: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:07.821163",
+      "fun_score": 8.260952485990174,
+      "test_fun_score": 4.485050511830954,
+      "score_components": {
+        "chat_spike_score": 5.629461793154351,
+        "reaction_score": 6.420763028282295,
+        "test_reaction_score": 4.485050511830954,
+        "diversity_score": 38.01465770586028,
+        "viewer_trend_score": 0,
+        "final_score": 8.260952485990174,
+        "baseline_chat_count": 13.017403588430648,
+        "baseline_viewer_count": 1205.4530991743964,
+        "baseline_threshold": 17.135542008506402,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.129225267994224,
+        "test_score_difference": 4.417980485737658,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 6.6000000000000005
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "00:58:50",
+      "comment_after_openDate": "00:58:50",
+      "chat_context": [
+        "tZINE: 굿굿",
+        "R시아: 마스크 무조건이지",
+        "레오나홀딩: 마스크 좋아요",
+        "블제로: 굿",
+        "하른하늘여우: 타길라 마스크 굿",
+        "레오나홀딩: 타길라 됨 굳굳",
+        "픽커: 캬 강해보인다",
+        "tZINE: cqcm on",
+        "솔플하는 마법사9421: 타길라? ㅋㅋㅋㅋ",
+        "RadioCandy86: 타길라다",
+        "콘치즈덮밥: cqcm이다",
+        "하른하늘여우: ㅋㅋㅋㅋ",
+        "tZINE: 타길라 ㅋㅋㅋ",
+        "이걸우째: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엑시에스: ㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:12.823963",
+      "fun_score": 10.244507905618663,
+      "test_fun_score": 7.4828101475147015,
+      "score_components": {
+        "chat_spike_score": 7.533744817108625,
+        "reaction_score": 10.633775642432948,
+        "test_reaction_score": 7.4828101475147015,
+        "diversity_score": 36.64190045189898,
+        "viewer_trend_score": 0,
+        "final_score": 10.244507905618663,
+        "baseline_chat_count": 13.045976862053482,
+        "baseline_viewer_count": 1209.9417784843056,
+        "baseline_threshold": 17.050523440880696,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.112780687622713,
+        "test_score_difference": 7.415740121421406,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 6.6000000000000005
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "00:58:55",
+      "comment_after_openDate": "00:58:55",
+      "chat_context": [
+        "tZINE: 굿굿",
+        "R시아: 마스크 무조건이지",
+        "레오나홀딩: 마스크 좋아요",
+        "블제로: 굿",
+        "하른하늘여우: 타길라 마스크 굿",
+        "레오나홀딩: 타길라 됨 굳굳",
+        "픽커: 캬 강해보인다",
+        "tZINE: cqcm on",
+        "솔플하는 마법사9421: 타길라? ㅋㅋㅋㅋ",
+        "RadioCandy86: 타길라다",
+        "콘치즈덮밥: cqcm이다",
+        "하른하늘여우: ㅋㅋㅋㅋ",
+        "tZINE: 타길라 ㅋㅋㅋ",
+        "이걸우째: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엑시에스: ㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "dinkidi: 오우",
+        "dinkidi: 1타쌍피"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:17.835684",
+      "fun_score": 9.430677460148289,
+      "test_fun_score": 7.359717643701409,
+      "score_components": {
+        "chat_spike_score": 5.551887543880836,
+        "reaction_score": 10.448452078049213,
+        "test_reaction_score": 7.359717643701409,
+        "diversity_score": 37.977924419871485,
+        "viewer_trend_score": 0,
+        "final_score": 9.430677460148289,
+        "baseline_chat_count": 13.09343640371501,
+        "baseline_viewer_count": 1214.387456246426,
+        "baseline_threshold": 16.985321812052884,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.298950242152339,
+        "test_score_difference": 7.292647617608114,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 6.6000000000000005
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "00:59:00",
+      "comment_after_openDate": "00:59:00",
+      "chat_context": [
+        "블제로: 굿",
+        "하른하늘여우: 타길라 마스크 굿",
+        "레오나홀딩: 타길라 됨 굳굳",
+        "픽커: 캬 강해보인다",
+        "tZINE: cqcm on",
+        "솔플하는 마법사9421: 타길라? ㅋㅋㅋㅋ",
+        "RadioCandy86: 타길라다",
+        "콘치즈덮밥: cqcm이다",
+        "하른하늘여우: ㅋㅋㅋㅋ",
+        "tZINE: 타길라 ㅋㅋㅋ",
+        "이걸우째: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엑시에스: ㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "dinkidi: 오우",
+        "dinkidi: 1타쌍피",
+        "하른하늘여우: 대망도 들면 컨셉 확실"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:22.837397",
+      "fun_score": 25.21028628199233,
+      "test_fun_score": 38.1309301472604,
+      "score_components": {
+        "chat_spike_score": 8.588994013754245,
+        "reaction_score": 60.47281740371074,
+        "test_reaction_score": 38.1309301472604,
+        "diversity_score": 32.033937546896986,
+        "viewer_trend_score": 0,
+        "final_score": 25.21028628199233,
+        "baseline_chat_count": 13.12128128296742,
+        "baseline_viewer_count": 1218.7905444155851,
+        "baseline_threshold": 16.91294831916164,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 20.07855906399638,
+        "test_score_difference": 38.0638601211671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 10.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "00:59:05",
+      "comment_after_openDate": "00:59:05",
+      "chat_context": [
+        "하른하늘여우: 타길라 마스크 굿",
+        "레오나홀딩: 타길라 됨 굳굳",
+        "픽커: 캬 강해보인다",
+        "tZINE: cqcm on",
+        "솔플하는 마법사9421: 타길라? ㅋㅋㅋㅋ",
+        "RadioCandy86: 타길라다",
+        "콘치즈덮밥: cqcm이다",
+        "하른하늘여우: ㅋㅋㅋㅋ",
+        "tZINE: 타길라 ㅋㅋㅋ",
+        "이걸우째: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엑시에스: ㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "dinkidi: 오우",
+        "dinkidi: 1타쌍피",
+        "하른하늘여우: 대망도 들면 컨셉 확실",
+        "픽커: 소리 맛나네",
+        "하른하늘여우: ㅋㅋㅋㅋㅋㅋㅋ",
+        "tZINE: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바라발아: 어우 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:30.027386",
+      "fun_score": 32.74858970897058,
+      "test_fun_score": 56.07634613282839,
+      "score_components": {
+        "chat_spike_score": 5.468250758602677,
+        "reaction_score": 89.33768895707328,
+        "test_reaction_score": 56.07634613282839,
+        "diversity_score": 34.86570180477388,
+        "viewer_trend_score": 0,
+        "final_score": 32.74858970897058,
+        "baseline_chat_count": 13.177599408276592,
+        "baseline_viewer_count": 1223.1514510000839,
+        "baseline_threshold": 16.992436816845558,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 27.616862490974626,
+        "test_score_difference": 56.00927610673509,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "laugh": 10.2,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "00:59:12",
+      "comment_after_openDate": "00:59:05",
+      "chat_context": [
+        "콘치즈덮밥: cqcm이다",
+        "하른하늘여우: ㅋㅋㅋㅋ",
+        "tZINE: 타길라 ㅋㅋㅋ",
+        "이걸우째: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엑시에스: ㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "dinkidi: 오우",
+        "dinkidi: 1타쌍피",
+        "하른하늘여우: 대망도 들면 컨셉 확실",
+        "픽커: 소리 맛나네",
+        "하른하늘여우: ㅋㅋㅋㅋㅋㅋㅋ",
+        "tZINE: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바라발아: 어우 ㅋㅋㅋㅋㅋ",
+        "IAMBORI: 와",
+        "스케어클로: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "dinkidi: 와 몰려온다"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:36.668262",
+      "fun_score": 10.593660862948711,
+      "test_fun_score": 11.742861043569256,
+      "score_components": {
+        "chat_spike_score": 3.4893715578557445,
+        "reaction_score": 18.392828594204687,
+        "test_reaction_score": 11.742861043569256,
+        "diversity_score": 35.05595083652221,
+        "viewer_trend_score": 0,
+        "final_score": 10.593660862948711,
+        "baseline_chat_count": 13.204638005945302,
+        "baseline_viewer_count": 1227.470580099503,
+        "baseline_threshold": 17.143380761552116,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.461933644952762,
+        "test_score_difference": 11.67579101747596,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 6.8
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "00:59:19",
+      "comment_after_openDate": "00:59:19",
+      "chat_context": [
+        "dinkidi: 오우",
+        "dinkidi: 1타쌍피",
+        "하른하늘여우: 대망도 들면 컨셉 확실",
+        "픽커: 소리 맛나네",
+        "하른하늘여우: ㅋㅋㅋㅋㅋㅋㅋ",
+        "tZINE: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바라발아: 어우 ㅋㅋㅋㅋㅋ",
+        "IAMBORI: 와",
+        "스케어클로: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "dinkidi: 와 몰려온다",
+        "솜솜솜솜솜: ㅋㅋㅋㅋ 안끝나네",
+        "sdsj: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "tZINE: 빅진우;;"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:51.351158",
+      "fun_score": 14.947004408205178,
+      "test_fun_score": 20.534995531020595,
+      "score_components": {
+        "chat_spike_score": 2.2298839867408686,
+        "reaction_score": 31.33709487900826,
+        "test_reaction_score": 20.534995531020595,
+        "diversity_score": 45.42428150469308,
+        "viewer_trend_score": 0,
+        "final_score": 14.947004408205178,
+        "baseline_chat_count": 13.202677573848346,
+        "baseline_viewer_count": 1231.7483319421497,
+        "baseline_threshold": 17.080634444923497,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.815277190209228,
+        "test_score_difference": 20.4679255049273,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "laugh": 7.8,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "00:59:33",
+      "comment_after_openDate": "00:59:33",
+      "chat_context": [
+        "하른하늘여우: ㅋㅋㅋㅋㅋㅋㅋ",
+        "tZINE: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바라발아: 어우 ㅋㅋㅋㅋㅋ",
+        "IAMBORI: 와",
+        "스케어클로: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "dinkidi: 와 몰려온다",
+        "솜솜솜솜솜: ㅋㅋㅋㅋ 안끝나네",
+        "sdsj: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "tZINE: 빅진우;;",
+        "일하기싫어88: 미친 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:47:56.352437",
+      "fun_score": 12.60643061055064,
+      "test_fun_score": 12.764547974097699,
+      "score_components": {
+        "chat_spike_score": 3.5061402552967214,
+        "reaction_score": 19.953402720987302,
+        "test_reaction_score": 12.764547974097699,
+        "diversity_score": 50.426466793709245,
+        "viewer_trend_score": 0,
+        "final_score": 12.60643061055064,
+        "baseline_chat_count": 13.17199592269088,
+        "baseline_viewer_count": 1235.9851029221438,
+        "baseline_threshold": 17.060194269171735,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.474703392554691,
+        "test_score_difference": 12.697477948004403,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 7.800000000000001
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "00:59:38",
+      "comment_after_openDate": "00:59:38",
+      "chat_context": [
+        "dinkidi: 와 몰려온다",
+        "솜솜솜솜솜: ㅋㅋㅋㅋ 안끝나네",
+        "sdsj: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "tZINE: 빅진우;;",
+        "일하기싫어88: 미친 ㅋㅋㅋㅋㅋ",
+        "R시아: 에이 맛없어",
+        "Last06: 헤드님도 소환술사로 전직을...",
+        "dldlwjdqja: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "레오나홀딩: 이거 백신 있는 모드인가요",
+        "블제로: ㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "피곤한간때문이야: 어디 안씨 ㅋㅋㅋㅋㅋ",
+        "이걸우째: 얜 왜 탄을 안줍냐"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:01.354193",
+      "fun_score": 10.9889480259157,
+      "test_fun_score": 7.709696675893686,
+      "score_components": {
+        "chat_spike_score": 4.070407842672448,
+        "reaction_score": 13.710981021223056,
+        "test_reaction_score": 7.709696675893686,
+        "diversity_score": 50.439701903461824,
+        "viewer_trend_score": 0,
+        "final_score": 10.9889480259157,
+        "baseline_chat_count": 13.1703482017515,
+        "baseline_viewer_count": 1240.1812856361496,
+        "baseline_threshold": 17.017527213322147,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.8572208079197505,
+        "test_score_difference": 7.64262664980039,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "laugh": 8.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:59:43",
+      "comment_after_openDate": "00:59:43",
+      "chat_context": [
+        "sdsj: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "tZINE: 빅진우;;",
+        "일하기싫어88: 미친 ㅋㅋㅋㅋㅋ",
+        "R시아: 에이 맛없어",
+        "Last06: 헤드님도 소환술사로 전직을...",
+        "dldlwjdqja: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "레오나홀딩: 이거 백신 있는 모드인가요",
+        "블제로: ㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "피곤한간때문이야: 어디 안씨 ㅋㅋㅋㅋㅋ",
+        "이걸우째: 얜 왜 탄을 안줍냐",
+        "이상이란: 칼 내구도",
+        "졸리다X잠온다O: 일.어.나.라",
+        "참잘해요: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:06.355381",
+      "fun_score": 8.931766519890678,
+      "test_fun_score": 4.264367253620448,
+      "score_components": {
+        "chat_spike_score": 4.065298044276293,
+        "reaction_score": 6.839385672719017,
+        "test_reaction_score": 4.264367253620448,
+        "diversity_score": 50.5056669815064,
+        "viewer_trend_score": 0,
+        "final_score": 8.931766519890678,
+        "baseline_chat_count": 13.17829626597872,
+        "baseline_viewer_count": 1244.3372689197552,
+        "baseline_threshold": 16.959773424706793,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.800039301894728,
+        "test_score_difference": 4.1972972275271525,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1676,
+        "fun_keywords": {
+          "laugh": 6.800000000000001,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:59:48",
+      "comment_after_openDate": "00:59:48",
+      "chat_context": [
+        "일하기싫어88: 미친 ㅋㅋㅋㅋㅋ",
+        "R시아: 에이 맛없어",
+        "Last06: 헤드님도 소환술사로 전직을...",
+        "dldlwjdqja: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "레오나홀딩: 이거 백신 있는 모드인가요",
+        "블제로: ㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "피곤한간때문이야: 어디 안씨 ㅋㅋㅋㅋㅋ",
+        "이걸우째: 얜 왜 탄을 안줍냐",
+        "이상이란: 칼 내구도",
+        "졸리다X잠온다O: 일.어.나.라",
+        "참잘해요: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "답도 없는 휴먼 5516: 카타나 곧 부러지겠다",
+        "노인과람바다: 총쏘죠 소음기총인데..."
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:11.358661",
+      "fun_score": 7.852577061751056,
+      "test_fun_score": 2.5238758024811125,
+      "score_components": {
+        "chat_spike_score": 3.498839862494976,
+        "reaction_score": 4.0686030344443544,
+        "test_reaction_score": 2.5238758024811125,
+        "diversity_score": 50.5751821329501,
+        "viewer_trend_score": 0,
+        "final_score": 7.852577061751056,
+        "baseline_chat_count": 13.186168187750642,
+        "baseline_viewer_count": 1248.472597883504,
+        "baseline_threshold": 16.882865118558655,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.720849843755106,
+        "test_score_difference": 2.4092089686106095,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1674,
+        "fun_keywords": {
+          "laugh": 6.8
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "00:59:53",
+      "comment_after_openDate": "00:59:53",
+      "chat_context": [
+        "Last06: 헤드님도 소환술사로 전직을...",
+        "dldlwjdqja: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "레오나홀딩: 이거 백신 있는 모드인가요",
+        "블제로: ㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "피곤한간때문이야: 어디 안씨 ㅋㅋㅋㅋㅋ",
+        "이걸우째: 얜 왜 탄을 안줍냐",
+        "이상이란: 칼 내구도",
+        "졸리다X잠온다O: 일.어.나.라",
+        "참잘해요: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "답도 없는 휴먼 5516: 카타나 곧 부러지겠다",
+        "노인과람바다: 총쏘죠 소음기총인데...",
+        "5현: 마씨 마을인가봄 여기 ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:16.427746",
+      "fun_score": 8.068433934008933,
+      "test_fun_score": 4.256331200494036,
+      "score_components": {
+        "chat_spike_score": 3.4997568869833025,
+        "reaction_score": 6.068865846248215,
+        "test_reaction_score": 4.256331200494036,
+        "diversity_score": 46.72883580991982,
+        "viewer_trend_score": 0,
+        "final_score": 8.068433934008933,
+        "baseline_chat_count": 13.18438469651199,
+        "baseline_viewer_count": 1252.54915039578,
+        "baseline_threshold": 16.79635495897444,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.428410426831933,
+        "test_score_difference": 3.8644519027285194,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1676,
+        "fun_keywords": {
+          "laugh": 6.6,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:59:58",
+      "comment_after_openDate": "00:59:58",
+      "chat_context": [
+        "레오나홀딩: 이거 백신 있는 모드인가요",
+        "블제로: ㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "피곤한간때문이야: 어디 안씨 ㅋㅋㅋㅋㅋ",
+        "이걸우째: 얜 왜 탄을 안줍냐",
+        "이상이란: 칼 내구도",
+        "졸리다X잠온다O: 일.어.나.라",
+        "참잘해요: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "답도 없는 휴먼 5516: 카타나 곧 부러지겠다",
+        "노인과람바다: 총쏘죠 소음기총인데...",
+        "5현: 마씨 마을인가봄 여기 ㅋㅋㅋ",
+        "튀김고로케: 웨이브 끝났네 그래도 ㅋㅋ",
+        "답도 없는 휴먼 5516: 캬"
+      ]
+    },
+    {
+      "timestamp": "2025-12-14T19:48:21.430800",
+      "fun_score": 40.49257133410042,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 13.047334991877838,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 46.212705877553915,
+        "viewer_trend_score": 0,
+        "final_score": 40.49257133410042,
+        "baseline_chat_count": 13.182618291119406,
+        "baseline_viewer_count": 1256.6058095349886,
+        "baseline_threshold": 16.71274147555527,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 32.63999427234936,
+        "test_score_difference": 97.47612419751889,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 1676,
+        "fun_keywords": {
+          "laugh": 5.4,
+          "excitement": 17.2
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "excitement": 12.0
+        }
+      },
+      "after_openDate": "01:00:03",
+      "comment_after_openDate": "01:00:03",
+      "chat_context": [
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "피곤한간때문이야: 어디 안씨 ㅋㅋㅋㅋㅋ",
+        "이걸우째: 얜 왜 탄을 안줍냐",
+        "이상이란: 칼 내구도",
+        "졸리다X잠온다O: 일.어.나.라",
+        "참잘해요: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "답도 없는 휴먼 5516: 카타나 곧 부러지겠다",
+        "노인과람바다: 총쏘죠 소음기총인데...",
+        "5현: 마씨 마을인가봄 여기 ㅋㅋㅋ",
+        "튀김고로케: 웨이브 끝났네 그래도 ㅋㅋ",
+        "답도 없는 휴먼 5516: 캬",
+        "빅치킨: ㅏㅏㅏㅏㅏ",
+        "tZINE: ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "움치땃쥐: 와ㅏㅏㅏㅏ",
+        "트위나: ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "갈라타: ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "tZINE: ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "하양아: ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "솜솜솜솜솜: ㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "sdsj: ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "콘치즈덮밥: ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "도세: ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
