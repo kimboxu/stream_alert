@@ -162,7 +162,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = self.check_live_state_close()
-            is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
+            is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 600) 
                                   and (if_after_time(self.data.last_chat_time, sec = 60) and not self.is_connect)
                                   and if_after_time(join_time, sec = 30))
 
