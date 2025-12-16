@@ -290,7 +290,7 @@ class base_vod(ABC):
             duration_diff = 0
             
             # VOD 제목과 지속시간으로 매칭
-            for file_path in files:
+            for file_path in files[:20]:
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
                         data = load(f)
