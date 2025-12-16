@@ -324,7 +324,7 @@ class FileNotificationManager:
             print(f"오래된 알림 정리 오류 ({webhook_url}): {e}")
             return False
     
-    async def force_save_all_cache(self):
+    def force_save_all_cache(self):
         """메모리 캐시 전체 저장"""
         saved_count = 0
         failed_count = 0
@@ -360,7 +360,8 @@ class FileNotificationManager:
                     gc.collect()
                     
                 # 배치 간 잠깐 대기
-                await asyncio.sleep(0.1)
+                import time
+                time.sleep(0.01)
             
             print(f"{datetime.now()} 캐시된 알림 데이터 강제 저장 완료: {saved_count}개 성공, {failed_count}개 실패")
             
@@ -947,7 +948,7 @@ def setup_scheduled_tasks():
     """파일 기반 알림 시스템의 정리 작업"""
     # 매시간마다 캐시 강제 저장
     scheduler.add_job(
-        func=lambda: asyncio.run(file_notification_manager.force_save_all_cache()),
+        func=lambda: file_notification_manager.force_save_all_cache(),
         trigger="cron",
         minute=0  # 매시 정각
     )
@@ -1036,7 +1037,7 @@ async def cleanup_old_notifications_for_all_users():
                     if webhook_url:
                         if await file_notification_manager.cleanup_old_notifications(webhook_url, max_age_days=30):
                             cleaned_count += 1
-                        await asyncio.sleep(0.1)
+                        await asyncio.sleep(0.01)
                             
             except Exception as e:
                 print(f"파일 정리 중 오류 ({file_path}): {e}")
