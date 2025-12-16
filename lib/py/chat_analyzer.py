@@ -1068,6 +1068,7 @@ class ChatAnalyzer:
         try:
             # 로그가 충분히 쌓였거나 강제 저장일 때만 실행
             if len(self.detailed_logs) < 100 and not force_save:
+                print(f"{datetime.now()} {self.channel_name} 저장할 로그가 없습니다.1")
                 return
             
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1088,7 +1089,7 @@ class ChatAnalyzer:
             
             # 저장할 로그가 없으면 종료
             if not logs_to_save:
-                print(f"{datetime.now()} 저장할 로그가 없습니다.")
+                print(f"{datetime.now()} {self.channel_name} 저장할 로그가 없습니다.2")
                 return
             
             # JSON 형태로 저장
@@ -1106,7 +1107,7 @@ class ChatAnalyzer:
             
             # 저장 완료 메시지
             save_type = "전체 캐시" if save_cache else "일부"
-            print(f"{datetime.now()} 📄 상세 로그 저장 완료: {file_path} ({len(logs_to_save)}개 기록, {save_type})")
+            print(f"{datetime.now()} 📄 {self.channel_name} 상세 로그 저장 완료: {file_path} ({len(logs_to_save)}개 기록, {save_type})")
             
             # 저장 후 로그 업데이트
             self.detailed_logs = remaining_logs
