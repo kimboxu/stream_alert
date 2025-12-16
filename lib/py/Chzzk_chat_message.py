@@ -166,7 +166,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                                   and (if_after_time(self.data.last_chat_time, sec = 60) and not self.is_connect)
                                   and if_after_time(join_time, sec = 30))
 
-            if (self.run_analyzer and is_close or is_change_chatChannel or check_chat):
+            if (self.run_analyzer and (is_close or is_change_chatChannel or check_chat)):
                 asyncio.create_task(self.should_offLine())
                 self.run_analyzer = False
             return is_change_chatChannel or check_chat or is_old_chatChannel
