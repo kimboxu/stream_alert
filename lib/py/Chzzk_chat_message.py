@@ -917,8 +917,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 챗팅 명령어
     async def chat_command(self, userRoleCode: str, nickname: str, chat: str):
         # 빅헤드가 아니면 동작 안함
-        if (nickname == "ai코딩" and chat[0] == "[" and chat[-1] == "]") or self.data.channel_id not in ["bighead033", "kimboxu"]:
+        if (nickname == "ai코딩" and chat[0] == "[" and chat[-1] == "]"):
             return True
+        
+        if  self.data.channel_id not in ["bighead033", "kimboxu"]:
+            return
         
         special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임"]
 
