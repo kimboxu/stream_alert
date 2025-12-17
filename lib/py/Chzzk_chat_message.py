@@ -1025,7 +1025,12 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
     async def add_command(self, sp_chat):
         if sp_chat[1] not in self.init.chat_commands.loc[self.data.channel_id, "chat_command"]:
-            self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[1]] = sp_chat[2:]
+            if len(sp_chat) == 2:
+                save_text = " "
+            else:
+                save_text = " ".join(sp_chat[2:])
+
+            self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
             await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
             await self._send(f"{sp_chat[1]}(이)가 추가 되었습니다.")
         else:
