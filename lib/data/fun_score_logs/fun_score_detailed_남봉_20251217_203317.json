@@ -1,0 +1,4022 @@
+{
+  "channel_id": "nambong94",
+  "channel_name": "남봉",
+  "save_timestamp": "2025-12-17T20:33:17.923745",
+  "total_logs": 101,
+  "logs": [
+    {
+      "timestamp": "2025-12-17T20:03:22.922421",
+      "fun_score": 5.303847424534587,
+      "test_fun_score": 0.10004022141591286,
+      "score_components": {
+        "chat_spike_score": 0.6036832649416848,
+        "reaction_score": 0.10004022141591286,
+        "test_reaction_score": 0.10004022141591286,
+        "diversity_score": 50.021778888860545,
+        "viewer_trend_score": 0,
+        "final_score": 5.303847424534587,
+        "baseline_chat_count": 10.0,
+        "baseline_viewer_count": 100.0,
+        "baseline_threshold": 15,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 4,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:18",
+      "comment_after_openDate": "00:00:18",
+      "chat_context": [
+        "molji: 봉하",
+        "9yeom: ㅂㄹ",
+        "우주 비행: ㅎㅇ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:03:28.018744",
+      "fun_score": 4.175861404644832,
+      "test_fun_score": 0.10031061042635918,
+      "score_components": {
+        "chat_spike_score": 0.7388331733625203,
+        "reaction_score": 0.10031061042635918,
+        "test_reaction_score": 0.10031061042635918,
+        "diversity_score": 38.1329329350379,
+        "viewer_trend_score": 0,
+        "final_score": 4.175861404644832,
+        "baseline_chat_count": 9.93294,
+        "baseline_viewer_count": 99.08032,
+        "baseline_threshold": 14.90711085832704,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 4,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:23",
+      "comment_after_openDate": "00:00:23",
+      "chat_context": [
+        "molji: 봉하",
+        "9yeom: ㅂㄹ",
+        "우주 비행: ㅎㅇ",
+        "9yeom: 봉하 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:03:33.118048",
+      "fun_score": 3.5304673745506445,
+      "test_fun_score": 0.10054323945138866,
+      "score_components": {
+        "chat_spike_score": 0.9060181832621911,
+        "reaction_score": 0.10054323945138866,
+        "test_reaction_score": 0.10054323945138866,
+        "diversity_score": 30.925962202472416,
+        "viewer_trend_score": 0,
+        "final_score": 3.5304673745506445,
+        "baseline_chat_count": 9.8761024348,
+        "baseline_viewer_count": 98.1694505344,
+        "baseline_threshold": 14.804305488560765,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 11,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:28",
+      "comment_after_openDate": "00:00:28",
+      "chat_context": [
+        "molji: 봉하",
+        "9yeom: ㅂㄹ",
+        "우주 비행: ㅎㅇ",
+        "9yeom: 봉하 봉하",
+        "우주 비행: 1승이라도 해보자 오늘"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:03:38.119243",
+      "fun_score": 3.5316989409508346,
+      "test_fun_score": 0.10073685413908198,
+      "score_components": {
+        "chat_spike_score": 0.9086259210263742,
+        "reaction_score": 0.10073685413908198,
+        "test_reaction_score": 0.10073685413908198,
+        "diversity_score": 30.925962202472416,
+        "viewer_trend_score": 0,
+        "final_score": 3.5316989409508346,
+        "baseline_chat_count": 9.829389373474616,
+        "baseline_viewer_count": 97.33436719828045,
+        "baseline_threshold": 14.696302119428548,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 11,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:33",
+      "comment_after_openDate": "00:00:33",
+      "chat_context": [
+        "molji: 봉하",
+        "9yeom: ㅂㄹ",
+        "우주 비행: ㅎㅇ",
+        "9yeom: 봉하 봉하",
+        "우주 비행: 1승이라도 해보자 오늘"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:03:43.127432",
+      "fun_score": 3.5329337746240053,
+      "test_fun_score": 0.10093080903928033,
+      "score_components": {
+        "chat_spike_score": 0.911240692588843,
+        "reaction_score": 0.10093080903928033,
+        "test_reaction_score": 0.10093080903928033,
+        "diversity_score": 30.925962202472416,
+        "viewer_trend_score": 0,
+        "final_score": 3.5329337746240053,
+        "baseline_chat_count": 9.783123823276728,
+        "baseline_viewer_count": 96.50728396052091,
+        "baseline_threshold": 14.589345220978732,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 22,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:38",
+      "comment_after_openDate": "00:00:38",
+      "chat_context": [
+        "molji: 봉하",
+        "9yeom: ㅂㄹ",
+        "우주 비행: ㅎㅇ",
+        "9yeom: 봉하 봉하",
+        "우주 비행: 1승이라도 해보자 오늘"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:03:48.439025",
+      "fun_score": 3.032426120723462,
+      "test_fun_score": 0.08235642656837668,
+      "score_components": {
+        "chat_spike_score": 0.9138623938749736,
+        "reaction_score": 0.08235642656837668,
+        "test_reaction_score": 0.08235642656837668,
+        "diversity_score": 25.964811155092107,
+        "viewer_trend_score": 0,
+        "final_score": 3.032426120723462,
+        "baseline_chat_count": 9.737301497049737,
+        "baseline_viewer_count": 95.79350418017911,
+        "baseline_threshold": 14.483424799322652,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 22,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:00:43",
+      "comment_after_openDate": "00:00:43",
+      "chat_context": [
+        "9yeom: ㅂㄹ",
+        "우주 비행: ㅎㅇ",
+        "9yeom: 봉하 봉하",
+        "우주 비행: 1승이라도 해보자 오늘"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:03:54.128048",
+      "fun_score": 3.9034099821895065,
+      "test_fun_score": 0.13815103169603662,
+      "score_components": {
+        "chat_spike_score": 0.9170498941043178,
+        "reaction_score": 0.13815103169603662,
+        "test_reaction_score": 0.13815103169603662,
+        "diversity_score": 34.49292220333752,
+        "viewer_trend_score": 0,
+        "final_score": 3.9034099821895065,
+        "baseline_chat_count": 9.682338148708,
+        "baseline_viewer_count": 95.08656241013298,
+        "baseline_threshold": 14.37372423198167,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 30,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:49",
+      "comment_after_openDate": "00:00:49",
+      "chat_context": [
+        "9yeom: 봉하 봉하",
+        "우주 비행: 1승이라도 해보자 오늘",
+        "9yeom: 오늘도 1승만 해보자"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:03:59.225108",
+      "fun_score": 5.38204753028497,
+      "test_fun_score": 0.1388169337577142,
+      "score_components": {
+        "chat_spike_score": 0.7485931472260501,
+        "reaction_score": 0.1388169337577142,
+        "test_reaction_score": 0.1388169337577142,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.38204753028497,
+        "baseline_chat_count": 9.618321349243379,
+        "baseline_viewer_count": 94.46303314224392,
+        "baseline_threshold": 14.273418621468661,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 30,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:54",
+      "comment_after_openDate": "00:00:54",
+      "chat_context": [
+        "우주 비행: 1승이라도 해보자 오늘",
+        "9yeom: 오늘도 1승만 해보자"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:06.048101",
+      "fun_score": 5.316127122700608,
+      "test_fun_score": 0.13959100399079716,
+      "score_components": {
+        "chat_spike_score": 0.6094440477852635,
+        "reaction_score": 0.13959100399079716,
+        "test_reaction_score": 0.13959100399079716,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.316127122700608,
+        "baseline_chat_count": 9.545337830717626,
+        "baseline_viewer_count": 93.84547728474122,
+        "baseline_threshold": 14.18823928641512,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 30,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:01",
+      "comment_after_openDate": "00:01:01",
+      "chat_context": [
+        "9yeom: 오늘도 1승만 해보자"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:11.129179",
+      "fun_score": 5.358618355738449,
+      "test_fun_score": 0.17350904601697834,
+      "score_components": {
+        "chat_spike_score": 0.6105463039554685,
+        "reaction_score": 0.17350904601697834,
+        "test_reaction_score": 0.17350904601697834,
+        "diversity_score": 50.31819805153395,
+        "viewer_trend_score": 0,
+        "final_score": 5.358618355738449,
+        "baseline_chat_count": 9.46347349429935,
+        "baseline_viewer_count": 93.2338376123534,
+        "baseline_threshold": 14.103244451886734,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 30,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:01:06",
+      "comment_after_openDate": "00:01:06",
+      "chat_context": [
+        "9yeom: 오늘도 1승만 해보자",
+        "모냥밍: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:16.136197",
+      "fun_score": 5.405116504146975,
+      "test_fun_score": 0.21620000226567873,
+      "score_components": {
+        "chat_spike_score": 0.6115263966438822,
+        "reaction_score": 0.21620000226567873,
+        "test_reaction_score": 0.21620000226567873,
+        "diversity_score": 50.65069624977525,
+        "viewer_trend_score": 0,
+        "final_score": 5.405116504146975,
+        "baseline_chat_count": 9.391973418223962,
+        "baseline_viewer_count": 92.62805744802705,
+        "baseline_threshold": 14.019470933885634,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:01:11",
+      "comment_after_openDate": "00:01:11",
+      "chat_context": [
+        "9yeom: 오늘도 1승만 해보자",
+        "모냥밍: 봉하",
+        "도트5: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:21.864282",
+      "fun_score": 5.253421236910091,
+      "test_fun_score": 0.10295050937653692,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.10295050937653692,
+        "test_reaction_score": 0.10295050937653692,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.253421236910091,
+        "baseline_chat_count": 9.330738312877378,
+        "baseline_viewer_count": 92.13346065767495,
+        "baseline_threshold": 13.936945418448738,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:01:17",
+      "comment_after_openDate": "00:01:17",
+      "chat_context": [
+        "모냥밍: 봉하",
+        "도트5: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:26.924092",
+      "fun_score": 5.375005170619953,
+      "test_fun_score": 0.19734226343245037,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.19734226343245037,
+        "test_reaction_score": 0.19734226343245037,
+        "diversity_score": 50.93266407493088,
+        "viewer_trend_score": 0,
+        "final_score": 5.375005170619953,
+        "baseline_chat_count": 9.260509839840012,
+        "baseline_viewer_count": 91.64360210457441,
+        "baseline_threshold": 13.853757256789597,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3425790498964907,
+        "test_score_difference": 0.1149858368640737,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:01:22",
+      "comment_after_openDate": "00:01:22",
+      "chat_context": [
+        "모냥밍: 봉하",
+        "도트5: 봉하",
+        "료햄: 봉하",
+        "장독대나무지개: 봉하",
+        "보보17: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:33.621851",
+      "fun_score": 5.331969854655228,
+      "test_fun_score": 0.1982869842339555,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.1982869842339555,
+        "test_reaction_score": 0.1982869842339555,
+        "diversity_score": 50.49947675287912,
+        "viewer_trend_score": 0,
+        "final_score": 5.331969854655228,
+        "baseline_chat_count": 9.219694155574345,
+        "baseline_viewer_count": 91.15843639641258,
+        "baseline_threshold": 13.77253081180409,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.2995437339317664,
+        "test_score_difference": 0.11593055766557882,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:01:29",
+      "comment_after_openDate": "00:01:29",
+      "chat_context": [
+        "도트5: 봉하",
+        "료햄: 봉하",
+        "장독대나무지개: 봉하",
+        "보보17: 봉하",
+        "들숨날숨해: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:42.936890",
+      "fun_score": 5.332254393855636,
+      "test_fun_score": 0.1992354482353134,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.1992354482353134,
+        "test_reaction_score": 0.1992354482353134,
+        "diversity_score": 50.49947675287912,
+        "viewer_trend_score": 0,
+        "final_score": 5.332254393855636,
+        "baseline_chat_count": 9.179269485563943,
+        "baseline_viewer_count": 90.67791857573495,
+        "baseline_threshold": 13.691670237834604,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.299828273132174,
+        "test_score_difference": 0.11687902166693671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:01:38",
+      "comment_after_openDate": "00:01:38",
+      "chat_context": [
+        "도트5: 봉하",
+        "료햄: 봉하",
+        "장독대나무지개: 봉하",
+        "보보17: 봉하",
+        "들숨날숨해: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:48.138682",
+      "fun_score": 5.379983382794703,
+      "test_fun_score": 0.20018762263984974,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.20018762263984974,
+        "test_reaction_score": 0.20018762263984974,
+        "diversity_score": 50.97391011905617,
+        "viewer_trend_score": 0,
+        "final_score": 5.379983382794703,
+        "baseline_chat_count": 9.13923208389224,
+        "baseline_viewer_count": 90.2020041157794,
+        "baseline_threshold": 13.611587034049284,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.347557262071241,
+        "test_score_difference": 0.11783119607147306,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:01:43",
+      "comment_after_openDate": "00:01:43",
+      "chat_context": [
+        "료햄: 봉하",
+        "장독대나무지개: 봉하",
+        "보보17: 봉하",
+        "들숨날숨해: 봉하",
+        "지구야그럼목성: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:53.143719",
+      "fun_score": 5.389383666876644,
+      "test_fun_score": 0.16148730110915704,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.16148730110915704,
+        "test_reaction_score": 0.16148730110915704,
+        "diversity_score": 51.18401392446767,
+        "viewer_trend_score": 0,
+        "final_score": 5.389383666876644,
+        "baseline_chat_count": 9.099578240528553,
+        "baseline_viewer_count": 89.73064891635023,
+        "baseline_threshold": 13.532728271070264,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.356957546153182,
+        "test_score_difference": 0.07913087454078037,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:01:48",
+      "comment_after_openDate": "00:01:48",
+      "chat_context": [
+        "장독대나무지개: 봉하",
+        "보보17: 봉하",
+        "들숨날숨해: 봉하",
+        "지구야그럼목성: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:04:58.147680",
+      "fun_score": 5.247630824994114,
+      "test_fun_score": 0.08364913632328039,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08364913632328039,
+        "test_reaction_score": 0.08364913632328039,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.247630824994114,
+        "baseline_chat_count": 9.050724280984289,
+        "baseline_viewer_count": 89.26380929973159,
+        "baseline_threshold": 13.454715029762088,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.215204704270652,
+        "test_score_difference": 0.001292709754903712,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:01:53",
+      "comment_after_openDate": "00:01:53",
+      "chat_context": [
+        "지구야그럼목성: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:05:03.153863",
+      "fun_score": 5.2476785112986555,
+      "test_fun_score": 0.0838080906717526,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.0838080906717526,
+        "test_reaction_score": 0.0838080906717526,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2476785112986555,
+        "baseline_chat_count": 8.973598342372458,
+        "baseline_viewer_count": 88.80144200664016,
+        "baseline_threshold": 13.37609116308041,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.344268529109149,
+        "test_score_difference": 0.00015895434847221224,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:01:58",
+      "comment_after_openDate": "00:01:58",
+      "chat_context": [
+        "지구야그럼목성: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:05:34.822893",
+      "fun_score": 5.399591411518152,
+      "test_fun_score": 0.13160210691122384,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.13160210691122384,
+        "test_reaction_score": 0.13160210691122384,
+        "diversity_score": 51.37574695347654,
+        "viewer_trend_score": 0,
+        "final_score": 5.399591411518152,
+        "baseline_chat_count": 8.89721127025253,
+        "baseline_viewer_count": 88.34350419221654,
+        "baseline_threshold": 13.298220969876342,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.1519605865240381,
+        "test_score_difference": 0.047952970587943455,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:02:30",
+      "comment_after_openDate": "00:02:30",
+      "chat_context": [
+        "벚꽃화분: 봉하",
+        "봉늘이: 봉하",
+        "l여나l: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:05:39.899793",
+      "fun_score": 5.454355480568761,
+      "test_fun_score": 0.13217008812266687,
+      "score_components": {
+        "chat_spike_score": 0.619675206659858,
+        "reaction_score": 0.13217008812266687,
+        "test_reaction_score": 0.13217008812266687,
+        "diversity_score": 51.358506111350245,
+        "viewer_trend_score": 0,
+        "final_score": 5.454355480568761,
+        "baseline_chat_count": 8.840715986283511,
+        "baseline_viewer_count": 88.59887342205509,
+        "baseline_threshold": 13.22255209870727,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.20672465557464736,
+        "test_score_difference": 0.04852095179938648,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:02:35",
+      "comment_after_openDate": "00:02:35",
+      "chat_context": [
+        "벚꽃화분: 봉하",
+        "봉늘이: 봉하",
+        "l여나l: 봉하",
+        "정씨가문막내: 남봉님 오늘 화이팅입니당"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:05:44.926550",
+      "fun_score": 5.547503759880539,
+      "test_fun_score": 0.16648673922930504,
+      "score_components": {
+        "chat_spike_score": 0.7782220103515527,
+        "reaction_score": 0.16648673922930504,
+        "test_reaction_score": 0.16648673922930504,
+        "diversity_score": 51.47357833453548,
+        "viewer_trend_score": 0,
+        "final_score": 5.547503759880539,
+        "baseline_chat_count": 8.794341927134916,
+        "baseline_viewer_count": 88.8517962146718,
+        "baseline_threshold": 13.148132775105502,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.29987293488642486,
+        "test_score_difference": 0.08283760290602465,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:02:40",
+      "comment_after_openDate": "00:02:40",
+      "chat_context": [
+        "벚꽃화분: 봉하",
+        "봉늘이: 봉하",
+        "l여나l: 봉하",
+        "정씨가문막내: 남봉님 오늘 화이팅입니당",
+        "보보17: {:d_55:}{:d_55:}{:d_55:}{:d_55:}",
+        "라펜: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:05:50.741809",
+      "fun_score": 5.508096160539903,
+      "test_fun_score": 0.13292004588830547,
+      "score_components": {
+        "chat_spike_score": 0.7792992986116654,
+        "reaction_score": 0.13292004588830547,
+        "test_reaction_score": 0.13292004588830547,
+        "diversity_score": 51.17535462398162,
+        "viewer_trend_score": 0,
+        "final_score": 5.508096160539903,
+        "baseline_chat_count": 8.767572131472964,
+        "baseline_viewer_count": 89.10229600693523,
+        "baseline_threshold": 13.075318749139647,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.2604653355457893,
+        "test_score_difference": 0.049270909565025084,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:02:46",
+      "comment_after_openDate": "00:02:46",
+      "chat_context": [
+        "봉늘이: 봉하",
+        "l여나l: 봉하",
+        "정씨가문막내: 남봉님 오늘 화이팅입니당",
+        "보보17: {:d_55:}{:d_55:}{:d_55:}{:d_55:}",
+        "라펜: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:05:55.830209",
+      "fun_score": 5.508868446477784,
+      "test_fun_score": 0.13329633923936393,
+      "score_components": {
+        "chat_spike_score": 0.7807646273506943,
+        "reaction_score": 0.13329633923936393,
+        "test_reaction_score": 0.13329633923936393,
+        "diversity_score": 51.17535462398162,
+        "viewer_trend_score": 0,
+        "final_score": 5.508868446477784,
+        "baseline_chat_count": 8.731478790453453,
+        "baseline_viewer_count": 89.35039601118879,
+        "baseline_threshold": 13.002824756740862,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.26123762148367025,
+        "test_score_difference": 0.049647202916083544,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:02:51",
+      "comment_after_openDate": "00:02:51",
+      "chat_context": [
+        "봉늘이: 봉하",
+        "l여나l: 봉하",
+        "정씨가문막내: 남봉님 오늘 화이팅입니당",
+        "보보17: {:d_55:}{:d_55:}{:d_55:}{:d_55:}",
+        "라펜: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:01.020458",
+      "fun_score": 5.5096412042518645,
+      "test_fun_score": 0.1336731690467132,
+      "score_components": {
+        "chat_spike_score": 0.782230646977085,
+        "reaction_score": 0.1336731690467132,
+        "test_reaction_score": 0.1336731690467132,
+        "diversity_score": 51.17535462398162,
+        "viewer_trend_score": 0,
+        "final_score": 5.5096412042518645,
+        "baseline_chat_count": 8.695731223640909,
+        "baseline_viewer_count": 89.5961192174016,
+        "baseline_threshold": 12.931032655288542,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.2620103792577506,
+        "test_score_difference": 0.05002403272343281,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:02:56",
+      "comment_after_openDate": "00:02:56",
+      "chat_context": [
+        "봉늘이: 봉하",
+        "l여나l: 봉하",
+        "정씨가문막내: 남봉님 오늘 화이팅입니당",
+        "보보17: {:d_55:}{:d_55:}{:d_55:}{:d_55:}",
+        "라펜: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:06.326204",
+      "fun_score": 5.411578728665413,
+      "test_fun_score": 0.08448620873261078,
+      "score_components": {
+        "chat_spike_score": 0.6225929974836595,
+        "reaction_score": 0.08448620873261078,
+        "test_reaction_score": 0.08448620873261078,
+        "diversity_score": 51.06066017177982,
+        "viewer_trend_score": 0,
+        "final_score": 5.411578728665413,
+        "baseline_chat_count": 8.660326118518428,
+        "baseline_viewer_count": 89.83948839529887,
+        "baseline_threshold": 12.859935725187611,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.16394790367129897,
+        "test_score_difference": 0.0008370724093303972,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:03:01",
+      "comment_after_openDate": "00:03:01",
+      "chat_context": [
+        "보보17: {:d_55:}{:d_55:}{:d_55:}{:d_55:}",
+        "라펜: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:11.421140",
+      "fun_score": 5.412101337370991,
+      "test_fun_score": 0.08463108869935264,
+      "score_components": {
+        "chat_spike_score": 0.6236577635182275,
+        "reaction_score": 0.08463108869935264,
+        "test_reaction_score": 0.08463108869935264,
+        "diversity_score": 51.06066017177982,
+        "viewer_trend_score": 0,
+        "final_score": 5.412101337370991,
+        "baseline_chat_count": 8.596520194303022,
+        "baseline_viewer_count": 90.0805260964719,
+        "baseline_threshold": 12.78858046516093,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.1644705123768775,
+        "test_score_difference": 0.000981952376072251,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:03:06",
+      "comment_after_openDate": "00:03:06",
+      "chat_context": [
+        "보보17: {:d_55:}{:d_55:}{:d_55:}{:d_55:}",
+        "라펜: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:16.433307",
+      "fun_score": 5.2479691740648065,
+      "test_fun_score": 0.08477696655892314,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08477696655892314,
+        "test_reaction_score": 0.08477696655892314,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2479691740648065,
+        "baseline_chat_count": 8.533325530841598,
+        "baseline_viewer_count": 90.28093465646769,
+        "baseline_threshold": 12.717913795116703,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00033834907069252296,
+        "test_score_difference": 0.0011278302356427516,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:03:11",
+      "comment_after_openDate": "00:03:11",
+      "chat_context": [
+        "힙합하는 손심바 11012: ㅂㅎ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:21.447947",
+      "fun_score": 5.266947543955691,
+      "test_fun_score": 0.13625308650876,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.13625308650876,
+        "test_reaction_score": 0.13625308650876,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.266947543955691,
+        "baseline_chat_count": 8.461156272256135,
+        "baseline_viewer_count": 90.47942330245873,
+        "baseline_threshold": 12.646351725647024,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.019316718961577273,
+        "test_score_difference": 0.052603950185479614,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:03:16",
+      "comment_after_openDate": "00:03:16",
+      "chat_context": [
+        "힙합하는 손심바 11012: ㅂㅎ",
+        "saay: ㅎㅇㅌ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:26.619474",
+      "fun_score": 5.267161567573347,
+      "test_fun_score": 0.1369664985676152,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.1369664985676152,
+        "test_reaction_score": 0.1369664985676152,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.267161567573347,
+        "baseline_chat_count": 8.39925839516792,
+        "baseline_viewer_count": 90.67601042722116,
+        "baseline_threshold": 12.575657033586422,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.019530742579233262,
+        "test_score_difference": 0.05331736224433481,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:03:22",
+      "comment_after_openDate": "00:03:22",
+      "chat_context": [
+        "힙합하는 손심바 11012: ㅂㅎ",
+        "saay: ㅎㅇㅌ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:31.861179",
+      "fun_score": 5.267377801347704,
+      "test_fun_score": 0.13768727781547263,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.13768727781547263,
+        "test_reaction_score": 0.13768727781547263,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.267377801347704,
+        "baseline_chat_count": 8.33795349974221,
+        "baseline_viewer_count": 90.87071424732837,
+        "baseline_threshold": 12.505641647022017,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.019699290049048912,
+        "test_score_difference": 0.05387918714372003,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:03:27",
+      "comment_after_openDate": "00:03:27",
+      "chat_context": [
+        "힙합하는 손심바 11012: ㅂㅎ",
+        "saay: ㅎㅇㅌ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:36.929711",
+      "fun_score": 5.267596266488376,
+      "test_fun_score": 0.13841549495104652,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.13841549495104652,
+        "test_reaction_score": 0.13841549495104652,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.267596266488376,
+        "baseline_chat_count": 8.277235905214678,
+        "baseline_viewer_count": 91.06355280483895,
+        "baseline_threshold": 12.436299079380458,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.01962709242356997,
+        "test_score_difference": 0.053929286218435735,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:03:32",
+      "comment_after_openDate": "00:03:32",
+      "chat_context": [
+        "힙합하는 손심바 11012: ㅂㅎ",
+        "saay: ㅎㅇㅌ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:45.825789",
+      "fun_score": 5.255267780202553,
+      "test_fun_score": 0.10910565368474334,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.10910565368474334,
+        "test_reaction_score": 0.10910565368474334,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.255267780202553,
+        "baseline_chat_count": 8.21709998524272,
+        "baseline_viewer_count": 91.25454396896859,
+        "baseline_threshold": 12.36762290643295,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007298606137746688,
+        "test_score_difference": 0.024619444952132558,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:03:41",
+      "comment_after_openDate": "00:03:41",
+      "chat_context": [
+        "saay: ㅎㅇㅌ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:50.919845",
+      "fun_score": 5.248252546568829,
+      "test_fun_score": 0.08572154157233176,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08572154157233176,
+        "test_reaction_score": 0.08572154157233176,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.248252546568829,
+        "baseline_chat_count": 8.147960167384095,
+        "baseline_viewer_count": 91.44370543774586,
+        "baseline_threshold": 12.299486544323663,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0002833725040227719,
+        "test_score_difference": 0.001235332839720979,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:03:46",
+      "comment_after_openDate": "00:03:46",
+      "chat_context": [
+        "악뮤S2: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:06:56.022087",
+      "fun_score": 5.248306079578794,
+      "test_fun_score": 0.08589998493888068,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08589998493888068,
+        "test_reaction_score": 0.08589998493888068,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.248306079578794,
+        "baseline_chat_count": 8.079482708980555,
+        "baseline_viewer_count": 91.63105473965224,
+        "baseline_threshold": 12.231935722625172,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0003369055139872401,
+        "test_score_difference": 0.0014137762062698955,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:03:51",
+      "comment_after_openDate": "00:03:51",
+      "chat_context": [
+        "악뮤S2: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:07:01.038597",
+      "fun_score": 5.255678686739093,
+      "test_fun_score": 0.11047534213987786,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.11047534213987786,
+        "test_reaction_score": 0.11047534213987786,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.255678686739093,
+        "baseline_chat_count": 8.01166126462852,
+        "baseline_viewer_count": 91.81660923524636,
+        "baseline_threshold": 12.165032550644787,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007709512674286323,
+        "test_score_difference": 0.02598913340726708,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:03:56",
+      "comment_after_openDate": "00:03:56",
+      "chat_context": [
+        "악뮤S2: 봉하",
+        "하타64: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:07:06.217851",
+      "fun_score": 5.255798647453395,
+      "test_fun_score": 0.11087521118755084,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.11087521118755084,
+        "test_reaction_score": 0.11087521118755084,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.255798647453395,
+        "baseline_chat_count": 7.954069549713379,
+        "baseline_viewer_count": 92.0003861187727,
+        "baseline_threshold": 12.09884094062857,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007829473388588859,
+        "test_score_difference": 0.026389002454940053,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:04:01",
+      "comment_after_openDate": "00:04:01",
+      "chat_context": [
+        "악뮤S2: 봉하",
+        "하타64: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:07:11.636391",
+      "fun_score": 5.2559196206777266,
+      "test_fun_score": 0.11127845526865741,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.11127845526865741,
+        "test_reaction_score": 0.11127845526865741,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2559196206777266,
+        "baseline_chat_count": 7.897029563427125,
+        "baseline_viewer_count": 92.18240241975485,
+        "baseline_threshold": 12.033284595459952,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007950446612920103,
+        "test_score_difference": 0.02679224653604663,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 129,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:04:07",
+      "comment_after_openDate": "00:04:07",
+      "chat_context": [
+        "악뮤S2: 봉하",
+        "하타64: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:07:16.652364",
+      "fun_score": 5.248501139143721,
+      "test_fun_score": 0.08655018348863522,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08655018348863522,
+        "test_reaction_score": 0.08655018348863522,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.248501139143721,
+        "baseline_chat_count": 7.840536020209494,
+        "baseline_viewer_count": 92.5351150045736,
+        "baseline_threshold": 11.968357439001537,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0005319650789141761,
+        "test_score_difference": 0.00191909478928258,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 129,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:04:12",
+      "comment_after_openDate": "00:04:12",
+      "chat_context": [
+        "하타64: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:07:21.724456",
+      "fun_score": 5.248556999936273,
+      "test_fun_score": 0.08673638613047707,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08673638613047707,
+        "test_reaction_score": 0.08673638613047707,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.248556999936273,
+        "baseline_chat_count": 7.775003685135887,
+        "baseline_viewer_count": 92.88444860282978,
+        "baseline_threshold": 11.903981215648898,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0005878258714666629,
+        "test_score_difference": 0.001959419571553933,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 129,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:04:17",
+      "comment_after_openDate": "00:04:17",
+      "chat_context": [
+        "하타64: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:08:12.526617",
+      "fun_score": 5.308350582171281,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.640510165207316,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.308350582171281,
+        "baseline_chat_count": 7.710099149832284,
+        "baseline_viewer_count": 93.23043558521466,
+        "baseline_threshold": 11.84022225166237,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.06009803560245164,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 129,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:07",
+      "comment_after_openDate": "00:05:07",
+      "chat_context": [
+        "9yeom: 곰파 외워왔구나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:08:17.527981",
+      "fun_score": 5.308977855329035,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6419041055578805,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.308977855329035,
+        "baseline_chat_count": 7.64581639997689,
+        "baseline_viewer_count": 93.57310801230831,
+        "baseline_threshold": 11.777646921068646,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.06072530876020554,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 136,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:12",
+      "comment_after_openDate": "00:05:12",
+      "chat_context": [
+        "9yeom: 곰파 외워왔구나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:08:22.533662",
+      "fun_score": 5.309610978440875,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6433110458064152,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.309610978440875,
+        "baseline_chat_count": 7.5821494788651105,
+        "baseline_viewer_count": 93.9795576375504,
+        "baseline_threshold": 11.71567707141886,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.061358431872045927,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 136,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:18",
+      "comment_after_openDate": "00:05:18",
+      "chat_context": [
+        "9yeom: 곰파 외워왔구나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:08:27.548583",
+      "fun_score": 5.310250002430487,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6447310991166627,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.310250002430487,
+        "baseline_chat_count": 7.519092486857582,
+        "baseline_viewer_count": 94.38211347538267,
+        "baseline_threshold": 11.65430695824813,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.06199745586165761,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 136,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:23",
+      "comment_after_openDate": "00:05:23",
+      "chat_context": [
+        "9yeom: 곰파 외워왔구나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:08:32.623116",
+      "fun_score": 5.310894978572277,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.646164379431752,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.310894978572277,
+        "baseline_chat_count": 7.456639580833486,
+        "baseline_viewer_count": 94.7808128282885,
+        "baseline_threshold": 11.593530892611398,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.06264243200344755,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 136,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:28",
+      "comment_after_openDate": "00:05:28",
+      "chat_context": [
+        "9yeom: 곰파 외워왔구나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:08:37.628055",
+      "fun_score": 5.311545958491428,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6476110014743104,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.311545958491428,
+        "baseline_chat_count": 7.3947849736491005,
+        "baseline_viewer_count": 95.1756926413935,
+        "baseline_threshold": 11.533343240554903,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.06329341192259896,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 136,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:33",
+      "comment_after_openDate": "00:05:33",
+      "chat_context": [
+        "9yeom: 곰파 외워왔구나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:09:02.750225",
+      "fun_score": 5.248962907142328,
+      "test_fun_score": 0.0880894101506613,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.0880894101506613,
+        "test_reaction_score": 0.0880894101506613,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.248962907142328,
+        "baseline_chat_count": 7.333522933601541,
+        "baseline_viewer_count": 95.56678950588895,
+        "baseline_threshold": 11.473738422592733,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0006568275635343568,
+        "test_score_difference": 0.02101938405736567,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 136,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:05:58",
+      "comment_after_openDate": "00:05:58",
+      "chat_context": [
+        "Hong Sik: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:09:07.752411",
+      "fun_score": 5.249023075900265,
+      "test_fun_score": 0.08828997267711841,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08828997267711841,
+        "test_reaction_score": 0.08828997267711841,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.249023075900265,
+        "baseline_chat_count": 7.272847783897638,
+        "baseline_viewer_count": 95.95413966242253,
+        "baseline_threshold": 11.414105073154719,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0005219367565443278,
+        "test_score_difference": 0.021219946583822785,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 136,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:06:03",
+      "comment_after_openDate": "00:06:03",
+      "chat_context": [
+        "Hong Sik: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:09:12.755533",
+      "fun_score": 5.249083804419306,
+      "test_fun_score": 0.08849240107392016,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08849240107392016,
+        "test_reaction_score": 0.08849240107392016,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.249083804419306,
+        "baseline_chat_count": 7.212753902127898,
+        "baseline_viewer_count": 96.33777900445652,
+        "baseline_threshold": 11.355043587621022,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0005826652755853701,
+        "test_score_difference": 0.021422374980624534,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:06:08",
+      "comment_after_openDate": "00:06:08",
+      "chat_context": [
+        "Hong Sik: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:09:18.543235",
+      "fun_score": 5.249145097532556,
+      "test_fun_score": 0.08869671145142033,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08869671145142033,
+        "test_reaction_score": 0.08869671145142033,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.249145097532556,
+        "baseline_chat_count": 7.1532357197455125,
+        "baseline_viewer_count": 96.79438308159382,
+        "baseline_threshold": 11.29654849289795,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0006439583888351308,
+        "test_score_difference": 0.021626685358124703,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:06:14",
+      "comment_after_openDate": "00:06:14",
+      "chat_context": [
+        "Hong Sik: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:09:23.830196",
+      "fun_score": 5.249206960105325,
+      "test_fun_score": 0.08890292002731862,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.08890292002731862,
+        "test_reaction_score": 0.08890292002731862,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.249206960105325,
+        "baseline_chat_count": 7.09428772155035,
+        "baseline_viewer_count": 97.24661289167214,
+        "baseline_threshold": 11.238614368370348,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0007058209616044309,
+        "test_score_difference": 0.02183289393402299,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:06:19",
+      "comment_after_openDate": "00:06:19",
+      "chat_context": [
+        "Hong Sik: 봉하"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:09:59.317363",
+      "fun_score": 5.315580852517936,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6565774326443263,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.315580852517936,
+        "baseline_chat_count": 7.035904445177897,
+        "baseline_viewer_count": 97.69451034016993,
+        "baseline_threshold": 11.181235845399168,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.06702385258166288,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:06:54",
+      "comment_after_openDate": "00:06:54",
+      "chat_context": [
+        "9yeom: 스크림 하다왔구나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:10:04.744429",
+      "fun_score": 2.952390115496129,
+      "test_fun_score": 0.18278297295503476,
+      "score_components": {
+        "chat_spike_score": 0.8755993104526343,
+        "reaction_score": 0.18278297295503476,
+        "test_reaction_score": 0.18278297295503476,
+        "diversity_score": 25.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 2.952390115496129,
+        "baseline_chat_count": 6.978080480593092,
+        "baseline_viewer_count": 98.1381169311111,
+        "baseline_threshold": 11.125042870567365,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.11571294686173914,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:07:00",
+      "comment_after_openDate": "00:07:00",
+      "chat_context": [
+        "9yeom: 스크림 하다왔구나",
+        "9yeom: 오늘 힘내세요~"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:10:26.826873",
+      "fun_score": 5.3519514391833285,
+      "test_fun_score": 0.18404790586257996,
+      "score_components": {
+        "chat_spike_score": 0.6594157053878983,
+        "reaction_score": 0.18404790586257996,
+        "test_reaction_score": 0.18404790586257996,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3519514391833285,
+        "baseline_chat_count": 6.93039046958901,
+        "baseline_viewer_count": 98.57747377091106,
+        "baseline_threshold": 11.046748857173782,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3995613236871995,
+        "test_score_difference": 0.11697787976928434,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:07:22",
+      "comment_after_openDate": "00:07:22",
+      "chat_context": [
+        "9yeom: 오늘 힘내세요~"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:13:03.859076",
+      "fun_score": 5.3175643772549535,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6609852653932553,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3175643772549535,
+        "baseline_chat_count": 6.873577328890347,
+        "baseline_viewer_count": 99.01262157218572,
+        "baseline_threshold": 10.992192697909433,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3651742617588245,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 154,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:09:59",
+      "comment_after_openDate": "00:09:59",
+      "chat_context": [
+        "공자왈맹자왈: 또 선공일려나?"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:13:08.866280",
+      "fun_score": 5.426550604619873,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8874633977333729,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.426550604619873,
+        "baseline_chat_count": 6.817308458079577,
+        "baseline_viewer_count": 99.53940065752417,
+        "baseline_threshold": 10.937829758597562,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.474160489123744,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 172,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:10:04",
+      "comment_after_openDate": "00:10:04",
+      "chat_context": [
+        "공자왈맹자왈: 또 선공일려나?",
+        "장독대나무지개: 사실상 1등 결정전"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:13:14.264916",
+      "fun_score": 5.428143717468242,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8910036485075264,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.428143717468242,
+        "baseline_chat_count": 6.771158643051175,
+        "baseline_viewer_count": 100.23357319922509,
+        "baseline_threshold": 10.885031704302456,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.4757536019721127,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 172,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:10:09",
+      "comment_after_openDate": "00:10:09",
+      "chat_context": [
+        "공자왈맹자왈: 또 선공일려나?",
+        "장독대나무지개: 사실상 1등 결정전"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:13:19.326504",
+      "fun_score": 5.429749483091855,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8945720165599998,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.429749483091855,
+        "baseline_chat_count": 6.7254509432507446,
+        "baseline_viewer_count": 100.92109556797652,
+        "baseline_threshold": 10.832754717388584,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.4773593675957257,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 172,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:10:14",
+      "comment_after_openDate": "00:10:14",
+      "chat_context": [
+        "공자왈맹자왈: 또 선공일려나?",
+        "장독대나무지개: 사실상 1등 결정전"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:13:24.661688",
+      "fun_score": 5.431367964444771,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8981686417887029,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.431367964444771,
+        "baseline_chat_count": 6.680181123214402,
+        "baseline_viewer_count": 101.60203147243531,
+        "baseline_threshold": 10.78099392724402,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.478977848948642,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 172,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:10:20",
+      "comment_after_openDate": "00:10:20",
+      "chat_context": [
+        "공자왈맹자왈: 또 선공일려나?",
+        "장독대나무지개: 사실상 1등 결정전"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:13:29.668064",
+      "fun_score": 5.432999223984474,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.901793662988044,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.432999223984474,
+        "baseline_chat_count": 6.635344988054008,
+        "baseline_viewer_count": 102.27644401092938,
+        "baseline_threshold": 10.729744510520405,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.4806091084883453,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 172,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:10:25",
+      "comment_after_openDate": "00:10:25",
+      "chat_context": [
+        "공자왈맹자왈: 또 선공일려나?",
+        "장독대나무지개: 사실상 1등 결정전"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:13:34.817249",
+      "fun_score": 5.321286518142396,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6692566895875716,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.321286518142396,
+        "baseline_chat_count": 6.590938383068451,
+        "baseline_viewer_count": 102.94439567730468,
+        "baseline_threshold": 10.67900169067539,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3688964026462673,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 172,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:10:30",
+      "comment_after_openDate": "00:10:30",
+      "chat_context": [
+        "장독대나무지개: 사실상 1등 결정전"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:05.472052",
+      "fun_score": 5.322033681041131,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6709170515847613,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.322033681041131,
+        "baseline_chat_count": 6.537377193358655,
+        "baseline_viewer_count": 103.6059483667161,
+        "baseline_threshold": 10.627674779322524,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3696435655450023,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 183,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:00",
+      "comment_after_openDate": "00:13:00",
+      "chat_context": [
+        "ㅡ하비: {:d_49:}{:d_49:}{:d_49:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:10.472446",
+      "fun_score": 5.322787718602511,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6725926906100481,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.322787718602511,
+        "baseline_chat_count": 6.4843291198462785,
+        "baseline_viewer_count": 104.36654338136296,
+        "baseline_threshold": 10.576846737600988,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.370397603106382,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:05",
+      "comment_after_openDate": "00:13:05",
+      "chat_context": [
+        "ㅡ하비: {:d_49:}{:d_49:}{:d_49:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:15.473724",
+      "fun_score": 5.32354868833119,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6742837344515586,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.32354868833119,
+        "baseline_chat_count": 6.431789246878151,
+        "baseline_viewer_count": 105.1677518957695,
+        "baseline_threshold": 10.526512852198982,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.371158572835061,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:10",
+      "comment_after_openDate": "00:13:10",
+      "chat_context": [
+        "ㅡ하비: {:d_49:}{:d_49:}{:d_49:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:21.166439",
+      "fun_score": 5.324316648069535,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.675990311647882,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.324316648069535,
+        "baseline_chat_count": 6.379752705893058,
+        "baseline_viewer_count": 105.96128483260803,
+        "baseline_threshold": 10.47666845550913,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3719265325734065,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:16",
+      "comment_after_openDate": "00:13:16",
+      "chat_context": [
+        "ㅡ하비: {:d_49:}{:d_49:}{:d_49:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:26.230191",
+      "fun_score": 5.325091655995978,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6777125514844197,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.325091655995978,
+        "baseline_chat_count": 6.328214674970602,
+        "baseline_viewer_count": 106.74721572391164,
+        "baseline_threshold": 10.427308925193858,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007527278741024546,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:21",
+      "comment_after_openDate": "00:13:21",
+      "chat_context": [
+        "ㅡ하비: {:d_49:}{:d_49:}{:d_49:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:31.240097",
+      "fun_score": 5.325873770623263,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6794505839894981,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.325873770623263,
+        "baseline_chat_count": 6.277170378384383,
+        "baseline_viewer_count": 107.52561739727656,
+        "baseline_threshold": 10.378429683754943,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00830939336830916,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:26",
+      "comment_after_openDate": "00:13:26",
+      "chat_context": [
+        "리제저금통: 과연 강지형은 공식전에서 킬 데뷔를 할 것인가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:36.252953",
+      "fun_score": 5.326663050796585,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6812045399302126,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.326663050796585,
+        "baseline_chat_count": 6.226615086159461,
+        "baseline_viewer_count": 108.29656198261065,
+        "baseline_threshold": 10.33002619810714,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00537653265418836,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:31",
+      "comment_after_openDate": "00:13:31",
+      "chat_context": [
+        "리제저금통: 과연 강지형은 공식전에서 킬 데뷔를 할 것인가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:42.220863",
+      "fun_score": 5.3274595556916005,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6829745508080268,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3274595556916005,
+        "baseline_chat_count": 6.176544113634052,
+        "baseline_viewer_count": 109.06012091881725,
+        "baseline_threshold": 10.282093979155905,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0061730375492041745,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:37",
+      "comment_after_openDate": "00:13:37",
+      "chat_context": [
+        "리제저금통: 과연 강지형은 공식전에서 킬 데뷔를 할 것인가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:47.230479",
+      "fun_score": 5.328263344812333,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6847607488540978,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.328263344812333,
+        "baseline_chat_count": 6.126952821025437,
+        "baseline_viewer_count": 109.81636496041497,
+        "baseline_threshold": 10.234628581379116,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00697682666993682,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:42",
+      "comment_after_openDate": "00:13:42",
+      "chat_context": [
+        "리제저금통: 과연 강지형은 공식전에서 킬 데뷔를 할 것인가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:52.237467",
+      "fun_score": 5.329074477988939,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.686563267024335,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.329074477988939,
+        "baseline_chat_count": 6.077836613000013,
+        "baseline_viewer_count": 110.5653641840942,
+        "baseline_threshold": 10.187625602412806,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007787959846543124,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:47",
+      "comment_after_openDate": "00:13:47",
+      "chat_context": [
+        "리제저금통: 과연 강지형은 공식전에서 킬 데뷔를 할 것인가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:16:57.243824",
+      "fun_score": 5.329893015375371,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.688382238994183,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.329893015375371,
+        "baseline_chat_count": 6.029190938247472,
+        "baseline_viewer_count": 111.30718799521057,
+        "baseline_threshold": 10.141080682640824,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00860649723297513,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:52",
+      "comment_after_openDate": "00:13:52",
+      "chat_context": [
+        "리제저금통: 과연 강지형은 공식전에서 킬 데뷔를 할 것인가"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:17:03.842258",
+      "fun_score": 5.330719017446895,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6902177991531238,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.330719017446895,
+        "baseline_chat_count": 5.981011289059061,
+        "baseline_viewer_count": 112.04190513421645,
+        "baseline_threshold": 10.09498950478842,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00943249930449852,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 188,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:13:59",
+      "comment_after_openDate": "00:13:59",
+      "chat_context": [
+        "리제저금통: {:d_14:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:17:08.846951",
+      "fun_score": 5.540847879574191,
+      "test_fun_score": 0.1315749192824487,
+      "score_components": {
+        "chat_spike_score": 0.9681451543019988,
+        "reaction_score": 0.1315749192824487,
+        "test_reaction_score": 0.1315749192824487,
+        "diversity_score": 50.65710084353556,
+        "viewer_trend_score": 0,
+        "final_score": 5.540847879574191,
+        "baseline_chat_count": 5.933293200909874,
+        "baseline_viewer_count": 112.76958368303065,
+        "baseline_threshold": 10.049347793519688,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.2188141985330594,
+        "test_score_difference": 0.06450489318915306,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 180,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:14:04",
+      "comment_after_openDate": "00:14:04",
+      "chat_context": [
+        "리제저금통: {:d_14:}",
+        "공자왈맹자왈: ㅎㅇㅌ",
+        "보보17: {:d_55:}{:d_55:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:17:13.856566",
+      "fun_score": 5.542367746179869,
+      "test_fun_score": 0.13199742669725642,
+      "score_components": {
+        "chat_spike_score": 0.9712409640380784,
+        "reaction_score": 0.13199742669725642,
+        "test_reaction_score": 0.13199742669725642,
+        "diversity_score": 50.65710084353556,
+        "viewer_trend_score": 0,
+        "final_score": 5.542367746179869,
+        "baseline_chat_count": 5.905192252045158,
+        "baseline_viewer_count": 113.41365107134722,
+        "baseline_threshold": 10.00615636434409,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.21958002757735784,
+        "test_score_difference": 0.0649274006039608,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 180,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:14:09",
+      "comment_after_openDate": "00:14:09",
+      "chat_context": [
+        "리제저금통: {:d_14:}",
+        "공자왈맹자왈: ㅎㅇㅌ",
+        "보보17: {:d_55:}{:d_55:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:17:18.861904",
+      "fun_score": 5.543892216455383,
+      "test_fun_score": 0.13242122434312106,
+      "score_components": {
+        "chat_spike_score": 0.9743461439975336,
+        "reaction_score": 0.13242122434312106,
+        "test_reaction_score": 0.13242122434312106,
+        "diversity_score": 50.65710084353556,
+        "viewer_trend_score": 0,
+        "final_score": 5.543892216455383,
+        "baseline_chat_count": 5.877360510270565,
+        "baseline_viewer_count": 114.05154829408372,
+        "baseline_threshold": 9.963393269382076,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.220343528124193,
+        "test_score_difference": 0.06535119824982544,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 180,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:14:14",
+      "comment_after_openDate": "00:14:14",
+      "chat_context": [
+        "리제저금통: {:d_14:}",
+        "공자왈맹자왈: ㅎㅇㅌ",
+        "보보17: {:d_55:}{:d_55:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:17:23.873168",
+      "fun_score": 5.545421232521486,
+      "test_fun_score": 0.1328462962244481,
+      "score_components": {
+        "chat_spike_score": 0.9774605762235437,
+        "reaction_score": 0.1328462962244481,
+        "test_reaction_score": 0.1328462962244481,
+        "diversity_score": 50.65710084353556,
+        "viewer_trend_score": 0,
+        "final_score": 5.545421232521486,
+        "baseline_chat_count": 5.849795396582173,
+        "baseline_viewer_count": 114.6833344614264,
+        "baseline_threshold": 9.921054449295037,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.22110458445195036,
+        "test_score_difference": 0.06577627013115248,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 180,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:14:19",
+      "comment_after_openDate": "00:14:19",
+      "chat_context": [
+        "리제저금통: {:d_14:}",
+        "공자왈맹자왈: ㅎㅇㅌ",
+        "보보17: {:d_55:}{:d_55:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:17:28.877281",
+      "fun_score": 5.5469547356870414,
+      "test_fun_score": 0.1332726261186198,
+      "score_components": {
+        "chat_spike_score": 0.9805841411064437,
+        "reaction_score": 0.1332726261186198,
+        "test_reaction_score": 0.1332726261186198,
+        "diversity_score": 50.65710084353556,
+        "viewer_trend_score": 0,
+        "final_score": 5.5469547356870414,
+        "baseline_chat_count": 5.822494356682915,
+        "baseline_viewer_count": 115.30906811728593,
+        "baseline_threshold": 9.879135883078344,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.22186307969106345,
+        "test_score_difference": 0.06620260002532419,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 180,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:14:24",
+      "comment_after_openDate": "00:14:24",
+      "chat_context": [
+        "리제저금통: {:d_14:}",
+        "공자왈맹자왈: ㅎㅇㅌ",
+        "보보17: {:d_55:}{:d_55:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:17:33.921025",
+      "fun_score": 5.400001602712821,
+      "test_fun_score": 0.13370019757805623,
+      "score_components": {
+        "chat_spike_score": 0.6976213392495071,
+        "reaction_score": 0.13370019757805623,
+        "test_reaction_score": 0.13370019757805623,
+        "diversity_score": 50.45961940777126,
+        "viewer_trend_score": 0,
+        "final_score": 5.400001602712821,
+        "baseline_chat_count": 5.795454860745893,
+        "baseline_viewer_count": 115.92880724472234,
+        "baseline_threshold": 9.837633587686335,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.07412783208955798,
+        "test_score_difference": 0.06663017148476061,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 180,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:14:29",
+      "comment_after_openDate": "00:14:29",
+      "chat_context": [
+        "공자왈맹자왈: ㅎㅇㅌ",
+        "보보17: {:d_55:}{:d_55:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:18:06.852164",
+      "fun_score": 5.334732952750057,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6991376553823743,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.334732952750057,
+        "baseline_chat_count": 5.759094403179947,
+        "baseline_viewer_count": 116.5426092713179,
+        "baseline_threshold": 9.79512107327029,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00806990195347268,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 244,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:15:02",
+      "comment_after_openDate": "00:15:02",
+      "chat_context": [
+        "우주 비행: 가보자"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:18:11.941307",
+      "fun_score": 5.335602944811448,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7010709710743551,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.335602944811448,
+        "baseline_chat_count": 5.713502278797483,
+        "baseline_viewer_count": 117.76365107449867,
+        "baseline_threshold": 9.752390555075705,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00814338911984791,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 244,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:15:07",
+      "comment_after_openDate": "00:15:07",
+      "chat_context": [
+        "우주 비행: 가보자"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:18:19.039071",
+      "fun_score": 5.3364808169874,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7030217981320247,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3364808169874,
+        "baseline_chat_count": 5.668346926966603,
+        "baseline_viewer_count": 118.97299529720496,
+        "baseline_threshold": 9.710077729769374,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.008217472175067186,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 244,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:15:14",
+      "comment_after_openDate": "00:15:14",
+      "chat_context": [
+        "우주 비행: 가보자"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:18:27.258057",
+      "fun_score": 5.337366632140182,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7049902762493183,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.337366632140182,
+        "baseline_chat_count": 5.623624163406262,
+        "baseline_viewer_count": 120.17075400225774,
+        "baseline_threshold": 9.668178671344922,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.008292154151242848,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 244,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:15:22",
+      "comment_after_openDate": "00:15:22",
+      "chat_context": [
+        "우주 비행: 가보자"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:19:11.424736",
+      "fun_score": 5.338260453425987,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7069765457733296,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.338260453425987,
+        "baseline_chat_count": 5.57932984392083,
+        "baseline_viewer_count": 121.3570381789161,
+        "baseline_threshold": 9.626689492009339,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.008367438050616016,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 256,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:16:06",
+      "comment_after_openDate": "00:16:06",
+      "chat_context": [
+        "장독대나무지개: 역대급 수비컵"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:19:16.426044",
+      "fun_score": 5.339162344291085,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7089807476957695,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.339162344291085,
+        "baseline_chat_count": 5.535459864016068,
+        "baseline_viewer_count": 122.64691775316207,
+        "baseline_threshold": 9.58560634181971,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00844332684419058,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 256,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:16:11",
+      "comment_after_openDate": "00:16:11",
+      "chat_context": [
+        "장독대나무지개: 역대급 수비컵"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:19:21.447615",
+      "fun_score": 5.3400723684678235,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.711003023644077,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3400723684678235,
+        "baseline_chat_count": 5.492010158518793,
+        "baseline_viewer_count": 123.92444028108677,
+        "baseline_threshold": 9.544925408323385,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.005339415717766194,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 256,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:16:16",
+      "comment_after_openDate": "00:16:16",
+      "chat_context": [
+        "장독대나무지개: 역대급 수비컵"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:19:26.527180",
+      "fun_score": 5.3409905899704695,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7130435158721804,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3409905899704695,
+        "baseline_chat_count": 5.448976701200182,
+        "baseline_viewer_count": 125.18972414319396,
+        "baseline_threshold": 9.504642916201568,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.006257637220412171,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 256,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:16:21",
+      "comment_after_openDate": "00:16:21",
+      "chat_context": [
+        "장독대나무지개: 역대급 수비컵"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:19:31.530006",
+      "fun_score": 5.341917073090894,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7151023672509009,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.341917073090894,
+        "baseline_chat_count": 5.4063555044026845,
+        "baseline_viewer_count": 126.44288658590214,
+        "baseline_threshold": 9.464755126916273,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007184120340836486,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 256,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:16:26",
+      "comment_after_openDate": "00:16:26",
+      "chat_context": [
+        "장독대나무지개: 역대급 수비컵"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:19:36.540806",
+      "fun_score": 5.342851882394086,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7171797212579941,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.342851882394086,
+        "baseline_chat_count": 5.364142618670506,
+        "baseline_viewer_count": 127.6840437324092,
+        "baseline_threshold": 9.425258338360626,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.008118929644028938,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 256,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:16:32",
+      "comment_after_openDate": "00:16:32",
+      "chat_context": [
+        "장독대나무지개: 역대급 수비컵"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:20:33.922474",
+      "fun_score": 5.35650371862994,
+      "test_fun_score": 0.09764703279495877,
+      "score_components": {
+        "chat_spike_score": 0.7192757219678192,
+        "reaction_score": 0.09764703279495877,
+        "test_reaction_score": 0.09764703279495877,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.35650371862994,
+        "baseline_chat_count": 5.322334132383642,
+        "baseline_viewer_count": 128.9133105934527,
+        "baseline_threshold": 9.386148884512465,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.021770765879882248,
+        "test_score_difference": 0.030577006701663148,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:17:29",
+      "comment_after_openDate": "00:17:29",
+      "chat_context": [
+        "장독대나무지개: ㄲㅂ",
+        "ㅡ하비: 윽"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:20:39.024702",
+      "fun_score": 5.3572998971226236,
+      "test_fun_score": 0.09786792323803535,
+      "score_components": {
+        "chat_spike_score": 0.7208977472117338,
+        "reaction_score": 0.09786792323803535,
+        "test_reaction_score": 0.09786792323803535,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.3572998971226236,
+        "baseline_chat_count": 5.290506171395407,
+        "baseline_viewer_count": 129.94878107796742,
+        "baseline_threshold": 9.347544883823309,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.022566944372566233,
+        "test_score_difference": 0.030797897144739725,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:17:34",
+      "comment_after_openDate": "00:17:34",
+      "chat_context": [
+        "장독대나무지개: ㄲㅂ",
+        "ㅡ하비: 윽"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:20:44.123868",
+      "fun_score": 5.683083319883428,
+      "test_fun_score": 0.09808983416158554,
+      "score_components": {
+        "chat_spike_score": 1.055095453948452,
+        "reaction_score": 0.09808983416158554,
+        "test_reaction_score": 0.09808983416158554,
+        "diversity_score": 51.788634153581484,
+        "viewer_trend_score": 0,
+        "final_score": 5.683083319883428,
+        "baseline_chat_count": 5.258983122273439,
+        "baseline_viewer_count": 130.97433175524048,
+        "baseline_threshold": 9.309318336850716,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.34835036713337075,
+        "test_score_difference": 0.03101980806828991,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:17:39",
+      "comment_after_openDate": "00:17:39",
+      "chat_context": [
+        "장독대나무지개: ㄲㅂ",
+        "ㅡ하비: 윽",
+        "리제저금통: 아이고"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:20:49.226887",
+      "fun_score": 5.684616224454361,
+      "test_fun_score": 0.09824402112832431,
+      "score_components": {
+        "chat_spike_score": 1.0583991172393663,
+        "reaction_score": 0.09824402112832431,
+        "test_reaction_score": 0.09824402112832431,
+        "diversity_score": 51.788634153581484,
+        "viewer_trend_score": 0,
+        "final_score": 5.684616224454361,
+        "baseline_chat_count": 5.23734206396206,
+        "baseline_viewer_count": 131.99005765702526,
+        "baseline_threshold": 9.27457900538817,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3490132796429126,
+        "test_score_difference": 0.031173995035028684,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:17:44",
+      "comment_after_openDate": "00:17:44",
+      "chat_context": [
+        "장독대나무지개: ㄲㅂ",
+        "ㅡ하비: 윽",
+        "리제저금통: 아이고"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:20:54.242085",
+      "fun_score": 5.686151674655578,
+      "test_fun_score": 0.09839823385288111,
+      "score_components": {
+        "chat_spike_score": 1.0617084203145897,
+        "reaction_score": 0.09839823385288111,
+        "test_reaction_score": 0.09839823385288111,
+        "diversity_score": 51.788634153581484,
+        "viewer_trend_score": 0,
+        "final_score": 5.686151674655578,
+        "baseline_chat_count": 5.215908326989303,
+        "baseline_viewer_count": 132.99605290467093,
+        "baseline_threshold": 9.240187161946823,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.34967085766817796,
+        "test_score_difference": 0.03132820775958549,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:17:49",
+      "comment_after_openDate": "00:17:49",
+      "chat_context": [
+        "장독대나무지개: ㄲㅂ",
+        "ㅡ하비: 윽",
+        "리제저금통: 아이고"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:20:59.430120",
+      "fun_score": 5.506452519049396,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0650232075767567,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.506452519049396,
+        "baseline_chat_count": 5.194679925216745,
+        "baseline_viewer_count": 133.99241071784417,
+        "baseline_threshold": 9.206139501978571,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.16908588690921356,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 237,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:17:54",
+      "comment_after_openDate": "00:17:54",
+      "chat_context": [
+        "ㅡ하비: 윽",
+        "리제저금통: 아이고"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:21:04.527091",
+      "fun_score": 5.34753044398483,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.727576524792982,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.34753044398483,
+        "baseline_chat_count": 5.1640748915331685,
+        "baseline_viewer_count": 134.97922342316724,
+        "baseline_threshold": 9.17069650068211,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0092699905588427,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 237,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:17:59",
+      "comment_after_openDate": "00:17:59",
+      "chat_context": [
+        "리제저금통: 아이고"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:21:09.532396",
+      "fun_score": 5.348515487405468,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.729765510172176,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.348515487405468,
+        "baseline_chat_count": 5.12418305407228,
+        "baseline_viewer_count": 135.95658246277327,
+        "baseline_threshold": 9.13407056985895,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.009353143114382512,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 196,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:18:05",
+      "comment_after_openDate": "00:18:05",
+      "chat_context": [
+        "리제저금통: 아이고"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:21:19.738277",
+      "fun_score": 5.252349001466068,
+      "test_fun_score": 0.09937639122979318,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09937639122979318,
+        "test_reaction_score": 0.09937639122979318,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.252349001466068,
+        "baseline_chat_count": 5.084673380414268,
+        "baseline_viewer_count": 136.53179840277988,
+        "baseline_threshold": 9.097804952169046,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.03230636513649755,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 196,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:18:15",
+      "comment_after_openDate": "00:18:15",
+      "chat_context": [
+        "우주 비행: ㄲㅂ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:21:24.940703",
+      "fun_score": 5.252440041518343,
+      "test_fun_score": 0.09967985807071172,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09967985807071172,
+        "test_reaction_score": 0.09967985807071172,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.252440041518343,
+        "baseline_chat_count": 5.0455422094298985,
+        "baseline_viewer_count": 137.10150377408124,
+        "baseline_threshold": 9.06096548416131,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.104005227555945e-05,
+        "test_score_difference": 0.0326098319774161,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 196,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:18:20",
+      "comment_after_openDate": "00:18:20",
+      "chat_context": [
+        "우주 비행: ㄲㅂ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:21:30.032833",
+      "fun_score": 5.252531892399144,
+      "test_fun_score": 0.09998602767338036,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09998602767338036,
+        "test_reaction_score": 0.09998602767338036,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.252531892399144,
+        "baseline_chat_count": 5.00678591506356,
+        "baseline_viewer_count": 137.66575136792554,
+        "baseline_threshold": 9.02447981042079,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00018289093307632953,
+        "test_score_difference": 0.03291600158008473,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 196,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:18:25",
+      "comment_after_openDate": "00:18:25",
+      "chat_context": [
+        "우주 비행: ㄲㅂ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T20:21:37.840903",
+      "fun_score": 5.252624560238242,
+      "test_fun_score": 0.10029492047037461,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.10029492047037461,
+        "test_reaction_score": 0.10029492047037461,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.252624560238242,
+        "baseline_chat_count": 4.9684009059972505,
+        "baseline_viewer_count": 138.2245934698208,
+        "baseline_threshold": 8.988344549366142,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0002755587721745556,
+        "test_score_difference": 0.033224894377078984,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 196,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:18:33",
+      "comment_after_openDate": "00:18:33",
+      "chat_context": [
+        "우주 비행: ㄲㅂ"
+      ]
+    }
+  ],
+  "save_type": "partial"
+}

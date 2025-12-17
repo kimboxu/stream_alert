@@ -1,0 +1,1388 @@
+{
+  "channel_id": "cheongalice",
+  "channel_name": "강지형",
+  "save_timestamp": "2025-12-17T22:08:59.643192",
+  "total_logs": 27,
+  "logs": [
+    {
+      "timestamp": "2025-12-17T22:05:49.344411",
+      "fun_score": 10.253589794161922,
+      "test_fun_score": 0.28701863846707587,
+      "score_components": {
+        "chat_spike_score": 1.2991895555367208,
+        "reaction_score": 0.37158380060373636,
+        "test_reaction_score": 0.28701863846707587,
+        "diversity_score": 50.574793539892774,
+        "viewer_trend_score": 30,
+        "final_score": 10.253589794161922,
+        "baseline_chat_count": 12.371893897753575,
+        "baseline_viewer_count": 552.3227646141371,
+        "baseline_threshold": 19.630581257367066,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.45430978976702363,
+        "test_score_difference": 0.1597417910181171,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 573,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:06:13",
+      "comment_after_openDate": "00:06:13",
+      "chat_context": [
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "밀케: 마지막때 졌으면 식겁했어 6대6 되는거라",
+        "귓군영: ㄹㅇ",
+        "양동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "냐냥모: 케리였음.",
+        "버터꿀: 멋찜"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:05:54.419567",
+      "fun_score": 10.971217839463582,
+      "test_fun_score": 1.5814083761921967,
+      "score_components": {
+        "chat_spike_score": 2.4853065677903254,
+        "reaction_score": 2.645356485200924,
+        "test_reaction_score": 1.5814083761921967,
+        "diversity_score": 45.59222938397658,
+        "viewer_trend_score": 30,
+        "final_score": 10.971217839463582,
+        "baseline_chat_count": 12.310851154213095,
+        "baseline_viewer_count": 552.5208525291337,
+        "baseline_threshold": 19.54074967914956,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1719378350686842,
+        "test_score_difference": 1.454131528743238,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 573,
+        "fun_keywords": {
+          "laugh": 4.8,
+          "reaction": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "reaction": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:06:18",
+      "comment_after_openDate": "00:06:18",
+      "chat_context": [
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "밀케: 마지막때 졌으면 식겁했어 6대6 되는거라",
+        "귓군영: ㄹㅇ",
+        "양동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "냐냥모: 케리였음.",
+        "버터꿀: 멋찜",
+        "길잃은긴고아: 헉",
+        "밀케: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "그린디포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "존하: 예?"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:06:00.457416",
+      "fun_score": 48.60152653904869,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 21.93672665269701,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 42.299995453350306,
+        "viewer_trend_score": 30,
+        "final_score": 48.60152653904869,
+        "baseline_chat_count": 12.288713200155733,
+        "baseline_viewer_count": 552.7170427619045,
+        "baseline_threshold": 19.458653564125367,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 38.80224653465379,
+        "test_score_difference": 99.87272315255105,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 24,
+        "viewer_count": 573,
+        "fun_keywords": {
+          "laugh": 13.799999999999997,
+          "reaction": 1.0,
+          "surprise": 4.0
+        },
+        "test_keyword_counter": {
+          "laugh": 11.0,
+          "reaction": 1.0,
+          "surprise": 4.0
+        }
+      },
+      "after_openDate": "00:06:24",
+      "comment_after_openDate": "00:06:24",
+      "chat_context": [
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "밀케: 마지막때 졌으면 식겁했어 6대6 되는거라",
+        "귓군영: ㄹㅇ",
+        "양동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "냐냥모: 케리였음.",
+        "버터꿀: 멋찜",
+        "길잃은긴고아: 헉",
+        "밀케: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "그린디포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "존하: 예?",
+        "공공공고공: 뭣",
+        "087: ?",
+        "철가방탕수육: 헉",
+        "엔진포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "플겜이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "0549: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: {:cheong17Aergag:}",
+        "노란주황: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김넨네: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: {:cheong17Aergag:}",
+        "밀케: 결혼할 양반이",
+        "l아쿠: /",
+        "달리는수가있어: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "솔래미오: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:06:12.326142",
+      "fun_score": 84.81180807911754,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 38.11808079117538,
+        "viewer_trend_score": 40,
+        "final_score": 84.81180807911754,
+        "baseline_chat_count": 12.40090732769824,
+        "baseline_viewer_count": 552.9113534922454,
+        "baseline_threshold": 19.737842287225135,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 75.01252807472264,
+        "test_score_difference": 99.87272315255105,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 40,
+        "viewer_count": 573,
+        "fun_keywords": {
+          "laugh": 23.699999999999992,
+          "reaction": 1.0,
+          "surprise": 7.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 19.0,
+          "reaction": 1.0,
+          "surprise": 7.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:06:36",
+      "comment_after_openDate": "00:06:36",
+      "chat_context": [
+        "공공공고공: 뭣",
+        "087: ?",
+        "철가방탕수육: 헉",
+        "엔진포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "플겜이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "0549: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: {:cheong17Aergag:}",
+        "노란주황: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김넨네: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: {:cheong17Aergag:}",
+        "밀케: 결혼할 양반이",
+        "l아쿠: /",
+        "달리는수가있어: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "솔래미오: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곰구마곰자: ?",
+        "비데안드레아스2세: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "l아쿠: ?",
+        "양동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: {:cheong17Aergag:}",
+        "루 마: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "공공공고공: ㅗㅜㅑ;;",
+        "계란노숙자: ?",
+        "바라카피: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미믝: 맛있다라..",
+        "눈뜬포도세탁: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "장돌석: ㅗㅜㅑ",
+        "도고탁: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "플겜이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "공공공고공: {:d_108:}{:d_108:}{:d_108:}{:d_108:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:06:26.037720",
+      "fun_score": 59.75829550798185,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 44.103635446729854,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 39.1165955695342,
+        "viewer_trend_score": 40,
+        "final_score": 59.75829550798185,
+        "baseline_chat_count": 12.665306635498892,
+        "baseline_viewer_count": 553.1038027257897,
+        "baseline_threshold": 20.361250879511463,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 49.959015503586954,
+        "test_score_difference": 99.87272315255105,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 30,
+        "viewer_count": 575,
+        "fun_keywords": {
+          "laugh": 18.099999999999998,
+          "surprise": 3.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 15.0,
+          "surprise": 3.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:06:50",
+      "comment_after_openDate": "00:06:50",
+      "chat_context": [
+        "솔래미오: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곰구마곰자: ?",
+        "비데안드레아스2세: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "l아쿠: ?",
+        "양동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: {:cheong17Aergag:}",
+        "루 마: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "공공공고공: ㅗㅜㅑ;;",
+        "계란노숙자: ?",
+        "바라카피: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미믝: 맛있다라..",
+        "눈뜬포도세탁: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "장돌석: ㅗㅜㅑ",
+        "도고탁: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "플겜이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "공공공고공: {:d_108:}{:d_108:}{:d_108:}{:d_108:}",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "표류중에: 야하네요 허허",
+        "양동: 자 그래요 ㅋㅋ",
+        "계란노숙자: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하나둘셋네으: 델로 유부남이야",
+        "하늘원숭이: 자 그래요 엔딩은ㅋㅋㅋㅋㅋㅋ",
+        "동인천아사람: {:d_108:}",
+        "박티백: {:d_108:}{:d_107:}{:d_108:}{:d_107:}{:d_108:}",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "길잃은긴고아: 여기 그런곳 아닙니다",
+        "0549: {:d_108:}{:d_108:}{:d_108:}{:d_108:}{:d_108:}{:d_108:}",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "플겜이: {:d_108:}{:d_108:}{:d_108:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:06:42.429792",
+      "fun_score": 12.158442516171927,
+      "test_fun_score": 0.23318910676720667,
+      "score_components": {
+        "chat_spike_score": 1.9959085915489012,
+        "reaction_score": 0.2991389846293737,
+        "test_reaction_score": 0.23318910676720667,
+        "diversity_score": 51.70541954586108,
+        "viewer_trend_score": 40,
+        "final_score": 12.158442516171927,
+        "baseline_chat_count": 12.831372997930812,
+        "baseline_viewer_count": 553.3135682956766,
+        "baseline_threshold": 20.738674567052207,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.359162511777029,
+        "test_score_difference": 0.10591225931824791,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 575,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:07:06",
+      "comment_after_openDate": "00:07:06",
+      "chat_context": [
+        "동인천아사람: {:d_108:}",
+        "박티백: {:d_108:}{:d_107:}{:d_108:}{:d_107:}{:d_108:}",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "길잃은긴고아: 여기 그런곳 아닙니다",
+        "0549: {:d_108:}{:d_108:}{:d_108:}{:d_108:}{:d_108:}{:d_108:}",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "플겜이: {:d_108:}{:d_108:}{:d_108:}",
+        "귓군영: {:d_108:}",
+        "냐냥모: {:d_81:}{:d_81:}{:d_81:}{:d_81:}{:d_137:}{:d_137:}{:d_137:}{:d_137:}{:d_137:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:06:47.517894",
+      "fun_score": 11.575276226899403,
+      "test_fun_score": 0.12529943971365712,
+      "score_components": {
+        "chat_spike_score": 2.0038762696645525,
+        "reaction_score": 0.14197841334812844,
+        "test_reaction_score": 0.12529943971365712,
+        "diversity_score": 46.309383815459164,
+        "viewer_trend_score": 40,
+        "final_score": 11.575276226899403,
+        "baseline_chat_count": 12.794668444610634,
+        "baseline_viewer_count": 553.5213243114041,
+        "baseline_threshold": 20.656475944004775,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7759962225045047,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 575,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:07:11",
+      "comment_after_openDate": "00:07:11",
+      "chat_context": [
+        "길잃은긴고아: 여기 그런곳 아닙니다",
+        "0549: {:d_108:}{:d_108:}{:d_108:}{:d_108:}{:d_108:}{:d_108:}",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "플겜이: {:d_108:}{:d_108:}{:d_108:}",
+        "귓군영: {:d_108:}",
+        "냐냥모: {:d_81:}{:d_81:}{:d_81:}{:d_81:}{:d_137:}{:d_137:}{:d_137:}{:d_137:}{:d_137:}",
+        "하늘원숭이: 얼",
+        "김 정 석: 일하다 왔는데 뱅팀이랑 우예됨?",
+        "하늘원숭이: 이김"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:06:52.520982",
+      "fun_score": 9.736834757914247,
+      "test_fun_score": 0.11606541120823735,
+      "score_components": {
+        "chat_spike_score": 1.4743860606189547,
+        "reaction_score": 0.11606541120823735,
+        "test_reaction_score": 0.11606541120823735,
+        "diversity_score": 30.385414072732463,
+        "viewer_trend_score": 40,
+        "final_score": 9.736834757914247,
+        "baseline_chat_count": 12.758315520911264,
+        "baseline_viewer_count": 553.7270900245009,
+        "baseline_threshold": 20.569478050714906,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 575,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:07:16",
+      "comment_after_openDate": "00:07:16",
+      "chat_context": [
+        "냐냥모: {:d_81:}{:d_81:}{:d_81:}{:d_81:}{:d_137:}{:d_137:}{:d_137:}{:d_137:}{:d_137:}",
+        "하늘원숭이: 얼",
+        "김 정 석: 일하다 왔는데 뱅팀이랑 우예됨?",
+        "하늘원숭이: 이김",
+        "행신빠삐코: 2:0승",
+        "김 정 석: 오옹",
+        "냐냥모: 전승중"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:06:57.523287",
+      "fun_score": 9.740063449066666,
+      "test_fun_score": 0.11634211926320775,
+      "score_components": {
+        "chat_spike_score": 1.481376457809904,
+        "reaction_score": 0.11634211926320775,
+        "test_reaction_score": 0.11634211926320775,
+        "diversity_score": 30.385414072732463,
+        "viewer_trend_score": 40,
+        "final_score": 9.740063449066666,
+        "baseline_chat_count": 12.703150858220933,
+        "baseline_viewer_count": 553.9308845020662,
+        "baseline_threshold": 20.465701327969875,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.003228691152418861,
+        "test_score_difference": 0.00027670805497040374,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 575,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:07:21",
+      "comment_after_openDate": "00:07:21",
+      "chat_context": [
+        "냐냥모: {:d_81:}{:d_81:}{:d_81:}{:d_81:}{:d_137:}{:d_137:}{:d_137:}{:d_137:}{:d_137:}",
+        "하늘원숭이: 얼",
+        "김 정 석: 일하다 왔는데 뱅팀이랑 우예됨?",
+        "하늘원숭이: 이김",
+        "행신빠삐코: 2:0승",
+        "김 정 석: 오옹",
+        "냐냥모: 전승중"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:07:06.360580",
+      "fun_score": 9.999919410172057,
+      "test_fun_score": 0.11661921386069635,
+      "score_components": {
+        "chat_spike_score": 1.272094276499221,
+        "reaction_score": 0.11661921386069635,
+        "test_reaction_score": 0.11661921386069635,
+        "diversity_score": 33.924912215891986,
+        "viewer_trend_score": 40,
+        "final_score": 9.999919410172057,
+        "baseline_chat_count": 12.648514672999177,
+        "baseline_viewer_count": 554.1327266285364,
+        "baseline_threshold": 20.36294971708998,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.26308465225780964,
+        "test_score_difference": 0.0005538026524589956,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 575,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:07:30",
+      "comment_after_openDate": "00:07:30",
+      "chat_context": [
+        "하늘원숭이: 얼",
+        "김 정 석: 일하다 왔는데 뱅팀이랑 우예됨?",
+        "하늘원숭이: 이김",
+        "행신빠삐코: 2:0승",
+        "김 정 석: 오옹",
+        "냐냥모: 전승중"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:07:11.421222",
+      "fun_score": 10.869746914776995,
+      "test_fun_score": 0.11694612221778923,
+      "score_components": {
+        "chat_spike_score": 1.2781779054222624,
+        "reaction_score": 0.11694612221778923,
+        "test_reaction_score": 0.11694612221778923,
+        "diversity_score": 42.594830206716395,
+        "viewer_trend_score": 40,
+        "final_score": 10.869746914776995,
+        "baseline_chat_count": 12.584821902431845,
+        "baseline_viewer_count": 554.332635107435,
+        "baseline_threshold": 20.263671886749705,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1329121568627478,
+        "test_score_difference": 0.0008807110095518794,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 575,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:07:35",
+      "comment_after_openDate": "00:07:35",
+      "chat_context": [
+        "하늘원숭이: 이김",
+        "행신빠삐코: 2:0승",
+        "김 정 석: 오옹",
+        "냐냥모: 전승중",
+        "공공공고공: 비질은 특능으로 씹힘",
+        "하늘원숭이: 테스트 해보면 좋을듯"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:07:16.557699",
+      "fun_score": 11.706777146366626,
+      "test_fun_score": 0.11727409331413173,
+      "score_components": {
+        "chat_spike_score": 1.284293181920797,
+        "reaction_score": 0.11727409331413173,
+        "test_reaction_score": 0.11727409331413173,
+        "diversity_score": 50.936629865080285,
+        "viewer_trend_score": 40,
+        "final_score": 11.706777146366626,
+        "baseline_chat_count": 12.521739308606547,
+        "baseline_viewer_count": 554.5306284631057,
+        "baseline_threshold": 20.173678085518205,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9699423884523792,
+        "test_score_difference": 0.0012086821058943792,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 575,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:07:40",
+      "comment_after_openDate": "00:07:40",
+      "chat_context": [
+        "행신빠삐코: 2:0승",
+        "김 정 석: 오옹",
+        "냐냥모: 전승중",
+        "공공공고공: 비질은 특능으로 씹힘",
+        "하늘원숭이: 테스트 해보면 좋을듯",
+        "혀로게이머: 투바랑은 모든걸 다 씹음"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:07:24.045518",
+      "fun_score": 10.031094213990684,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9377333253712041,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.889932097456544,
+        "viewer_trend_score": 30,
+        "final_score": 10.031094213990684,
+        "baseline_chat_count": 12.459261046030095,
+        "baseline_viewer_count": 554.7267250424292,
+        "baseline_threshold": 20.09256517452113,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.29425945607643733,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 575,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:07:48",
+      "comment_after_openDate": "00:07:48",
+      "chat_context": [
+        "공공공고공: 비질은 특능으로 씹힘",
+        "하늘원숭이: 테스트 해보면 좋을듯",
+        "혀로게이머: 투바랑은 모든걸 다 씹음",
+        "버터꿀: 물올랐음 날개를 달았음"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:07:34.453235",
+      "fun_score": 10.060489238574117,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9416650244395468,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.16618969748332,
+        "viewer_trend_score": 30,
+        "final_score": 10.060489238574117,
+        "baseline_chat_count": 12.378221325209127,
+        "baseline_viewer_count": 554.9209430165228,
+        "baseline_threshold": 19.996176282719247,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.32365448065987046,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 575,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:07:58",
+      "comment_after_openDate": "00:07:58",
+      "chat_context": [
+        "하늘원숭이: 테스트 해보면 좋을듯",
+        "혀로게이머: 투바랑은 모든걸 다 씹음",
+        "버터꿀: 물올랐음 날개를 달았음",
+        "플겜이: 강지11이였나"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:07:39.826418",
+      "fun_score": 10.120772730571534,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.1116957025453096,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.00388656598157,
+        "viewer_trend_score": 30,
+        "final_score": 10.120772730571534,
+        "baseline_chat_count": 12.297957964913623,
+        "baseline_viewer_count": 555.1133003824244,
+        "baseline_threshold": 19.900992400836337,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3839379726572876,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 566,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:08:03",
+      "comment_after_openDate": "00:08:03",
+      "chat_context": [
+        "혀로게이머: 투바랑은 모든걸 다 씹음",
+        "버터꿀: 물올랐음 날개를 달았음",
+        "플겜이: 강지11이였나",
+        "행신빠삐코: 샷좋아지니 오늘 잘 풀리네",
+        "밀케: 심지어 비질없이 한거임"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:07:44.838507",
+      "fun_score": 9.1521031834862,
+      "test_fun_score": 0.12898052001161425,
+      "score_components": {
+        "chat_spike_score": 1.1168472862683976,
+        "reaction_score": 0.14699785671416965,
+        "test_reaction_score": 0.12898052001161425,
+        "diversity_score": 41.05422547651171,
+        "viewer_trend_score": 30,
+        "final_score": 9.1521031834862,
+        "baseline_chat_count": 12.228043527609751,
+        "baseline_viewer_count": 555.2175949647608,
+        "baseline_threshold": 19.807297896395198,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.061910493918318626,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 566,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:08:08",
+      "comment_after_openDate": "00:08:08",
+      "chat_context": [
+        "플겜이: 강지11이였나",
+        "행신빠삐코: 샷좋아지니 오늘 잘 풀리네",
+        "밀케: 심지어 비질없이 한거임",
+        "행신빠삐코: 어제는 엄이였는데",
+        "버터꿀: 비질 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:07:49.843255",
+      "fun_score": 9.408550080100703,
+      "test_fun_score": 0.12946167038838266,
+      "score_components": {
+        "chat_spike_score": 1.321316327006504,
+        "reaction_score": 0.14765607712100753,
+        "test_reaction_score": 0.12946167038838266,
+        "diversity_score": 42.69660909811473,
+        "viewer_trend_score": 30,
+        "final_score": 9.408550080100703,
+        "baseline_chat_count": 12.15879887061525,
+        "baseline_viewer_count": 555.3208904049984,
+        "baseline_threshold": 19.705221131045526,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.25644689661450215,
+        "test_score_difference": 0.062391644295087034,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 566,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:08:13",
+      "comment_after_openDate": "00:08:13",
+      "chat_context": [
+        "플겜이: 강지11이였나",
+        "행신빠삐코: 샷좋아지니 오늘 잘 풀리네",
+        "밀케: 심지어 비질없이 한거임",
+        "행신빠삐코: 어제는 엄이였는데",
+        "버터꿀: 비질 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "공공공고공: 비질 밴되도 이제 엘라있는게 고무적이네"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:01.033975",
+      "fun_score": 9.181675830342389,
+      "test_fun_score": 0.25142654846437246,
+      "score_components": {
+        "chat_spike_score": 1.1265152009073967,
+        "reaction_score": 0.32741799259466214,
+        "test_reaction_score": 0.25142654846437246,
+        "diversity_score": 40.765185921556615,
+        "viewer_trend_score": 30,
+        "final_score": 9.181675830342389,
+        "baseline_chat_count": 12.099797577434755,
+        "baseline_viewer_count": 555.4231962749185,
+        "baseline_threshold": 19.606579022377474,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0295726468561881,
+        "test_score_difference": 0.18435652237107683,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 566,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:08:25",
+      "comment_after_openDate": "00:08:25",
+      "chat_context": [
+        "행신빠삐코: 어제는 엄이였는데",
+        "버터꿀: 비질 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "공공공고공: 비질 밴되도 이제 엘라있는게 고무적이네",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: 방방곡곡"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:06.040994",
+      "fun_score": 11.41051489414934,
+      "test_fun_score": 1.8470095376600437,
+      "score_components": {
+        "chat_spike_score": 3.578627276641954,
+        "reaction_score": 3.5601071407273976,
+        "test_reaction_score": 1.8470095376600437,
+        "diversity_score": 42.32100477442241,
+        "viewer_trend_score": 30,
+        "final_score": 11.41051489414934,
+        "baseline_chat_count": 12.03178151664293,
+        "baseline_viewer_count": 555.5245220546047,
+        "baseline_threshold": 19.506708449797777,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.2584117106631396,
+        "test_score_difference": 1.779939511566748,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 566,
+        "fun_keywords": {
+          "laugh": 6.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "00:08:30",
+      "comment_after_openDate": "00:08:30",
+      "chat_context": [
+        "행신빠삐코: 어제는 엄이였는데",
+        "버터꿀: 비질 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "공공공고공: 비질 밴되도 이제 엘라있는게 고무적이네",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: 방방곡곡",
+        "플겜이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "양동: 홍길동이지",
+        "곤동갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "틱탁틱탁틱: ㅋㅋㅋㅋㅋㅋ",
+        "밀케: 형이 비질로 밴먹어주니깐 다른쪽이 편하겠다",
+        "사야걍: 동에번쩍",
+        "버터꿀: 아까 드립 지렸는데"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:11.048444",
+      "fun_score": 11.410700640682794,
+      "test_fun_score": 1.8471634980276468,
+      "score_components": {
+        "chat_spike_score": 3.5788046907973508,
+        "reaction_score": 3.5604601746058173,
+        "test_reaction_score": 1.8471634980276468,
+        "diversity_score": 42.32100477442241,
+        "viewer_trend_score": 30,
+        "final_score": 11.410700640682794,
+        "baseline_chat_count": 12.03147704971349,
+        "baseline_viewer_count": 555.6248771333217,
+        "baseline_threshold": 19.429146915534663,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.2585974571965934,
+        "test_score_difference": 1.780093471934351,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 566,
+        "fun_keywords": {
+          "laugh": 6.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "00:08:35",
+      "comment_after_openDate": "00:08:35",
+      "chat_context": [
+        "행신빠삐코: 어제는 엄이였는데",
+        "버터꿀: 비질 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "공공공고공: 비질 밴되도 이제 엘라있는게 고무적이네",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: 방방곡곡",
+        "플겜이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "양동: 홍길동이지",
+        "곤동갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "틱탁틱탁틱: ㅋㅋㅋㅋㅋㅋ",
+        "밀케: 형이 비질로 밴먹어주니깐 다른쪽이 편하겠다",
+        "사야걍: 동에번쩍",
+        "버터꿀: 아까 드립 지렸는데"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:16.267657",
+      "fun_score": 10.27802728321684,
+      "test_fun_score": 0.9543649342427988,
+      "score_components": {
+        "chat_spike_score": 2.57972495888223,
+        "reaction_score": 1.6191426497211274,
+        "test_reaction_score": 0.9543649342427988,
+        "diversity_score": 41.31408256803499,
+        "viewer_trend_score": 30,
+        "final_score": 10.27802728321684,
+        "baseline_chat_count": 12.031175499577236,
+        "baseline_viewer_count": 555.7242708103844,
+        "baseline_threshold": 19.35233020022158,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1259240997306392,
+        "test_score_difference": 0.8872949081495032,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 562,
+        "fun_keywords": {
+          "laugh": 4.8
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "00:08:40",
+      "comment_after_openDate": "00:08:40",
+      "chat_context": [
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: 방방곡곡",
+        "플겜이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "양동: 홍길동이지",
+        "곤동갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "틱탁틱탁틱: ㅋㅋㅋㅋㅋㅋ",
+        "밀케: 형이 비질로 밴먹어주니깐 다른쪽이 편하겠다",
+        "사야걍: 동에번쩍",
+        "버터꿀: 아까 드립 지렸는데",
+        "플겜이: ㄹㅊㄱ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:24.040452",
+      "fun_score": 10.584988826845716,
+      "test_fun_score": 0.25387326991763787,
+      "score_components": {
+        "chat_spike_score": 1.8607927063095882,
+        "reaction_score": 0.3312436915739166,
+        "test_reaction_score": 0.25387326991763787,
+        "diversity_score": 51.48259001534227,
+        "viewer_trend_score": 30,
+        "final_score": 10.584988826845716,
+        "baseline_chat_count": 12.011716838291285,
+        "baseline_viewer_count": 555.7843922960209,
+        "baseline_threshold": 19.265398378276675,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4328856433595156,
+        "test_score_difference": 0.18680324382434224,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 562,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:08:48",
+      "comment_after_openDate": "00:08:48",
+      "chat_context": [
+        "양동: 홍길동이지",
+        "곤동갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "틱탁틱탁틱: ㅋㅋㅋㅋㅋㅋ",
+        "밀케: 형이 비질로 밴먹어주니깐 다른쪽이 편하겠다",
+        "사야걍: 동에번쩍",
+        "버터꿀: 아까 드립 지렸는데",
+        "플겜이: ㄹㅊㄱ",
+        "하늘원숭이: ㄹㅊㄱ"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:31.470829",
+      "fun_score": 10.09551174869003,
+      "test_fun_score": 0.2345545653370315,
+      "score_components": {
+        "chat_spike_score": 2.204674030620247,
+        "reaction_score": 0.2345545653370315,
+        "test_reaction_score": 0.2345545653370315,
+        "diversity_score": 45.33042065309809,
+        "viewer_trend_score": 30,
+        "final_score": 10.09551174869003,
+        "baseline_chat_count": 11.973284590980454,
+        "baseline_viewer_count": 555.843937817825,
+        "baseline_threshold": 19.182240054773967,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9434085652038284,
+        "test_score_difference": 0.16748453924373588,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 562,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:08:55",
+      "comment_after_openDate": "00:08:55",
+      "chat_context": [
+        "플겜이: ㄹㅊㄱ",
+        "하늘원숭이: ㄹㅊㄱ",
+        "반반땅기: ㅋㅋㅋㅋㅋ",
+        "동인천아사람: {:d_57:}",
+        "공공공고공: 단두대매치 드가자",
+        "그린디포: ㄷㄱㅈ",
+        "블루크림소다: {:d_57:}",
+        "하늘원숭이: 굿",
+        "087: {:cheong17124:}{:cheong17124:}{:cheong17124:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:36.522159",
+      "fun_score": 16.144228533543355,
+      "test_fun_score": 0.2352555082659192,
+      "score_components": {
+        "chat_spike_score": 17.954941138046888,
+        "reaction_score": 0.2352555082659192,
+        "test_reaction_score": 0.2352555082659192,
+        "diversity_score": 34.939283689424805,
+        "viewer_trend_score": 30,
+        "final_score": 16.144228533543355,
+        "baseline_chat_count": 11.944800524598861,
+        "baseline_viewer_count": 555.9029128935302,
+        "baseline_threshold": 19.09518919760168,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.9921253500571545,
+        "test_score_difference": 0.16818548217262358,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 562,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:09:00",
+      "comment_after_openDate": "00:09:00",
+      "chat_context": [
+        "플겜이: ㄹㅊㄱ",
+        "하늘원숭이: ㄹㅊㄱ",
+        "반반땅기: ㅋㅋㅋㅋㅋ",
+        "동인천아사람: {:d_57:}",
+        "공공공고공: 단두대매치 드가자",
+        "그린디포: ㄷㄱㅈ",
+        "블루크림소다: {:d_57:}",
+        "하늘원숭이: 굿",
+        "087: {:cheong17124:}{:cheong17124:}{:cheong17124:}",
+        "반반땅기: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "플겜이: {:d_57:}",
+        "귓군영: {:cheong17A4sfg:}",
+        "087: 굿굿",
+        "똥슈리소울이: 굿굿",
+        "동인천아사람: {:cheong17A4sfg:}",
+        "하늘원숭이: 1경기 너무 좋네",
+        "용전문: 굿굿",
+        "김넨네: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "박티백: {:cheong17Awersgfx:}",
+        "큐티 수박 9966787: 지는팀 탈락임 ?",
+        "곤동갈: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "용전문: {:cheong17Awersgfx:}{:cheong17Awersgfx:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:43.424002",
+      "fun_score": 17.277615761432706,
+      "test_fun_score": 0.2329066575488535,
+      "score_components": {
+        "chat_spike_score": 20.316559859249406,
+        "reaction_score": 0.2329066575488535,
+        "test_reaction_score": 0.2329066575488535,
+        "diversity_score": 35.65291827505815,
+        "viewer_trend_score": 30,
+        "final_score": 17.277615761432706,
+        "baseline_chat_count": 12.041129335573205,
+        "baseline_viewer_count": 555.9613229880102,
+        "baseline_threshold": 19.06691899444,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 8.125512577946505,
+        "test_score_difference": 0.16583663145555788,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 562,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:09:07",
+      "comment_after_openDate": "00:09:07",
+      "chat_context": [
+        "플겜이: ㄹㅊㄱ",
+        "하늘원숭이: ㄹㅊㄱ",
+        "반반땅기: ㅋㅋㅋㅋㅋ",
+        "동인천아사람: {:d_57:}",
+        "공공공고공: 단두대매치 드가자",
+        "그린디포: ㄷㄱㅈ",
+        "블루크림소다: {:d_57:}",
+        "하늘원숭이: 굿",
+        "087: {:cheong17124:}{:cheong17124:}{:cheong17124:}",
+        "반반땅기: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "플겜이: {:d_57:}",
+        "귓군영: {:cheong17A4sfg:}",
+        "087: 굿굿",
+        "똥슈리소울이: 굿굿",
+        "동인천아사람: {:cheong17A4sfg:}",
+        "하늘원숭이: 1경기 너무 좋네",
+        "용전문: 굿굿",
+        "김넨네: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "박티백: {:cheong17Awersgfx:}",
+        "큐티 수박 9966787: 지는팀 탈락임 ?",
+        "곤동갈: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "용전문: {:cheong17Awersgfx:}{:cheong17Awersgfx:}",
+        "끼아악호: {:cheong17A4sfg:}{:cheong17A4sfg:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:48.427929",
+      "fun_score": 15.932481976543482,
+      "test_fun_score": 0.2304151444705953,
+      "score_components": {
+        "chat_spike_score": 16.98181282982534,
+        "reaction_score": 0.2304151444705953,
+        "test_reaction_score": 0.2304151444705953,
+        "diversity_score": 37.21541659780898,
+        "viewer_trend_score": 30,
+        "final_score": 15.932481976543482,
+        "baseline_chat_count": 12.146115316538413,
+        "baseline_viewer_count": 556.0191735137851,
+        "baseline_threshold": 19.04977746946779,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.780378793057281,
+        "test_score_difference": 0.16334511837729968,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 562,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:09:12",
+      "comment_after_openDate": "00:09:12",
+      "chat_context": [
+        "하늘원숭이: ㄹㅊㄱ",
+        "반반땅기: ㅋㅋㅋㅋㅋ",
+        "동인천아사람: {:d_57:}",
+        "공공공고공: 단두대매치 드가자",
+        "그린디포: ㄷㄱㅈ",
+        "블루크림소다: {:d_57:}",
+        "하늘원숭이: 굿",
+        "087: {:cheong17124:}{:cheong17124:}{:cheong17124:}",
+        "반반땅기: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "플겜이: {:d_57:}",
+        "귓군영: {:cheong17A4sfg:}",
+        "087: 굿굿",
+        "똥슈리소울이: 굿굿",
+        "동인천아사람: {:cheong17A4sfg:}",
+        "하늘원숭이: 1경기 너무 좋네",
+        "용전문: 굿굿",
+        "김넨네: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "박티백: {:cheong17Awersgfx:}",
+        "큐티 수박 9966787: 지는팀 탈락임 ?",
+        "곤동갈: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "용전문: {:cheong17Awersgfx:}{:cheong17Awersgfx:}",
+        "끼아악호: {:cheong17A4sfg:}{:cheong17A4sfg:}"
+      ]
+    },
+    {
+      "timestamp": "2025-12-17T22:08:53.431471",
+      "fun_score": 12.17599586859378,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 7.6667318212085585,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 42.05845541221941,
+        "viewer_trend_score": 30,
+        "final_score": 12.17599586859378,
+        "baseline_chat_count": 12.240515531805976,
+        "baseline_viewer_count": 556.076469831523,
+        "baseline_threshold": 19.019913778645574,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.0238926851075796,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 562,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:09:17",
+      "comment_after_openDate": "00:09:17",
+      "chat_context": [
+        "블루크림소다: {:d_57:}",
+        "하늘원숭이: 굿",
+        "087: {:cheong17124:}{:cheong17124:}{:cheong17124:}",
+        "반반땅기: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "플겜이: {:d_57:}",
+        "귓군영: {:cheong17A4sfg:}",
+        "087: 굿굿",
+        "똥슈리소울이: 굿굿",
+        "동인천아사람: {:cheong17A4sfg:}",
+        "하늘원숭이: 1경기 너무 좋네",
+        "용전문: 굿굿",
+        "김넨네: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "박티백: {:cheong17Awersgfx:}",
+        "큐티 수박 9966787: 지는팀 탈락임 ?",
+        "곤동갈: {:cheong17A4sfg:}{:cheong17A4sfg:}",
+        "용전문: {:cheong17Awersgfx:}{:cheong17Awersgfx:}",
+        "끼아악호: {:cheong17A4sfg:}{:cheong17A4sfg:}"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
