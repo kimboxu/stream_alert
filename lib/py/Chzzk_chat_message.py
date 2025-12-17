@@ -923,14 +923,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if  self.data.channel_id not in ["bighead033", "kimboxu"]:
             return
         
-        special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제"]
+        special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제", "!추가", "!수정"]
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
-        if sp_chat[0] == "!멤버수정" or (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (sp_chat[0] == "!멤버" or self.is_fix_authority(userRoleCode, nickname)):
+        if sp_chat[0] == "!멤버수정" or (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (sp_chat[0] == "!멤버" or self.is_authority(userRoleCode, nickname)):
             if (len(sp_chat) == 2 and sp_chat[0] == "!멤버") or (len(sp_chat) == 1 and sp_chat[0] == "!멤버수정"):
                 save_text = " "
             elif len(sp_chat) == 2 and sp_chat[0] == "!멤버수정":
+                sp_chat[0] = "!멤버"
                 save_text = " ".join(sp_chat[1:])
             else:
                 save_text = " ".join(sp_chat[2:])
@@ -938,6 +939,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             await self._send(f"{save_text}(으)로 변경되었습니다.")
             self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]] = save_text
             await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
+            return
+        
+        if len(sp_chat) >= 2 and sp_chat[0] in ["!수정"] and sp_chat[1] == "!멤버":
+            await self.fix_command(chat_command, sp_chat)
             return
         
         chat_command = self.init.chat_commands.loc[self.data.channel_id, "chat_command"]
@@ -962,11 +967,20 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             send_command = chat_command[sp_chat[0]]
             await self._send(send_command)
-        elif len(sp_chat) == 2 and sp_chat[0] in ["!삭제"]:
+        elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and sp_chat[0] in ["!삭제"]:
             await self.del_command(chat_command, sp_chat[1])
+            return
+
+        elif self.is_authority(userRoleCode, nickname) and len(sp_chat) >= 2 and sp_chat[0] in ["!추가", "!수정"]:
+            if sp_chat[0] == "!추가":
+                await self.add_command(chat_command, sp_chat)
+                return
+            if sp_chat[0] == "!수정":
+                await self.fix_command(chat_command, sp_chat)
+                return
         return
 
-    def is_fix_authority(self, userRoleCode, nickname):
+    def is_authority(self, userRoleCode, nickname):
         return (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")
 
     async def uptime_command(self):
@@ -1008,6 +1022,27 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def category_command(self):
         category = self.init.chzzk_titleData.loc[self.data.channel_id, 'category']
         await self._send("카테고리 : " + category)
+
+    async def add_command(self, sp_chat):
+        if sp_chat[1] not in self.init.chat_commands.loc[self.data.channel_id, "chat_command"]:
+            self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[1]] = sp_chat[2:]
+            await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
+            await self._send(f"{sp_chat[1]}(이)가 추가 되었습니다.")
+        else:
+            await self._send(f"{sp_chat[1]} 명령어는 이미 있습니다.")
+
+    async def fix_command(self, sp_chat):
+        if sp_chat[1] in self.init.chat_commands.loc[self.data.channel_id, "chat_command"]:
+            if len(sp_chat) == 2:
+                save_text = " "
+            else:
+                save_text = " ".join(sp_chat[2:])
+        
+            self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
+            await self._send(f"{save_text}(으)로 변경되었습니다.")
+            await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
+        else:
+            await self._send(f"{sp_chat[1]} 명령어는 없습니다.")
 
     async def del_command(self, chat_command):
         if chat_command in self.init.chat_commands.loc[self.data.channel_id, "chat_command"]:
