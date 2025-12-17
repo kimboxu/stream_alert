@@ -170,9 +170,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def _message_receiver(self, message_queue: asyncio.Queue):
         async def should_close_connection():
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
-            is_new_chatChannel = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not self.check_live_state_close()
-            check_chat = self.init.chat_json[self.data.channel_id]
             is_close = self.check_live_state_close()
+            is_new_chatChannel = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
+            check_chat = self.init.chat_json[self.data.channel_id]
+            
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 600) 
                                   and (if_after_time(self.data.last_chat_time, sec = 60) and not self.is_connect)
                                   and if_after_time(join_time, sec = 30))
@@ -180,6 +181,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             if (self.run_analyzer and (is_close or is_change_chatChannel or is_new_chatChannel or check_chat)):
                 asyncio.create_task(self.should_offLine())
                 self.run_analyzer = False
+            
+            if  is_change_chatChannel or is_new_chatChannel or check_chat or is_old_chatChannel:
+                asyncio.create_task(log_error(f"test should_close_connection is_change_chatChannel:{is_change_chatChannel},is_new_chatChannel:{is_new_chatChannel}, check_chat:{check_chat},is_old_chatChannel{is_old_chatChannel}"))
+
             return is_change_chatChannel or is_new_chatChannel or check_chat or is_old_chatChannel
 
         json_loads = loads
@@ -492,11 +497,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 except asyncio.TimeoutError:
                     continue
                 except Exception as e:
-                    await log_error(f"Error during ping wait: {e}")
+                    await log_error(f"Error during ping wait: {str(e)}")
                     break
                     
         except Exception as e:
-            await log_error(f"Error in ping function: {e}")
+            await log_error(f"Error in ping function: {str(e)}")
         
         print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
 
