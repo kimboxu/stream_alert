@@ -945,7 +945,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if (nickname == "ai코딩" and chat[0] == "[" and chat[-1] == "]"):
             return True
         
-        if  self.data.channel_id not in ["bighead033", "kimboxu"]:
+        if self.data.channel_id not in ["bighead033", "kimboxu"]:
             return
         
         if not if_after_time(self.sendMSG_time, sec = 2):
