@@ -958,9 +958,9 @@ def setup_scheduled_tasks():
     scheduler.add_job(
         func=lambda: asyncio.run(cleanup_old_notifications_for_all_users()),
         trigger="cron",
-        # hour=2,
-        # minute=0
-        second=0
+        hour=2,
+        minute=0
+        # second=0
     )
     
     scheduler.start()
