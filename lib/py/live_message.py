@@ -59,6 +59,7 @@ class LiveData:
         "closeDate": "2025-01-01T00:00:00",                 # 오프라인 상태 업데이트 시간
         "titleChangeDate": "2025-01-01T00:00:00",           # 제목 변경 업데이트 시간
         "changeChatChannelIdDate": "2025-01-01T00:00:00",   # cid 업데이트 시간
+        "is_firstConnect": True,                            # 채팅창 연결이 처음인지
 })
     
 @dataclass
@@ -463,6 +464,7 @@ class chzzk_live_message(base_live_message):
     #치지직 오프라인 상태 처리
     async def _handle_offline_status(self, state_data):
         message = "뱅종"
+        self.data.state_update_time["is_firstConnect"] = True
         json_data = await self.getOffJson(state_data)
 
         self.offLineTitle()
@@ -722,6 +724,7 @@ class afreeca_live_message(base_live_message):
     #아프리카 오프라인 상태 처리
     async def _handle_offline_status(self, state_data):
         message = "뱅종"
+        self.data.state_update_time["is_firstConnect"] = True
         current_time = datetime.now()
         json_data = self.getOffJson(current_time)
         

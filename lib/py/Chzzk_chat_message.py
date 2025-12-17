@@ -89,13 +89,22 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             # 채널 ID 확인 및 갱신
             await self.get_check_channel_id()
-            if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(self.state_update_time["changeChatChannelIdDate"], sec = 60) and not await self.change_chatChannelId():
-                return
+            
+            if self.init.chzzk_titleData.loc[self.data.channel_id, 'is_firstConnect'] and not await self.is_different_chatChannelId():
+                await asyncio.sleep(0.1)
+                return 
+            
+            # if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(self.state_update_time["changeChatChannelIdDate"], sec = 60) and not await self.is_different_chatChannelId():
+            #     return
                 
             await self.change_chatChannelId()
             if not (await self.connect()):  # 연결 수립
                 return 
             
+            if self.init.chzzk_titleData.loc[self.data.channel_id, 'is_firstConnect']:
+                self.init.chzzk_titleData.loc[self.data.channel_id, 'is_firstConnect'] = False
+                asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
+
             message_queue = asyncio.Queue()  # 메시지 큐 생성
             await self.start_analyzer()     # 분석기 시작
 
@@ -641,6 +650,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             asyncio.create_task(log_error(f"error get_check_channel_id {self.data.channel_id}.{e}"))
         return False
 
+    # 채팅 채널 ID 가 다른지
+    async def is_different_chatChannelId(self, cid = None):
+        if cid is None:
+            cid = self.data.cid
+
+        if cid != self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']:
+            return True
+        return False
+    
     # 채팅 채널 ID 변경 함수
     async def change_chatChannelId(self, cid = None):
         if cid is None:
@@ -1102,7 +1120,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def check_change_chatChannel(self, connect_time):
         if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60):
             cid = chzzk_api.fetch_chatChannelId(self.init.chzzkIDList.loc[self.data.channel_id, "channel_code"], getChzzkCookie())
-            if await self.change_chatChannelId(cid):
+            if await self.is_different_chatChannelId(cid):
                 print(f"{datetime.now()} check {self.data.channel_id},{self.data.cid},cid check_live_state_close")
                 # asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
                 return True
