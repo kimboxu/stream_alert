@@ -214,7 +214,7 @@ class FileNotificationManager:
                 
                 if len(clean_notifications) > 3000:
                     import gc
-                    gc.collect()
+                    # gc.collect()
                 
                 # 임시 파일이 정상적으로 생성되었는지 확인
                 if not temp_path.exists():
@@ -357,7 +357,7 @@ class FileNotificationManager:
                 # 주기적으로 가비지 컬렉션 실행
                 if i > 0 and i % (batch_size * 5) == 0:  # 50개마다
                     import gc
-                    gc.collect()
+                    # gc.collect()
                     
                 # 배치 간 잠깐 대기
                 import time
