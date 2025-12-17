@@ -50,6 +50,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         self.tasks = []  # 비동기 태스크
 
         self.is_connect = False
+        self.sendMSG_time = datetime.now().isoformat()
 
         self.setup_analyzer(channel_id, channel_name, 'chzzk')
 
@@ -581,7 +582,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "msgTime": int(datetime.now().timestamp())
             }
         }
-
+        self.sendMSG_time = datetime.now().isoformat()
         await self.data.sock.send(dumps(dict(send_dict, **default_dict)))
 
     # Chzzk 채팅 딕셔너리 생성 함수
@@ -939,6 +940,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return True
         
         if  self.data.channel_id not in ["bighead033", "kimboxu"]:
+            return
+        
+        if not if_after_time(self.sendMSG_time, sec = 2):
             return
         
         special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제", "!추가", "!수정"]
