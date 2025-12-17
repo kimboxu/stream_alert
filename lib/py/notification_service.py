@@ -300,7 +300,7 @@ class FileNotificationManager:
             if not notifications:
                 return True
             
-            cutoff_time = datetime.now() - timedelta(days=max_age_days)
+            cutoff_time = datetime.now().astimezone() - timedelta(days=max_age_days)
             
             # 최근 알림만 유지
             filtered_notifications = []
@@ -309,9 +309,10 @@ class FileNotificationManager:
                     timestamp_str = notification.get('timestamp', '')
                     if timestamp_str:
                         timestamp = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
+
                         if timestamp > cutoff_time:
                             filtered_notifications.append(notification)
-                except:
+                except Exception as e:
                     # 타임스탬프 파싱 실패시 유지
                     filtered_notifications.append(notification)
             
@@ -957,8 +958,9 @@ def setup_scheduled_tasks():
     scheduler.add_job(
         func=lambda: asyncio.run(cleanup_old_notifications_for_all_users()),
         trigger="cron",
-        hour=2,
-        minute=0
+        # hour=2,
+        # minute=0
+        second=0
     )
     
     scheduler.start()
@@ -1034,10 +1036,10 @@ async def cleanup_old_notifications_for_all_users():
                     data = json.load(f)
                     webhook_url = data.get('webhook_url')
                     
-                    if webhook_url:
-                        if await file_notification_manager.cleanup_old_notifications(webhook_url, max_age_days=30):
-                            cleaned_count += 1
-                        await asyncio.sleep(0.01)
+                if webhook_url:
+                    if await file_notification_manager.cleanup_old_notifications(webhook_url, max_age_days=30):
+                        cleaned_count += 1
+                    await asyncio.sleep(0.01)
                             
             except Exception as e:
                 print(f"파일 정리 중 오류 ({file_path}): {e}")
