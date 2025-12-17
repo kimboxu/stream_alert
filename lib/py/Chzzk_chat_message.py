@@ -923,7 +923,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if  self.data.channel_id not in ["bighead033", "kimboxu"]:
             return
         
-        special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임"]
+        special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제"]
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
@@ -962,6 +962,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             send_command = chat_command[sp_chat[0]]
             await self._send(send_command)
+        elif len(sp_chat) == 2 and sp_chat[0] in ["!삭제"]:
+            await self.del_command(chat_command, sp_chat[1])
         return
 
     def is_fix_authority(self, userRoleCode, nickname):
@@ -1006,6 +1008,14 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def category_command(self):
         category = self.init.chzzk_titleData.loc[self.data.channel_id, 'category']
         await self._send("카테고리 : " + category)
+
+    async def del_command(self, chat_command):
+        if chat_command in self.init.chat_commands.loc[self.data.channel_id, "chat_command"]:
+            del self.init.chat_commands.loc[self.data.channel_id, "chat_command"][chat_command]
+            await self._send(f"{chat_command}(이)가 삭제되었습니다.")
+            await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
+        else:
+            await self._send(f"{chat_command} 명령어는 없습니다.")
 
     # 채팅방 입장 시 인사 메시지 전송 함수
     async def sendHi(self, himent):
