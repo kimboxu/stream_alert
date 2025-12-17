@@ -91,7 +91,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             # 채널 ID 확인 및 갱신
             await self.get_check_channel_id()
             
-            if self.init.chzzk_titleData.loc[self.data.channel_id, 'is_firstConnect'] and not await self.is_different_chatChannelId():
+            if self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
                 await asyncio.sleep(0.1)
                 return 
             
@@ -102,8 +102,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             if not (await self.connect()):  # 연결 수립
                 return 
             
-            if self.init.chzzk_titleData.loc[self.data.channel_id, 'is_firstConnect']:
-                self.init.chzzk_titleData.loc[self.data.channel_id, 'is_firstConnect'] = False
+            if self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
+                self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
                 asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
 
             message_queue = asyncio.Queue()  # 메시지 큐 생성
