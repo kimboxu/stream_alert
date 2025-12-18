@@ -179,13 +179,13 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                                   and if_after_time(join_time, sec = 30))
 
             if (self.run_analyzer and (is_close or is_change_chatChannel or is_new_chatChannel or check_chat)):
-                asyncio.create_task(self.should_offLine())
                 self.run_analyzer = False
+                asyncio.create_task(self.should_offLine())    
             
             if  is_change_chatChannel or is_new_chatChannel or check_chat or is_old_chatChannel:
                 asyncio.create_task(log_error(f"test should_close_connection is_change_chatChannel:{is_change_chatChannel},is_new_chatChannel:{is_new_chatChannel}, check_chat:{check_chat},is_old_chatChannel{is_old_chatChannel}"))
 
-            return is_change_chatChannel or is_new_chatChannel or check_chat or is_old_chatChannel
+            return not self.run_analyzer and (is_change_chatChannel or is_new_chatChannel or check_chat or is_old_chatChannel)
 
         json_loads = loads
         message_buffer = []
