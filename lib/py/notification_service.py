@@ -68,9 +68,9 @@ def sanitize_data_for_json(data):
         result = _sanitize_recursive(data)
         
         # 대용량 데이터 처리 후 가비지 컬렉션
-        if isinstance(data, (list, dict)) and len(str(data)) > 50000:  # 50KB 이상
-            import gc
-            gc.collect()
+        # if isinstance(data, (list, dict)) and len(str(data)) > 50000:  # 50KB 이상
+        #     import gc
+            # gc.collect()
             
         return result
         
@@ -278,9 +278,9 @@ class FileNotificationManager:
             # 새 알림 추가
             notifications.append(notification_data)
             
-            # 알림 개수 제한 (최신 10000개만 유지), 전체 알림 테스트 1달이 4500개, 10,000개면 충분
-            if len(notifications) > 10000:
-                notifications = notifications[-10000:]
+            # 알림 개수 제한 (최신 100000개만 유지), 전체 알림 테스트 1달이 4500개, 10,000개면 충분
+            if len(notifications) > 100000:
+                notifications = notifications[-100000:]
             
             return self.save_notifications(webhook_url, notifications)
             
@@ -300,25 +300,34 @@ class FileNotificationManager:
             if not notifications:
                 return True
             
+            original_count = len(notifications)
             cutoff_time = datetime.now().astimezone() - timedelta(days=max_age_days)
             
             # 최근 알림만 유지
             filtered_notifications = []
-            for notification in notifications:
-                try:
-                    timestamp_str = notification.get('timestamp', '')
-                    if timestamp_str:
-                        timestamp = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
 
-                        if timestamp > cutoff_time:
-                            filtered_notifications.append(notification)
-                except Exception as e:
-                    # 타임스탬프 파싱 실패시 유지
-                    filtered_notifications.append(notification)
-            
+            batch_size = 1000  # 1000개씩 처리
+            for i in range(0, len(notifications), batch_size):
+                batch = notifications[i:i + batch_size]
+
+                for notification in batch:
+                    try:
+                        timestamp_str = notification.get('timestamp', '')
+                        if timestamp_str:
+                            timestamp = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
+
+                            if timestamp > cutoff_time:
+                                filtered_notifications.append(notification)
+                    except Exception as e:
+                        # 타임스탬프 파싱 실패시 유지
+                        filtered_notifications.append(notification)
+
+                await asyncio.sleep(0)  # 0초 sleep은 즉시 제어권만 반환
+                
             if len(filtered_notifications) != len(notifications):
+                print(f"{datetime.now()} {webhook_url}: {original_count}개 -> {len(filtered_notifications)}개로 정리")
                 return self.save_notifications(webhook_url, filtered_notifications, force_save=True)
-            
+                
             return True
             
         except Exception as e:
@@ -1025,6 +1034,7 @@ def remove_fcm_token(token):
 #모든 사용자의 오래된 알림 정리
 async def cleanup_old_notifications_for_all_users():
     try:
+        print(f"{datetime.now()} 오래된 알림 정리 시작: {cleaned_count}개 사용자")
         # 알림 디렉토리의 모든 파일 확인
         notification_files = list(file_notification_manager.notifications_dir.glob("notifications_*.json"))
         
