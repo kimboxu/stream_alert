@@ -278,9 +278,9 @@ class FileNotificationManager:
             # 새 알림 추가
             notifications.append(notification_data)
             
-            # 알림 개수 제한 (최신 100000개만 유지)
-            if len(notifications) > 100000:
-                notifications = notifications[-100000:]
+            # 알림 개수 제한 (최신 10000개만 유지), 전체 알림 테스트 1달이 4500개, 10,000개면 충분
+            if len(notifications) > 10000:
+                notifications = notifications[-10000:]
             
             return self.save_notifications(webhook_url, notifications)
             
