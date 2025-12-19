@@ -1125,7 +1125,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             await self._send(f"{chat_command} 명령어는 없습니다.")
 
     def is_sendMSG_time(self, command):
-        if command not in self.sendMSG_time_dict[command]:
+        if command not in self.sendMSG_time_dict:
             self.sendMSG_time_dict[command] = datetime.now().isoformat()
             return True
         
