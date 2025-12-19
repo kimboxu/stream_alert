@@ -1019,6 +1019,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         return (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")
 
     async def uptime_command(self):
+        if self.check_live_state_close():
+            await self._send("채널이 오프라인 상태입니다.")
+            return
         start_time_str = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['openDate']
         current_time = datetime.now()
         start_time = datetime.fromisoformat(start_time_str)
