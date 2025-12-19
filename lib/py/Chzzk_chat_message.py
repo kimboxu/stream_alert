@@ -951,10 +951,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         
         if self.data.channel_id not in ["bighead033", "kimboxu"]:
             return
-        
-        if not if_after_time(self.sendMSG_time, sec = 2):
-            return
-        
+                
         special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제", "!추가", "!수정"]
 
         # 명령어 수정 기능
