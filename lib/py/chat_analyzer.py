@@ -1007,7 +1007,7 @@ class ChatAnalyzer:
             if self.init.DO_TEST: 
                 image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
             else:
-                image_url = await upload_image_to_imgbb(self.performance_manager, self.channel_id, thumbnail_url, platform_prefix = platform_name)
+                image_url = await upload_image_to_imgbb(self.init, self.performance_manager, self.channel_id, thumbnail_url, platform_prefix = platform_name)
             
  
             timeline_comments = await self._make_highlight_chat([highlight], is_use_description = self.init.is_use_description[self.channel_id])
