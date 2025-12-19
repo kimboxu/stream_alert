@@ -37,6 +37,8 @@ class initVar:
 	GOOGLE_API_KEY_LIST = environ['GOOGLE_API_KEY'].split(",")
 	genai_cnt = randint(0, (len(GOOGLE_API_KEY_LIST)-1)*10-1)
 	youtube_key_index = randint(0, 17*4-1)
+	IMGBB_API_KEY_LIST = environ['IMGBB_API_KEY_LIST'].split(",")
+	api_key_cnt = randint(0, len(IMGBB_API_KEY_LIST)-1)
 
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
 

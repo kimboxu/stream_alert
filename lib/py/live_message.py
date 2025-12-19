@@ -552,7 +552,7 @@ class chzzk_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL(state_data)
             
-            return await upload_image_to_imgbb(self.performance_manager, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
+            return await upload_image_to_imgbb(self.init, self.performance_manager, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
                 
         except Exception as e:
             asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
@@ -801,7 +801,7 @@ class afreeca_live_message(base_live_message):
             # 이미지 URL 가져오기
             self.getImageURL()
             
-            return await upload_image_to_imgbb(self.performance_manager, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
+            return await upload_image_to_imgbb(self.init, self.performance_manager, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
         
         except Exception as e:
             print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
@@ -936,8 +936,8 @@ async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, 
         traceback.print_exc()
         return None
 
-
 async def upload_image_to_imgbb(
+    init: initVar, 
     performance_manager: PerformanceManager,
     channel_id: str, 
     image_url: str, 
@@ -950,7 +950,8 @@ async def upload_image_to_imgbb(
     
     try:
         # API 키 확인
-        api_key = environ.get("IMGBB_API_KEY")
+        init.api_key_cnt = (init.api_key_cnt + 1) % len(init.IMGBB_API_KEY_LIST)
+        api_key = init.IMGBB_API_KEY_LIST[init.api_key_cnt]
         if not api_key:
             print(f"{datetime.now()} ImgBB API 키가 설정되지 않았습니다")
             return None
