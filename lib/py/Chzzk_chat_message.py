@@ -1200,13 +1200,14 @@ async def main():
     # 상태 관리자 인스턴스 가져오기
     from shared_state import StateManager
     state = StateManager.get_instance()
+    performance_manager = state.get_performance_manager()
     
     # 초기화 및 데이터 로드
     init = await state.initialize()
     await asyncio.sleep(1)  # 초기화 완료 후 1초 대기(간혹 바로 프로그램 실행시 초기화 단계에서 오류 발생 하는 것 같아서)
     
     # 치지직 채팅 처리 태스크 시작
-    await asyncio.create_task(generic_chat(init, 'chzzk', chzzk_chat_message))
+    await asyncio.create_task(generic_chat(init, performance_manager, 'chzzk'))
         
 # 스크립트가 직접 실행된 경우 메인 함수 실행
 if __name__ == "__main__":
