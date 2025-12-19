@@ -1001,7 +1001,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 if sp_chat[0] in ["!카테고리", "!게임"]:
                     await self.category_command()
                     return
-
+                
+            send_command = chat_command[sp_chat[0]]
+            await self._send(send_command)
         elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and sp_chat[0] in ["!삭제"]:
             if not self.is_sendMSG_time(sp_chat[0]):
                 return
