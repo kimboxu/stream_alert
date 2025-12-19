@@ -45,9 +45,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         self.data = ChzzkChatData(channel_id=channel_id, channel_name = channel_name)
         self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.post_chat_semaphore = asyncio.Semaphore(5)  # 동시 실행 제한 세마포어
+        self.command_semaphore = asyncio.Semaphore(1)
         self.profile_image_cache = {}  # 프로필 이미지 캐시 (uid -> (timestamp, image_url))
         self.profile_cache_ttl = 1800  # 프로필 캐시 유효 시간 (초)
         self.tasks = []  # 비동기 태스크
+        self.command_task = None
 
         self.is_connect = False
         self.sendMSG_time = datetime.now().isoformat()
@@ -157,6 +159,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     pass
                 except Exception as e:
                     await log_error(f"태스크 정리 중 오류 ({self.data.channel_id}): {e}")
+
+        if self.command_task and not self.command_task.done():
+            self.command_task.cancel()
         
         # 4. 태스크 리스트 초기화
         self.tasks = []
@@ -986,7 +991,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     return
                 
                 if sp_chat[0] == "!명령어":
-                    await self.command_list(chat_command, special_command_list)
+                    if self.command_task and not self.command_task.done():
+                        return
+                    self.command_task = asyncio.create_task(self.command_list(chat_command, special_command_list))
                     return
 
                 if sp_chat[0] in ["!카테고리", "!게임"]:
@@ -1044,8 +1051,31 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         await self._send("방제 : " + title)
 
     async def command_list(self, chat_command, special_command_list):
-        command = str(list(chat_command.keys()) + special_command_list)
-        await self._send(command)
+        commands = list(chat_command.keys()) + special_command_list
+
+        async with self.command_semaphore:
+            for msg in self.split_message(commands):
+                await self._send(msg)
+                await asyncio.sleep(0.5)
+
+    def split_message(self, items, sep=",", max_len=100):
+        result = []
+        buffer = ""
+
+        for item in items:
+            next_part = item if not buffer else sep + item
+
+            # [] 포함 길이 고려 (-2)
+            if len(buffer) + len(next_part) > max_len - 2:
+                result.append(buffer)
+                buffer = item
+            else:
+                buffer += next_part
+
+        if buffer:
+            result.append(buffer)
+
+        return result
 
     async def category_command(self):
         category = self.init.chzzk_titleData.loc[self.data.channel_id, 'category']
