@@ -175,6 +175,7 @@ async def DataBaseVars(init: initVar):
 				'chzzk_titleData': 'channelID',
 				'afreeca_titleData': 'channelID',
 				'youtubeData': 'YoutubeChannelID',
+				'chzzk_chatFilter': 'uid',
 				'afreeca_chatFilter': 'channelID',
 				'cafeData': 'channelID',
 				'video_data': 'channelID',
@@ -852,6 +853,26 @@ async def save_user_notifications(supabase, webhook_url, notifications, last_db_
 	
 	return False  # 모든 시도 실패
 
+async def save_user_chat_user_json(supabase, webhook_url, chat_user_json):
+	data = {
+			'discordURL': webhook_url, 
+			'chat_user_json': chat_user_json,
+	}
+	
+	for _ in range(3):  # 최대 3번 시도
+		try:
+			await asyncio.to_thread(
+				lambda: supabase.table('userStateData')
+					.upsert(data)
+					.execute()
+			)
+			return True
+		except Exception as e:
+			print(f"{datetime.now()} error save_user_chat_user_json : {e} - URL: {webhook_url}")
+			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
+	
+	return False  # 모든 시도 실패
+
 # 보낸 클립 UID 저장 함수
 async def save_sent_notifications(supabase, channel_id, hot_clip_data):
 	data = {
@@ -888,4 +909,21 @@ async def save_chat_command_data(chat_command_data, _id):
 			break
 		except Exception as e:
 			asyncio.create_task(log_error(f"error saving chat_command data {e}"))
+			await asyncio.sleep(0.1)
+	
+async def save_chatFilter_name(user_id, user_name, platform: str): 
+	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	data = {'channelName': user_name}
+
+	if platform == "chzzk":
+		data["uid"] = user_id
+	elif platform == "afreeca":
+		data["channelID"] = user_id
+
+	for _ in range(3):
+		try:
+			supabase.table(f'{platform}_chatFilter').upsert(data).execute()
+			break
+		except Exception as e:
+			asyncio.create_task(log_error(f"error saving {platform}_name_save data {e}"))
 			await asyncio.sleep(0.1)

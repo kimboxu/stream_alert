@@ -17,6 +17,8 @@ from base import  (
     if_after_time, 
     log_error,
     save_chat_command_data,
+    save_chatFilter_name,
+    save_user_chat_user_json,
     )
 
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
@@ -421,8 +423,16 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 # chzzk_chatFilter에 없는 사람 채팅은 제거
                 # if not self.init.DO_TEST and nickname not in [*self.init.chzzk_chatFilter["channelName"]]:
                 #     continue
-                if nickname not in [*self.init.chzzk_chatFilter["channelName"]]:
+
+                # if nickname not in [*self.init.chzzk_chatFilter["channelName"]]:
+                #     continue
+
+                user_id = self.get_uid(chat_data)
+
+                if user_id not in [*self.init.chzzk_chatFilter["uid"]]:
                     continue
+
+                await self.change_nickname(user_id, nickname)
 
                 # self.data.chzzk_chat_msg_List.append([chat_data, chat_type])
                 # 채팅 전송 태스크 생성
@@ -435,6 +445,29 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         # 모든 처리 태스크 실행
         if processing_tasks:
             await asyncio.gather(*processing_tasks, return_exceptions=True)
+
+    # 닉네임 변경시 db 데이터 변경 및 사용자 설정 변경
+    async def change_nickname(self, user_id, nickname):
+        try:
+            if nickname != self.init.chzzk_chatFilter.loc[user_id, "channelName"]:
+
+                chzzkIDList = list(self.init.chzzkIDList["channelID"])
+
+                for discordWebhookURL in self.init.userStateData['discordURL']:
+                    if self.init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
+                        for channelID in self.init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
+
+                            # 사용자의 치지직 스트리머 채널의 설정 리스트 중에 닉네임 변경이 필요한 사람이 있는지 
+                            if  channelID in chzzkIDList and self.init.chzzk_chatFilter.loc[user_id, "channelName"] in self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID]:
+                                index = self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID].index(self.init.chzzk_chatFilter.loc[user_id, "channelName"])
+                                self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID][index] = nickname
+                                asyncio.create_task(save_user_chat_user_json(self.init.supabase, discordWebhookURL, self.init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
+
+                self.init.chzzk_chatFilter.loc[user_id, 'channelName'] = nickname
+                asyncio.create_task(save_chatFilter_name(user_id, nickname, platform = 'chzzk'))
+                asyncio.create_task(log_error(f"닉네임 변경됨 chzzk:{self.init.chzzk_chatFilter.loc[user_id, 'channelName']} -> {nickname}"))
+        except Exception as e:
+            print(e)
 
     # 채팅 전송 함수
     async def _post_chat(self, chat_data, message):
@@ -1186,43 +1219,46 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         return False
 
 #일반 채팅 처리 함수(디버깅 용도)
-async def generic_chat(init: initVar, platform_name: str, message_class):
-    await asyncio.sleep(3)  # 초기화 지연
+async def generic_chat(init: initVar, performance_manager: PerformanceManager, platform_name: str):
+    await asyncio.sleep(3)
     
     tasks = {}  # 채널 ID별 실행 중인 task를 관리할 딕셔너리
     
     while True:
         try:
-            # 플랫폼에 따른 ID 리스트 결정
+            # ID 리스트 결정
             if platform_name == 'chzzk':
-                id_list = init.chzzkIDList  # 치지직 ID 리스트
+                id_list = init.chzzkIDList
+                chat_class = 'chzzk_chat'
             elif platform_name == 'afreeca':
-                id_list = init.afreecaIDList  # 아프리카 ID 리스트
+                id_list = init.afreecaIDList
+                chat_class = 'afreeca_chat'
             
-            # 각 채널에 대해 태스크 관리
+            # 기존 실행 중인 태스크를 유지하면서, 새로운 채널이 추가되면 실행
             for channel_id in id_list["channelID"]:
-                # 채널에 대한 태스크가 없거나 완료된 경우 새로운 태스크 생성
                 if channel_id not in tasks or tasks[channel_id].done():
-                    chat_instance = message_class(init, channel_id)
+                    # StateManager를 활용하여 인스턴스 생성/재사용
+                    chat_instance = chzzk_chat_message(init, performance_manager, channel_id)
                     tasks[channel_id] = asyncio.create_task(chat_instance.start())
             
-            await asyncio.sleep(1)  # 1초마다 채널 목록 확인
+            await asyncio.sleep(1)  # 1초마다 체크
         
         except Exception as e:
-            # 예외 발생 시 로그 기록
             print(f"{datetime.now()} error {platform_name}_chatf {e}")
             await asyncio.create_task(log_error(f"Error in {platform_name}_chatf: {str(e)}"))
-            await asyncio.sleep(1)  # 예외 발생 시 1초 대기
+            await asyncio.sleep(1)
 
 # 메인 함수 - 프로그램 실행(디버깅 용도)
 async def main():
     # 상태 관리자 인스턴스 가져오기
     from shared_state import StateManager
-    state = StateManager.get_instance()
-    performance_manager = state.get_performance_manager()
+    state_manager = StateManager.get_instance()
+    init = state_manager.get_init()
+    init = await state_manager.initialize()
+    performance_manager = state_manager.get_performance_manager()
     
     # 초기화 및 데이터 로드
-    init = await state.initialize()
+    
     await asyncio.sleep(1)  # 초기화 완료 후 1초 대기(간혹 바로 프로그램 실행시 초기화 단계에서 오류 발생 하는 것 같아서)
     
     # 치지직 채팅 처리 태스크 시작

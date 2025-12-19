@@ -9,6 +9,7 @@ from base import (
     log_error,
     getDefaultHeaders,
     getAfreecaCookie,
+    save_chatFilter_name,
 )
 import certifi #SSL 인증서 검증용 라이브러리
 import asyncio
@@ -380,8 +381,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             return
         
         # 닉네임 불일치 처리
-        if not self.init.DO_TEST and nickname != self.init.afreeca_chatFilter.loc[user_id, "channelName"]: 
-            asyncio.create_task(self.afreeca_name_save(user_id, nickname))
+        if not self.init.DO_TEST and nickname != self.init.afreeca_chatFilter.loc[user_id, "channelName"]:
+            self.init.afreeca_chatFilter.loc[user_id, "channelName"] = nickname
+            asyncio.create_task(save_chatFilter_name(user_id, nickname, "afreeca"))
 
         # 메시지 중복 체크 및 처리
         self._process_new_message(user_id, chat)
@@ -389,20 +391,6 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # 채팅 메시지 포스팅
         asyncio.create_task(self._post_chat(nickname, chat, profile_image, chat_type))
 
-    # 프로필 데이터 저장
-    async def afreeca_name_save(self, user_id, user_name): 
-        supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-        data = {
-            "channelID": user_id,
-            'channelName': user_name
-        }
-        for _ in range(3):
-            try:
-                supabase.table('afreeca_chatFilter').upsert(data).execute()
-                break
-            except Exception as e:
-                asyncio.create_task(log_error(f"error saving profile data {e}"))
-                await asyncio.sleep(0.1)
 
     # 채팅 메시지 전송
     async def _post_chat(self, nickname, chat, profile_image, chat_type): 
