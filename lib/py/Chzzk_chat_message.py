@@ -52,7 +52,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         self.command_task = None
 
         self.is_connect = False
-        self.sendMSG_time = datetime.now().isoformat()
+        self.sendMSG_time_dict = {}
 
         self.setup_analyzer(channel_id, channel_name, 'chzzk')
 
@@ -593,7 +593,6 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "msgTime": int(datetime.now().timestamp())
             }
         }
-        self.sendMSG_time = datetime.now().isoformat()
         await self.data.sock.send(dumps(dict(send_dict, **default_dict)))
 
     # Chzzk 채팅 딕셔너리 생성 함수
@@ -969,6 +968,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             else:
                 save_text = " ".join(sp_chat[2:])
 
+            if not self.is_sendMSG_time(sp_chat[0]):
+                return
+            
             await self._send(f"{save_text}(으)로 변경되었습니다.")
             self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[0]] = save_text
             await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
@@ -981,6 +983,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         chat_command = self.init.chat_commands.loc[self.data.channel_id, "chat_command"]
         # 메시지 보네기
         if len(sp_chat) == 1 and sp_chat[0] in list(chat_command.keys()) + special_command_list:
+            if not self.is_sendMSG_time(sp_chat[0]):
+                return
+            
             if sp_chat[0] in special_command_list:
                 if sp_chat[0] == "!업타임":
                     await self.uptime_command()
@@ -1000,13 +1005,17 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     await self.category_command()
                     return
 
-            send_command = chat_command[sp_chat[0]]
-            await self._send(send_command)
         elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and sp_chat[0] in ["!삭제"]:
+            if not self.is_sendMSG_time(sp_chat[0]):
+                return
+            
             await self.del_command(chat_command, sp_chat[1])
             return
 
         elif self.is_authority(userRoleCode, nickname) and len(sp_chat) >= 2 and sp_chat[0] in ["!추가", "!수정"]:
+            if not self.is_sendMSG_time(sp_chat[0]):
+                return
+            
             if sp_chat[0] == "!추가":
                 await self.add_command(chat_command, sp_chat)
                 return
@@ -1117,6 +1126,14 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
         else:
             await self._send(f"{chat_command} 명령어는 없습니다.")
+
+    def is_sendMSG_time(self, command):
+        if command not in self.sendMSG_time_dict[command]:
+            self.sendMSG_time_dict[command] = datetime.now().isoformat()
+            return True
+        
+        return if_after_time(self.sendMSG_time_dict[command], sec = 2)
+        
 
     # 채팅방 입장 시 인사 메시지 전송 함수
     async def sendHi(self, himent):
