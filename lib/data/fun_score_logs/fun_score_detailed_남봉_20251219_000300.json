@@ -1,0 +1,81 @@
+{
+  "channel_id": "nambong94",
+  "channel_name": "남봉",
+  "save_timestamp": "2025-12-19T00:03:00.262164",
+  "total_logs": 2,
+  "logs": [
+    {
+      "timestamp": "2025-12-18T23:59:00.041836",
+      "fun_score": 8.421161087321302,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8912001766518098,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 20,
+        "final_score": 8.421161087321302,
+        "baseline_chat_count": 3.384310180555191,
+        "baseline_viewer_count": 517.1530738046165,
+        "baseline_threshold": 18.77117116187728,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.40955685832641464,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 519,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:58:29",
+      "comment_after_openDate": "00:58:29",
+      "chat_context": [
+        "쟌누: 1분간 아웃플 안되니깐"
+      ]
+    },
+    {
+      "timestamp": "2025-12-18T23:59:28.331212",
+      "fun_score": 8.422767554246203,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8947701031515872,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 20,
+        "final_score": 8.422767554246203,
+        "baseline_chat_count": 3.3614684890254725,
+        "baseline_viewer_count": 517.1707673575683,
+        "baseline_threshold": 18.672018065363034,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.4111633252513158,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 502,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:58:58",
+      "comment_after_openDate": "00:58:58",
+      "chat_context": [
+        "쟌누: 쿠킹은 스스로 죽던 상대가 죽던"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
