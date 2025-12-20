@@ -803,9 +803,13 @@ class ChatAnalyzer:
         try:
             check_interval = 1
             max_wait_time = 300
-            for stream_start_time in self.highlights_dict:
-                for wait_count in range(max_wait_time): # make_highlight_chat 실행 중 방송이 종료되어 _save_completed_highlight_chat_after_update가 실행 된 후에 make_highlight_chat이 완료되는 문제 해결을 위해 해당 상태 확인
-
+            stream_start_times = list(self.highlights_dict.keys())
+            
+            for stream_start_time in stream_start_times:
+                if stream_start_time not in self.highlights_dict:
+                    continue
+                    
+                for wait_count in range(max_wait_time):
                     if wait_count % 30 == 0:
                         remaining_time = max_wait_time - (wait_count * check_interval)
                         print(f"{datetime.now()} {stream_start_time} 하이라이트 대기 중: {self.channel_name} (남은 시간: {remaining_time}초)")
