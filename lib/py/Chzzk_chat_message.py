@@ -1100,7 +1100,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         async with self.command_semaphore:
             for msg in self.split_message(commands):
                 await self._send(msg)
-                await asyncio.sleep(0.5)
+                await asyncio.sleep(1.0)
 
     def split_message(self, items, sep=",", max_len=100):
         result = []
