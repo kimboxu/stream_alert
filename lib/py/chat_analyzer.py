@@ -63,7 +63,7 @@ class ChatMessageWithAnalyzer:
         try:
             if not self.analysis_task or self.analysis_task.done():
                 self.is_save_log = False
-                self.chat_analyzer.stream_start_time = str(self.init.stream_status[self.channel_id].start_at['openDate'])
+                self.chat_analyzer.stream_start_time = str(self.init.stream_status[self.chat_analyzer.channel_id].start_at['openDate'])
                 self.chat_analyzer.highlights_dict[self.chat_analyzer.stream_start_time] = []
                 self.chat_analyzer.detailed_logs_dict[self.chat_analyzer.stream_start_time] = []
                 self.analysis_task = asyncio.create_task(self._run_analyzer())

@@ -55,6 +55,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         self.is_connect = False
         self.sendMSG_time_dict = {}
+        self.start_program = True
 
         self.setup_analyzer(channel_id, channel_name, 'chzzk')
 
@@ -65,7 +66,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id, False))
             
             # 방송이 종료되었다면 대기(5초 마다 확인)
-            if self.check_live_state_close():
+            if self.check_live_state_close() and not self.start_program:
                 await asyncio.sleep(5)
                 continue
             
@@ -95,7 +96,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             # 채널 ID 확인 및 갱신
             await self.get_check_channel_id()
             
-            if self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
+            if not self.start_program and self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
                 await asyncio.sleep(0.1)
                 return 
             
@@ -111,7 +112,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 asyncio.create_task(save_airing_data(self.init.chzzk_titleData, 'chzzk', self.data.channel_id))
 
             message_queue = asyncio.Queue()  # 메시지 큐 생성
-            await self.start_analyzer()     # 분석기 시작
+            if self.start_program and self.check_live_state_close():
+                self.run_analyzer = False
+            else:
+                await self.start_analyzer()     # 분석기 시작
 
             # 필요한 비동기 태스크 생성 및 시작
             self.tasks = [
@@ -127,6 +131,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def _cleanup_tasks(self):
         """태스크 정리 함수"""
         
+        self.start_program = False
         # 분석기 정리
         try:
             await self.stop_analyzer()
