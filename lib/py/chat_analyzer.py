@@ -115,9 +115,12 @@ class ChatMessageWithAnalyzer:
 
     async def should_offLine(self):
         # 로그 저장
-        if not self.is_save_log:
-            self.is_save_log = True
-            await self.chat_analyzer.highlight_processing(self.is_save_log)
+        if self.is_save_log:
+            return
+        
+        self.is_save_log = True
+        await self.stop_analyzer()
+        await self.chat_analyzer.highlight_processing(self.is_save_log)
 
     async def highlight_processing(self):
         is_emergency = True
@@ -132,8 +135,15 @@ class ChatMessageWithAnalyzer:
                     await asyncio.sleep(self.chat_analyzer.analysis_interval) 
 
                     # 분석 실행
-                    if not self.is_save_log:
+                    if self.is_save_log:
+                        break
+
+                    try:
                         detailed_log = await self.chat_analyzer.analyze()
+                    except Exception as e:
+                        asyncio.create_task(log_error(f"_run_analyzer 오류: self.is_save_log:{self.is_save_log}, {e}"))
+                        if self.is_save_log:
+                            break
 
                     # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 디테일 점수{detailed_log}")
                           
@@ -808,6 +818,9 @@ class ChatAnalyzer:
             for stream_start_time in stream_start_times:
                 if stream_start_time not in self.highlights_dict:
                     continue
+                
+                if stream_start_time not in self.detailed_logs_dict:
+                    self.detailed_logs_dict[stream_start_time] = []
                     
                 for wait_count in range(max_wait_time):
                     if wait_count % 30 == 0:
@@ -824,7 +837,13 @@ class ChatAnalyzer:
 
                 # 하이라이트 생성
                 highlights_to_process = self.highlights_dict[stream_start_time].copy()
-                del self.highlights_dict[stream_start_time]
+                
+                if is_save_log:
+                    # 방송 종료 - 완전히 삭제
+                    del self.highlights_dict[stream_start_time]
+                    if stream_start_time in self.detailed_logs_dict:
+                        del self.detailed_logs_dict[stream_start_time]
+                
                 timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
                 self.update_highlight_chat(timeline_comments)
 
