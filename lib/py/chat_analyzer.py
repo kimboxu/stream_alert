@@ -144,6 +144,10 @@ class ChatMessageWithAnalyzer:
                         asyncio.create_task(log_error(f"_run_analyzer {self.chat_analyzer.channel_name} 오류: self.is_save_log:{self.is_save_log}, {e}"))
                         if self.is_save_log:
                             break
+                        if self.chat_analyzer.stream_start_time in self.chat_analyzer.highlights_dict:
+                            self.chat_analyzer.highlights_dict[self.chat_analyzer.stream_start_time] = []
+                        if self.chat_analyzer.stream_start_time in self.chat_analyzer.detailed_logs_dict:
+                            self.chat_analyzer.detailed_logs_dict[self.chat_analyzer.stream_start_time] = []
 
                     # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 디테일 점수{detailed_log}")
                           
@@ -842,8 +846,7 @@ class ChatAnalyzer:
             if is_save_log:
                 # 방송 종료 - 완전히 삭제
                 del self.highlights_dict[stream_start_time]
-                if stream_start_time in self.detailed_logs_dict:
-                    del self.detailed_logs_dict[stream_start_time]
+                del self.detailed_logs_dict[stream_start_time]
             
             timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
             self.update_highlight_chat(timeline_comments)
