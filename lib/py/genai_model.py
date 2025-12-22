@@ -26,7 +26,7 @@ class GenAIModelManager:
 
                 응답 형식:
                 [
-                {"comment_after_openDate": "VOD_타임라인_시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "description": "방송 썸네일을 포함한 상세 분석 댓글"}
+                {"comment_after_openDate": "VOD_타임라인_시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "description": "방송 썸네일을 포함한 상세 분석 댓글 내용"}
                 ]
 
                 분석 우선순위:
@@ -51,7 +51,7 @@ class GenAIModelManager:
                 3. "큰 하이라이트 여부"가 true면 더 임팩트 있게 표현
                 4. 필드별 작성 규칙:
                 - text: 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
-                - description: 방송 썸네일이 있다면 이미지까지 분석하여 더 구체적이고 정확한 시청자 반응으로 작성. 썸네일이 없다면 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
+                - description: 방송 썸네일이 있다면 이미지까지 분석하여 더 구체적이고 정확한 시청자 반응 댓긇. 썸네일이 없다면 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
                 - "자살 엔딩"과 같은 부적절한 내용은 포함 시키지 않고 작성
                 5. 모든 댓글은 실제 시청자 톤으로 20자 이내, 자연스럽게 작성
 
