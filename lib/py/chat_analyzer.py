@@ -1280,7 +1280,7 @@ class ChatAnalyzer:
                 if highlight.image:
                     images_with_labels.append(highlight.image)
                 else:
-                    images_with_labels.append(None)
+                    images_with_labels.append("")
 
             except Exception as e:
                 print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
