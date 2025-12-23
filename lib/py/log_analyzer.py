@@ -10,6 +10,7 @@ import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 import platform
+from PIL import Image as PILImage
 
 # AI 기능을 위한 추가 임포트
 try:
@@ -1190,10 +1191,10 @@ class SessionBasedFunScoreAnalyzer:
             return None
         
         # AI 사용 여부에 따라 분기
-        if self.use_ai:
-            return await self._export_test_highlights_with_ai(session_logs, session_stats)
-        else:
-            return await self._export_test_highlights_basic(session_logs, session_stats)
+        # if self.use_ai:
+        #     return await self._export_test_highlights_with_ai(session_logs, session_stats)
+        # else:
+        return await self._export_test_highlights_basic(session_logs, session_stats)
 
     async def _export_test_highlights_with_ai(self, session_logs, session_stats):
         """AI를 사용한 단순 키워드 기반 하이라이트 댓글 생성"""
@@ -1254,15 +1255,15 @@ class SessionBasedFunScoreAnalyzer:
                     after_open = comment.get('comment_after_openDate', '00:00:00')
                     after_open = format_time_for_comment(after_open, 25)
                     
-                    description = comment.get('description', comment.get('text', 'Test 재미구간'))
+                    text = comment.get('image_text', comment.get('text', 'Test 재미구간'))
                     
                     # Test 점수 정보 추가
                     score_diff = float(comment.get('test_score_difference', 0))
                     if score_diff:
                         fun_score = self._calculate_fun_score_from_diff(score_diff)
-                        final_text = f"Test 재미 점수:{fun_score} - {description}"
+                        final_text = f"Test 재미 점수:{fun_score} - {text}"
                     else:
-                        final_text = f"Test - {description}"
+                        final_text = f"Test - {text}"
                     
                     highlight_lines.append(f"{after_open}- {final_text}")
                     
@@ -1302,6 +1303,8 @@ class SessionBasedFunScoreAnalyzer:
         if not highlights:
             return []
         
+        def get_dummy_image():
+            return PILImage.new("RGBA", (1, 1), (0, 0, 0, 0))
         try:
             # 단순 키워드 기반 하이라이트 데이터 구성
             highlight_data = []
@@ -1321,6 +1324,7 @@ class SessionBasedFunScoreAnalyzer:
                         "최고점수_시간": highlight.after_openDate,
                         "VOD_타임라인_시간": highlight.comment_after_openDate,
                         "방송_썸네일": f"이미지_{i+1}",
+                        "썸네일_존재": bool(highlight.image),
                         "메시지_갯수": analysis_data['message_count'],
                         "시청자_수": analysis_data['viewer_count'],
                         
@@ -1342,7 +1346,7 @@ class SessionBasedFunScoreAnalyzer:
                         "Test_큰_하이라이트_여부": score_details['test_big_highlights'],
                         "Test_재미도_점수_차이": score_details.get('test_score_difference', 0),
                     })
-                    images_with_labels.append(highlight.image)
+                    images_with_labels.append(highlight.image if highlight.image else "")
 
                 except Exception as e:
                     print(f"{datetime.now()} 단순 키워드 기반 하이라이트 데이터 처리 오류: {e}")
@@ -1443,10 +1447,10 @@ class SessionBasedFunScoreAnalyzer:
                     else:
                         main_reaction = "Test 재미구간"
                     
-                    description = f"Test 재미 점수:{fun_score} - {main_reaction}"
+                    text = f"Test 재미 점수:{fun_score} - {main_reaction}"
                     
                     # VOD 댓글 형식으로 라인 생성
-                    highlight_lines.append(f"{after_open} - {description}")
+                    highlight_lines.append(f"{after_open} - {text}")
             
             if not highlight_lines:
                 return None
@@ -1544,16 +1548,16 @@ class SessionBasedFunScoreAnalyzer:
                     after_open = comment.get('comment_after_openDate', '00:00:00')
                     after_open = format_time_for_comment(after_open, 25)
                     
-                    # AI가 생성한 description 사용
-                    description = comment.get('description', comment.get('text', '재미구간'))
+                    # AI가 생성한 text 사용
+                    text = comment.get('image_text', comment.get('text', '재미구간'))
                     
                     # 재미 점수 정보 추가 (선택적)
                     score_diff = float(comment.get('score_difference', 0))
                     if score_diff:
                         fun_score = self._calculate_fun_score_from_diff(score_diff)
-                        final_text = f"재미 점수:{fun_score} - {description}"
+                        final_text = f"재미 점수:{fun_score} - {text}"
                     else:
-                        final_text = description
+                        final_text = text
                     
                     highlight_lines.append(f"{after_open}- {final_text}")
                     
@@ -1593,6 +1597,8 @@ class SessionBasedFunScoreAnalyzer:
         if not highlights:
             return []
         
+        def get_dummy_image():
+            return PILImage.new("RGBA", (1, 1), (0, 0, 0, 0))
         try:
             # 하이라이트 데이터 구성 (ChatAnalyzer와 동일한 형식)
             highlight_data = []
@@ -1612,6 +1618,7 @@ class SessionBasedFunScoreAnalyzer:
                         "최고점수_시간": highlight.after_openDate,
                         "VOD_타임라인_시간": highlight.comment_after_openDate,
                         "방송_썸네일": f"이미지_{i+1}",  # 이미지가 없지만 형식 유지
+                        "썸네일_존재": bool(highlight.image),
                         "메시지_갯수": analysis_data['message_count'],
                         "시청자_수": analysis_data['viewer_count'],
                         "웃음_키워드_수": fun_keywords.get('laugh', 0),
@@ -1629,7 +1636,7 @@ class SessionBasedFunScoreAnalyzer:
                         "큰_하이라이트_여부": score_details['big_highlights'],
                         "재미도_점수_차이": score_details['score_difference'],
                     })
-                    images_with_labels.append(highlight.image)
+                    images_with_labels.append(highlight.image if highlight.image else "")
 
                 except Exception as e:
                     print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
@@ -1746,10 +1753,10 @@ class SessionBasedFunScoreAnalyzer:
                     else:
                         main_reaction = "재미구간"
                     
-                    description = f"재미 점수:{fun_score} - {main_reaction}"
+                    text = f"재미 점수:{fun_score} - {main_reaction}"
                     
                     # VOD 댓글 형식으로 라인 생성
-                    highlight_lines.append(f"{after_open} - {description}")
+                    highlight_lines.append(f"{after_open} - {text}")
             
             if not highlight_lines:
                 return None
@@ -2184,7 +2191,7 @@ async def main():
             use_ai = args.use_ai
 
         except:
-            channel_name, date, use_ai = "빅헤드", '2025-12-12', True
+            channel_name, date, use_ai = "빅헤드", '2025-12-23', True
         
         # AI 사용 가능 여부 확인
         if use_ai and not AI_AVAILABLE:

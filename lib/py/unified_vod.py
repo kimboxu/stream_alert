@@ -389,10 +389,10 @@ class base_vod(ABC):
         
         for comment in timeline_comments:
             time_str = comment.get('comment_after_openDate', '')
-            description = comment.get('description', '') or comment.get('text', '')
+            text = comment.get('image_text', '') or comment.get('text', '')
             score_difference = float(comment.get('score_difference', 0))
             
-            if not time_str or not description:
+            if not time_str or not text:
                 continue
             
             # 하이라이트 시간을 초로 변환 (방송 시작부터의 누적 시간)
@@ -432,10 +432,10 @@ class base_vod(ABC):
                 fun_score += 1
 
             if score_difference != 0:
-                description = f"재미 점수:{fun_score} - {description}"
+                text = f"재미 점수:{fun_score} - {text}"
 
 
-            comment_line = f"{formatted_time}- {description}"
+            comment_line = f"{formatted_time}- {text}"
             comment_lines.append(comment_line)
             processed_count += 1
 

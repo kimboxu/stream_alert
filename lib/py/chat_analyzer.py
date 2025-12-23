@@ -1059,8 +1059,8 @@ class ChatAnalyzer:
             timeline_comments = await self._make_highlight_chat([highlight], is_use_description = self.init.is_use_description[self.channel_id])
         
             first_comment = timeline_comments[0] if timeline_comments else {}
-            text = first_comment.get("text", "하이라이트 주석")
-            description = first_comment.get("description", "분석 결과를 가져올 수 없습니다")
+            text = first_comment.get("text", "분석 결과를 가져올 수 없습니다")
+            image_text = first_comment.get("image_text", text)
    
             embeds = {
                 "color": int(channel_color),
@@ -1069,10 +1069,10 @@ class ChatAnalyzer:
                     {"name": "방제", "value": self.init.stream_status[self.channel_id].title, "inline": True},
                     {"name": ':busts_in_silhouette: 시청자수',
                     "value": self.init.stream_status[self.channel_id].view_count, "inline": True},
-                    {"name": 'Description', "value": description}
+                    {"name": 'Description', "value": image_text}
                     ],
                 "title": f"{channel_name} {message}: 재미도: {highlight.fun_score:.0f}/100\n",
-                # "description": description,
+                # "description": image_text,
                 "url": self.init.stream_status[self.channel_id].channel_url,
                 "image": {"url": image_url},
                 "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": icon },
@@ -1278,7 +1278,7 @@ class ChatAnalyzer:
                     {"comment_after_openDate": highlight.comment_after_openDate, 
                      "score_difference": score_details['score_difference'],
                      "text": highlight.reason, 
-                     "description": highlight.reason}
+                     "image_text": highlight.reason}
                 )
 
                 images_with_labels.append(highlight.image if highlight.image else get_dummy_image())
@@ -1393,8 +1393,8 @@ class ChatAnalyzer:
                 
         print(f"{datetime.now()} {self.channel_name} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
         for comment in timeline_comments:
-            if 'comment_after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'description' in comment:
-                print(f"**{comment['comment_after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['description']}")
+            if 'comment_after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'image_text' in comment:
+                print(f"**{comment['comment_after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['image_text']}")
 
     async def _process_highlights_background(self, highlights):
         try:

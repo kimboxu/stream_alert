@@ -26,7 +26,7 @@ class GenAIModelManager:
 
                 응답 형식:
                 [
-                {"comment_after_openDate": "VOD_타임라인_시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "description": "방송 썸네일을 포함한 상세 분석 댓글 내용"}
+                {"comment_after_openDate": "VOD_타임라인_시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "image_text": "댓글 내용"}
                 ]
 
                 분석 우선순위:
@@ -51,12 +51,12 @@ class GenAIModelManager:
                 3. "큰 하이라이트 여부"가 true면 더 임팩트 있게 표현
                 4. 필드별 작성 규칙:
                 - text: 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
-                - description: 방송 썸네일이 있다면 이미지까지 분석하여 더 구체적이고 정확한 시청자 반응 댓긇. 썸네일이 없다면 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
+                - image_text: 방송 썸네일이 있다면 이미지까지 분석하여 더 구체적이고 정확한 시청자 반응 댓긇. 썸네일이 없다면 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
                 - "썸네일_존재"가 false인 하이라이트는 제공된 이미지가 있더라도 무시하고 분석하지 마세요.
                 - "자살 엔딩"과 같은 부적절한 내용은 포함 시키지 않고 작성
                 5. 모든 댓글은 실제 시청자 톤으로 20자 이내, 자연스럽게 작성
 
-                **중요: text와 description 모두 실제 시청자가 쓴 댓글처럼 자연스럽고 짧게 작성해야 합니다.**
+                **중요: text와 image_text 모두 실제 시청자가 쓴 댓글처럼 자연스럽고 짧게 작성해야 합니다.**
                 
                 예시:
                 - 리액션 중심: "ㅋㅋㅋ 개웃김", "미친 반응 ㄷㄷ"
@@ -64,7 +64,7 @@ class GenAIModelManager:
                 - 화제성: "시청자들 몰려옴", "클립감 ㄷㄷ"
                 - 썸네일 분석 예시:
                 text: "섬광탄으로 어그로 끄는 중"
-                description: "아서스 또 있네 ㅋㅋㅋ" (썸네일에서 특정 캐릭터 확인시)
+                image_text: "아서스 또 있네 ㅋㅋㅋ" (썸네일에서 특정 캐릭터 확인시)
             '''
     
     def get_model(self, num: int, is_emergency: bool = False) -> genai.GenerativeModel:
