@@ -1,6 +1,7 @@
-import asyncio
+import os
 import json
-from os import environ
+import asyncio
+import tempfile
 from uuid import uuid4
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -202,12 +203,24 @@ class FileNotificationManager:
             }
             
             # 임시 파일에 저장
-            temp_path = file_path.with_suffix('.tmp')
+            temp_fd = None
+            temp_path = None
             
             try:
-                # 임시 파일 작성
-                with open(temp_path, 'w', encoding='utf-8') as f:
+                # 같은 디렉토리에 임시 파일 생성
+                temp_fd, temp_path_str = tempfile.mkstemp(
+                    suffix='.tmp',
+                    prefix='notifications_',
+                    dir=self.notifications_dir,
+                    text=True
+                )
+                temp_path = Path(temp_path_str)
+                
+                with os.fdopen(temp_fd, 'w', encoding='utf-8') as f:
                     json.dump(save_data, f, ensure_ascii=False, indent=2)
+                    f.flush()
+                    os.fsync(f.fileno())
+                temp_fd = None
                 
                 # 파일 쓰기 완료 후 메모리 정리
                 del save_data
@@ -217,27 +230,46 @@ class FileNotificationManager:
                     # gc.collect()
                 
                 # 임시 파일이 정상적으로 생성되었는지 확인
-                if not temp_path.exists():
-                    raise FileNotFoundError(f"임시 파일 생성 실패: {temp_path}")
+                if not temp_path.exists() or temp_path.stat().st_size == 0:
+                    raise IOError(f"임시 파일 생성 실패 또는 빈 파일: {temp_path}")
                 
                 # 임시 파일을 실제 파일로 이동 (원자적 연산)
                 try:
+                    if os.name == 'nt' and file_path.exists():
+                        file_path.unlink()
                     temp_path.replace(file_path)
-                except OSError as e:
+                    
+                except (OSError, PermissionError) as e:
                     # replace 실패 시 대체 방법 시도
                     print(f"파일 이동(replace) 실패, 복사 후 삭제 방식 시도: {e}")
                     import shutil
                     shutil.copy2(temp_path, file_path)
-                    temp_path.unlink()
+                    
+                    # 복사 성공 확인
+                    if not file_path.exists() or file_path.stat().st_size == 0:
+                        raise IOError("파일 복사 후 검증 실패")
+                        
+                    # 복사 성공 후 임시 파일 삭제
+                    try:
+                        temp_path.unlink()
+                    except Exception as unlink_error:
+                        print(f"임시 파일 삭제 실패 (무시 가능): {unlink_error}")
+                        
                     del shutil
                 
             except Exception as e:
                 # 임시 파일 정리
-                if temp_path.exists():
+                if temp_fd is not None:
                     try:
-                        temp_path.unlink()
+                        os.close(temp_fd)
                     except:
                         pass
+                        
+                if temp_path and temp_path.exists():
+                    try:
+                        temp_path.unlink()
+                    except Exception as cleanup_error:
+                        print(f"임시 파일 정리 실패: {cleanup_error}")
                 raise e
             
             # 캐시 업데이트
@@ -256,8 +288,8 @@ class FileNotificationManager:
             traceback.print_exc()
             
             # 오류 발생시 메모리 정리
-            import gc
-            gc.collect()
+            # import gc
+            # gc.collect()
             
             return False
    
@@ -403,26 +435,26 @@ def initialize_firebase(firebase_initialized_globally=False):
         try:
             # 환경 변수에서 Firebase 인증 정보 가져오기
             cred_dict = {
-                "type": environ.get("FIREBASE_TYPE"),
-                "project_id": environ.get("FIREBASE_PROJECT_ID"),
-                "private_key_id": environ.get("FIREBASE_PRIVATE_KEY_ID"),
-                "private_key": environ.get("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
-                "client_email": environ.get("FIREBASE_CLIENT_EMAIL"),
-                "client_id": environ.get("FIREBASE_CLIENT_ID"),
-                "auth_uri": environ.get("FIREBASE_AUTH_URI"),
-                "token_uri": environ.get("FIREBASE_TOKEN_URI"),
-                "auth_provider_x509_cert_url": environ.get(
+                "type": os.environ.get("FIREBASE_TYPE"),
+                "project_id": os.environ.get("FIREBASE_PROJECT_ID"),
+                "private_key_id": os.environ.get("FIREBASE_PRIVATE_KEY_ID"),
+                "private_key": os.environ.get("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
+                "client_email": os.environ.get("FIREBASE_CLIENT_EMAIL"),
+                "client_id": os.environ.get("FIREBASE_CLIENT_ID"),
+                "auth_uri": os.environ.get("FIREBASE_AUTH_URI"),
+                "token_uri": os.environ.get("FIREBASE_TOKEN_URI"),
+                "auth_provider_x509_cert_url": os.environ.get(
                     "FIREBASE_AUTH_PROVIDER_X509_CERT_URL"
                 ),
-                "client_x509_cert_url": environ.get("FIREBASE_CLIENT_X509_CERT_URL"),
-                "universe_domain": environ.get("FIREBASE_UNIVERSE_DOMAIN"),
+                "client_x509_cert_url": os.environ.get("FIREBASE_CLIENT_X509_CERT_URL"),
+                "universe_domain": os.environ.get("FIREBASE_UNIVERSE_DOMAIN"),
             }
 
             # 인증 정보 생성
             cred = credentials.Certificate(cred_dict)
 
             # 프로젝트 ID 가져오기
-            project_id = cred.project_id or environ.get("FIREBASE_PROJECT_ID")
+            project_id = cred.project_id or os.environ.get("FIREBASE_PROJECT_ID")
 
             if not project_id:
                 print(f"{datetime.now()} Firebase 프로젝트 ID를 찾을 수 없습니다.")
@@ -1034,7 +1066,7 @@ def remove_fcm_token(token):
 #모든 사용자의 오래된 알림 정리
 async def cleanup_old_notifications_for_all_users():
     try:
-        print(f"{datetime.now()} 오래된 알림 정리 시작: {cleaned_count}개 사용자")
+        print(f"{datetime.now()} 오래된 알림 정리 시작")
         # 알림 디렉토리의 모든 파일 확인
         notification_files = list(file_notification_manager.notifications_dir.glob("notifications_*.json"))
         
