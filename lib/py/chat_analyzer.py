@@ -64,8 +64,7 @@ class ChatMessageWithAnalyzer:
             if not self.analysis_task or self.analysis_task.done():
                 self.is_save_log = False
                 self.chat_analyzer.stream_start_time = str(self.init.stream_status[self.chat_analyzer.channel_id].start_at['openDate'])
-                self.chat_analyzer.highlights_dict[self.chat_analyzer.stream_start_time] = []
-                self.chat_analyzer.detailed_logs_dict[self.chat_analyzer.stream_start_time] = []
+                self.chat_analyzer._setup_init_dict()
                 self.analysis_task = asyncio.create_task(self._run_analyzer())
                 print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
 
@@ -144,10 +143,7 @@ class ChatMessageWithAnalyzer:
                         asyncio.create_task(log_error(f"_run_analyzer {self.chat_analyzer.channel_name} 오류: self.is_save_log:{self.is_save_log}, {e}"))
                         if self.is_save_log:
                             break
-                        if self.chat_analyzer.stream_start_time not in self.chat_analyzer.highlights_dict:
-                            self.chat_analyzer.highlights_dict[self.chat_analyzer.stream_start_time] = []
-                        if self.chat_analyzer.stream_start_time not in self.chat_analyzer.detailed_logs_dict:
-                            self.chat_analyzer.detailed_logs_dict[self.chat_analyzer.stream_start_time] = []
+                        self.chat_analyzer._setup_init_dict()
 
                     # print(f"{datetime.now()} {self.chat_analyzer.channel_name}, 디테일 점수{detailed_log}")
                           
@@ -241,6 +237,15 @@ class ChatAnalyzer:
         # self.detailed_logs = []  # 상세 분석 로그
         self.detailed_logs_dict = {}  # 상세 분석 로그
         self._setup_log_directories()
+
+    def _setup_init_dict(self):
+        if self.stream_start_time is None:
+            return
+        
+        if self.stream_start_time not in self.highlights_dict:
+            self.highlights_dict[self.stream_start_time] = []
+        if self.stream_start_time not in self.detailed_logs_dict:
+            self.detailed_logs_dict[self.stream_start_time] = []
         
     def _setup_log_directories(self):
         """프로젝트 구조에 맞는 로그 디렉토리 설정"""
@@ -387,8 +392,7 @@ class ChatAnalyzer:
             'chat_context': [ f"{chat['nickname']}: {chat['message']}" for chat in window_chats[-30:]],  # 최근 30개 메시지
         }
         
-        if self.stream_start_time not in self.detailed_logs_dict:
-            self.detailed_logs_dict[self.stream_start_time] = []
+        self._setup_init_dict()
         self.detailed_logs_dict[self.stream_start_time].append(detailed_log)
         # 최대 2000개까지만 보관
         if len(self.detailed_logs_dict[self.stream_start_time]) > 2000:
@@ -791,8 +795,7 @@ class ChatAnalyzer:
         #하이라이트의 피크 점수로 수정
         await self.change_score_to_peak(highlight)
         if highlight.score_details['should_create_new_highlight']:
-            if self.stream_start_time not in self.highlights_dict:
-                self.highlights_dict[self.stream_start_time] = []
+            self._setup_init_dict()
             self.highlights_dict[self.stream_start_time].append(highlight)
             self.last_highlight = highlight
 
