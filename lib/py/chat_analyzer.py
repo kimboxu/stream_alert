@@ -782,7 +782,7 @@ class ChatAnalyzer:
 
     #하이라이트 생성
     async def _create_highlight(self, detailed_log: dict) -> None:
-        highlight = await self.make_StreamHighlight(detailed_log)
+        highlight = await self.make_StreamHighlight(detailed_log, is_image=False)
 
         # 큰 재미인 경우 알림 보내기
         if highlight.score_details['big_highlights'] and highlight.score_details['should_create_new_highlight']:
