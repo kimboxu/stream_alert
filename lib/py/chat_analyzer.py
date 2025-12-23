@@ -745,7 +745,7 @@ class ChatAnalyzer:
         return max(fun_score - min(a[2] for a in bef_recent_scores), 0)
     
     async def make_StreamHighlight(self,  detailed_log: dict, is_image = True):
-        image = ""
+        image = None
         if is_image:
             for _ in range(10):
                 try:
@@ -1237,6 +1237,9 @@ class ChatAnalyzer:
         
         highlight_data = []
         images_with_labels = []
+
+        def get_dummy_image():
+            return PILImage.new("RGBA", (1, 1), (0, 0, 0, 0))
         
         for i, highlight in enumerate(highlights):
             try:
@@ -1252,6 +1255,7 @@ class ChatAnalyzer:
                     "최고점수_시간": highlight.after_openDate,
                     "VOD_타임라인_시간": highlight.comment_after_openDate,
                     "방송_인네일": f"이미지_{i+1}",
+                    "썸네일_존재": bool(highlight.image),
                     "메시지_개수": analysis_data['message_count'],
                     "시청자_수": analysis_data['viewer_count'],
                     "웃음_키워드_수": fun_keywords.get('laugh', 0),
@@ -1277,10 +1281,7 @@ class ChatAnalyzer:
                      "description": highlight.reason}
                 )
 
-                if highlight.image:
-                    images_with_labels.append(highlight.image)
-                else:
-                    images_with_labels.append("")
+                images_with_labels.append(highlight.image if highlight.image else get_dummy_image())
 
             except Exception as e:
                 print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
