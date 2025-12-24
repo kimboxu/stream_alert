@@ -22,6 +22,7 @@ from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
 from highlight_chat_saver import HighlightChatSaver
 from genai_model import get_genai_model
+from base import save_airing_data
 
 @dataclass
 class ChatAnalysisData:
@@ -171,6 +172,7 @@ class ChatAnalyzer:
         self.platform_name = platform_name
         self.init.wait_make_highlight_chat[self.channel_id] = False
         self.stream_start_time = None
+        self._setup_init_title_data(init, platform_name)
 
         # 분석 설정
         self.window_size = 30       # 30초 윈도우
@@ -246,6 +248,18 @@ class ChatAnalyzer:
             self.highlights_dict[self.stream_start_time] = []
         if self.stream_start_time not in self.detailed_logs_dict:
             self.detailed_logs_dict[self.stream_start_time] = []
+
+    def _setup_init_title_data(self, init: initVar , platform_name: str):
+        if platform_name == "chzzk":
+            self.id_list = init.chzzkIDList
+            self.title_data = init.chzzk_titleData
+        elif platform_name == "afreeca":
+            self.id_list = init.afreecaIDList
+            self.title_data = init.afreeca_titleData
+        else:
+            raise ValueError(f"Unsupported platform: {platform_name}")
+        
+        self.title_data.loc[self.channel_id, 'baseline_metrics']
         
     def _setup_log_directories(self):
         """프로젝트 구조에 맞는 로그 디렉토리 설정"""
@@ -421,12 +435,6 @@ class ChatAnalyzer:
     #재미도 점수 계산
     def _calculate_fun_score(self, current_time: datetime, analysis: ChatAnalysisData, window_chats: List[Dict]) -> Tuple[float, bool, dict]:
         # 적응형 기준값 초기화
-        if not hasattr(self, 'baseline_metrics'):
-            self.baseline_metrics = {
-                'avg_chat_count': 10.0,
-                'avg_viewer_count': 100.0,
-                'avg_threshold_score': self.small_fun_difference,
-            }
         
         # 기준값 자동 업데이트
         self._update_baselines()
@@ -449,7 +457,6 @@ class ChatAnalyzer:
             diversity_score * self.weights['diversity'] +
             viewer_trend_score * self.weights['viewer_spike']
         )
-        
         final_score = min(final_score, 100.0)
          
         # 상세 점수 정보
@@ -461,9 +468,9 @@ class ChatAnalyzer:
             'viewer_trend_score': viewer_trend_score,
             'final_score': final_score,
 
-            'baseline_chat_count': self.baseline_metrics['avg_chat_count'],
-            'baseline_viewer_count': self.baseline_metrics['avg_viewer_count'],
-            'baseline_threshold': self.baseline_metrics['avg_threshold_score'],
+            'baseline_chat_count': self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_chat_count'],
+            'baseline_viewer_count': self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_viewer_count'],
+            'baseline_threshold': self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_threshold_score'],
             'highlights': self._is_highlight(final_score, self.small_fun_difference),
             'test_highlights': self._test_is_highlight(test_reaction_score, self.small_fun_difference),
             'big_highlights': self._is_highlight(final_score, self.big_fun_difference),
@@ -490,14 +497,14 @@ class ChatAnalyzer:
         # 최근 20분(240회)의 데이터가 90% 반영되도록 [α = 1 - 0.1^(1/240)]
         alpha = 0.00958  # 1 - 0.1^(1/240) ≈ 0.00958
         
-        self.baseline_metrics['avg_chat_count'] = (
-            alpha * chat_counts + (1 - alpha) * self.baseline_metrics['avg_chat_count']
+        self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_chat_count'] = (
+            alpha * chat_counts + (1 - alpha) * self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_chat_count']
         )
-        self.baseline_metrics['avg_viewer_count'] = (
-            alpha * viewers + (1 - alpha) * self.baseline_metrics['avg_viewer_count']
+        self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_viewer_count'] = (
+            alpha * viewers + (1 - alpha) * self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_viewer_count']
         )
-        self.baseline_metrics['avg_threshold_score'] = (
-            alpha * final_score + (1 - alpha) * self.baseline_metrics['avg_threshold_score']
+        self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_threshold_score'] = (
+            alpha * final_score + (1 - alpha) * self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_threshold_score']
         )
 
     #채팅 급증 점수 계산
@@ -506,7 +513,7 @@ class ChatAnalyzer:
         del_greeting_message_count = analysis.message_count - int(analysis.fun_keywords.get("greeting", 0.0))
 
         # 정규화된 점수 (기존 대비 상대적으로 3배 일 경우 50점)
-        count_ratio = del_greeting_message_count / self.baseline_metrics['avg_chat_count']
+        count_ratio = del_greeting_message_count / self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_chat_count']
         count_score = min(self._sigmoid_transform(count_ratio, 3.0) * 100, 100)
   
         return count_score
@@ -532,7 +539,7 @@ class ChatAnalyzer:
             total_weighted_keywords += count * weight
         
         # 채팅 수 대비 키워드 밀도로 정규화
-        keyword_density = total_weighted_keywords / self.baseline_metrics['avg_chat_count']
+        keyword_density = total_weighted_keywords / self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_chat_count']
         # 채팅 대비 1키워드 * keyword_weights 비율*3.0배 를 기준으로 점수화
         reaction_score = min(self._sigmoid_transform(keyword_density, 4.0) * 100, 100)
 
@@ -543,7 +550,7 @@ class ChatAnalyzer:
             total_weighted_keywords += count * weight
         
         # 채팅 수 대비 키워드 밀도로 정규화
-        keyword_density = total_weighted_keywords / self.baseline_metrics['avg_chat_count']
+        keyword_density = total_weighted_keywords / self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_chat_count']
         # 밀도 3.0 (채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
         test_reaction_score = min(self._sigmoid_transform(keyword_density, 4.0) * 100, 100)
             
@@ -667,7 +674,7 @@ class ChatAnalyzer:
         if self.init.DO_TEST:
             return True
         
-        if fun_score < self.baseline_metrics['avg_threshold_score']:
+        if fun_score < self.title_data.loc[self.channel_id, 'baseline_metrics']['avg_threshold_score']:
             return False
 
         if len(self.analysis_history) < int(self.history_1min*2):
@@ -693,7 +700,7 @@ class ChatAnalyzer:
 
         return True
     
-        #새 하이라이트를 생성해야 하는지 판단
+    #새 하이라이트를 생성해야 하는지 판단
     def _should_create_new_highlight(self, fun_score, current_time: datetime):
         if not self._is_highlight(fun_score, self.small_fun_difference):
             return False
@@ -706,7 +713,7 @@ class ChatAnalyzer:
 
         return True
     
-        # 테스트 새 하이라이트를 생성해야 하는지 판단
+    # 테스트 새 하이라이트를 생성해야 하는지 판단
     def test_should_create_new_highlight(self, fun_score, current_time: datetime):
         if not self._test_is_highlight(fun_score, self.small_fun_difference):
             return False
@@ -807,7 +814,6 @@ class ChatAnalyzer:
             self.highlights_dict[self.stream_start_time] = [self.highlights_dict[self.stream_start_time][-1]]
             asyncio.create_task(self._process_highlights_background(highlights_to_process[:-1]))
             
-
     # 치지직 방송 시간이 17시간이 지날 때마다
     def is_check_after_openDate(self, detailed_log):
         parts = str(detailed_log['after_openDate']).strip().split(':')
@@ -825,7 +831,8 @@ class ChatAnalyzer:
             check_interval = 1
             max_wait_time = 300
             stream_start_times = list(self.highlights_dict.keys())
-            
+            asyncio.create_task(save_airing_data(self.title_data, self.platform_name, self.channel_id))
+
             for stream_start_time in stream_start_times:
                 if stream_start_time not in self.highlights_dict:
                     continue
