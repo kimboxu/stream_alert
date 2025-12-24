@@ -106,7 +106,7 @@ class BaseHotClipDetector(ABC):
 
     async def start_monitoring(self):
         """핫클립 모니터링 시작"""
-        print(f"{datetime.now()} 핫클립 감지 시작: {self.channel_id}")
+        # print(f"{datetime.now()} 핫클립 감지 시작: {self.channel_id}")
         
         while True:
             try:
@@ -169,8 +169,7 @@ class BaseHotClipDetector(ABC):
                 average_views=self.baseline_metrics['avg_views']
             )
             
-            print(f"{datetime.now()} 핫클립 분석 완료: {channel_name}, "
-                  f"분석된 클립 {len(recent_clips)}개, 핫클립 {len(hot_clips)}개")
+            # print(f"{datetime.now()} 핫클립 분석 완료: {channel_name}, 분석된 클립 {len(recent_clips)}개, 핫클립 {len(hot_clips)}개")
             
             return result
             
@@ -267,7 +266,7 @@ class BaseHotClipDetector(ABC):
                            if clip.clipUID not in sent_notifications]
             
             if not new_hot_clips:
-                print(f"{datetime.now()} 새로운 핫클립 없음: {channel_name}")
+                # print(f"{datetime.now()} 새로운 핫클립 없음: {channel_name}")
                 return
             
             # 알림 전송할 URL 목록 가져오기

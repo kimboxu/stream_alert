@@ -358,7 +358,7 @@ class base_vod(ABC):
                 print(data)
                 return None
             else:
-                print(f"{self.channel_id} 성공!")
+                print(f"{datetime.now()} {self.channel_id} 성공!")
                 return data
             
         except Exception as e:

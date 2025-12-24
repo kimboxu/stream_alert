@@ -277,7 +277,7 @@ class FileNotificationManager:
                 self.notification_cache[webhook_url] = clean_notifications
                 self.last_save_times[webhook_url] = current_time
             
-            print(f"{datetime.now()} 알림을 파일에 저장함 - URL: {webhook_url}, 개수: {len(clean_notifications)}")
+            # print(f"{datetime.now()} 알림을 파일에 저장함 - URL: {webhook_url}, 개수: {len(clean_notifications)}")
             del clean_notifications
             
             return True
