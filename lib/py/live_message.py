@@ -786,7 +786,7 @@ class afreeca_live_message(base_live_message):
         for count in range(50):
             thumbnail_image = await self.get_thumbnail_image()
             if thumbnail_image is None: 
-                print(f"{datetime.now()} wait make thumbnail 1 .{count}.{str(self.getImageURL())}")
+                # print(f"{datetime.now()} wait make thumbnail 1 .{count}.{str(self.getImageURL())}")
                 await asyncio.sleep(0.1)
                 continue
             break
@@ -957,14 +957,16 @@ async def upload_image_to_imgbb(
             return None
         
         # 1. 이미지 다운로드 (get_message가 자동으로 재시도 처리)
-        print(f"{datetime.now()} 이미지 다운로드 시작: {image_url}")
+        # print(f"{datetime.now()} 이미지 다운로드 시작: {image_url}")
         
         response = await get_message(performance_manager, "image", image_url)
         
         # 다운로드 실패 체크
         if (status_code := response.get("status_code", None)) != 200:
-            print(f"{datetime.now()} 이미지 다운로드 실패: {status_code}")
+            # print(f"{datetime.now()} 이미지 다운로드 실패: {status_code}")
             return None
+    
+        print(f"{datetime.now()} 이미지 다운로드 성공: {status_code}")
             
         # 이미지 크기 확인
         content = response.get("content", "")

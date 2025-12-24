@@ -25,7 +25,7 @@ class HighlightChatSaver:
         # 디렉토리 생성
         self.highlight_dir.mkdir(parents=True, exist_ok=True)
         
-        print(f"{datetime.now()} 하이라이트 채팅 저장기 초기화: {self.highlight_dir}")
+        # print(f"{datetime.now()} 하이라이트 채팅 저장기 초기화: {self.highlight_dir}")
     
     def _extract_stream_start_time_from_id(self, stream_id: str) -> str:
         """stream_id에서 시작 시간을 파일명용 형식으로 추출"""
