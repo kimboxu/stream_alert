@@ -209,7 +209,7 @@ class StateManager:
                     chat_instance.chat_analyzer and
                     hasattr(chat_instance.chat_analyzer, 'highlights_dict')):
                     
-                    highlights_count = len(chat_instance.chat_analyzer.highlights_dict)
+                    highlights_count = len(*[chat_instance.chat_analyzer.highlights_dict[highlights] for highlights in chat_instance.chat_analyzer.highlights_dict])
                     if highlights_count > 0:
                         # 채널명 가져오기
                         try:
