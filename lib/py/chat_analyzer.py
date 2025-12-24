@@ -856,7 +856,7 @@ class ChatAnalyzer:
                 # 하이라이트 생성
                 highlights_to_process = self.highlights_dict[stream_start_time].copy()
                 
-                if is_save_log:
+                if is_save_log or is_emergency:
                     # 방송 종료 - 완전히 삭제
                     del self.highlights_dict[stream_start_time]
                     if stream_start_time in self.detailed_logs_dict:
