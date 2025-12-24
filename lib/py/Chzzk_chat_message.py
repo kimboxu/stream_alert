@@ -1054,7 +1054,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 return
             
             if sp_chat[0] == "!추가":
-                await self.add_command(chat_command, sp_chat)
+                await self.add_command(sp_chat)
                 return
             if sp_chat[0] == "!수정":
                 await self.fix_command(chat_command, sp_chat)
