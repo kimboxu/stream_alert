@@ -1139,7 +1139,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             self.init.chat_commands.loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
             await save_chat_command_data(self.init.chat_commands, self.data.channel_id)
-            await self._send(f"{sp_chat[1]}(이)가 추가 되었습니다.")
+            await self._send(f"명령어 {sp_chat[1]}(이)가 추가 되었습니다.")
         else:
             await self._send(f"{sp_chat[1]} 명령어는 이미 있습니다.")
 
