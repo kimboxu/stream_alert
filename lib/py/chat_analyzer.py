@@ -223,6 +223,8 @@ class ChatAnalyzer:
         }
 
         # 하이라이트 저장
+        self.is_wait = {}
+
         # self.highlights: List[StreamHighlight] = []
         self.highlights_dict: Dict[List[StreamHighlight]] = {}
         self.last_highlight = None
@@ -244,6 +246,8 @@ class ChatAnalyzer:
         if self.stream_start_time is None:
             return
         
+        self.is_wait[self.stream_start_time] = False
+
         if self.stream_start_time not in self.highlights_dict:
             self.highlights_dict[self.stream_start_time] = []
         if self.stream_start_time not in self.detailed_logs_dict:
@@ -834,20 +838,27 @@ class ChatAnalyzer:
             asyncio.create_task(save_airing_data(self.title_data, self.platform_name, self.channel_id))
 
             for stream_start_time in stream_start_times:
+                if self.is_wait[stream_start_time]:
+                    continue
+
+                try:
+                    for wait_count in range(max_wait_time):
+                        self.is_wait[stream_start_time] = True
+                        if wait_count % 30 == 0:
+                            remaining_time = max_wait_time - (wait_count * check_interval)
+                            print(f"{datetime.now()} {stream_start_time} 하이라이트 대기 중: {self.channel_name} (남은 시간: {remaining_time}초)")
+                        if self.init.wait_make_highlight_chat[self.channel_id]:
+                            await asyncio.sleep(check_interval)
+                        else:
+                            break
+                finally:
+                    self.is_wait[stream_start_time] = False
+
                 if stream_start_time not in self.highlights_dict:
                     continue
                 
                 if stream_start_time not in self.detailed_logs_dict:
                     self.detailed_logs_dict[stream_start_time] = []
-                    
-                for wait_count in range(max_wait_time):
-                    if wait_count % 30 == 0:
-                        remaining_time = max_wait_time - (wait_count * check_interval)
-                        print(f"{datetime.now()} {stream_start_time} 하이라이트 대기 중: {self.channel_name} (남은 시간: {remaining_time}초)")
-                    if self.init.wait_make_highlight_chat[self.channel_id]:
-                        await asyncio.sleep(check_interval)
-                    else:
-                        break
 
                 print(f"{datetime.now()} 하이라이트 {stream_start_time} 처리 시작: {self.channel_name}")
 
@@ -855,18 +866,21 @@ class ChatAnalyzer:
 
                 # 하이라이트 생성
                 highlights_to_process = self.highlights_dict[stream_start_time].copy()
-                
-                timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
-                self.update_highlight_chat(timeline_comments)
 
+                
                 if is_save_log:
                     # 방송 종료 - 완전히 삭제
                     del self.highlights_dict[stream_start_time]
                     if stream_start_time in self.detailed_logs_dict:
                         del self.detailed_logs_dict[stream_start_time]
+                    del self.is_wait[stream_start_time]
                 else:
                     self.highlights_dict[stream_start_time] = []
                     self.detailed_logs_dict[stream_start_time] = []
+                
+                timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
+                self.update_highlight_chat(timeline_comments)
+
 
                 # 하이라이트 채팅 업데이트 직후 파일로 저장
                 await self._save_completed_highlight_chat_after_update(is_save_log)

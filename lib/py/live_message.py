@@ -212,7 +212,7 @@ class base_live_message:
             print(f"{now} onLine {self.channel_name} {message}, {self.init.highlight_chat[self.channel_id]}")
         elif message == "방제 변경":
             old_title = self._get_old_title()
-            print(f"{now} onLine {self.channel_name} {message}, {self.init.highlight_chat[self.channel_id]}")
+            print(f"{now} onLine {self.channel_name} {message}")
             print(f"{now} 이전 방제: {old_title}")
             print(f"{now} 현재 방제: {self.data.title}")
         elif message == "뱅종":
