@@ -1046,7 +1046,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             if not self.is_sendMSG_time(sp_chat[0]):
                 return
             
-            await self.del_command(chat_command, sp_chat[1])
+            await self.del_command(chat_command)
             return
 
         elif self.is_authority(userRoleCode, nickname) and len(sp_chat) >= 2 and sp_chat[0] in ["!추가", "!수정"]:
