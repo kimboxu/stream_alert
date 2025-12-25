@@ -856,14 +856,17 @@ class ChatAnalyzer:
                 # 하이라이트 생성
                 highlights_to_process = self.highlights_dict[stream_start_time].copy()
                 
-                if is_save_log or is_emergency:
+                timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
+                self.update_highlight_chat(timeline_comments)
+
+                if is_save_log:
                     # 방송 종료 - 완전히 삭제
                     del self.highlights_dict[stream_start_time]
                     if stream_start_time in self.detailed_logs_dict:
                         del self.detailed_logs_dict[stream_start_time]
-                
-                timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
-                self.update_highlight_chat(timeline_comments)
+                else:
+                    self.highlights_dict[stream_start_time] = []
+                    self.detailed_logs_dict[stream_start_time] = []
 
                 # 하이라이트 채팅 업데이트 직후 파일로 저장
                 await self._save_completed_highlight_chat_after_update(is_save_log)
