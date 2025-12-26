@@ -958,7 +958,7 @@ class ChatAnalyzer:
 
     async def change_score_to_peak(self, highlight: StreamHighlight):
         if not self.highlights_dict[self.stream_start_time]:
-            print(f"{datetime.now()} highlights가 비어있어서 change_score_to_peak 건너뜀")
+            # print(f"{datetime.now()} highlights가 비어있어서 change_score_to_peak 건너뜀")
             return
         
         is_higher_score = False
@@ -998,7 +998,7 @@ class ChatAnalyzer:
             
     async def test_change_score_to_peak(self, highlight: StreamHighlight):
         if not self.test_last_highlight:
-            print(f"{datetime.now()} test highlights가 비어있어서 change_score_to_peak 건너뜀")
+            # print(f"{datetime.now()} test highlights가 비어있어서 change_score_to_peak 건너뜀")
             return
         
         is_higher_score = False
