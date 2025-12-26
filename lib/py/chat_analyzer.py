@@ -58,6 +58,7 @@ class ChatMessageWithAnalyzer:
         self.chat_analyzer = ChatAnalyzer(self.init, self.performance_manager, channel_id, channel_name, platform_name)
         self.analysis_task = None
         self.log_save_task = None
+        self.is_save_log = False
 
     async def start_analyzer(self):
         """분석기 시작 - start() 메서드에서 호출"""
@@ -885,14 +886,14 @@ class ChatAnalyzer:
                 # 하이라이트 채팅 업데이트 직후 파일로 저장
                 await self._save_completed_highlight_chat_after_update(is_save_log)
             
-            print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
+            
             return True
             
         except Exception as e:
             await log_error(f"하이라이트 처리 오류: {e}")
             return False
         finally:
-            print(f"{datetime.now()} 하이라이트 처리 상태 해제: {self.channel_name}")
+            print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
 
     async def _save_completed_highlight_chat_after_update(self, is_save_log):
         """하이라이트 채팅 저장"""
@@ -914,9 +915,9 @@ class ChatAnalyzer:
             # timeline_comments가 업데이트되었는지 확인
             if (hasattr(highlight_data, 'timeline_comments') and highlight_data.timeline_comments) or is_save_log:
                 
-                print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}")
-                print(f"  - 스트림 ID: {stream_start_id}")
-                print(f"  - 하이라이트 개수: {len(highlight_data.timeline_comments)}개")
+                print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}, {stream_start_id}")
+                # print(f"  - 스트림 ID: {stream_start_id}")
+                # print(f"  - 하이라이트 개수: {len(highlight_data.timeline_comments)}개")
                 
                 # 파일로 저장
                 file_path = await self.highlight_saver.save_completed_stream_highlight(
@@ -929,7 +930,7 @@ class ChatAnalyzer:
                     # 저장 성공 후 메모리에서 제거
                     if is_save_log:
                         del self.init.highlight_chat[channel_id][stream_start_id]
-                        print(f"{datetime.now()} 메모리에서 제거 완료: {stream_start_id}")
+                        # print(f"{datetime.now()} 메모리에서 제거 완료: {stream_start_id}")
                 else:
                     print(f"{datetime.now()} 하이라이트 채팅 저장 실패: {channel_name}")
             else:
@@ -1416,9 +1417,9 @@ class ChatAnalyzer:
         self.init.highlight_chat[self.channel_id][stream_start_id].timeline_comments.extend(timeline_comments)
                 
         print(f"{datetime.now()} {self.channel_name} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
-        for comment in timeline_comments:
-            if 'comment_after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'image_text' in comment:
-                print(f"**{comment['comment_after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['image_text']}")
+        # for comment in timeline_comments:
+        #     if 'comment_after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'image_text' in comment:
+        #         print(f"**{comment['comment_after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['image_text']}")
 
     async def _process_highlights_background(self, highlights):
         try:

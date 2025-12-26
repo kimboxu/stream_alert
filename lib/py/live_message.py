@@ -973,7 +973,7 @@ async def upload_image_to_imgbb(
         image_size = len(content)
         max_size = 32 * 1024 * 1024  # 32MB
         
-        print(f"{datetime.now()} 이미지 크기: {image_size / 1024 / 1024:.2f}MB")
+        # print(f"{datetime.now()} 이미지 크기: {image_size / 1024 / 1024:.2f}MB")
         
         if image_size > max_size:
             print(f"{datetime.now()} 이미지 크기 초과 ({image_size / 1024 / 1024:.1f}MB > 32MB)")
@@ -986,7 +986,7 @@ async def upload_image_to_imgbb(
         # Base64 인코딩
         try:
             b64_image = base64.b64encode(content).decode('utf-8')
-            print(f"{datetime.now()} Base64 인코딩 완료 - 크기: {len(b64_image)} chars")
+            # print(f"{datetime.now()} Base64 인코딩 완료 - 크기: {len(b64_image)} chars")
         except Exception as e:
             print(f"{datetime.now()} Base64 인코딩 실패: {e}")
             return None
@@ -1009,7 +1009,7 @@ async def upload_image_to_imgbb(
                 start_time = datetime.now()
                 
                 try:
-                    print(f"{datetime.now()} ImgBB 업로드 시도 {attempt + 1}/{MAX_RETRIES}...")
+                    # print(f"{datetime.now()} ImgBB 업로드 시도 {attempt + 1}/{MAX_RETRIES}...")
                     
                     # aiohttp를 사용한 비동기 POST 요청
                     async with session.post(

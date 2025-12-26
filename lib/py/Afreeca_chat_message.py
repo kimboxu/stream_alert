@@ -406,7 +406,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 asyncio.create_task(send_push_notification(list_of_urls, json_data))
                 asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data, DO_TEST = self.init.DO_TEST))
             
-                print(f"{datetime.now()} post chat [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
+                # print(f"{datetime.now()} post chat [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
 
             except Exception as e:
                 asyncio.create_task(log_error(f"error postChat: {str(e)}"))
