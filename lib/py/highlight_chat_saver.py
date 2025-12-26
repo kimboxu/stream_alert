@@ -100,22 +100,22 @@ class HighlightChatSaver:
             # 방송 시작 시간 추출
             start_time = self._extract_stream_start_time_from_id(stream_id)
             readable_time = self._extract_readable_time_from_id(stream_id)
-            print(f"{datetime.now()} [시간 추출] 시작: {readable_time} -> 파일용: {start_time}")
+            # print(f"{datetime.now()} [시간 추출] 시작: {readable_time} -> 파일용: {start_time}")
             
             # 파일명 생성: highlight_chat_{채널명}_{시작시간}.json
             filename = f"highlight_chat_{channel_name}_{start_time}.json"
             file_path = self.highlight_dir / filename
-            print(f"{datetime.now()} [파일 경로] {file_path}")
+            # print(f"{datetime.now()} [파일 경로] {file_path}")
             
             # 기존 파일 확인 및 로드
             existing_data = self._load_existing_file(file_path)
             
             # highlight_data를 딕셔너리로 변환
             new_stream_data = self._convert_highlight_data_to_dict(highlight_data)
-            print(f"{datetime.now()} [새 데이터 변환] timeline_comments: {len(new_stream_data.get('timeline_comments', []))}개")
+            # print(f"{datetime.now()} [새 데이터 변환] timeline_comments: {len(new_stream_data.get('timeline_comments', []))}개")
             
             if existing_data:
-                print(f"{datetime.now()} [기존 파일 발견] 기존 댓글: {len(existing_data.get('timeline_comments', []))}개")
+                # print(f"{datetime.now()} [기존 파일 발견] 기존 댓글: {len(existing_data.get('timeline_comments', []))}개")
                 
                 # 기존 데이터와 새 데이터 병합
                 merged_comments = self._merge_timeline_comments(
@@ -137,7 +137,7 @@ class HighlightChatSaver:
                     "last_title": new_stream_data.get("last_title", existing_data.get("last_title", "")),
                 })
                 
-                print(f"{datetime.now()} [데이터 병합] 병합 후 댓글: {len(merged_comments)}개 (업데이트 횟수: {save_data['update_count']})")
+                # print(f"{datetime.now()} [데이터 병합] 병합 후 댓글: {len(merged_comments)}개 (업데이트 횟수: {save_data['update_count']})")
                 
             else:
                 # 새 파일 생성
@@ -155,33 +155,33 @@ class HighlightChatSaver:
                     "timeline_comments": new_stream_data.get("timeline_comments", []),
                 }
                 
-                print(f"{datetime.now()} [새 파일 생성] 댓글: {len(save_data['timeline_comments'])}개")
+                # print(f"{datetime.now()} [새 파일 생성] 댓글: {len(save_data['timeline_comments'])}개")
             
             # 통계 재계산
             save_data["statistics"] = self._calculate_statistics(save_data)
             
-            print(f"{datetime.now()} [데이터 준비 완료]")
-            print(f"  - 최종 타임라인 댓글: {len(save_data['timeline_comments'])}개")
-            print(f"  - 업데이트 횟수: {save_data.get('update_count', 1)}")
-            print(f"  - 통계: {save_data['statistics']}")
+            # print(f"{datetime.now()} [데이터 준비 완료]")
+            # print(f"  - 최종 타임라인 댓글: {len(save_data['timeline_comments'])}개")
+            # print(f"  - 업데이트 횟수: {save_data.get('update_count', 1)}")
+            # print(f"  - 통계: {save_data['statistics']}")
             
             # JSON 파일로 저장
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(save_data, f, ensure_ascii=False, indent=2, default=str)
             
             # 저장 결과 출력
-            stats = save_data["statistics"]
-            action = "업데이트" if existing_data else "저장"
-            print(f"{datetime.now()} 하이라이트 채팅 {action} 완료:")
-            print(f"  - 파일: {filename}")
-            print(f"  - 채널: {channel_name} ({channel_id})")
-            print(f"  - 방송 시간: {readable_time}")
-            print(f"  - 마지막 방제: {save_data.get('last_title', '')}")
-            print(f"  - 총 하이라이트: {stats['total_highlights']}개")
-            print(f"  - 업데이트 횟수: {save_data.get('update_count', 1)}")
-            if stats['total_with_scores'] > 0:
-                print(f"  - 평균 재미도: {stats['avg_score']:.1f} (최고: {stats['max_score']:.1f})")
-                print(f"  - 큰 하이라이트: {stats['big_highlights']}개")
+            # stats = save_data["statistics"]
+            # action = "업데이트" if existing_data else "저장"
+            # print(f"{datetime.now()} 하이라이트 채팅 {action} 완료:")
+            # print(f"  - 파일: {filename}")
+            # print(f"  - 채널: {channel_name} ({channel_id})")
+            # print(f"  - 방송 시간: {readable_time}")
+            # print(f"  - 마지막 방제: {save_data.get('last_title', '')}")
+            # print(f"  - 총 하이라이트: {stats['total_highlights']}개")
+            # print(f"  - 업데이트 횟수: {save_data.get('update_count', 1)}")
+            # if stats['total_with_scores'] > 0:
+            #     print(f"  - 평균 재미도: {stats['avg_score']:.1f} (최고: {stats['max_score']:.1f})")
+            #     print(f"  - 큰 하이라이트: {stats['big_highlights']}개")
             
             return str(file_path)
             

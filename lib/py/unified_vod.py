@@ -709,13 +709,14 @@ class chzzk_vod(base_vod):
                             cookies=cookies
                         ) as response:
                             
-                            print(f"{datetime.now()} 답글 {i+1} 응답 상태: {response.status}")
+                            # print(f"{datetime.now()} 답글 {i+1} 응답 상태: {response.status}")
                             response_text = await response.text()
                             if response.status == 200:
                                 try:
                                     response_data = loads(response_text)
                                     if response_data.get('code') == 200:
-                                        print(f"{datetime.now()} 답글 {i+1} 작성 성공!")
+                                        # print(f"{datetime.now()} 답글 {i+1} 작성 성공!")
+                                        pass
                                     else:
                                         print(f"{datetime.now()} 답글 {i+1} 실패: {response_data}")
                                 except Exception as parse_error:

@@ -846,7 +846,7 @@ async def save_user_notifications(supabase, webhook_url, notifications, last_db_
 					.upsert(data)
 					.execute()
 			)
-			print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url}")
+			# print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url}")
 			return True
 		except Exception as e:
 			print(f"{datetime.now()} 알림 저장 중 오류: {e} - URL: {webhook_url}")
@@ -889,7 +889,7 @@ async def save_sent_notifications(supabase, channel_id, hot_clip_data):
 					.upsert(data)
 					.execute()
 			)
-			print(f"{datetime.now()} 알림을 DB에 저장함 - channelID: {channel_id}")
+			# print(f"{datetime.now()} 알림을 DB에 저장함 - channelID: {channel_id}")
 			return True
 		except Exception as e:
 			print(f"{datetime.now()} 알림 저장 중 오류: {e} - channelID : {channel_id}")
