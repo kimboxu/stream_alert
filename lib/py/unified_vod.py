@@ -368,7 +368,7 @@ class base_vod(ABC):
     def _get_highlight_msg_from_file(self, highlight_data):
         """파일에서 로드된 하이라이트 데이터를 VOD 댓글로 변환"""
         timeline_comments = highlight_data.get('timeline_comments', [])
-        print(f"{datetime.now()} [DEBUG] timeline_comments 수: {len(timeline_comments)}")
+        # print(f"{datetime.now()} [DEBUG] timeline_comments 수: {len(timeline_comments)}")
         
         if not timeline_comments or not isinstance(timeline_comments, list):
             print(f"{datetime.now()} [DEBUG] timeline_comments가 비어있거나 리스트가 아님")
@@ -439,10 +439,10 @@ class base_vod(ABC):
             comment_lines.append(comment_line)
             processed_count += 1
 
-        print(f"{datetime.now()} 세그먼트 {segment_number} 댓글 처리 완료:")
-        print(f"  - 전체 하이라이트: {len(timeline_comments)}개")
-        print(f"  - 이 세그먼트 해당: {processed_count}개")
-        print(f"  - 세그먼트 범위: {segment_start_offset}초 ~ {segment_start_offset + self.data.duration}초")
+        # print(f"{datetime.now()} 세그먼트 {segment_number} 댓글 처리 완료:")
+        # print(f"  - 전체 하이라이트: {len(timeline_comments)}개")
+        # print(f"  - 이 세그먼트 해당: {processed_count}개")
+        # print(f"  - 세그먼트 범위: {segment_start_offset}초 ~ {segment_start_offset + self.data.duration}초")
 
         if processed_count == 0:
             # 해당 세그먼트에 댓글이 없는 경우

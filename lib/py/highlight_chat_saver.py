@@ -95,7 +95,7 @@ class HighlightChatSaver:
                                             stream_id: str, highlight_data) -> str:
         """완성된 특정 스트림의 하이라이트 채팅 데이터를 파일로 저장"""
         try:
-            print(f"{datetime.now()} [저장 시작] 채널: {channel_name}, 스트림: {stream_id}")
+            # print(f"{datetime.now()} [저장 시작] 채널: {channel_name}, 스트림: {stream_id}")
             
             # 방송 시작 시간 추출
             start_time = self._extract_stream_start_time_from_id(stream_id)
@@ -194,7 +194,7 @@ class HighlightChatSaver:
     def _convert_highlight_data_to_dict(self, highlight_data) -> Dict:
         """highlight_chat_Data 객체를 딕셔너리로 변환"""
         try:
-            print(f"{datetime.now()} [데이터 변환] 타입: {type(highlight_data)}")
+            # print(f"{datetime.now()} [데이터 변환] 타입: {type(highlight_data)}")
             
             if hasattr(highlight_data, '__dict__'):
                 result = {
@@ -202,10 +202,10 @@ class HighlightChatSaver:
                     "stream_end_id": getattr(highlight_data, 'stream_end_id', ''),
                     "last_title": getattr(highlight_data, 'last_title', ''),
                 }
-                print(f"{datetime.now()} [객체 변환] 속성 접근 성공")
-                print(f"  - timeline_comments: {len(result['timeline_comments'])}개")
-                print(f"  - stream_end_id: {result['stream_end_id']}")
-                print(f"  - last_title: {result['last_title']}")
+                # print(f"{datetime.now()} [객체 변환] 속성 접근 성공")
+                # print(f"  - timeline_comments: {len(result['timeline_comments'])}개")
+                # print(f"  - stream_end_id: {result['stream_end_id']}")
+                # print(f"  - last_title: {result['last_title']}")
                 return result
                 
             elif isinstance(highlight_data, dict):

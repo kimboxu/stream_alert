@@ -84,7 +84,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         connect_start_msg = f"{self.data.channel_id} 방송 켜짐"
         if len(self.data.cid):
             connect_start_msg += f", 기존 cid:{self.data.cid}, 지금 {self.init.chzzk_titleData.loc[self.data.channel_id, 'chatChannelId']}"
-        print(f"{datetime.now()} {connect_start_msg}")
+        # print(f"{datetime.now()} {connect_start_msg}")
 
         async with websockets.connect('wss://kr-ss3.chat.naver.com/chat', 
                                     subprotocols=['chat'], 
@@ -419,9 +419,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 # 메시지 출력
                 message = self.print_msg(chat_data, chat_type)
                 if not self.init.DO_TEST and (((chat_type == "후원" and self.get_msgTypeCode(chat_data) != "채팅")) or userRoleCode in ["streamer", "streaming_chat_manager"]):
-                    asyncio.create_task(log_error(
-                        message[0], webhook_url=environ['donation_post_url']
-                    ))
+                    asyncio.create_task(log_error(message[0], webhook_url=environ['donation_post_url']))
                 # else:
                 #     print(f"{datetime.now()} {message[0]}")
 
@@ -499,7 +497,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 webhook_task = asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
                 webhook_task.add_done_callback(lambda t: self._handle_webhook_result(t))
                 
-                print(f"{datetime.now()} post chat {message[0]}")
+                # print(f"{datetime.now()} post chat {message[0]}")
         except Exception as e:
             asyncio.create_task(log_error(f"error postChat: {str(e)}"))
 
@@ -546,7 +544,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         except Exception as e:
             await log_error(f"Error in ping function: {str(e)}")
         
-        print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
+        # print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
 
     # 연결 수립 함수
     async def connect(self):

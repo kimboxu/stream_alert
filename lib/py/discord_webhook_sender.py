@@ -185,7 +185,9 @@ class DiscordWebhookSender:
             # 디스코드 웹훅을 통해 오류 메시지 전송
             async with ClientSession() as session:
                 data = {'content': message, "username": "Error Alarm"}
-                print(f"{datetime.now()} {message}")
+                if webhook_url != [environ['donation_post_url']]:
+                    print(f"{datetime.now()} {message}")
+                    
                 async with session.post(webhook_url, json=data, timeout=10) as response:
                     # 디스코드 속도 제한 처리
                     if response.status == 429:
