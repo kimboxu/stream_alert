@@ -1251,70 +1251,70 @@ class ChatAnalyzer:
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight], is_emergency = False, is_use_description = True):
-        self.init.wait_make_highlight_chat[self.channel_id] = True
-        max_retries = len(self.init.GOOGLE_API_KEY_LIST)
-        request_timeout = 600
-        emergency_timeline_comments = []
-
-        if not highlights: #or not self.init.is_vod_chat_json[self.channel_id]
-            return emergency_timeline_comments
-        
-        highlight_data = []
-        images_with_labels = []
-
-        def get_dummy_image():
-            return PILImage.new("RGBA", (1, 1), (0, 0, 0, 0))
-        
-        for i, highlight in enumerate(highlights):
-            try:
-                analysis_data = highlight.analysis_data
-                fun_keywords = analysis_data.get('fun_keywords', {})
-                score_details = highlight.score_details
-
-                highlight_data.append({
-                    "하이라이트_ID": f"HIGHLIGHT_{i+1}",
-                    "재미도_점수": highlight.fun_score,
-                    "하이라이트_이유": highlight.reason,
-                    "최근_채팅": highlight.chat_context,
-                    "최고점수_시간": highlight.after_openDate,
-                    "VOD_타임라인_시간": highlight.comment_after_openDate,
-                    "방송_인네일": f"이미지_{i+1}",
-                    "썸네일_존재": bool(highlight.image),
-                    "메시지_개수": analysis_data['message_count'],
-                    "시청자_수": analysis_data['viewer_count'],
-                    "웃음_키워드_수": fun_keywords.get('laugh', 0),
-                    "놀람_키워드_수": fun_keywords.get('surprise', 0),
-                    "흥분_키워드_수": fun_keywords.get('excitement', 0),
-                    "일반반응_키워드_수": fun_keywords.get('reaction', 0),
-                    "인사_키워드_수": fun_keywords.get('greeting', 0),
-                    "채팅_급증_점수": score_details['chat_spike_score'],
-                    "리액션_점수": score_details['reaction_score'],
-                    "다양성_점수": score_details['diversity_score'],
-                    "시청자_급증_점수": score_details['viewer_trend_score'],
-                    "기준_채팅_수": score_details['baseline_chat_count'],
-                    "기준_시청자_수": score_details['baseline_viewer_count'],
-                    "하이라이트_여부": score_details['highlights'],
-                    "큰_하이라이트_여부": score_details['big_highlights'],
-                    "재미도_점수_차이": score_details['score_difference'],
-                })
-
-                emergency_timeline_comments.append(
-                    {"comment_after_openDate": highlight.comment_after_openDate, 
-                     "score_difference": score_details['score_difference'],
-                     "text": highlight.reason, 
-                     "image_text": highlight.reason}
-                )
-
-                images_with_labels.append(highlight.image if highlight.image else get_dummy_image())
-
-            except Exception as e:
-                print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
-                continue
-        
-        if not is_use_description or not self.init.is_use_AI[self.channel_id] or self.init.DO_TEST:
-            return emergency_timeline_comments
-
         try:
+            self.init.wait_make_highlight_chat[self.channel_id] = True
+            max_retries = len(self.init.GOOGLE_API_KEY_LIST)
+            request_timeout = 600
+            emergency_timeline_comments = []
+
+            if not highlights: #or not self.init.is_vod_chat_json[self.channel_id]
+                return emergency_timeline_comments
+            
+            highlight_data = []
+            images_with_labels = []
+
+            def get_dummy_image():
+                return PILImage.new("RGBA", (1, 1), (0, 0, 0, 0))
+            
+            for i, highlight in enumerate(highlights):
+                try:
+                    analysis_data = highlight.analysis_data
+                    fun_keywords = analysis_data.get('fun_keywords', {})
+                    score_details = highlight.score_details
+
+                    highlight_data.append({
+                        "하이라이트_ID": f"HIGHLIGHT_{i+1}",
+                        "재미도_점수": highlight.fun_score,
+                        "하이라이트_이유": highlight.reason,
+                        "최근_채팅": highlight.chat_context,
+                        "최고점수_시간": highlight.after_openDate,
+                        "VOD_타임라인_시간": highlight.comment_after_openDate,
+                        "방송_인네일": f"이미지_{i+1}",
+                        "썸네일_존재": bool(highlight.image),
+                        "메시지_개수": analysis_data['message_count'],
+                        "시청자_수": analysis_data['viewer_count'],
+                        "웃음_키워드_수": fun_keywords.get('laugh', 0),
+                        "놀람_키워드_수": fun_keywords.get('surprise', 0),
+                        "흥분_키워드_수": fun_keywords.get('excitement', 0),
+                        "일반반응_키워드_수": fun_keywords.get('reaction', 0),
+                        "인사_키워드_수": fun_keywords.get('greeting', 0),
+                        "채팅_급증_점수": score_details['chat_spike_score'],
+                        "리액션_점수": score_details['reaction_score'],
+                        "다양성_점수": score_details['diversity_score'],
+                        "시청자_급증_점수": score_details['viewer_trend_score'],
+                        "기준_채팅_수": score_details['baseline_chat_count'],
+                        "기준_시청자_수": score_details['baseline_viewer_count'],
+                        "하이라이트_여부": score_details['highlights'],
+                        "큰_하이라이트_여부": score_details['big_highlights'],
+                        "재미도_점수_차이": score_details['score_difference'],
+                    })
+
+                    emergency_timeline_comments.append(
+                        {"comment_after_openDate": highlight.comment_after_openDate, 
+                        "score_difference": score_details['score_difference'],
+                        "text": highlight.reason, 
+                        "image_text": highlight.reason}
+                    )
+
+                    images_with_labels.append(highlight.image if highlight.image else get_dummy_image())
+
+                except Exception as e:
+                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
+                    continue
+            
+            if not is_use_description or not self.init.is_use_AI[self.channel_id] or self.init.DO_TEST:
+                return emergency_timeline_comments
+
             # 명확한 이미지 매핑 지시사항 포함
             prompt = f"""다음 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
 
