@@ -966,7 +966,7 @@ async def upload_image_to_imgbb(
             # print(f"{datetime.now()} 이미지 다운로드 실패: {status_code}")
             return None
     
-        print(f"{datetime.now()} 이미지 다운로드 성공: {status_code}")
+        # print(f"{datetime.now()} 이미지 다운로드 성공: {status_code}")
             
         # 이미지 크기 확인
         content = response.get("content", "")

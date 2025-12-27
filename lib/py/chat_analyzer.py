@@ -915,7 +915,7 @@ class ChatAnalyzer:
             # timeline_comments가 업데이트되었는지 확인
             if (hasattr(highlight_data, 'timeline_comments') and highlight_data.timeline_comments) or is_save_log:
                 
-                print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}, {stream_start_id}")
+                # print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}, {stream_start_id}")
                 # print(f"  - 스트림 ID: {stream_start_id}")
                 # print(f"  - 하이라이트 개수: {len(highlight_data.timeline_comments)}개")
                 
@@ -925,7 +925,7 @@ class ChatAnalyzer:
                 )
                 
                 if file_path:
-                    print(f"{datetime.now()} 하이라이트 채팅 저장 성공: {file_path}")
+                    # print(f"{datetime.now()} 하이라이트 채팅 저장 성공: {file_path}")
                     
                     # 저장 성공 후 메모리에서 제거
                     if is_save_log:
@@ -1180,13 +1180,13 @@ class ChatAnalyzer:
             
             # 저장 완료 메시지
             save_type = "전체 캐시" if save_cache else "일부"
-            print(f"{datetime.now()} 📄 {self.channel_name} 상세 로그 저장 완료: {file_path} ({len(logs_to_save)}개 기록, {save_type})")
+            # print(f"{datetime.now()} 📄 {self.channel_name} 상세 로그 저장 완료: {file_path} ({len(logs_to_save)}개 기록, {save_type})")
             
             # 저장 후 로그 업데이트
             self.detailed_logs_dict[stream_start_time] = remaining_logs
             
             # 남은 로그 수 출력
-            print(f"{datetime.now()} 남은 로그: {len(self.detailed_logs_dict[stream_start_time])}개")
+            # print(f"{datetime.now()} 남은 로그: {len(self.detailed_logs_dict[stream_start_time])}개")
                 
         except Exception as e:
             print(f"{datetime.now()} ❌ 로그 저장 오류: {e}")
@@ -1416,7 +1416,7 @@ class ChatAnalyzer:
         stream_start_id = get_stream_start_id(self.channel_id, self.stream_start_time)
         self.init.highlight_chat[self.channel_id][stream_start_id].timeline_comments.extend(timeline_comments)
                 
-        print(f"{datetime.now()} {self.channel_name} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
+        # print(f"{datetime.now()} {self.channel_name} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
         # for comment in timeline_comments:
         #     if 'comment_after_openDate' in comment and 'score_difference' in comment and 'text' in comment and 'image_text' in comment:
         #         print(f"**{comment['comment_after_openDate']}** {comment['score_difference']}** {comment['text']}** {comment['image_text']}")
