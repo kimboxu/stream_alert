@@ -1471,7 +1471,7 @@ async def background_save_task_with_state_manager(task_id):
                     highlights_count = instance_info['highlights_count']
                     chat_instance = instance_info['instance']
                     
-                    print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 시작")
+                    # print(f"{datetime.now()} [{platform}] {channel_name}: {highlights_count}개 하이라이트 저장 시작")
                     
                     # 하이라이트 처리 실행
                     await chat_instance.highlight_processing()
@@ -1487,7 +1487,7 @@ async def background_save_task_with_state_manager(task_id):
                         is_completed = init.wait_make_highlight_chat.get(channel_id, True)
                         
                         if not is_completed:
-                            print(f"{datetime.now()} [{platform}] {channel_name}: 작업 완료 감지")
+                            # print(f"{datetime.now()} [{platform}] {channel_name}: 작업 완료 감지")
                             break
                         
                         # 1초 대기

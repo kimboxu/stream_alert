@@ -372,7 +372,7 @@ class FileNotificationManager:
         failed_count = 0
         
         try:
-            print(f"{datetime.now()} 캐시 강제 저장 시작")
+            # print(f"{datetime.now()} 캐시 강제 저장 시작")
             
             # 캐시 내용을 배치로 처리
             with self._cache_lock:
@@ -405,7 +405,7 @@ class FileNotificationManager:
                 import time
                 time.sleep(0.01)
             
-            print(f"{datetime.now()} 캐시된 알림 데이터 강제 저장 완료: {saved_count}개 성공, {failed_count}개 실패")
+            # print(f"{datetime.now()} 캐시된 알림 데이터 강제 저장 완료: {saved_count}개 성공, {failed_count}개 실패")
             
             return saved_count
             
@@ -514,7 +514,7 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
                 is_success=True,
         ))
         
-        print(f"{datetime.now()} FCM 메시지 전송 성공: {token[:15]}... 결과: {result}, 응답시간: {response_time_ms/1000:.3f}초")
+        # print(f"{datetime.now()} FCM 메시지 전송 성공: {token[:15]}... 결과: {result}, 응답시간: {response_time_ms/1000:.3f}초")
         return result
         
     except messaging.UnregisteredError:
