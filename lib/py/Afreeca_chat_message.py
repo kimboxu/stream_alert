@@ -564,8 +564,17 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             CHDOMAIN = res["CHANNEL"]["CHDOMAIN"].lower()
             CHATNO = res["CHANNEL"]["CHATNO"]
-            FTK = res["CHANNEL"]["FTK"]
-            BJID = res["CHANNEL"]["BJID"]
+            
+            try: FTK = res["CHANNEL"]["CHANNEL"]["FTK"]
+            except Exception as e:
+                FTK = None
+                asyncio.create_task(log_error(f"{datetime.now()} error afreeca FTK {res}"))
+
+            try: BJID = res["CHANNEL"]["BJID"]
+            except Exception as e:
+                BJID = None
+                asyncio.create_task(log_error(f"{datetime.now()} error afreeca BJID {res}"))
+
             CHPT = str(int(res["CHANNEL"]["CHPT"]) + 1)
         else:
             # 방송이 없는 경우 모든 값을 None으로 설정
