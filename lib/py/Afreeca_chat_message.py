@@ -564,11 +564,11 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             CHDOMAIN = res["CHANNEL"]["CHDOMAIN"].lower()
             CHATNO = res["CHANNEL"]["CHATNO"]
-            
-            try: FTK = res["CHANNEL"]["CHANNEL"]["FTK"]
+
+            try: FTK = res["CHANNEL"]["FTK"]
             except Exception as e:
                 FTK = None
-                asyncio.create_task(log_error(f"{datetime.now()} error afreeca FTK {res}"))
+                # asyncio.create_task(log_error(f"{datetime.now()} error afreeca FTK {res}"))
 
             try: BJID = res["CHANNEL"]["BJID"]
             except Exception as e:

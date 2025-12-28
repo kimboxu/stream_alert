@@ -760,7 +760,6 @@ async def save_airing_data(titleData, platform: str, id_):
 					"live_state": titleData.loc[id_, "live_state"],
 					"title1": titleData.loc[id_, "title1"],
 					"title2": titleData.loc[id_, "title2"],
-					"update_time": titleData.loc[id_, "update_time"],
 					"chatChannelId": titleData.loc[id_, "chatChannelId"],
 					"oldChatChannelId": titleData.loc[id_, "oldChatChannelId"],
 					"state_update_time": titleData.loc[id_, "state_update_time"],
