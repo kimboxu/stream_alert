@@ -180,14 +180,17 @@ class DiscordWebhookSender:
             await self._log_error(f"Error deleting user state data: {e}")
 
     # 오류 로깅 함수
-    async def _log_error(self, message: str, webhook_url = environ.get('errorPostBotURL')):
+    async def _log_error(self, message: str, is_Do_test, webhook_url = environ.get('errorPostBotURL')):
         try:
             # 디스코드 웹훅을 통해 오류 메시지 전송
             async with ClientSession() as session:
                 data = {'content': message, "username": "Error Alarm"}
                 if webhook_url not in [environ['donation_post_url']]:
                     print(f"{datetime.now()} {message}")
-                    
+                
+                if webhook_url in [environ['chat_post_url']] and is_Do_test:
+                    return
+
                 async with session.post(webhook_url, json=data, timeout=10) as response:
                     # 디스코드 속도 제한 처리
                     if response.status == 429:

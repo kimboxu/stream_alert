@@ -86,8 +86,8 @@ class iconLinkData:
 	cafe_icon: str = environ['CAFE_ICON']
 
 # 오류 로깅 함수: Discord 웹훅을 통해 오류 메시지 전송
-async def log_error(message, webhook_url = environ.get('errorPostBotURL')):
-	await DiscordWebhookSender()._log_error(message, webhook_url)
+async def log_error(message, is_Do_test = False, webhook_url = environ.get('errorPostBotURL')):
+	await DiscordWebhookSender()._log_error(message, is_Do_test, webhook_url)
 
 # 사용자 데이터 업데이트 함수
 async def userDataVar(init: initVar):
