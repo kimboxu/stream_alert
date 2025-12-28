@@ -169,7 +169,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         chatChannelId = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
 
         # 연결 완료 로그 기록
-        asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {chatChannelId}", is_Do_test = self.init.DO_TEST, webhook_url=environ['chat_post_url']), is_Do_test = self.init.DO_TEST)
+        asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {chatChannelId}", is_Do_test = self.init.DO_TEST, webhook_url=environ['chat_post_url']))
 
         # 채널 참여 패킷 전송
         await asyncio.sleep(2)
