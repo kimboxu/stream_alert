@@ -2,8 +2,10 @@ from os import environ
 import logging
 import asyncio
 import aiohttp
+import threading
 from json import loads
 import pandas as pd
+from typing import Dict
 from random import randint
 from requests import post, get
 from requests.exceptions import HTTPError, ReadTimeout, ConnectTimeout, SSLError
@@ -40,19 +42,38 @@ class initVar:
 	IMGBB_API_KEY_LIST = environ['IMGBB_API_KEY_LIST'].split(",")
 	api_key_cnt = randint(0, len(IMGBB_API_KEY_LIST)-1)
 
-	_table_semaphores = {}
-	@classmethod
-	def get_table_semaphore(cls, table_name: str) -> asyncio.Semaphore:
-		if table_name not in cls._table_semaphores:
-			cls._table_semaphores[table_name] = asyncio.Semaphore(1)
-		return cls._table_semaphores[table_name]
-
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
 
 	# 모든 로거의 레벨을 높이려면
 	# logging.getLogger().setLevel(logging.WARNING)
 	print("start!")
 
+
+_TABLE_LOCKS: Dict[str, asyncio.Lock] = {}
+_TABLE_LOCKS_LOCK = threading.Lock()
+_CURRENT_LOOP_ID = None
+
+def get_table_lock(table_name: str) -> asyncio.Lock:
+
+    global _CURRENT_LOOP_ID
+    
+    try:
+        current_loop = asyncio.get_running_loop()
+        current_loop_id = id(current_loop)
+    except RuntimeError:
+        raise RuntimeError("비동기 컨텍스트에서만 호출 가능")
+    
+    with _TABLE_LOCKS_LOCK:
+        # 이벤트 루프가 바뀌었으면 모든 Lock 초기화
+        if _CURRENT_LOOP_ID != current_loop_id:
+            _TABLE_LOCKS.clear()
+            _CURRENT_LOOP_ID = current_loop_id
+        
+        # Lock이 없으면 생성
+        if table_name not in _TABLE_LOCKS:
+            _TABLE_LOCKS[table_name] = asyncio.Lock()
+        
+        return _TABLE_LOCKS[table_name]
 # 각 플랫폼의 아이콘 URL을 저장하는 데이터 클래스
 @dataclass
 class iconLinkData:
@@ -138,8 +159,8 @@ async def load_user_state_data(init: initVar):
 # 비동기로 플래그 업데이트
 async def update_flag(field, value):
 	table_name = 'date_update'
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert({"idx": 0,field: value}).execute())
 
@@ -731,8 +752,8 @@ def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image = ""):
 # 방송 정보 데이터 저장 함수
 async def save_airing_data(titleData, platform: str, id_):
 	table_name = platform + "_titleData"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data_func = {
 					"channelID": id_,
@@ -752,8 +773,8 @@ async def save_airing_data(titleData, platform: str, id_):
 # 프로필 이미지 url 저장 함수
 async def save_profile_data(IDList, platform: str, id):
 	table_name = platform + "IDList"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		
 		data_func = {
@@ -766,8 +787,8 @@ async def save_profile_data(IDList, platform: str, id):
 # 필드 데이터 상태 변경 함수
 async def change_field_state(field, field_data, channel_id, field_state = True):
 	table_name = "date_update"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		field_data[channel_id] = field_state
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert({"idx": 0, field: field_data}).execute())
@@ -775,8 +796,8 @@ async def change_field_state(field, field_data, channel_id, field_state = True):
 # 비디오 데이터 저장 함수
 async def save_video_data(video_data, _id):
 	table_name = "video_data"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 			"channelID": _id,
@@ -788,8 +809,8 @@ async def save_video_data(video_data, _id):
 # 카페 데이터 저장 함수
 async def saveCafeData(cafeData, _id):
 	table_name = "cafeData"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 
 		data = {
@@ -804,8 +825,8 @@ async def saveCafeData(cafeData, _id):
 # 유튜브 데이터 저장 함수
 async def saveYoutubeData(youtubeData, youtubeChannelID):
 	table_name = "youtubeData"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 			"YoutubeChannelID": youtubeChannelID,
@@ -820,8 +841,8 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 
 async def save_user_chat_user_json(webhook_url, chat_user_json):
 	table_name = "userStateData"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 				'discordURL': webhook_url, 
@@ -833,8 +854,8 @@ async def save_user_chat_user_json(webhook_url, chat_user_json):
 # 보낸 클립 UID 저장 함수
 async def save_sent_notifications(channel_id, hot_clip_data):
 	table_name = "hot_clip_data"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 					'channelID': channel_id,
@@ -847,8 +868,8 @@ async def save_sent_notifications(channel_id, hot_clip_data):
 # 챗 명령어 데이터 저장 함수
 async def save_chat_command_data(chat_command_data, _id):
 	table_name = "chat_commands"
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 			"channelID": _id,
@@ -859,8 +880,8 @@ async def save_chat_command_data(chat_command_data, _id):
 
 async def save_chatFilter_name(user_id, user_name, platform: str): 
 	table_name = f'{platform}_chatFilter'
-	semaphore = initVar.get_table_semaphore(table_name)
-	async with semaphore:
+	lock = get_table_lock(table_name)
+	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {'channelName': user_name}
 
