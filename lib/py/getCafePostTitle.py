@@ -49,7 +49,7 @@ class getCafePostTitle:
             await self.postCafe()                            # 카페 게시글 알림 전송
                 
         except Exception as e:
-            asyncio.create_task(log_error(f"error cafe {self.channel_id}.{e}"))
+            asyncio.create_task(log_error(f"error cafe {self.channel_id}.{str(e)}"))
 
     # 카페 API에서 게시글 데이터 가져오기
     async def getCafeDataDic(self):
@@ -68,7 +68,7 @@ class getCafePostTitle:
             # 게시글 목록 처리
             self._process_article_list(response, cafe_name_dict, max_ref_article, update_time, cafe_json_ref_articles)
         except Exception as e:
-            asyncio.create_task(log_error(f"게시글 처리 중 오류 발생: {e}"))
+            asyncio.create_task(log_error(f"게시글 처리 중 오류 발생: {str(e)}"))
 
         return
 
@@ -173,7 +173,7 @@ class getCafePostTitle:
             
         except Exception as e:
             # 오류 발생 시 로그 기록 및 메시지 목록 초기화
-            asyncio.create_task(log_error(f"error postCafe {e}"))
+            asyncio.create_task(log_error(f"error postCafe {str(e)}"))
             self.message_list.clear()
 
     # 카페 게시글용 웹훅 JSON 데이터 생성 함수

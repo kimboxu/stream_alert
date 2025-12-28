@@ -119,7 +119,7 @@ class StateManager:
             print(f"성능 매니저 초기화 완료")
             
         except Exception as e:
-            print(f"성능 매니저 초기화 실패: {e}")
+            print(f"성능 매니저 초기화 실패: {str(e)}")
             self.performance_manager = None
 
     # 초기화 변수 객체를 반환하는 함수
@@ -247,7 +247,7 @@ class StateManager:
                     **kwargs
                 )
             except Exception as e:
-                print(f"API 성능 로깅 실패: {e}")
+                print(f"API 성능 로깅 실패: {str(e)}")
         # 성능 매니저가 없거나 실패해도 조용히 넘어감
     
     # 시스템 종료시 정리 작업
@@ -258,7 +258,7 @@ class StateManager:
                 await self.performance_manager.shutdown()
                 print("성능 매니저 정리 완료")
             except Exception as e:
-                print(f"성능 매니저 정리 중 오류: {e}")
+                print(f"성능 매니저 정리 중 오류: {str(e)}")
         
         # 전역 인스턴스들 정리
         for instance_type in self.global_instances:

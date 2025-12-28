@@ -73,7 +73,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             try:
                 await self._connect_and_run()   # 연결 및 실행
             except Exception as e:
-                await log_error(f"error in chat manager: {self.data.channel_name}.{e}")
+                await log_error(f"error in chat manager: {self.data.channel_name}.{str(e)}")
                 asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
             finally:
                 await self._cleanup_tasks()  # 태스크 정리
@@ -136,7 +136,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         try:
             await self.stop_analyzer()
         except Exception as e:
-            await log_error(f"stop_analyzer 에러 ({self.data.channel_id}): {e}")
+            await log_error(f"stop_analyzer 에러 ({self.data.channel_id}): {str(e)}")
         
         # 웹소켓 연결 강제 종료 및 정리
         try:
@@ -145,7 +145,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     await self.data.sock.close()
                     await self.data.sock.wait_closed()
                 except Exception as e:
-                    await log_error(f"소켓 종료 중 에러: {e}")
+                    await log_error(f"소켓 종료 중 에러: {str(e)}")
                 finally:
                     print(f"{datetime.now()} CLOSED소캣 정리 완료")
                     self.data.sock = None
@@ -154,7 +154,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 print(f"{datetime.now()} CLOSING소캣 정리 완료")
                 self.data.sock = None
         except Exception as e:
-            await log_error(f"웹소켓 정리 에러 ({self.data.channel_id}): {e}")
+            await log_error(f"웹소켓 정리 에러 ({self.data.channel_id}): {str(e)}")
         
         # 모든 태스크 취소 및 완료 대기
         for task in self.tasks:
@@ -165,7 +165,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 except asyncio.CancelledError:
                     pass
                 except Exception as e:
-                    await log_error(f"태스크 정리 중 오류 ({self.data.channel_id}): {e}")
+                    await log_error(f"태스크 정리 중 오류 ({self.data.channel_id}): {str(e)}")
 
         if self.command_task and not self.command_task.done():
             self.command_task.cancel()
@@ -250,17 +250,17 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             except (JSONDecodeError, ConnectionError, RuntimeError, websockets.exceptions.ConnectionClosed) as e:
                 # 연결 오류 처리
                 if not self.check_live_state_close():
-                    asyncio.create_task(log_error(f"{datetime.now()} last_chat_time{self.data.channel_id} 2.{self.data.last_chat_time}.{e}"))
+                    asyncio.create_task(log_error(f"{datetime.now()} last_chat_time{self.data.channel_id} 2.{self.data.last_chat_time}.{str(e)}"))
                     try: 
                         await self.data.sock.close()
                         await self.data.sock.wait_closed()
                     except Exception: pass
-                asyncio.create_task(log_error(f"Test2 {self.data.channel_id}.{e}{datetime.now()}"))
+                asyncio.create_task(log_error(f"Test2 {self.data.channel_id}.{str(e)}{datetime.now()}"))
                 continue
                     
             except Exception as e:
-                print(f"{datetime.now()} Error details: {type(e)}, {e}")
-                asyncio.create_task(log_error(f"Detailed error in message_receiver: {type(e)}, {e}"))
+                print(f"{datetime.now()} Error details: {type(e)}, {str(e)}")
+                asyncio.create_task(log_error(f"Detailed error in message_receiver: {type(e)}, {str(e)}"))
 
     # 메시지 처리 태스크
     async def _message_processor(self, message_queue: asyncio.Queue):
@@ -290,15 +290,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     
                 except Exception as e:
                     asyncio.create_task(log_error(
-                        f"Error processing message: {e}, {str(raw_message)}"
+                        f"Error processing message: {str(e)}, {str(raw_message)}"
                     ))
                 finally:
                      # 큐 작업 완료 신호
                     message_queue.task_done()
                     
             except Exception as e:
-                print(f"{datetime.now()} Error in message_processor: {e}")
-                asyncio.create_task(log_error(f"Error in message_processor: {e}"))
+                print(f"{datetime.now()} Error in message_processor: {str(e)}")
+                asyncio.create_task(log_error(f"Error in message_processor: {str(e)}"))
                 await asyncio.sleep(0.1)    ## 예외 발생 시 잠시 대기
 
     # 단일 메시지 처리 함수
@@ -324,7 +324,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 await self.process_chat_list(chzzk_chat_list, chat_type)
         
         except Exception as e:
-            asyncio.create_task(log_error(f"Error in _process_single_message: {e}, {str(raw_message)}"))
+            asyncio.create_task(log_error(f"Error in _process_single_message: {str(e)}, {str(raw_message)}"))
 
     # 채팅 타입 결정 함수
     def get_chat_type(self, chat_cmd) -> str:
@@ -443,7 +443,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 processing_tasks.append(task)
 
             except Exception as e:
-                asyncio.create_task(log_error(f"error process_message {e}"))
+                asyncio.create_task(log_error(f"error process_message {str(e)}"))
         
         # 모든 처리 태스크 실행
         if processing_tasks:
@@ -588,14 +588,14 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     print(f"{datetime.now()} {self.data.channel_id} 새로 시작된 방송이거나 채팅 활동이 없는 상태")
                     
             except Exception as e: 
-                print(f"messageTime 처리 오류 {e}")
+                print(f"messageTime 처리 오류 {str(e)}")
                 self.data.last_chat_time = datetime.now().isoformat()
 
             asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {self.data.cid}", is_Do_test = self.init.DO_TEST, webhook_url=environ['chat_post_url']))
             return True
 
         except Exception as e:
-            print(f"{datetime.now()} {self.data.channel_id} 연결 실패: {e}, sock_response:{sock_response}")
+            print(f"{datetime.now()} {self.data.channel_id} 연결 실패: {str(e)}, sock_response:{sock_response}")
             return False
 
     # 메시지 전송 함수
@@ -694,7 +694,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return True
             
         except Exception as e: 
-            asyncio.create_task(log_error(f"error get_check_channel_id {self.data.channel_id}.{e}"))
+            asyncio.create_task(log_error(f"error get_check_channel_id {self.data.channel_id}.{str(e)}"))
         return False
 
     # 채팅 채널 ID 가 다른지
@@ -1209,7 +1209,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return self.init.chzzk_titleData.loc[self.data.channel_id, 'live_state'] == "CLOSE"
         except Exception as e:
             # 예외 발생 시 로그 기록 후 기본값으로 True(종료) 반환
-            asyncio.create_task(log_error(f"Error in check_live_state_close: {e}"))
+            asyncio.create_task(log_error(f"Error in check_live_state_close: {str(e)}"))
             return True
         
     async def check_change_chatChannel(self, connect_time):
@@ -1247,7 +1247,7 @@ async def generic_chat(init: initVar, performance_manager: PerformanceManager, p
             await asyncio.sleep(1)  # 1초마다 체크
         
         except Exception as e:
-            print(f"{datetime.now()} error {platform_name}_chatf {e}")
+            print(f"{datetime.now()} error {platform_name}_chatf {str(e)}")
             await asyncio.create_task(log_error(f"Error in {platform_name}_chatf: {str(e)}"))
             await asyncio.sleep(1)
 

@@ -195,11 +195,11 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 except asyncio.TimeoutError:
                     continue
                 except Exception as e:
-                    await log_error(f"Error during ping wait: {e}")
+                    await log_error(f"Error during ping wait: {str(e)}")
                     break
                     
         except Exception as e:
-            await log_error(f"Error in ping function: {e}")
+            await log_error(f"Error in ping function: {str(e)}")
         
         print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
     
@@ -274,7 +274,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             except Exception as e: 
                 # 기타 예외 처리
-                asyncio.create_task(log_error(f"{self.data.channel_id} afreeca chat test except {e}"))
+                asyncio.create_task(log_error(f"{self.data.channel_id} afreeca chat test except {str(e)}"))
                 try: 
                     await self.data.sock.close()
                     await self.data.sock.wait_closed()
@@ -321,7 +321,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             except Exception as e:
                 # 메시지 처리 오류 로그
                 asyncio.create_task(log_error(
-                    f"Error processing message: {e}, {str(messages)}"
+                    f"Error processing message: {str(e)}, {str(messages)}"
                 ))
             finally:
                 # 큐 작업 완료 신호
@@ -426,7 +426,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             user_nick = stateData['station']['user_nick']
             _, _, profile_image = afreeca_getChannelOffStateData(stateData, stateData["station"]["user_id"])
         except Exception as e:
-            asyncio.create_task(log_error(f"Error in _get_user_info: {e}", webhook_url= environ['afreeca_chat_log_url']))
+            asyncio.create_task(log_error(f"Error in _get_user_info: {str(e)}", webhook_url= environ['afreeca_chat_log_url']))
             asyncio.create_task(log_error(f"stateData,{stateData}", webhook_url= environ['afreeca_chat_log_url']))
         return user_nick, profile_image
 
@@ -515,7 +515,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         try:
             return self.init.afreeca_titleData.loc[self.data.channel_id, 'live_state'] == "CLOSE"
         except Exception as e:
-            asyncio.create_task(log_error(f"Error in check_live_state_close: {e}"))
+            asyncio.create_task(log_error(f"Error in check_live_state_close: {str(e)}"))
             return True
     
     # 채널 상태 데이터 가져오기 

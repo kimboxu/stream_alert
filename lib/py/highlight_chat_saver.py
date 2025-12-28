@@ -33,7 +33,7 @@ class HighlightChatSaver:
             timestamp = get_timestamp_from_stream_id(stream_id)
             return timestamp.strftime("%Y-%m-%d_%H%M")
         except Exception as e:
-            print(f"{datetime.now()} stream_id 시간 변환 실패 ({stream_id}): {e}")
+            print(f"{datetime.now()} stream_id 시간 변환 실패 ({stream_id}): {str(e)}")
             # 파싱 실패시 현재 시간 사용
             return datetime.now().strftime("%Y-%m-%d_%H%M")
     
@@ -43,7 +43,7 @@ class HighlightChatSaver:
             timestamp = get_timestamp_from_stream_id(stream_id)
             return timestamp.strftime("%Y-%m-%d %H:%M:%S")
         except Exception as e:
-            print(f"{datetime.now()} stream_id 시간 변환 실패 ({stream_id}): {e}")
+            print(f"{datetime.now()} stream_id 시간 변환 실패 ({stream_id}): {str(e)}")
             return stream_id
 
     def _load_existing_file(self, file_path: Path) -> Optional[Dict]:
@@ -54,7 +54,7 @@ class HighlightChatSaver:
                     return json.load(f)
             return None
         except Exception as e:
-            print(f"{datetime.now()} 기존 파일 로드 실패 ({file_path}): {e}")
+            print(f"{datetime.now()} 기존 파일 로드 실패 ({file_path}): {str(e)}")
             return None
 
     def _merge_timeline_comments(self, existing_comments: List[Dict], new_comments: List[Dict]) -> List[Dict]:
@@ -87,7 +87,7 @@ class HighlightChatSaver:
         try:
             merged_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
         except Exception as e:
-            print(f"{datetime.now()} 댓글 정렬 실패: {e}")
+            print(f"{datetime.now()} 댓글 정렬 실패: {str(e)}")
 
         return merged_comments
 
@@ -186,7 +186,7 @@ class HighlightChatSaver:
             return str(file_path)
             
         except Exception as e:
-            error_msg = f"하이라이트 채팅 파일 저장 실패 ({channel_name}, {stream_id}): {e}"
+            error_msg = f"하이라이트 채팅 파일 저장 실패 ({channel_name}, {stream_id}): {str(e)}"
             await log_error(error_msg)
             print(f"{datetime.now()} {error_msg}")
             return ""
@@ -216,7 +216,7 @@ class HighlightChatSaver:
                 return {"timeline_comments": [], "stream_end_id": "", "last_title": ""}
                 
         except Exception as e:
-            print(f"{datetime.now()} [변환 오류] {e}")
+            print(f"{datetime.now()} [변환 오류] {str(e)}")
             return {"timeline_comments": [], "stream_end_id": "", "last_title": ""}
     
     def _get_stream_end_time(self, highlight_data) -> str:
@@ -228,7 +228,7 @@ class HighlightChatSaver:
                 if highlight_data['stream_end_id']:
                     return self._extract_readable_time_from_id(highlight_data['stream_end_id'])
         except Exception as e:
-            print(f"{datetime.now()} 스트림 종료 시간 추출 실패: {e}")
+            print(f"{datetime.now()} 스트림 종료 시간 추출 실패: {str(e)}")
         
         return ""
     
@@ -298,7 +298,7 @@ class HighlightChatSaver:
             }
             
         except Exception as e:
-            print(f"{datetime.now()} 통계 계산 오류: {e}")
+            print(f"{datetime.now()} 통계 계산 오류: {str(e)}")
             return {
                 "total_highlights": 0,
                 "total_with_scores": 0,
@@ -351,11 +351,11 @@ class HighlightChatSaver:
                     file_list.append(file_info)
                     
                 except Exception as e:
-                    print(f"{datetime.now()} 파일 정보 읽기 실패 ({file_path}): {e}")
+                    print(f"{datetime.now()} 파일 정보 읽기 실패 ({file_path}): {str(e)}")
                     continue
             
             return file_list
             
         except Exception as e:
-            print(f"{datetime.now()} 저장된 파일 정보 조회 실패: {e}")
+            print(f"{datetime.now()} 저장된 파일 정보 조회 실패: {str(e)}")
             return []

@@ -283,7 +283,7 @@ def save_user_settings():
         result = app.init.supabase.table("userStateData").upsert(update_data).execute()
         print(f"{datetime.now()} 사용자 설정 저장 성공: {discordWebhooksURL}")
     except Exception as e:
-        print(f"{datetime.now()} 데이터베이스 저장 오류: {e}")
+        print(f"{datetime.now()} 데이터베이스 저장 오류: {str(e)}")
         return jsonify({"status": "error", "message": f"데이터베이스 저장 오류: {str(e)}"}), 500
 
     return jsonify({"status": "success", "message": "설정이 저장되었습니다"})
@@ -325,7 +325,7 @@ def update_username():
 
         return jsonify({"status": "success", "message": "사용자 이름이 변경되었습니다"})
     except Exception as e:
-        print(f"{datetime.now()} 사용자 이름 변경 중 오류: {e}")
+        print(f"{datetime.now()} 사용자 이름 변경 중 오류: {str(e)}")
         return (
             jsonify(
                 {"status": "error", "message": f"사용자 이름 변경 중 오류 발생: {str(e)}"}
@@ -425,7 +425,7 @@ def proxy_image():
         )
         
     except Exception as e:
-        print(f"{datetime.now()} 이미지 프록시 오류: {e}")
+        print(f"{datetime.now()} 이미지 프록시 오류: {str(e)}")
         return jsonify({
             "status": "error", 
             "message": f"이미지 프록시 처리 중 오류: {str(e)}"
@@ -483,7 +483,7 @@ def get_notifications():
         })
         
     except Exception as e:
-        print(f"{datetime.now()} 알림 조회 중 오류: {e}")
+        print(f"{datetime.now()} 알림 조회 중 오류: {str(e)}")
         return jsonify({
             "status": "error",
             "message": f"알림을 가져오는 중 오류가 발생했습니다: {str(e)}"
@@ -547,7 +547,7 @@ def mark_notifications_read():
             return jsonify({"status": "error", "message": "알림 상태 업데이트에 실패했습니다"}), 500
             
     except Exception as e:
-        print(f"{datetime.now()} 알림 읽음 표시 중 오류: {e}")
+        print(f"{datetime.now()} 알림 읽음 표시 중 오류: {str(e)}")
         return jsonify({
             "status": "error", 
             "message": f"알림 상태 업데이트 중 오류가 발생했습니다: {str(e)}"
@@ -595,7 +595,7 @@ def clear_notifications():
             return jsonify({"status": "error", "message": "알림 삭제에 실패했습니다"}), 500
             
     except Exception as e:
-        print(f"{datetime.now()} 알림 삭제 중 오류: {e}")
+        print(f"{datetime.now()} 알림 삭제 중 오류: {str(e)}")
         return jsonify({
             "status": "error", 
             "message": f"알림 삭제 중 오류가 발생했습니다: {str(e)}"
@@ -696,7 +696,7 @@ def register_fcm_token():
         return jsonify({"status": "success", "message": "FCM 토큰이 등록되었습니다"})
 
     except Exception as e:
-        print(f"{datetime.now()} FCM 토큰 등록 중 오류: {e}")
+        print(f"{datetime.now()} FCM 토큰 등록 중 오류: {str(e)}")
         return (
             jsonify(
                 {"status": "error", "message": f"토큰 등록 중 오류 발생: {str(e)}"}
@@ -751,7 +751,7 @@ def remove_fcm_token():
         return jsonify({"status": "success", "message": "FCM 토큰이 제거되었습니다"})
 
     except Exception as e:
-        print(f"{datetime.now()} FCM 토큰 제거 중 오류: {e}")
+        print(f"{datetime.now()} FCM 토큰 제거 중 오류: {str(e)}")
         return (
             jsonify(
                 {"status": "error", "message": f"토큰 제거 중 오류 발생: {str(e)}"}
@@ -802,7 +802,7 @@ def get_active_highlight_chats():
                     active_chats[ch_id][stream_id] = basic_info
                     
                 except Exception as e:
-                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류 ({ch_id}, {stream_id}): {e}")
+                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류 ({ch_id}, {stream_id}): {str(e)}")
                     continue
         
         # 채널 이름 추가
@@ -822,7 +822,7 @@ def get_active_highlight_chats():
                     "streams": streams
                 }
             except Exception as e:
-                print(f"{datetime.now()} 채널 정보 처리 오류 ({ch_id}): {e}")
+                print(f"{datetime.now()} 채널 정보 처리 오류 ({ch_id}): {str(e)}")
                 result[ch_id] = {
                     "channel_name": "Unknown",
                     "active_streams": len(streams),
@@ -1069,7 +1069,7 @@ def get_highlight_chat_statistics():
                         pass
                         
                 except Exception as e:
-                    print(f"{datetime.now()} 스트림 통계 처리 오류 ({channel_id}, {stream_id}): {e}")
+                    print(f"{datetime.now()} 스트림 통계 처리 오류 ({channel_id}, {stream_id}): {str(e)}")
                     continue
             
             if include_channel_breakdown:
@@ -1098,7 +1098,7 @@ def get_highlight_chat_statistics():
                 } if saved_files else {"oldest": "", "newest": ""}
             }
         except Exception as e:
-            print(f"{datetime.now()} 저장된 파일 통계 처리 오류: {e}")
+            print(f"{datetime.now()} 저장된 파일 통계 처리 오류: {str(e)}")
             saved_stats = {
                 "total_saved_files": 0,
                 "total_saved_highlights": 0,
@@ -1181,7 +1181,7 @@ def cleanup_highlight_data():
                             
                     except ValueError as e:
                         cleanup_results["errors"].append(
-                            f"스트림 ID 파싱 실패 ({channel_id}/{stream_id}): {e}"
+                            f"스트림 ID 파싱 실패 ({channel_id}/{stream_id}): {str(e)}"
                         )
                         continue
                 
@@ -1200,7 +1200,7 @@ def cleanup_highlight_data():
                     del app.init.highlight_chat[channel_id]
                     
             except Exception as e:
-                cleanup_results["errors"].append(f"채널 정리 오류 ({channel_id}): {e}")
+                cleanup_results["errors"].append(f"채널 정리 오류 ({channel_id}): {str(e)}")
                 continue
         
         return jsonify({
@@ -1356,7 +1356,7 @@ def save_highlight_data():
                     "error_type": type(e).__name__
                 }
                 yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
-                print(f"{datetime.now()} SSE 스트림 오류: {e}")
+                print(f"{datetime.now()} SSE 스트림 오류: {str(e)}")
         
         # SSE 응답 설정
         response = Response(
@@ -1378,7 +1378,7 @@ def save_highlight_data():
         return response
         
     except Exception as e:
-        print(f"{datetime.now()} SSE 연결 실패: {e}")
+        print(f"{datetime.now()} SSE 연결 실패: {str(e)}")
         return jsonify({
             "status": "error",
             "message": f"SSE 연결 실패: {str(e)}"
@@ -1402,7 +1402,7 @@ def run_background_save_with_state_manager(task_id):
             "error": f"이벤트 루프 생성 실패: {str(e)}",
             "failed_at": datetime.now().isoformat()
         })
-        print(f"백그라운드 작업 실패: {e}")
+        print(f"백그라운드 작업 실패: {str(e)}")
     finally:
         try:
             loop.close()
@@ -1557,7 +1557,7 @@ async def background_save_task_with_state_manager(task_id):
             "message": f"작업 실패: {str(e)}",
             "failed_at": datetime.now().isoformat()
         })
-        print(f"{datetime.now()} 하이라이트 저장 작업 실패: {e}")
+        print(f"{datetime.now()} 하이라이트 저장 작업 실패: {str(e)}")
 
 def get_task_status(task_id):
     try:
@@ -1655,7 +1655,7 @@ def get_task_status(task_id):
                     "error_type": type(e).__name__
                 }
                 yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
-                print(f"{datetime.now()} Task 상태 스트리밍 오류: {e}")
+                print(f"{datetime.now()} Task 상태 스트리밍 오류: {str(e)}")
         
         # SSE 응답 설정
         response = Response(
@@ -1675,7 +1675,7 @@ def get_task_status(task_id):
         return response
         
     except Exception as e:
-        print(f"{datetime.now()} Task 상태 조회 실패: {e}")
+        print(f"{datetime.now()} Task 상태 조회 실패: {str(e)}")
         return jsonify({
             "status": "error",
             "message": f"작업 상태 조회 실패: {str(e)}"
