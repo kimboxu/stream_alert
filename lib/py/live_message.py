@@ -151,7 +151,7 @@ class base_live_message:
                 await self._handle_offline_status(state_data)
 
         except Exception as e:
-            error_msg = f"error get state_data {self.platform_name} live {e}.{self.channel_id}"
+            error_msg = f"error get state_data {self.platform_name} live {str(e)}.{self.channel_id}"
             asyncio.create_task(log_error(error_msg))
             await update_flag('user_date', True)
 
@@ -190,7 +190,7 @@ class base_live_message:
             asyncio.create_task(save_airing_data(self.title_data, self.platform_name, self.channel_id))
 
         except Exception as e:
-            print(f"{datetime.now()} postLiveMSG {e}")
+            print(f"{datetime.now()} postLiveMSG {str(e)}")
             self.data.livePostList.clear()
     
     #메시지 유형에 맞는 DB 이름 반환
@@ -247,7 +247,7 @@ class base_live_message:
                     "description": f"{message}: {self.data.title}",
                 })
         except Exception as e:
-            asyncio.create_task(log_error(f"error record_title, {e}, highlight_chat:{self.init.highlight_chat[self.channel_id]}"))
+            asyncio.create_task(log_error(f"error record_title, {str(e)}, highlight_chat:{self.init.highlight_chat[self.channel_id]}"))
 
     #방송 시작 시간 업데이트
     def onLineTime(self, message):
@@ -344,7 +344,7 @@ class base_live_message:
                 self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
                 
         except Exception as e:
-            asyncio.create_task(log_error(f"error init_highlight_chat: {e}, channel_id: {self.channel_id}"))
+            asyncio.create_task(log_error(f"error init_highlight_chat: {str(e)}, channel_id: {self.channel_id}"))
     
     def get_init_last_title(self):
         try:
@@ -352,7 +352,7 @@ class base_live_message:
                 if not self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title:
                     self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
         except Exception as e:
-            asyncio.create_task(log_error(f"error get_init_last_title: {e}"))
+            asyncio.create_task(log_error(f"error get_init_last_title: {str(e)}"))
 
     def _cleanup_old_highlights(self, days_threshold: int = 14):
         """
@@ -384,7 +384,7 @@ class base_live_message:
                         
                 except ValueError as e:
                     # 타임스탬프를 파싱할 수 없는 경우 로그 기록 후 건너뛰기
-                    print(f"{current_time} cleanup: 타임스탬프 파싱 실패 - {stream_id}: {e}")
+                    print(f"{current_time} cleanup: 타임스탬프 파싱 실패 - {stream_id}: {str(e)}")
                     continue
             
             # 오래된 스트림 데이터 제거
@@ -397,7 +397,7 @@ class base_live_message:
             return len(streams_to_remove)
             
         except Exception as e:
-            asyncio.create_task(log_error(f"_cleanup_old_highlights 오류: {e}, channel_id: {self.channel_id}"))
+            asyncio.create_task(log_error(f"_cleanup_old_highlights 오류: {str(e)}, channel_id: {self.channel_id}"))
             return 0
 
 
@@ -431,7 +431,7 @@ class chzzk_live_message(base_live_message):
             return state_data and state_data["code"] == 200
         except Exception as e:
             if len(state_data) > 200: state_data = state_data[:200]
-            asyncio.create_task(log_error(f"{datetime.now()} _is_valid_state_data.{self.channel_id}.{e}.{state_data}"))
+            asyncio.create_task(log_error(f"{datetime.now()} _is_valid_state_data.{self.channel_id}.{str(e)}.{state_data}"))
             return False
 
     #치지직 스트림 데이터 추출
@@ -563,7 +563,7 @@ class chzzk_live_message(base_live_message):
             return await upload_image_to_imgbb(self.init, self.performance_manager, self.channel_id, self.data.thumbnail_url, platform_prefix="chzzk")
                 
         except Exception as e:
-            asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {e}"))
+            asyncio.create_task(log_error(f"{datetime.now()} wait make thumbnail2 {str(e)}"))
             import traceback
             traceback.print_exc()
             return None
@@ -812,7 +812,7 @@ class afreeca_live_message(base_live_message):
             return await upload_image_to_imgbb(self.init, self.performance_manager, self.channel_id, self.data.thumbnail_url, platform_prefix="afreeca")
         
         except Exception as e:
-            print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
+            print(f"{datetime.now()} 썸네일 이미지 처리 오류: {str(e)}")
             import traceback
             traceback.print_exc()
             return None
@@ -939,7 +939,7 @@ async def upload_image_to_imgur(stream_status: LiveData, channel_id, image_url, 
             return None
     
     except Exception as e:
-        print(f"{datetime.now()} 썸네일 이미지 처리 오류: {e}")
+        print(f"{datetime.now()} 썸네일 이미지 처리 오류: {str(e)}")
         import traceback
         traceback.print_exc()
         return None
@@ -996,7 +996,7 @@ async def upload_image_to_imgbb(
             b64_image = base64.b64encode(content).decode('utf-8')
             # print(f"{datetime.now()} Base64 인코딩 완료 - 크기: {len(b64_image)} chars")
         except Exception as e:
-            print(f"{datetime.now()} Base64 인코딩 실패: {e}")
+            print(f"{datetime.now()} Base64 인코딩 실패: {str(e)}")
             return None
             
         # 메타데이터 준비
@@ -1055,7 +1055,7 @@ async def upload_image_to_imgbb(
                                         return None
                                     
                             except Exception as e:
-                                print(f"{datetime.now()} ImgBB 응답 파싱 실패: {e}")
+                                print(f"{datetime.now()} ImgBB 응답 파싱 실패: {str(e)}")
                                 
                                 # 마지막 시도에서 실패한 경우
                                 if attempt == MAX_RETRIES - 1:

@@ -171,7 +171,7 @@ async def youtube_task(init: initVar, performance_manager: PerformanceManager):
                 await asyncio.sleep(max(3 - elapsed_time, 0))
             
         except Exception as e:
-            print(f"{datetime.now()} YouTube 작업 오류: {e}")
+            print(f"{datetime.now()} YouTube 작업 오류: {str(e)}")
             await asyncio.sleep(3)
 
 # 채팅 작업 함수
@@ -200,7 +200,7 @@ async def generic_chat(init: initVar, performance_manager: PerformanceManager, p
             await asyncio.sleep(1)  # 1초마다 체크
         
         except Exception as e:
-            print(f"{datetime.now()} error {platform_name}_chatf {e}")
+            print(f"{datetime.now()} error {platform_name}_chatf {str(e)}")
             await asyncio.create_task(log_error(f"Error in {platform_name}_chatf: {str(e)}"))
             await asyncio.sleep(1)
 
@@ -232,7 +232,7 @@ async def generic_hot_clip(init: initVar, performance_manager: PerformanceManage
             await asyncio.sleep(60)
             
         except Exception as e:
-            await log_error(f"{platform_name} 핫클립 모니터링 오류: {e}")
+            await log_error(f"{platform_name} 핫클립 모니터링 오류: {str(e)}")
             await asyncio.sleep(60)
 
 # 디스코드 봇 작업 실행 함수

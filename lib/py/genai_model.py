@@ -110,7 +110,7 @@ class GenAIModelManager:
             return model
             
         except Exception as e:
-            print(f"AI 모델 생성 실패: {e}")
+            print(f"AI 모델 생성 실패: {str(e)}")
             raise
     
     def clear_cache(self):
@@ -179,4 +179,4 @@ if __name__ == "__main__":
         print(f"비운 후 캐시 상태: {cache_info_after}")
         
     except Exception as e:
-        print(f"테스트 에러: {e}")
+        print(f"테스트 에러: {str(e)}")

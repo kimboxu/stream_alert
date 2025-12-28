@@ -111,7 +111,7 @@ class APIPerformanceLogger:
                 print(f"{datetime.now()} 스케줄러: 강제 저장 완료 ({len(logs_to_save)}개)")
                 
         except Exception as e:
-            print(f"스케줄러: 강제 저장 실패 - {e}")
+            print(f"스케줄러: 강제 저장 실패 - {str(e)}")
             # 실패한 로그들을 다시 넣기
             for log_entry in reversed(logs_to_save):
                 self.memory_logs.appendleft(log_entry)
@@ -143,7 +143,7 @@ class APIPerformanceLogger:
             await self._check_and_save_if_needed()
             
         except Exception as e:
-            await log_error(f"API 성능 로깅 실패: {e}")
+            await log_error(f"API 성능 로깅 실패: {str(e)}")
 
     async def _check_and_save_if_needed(self):
         """조건에 따라 파일 저장 실행"""
@@ -185,7 +185,7 @@ class APIPerformanceLogger:
                     for log_entry in reversed(logs_to_save):
                         self.memory_logs.appendleft(log_entry)
                         
-                await log_error(f"API 성능 로그 파일 저장 실패: {e}")
+                await log_error(f"API 성능 로그 파일 저장 실패: {str(e)}")
 
     def _sync_save_logs(self, logs_to_save):
         """동기적 파일 저장 (스레드 풀에서 실행)"""
@@ -347,7 +347,7 @@ class APIPerformanceLogger:
             return sorted(all_logs, key=lambda x: x['timestamp'])
             
         except Exception as e:
-            await log_error(f"로그 조회 실패: {e}")
+            await log_error(f"로그 조회 실패: {str(e)}")
             return []
 
     async def _read_logs_from_files_async(self, start_date: datetime, end_date: datetime) -> List[Dict]:
@@ -478,7 +478,7 @@ class APIStatisticsCalculator:
             return 0
             
         except Exception as e:
-            await log_error(f"평균 응답시간 계산 오류: {e}")
+            await log_error(f"평균 응답시간 계산 오류: {str(e)}")
             return 0
 
     async def calculate_success_rate(self, api_type: str, logs) -> float:
@@ -492,7 +492,7 @@ class APIStatisticsCalculator:
             return 100
             
         except Exception as e:
-            await log_error(f"성공률 계산 오류: {e}")
+            await log_error(f"성공률 계산 오류: {str(e)}")
             return 0
 
     async def get_error_count(self, api_type: str, logs) -> int:
@@ -504,7 +504,7 @@ class APIStatisticsCalculator:
             ])
             
         except Exception as e:
-            await log_error(f"에러 개수 계산 오류: {e}")
+            await log_error(f"에러 개수 계산 오류: {str(e)}")
             return 0
 
     async def get_request_count(self, api_type: str, logs) -> int:
@@ -512,7 +512,7 @@ class APIStatisticsCalculator:
         try:
             return len([log for log in logs if log['api_type'] == api_type])
         except Exception as e:
-            await log_error(f"요청 수 계산 오류: {e}")
+            await log_error(f"요청 수 계산 오류: {str(e)}")
             return 0
         
     async def get_api_statistics_by_type(self, api_type: str, logs) -> Dict:
@@ -532,7 +532,7 @@ class APIStatisticsCalculator:
             }
             
         except Exception as e:
-            await log_error(f"API 타입별 통계 계산 오류 ({api_type}): {e}")
+            await log_error(f"API 타입별 통계 계산 오류 ({api_type}): {str(e)}")
             return {
                 "total_requests": 0,
                 "successful_requests": 0,
@@ -551,7 +551,7 @@ class APIStatisticsCalculator:
                     api_types.add(api_type)
             return sorted(list(api_types))
         except Exception as e:
-            await log_error(f"API 타입 추출 오류: {e}")
+            await log_error(f"API 타입 추출 오류: {str(e)}")
             return []
 
     async def get_notification_statistics(self, logs) -> Dict:
@@ -574,7 +574,7 @@ class APIStatisticsCalculator:
             }
             
         except Exception as e:
-            await log_error(f"알림 통계 계산 오류: {e}")
+            await log_error(f"알림 통계 계산 오류: {str(e)}")
             return {'discord': 0, 'fcm': 0, 'total': 0}
 
     async def calculate_comprehensive_statistics(self, start_date: datetime, end_date: datetime) -> Dict:
@@ -670,7 +670,7 @@ class APIStatisticsCalculator:
             }
             
         except Exception as e:
-            await log_error(f"포괄적 통계 계산 오류: {e}")
+            await log_error(f"포괄적 통계 계산 오류: {str(e)}")
             return {}
 
     def _calculate_overall_success_rate(self, total_successful: int, total_requests: int) -> float:
@@ -703,7 +703,7 @@ class APIStatisticsCalculator:
             }
             
         except Exception as e:
-            await log_error(f"API 성능 요약 계산 오류: {e}")
+            await log_error(f"API 성능 요약 계산 오류: {str(e)}")
             return {}
 
     async def calculate_api_health_score(self, api_type: str, logs) -> Dict:
@@ -761,7 +761,7 @@ class APIStatisticsCalculator:
             }
             
         except Exception as e:
-            await log_error(f"API 건강도 계산 오류 ({api_type}): {e}")
+            await log_error(f"API 건강도 계산 오류 ({api_type}): {str(e)}")
             return {"health_score": 0, "status": "error", "details": str(e)}
 
 class PerformanceManager:
@@ -838,7 +838,7 @@ class PerformanceManager:
             return stats
             
         except Exception as e:
-            await log_error(f"실시간 통계 조회 오류: {e}")
+            await log_error(f"실시간 통계 조회 오류: {str(e)}")
             return {}
 
     async def _get_api_health_statistics(self, days: int = 7, api_type: str = None) -> Dict:
@@ -885,7 +885,7 @@ class PerformanceManager:
                 }
                 
         except Exception as e:
-            await log_error(f"API 건강도 통계 조회 오류: {e}")
+            await log_error(f"API 건강도 통계 조회 오류: {str(e)}")
             return {}
 
     async def _get_performance_summary(self, days: int = 7) -> Dict:
@@ -908,7 +908,7 @@ class PerformanceManager:
             }
             
         except Exception as e:
-            await log_error(f"성능 요약 조회 오류: {e}")
+            await log_error(f"성능 요약 조회 오류: {str(e)}")
             return {}
 
     async def _get_daily_statistics_list(self, days: int = 7, api_type: str = None) -> Dict:
@@ -947,7 +947,7 @@ class PerformanceManager:
             }
             
         except Exception as e:
-            await log_error(f"일일 통계 리스트 조회 오류: {e}")
+            await log_error(f"일일 통계 리스트 조회 오류: {str(e)}")
             return {}
 
     async def _get_daily_statistics_with_summary(self, days: int = 7) -> Dict:
@@ -987,7 +987,7 @@ class PerformanceManager:
             }
             
         except Exception as e:
-            await log_error(f"일일 통계 요약 조회 오류: {e}")
+            await log_error(f"일일 통계 요약 조회 오류: {str(e)}")
             return {}
 
     async def get_daily_statistics_raw(self, days: int = 7) -> List[Dict]:
@@ -1017,7 +1017,7 @@ class PerformanceManager:
             return filtered_stats
             
         except Exception as e:
-            await log_error(f"일일 통계 원본 조회 오류: {e}")
+            await log_error(f"일일 통계 원본 조회 오류: {str(e)}")
             return []
 
     async def _calculate_daily_summary(self, daily_stats_list: List[Dict]) -> Dict:
@@ -1083,7 +1083,7 @@ class PerformanceManager:
             }
             
         except Exception as e:
-            await log_error(f"일일 요약 계산 오류: {e}")
+            await log_error(f"일일 요약 계산 오류: {str(e)}")
             return {}
         
     async def get_api_comparison(self, api_types: List[str], days: int = 7) -> Dict:
@@ -1117,7 +1117,7 @@ class PerformanceManager:
             }
             
         except Exception as e:
-            await log_error(f"API 비교 통계 오류: {e}")
+            await log_error(f"API 비교 통계 오류: {str(e)}")
             return {}
 
     async def calculate_and_save_daily_statistics(self, target_date: datetime = None):
@@ -1181,7 +1181,7 @@ class PerformanceManager:
             return daily_stat
             
         except Exception as e:
-            await log_error(f"일일 통계 계산 및 저장 오류: {e}")
+            await log_error(f"일일 통계 계산 및 저장 오류: {str(e)}")
             return None
 
     async def _save_daily_statistics(self, daily_stat):
@@ -1195,7 +1195,7 @@ class PerformanceManager:
             )
                 
         except Exception as e:
-            await log_error(f"일일 통계 파일 저장 실패: {e}")
+            await log_error(f"일일 통계 파일 저장 실패: {str(e)}")
 
     def _sync_save_daily_statistics(self, daily_stat):
         """동기적 일일 통계 저장 (스레드 풀에서 실행)"""
@@ -1275,7 +1275,7 @@ class PerformanceManager:
                 loop.close()
                 
         except Exception as e:
-            print(f"스케줄러: 일일 통계 계산 실패 - {e}")
+            print(f"스케줄러: 일일 통계 계산 실패 - {str(e)}")
             return None
 
     def setup_scheduler(self):
@@ -1365,5 +1365,5 @@ def setup_performance_scheduler():
         if performance_manager:
             performance_manager.setup_scheduler()
     except Exception as e:
-        print(f"성능 스케줄러 설정 실패: {e}")
+        print(f"성능 스케줄러 설정 실패: {str(e)}")
 

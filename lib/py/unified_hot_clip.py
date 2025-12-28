@@ -122,7 +122,7 @@ class BaseHotClipDetector(ABC):
                 await asyncio.sleep(self.analysis_interval)
                 
             except Exception as e:
-                await log_error(f" 핫클립 모니터링 오류: {e}")
+                await log_error(f" 핫클립 모니터링 오류: {str(e)}")
                 await asyncio.sleep(300)
 
     async def analyze_hot_clips(self) -> Optional[HotClipAnalysisResult]:
@@ -174,7 +174,7 @@ class BaseHotClipDetector(ABC):
             return result
             
         except Exception as e:
-            await log_error(f"핫클립 분석 오류: {e}")
+            await log_error(f"핫클립 분석 오류: {str(e)}")
             return None
 
     def _filter_recent_clips(self, clips: List[ClipData], days: int) -> List[ClipData]:
@@ -335,7 +335,7 @@ class BaseHotClipDetector(ABC):
                 await asyncio.sleep(1)
             
         except Exception as e:
-            await log_error(f"핫클립 알림 전송 오류: {e}")
+            await log_error(f"핫클립 알림 전송 오류: {str(e)}")
 
 
 class ChzzkHotClipDetector(BaseHotClipDetector):
@@ -404,7 +404,7 @@ class ChzzkHotClipDetector(BaseHotClipDetector):
                     all_clips.append(clip)
                     
                 except Exception as e:
-                    print(f"치지직 클립 데이터 파싱 오류: {e}")
+                    print(f"치지직 클립 데이터 파싱 오류: {str(e)}")
                     continue
             
             # 다음 페이지 확인
@@ -495,7 +495,7 @@ class AfreecaHotClipDetector(BaseHotClipDetector):
                     all_clips.append(clip)
                     
                 except Exception as e:
-                    print(f"아프리카TV 클립 데이터 파싱 오류: {e}")
+                    print(f"아프리카TV 클립 데이터 파싱 오류: {str(e)}")
                     continue
             
             if found_old_clip or len(clips_data) < 20:

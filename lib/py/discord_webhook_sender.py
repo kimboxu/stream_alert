@@ -136,7 +136,7 @@ class DiscordWebhookSender:
                         retry_count=attempt
                     ))
 
-                    print(f"{datetime.now()} Unexpected error sending message: {e}")
+                    print(f"{datetime.now()} Unexpected error sending message: {str(e)}")
                     
                     # 마지막 시도에서 실패한 경우
                     if attempt == self.MAX_RETRIES - 1:
@@ -154,7 +154,7 @@ class DiscordWebhookSender:
             await self._delete_user_state_data(url)
             await self._log_error(f"Deleted user data for non-existent URL: {url}")
         except Exception as e:
-            await self._log_error(f"Error handling 404: {e}")
+            await self._log_error(f"Error handling 404: {str(e)}")
 
     # 지속적인 실패 처리 함수
     async def _handle_persistent_failure(self, url: str, error: Exception):
@@ -163,7 +163,7 @@ class DiscordWebhookSender:
             await self._delete_user_state_data(url)
             await self._log_error(f"Persistent failure for {url}: {str(error)}")
         except Exception as e:
-            await self._log_error(f"Error handling persistent failure: {e}")
+            await self._log_error(f"Error handling persistent failure: {str(e)}")
 
     # Supabase에서 사용자 데이터 삭제 함수
     async def _delete_user_state_data(self, url: str):
@@ -177,7 +177,7 @@ class DiscordWebhookSender:
             # URL에 해당하는 사용자 상태 데이터 삭제
             supabase.table('userStateData').delete().eq('discordURL', url).execute()
         except Exception as e:
-            await self._log_error(f"Error deleting user state data: {e}")
+            await self._log_error(f"Error deleting user state data: {str(e)}")
 
     # 오류 로깅 함수
     async def _log_error(self, message: str, is_Do_test, webhook_url = environ.get('errorPostBotURL')):
@@ -197,7 +197,7 @@ class DiscordWebhookSender:
                         retry_after = float(response.headers.get('Retry-After', 1))
                         await asyncio.sleep(retry_after)
         except Exception as e:
-            print(f"{datetime.now()} Failed to log error to webhook: message:{str(message)},e:{e}")
+            print(f"{datetime.now()} Failed to log error to webhook: message:{str(message)},e:{str(e)}")
 
 # 사용자 설정에 따른 전송 대상 웹훅 URL 목록 생성 함수
 def get_list_of_urls(DO_TEST, userStateData, name, channel_id, db_name):

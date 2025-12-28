@@ -172,11 +172,11 @@ class getYoutubeJsonData:
 			return None
 		except Error as e:
 			# Google API 클라이언트 관련 오류
-			asyncio.create_task(log_error(f"Google API 클라이언트 오류: {e}"))
+			asyncio.create_task(log_error(f"Google API 클라이언트 오류: {str(e)}"))
 			return None
 		except Exception as e:
 			# 기타 예상치 못한 오류
-			asyncio.create_task(log_error(f"YouTube API build 오류: {e}"))
+			asyncio.create_task(log_error(f"YouTube API build 오류: {str(e)}"))
 			return None
 
 	# 채널 정보 요청 함수 (재시도 로직 포함)
@@ -264,7 +264,7 @@ class getYoutubeJsonData:
 			print(f"{datetime.now()} Search response timeout for {self.youtubeChannelID}")
 			raise
 		except Exception as e:
-			asyncio.create_task(log_error(f"error search_response {e}"))
+			asyncio.create_task(log_error(f"error search_response {str(e)}"))
 			return
 
 	# 응답에 유효한 항목이 있는지 확인하는 함수
@@ -423,7 +423,7 @@ class getYoutubeJsonData:
 			return subjectReplace(description.split('\n')[0])
 			
 		except Exception as e:
-			asyncio.create_task(log_error(f"error youtube getDescription {e}"))
+			asyncio.create_task(log_error(f"error youtube getDescription {str(e)}"))
 			return ""
 
 	# 사용자 데이터(채널 이름, 프로필 이미지)를 가져오는 함수

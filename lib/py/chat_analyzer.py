@@ -74,7 +74,7 @@ class ChatMessageWithAnalyzer:
                 self.log_save_task = asyncio.create_task(self.chat_analyzer.save_logs_periodically())
                 # print(f"{datetime.now()} 로그 저장 태스크 시작: 30분마다 자동 저장")
         except Exception as e:
-            await log_error(f"start_analyzer 에러: {e}")
+            await log_error(f"start_analyzer 에러: {str(e)}")
             # 태스크 초기화 실패 시 None으로 설정
             self.analysis_task = None
             self.log_save_task = None
@@ -97,7 +97,7 @@ class ChatMessageWithAnalyzer:
                 except asyncio.CancelledError:
                     pass
                 except Exception as e:
-                    await log_error(f"analysis_task 정리 중 에러: {e}")
+                    await log_error(f"analysis_task 정리 중 에러: {str(e)}")
                     
             if self.log_save_task is not None:
                 try:
@@ -105,10 +105,10 @@ class ChatMessageWithAnalyzer:
                 except asyncio.CancelledError:
                     pass
                 except Exception as e:
-                    await log_error(f"log_save_task 정리 중 에러: {e}")
+                    await log_error(f"log_save_task 정리 중 에러: {str(e)}")
                     
         except Exception as e:
-            await log_error(f"stop_analyzer 에러: {e}")
+            await log_error(f"stop_analyzer 에러: {str(e)}")
         finally:
             # 태스크 참조 정리
             self.analysis_task = None
@@ -142,7 +142,7 @@ class ChatMessageWithAnalyzer:
                     try:
                         detailed_log = await self.chat_analyzer.analyze()
                     except Exception as e:
-                        asyncio.create_task(log_error(f"_run_analyzer {self.chat_analyzer.channel_name} 오류: self.is_save_log:{self.is_save_log}, {e}"))
+                        asyncio.create_task(log_error(f"_run_analyzer {self.chat_analyzer.channel_name} 오류: self.is_save_log:{self.is_save_log}, {str(e)}"))
                         if self.is_save_log:
                             break
                         self.chat_analyzer._setup_init_dict()
@@ -154,12 +154,12 @@ class ChatMessageWithAnalyzer:
                     break
 
                 except Exception as e:
-                    await log_error(f"분석기 실행 오류: {e}")
+                    await log_error(f"분석기 실행 오류: {str(e)}")
                     await asyncio.sleep(10)  # 오류시 10초 대기
         except asyncio.CancelledError:
             print(f"{datetime.now()} 분석기 태스크 취소됨: {self.chat_analyzer.channel_name}")
         except Exception as e:
-            await log_error(f"_run_analyzer 예상치 못한 오류: {e}")
+            await log_error(f"_run_analyzer 예상치 못한 오류: {str(e)}")
 
 class ChatAnalyzer:
     """채팅 데이터를 분석하여 재미있는 순간을 감지하는 클래스"""
@@ -771,7 +771,7 @@ class ChatAnalyzer:
                     image = PILImage.open(BytesIO(response.get("content", "")))
                     break
                 except Exception as e:
-                    await log_error(f"썸네일 가져오기 실패: {e}")
+                    await log_error(f"썸네일 가져오기 실패: {str(e)}")
                     print(response)
                 
             
@@ -890,7 +890,7 @@ class ChatAnalyzer:
             return True
             
         except Exception as e:
-            await log_error(f"하이라이트 처리 오류: {e}")
+            await log_error(f"하이라이트 처리 오류: {str(e)}")
             return False
         finally:
             print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
@@ -937,8 +937,8 @@ class ChatAnalyzer:
                 print(f"{datetime.now()} timeline_comments가 비어있음: {channel_name}")
                 
         except Exception as e:
-            await log_error(f"하이라이트 채팅 저장 오류 ({channel_name}): {e}")
-            print(f"{datetime.now()} 하이라이트 채팅 저장 오류: {e}")
+            await log_error(f"하이라이트 채팅 저장 오류 ({channel_name}): {str(e)}")
+            print(f"{datetime.now()} 하이라이트 채팅 저장 오류: {str(e)}")
 
     #하이라이트 이유 생성
     def _determine_highlight_reason(self, analysis: ChatAnalysisData, score_details: dict) -> str:
@@ -1060,7 +1060,7 @@ class ChatAnalyzer:
                 break
                 
             except Exception as e:
-                await log_error(f"하이라이트 DB 저장 오류: {e}")
+                await log_error(f"하이라이트 DB 저장 오류: {str(e)}")
                 await asyncio.sleep(0.2)
 
     #알림 전송
@@ -1119,7 +1119,7 @@ class ChatAnalyzer:
             asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
             
         except Exception as e:
-            await log_error(f"디스코드 알림 오류: {e}")
+            await log_error(f"디스코드 알림 오류: {str(e)}")
 
     def get_author(self):
         avatar_url = self.init.stream_status[self.channel_id].id_list.loc[self.channel_id, 'profile_image']
@@ -1188,7 +1188,7 @@ class ChatAnalyzer:
             # print(f"{datetime.now()} 남은 로그: {len(self.detailed_logs_dict[stream_start_time])}개")
                 
         except Exception as e:
-            print(f"{datetime.now()} ❌ 로그 저장 오류: {e}")
+            print(f"{datetime.now()} ❌ 로그 저장 오류: {str(e)}")
 
     async def _cleanup_old_log_files(self):
         """오래된 fun_score_logs 파일 삭제"""
@@ -1217,7 +1217,7 @@ class ChatAnalyzer:
                                 print(f"{datetime.now()} 오래된 fun_score 로그 파일 삭제: {file_path.name}")
                                 
                 except (ValueError, IndexError) as e:
-                    print(f"{datetime.now()} 파일 날짜 파싱 실패 ({file_path.name}): {e}")
+                    print(f"{datetime.now()} 파일 날짜 파싱 실패 ({file_path.name}): {str(e)}")
                     continue
             
             if deleted_count > 0:
@@ -1225,7 +1225,7 @@ class ChatAnalyzer:
                 
         except Exception as e:
             from base import log_error
-            await log_error(f"fun_score 로그 파일 정리 실패: {e}")
+            await log_error(f"fun_score 로그 파일 정리 실패: {str(e)}")
     
     #주기적으로 로그 저장
     async def save_logs_periodically(self):
@@ -1247,7 +1247,7 @@ class ChatAnalyzer:
                     print(f"{datetime.now()} 일일 파일 정리 완료 - 다음 실행: {current_date + timedelta(days=1)}")
 
             except Exception as e:
-                print(f"{datetime.now()} ⚠ 주기적 로그 저장 오류: {e}")
+                print(f"{datetime.now()} ⚠ 주기적 로그 저장 오류: {str(e)}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
     async def _make_highlight_chat(self, highlights: list[StreamHighlight], is_emergency = False, is_use_description = True):
@@ -1309,7 +1309,7 @@ class ChatAnalyzer:
                     images_with_labels.append(highlight.image if highlight.image else get_dummy_image())
 
                 except Exception as e:
-                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
+                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {str(e)}")
                     continue
             
             if not is_use_description or not self.init.is_use_AI[self.channel_id] or self.init.DO_TEST:
@@ -1378,7 +1378,7 @@ class ChatAnalyzer:
                         return emergency_timeline_comments
 
                 except (json.JSONDecodeError, ValueError) as e:
-                    print(f"{datetime.now()} JSON 파싱 오류 (시도 {attempt + 1}/{max_retries}): {e}")
+                    print(f"{datetime.now()} JSON 파싱 오류 (시도 {attempt + 1}/{max_retries}): {str(e)}")
                     print(f"{datetime.now()} 응답 내용: {response.text}")
                     
                     if attempt < max_retries - 1:
@@ -1390,7 +1390,7 @@ class ChatAnalyzer:
                         return emergency_timeline_comments
 
                 except Exception as e:
-                    print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {e}")
+                    print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {str(e)}")
                     
                     if attempt < max_retries - 1:
                         self.add_genai_cnt(10)
@@ -1425,4 +1425,4 @@ class ChatAnalyzer:
             timeline_comments = await self._make_highlight_chat(highlights)
             self.update_highlight_chat(timeline_comments)
         except Exception as e:
-            await log_error(f"Background highlight processing failed: {e}")
+            await log_error(f"Background highlight processing failed: {str(e)}")

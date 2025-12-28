@@ -76,7 +76,7 @@ def sanitize_data_for_json(data):
         return result
         
     except Exception as e:
-        print(f"데이터 정리 중 오류: {e}")
+        print(f"데이터 정리 중 오류: {str(e)}")
         return {"error": "데이터 정리 실패", "original_type": str(type(data))}
 
 class FileNotificationManager:
@@ -140,7 +140,7 @@ class FileNotificationManager:
             return []
             
         except Exception as e:
-            print(f"알림 데이터 로드 오류 ({webhook_url}): {e}")
+            print(f"알림 데이터 로드 오류 ({webhook_url}): {str(e)}")
             # 백업 파일에서 복구 시도
             return self._load_from_backup(webhook_url)
     
@@ -155,7 +155,7 @@ class FileNotificationManager:
                     print(f"백업 파일에서 알림 데이터 복구 성공: {webhook_url}")
                     return notifications
         except Exception as e:
-            print(f"백업 파일 복구 실패 ({webhook_url}): {e}")
+            print(f"백업 파일 복구 실패 ({webhook_url}): {str(e)}")
         
         return []
     
@@ -186,7 +186,7 @@ class FileNotificationManager:
                     shutil.copy2(file_path, backup_path)
                     del shutil
                 except Exception as e:
-                    print(f"백업 파일 생성 실패 ({webhook_url}): {e}")
+                    print(f"백업 파일 생성 실패 ({webhook_url}): {str(e)}")
             
             # 알림 데이터를 JSON 직렬화 가능하도록 정리
             clean_notifications = sanitize_data_for_json(notifications)
@@ -241,7 +241,7 @@ class FileNotificationManager:
                     
                 except (OSError, PermissionError) as e:
                     # replace 실패 시 대체 방법 시도
-                    print(f"파일 이동(replace) 실패, 복사 후 삭제 방식 시도: {e}")
+                    print(f"파일 이동(replace) 실패, 복사 후 삭제 방식 시도: {str(e)}")
                     import shutil
                     shutil.copy2(temp_path, file_path)
                     
@@ -283,7 +283,7 @@ class FileNotificationManager:
             return True
             
         except Exception as e:
-            print(f"{datetime.now()} 알림 파일 저장 오류 ({webhook_url}): {e}")
+            print(f"{datetime.now()} 알림 파일 저장 오류 ({webhook_url}): {str(e)}")
             import traceback
             traceback.print_exc()
             
@@ -317,7 +317,7 @@ class FileNotificationManager:
             return self.save_notifications(webhook_url, notifications)
             
         except Exception as e:
-            print(f"알림 추가 오류 ({webhook_url}): {e}")
+            print(f"알림 추가 오류 ({webhook_url}): {str(e)}")
             return False
     
     def get_notification_count(self, webhook_url: str) -> int:
@@ -363,7 +363,7 @@ class FileNotificationManager:
             return True
             
         except Exception as e:
-            print(f"오래된 알림 정리 오류 ({webhook_url}): {e}")
+            print(f"오래된 알림 정리 오류 ({webhook_url}): {str(e)}")
             return False
     
     def force_save_all_cache(self):
@@ -390,7 +390,7 @@ class FileNotificationManager:
                         else:
                             failed_count += 1
                     except Exception as e:
-                        print(f"사용자 {webhook_url} 저장 실패: {e}")
+                        print(f"사용자 {webhook_url} 저장 실패: {str(e)}")
                         failed_count += 1
                 
                 # 배치 처리 후 메모리 정리
@@ -410,7 +410,7 @@ class FileNotificationManager:
             return saved_count
             
         except Exception as e:
-            print(f"전체 캐시 저장 중 오류: {e}")
+            print(f"전체 캐시 저장 중 오류: {str(e)}")
             import gc
             gc.collect()
             return saved_count
@@ -471,7 +471,7 @@ def initialize_firebase(firebase_initialized_globally=False):
             print(f"{datetime.now()} Firebase 앱이 프로젝트 ID '{project_id}'로 성공적으로 초기화되었습니다.")
             return True
         except Exception as e:
-            print(f"{datetime.now()} Firebase 초기화 중 오류 발생: {e}")
+            print(f"{datetime.now()} Firebase 초기화 중 오류 발생: {str(e)}")
             import traceback
             traceback.print_exc()
             return False
@@ -544,7 +544,7 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
             error_message=str(e)
         ))
 
-        print(f"{datetime.now()} FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token}): {e}")
+        print(f"{datetime.now()} FCM 메시지 전송 실패 - 유효하지 않은 인자 (토큰: {token}): {str(e)}")
         remove_fcm_token(token)
         return None
     
@@ -561,7 +561,7 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
             error_message=str(e)
         ))
 
-        print(f"{datetime.now()} FCM 할당량 초과: {token[:15]}... 오류: {e}")
+        print(f"{datetime.now()} FCM 할당량 초과: {token[:15]}... 오류: {str(e)}")
         return None
 
     except Exception as e:
@@ -577,7 +577,7 @@ async def send_fcm_message(performance_manager: PerformanceManager , token, noti
             error_message=str(e)
         ))
 
-        print(f"{datetime.now()} FCM 메시지 전송 실패: {token[:15]}... 오류: {e}")
+        print(f"{datetime.now()} FCM 메시지 전송 실패: {token[:15]}... 오류: {str(e)}")
         return None
 
 # FCM 메시지 배치 전송 함수
@@ -642,7 +642,7 @@ def batch_save_notifications(user_data_map, data_fields):
             save_results.append(result)
             
         except Exception as e:
-            print(f"{datetime.now()} 알림 저장 오류 ({webhook_url}): {e}")
+            print(f"{datetime.now()} 알림 저장 오류 ({webhook_url}): {str(e)}")
             save_results.append(False)
     
     return save_results
@@ -666,7 +666,7 @@ def get_user_data_from_init(init: initVar, webhook_url):
             return user_data
         return None
     except Exception as e:
-        print(f"{datetime.now()} init에서 사용자 데이터 추출 오류: {e}")
+        print(f"{datetime.now()} init에서 사용자 데이터 추출 오류: {str(e)}")
         return None
 
 def get_notification_data(json_data):
@@ -689,7 +689,7 @@ def get_notification_data(json_data):
                 elif "description" in embeds[0] and embeds[0]["description"]:
                     body = embeds[0]["description"]
         except Exception as e:
-            print(f"{datetime.now()} embeds 데이터 파싱 오류: {e}")
+            print(f"{datetime.now()} embeds 데이터 파싱 오류: {str(e)}")
     if not body:
         body = "새 알림이 도착했습니다"
 
@@ -762,7 +762,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
                     if webhook_url:
                         all_users[webhook_url] = user_data
             except Exception as e:
-                print(f"{datetime.now()} 누락된 사용자 데이터 조회 실패: {e}")
+                print(f"{datetime.now()} 누락된 사용자 데이터 조회 실패: {str(e)}")
         
         # 파일 기반 알림 저장 (동기 처리)
         fcm_tasks = []
@@ -775,7 +775,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             try:
                 batch_save_notifications(batch_dict, data_fields)
             except Exception as e:
-                print(f"{datetime.now()} 배치 알림 저장 오류: {e}")
+                print(f"{datetime.now()} 배치 알림 저장 오류: {str(e)}")
         
         # FCM 토큰 처리 및 메시지 전송
         for webhook_url, user_data in all_users.items():
@@ -816,7 +816,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         return True
         
     except Exception as e:
-        print(f"{datetime.now()} 파일 기반 푸시 알림 오류: {e}")
+        print(f"{datetime.now()} 파일 기반 푸시 알림 오류: {str(e)}")
         import traceback
         traceback.print_exc()
         return False
@@ -851,7 +851,7 @@ async def validate_fcm_token(token):
         # 유효하지 않은 토큰 형식
         return False
     except Exception as e:
-        print(f"{datetime.now()} 토큰 검증 오류: {e}")
+        print(f"{datetime.now()} 토큰 검증 오류: {str(e)}")
         # 알 수 없는 오류는 일단 유효하다고 가정 (오탐 방지)
         return True
 
@@ -970,7 +970,7 @@ async def cleanup_all_invalid_tokens():
               f"{duration:.2f}초 소요")
             
     except Exception as e:
-        print(f"{datetime.now()} FCM 토큰 정리 오류: {e}")
+        print(f"{datetime.now()} FCM 토큰 정리 오류: {str(e)}")
         import traceback
         traceback.print_exc()
 
@@ -1060,7 +1060,7 @@ def remove_fcm_token(token):
                 break
 
     except Exception as e:
-        print(f"{datetime.now()} FCM 토큰 제거 중 오류: {e}")
+        print(f"{datetime.now()} FCM 토큰 제거 중 오류: {str(e)}")
         return
 
 #모든 사용자의 오래된 알림 정리
@@ -1084,9 +1084,9 @@ async def cleanup_old_notifications_for_all_users():
                     await asyncio.sleep(0.01)
                             
             except Exception as e:
-                print(f"파일 정리 중 오류 ({file_path}): {e}")
+                print(f"파일 정리 중 오류 ({file_path}): {str(e)}")
         
         print(f"{datetime.now()} 오래된 알림 정리 완료: {cleaned_count}개 사용자")
         
     except Exception as e:
-        print(f"{datetime.now()} 전체 알림 정리 오류: {e}")
+        print(f"{datetime.now()} 전체 알림 정리 오류: {str(e)}")

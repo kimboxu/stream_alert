@@ -19,7 +19,7 @@ try:
     from genai_model import get_genai_model
     AI_AVAILABLE = True
 except ImportError as e:
-    print(f"AI 기능을 사용할 수 없습니다: {e}")
+    print(f"AI 기능을 사용할 수 없습니다: {str(e)}")
     AI_AVAILABLE = False
 
 class SessionBasedFunScoreAnalyzer:
@@ -160,7 +160,7 @@ class SessionBasedFunScoreAnalyzer:
                 all_logs.extend(logs)
                 print(f"✅ 로드: {Path(file).name} ({len(logs)}개)")
             except Exception as e:
-                print(f"❌ 파일 로드 오류 {file}: {e}")
+                print(f"❌ 파일 로드 오류 {file}: {str(e)}")
                 continue
         
         print(f"📊 총 {len(files)}개 파일에서 {len(all_logs)}개 로그 로드됨")
@@ -410,7 +410,7 @@ class SessionBasedFunScoreAnalyzer:
             plt.show()
 
         except ImportError as e:
-            print(f"⚠️ 필요한 라이브러리가 설치되지 않아 정규분포 그래프를 생성할 수 없습니다: {e}")
+            print(f"⚠️ 필요한 라이브러리가 설치되지 않아 정규분포 그래프를 생성할 수 없습니다: {str(e)}")
             print("   scipy를 설치해주세요: pip install scipy")
 
     def _plot_histogram_with_normal(self, ax, scores, title, color, state = "하이라이트"):
@@ -1167,7 +1167,7 @@ class SessionBasedFunScoreAnalyzer:
                     'chat_context_sample': str(log.get('chat_context', [])[:3])
                 }
             except Exception as e:
-                print(f"데이터 처리 오류: {e}")
+                print(f"데이터 처리 오류: {str(e)}")
                 continue
             
             data.append(row)
@@ -1295,7 +1295,7 @@ class SessionBasedFunScoreAnalyzer:
             }
             
         except Exception as e:
-            print(f"{datetime.now()} Test AI 하이라이트 텍스트 생성 중 오류: {e}")
+            print(f"{datetime.now()} Test AI 하이라이트 텍스트 생성 중 오류: {str(e)}")
             return await self._export_test_highlights_basic(session_logs, session_stats)
 
     async def _ai_make_test_highlight_chat(self, highlights: list[StreamHighlight], model):
@@ -1349,7 +1349,7 @@ class SessionBasedFunScoreAnalyzer:
                     images_with_labels.append(highlight.image if highlight.image else "")
 
                 except Exception as e:
-                    print(f"{datetime.now()} 단순 키워드 기반 하이라이트 데이터 처리 오류: {e}")
+                    print(f"{datetime.now()} 단순 키워드 기반 하이라이트 데이터 처리 오류: {str(e)}")
                     continue
 
             if not highlight_data:
@@ -1383,12 +1383,12 @@ class SessionBasedFunScoreAnalyzer:
                     raise ValueError("Test 응답이 리스트 형태가 아닙니다")
 
             except (json.JSONDecodeError, ValueError, KeyError) as e:
-                print(f"{datetime.now()} Test AI JSON 파싱 오류: {e}")
+                print(f"{datetime.now()} Test AI JSON 파싱 오류: {str(e)}")
                 print(f"{datetime.now()} Test 응답 내용: {response.text[:500]}...")
                 return []
                     
         except Exception as e:
-            print(f"{datetime.now()} Test AI 타임라인 댓글 생성 오류: {e}")
+            print(f"{datetime.now()} Test AI 타임라인 댓글 생성 오류: {str(e)}")
             return []
 
     async def _export_test_highlights_basic(self, session_logs, session_stats):
@@ -1475,7 +1475,7 @@ class SessionBasedFunScoreAnalyzer:
             }
             
         except Exception as e:
-            print(f"{datetime.now()} Test 기본 하이라이트 텍스트 생성 중 오류: {e}")
+            print(f"{datetime.now()} Test 기본 하이라이트 텍스트 생성 중 오류: {str(e)}")
             return None
     
     async def export_highlights_to_text(self, session_logs, session_stats):
@@ -1589,7 +1589,7 @@ class SessionBasedFunScoreAnalyzer:
             }
             
         except Exception as e:
-            print(f"{datetime.now()} AI 하이라이트 텍스트 생성 중 오류: {e}")
+            print(f"{datetime.now()} AI 하이라이트 텍스트 생성 중 오류: {str(e)}")
             return await self._export_highlights_basic(session_logs, session_stats)
 
     async def _ai_make_highlight_chat(self, highlights: list[StreamHighlight], model):
@@ -1639,7 +1639,7 @@ class SessionBasedFunScoreAnalyzer:
                     images_with_labels.append(highlight.image if highlight.image else "")
 
                 except Exception as e:
-                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {e}")
+                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {str(e)}")
                     continue
 
             if not highlight_data:
@@ -1678,12 +1678,12 @@ class SessionBasedFunScoreAnalyzer:
                     raise ValueError("응답이 리스트 형태가 아닙니다")
 
             except (json.JSONDecodeError, ValueError, KeyError) as e:
-                print(f"{datetime.now()} AI JSON 파싱 오류: {e}")
+                print(f"{datetime.now()} AI JSON 파싱 오류: {str(e)}")
                 print(f"{datetime.now()} 응답 내용: {response.text[:500]}...")
                 return []
                         
         except Exception as e:
-            print(f"{datetime.now()} AI 타임라인 댓글 생성 오류: {e}")
+            print(f"{datetime.now()} AI 타임라인 댓글 생성 오류: {str(e)}")
             return []
 
     def _calculate_fun_score_from_diff(self, score_diff):
@@ -1782,7 +1782,7 @@ class SessionBasedFunScoreAnalyzer:
             }
             
         except Exception as e:
-            print(f"{datetime.now()} 기본 하이라이트 텍스트 생성 중 오류: {e}")
+            print(f"{datetime.now()} 기본 하이라이트 텍스트 생성 중 오류: {str(e)}")
             return None
 
     def create_session_summary(self, all_session_stats):
@@ -2109,7 +2109,7 @@ class SessionBasedFunScoreAnalyzer:
                 # 정규분포 그래프
                 self.create_highlight_distribution_plots(session_logs, session_stats)
             except Exception as e:
-                print(f"❌ 그래프 생성 실패: {e}")
+                print(f"❌ 그래프 생성 실패: {str(e)}")
             # ===== 수정 끝 =====
         
         # 전체 요약
@@ -2224,7 +2224,7 @@ async def main():
         print("\n\n사용자에 의해 중단되었습니다.")
         sys.exit(1)
     except Exception as e:
-        print(f"\n예상치 못한 오류가 발생했습니다: {e}")
+        print(f"\n예상치 못한 오류가 발생했습니다: {str(e)}")
         print("문제가 지속되면 개발자에게 문의해주세요.")
         sys.exit(1)
 

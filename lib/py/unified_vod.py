@@ -99,7 +99,7 @@ class base_vod(ABC):
             await self._process_video_data(state_data)
 
         except Exception as e:
-            asyncio.create_task(log_error(f"error get video data {self.platform_name}.{self.channel_id}.{e}"))
+            asyncio.create_task(log_error(f"error get video data {self.platform_name}.{self.channel_id}.{str(e)}"))
 
     @abstractmethod
     async def _get_video_data(self):
@@ -209,7 +209,7 @@ class base_vod(ABC):
                 await self._wait_and_process_highlight_chat(channel_name)
 
         except Exception as e:
-            await log_error(f"post_video 오류: {e}")
+            await log_error(f"post_video 오류: {str(e)}")
 
     async def _send_vod_notification(self, json_data, channel_name):
         """VOD 알림 전송"""
@@ -323,13 +323,13 @@ class base_vod(ABC):
                         continue
 
                 except Exception as e:
-                    print(f"하이라이트 파일 처리 오류 {file_path}: {e}")
+                    print(f"하이라이트 파일 처리 오류 {file_path}: {str(e)}")
                     continue
             
             return None
             
         except Exception as e:
-            await log_error(f"하이라이트 파일 로딩 오류: {e}")
+            await log_error(f"하이라이트 파일 로딩 오류: {str(e)}")
             return None
 
     async def _match_chzzk_vod_segment(self, data):
@@ -362,7 +362,7 @@ class base_vod(ABC):
                 return data
             
         except Exception as e:
-            print(f"치지직 VOD 세그먼트 매칭 오류: {e}")
+            print(f"치지직 VOD 세그먼트 매칭 오류: {str(e)}")
             return None
 
     def _get_highlight_msg_from_file(self, highlight_data):
@@ -616,7 +616,7 @@ class chzzk_vod(base_vod):
             return comment_id
                         
         except Exception as e:
-            await log_error(f"치지직 댓글 전송 오류: {e}")
+            await log_error(f"치지직 댓글 전송 오류: {str(e)}")
             return None
 
     async def _first_send_comment(self, message):
@@ -668,7 +668,7 @@ class chzzk_vod(base_vod):
                         return None
                         
         except Exception as e:
-            await log_error(f"치지직 댓글 전송 오류: {e}")
+            await log_error(f"치지직 댓글 전송 오류: {str(e)}")
 
     async def _send_reply_comments(self, parent_comment_id: int, reply_messages: list):
         """
@@ -729,7 +729,7 @@ class chzzk_vod(base_vod):
                         continue
                         
         except Exception as e:
-            await log_error(f"chzzk _send_reply_comments 오류: {e}")
+            await log_error(f"chzzk _send_reply_comments 오류: {str(e)}")
 
 class afreeca_vod(base_vod):
     """아프리카TV VOD 처리 클래스"""
@@ -874,7 +874,7 @@ class afreeca_vod(base_vod):
                     return None
             
         except Exception as e:
-            print(f"댓글 조회 오류: {e}")
+            print(f"댓글 조회 오류: {str(e)}")
             return None
 
     async def find_comment_by_content(self, max_wait: int = 10):
@@ -918,7 +918,7 @@ class afreeca_vod(base_vod):
             return None
         
         except Exception as e:
-            await log_error(f"아프리카TV 댓글 전송 오류: {e}")
+            await log_error(f"아프리카TV 댓글 전송 오류: {str(e)}")
             return None
 
     async def _first_send_comment(self, message):
@@ -986,7 +986,7 @@ class afreeca_vod(base_vod):
                         return False
                         
         except Exception as e:
-            await log_error(f"아프리카TV 댓글 전송 오류: {e}")
+            await log_error(f"아프리카TV 댓글 전송 오류: {str(e)}")
             return False
         
     async def _send_reply_comments(self, parent_comment_id: int, reply_messages: str):
@@ -1043,4 +1043,4 @@ class afreeca_vod(base_vod):
                         continue
             
         except Exception as e:
-            await log_error(f"afreeca _send_reply_comments 오류: {e}")
+            await log_error(f"afreeca _send_reply_comments 오류: {str(e)}")
