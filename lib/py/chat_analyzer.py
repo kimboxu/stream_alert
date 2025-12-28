@@ -65,14 +65,14 @@ class ChatMessageWithAnalyzer:
         try:
             if not self.analysis_task or self.analysis_task.done():
                 self.is_save_log = False
-                self.chat_analyzer.stream_start_time = str(self.init.stream_status[self.chat_analyzer.channel_id].start_at['openDate'])
+                self.chat_analyzer.stream_start_time = str(self.init.stream_status[self.chat_analyzer.channel_id].state_update_time['openDate'])
                 self.chat_analyzer._setup_init_dict()
                 self.analysis_task = asyncio.create_task(self._run_analyzer())
-                print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
+                print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.chat_analyzer.stream_start_time}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
 
                 # 주기적 로그 저장 태스크 시작
                 self.log_save_task = asyncio.create_task(self.chat_analyzer.save_logs_periodically())
-                print(f"{datetime.now()} 로그 저장 태스크 시작: 30분마다 자동 저장")
+                # print(f"{datetime.now()} 로그 저장 태스크 시작: 30분마다 자동 저장")
         except Exception as e:
             await log_error(f"start_analyzer 에러: {e}")
             # 태스크 초기화 실패 시 None으로 설정
@@ -1110,7 +1110,7 @@ class ChatAnalyzer:
                 "embeds": [embeds]
             }
 
-            print(f"{datetime.now()} {json_data}")
+            print(f"{datetime.now()} {channel_name} 큰 하이라이트 생성: {image_text}")
             # 알림 전송
             if self.init.DO_TEST:
                 return
@@ -1120,7 +1120,6 @@ class ChatAnalyzer:
             
         except Exception as e:
             await log_error(f"디스코드 알림 오류: {e}")
-
 
     def get_author(self):
         avatar_url = self.init.stream_status[self.channel_id].id_list.loc[self.channel_id, 'profile_image']
