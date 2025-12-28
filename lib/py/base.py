@@ -40,6 +40,13 @@ class initVar:
 	IMGBB_API_KEY_LIST = environ['IMGBB_API_KEY_LIST'].split(",")
 	api_key_cnt = randint(0, len(IMGBB_API_KEY_LIST)-1)
 
+	_table_semaphores = {}
+	@classmethod
+	def get_table_semaphore(cls, table_name: str) -> asyncio.Semaphore:
+		if table_name not in cls._table_semaphores:
+			cls._table_semaphores[table_name] = asyncio.Semaphore(1)
+		return cls._table_semaphores[table_name]
+
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
 
 	# 모든 로거의 레벨을 높이려면
@@ -130,13 +137,11 @@ async def load_user_state_data(init: initVar):
 
 # 비동기로 플래그 업데이트
 async def update_flag(field, value):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-	await asyncio.to_thread(
-		lambda: supabase.table('date_update').upsert({
-			"idx": 0,
-			field: value
-		}).execute()
-	)
+	table_name = 'date_update'
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert({"idx": 0,field: value}).execute())
 
 ## db 초기화 함수
 async def DataBaseVars(init: initVar):
@@ -725,206 +730,144 @@ def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image = ""):
 
 # 방송 정보 데이터 저장 함수
 async def save_airing_data(titleData, platform: str, id_):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	table_name = platform + "_titleData"
-	data_func = {
-				"channelID": id_,
-				"live_state": titleData.loc[id_, "live_state"],
-				"title1": titleData.loc[id_, "title1"],
-				"title2": titleData.loc[id_, "title2"],
-				"update_time": titleData.loc[id_, "update_time"],
-				"chatChannelId": titleData.loc[id_, "chatChannelId"],
-				"oldChatChannelId": titleData.loc[id_, "oldChatChannelId"],
-				"state_update_time": titleData.loc[id_, "state_update_time"],
-				"category": titleData.loc[id_, "category"],
-				"baseline_metrics": titleData.loc[id_, "baseline_metrics"],
-		}
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		data_func = {
+					"channelID": id_,
+					"live_state": titleData.loc[id_, "live_state"],
+					"title1": titleData.loc[id_, "title1"],
+					"title2": titleData.loc[id_, "title2"],
+					"update_time": titleData.loc[id_, "update_time"],
+					"chatChannelId": titleData.loc[id_, "chatChannelId"],
+					"oldChatChannelId": titleData.loc[id_, "oldChatChannelId"],
+					"state_update_time": titleData.loc[id_, "state_update_time"],
+					"category": titleData.loc[id_, "category"],
+					"baseline_metrics": titleData.loc[id_, "baseline_metrics"],
+			}
 
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			supabase.table(table_name).upsert(data_func).execute()
-			break
-		except Exception as e:
-			asyncio.create_task(log_error(f"error saving profile data {e}"))
-			await asyncio.sleep(0.1)
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data_func).execute())
 
 # 프로필 이미지 url 저장 함수
 async def save_profile_data(IDList, platform: str, id):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 	table_name = platform + "IDList"
-	data_func = {
-			"channelID": id,
-			'profile_image': IDList.loc[id, 'profile_image']
-		}
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		
+		data_func = {
+				"channelID": id,
+				'profile_image': IDList.loc[id, 'profile_image']
+			}
 
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			supabase.table(table_name).upsert(data_func).execute()
-			break
-		except Exception as e:
-			asyncio.create_task(log_error(f"error saving profile data {e}"))
-			await asyncio.sleep(0.1)
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data_func).execute())
 
 # 필드 데이터 상태 변경 함수
 async def change_field_state(field, field_data, channel_id, field_state = True):
-	field_data[channel_id] = field_state
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			supabase.table('date_update').upsert({"idx": 0, field: field_data}).execute()
-			break
-		except Exception as e:
-			asyncio.create_task(log_error(f"echange_chat_join_state {e}"))
-			await asyncio.sleep(0.1)
+	table_name = "date_update"
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		field_data[channel_id] = field_state
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert({"idx": 0, field: field_data}).execute())
 
 # 비디오 데이터 저장 함수
-async def save_video_data(video_data, _id): 
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-	data = {
-		"channelID": _id,
-		'VOD_json': video_data.loc[_id, 'VOD_json']
-	}
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			supabase.table(f'video_data').upsert(data).execute()
-			break
-		except Exception as e:
-			asyncio.create_task(log_error(f"error saving profile data {e}"))
-			await asyncio.sleep(0.1)
+async def save_video_data(video_data, _id):
+	table_name = "video_data"
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		data = {
+			"channelID": _id,
+			'VOD_json': video_data.loc[_id, 'VOD_json']
+		}
+
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
 # 카페 데이터 저장 함수
 async def saveCafeData(cafeData, _id):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+	table_name = "cafeData"
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 
-	data = {
-		"channelID": _id,
-		"update_time": int(cafeData.loc[_id, 'update_time']),
-		"cafe_json": cafeData.loc[_id, 'cafe_json'],
-		"cafeNameDict": cafeData.loc[_id, 'cafeNameDict']
-	}	
-		
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			supabase.table('cafeData').upsert(data).execute()
-			break
-		except Exception as e:
-			asyncio.create_task(log_error(f"error save cafe time {e}"))
-			await asyncio.sleep(0.1)
+		data = {
+			"channelID": _id,
+			"update_time": int(cafeData.loc[_id, 'update_time']),
+			"cafe_json": cafeData.loc[_id, 'cafe_json'],
+			"cafeNameDict": cafeData.loc[_id, 'cafeNameDict']
+		}	
+			
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
 # 유튜브 데이터 저장 함수
 async def saveYoutubeData(youtubeData, youtubeChannelID):
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-	data = {
-		"YoutubeChannelID": youtubeChannelID,
-		"videoCount": int(youtubeData.loc[youtubeChannelID, "videoCount"]),
-		"uploadTime": youtubeData.loc[youtubeChannelID, "uploadTime"],
-		"oldVideo": youtubeData.loc[youtubeChannelID, "oldVideo"],
-		'thumbnail_link': youtubeData.loc[youtubeChannelID, 'thumbnail_link'],
-		'video_count_check': int(youtubeData.loc[youtubeChannelID, "video_count_check"]),
-	}
+	table_name = "youtubeData"
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		data = {
+			"YoutubeChannelID": youtubeChannelID,
+			"videoCount": int(youtubeData.loc[youtubeChannelID, "videoCount"]),
+			"uploadTime": youtubeData.loc[youtubeChannelID, "uploadTime"],
+			"oldVideo": youtubeData.loc[youtubeChannelID, "oldVideo"],
+			'thumbnail_link': youtubeData.loc[youtubeChannelID, 'thumbnail_link'],
+			'video_count_check': int(youtubeData.loc[youtubeChannelID, "video_count_check"]),
+		}
 
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			supabase.table('youtubeData').upsert(data).execute()
-			break
-		except Exception as e:
-			asyncio.create_task(log_error(f"error saving youtube data {e}"))
-			await asyncio.sleep(0.1)
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
-# 사용자 알림 데이터 저장 함수
-async def save_user_notifications(supabase, webhook_url, notifications, last_db_save_time):
-	data = {
-			'discordURL': webhook_url, 
-			'notifications': notifications,
-			'last_db_save_time': last_db_save_time
-	}
-	
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			await asyncio.to_thread(
-				lambda: supabase.table('userStateData')
-					.upsert(data)
-					.execute()
-			)
-			# print(f"{datetime.now()} 알림을 DB에 저장함 - URL: {webhook_url}")
-			return True
-		except Exception as e:
-			print(f"{datetime.now()} 알림 저장 중 오류: {e} - URL: {webhook_url}")
-			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
-	
-	return False  # 모든 시도 실패
-
-async def save_user_chat_user_json(supabase, webhook_url, chat_user_json):
-	data = {
-			'discordURL': webhook_url, 
-			'chat_user_json': chat_user_json,
-	}
-	
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			await asyncio.to_thread(
-				lambda: supabase.table('userStateData')
-					.upsert(data)
-					.execute()
-			)
-			return True
-		except Exception as e:
-			print(f"{datetime.now()} error save_user_chat_user_json : {e} - URL: {webhook_url}")
-			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
-	
-	return False  # 모든 시도 실패
+async def save_user_chat_user_json(webhook_url, chat_user_json):
+	table_name = "userStateData"
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		data = {
+				'discordURL': webhook_url, 
+				'chat_user_json': chat_user_json,
+		}
+		
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
 # 보낸 클립 UID 저장 함수
-async def save_sent_notifications(supabase, channel_id, hot_clip_data):
-	data = {
-                'channelID': channel_id,
-                'last_updated': datetime.now().isoformat(),
-                'sent_clip_uids': hot_clip_data.loc[channel_id, 'sent_clip_uids']
-            }
+async def save_sent_notifications(channel_id, hot_clip_data):
+	table_name = "hot_clip_data"
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		data = {
+					'channelID': channel_id,
+					'last_updated': datetime.now().isoformat(),
+					'sent_clip_uids': hot_clip_data.loc[channel_id, 'sent_clip_uids']
+				}
 
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			await asyncio.to_thread(
-				lambda: supabase.table('hot_clip_data')
-					.upsert(data)
-					.execute()
-			)
-			# print(f"{datetime.now()} 알림을 DB에 저장함 - channelID: {channel_id}")
-			return True
-		except Exception as e:
-			print(f"{datetime.now()} 알림 저장 중 오류: {e} - channelID : {channel_id}")
-			await asyncio.sleep(0.1)  # 잠시 대기 후 재시도
-	
-	return False  # 모든 시도 실패
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
 # 챗 명령어 데이터 저장 함수
-async def save_chat_command_data(chat_command_data, _id): 
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-	data = {
-		"channelID": _id,
-		'chat_command': chat_command_data.loc[_id, 'chat_command']
-	}
-	for _ in range(3):  # 최대 3번 시도
-		try:
-			supabase.table(f'chat_commands').upsert(data).execute()
-			break
-		except Exception as e:
-			asyncio.create_task(log_error(f"error saving chat_command data {e}"))
-			await asyncio.sleep(0.1)
-	
+async def save_chat_command_data(chat_command_data, _id):
+	table_name = "chat_commands"
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		data = {
+			"channelID": _id,
+			'chat_command': chat_command_data.loc[_id, 'chat_command']
+		}
+
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+
 async def save_chatFilter_name(user_id, user_name, platform: str): 
-	supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-	data = {'channelName': user_name}
+	table_name = f'{platform}_chatFilter'
+	semaphore = initVar.get_table_semaphore(table_name)
+	async with semaphore:
+		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
+		data = {'channelName': user_name}
 
-	if platform == "chzzk":
-		data["uid"] = user_id
-	elif platform == "afreeca":
-		data["channelID"] = user_id
+		if platform == "chzzk":
+			data["uid"] = user_id
+		elif platform == "afreeca":
+			data["channelID"] = user_id
 
-	for _ in range(3):
-		try:
-			supabase.table(f'{platform}_chatFilter').upsert(data).execute()
-			break
-		except Exception as e:
-			asyncio.create_task(log_error(f"error saving {platform}_name_save data {e}"))
-			await asyncio.sleep(0.1)
+		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+

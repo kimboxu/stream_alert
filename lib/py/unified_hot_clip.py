@@ -117,7 +117,7 @@ class BaseHotClipDetector(ABC):
 
                     # 알림 기록 저장
                     if not self.init.DO_TEST:  
-                        asyncio.create_task(save_sent_notifications(self.init.supabase, self.channel_id, self.hot_clip_data))
+                        asyncio.create_task(save_sent_notifications(self.channel_id, self.hot_clip_data))
                 
                 await asyncio.sleep(self.analysis_interval)
                 

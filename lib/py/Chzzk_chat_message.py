@@ -464,7 +464,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                             if  channelID in chzzkIDList and self.init.chzzk_chatFilter.loc[user_id, "channelName"] in self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID]:
                                 index = self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID].index(self.init.chzzk_chatFilter.loc[user_id, "channelName"])
                                 self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID][index] = nickname
-                                asyncio.create_task(save_user_chat_user_json(self.init.supabase, discordWebhookURL, self.init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
+                                asyncio.create_task(save_user_chat_user_json(discordWebhookURL, self.init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
 
                 self.init.chzzk_chatFilter.loc[user_id, 'channelName'] = nickname
                 asyncio.create_task(save_chatFilter_name(user_id, nickname, platform = 'chzzk'))
