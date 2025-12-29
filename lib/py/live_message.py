@@ -49,6 +49,11 @@ class LiveData:
     channel_url: str = ""                               # 채널 URL
     profile_image: str = ""                             # 프로필 이미지 URL
     platform_name: str = ""                             # 플랫폼 이름
+
+    temp_start_at: Dict[str, str] = field(default_factory=lambda: {
+        "openDate": "2025-01-01 00:00:00",           # 방송 시작 시간
+        "closeDate": "2025-01-01 00:00:00"           # 방송 종료 시간
+    })
     
     state_update_time: Dict[str, str] = field(default_factory=lambda: {
         "openDate": "2025-01-01 00:00:00",                  # 온라인 상태 업데이트 시간
@@ -252,7 +257,7 @@ class base_live_message:
     #방송 시작 시간 업데이트
     def onLineTime(self, message):
         if message == "뱅온!":
-            self.data.state_update_time['openDate'] = self.getStarted_at("openDate")
+            self.data.state_update_time['openDate'] = self.data.temp_start_at["openDate"]
 
     #방송 종료 시 상태 업데이트
     def offLineTitle(self):
@@ -318,9 +323,10 @@ class base_live_message:
     
     #시작/종료 시간 ISO 형식으로 반환
     def getStarted_at(self, status: str):
-        time_str = self.data.state_update_time[status]
+        time_str = self.data.temp_start_at[status]
         time = datetime.strptime(time_str, '%Y-%m-%d %H:%M:%S')
-        return time.isoformat()
+        self.data.temp_start_at[status] = time.isoformat()
+        return self.data.temp_start_at[status]
     
     def get_channel_url(self):
         raise NotImplementedError
@@ -400,7 +406,6 @@ class base_live_message:
             asyncio.create_task(log_error(f"_cleanup_old_highlights 오류: {str(e)}, channel_id: {self.channel_id}"))
             return 0
 
-
     async def get_live_thumbnail_image(self, state_data, message=None):
         raise NotImplementedError
 
@@ -444,19 +449,20 @@ class chzzk_live_message(base_live_message):
     
     #치지직 스트림 정보 업데이트
     def _update_stream_info(self, stream_data, state_data):
-        def is_recent_stream(status):
-            if state_data['content'][status]:
-                return datetime.fromisoformat(state_data['content'][status]) > datetime.fromisoformat(self.data.state_update_time[status])
+        # def is_recent_stream(status):
+        #     if state_data['content'][status]:
+        #         return datetime.fromisoformat(state_data['content'][status]) > datetime.fromisoformat(self.data.state_update_time[status])
         
-        if not self.data.live:
-            self.data.live, self.data.title, self.data.profile_image = stream_data
+        # if not self.data.live:
+        #     self.data.live, self.data.title, self.data.profile_image = stream_data
 
-        _, self.data.title, self.data.profile_image = stream_data
+        # _, self.data.title, self.data.profile_image = stream_data
 
-        if is_recent_stream("openDate") or is_recent_stream("closeDate"):
-            self.data.state_update_time["openDate"] = state_data['content']["openDate"]
-            self.data.state_update_time["closeDate"] = state_data['content']["closeDate"]
-            self.data.live, _, _ = stream_data
+        self.data.temp_start_at["openDate"] = state_data['content']["openDate"]
+        self.data.temp_start_at["closeDate"] = state_data['content']["closeDate"]
+        self.getStarted_at("openDate")
+        self.getStarted_at("closeDate")
+        self.data.live, self.data.title, self.data.profile_image = stream_data
 
     #치지직 온라인 상태 처리 여부 확인(온라인 상태인지 확인)
     def _should_process_online_status(self):
@@ -485,10 +491,11 @@ class chzzk_live_message(base_live_message):
     
     #방송 종료 시간 업데이트
     def offLineTime(self):
-        self.data.state_update_time["closeDate"] = self.getStarted_at("closeDate")
+        self.data.state_update_time["closeDate"] = self.data.temp_start_at["closeDate"]
 
         stream_end_id = get_stream_start_id(self.channel_id, self.data.state_update_time["closeDate"])
-        self.init.highlight_chat[self.channel_id][self.stream_start_id].stream_end_id = stream_end_id
+        if self.stream_start_id in  self.init.highlight_chat[self.channel_id]:
+            self.init.highlight_chat[self.channel_id][self.stream_start_id].stream_end_id = stream_end_id
 
     #치지직 채널 URL 생성
     def get_channel_url(self): 
@@ -527,13 +534,13 @@ class chzzk_live_message(base_live_message):
     def checkStateTransition(self, target_state: str):
         if self.data.live != target_state or self.title_data.loc[self.channel_id, 'live_state'] != ("CLOSE" if target_state == "OPEN" else "OPEN"):
             return False
-        return self.getStarted_at(("openDate" if target_state == "OPEN" else "closeDate")) > self.data.state_update_time["closeDate" if target_state == "OPEN" else "openDate"]
+        return self.data.temp_start_at["openDate" if target_state == "OPEN" else "closeDate"] > self.data.state_update_time["closeDate" if target_state == "OPEN" else "openDate"]
     
     #치지직 썸네일 이미지(실시간 방송 화면 이미지로 변환 후) 가져오기
     async def get_live_thumbnail_image(self, state_data, message):
         self.wait_get_live_thumbnail_image = True
         for count in range(50):
-            time_difference = (datetime.now() - datetime.fromisoformat(self.data.state_update_time['openDate'])).total_seconds()
+            time_difference = (datetime.now() - datetime.fromisoformat(self.data.state_update_time["openDate"])).total_seconds()
 
             if message == "뱅온!" or self.title_data.loc[self.channel_id, 'live_state'] == "CLOSE" or time_difference < 15: 
                 thumbnail_image = ""
@@ -609,7 +616,7 @@ class chzzk_live_message(base_live_message):
             "url": self.data.channel_url,
             # "image": {"url": thumbnail_url},
             "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
-            "timestamp": changeUTCtime(self.getStarted_at("openDate"))}
+            "timestamp": changeUTCtime(self.data.state_update_time["openDate"])}
         
         return {"username": self.channel_name, 
                 "avatar_url": avatar_url,
@@ -630,7 +637,7 @@ class chzzk_live_message(base_live_message):
             "url": self.data.channel_url,
             "image": {"url": thumbnail_url},
             "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
-            "timestamp": changeUTCtime(self.getStarted_at("openDate"))}
+            "timestamp": changeUTCtime(self.data.state_update_time["openDate"])}
 
         self.get_author()
         return {"username": self.channel_name, 
@@ -661,7 +668,7 @@ class chzzk_live_message(base_live_message):
             "author": self.get_author(),
             "title": self.channel_name +" 방송 종료\n",
             "footer": { "text": f"방종 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
-            "timestamp": changeUTCtime(self.getStarted_at("closeDate"))
+            "timestamp": changeUTCtime(self.data.state_update_time["closeDate"])
         }
         # thumbnail_url = await self.get_live_thumbnail_image(state_data, "방종")
         defaultThumbnailImageUrl = state_data['content']['defaultThumbnailImageUrl']
@@ -708,7 +715,8 @@ class afreeca_live_message(base_live_message):
     def _update_stream_info(self, stream_data, state_data):
         self.update_broad_no(state_data)
         if state_data["station"]["broad_start"] != "0000-00-00 00:00:00":
-            self.data.state_update_time["openDate"] = state_data["station"]["broad_start"]
+            self.data.temp_start_at["openDate"] = state_data["station"]["broad_start"]
+            self.getStarted_at("openDate")
         self.data.live, self.data.title, self.data.profile_image = stream_data
         self.id_list.loc[self.channel_id, 'profile_image'] = self.data.profile_image
     
@@ -780,8 +788,8 @@ class afreeca_live_message(base_live_message):
     
     #온라인으로 상태 변경되었는지 확인
     def turnOnline(self):
-        now_time = self.getStarted_at("openDate")
-        old_time = self.data.state_update_time['openDate']
+        now_time = self.data.temp_start_at["openDate"]
+        old_time = self.data.state_update_time["openDate"]
         return self.data.live == 1 and self.title_data.loc[self.channel_id,'live_state'] == "CLOSE" and now_time > old_time
     
     #오프라인으로 상태 변경되었는지 확인
@@ -849,7 +857,7 @@ class afreeca_live_message(base_live_message):
             "url": self.data.channel_url, 
             "image": {"url": thumbnail_url},
             "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().soop_icon },
-            "timestamp": changeUTCtime(self.getStarted_at("openDate"))}
+            "timestamp": changeUTCtime(self.data.state_update_time["openDate"])}
 
         return {"username": self.channel_name, 
                 "avatar_url": avatar_url,
