@@ -2,45 +2,6 @@
   "webhook_url": "https://discord.com/api/webhooks/1177904543015641109/w55ehO6rRoFpcPHhX8a4nOGl1rD_L64GsGdU3tJ4e4_v5W6JB-Ah4pIRGCnCIcdAyAd2",
   "notifications": [
     {
-      "id": "a3824bf8-65bf-4441-a18d-dc8620aee20d",
-      "username": " [유튜브 알림] 빅헤드",
-      "content": "",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2025-11-28T18:28:42.041325+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 16711680,
-          "author": {
-            "name": "빅헤드",
-            "url": "https://www.youtube.com/@빅헤드",
-            "icon_url": "https://yt3.googleusercontent.com/ytc/AIdro_kh0MuWumKm1yCxRr_wXwU_fpjChoIwbjOamSyTnZSIS2o=s900-c-k-c0x00ffffff-no-rj"
-          },
-          "title": "진짜 \"역대급\"으로 뽑힌 신캐가 나왔습니다 ㄷㄷ",
-          "url": "https://www.youtube.com/watch?v=vLMsiKyBG5U",
-          "description": "빅헤드 유튜브 영상 업로드!",
-          "fields": [
-            {
-              "name": "Description",
-              "value": "▼ 게임정보 및 빅헤드정보"
-            }
-          ],
-          "thumbnail": {
-            "url": "https://yt3.googleusercontent.com/ytc/AIdro_kh0MuWumKm1yCxRr_wXwU_fpjChoIwbjOamSyTnZSIS2o=s900-c-k-c0x00ffffff-no-rj"
-          },
-          "image": {
-            "url": "https://i.ytimg.com/vi/vLMsiKyBG5U/maxresdefault.jpg"
-          },
-          "footer": {
-            "text": "YouTube",
-            "inline": true,
-            "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQif7xGKRoQ0YzL1AtIAj92R3A6YRNQ8lCF-A&s"
-          },
-          "timestamp": "2025-11-28T09:28:09Z"
-        }
-      ]
-    },
-    {
       "id": "0dda7ef1-a80b-4cab-af74-f4ef9f9fdc3e",
       "username": " [유튜브 알림] 빅헤드",
       "content": "",
@@ -1092,8 +1053,47 @@
           "timestamp": "2025-12-28T12:03:44Z"
         }
       ]
+    },
+    {
+      "id": "b5705786-9516-422f-b18a-51065680cde8",
+      "username": " [유튜브 알림] 빅헤드",
+      "content": "",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2025-12-29T12:01:42.996499+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16711680,
+          "author": {
+            "name": "두번째 빅헤드 (다시보기)",
+            "url": "https://www.youtube.com/@두번째빅헤드다시보기",
+            "icon_url": "https://yt3.googleusercontent.com/px1hNn0LLspQbiBuZBcYh1B40a28lLViFXGU4juNQEv1xzK5LhBqDsWgjcN-RULcQ81Qj4Mu=s200-c-k-c0x00ffffff-no-rj"
+          },
+          "title": "【12/22】멋사 공책 RPG 서버 1일차",
+          "url": "https://www.youtube.com/watch?v=skcBx9Z9IOU",
+          "description": "두번째 빅헤드 (다시보기) 유튜브 영상 업로드!",
+          "fields": [
+            {
+              "name": "Description",
+              "value": "좋아요와 댓글, 구독은 스트리머에게 큰 힘이 됩니다."
+            }
+          ],
+          "thumbnail": {
+            "url": "https://yt3.googleusercontent.com/px1hNn0LLspQbiBuZBcYh1B40a28lLViFXGU4juNQEv1xzK5LhBqDsWgjcN-RULcQ81Qj4Mu=s200-c-k-c0x00ffffff-no-rj"
+          },
+          "image": {
+            "url": "https://i.ytimg.com/vi/skcBx9Z9IOU/maxresdefault.jpg"
+          },
+          "footer": {
+            "text": "YouTube",
+            "inline": true,
+            "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQif7xGKRoQ0YzL1AtIAj92R3A6YRNQ8lCF-A&s"
+          },
+          "timestamp": "2025-12-29T03:01:06Z"
+        }
+      ]
     }
   ],
-  "last_save_time": "2025-12-28T22:00:42.662691+09:00",
+  "last_save_time": "2025-12-29T12:01:43.030261+09:00",
   "notification_count": 28
 }
