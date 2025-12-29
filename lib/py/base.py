@@ -297,7 +297,7 @@ async def print_log():
 		await asyncio.sleep(0.01)
 	print(f"{datetime.now()} is_print_log_end", flush=True)
 	await asyncio.sleep(0.3)
-	await update_flag('is_print_log', flush=True)
+	await update_flag('is_print_log', False)
 
 
 # db에서 데이터 가져오는 함수
