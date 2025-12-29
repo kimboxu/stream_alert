@@ -13,7 +13,7 @@ check_app() {
 # Function to start the app
 start_app() {
     echo "Starting combined app..."
-    nohup python3 $APP_SCRIPT >> $LOG_FILE 2>&1 &
+    nohup python3 -u $APP_SCRIPT >> $LOG_FILE 2>&1 &
     echo "Combined app started with PID: $!"
 }
 
