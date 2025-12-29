@@ -292,8 +292,11 @@ async def save_highlight_data(init, channelID = "all"):
 
 async def print_log():
 	print(f"{datetime.now()} is_print_log_start")
-	(print("\n") for _ in range(10))
+	for _ in range(10):
+		print("\n")
+		await asyncio.sleep(0.01)
 	print(f"{datetime.now()} is_print_log_end")
+	await asyncio.sleep(0.3)
 	await update_flag('is_print_log', False)
 
 # db에서 데이터 가져오는 함수
