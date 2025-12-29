@@ -24,7 +24,7 @@ class initVar:
 	load_dotenv()
 	DO_TEST = False
 	
-	printCount 		= 100	# 100회마다 카운트 출력
+	printCount 		= 1000	# 1000회마다 카운트 출력
 	countTimeList = []
 	countTimeList.append(default_timer())	# 실행 시간 측정용
 	countTimeList.append(default_timer())
