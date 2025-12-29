@@ -323,6 +323,8 @@ class base_live_message:
     
     #시작/종료 시간 ISO 형식으로 반환
     def getStarted_at(self, status: str):
+        if status not in self.data.temp_start_at or self.data.temp_start_at[status] is None:
+            return
         time_str = self.data.temp_start_at[status]
         time = datetime.strptime(time_str, '%Y-%m-%d %H:%M:%S')
         self.data.temp_start_at[status] = time.isoformat()
