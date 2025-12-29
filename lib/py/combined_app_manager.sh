@@ -6,8 +6,7 @@ LOG_FILE="combined_app.log"
 
 # Function to check if app is running
 check_app() {
-    pgrep -f "$APP_SCRIPT" > /dev/null
-    pgrep -f "$APP_SCRIPT" > /dev/null
+    pgrep -f "python3 -u $APP_SCRIPT" > /dev/null
     return $?
 }
 
@@ -20,7 +19,7 @@ start_app() {
 
 # Function to kill the app
 kill_app() {
-    pid=$(pgrep -f "$APP_SCRIPT")
+    pid=$(pgrep -f "python3 -u $APP_SCRIPT")
     if [ -n "$pid" ]; then
         echo "Stopping combined app (PID: $pid)..."
         kill $pid  # 우선 정상 종료 시도(SIGTERM)
@@ -58,7 +57,7 @@ case "$1" in
         ;;
     status)
         if check_app; then
-            pid=$(pgrep -f "python3 $APP_SCRIPT")
+            pid=$(pgrep -f "python3 -u $APP_SCRIPT")
             echo "Combined app is running with PID: $pid"
         else
             echo "Combined app is not running"
