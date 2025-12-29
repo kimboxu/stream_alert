@@ -24,7 +24,7 @@ class initVar:
 	load_dotenv()
 	DO_TEST = False
 	
-	printCount 		= 1000	# 1000회마다 카운트 출력
+	printCount 		= 100	# 100회마다 카운트 출력
 	countTimeList = []
 	countTimeList.append(default_timer())	# 실행 시간 측정용
 	countTimeList.append(default_timer())
@@ -291,7 +291,9 @@ async def save_highlight_data(init, channelID = "all"):
 		asyncio.create_task(log_error(f"하이라이트 데이터 저장 실패: {str(e)}"))
 
 async def print_log():
-	print(f"{datetime.now()} is_print_log_start"+"\n"*10+ f"{datetime.now()} is_print_log_end")
+	print(f"{datetime.now()} is_print_log_start")
+	(print("\n") for _ in range(10))
+	print(f"{datetime.now()} is_print_log_end")
 	await update_flag('is_print_log', False)
 
 # db에서 데이터 가져오는 함수
