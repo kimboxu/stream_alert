@@ -291,11 +291,12 @@ async def save_highlight_data(init, channelID = "all"):
 		asyncio.create_task(log_error(f"하이라이트 데이터 저장 실패: {str(e)}"))
 
 async def print_log():
-	print(f"{datetime.now()} is_print_log_start", flush=True)
-	for _ in range(10):
-		print("\n", flush=True)
-		await asyncio.sleep(0.01)
-	print(f"{datetime.now()} is_print_log_end", flush=True)
+	# print(f"{datetime.now()} is_print_log_start", flush=True)
+	# for _ in range(10):
+	# 	print("\n", flush=True)
+	# 	await asyncio.sleep(0.01)
+	# print(f"{datetime.now()} is_print_log_end", flush=True)
+	print(f"{datetime.now()} is_print_log", flush=True)
 	await asyncio.sleep(0.3)
 	await update_flag('is_print_log', False)
 
