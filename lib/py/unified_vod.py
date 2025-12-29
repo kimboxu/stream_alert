@@ -153,7 +153,7 @@ class base_vod(ABC):
 
     def _validate_thumbnail(self):
         """썸네일 검증 공통 로직"""
-        print(f"{datetime.now()} {self.channel_id}, 썸네일 검증: {self.data.thumbnailImageUrl}")
+        # print(f"{datetime.now()} {self.channel_id}, 썸네일 검증: {self.data.thumbnailImageUrl}")
         
         # 썸네일이 있는 경우 - 바로 통과
         if self._has_valid_thumbnail():
@@ -187,7 +187,7 @@ class base_vod(ABC):
             return True
         else:
             remaining_time = timedelta(minutes=self.max_check_thumb_min) - time_passed
-            print(f"{datetime.now()} {self.channel_id} 비디오 {self.data.videoNo} 썸네일 대기 중 (남은 시간: {remaining_time})")
+            # print(f"{datetime.now()} {self.channel_id} 비디오 {self.data.videoNo} 썸네일 대기 중 (남은 시간: {remaining_time})")
             return False
 
     async def post_video(self):

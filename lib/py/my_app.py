@@ -1,6 +1,7 @@
 from os import environ
 from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS
+from werkzeug.middleware.proxy_fix import ProxyFix
 import asyncio
 import signal
 import threading
@@ -25,6 +26,8 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 
 def init_background_tasks():
     loop = asyncio.new_event_loop()
