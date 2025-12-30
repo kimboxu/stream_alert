@@ -117,6 +117,10 @@ class base_live_message:
 
         if not init_var.wait_make_highlight_chat.get(channel_id):
             init_var.wait_make_highlight_chat[channel_id] = False
+
+        if self.title_data.loc[self.channel_id, 'live_state'] == "OPEN":
+            self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
+            self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.title_data.loc[self.channel_id,'title1']
         
     async def start(self):
         await self.addMSGList()
@@ -142,12 +146,12 @@ class base_live_message:
 
             #온라인 상태일 때 상태 정보 업데이트
             if self.data.live in ["OPEN", 1]:
-                self.get_channel_url()
+                # self.get_channel_url()
                 self.getViewer_count(state_data)
                 self.getCategory(state_data)
-                self.getImageURL(state_data)
-                self.init_highlight_chat()
-                self.get_init_last_title()
+                # self.getImageURL(state_data)
+                # self.init_highlight_chat()
+                # self.get_init_last_title()
 
             # 온라인/오프라인 상태 처리
             if self._should_process_online_status():
@@ -233,6 +237,7 @@ class base_live_message:
     def onLineTitle(self, message):
         if message == "뱅온!":
             self.title_data.loc[self.channel_id, 'live_state'] = "OPEN"
+            self.get_init_last_title()
         self.title_data.loc[self.channel_id,'title2'] = self._get_title()
         self.title_data.loc[self.channel_id,'title1'] = self.data.title
         if (self.stream_start_id in self.init.highlight_chat[self.channel_id]):
@@ -257,7 +262,8 @@ class base_live_message:
     #방송 시작 시간 업데이트
     def onLineTime(self, message):
         if message == "뱅온!":
-            self.data.state_update_time['openDate'] = self.data.temp_start_at["openDate"]
+            self.data.state_update_time["openDate"] = self.data.temp_start_at["openDate"]
+            self.init_highlight_chat() # 뱅온시 highlight_chat 생성 및 초기화
 
     #방송 종료 시 상태 업데이트
     def offLineTitle(self):
@@ -460,6 +466,7 @@ class chzzk_live_message(base_live_message):
 
         # _, self.data.title, self.data.profile_image = stream_data
 
+        # if is_recent_stream("openDate") or is_recent_stream("closeDate"):
         self.data.temp_start_at["openDate"] = state_data['content']["openDate"]
         self.data.temp_start_at["closeDate"] = state_data['content']["closeDate"]
         self.getStarted_at("openDate")
@@ -502,6 +509,7 @@ class chzzk_live_message(base_live_message):
     #치지직 채널 URL 생성
     def get_channel_url(self): 
         self.data.channel_url = f'https://chzzk.naver.com/live/{self.id_list.loc[self.channel_id, "channel_code"]}'
+        return self.data.channel_url
 
     #치지직 시청자 수 가져오기
     def getViewer_count(self, state_data):
@@ -615,7 +623,7 @@ class chzzk_live_message(base_live_message):
                 # "value": self.data.view_count, "inline": True}
                 ],
             "title": f"{self.channel_name} {message}\n",
-            "url": self.data.channel_url,
+            "url": self.get_channel_url(),
             # "image": {"url": thumbnail_url},
             "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
             "timestamp": changeUTCtime(self.data.state_update_time["openDate"])}
@@ -636,7 +644,7 @@ class chzzk_live_message(base_live_message):
                 "value": self.data.view_count, "inline": True}
                 ],
             "title": f"{self.channel_name} {message}\n",
-            "url": self.data.channel_url,
+            "url": self.get_channel_url(),
             "image": {"url": thumbnail_url},
             "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().chzzk_icon },
             "timestamp": changeUTCtime(self.data.state_update_time["openDate"])}
@@ -655,7 +663,7 @@ class chzzk_live_message(base_live_message):
                 {"name": "이전 방제", "value": str(self._get_title()), "inline": True},
                 {"name": "현재 방제", "value": self.data.title, "inline": True}],
             "title": f"{self.channel_name} {message}\n",
-            "url": self.data.channel_url,
+            "url": self.get_channel_url(),
             "footer": { "icon_url": iconLinkData().chzzk_icon },
             }
 
@@ -761,6 +769,7 @@ class afreeca_live_message(base_live_message):
         afreecaID = self.id_list.loc[self.channel_id, "afreecaID"]
         bno = self.title_data.loc[self.channel_id, 'chatChannelId']
         self.data.channel_url = f"https://play.sooplive.co.kr/{afreecaID}/{bno}"
+        return self.data.channel_url
     
     #아프리카 시청자 수 가져오기
     def getViewer_count(self, state_data):
@@ -856,7 +865,7 @@ class afreeca_live_message(base_live_message):
                 {"name": ':busts_in_silhouette: 시청자수',
                 "value": self.data.view_count, "inline": True}],
             "title": f"{self.channel_name} {message}\n",
-            "url": self.data.channel_url, 
+            "url": self.get_channel_url(), 
             "image": {"url": thumbnail_url},
             "footer": { "text": f"뱅온 시간", "inline": True, "icon_url": iconLinkData().soop_icon },
             "timestamp": changeUTCtime(self.data.state_update_time["openDate"])}

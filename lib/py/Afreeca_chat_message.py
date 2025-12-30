@@ -459,7 +459,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 messages[2] in ["1"] or 
                 messages[1] == self.data.BID or 
                 (messages[2] == self.data.BID and len(messages) == 11) or 
-                ("fw" in messages[2]))
+                ("fw" in messages[2]) or 
+                len(messages) == 13)
 
     # 아프리카 채팅 메시지 체크 
     def if_afreeca_chat(self, messages):
