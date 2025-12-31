@@ -506,6 +506,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # len(messages) < 11인지
         if len(messages) < 11:
             return 0
+        
+        if len(messages) == 13:
+            return 0
                 
         return 1
 
