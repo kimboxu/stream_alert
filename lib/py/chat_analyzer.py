@@ -15,7 +15,7 @@ import pandas as pd
 import glob
 from uuid import uuid4
 from pathlib import Path
-from live_message import upload_image_to_imgbb
+from live_message import upload_image_to_imgbb, highlight_chat_Data
 from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar, get_stream_start_id, format_time_for_comment, get_message
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
@@ -253,6 +253,11 @@ class ChatAnalyzer:
             self.highlights_dict[self.stream_start_time] = []
         if self.stream_start_time not in self.detailed_logs_dict:
             self.detailed_logs_dict[self.stream_start_time] = []
+
+        stream_start_id = get_stream_start_id(self.channel_id, self.stream_start_time)
+        if stream_start_id not in self.init.highlight_chat[self.channel_id]:
+            self.init.highlight_chat[self.channel_id][stream_start_id] = highlight_chat_Data()
+            self.init.highlight_chat[self.channel_id][stream_start_id].last_title = self.title_data.loc[self.channel_id,'title1']
 
     def _setup_init_title_data(self, init: initVar , platform_name: str):
         if platform_name == "chzzk":
