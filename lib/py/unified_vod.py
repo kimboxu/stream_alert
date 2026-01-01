@@ -299,15 +299,16 @@ class base_vod(ABC):
                     # 지속시간 매칭 확인 (stream_start_id와 stream_end_id 이용)
                     stream_start_id = data.get('stream_start_id', '')
                     stream_end_id = data.get('stream_end_id', '')
-                    print(f"{datetime.now()} stream_time,{stream_start_id}, {stream_end_id}")
+                    # print(f"{datetime.now()} stream_time,{stream_start_id}, {stream_end_id}")
 
                     if stream_start_id and stream_end_id:
                         broadcast_duration = calculate_stream_duration(stream_start_id, stream_end_id)
                         duration_diff = abs(broadcast_duration - self.data.duration)
-                        print(f"{datetime.now()} duration,{broadcast_duration}, {self.data.duration}")
+                        
                         
                         # 지속시간 차이가 1분 미만이면 매칭된 것으로 판단
                         if duration_diff < 60:
+                            print(f"{datetime.now()} duration,{broadcast_duration}, {self.data.duration}")
                             self.duration_diff = max(broadcast_duration - self.data.duration, 0)
                             return data
                         
@@ -326,6 +327,7 @@ class base_vod(ABC):
                     print(f"하이라이트 파일 처리 오류 {file_path}: {str(e)}")
                     continue
             
+            print(f"{datetime.now()} {self.channel_id} 매칭 실패!")
             return None
             
         except Exception as e:
