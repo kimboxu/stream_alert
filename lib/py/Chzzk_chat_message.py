@@ -418,7 +418,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
                 # 메시지 출력
                 message = self.print_msg(chat_data, chat_type)
-                if not self.init.DO_TEST and (((chat_type == "후원" and self.get_msgTypeCode(chat_data) != "채팅")) or userRoleCode in ["streamer", "streaming_chat_manager"]):
+                
+                if not self.init.DO_TEST and ( userRoleCode in ["streamer", "streaming_chat_manager"]): # ((chat_type == "후원" and self.get_msgTypeCode(chat_data) != "채팅")) or userRoleCode in ["streamer", "streaming_chat_manager"]
                     asyncio.create_task(log_error(message[0], webhook_url=environ['donation_post_url']))
                 # else:
                 #     print(f"{datetime.now()} {message[0]}")
