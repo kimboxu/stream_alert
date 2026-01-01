@@ -593,8 +593,12 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             except Exception as e: 
                 print(f"messageTime 처리 오류 {str(e)}")
                 self.data.last_chat_time = datetime.now().isoformat()
-
-            asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {self.data.cid}", is_Do_test = self.init.DO_TEST, webhook_url=environ['chat_post_url']))
+                
+            if self.start_program:
+                print(f"{datetime.now()} {self.data.channel_id} 연결 완료 {self.data.cid}")
+            else:
+                asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {self.data.cid}", is_Do_test = self.init.DO_TEST, webhook_url=environ['chat_post_url']))
+                
             return True
 
         except Exception as e:
