@@ -1024,7 +1024,7 @@ async def upload_image_to_imgbb(
             
         # 메타데이터 준비
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f'{platform_prefix}_{channel_id}_{timestamp}.jpg'
+        filename = f'{platform_prefix}_{channel_id}_{timestamp}'
         
         # ImgBB API 요청 데이터
         data = {
