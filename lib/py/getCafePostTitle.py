@@ -35,95 +35,83 @@ class CafePostData:
 class getCafePostTitle:
     # 초기화 함수: 필요한 데이터와 채널 ID 설정
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
-        self.DO_TEST: bool = init_var.DO_TEST                # 테스트 모드 여부
-        self.userStateData = init_var.userStateData          # 사용자 상태 데이터
-        self.cafeData = init_var.cafeData                    # 카페 데이터
-        self.channel_id: str = channel_id                    # 채널 ID
+        self.DO_TEST: bool = init_var.DO_TEST                               # 테스트 모드 여부
+        self.userStateData = init_var.userStateData                         # 사용자 상태 데이터
+        self.channel_id: str = channel_id                                   # 채널 ID
+        self.cafeData = init_var.cafeData                                   # 카페 데이터
+        self.cafe_json = self.cafeData.loc[self.channel_id, 'cafe_json']    # 카페 json
         self.performance_manager = performance_manager
         self.DiscordWebhookSender_class = DiscordWebhookSender()
+        
+        self.message_list: list[CafePostData] = []                                        # 알림을 보낼 게시글 목록
+
+        self.BASE_URL = f"https://apis.naver.com/cafe-web/cafe2/ArticleListV2dot1.json,{str(self.cafeData.loc[self.channel_id, 'cafeNum'])}"
 
     async def start(self):
-        try:
-            self.message_list: list = []                     # 알림을 보낼 게시글 목록
-            await self.getCafeDataDic()                      # 카페 데이터 가져오기
-            await self.postCafe()                            # 카페 게시글 알림 전송
+        try:                 
+            await self.getCafeDataDic()                                     # 카페 데이터 가져오기
+            await self.postCafe()                                           # 카페 게시글 알림 전송
                 
         except Exception as e:
             asyncio.create_task(log_error(f"error cafe {self.channel_id}.{str(e)}"))
 
     # 카페 API에서 게시글 데이터 가져오기
     async def getCafeDataDic(self):
-        # 네이버 카페 API URL 구성
-        BASE_URL = f"https://apis.naver.com/cafe-web/cafe2/ArticleListV2dot1.json,{str(self.cafeData.loc[self.channel_id, 'cafeNum'])}"
-        response = await get_message(self.performance_manager, "cafe", BASE_URL)  # API 요청
-
-        # 현재 저장된 카페 데이터 가져오기
-        cafe_json = self.cafeData.loc[self.channel_id, 'cafe_json']
-        cafe_json_ref_articles = cafe_json["refArticleId"]                           # 이미 처리한 게시글 ID 목록
-        max_ref_article = max(cafe_json_ref_articles) if cafe_json_ref_articles else 0  # 최근 게시글 ID
-        update_time = int(self.cafeData.loc[self.channel_id, 'update_time'])         # 마지막 업데이트 시간
-        cafe_name_dict = self.cafeData.loc[self.channel_id, "cafeNameDict"]          # 필터링할 작성자 닉네임 목록
-     
         try:
-            # 게시글 목록 처리
-            self._process_article_list(response, cafe_name_dict, max_ref_article, update_time, cafe_json_ref_articles)
+            response = await get_message(self.performance_manager, "cafe", self.BASE_URL)  # API 요청
+
+            # API 응답에서 게시글 목록 추출
+            article_list = response.get('message', {}).get('result', {}).get('articleList', [])
+            
+            should_update = False
+
+            # 역순으로 처리 (오래된 글부터 처리)
+            for article in reversed(article_list):
+                #특정 작성자의 게시글만 처리
+                if article["writerNickname"] not in self.cafeData.loc[self.channel_id, "cafeNameDict"]:
+                    continue
+                    
+                # 새 게시글인지 확인 (ID가 더 크고, 작성 시간이 더 최신)
+                if not (article["refArticleId"] > max(self.cafe_json["refArticleId"]+[0]) and article['writeDateTimestamp'] > int(self.cafeData.loc[self.channel_id, 'update_time'])):
+                    continue
+
+                # 카페 게시글 데이터 객체 생성 및 추가
+                self._add_cafe_post(article)
+                
+                # 카페 데이터 업데이트
+                self._update_cafe_data(article)
+                should_update = True
+
+            if should_update:
+                # 카페 데이터 저장
+                asyncio.create_task(saveCafeData(self.cafeData, self.channel_id))
+                
         except Exception as e:
             asyncio.create_task(log_error(f"게시글 처리 중 오류 발생: {str(e)}"))
 
         return
+    
 
-    # 게시글 목록 처리 함수
-    def _process_article_list(self, request, cafe_name_dict, max_ref_article, update_time, cafe_json_ref_articles):
-        """
-        Args:
-            request: API 요청 결과
-            cafe_name_dict: 필터링할 작성자 닉네임 딕셔너리
-            max_ref_article: 가장 최근의 현재까지의 게시글 ID
-            update_time: 마지막 업데이트 시간
-            cafe_json_ref_articles: 게시글 ID 목록들
-        """
-        # API 응답에서 게시글 목록 추출
-        article_list = request.get('message', {}).get('result', {}).get('articleList', [])
+    # 카페 데이터 업데이트
+    def _update_cafe_data(self, article):
+        # 최신 업데이트 시간 갱신
+        self.cafeData.loc[self.channel_id, 'update_time'] = max(
+            int(self.cafeData.loc[self.channel_id, 'update_time']), 
+            article["writeDateTimestamp"]
+        )
         
-        # 역순으로 처리 (오래된 글부터 처리)
-        for article in reversed(article_list):
-            #특정 작성자의 게시글만 처리
-            if article["writerNickname"] not in cafe_name_dict:
-                continue
-                
-            # 새 게시글인지 확인 (ID가 더 크고, 작성 시간이 더 최신)
-            if not (article["refArticleId"] > max_ref_article and article['writeDateTimestamp'] > update_time):
-                continue
-            
-            # 게시글 제목 처리(특수문자 등 처리)
-            article["subject"] = subjectReplace(article["subject"])
-            
-            # 최신 업데이트 시간 갱신
-            self.cafeData.loc[self.channel_id, 'update_time'] = max(
-                self.cafeData.loc[self.channel_id, 'update_time'], 
-                article["writeDateTimestamp"]
-            )
-            
-            # 참조 게시글 ID 목록 업데이트 (최대 10개 유지)
-            self._update_ref_article_ids(cafe_json_ref_articles, article["refArticleId"])
-            
-            # 카페 게시글 데이터 객체 생성 및 추가
-            self._add_cafe_post(article)
+        # 참조 게시글 ID 목록 업데이트 (최대 10개 유지)
+        self._update_ref_article_ids(article["refArticleId"])
 
     # 참조 게시글 ID 목록을 업데이트하는 함수
-    def _update_ref_article_ids(self, ref_article_ids, new_id):
-        """
-        Args:
-            ref_article_ids: 참조 게시글 ID 목록
-            new_id: 추가할 새 게시글 ID
-        """
+    def _update_ref_article_ids(self, new_id):
         # 목록이 이미 10개 이상인 경우 가장 오래된 것 제거
-        if len(ref_article_ids) >= 10:
-            ref_article_ids[:-1] = ref_article_ids[1:]
-            ref_article_ids[-1] = new_id
+        if len(self.cafe_json["refArticleId"]) >= 10:
+            self.cafe_json["refArticleId"][:-1] = self.cafe_json["refArticleId"][1:]
+            self.cafe_json["refArticleId"][-1] = new_id
         else:
             # 아니면 그냥 추가
-            ref_article_ids.append(new_id)
+            self.cafe_json["refArticleId"].append(new_id)
 
     # 카페 게시글을 메시지 목록에 추가하는 함수
     def _add_cafe_post(self, article):
@@ -137,9 +125,9 @@ class getCafePostTitle:
         # 카페 게시글 데이터 객체 생성
         cafe_post = CafePostData(
             cafe_link=f"https://cafe.naver.com/{cafeID}/{article['refArticleId']}",  # 게시글 링크
-            menu_id=article["menuId"],                   # 카페 게시판 ID
+            menu_id=article["menuId"],                  # 카페 게시판 ID
             menu_name=article["menuName"],              # 카페 게시판 이름
-            subject=article["subject"],                 # 게시글 제목
+            subject=subjectReplace(article["subject"]), # 게시글 제목(특수문자 등 처리)
             image=article.get("representImage", ""),    # 대표 이미지 (없으면 빈 문자열)
             write_timestamp=article["writeDateTimestamp"],  # 작성 시간
             writer_nickname=article["writerNickname"]   # 작성자 닉네임
@@ -156,20 +144,17 @@ class getCafePostTitle:
                 return
             
             # 각 게시글에 대해 알림 전송
-            for post_data in self.message_list:
-                # 웹훅 JSON 데이터 생성
-                json_data = await self.create_cafe_json(post_data)
-                print(f"{datetime.now()} {post_data.writer_nickname} post cafe {post_data.subject}")
+            post_data = self.message_list.pop(0)
+            # 웹훅 JSON 데이터 생성
+            json_data = await self.create_cafe_json(post_data)
+            print(f"{datetime.now()} {post_data.writer_nickname} post cafe {post_data.subject}")
 
-                # 알림을 보낼 웹훅 URL 목록 가져오기
-                list_of_urls = get_list_of_urls(self.DO_TEST, self.userStateData, post_data.writer_nickname, self.channel_id, "cafe_user_json")
+            # 알림을 보낼 웹훅 URL 목록 가져오기
+            list_of_urls = get_list_of_urls(self.DO_TEST, self.userStateData, post_data.writer_nickname, self.channel_id, "cafe_user_json")
 
-                # 푸시 알림 및 디스코드 웹훅 전송
-                asyncio.create_task(send_push_notification(list_of_urls, json_data))
-                asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
-
-            # 카페 데이터 저장
-            asyncio.create_task(saveCafeData(self.cafeData, self.channel_id))
+            # 푸시 알림 및 디스코드 웹훅 전송
+            asyncio.create_task(send_push_notification(list_of_urls, json_data))
+            asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
             
         except Exception as e:
             # 오류 발생 시 로그 기록 및 메시지 목록 초기화
