@@ -952,7 +952,7 @@ class afreeca_vod(base_vod):
                     cookies=cookies,
                     timeout=15
                 ) as response:
-                    print(f"{datetime.now()} 첫 번째 댓글 응답 상태: {response.status}")
+                    # print(f"{datetime.now()} 첫 번째 댓글 응답 상태: {response.status}")
                     
                     if response.status == 200:
                         response_text = await response.text()
@@ -966,7 +966,7 @@ class afreeca_vod(base_vod):
                                 msg = json_resp['CHANNEL'].get('MSG', '')
                                 
                                 if result == 1:
-                                    print(f"{datetime.now()} 아프리카TV 댓글 작성 성공!")
+                                    # print(f"{datetime.now()} 아프리카TV 댓글 작성 성공!")
                                     return True
                                 elif result == -10:
                                     print(f"{datetime.now()} 아프리카TV 댓글 실패: 로그인이 필요합니다")
