@@ -1,6 +1,7 @@
 from os import environ
 import google.generativeai as genai
 from typing import Dict, Optional
+from datetime import datetime, timedelta
 
 class GenAIModelManager:
     """AI 모델들을 관리하는 매니저 클래스 - 메모리 절약을 위해 한 번만 만들어서 재사용"""
@@ -110,7 +111,7 @@ class GenAIModelManager:
             return model
             
         except Exception as e:
-            print(f"AI 모델 생성 실패: {str(e)}")
+            print(f"{datetime.now()} AI 모델 생성 실패: {str(e)}")
             raise
     
     def clear_cache(self):
