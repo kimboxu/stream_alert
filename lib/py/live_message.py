@@ -105,6 +105,7 @@ class base_live_message:
         self.channel_name = self.id_list.loc[channel_id, 'channelName']
         state_update_time = self.title_data.loc[self.channel_id, 'state_update_time']
         category = self.title_data.loc[self.channel_id, 'category']
+        self.get_channel_url()
         self.data = LiveData(state_update_time = state_update_time, id_list = self.id_list, category = category, platform_name = platform_name)
 
         self.stream_start_id = get_stream_start_id(self.channel_id, self.data.state_update_time["openDate"])
@@ -149,7 +150,7 @@ class base_live_message:
                 # self.get_channel_url()
                 self.getViewer_count(state_data)
                 self.getCategory(state_data)
-                # self.getImageURL(state_data)
+                self.getImageURL(state_data)
                 # self.init_highlight_chat()
                 # self.get_init_last_title()
 
