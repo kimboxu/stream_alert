@@ -856,7 +856,7 @@ class afreeca_vod(base_vod):
                         response_text = response_text.strip()
                         data = loads(response_text)
 
-                        print(f"[DEBUG] 댓글 조회 응답: {str(data)[:500]}")
+                        # print(f"[DEBUG] 댓글 조회 응답: {str(data)[:500]}")
 
                         # API 응답 구조에 따라 댓글 리스트 추출
                         if 'CHANNEL' in data and 'DATA' in data['CHANNEL']:
@@ -864,10 +864,10 @@ class afreeca_vod(base_vod):
                             if isinstance(channel_data, dict):
                                 memo_list = channel_data.get('list_data', [])
                                 if isinstance(memo_list, list):
-                                    print(f"[DEBUG] 댓글 {len(memo_list)}개 조회됨")
+                                    # print(f"[DEBUG] 댓글 {len(memo_list)}개 조회됨")
                                     return memo_list
           
-                        print("[DEBUG] 댓글 목록을 찾을 수 없음")
+                        # print("[DEBUG] 댓글 목록을 찾을 수 없음")
                         return []
         
                     print(f"[DEBUG] HTTP 오류: {response.status}")
@@ -1021,7 +1021,7 @@ class afreeca_vod(base_vod):
                             cookies=cookies,
                             timeout=15
                         ) as response:
-                            print(f"{datetime.now()} 답글 {i+1} 응답 상태: {response.status}")
+                            # print(f"{datetime.now()} 답글 {i+1} 응답 상태: {response.status}")
 
                             if response.status == 200:
                                 response_text = await response.text()
@@ -1031,7 +1031,8 @@ class afreeca_vod(base_vod):
                                     response_data = loads(response_text)
                                     if 'CHANNEL' in response_data:
                                         if response_data['CHANNEL'].get('RESULT', 0) == 1:
-                                            print(f"{datetime.now()} 답글 {i+1} 작성 성공!")
+                                            # print(f"{datetime.now()} 답글 {i+1} 작성 성공!")
+                                            pass
                                         else:
                                             print(f"{datetime.now()} 답글 {i+1} 실패: {response_data}")
                                 except Exception as parse_error:
