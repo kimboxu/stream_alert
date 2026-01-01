@@ -15,6 +15,7 @@ import certifi #SSL 인증서 검증용 라이브러리
 import asyncio
 import websockets
 from time import time
+from json import loads
 from os import environ
 from requests import post
 from datetime import datetime
@@ -24,6 +25,7 @@ from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_c
 from notification_service import send_push_notification
 from chat_analyzer import ChatMessageWithAnalyzer
 from make_log_api_performance import PerformanceManager
+from aiohttp import ClientSession, ClientError, TCPConnector
 
 # 아프리카 채팅 데이터 클래스 정의
 @dataclass
@@ -93,7 +95,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
 
             # 채널 상태 데이터 가져오기
-            channel_data = self.afreeca_getChannelStateData()
+            channel_data = await self.afreeca_getChannelStateData()
             if_adult_channel, TITLE, thumbnail_url, self.CHDOMAIN, self.CHATNO, FTK, BJID, self.CHPT = channel_data
             
             # 방송 정보가 없으면 대기
@@ -123,7 +125,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     # 웹소켓 연결 및 메시지 처리
     async def _connect_and_run(self):   
         self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
-        print(f"{datetime.now()} {self.data.channel_id} 방송 켜짐")
+        # print(f"{datetime.now()} {self.data.channel_id} 방송 켜짐")
         # 웹소켓 연결
         async with websockets.connect(f"wss://{self.CHDOMAIN}:{self.CHPT}/Websocket/{self.data.BID}",
                                 subprotocols=['chat'],
@@ -204,7 +206,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         except Exception as e:
             await log_error(f"Error in ping function: {str(e)}")
         
-        print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
+        # print(f"{datetime.now()} {self.data.channel_id} chat pong 종료")
     
     # 메시지 수신
     async def _receive_messages(self):
@@ -526,7 +528,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             return True
     
     # 채널 상태 데이터 가져오기 
-    def afreeca_getChannelStateData(self):
+    async def afreeca_getChannelStateData(self):
         url = 'https://live.sooplive.co.kr/afreeca/player_live_api.php'
         data = {
             'bid': self.data.BID,
@@ -543,8 +545,15 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         
         try:
             # API 요청으로 채널 상태 데이터 가져오기
-            response = post(f'{url}?bjid={self.data.BID}', data=data, headers=getDefaultHeaders(), cookies=getAfreecaCookie())
-            res = response.json()
+            async with ClientSession(connector=TCPConnector(ssl=False)) as session:
+                async with session.post(
+                    f'{url}?bjid={self.data.BID}', 
+                    data=data, 
+                    headers=getDefaultHeaders(), 
+                    cookies=getAfreecaCookie()
+                ) as response:
+                    res = loads(await response.text())
+
         except Exception as e:
             asyncio.create_task(log_error(f"error get player live {str(e)}"))
             return None, None, None, None, None, None, None, None

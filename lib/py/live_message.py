@@ -223,7 +223,7 @@ class base_live_message:
             print(f"{now} 이전 방제: {old_title}")
             print(f"{now} 현재 방제: {self.data.title}")
         elif message == "뱅종":
-            print(f"{now} offLine {self.channel_name}, {self.init.highlight_chat[self.channel_id]}")
+            print(f"{now} offLine {self.channel_name}")
     
     #이전 방송 제목 반환
     def _get_old_title(self):
@@ -240,12 +240,15 @@ class base_live_message:
             self.get_init_last_title()
         self.title_data.loc[self.channel_id,'title2'] = self._get_title()
         self.title_data.loc[self.channel_id,'title1'] = self.data.title
+
+        self.init_highlight_chat()
         if (self.stream_start_id in self.init.highlight_chat[self.channel_id]):
             self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
 
     def record_title(self, message):
         try:
             if self.data.live in ["OPEN", 1]:
+                self.init_highlight_chat()
                 if message == "뱅온!":
                     message = "뱅온 방제"
                 after_openDate = datetime.now() - datetime.fromisoformat(self.data.state_update_time["openDate"])
