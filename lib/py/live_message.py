@@ -460,21 +460,21 @@ class chzzk_live_message(base_live_message):
     
     #치지직 스트림 정보 업데이트
     def _update_stream_info(self, stream_data, state_data):
-        # def is_recent_stream(status):
-        #     if state_data['content'][status]:
-        #         return datetime.fromisoformat(state_data['content'][status]) > datetime.fromisoformat(self.data.state_update_time[status])
+        def is_recent_stream(status):
+            if state_data['content'][status]:
+                return datetime.fromisoformat(state_data['content'][status]) > datetime.fromisoformat(self.data.state_update_time[status])
         
-        # if not self.data.live:
-        #     self.data.live, self.data.title, self.data.profile_image = stream_data
+        if not self.data.live:
+            self.data.live, self.data.title, self.data.profile_image = stream_data
 
-        # _, self.data.title, self.data.profile_image = stream_data
+        _, self.data.title, self.data.profile_image = stream_data
 
-        # if is_recent_stream("openDate") or is_recent_stream("closeDate"):
-        self.data.temp_start_at["openDate"] = state_data['content']["openDate"]
-        self.data.temp_start_at["closeDate"] = state_data['content']["closeDate"]
-        self.getStarted_at("openDate")
-        self.getStarted_at("closeDate")
-        self.data.live, self.data.title, self.data.profile_image = stream_data
+        if is_recent_stream("openDate") or is_recent_stream("closeDate"):
+            self.data.temp_start_at["openDate"] = state_data['content']["openDate"]
+            self.data.temp_start_at["closeDate"] = state_data['content']["closeDate"]
+            self.getStarted_at("openDate")
+            self.getStarted_at("closeDate")
+            self.data.live, self.data.title, self.data.profile_image = stream_data
 
     #치지직 온라인 상태 처리 여부 확인(온라인 상태인지 확인)
     def _should_process_online_status(self):
