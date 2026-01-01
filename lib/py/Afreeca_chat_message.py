@@ -66,6 +66,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         
         # 비동기 태스크 관리 리스트
         self.tasks = []
+        self.start_program = False if self.check_live_state_close() else True
 
         self.setup_analyzer(channel_id, channel_name, 'afreeca')
 
@@ -149,6 +150,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
     # 실행 중인 태스크 정리
     async def _cleanup_tasks(self):
+        self.start_program = False
+
         for task in self.tasks:
             if task and not task.done() and not task.cancelled():
                 try:
@@ -171,7 +174,10 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         chatChannelId = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
 
         # 연결 완료 로그 기록
-        asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {chatChannelId}", is_Do_test = self.init.DO_TEST, webhook_url=environ['chat_post_url']))
+        if self.start_program:
+            print(f"{datetime.now()} {self.data.channel_id} 연결 완료 {chatChannelId}")
+        else:
+            asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {chatChannelId}", is_Do_test = self.init.DO_TEST, webhook_url=environ['chat_post_url']))
 
         # 채널 참여 패킷 전송
         await asyncio.sleep(2)
