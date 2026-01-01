@@ -898,11 +898,11 @@ class afreeca_vod(base_vod):
                         # 댓글 ID 추출
                         comment_id = comment.get('p_comment_no')
                         if comment_id:
-                            print(f"  ✓ 댓글 ID 찾음: {comment_id}")
+                            # print(f"  ✓ 댓글 ID 찾음: {comment_id}")
                             return int(comment_id)
             
             if attempt < max_wait - 1:
-                print(f"  댓글 검색 중... ({attempt + 1}/{max_wait})")
+                # print(f"  댓글 검색 중... ({attempt + 1}/{max_wait})")
                 await asyncio.sleep(1)
         
         print(f"  ✗ 댓글 ID를 찾지 못했습니다 (최대 {max_wait}회 시도)")

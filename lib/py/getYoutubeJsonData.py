@@ -392,6 +392,11 @@ class getYoutubeJsonData:
 		)
 	
 	# 비디오 설명을 가져오는 함수
+	@retry(
+		stop=stop_after_attempt(5), 
+		wait=wait_exponential(multiplier=1, min=2, max=5), 
+		retry=retry_if_exception_type((asyncio.TimeoutError, ConnectionError, HttpError))
+	)
 	async def getDescription(self, video_id: str) -> str:
 		try:
 			# YouTube API 클라이언트 생성
@@ -422,8 +427,29 @@ class getYoutubeJsonData:
 			description = result['items'][0]['snippet']['description']
 			return subjectReplace(description.split('\n')[0])
 			
+		except HttpError as e:
+			# HTTP 에러는 로깅 후 재시도를 위해 raise
+			if e.resp.status == 503:
+				print(f"{datetime.now()} YouTube API 일시적 오류 (getDescription: {video_id})")
+			raise  # 재시도를 위해 예외 발생
+			
+		except asyncio.TimeoutError:
+			# 타임아웃 로깅 후 재시도를 위해 raise
+			print(f"{datetime.now()} getDescription timeout for video_id: {video_id}")
+			raise  # 재시도를 위해 예외 발생
+			
+		except ConnectionError:
+			# 연결 오류 로깅 후 재시도를 위해 raise
+			print(f"{datetime.now()} Connection error in getDescription for video_id: {video_id}")
+			raise  # 재시도를 위해 예외 발생
+			
 		except Exception as e:
-			asyncio.create_task(log_error(f"error youtube getDescription {str(e)}"))
+			# 재시도 대상이 아닌 예외는 로깅하고 빈 문자열 반환
+			error_type = type(e).__name__
+			error_msg = str(e) if str(e) else "Unknown error"
+			asyncio.create_task(
+				log_error(f"error youtube getDescription, Video ID: {video_id}, Error Type: {error_type}, Error Message: {error_msg}")
+			)
 			return ""
 
 	# 사용자 데이터(채널 이름, 프로필 이미지)를 가져오는 함수
