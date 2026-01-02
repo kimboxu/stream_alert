@@ -42,6 +42,7 @@ class initVar:
 	IMGBB_API_KEY_LIST = environ['IMGBB_API_KEY_LIST'].split(",")
 	api_key_cnt = randint(0, len(IMGBB_API_KEY_LIST)-1)
 
+	logging.getLogger('werkzeug').setLevel(logging.ERROR)
 	logging.getLogger('httpx').setLevel(logging.WARNING)  # httpx 로깅 수준 조정
 
 	# 모든 로거의 레벨을 높이려면
