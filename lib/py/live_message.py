@@ -595,6 +595,8 @@ class chzzk_live_message(base_live_message):
     #치지직 이미지 URL 가져오기
     def getImageURL(self, state_data) -> str:
         link = state_data['content']['liveImageUrl']
+        if link is None:
+            return
         link = link.replace("{type", "")
         link = link.replace("}.jpg", "0.jpg")
         self.data.thumbnail_url = link
