@@ -253,8 +253,8 @@ class base_live_message:
                 if message == "뱅온!":
                     message = "뱅온 방제"
                 after_openDate = datetime.now() - datetime.fromisoformat(self.data.state_update_time["openDate"])
-                after_openDate = str(after_openDate).split('.')[0]
-                after_openDate = format_time_for_comment(after_openDate)
+                after_openDate_seconds = int(after_openDate.total_seconds())  # timedelta를 초로 변환
+                after_openDate = format_time_for_comment(after_openDate_seconds)
                 self.init.highlight_chat[self.channel_id][self.stream_start_id].timeline_comments.append({
                     "comment_after_openDate": after_openDate, 
                     "text": f"{message}: {self.data.title}",

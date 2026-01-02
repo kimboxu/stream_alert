@@ -395,8 +395,8 @@ class ChatAnalyzer:
 
         # 방송이 켜진 시점 이후 작성된 채팅의 시간  
         after_openDate = analysis.timestamp - datetime.fromisoformat(analysis.openDate)
-        after_openDate = str(after_openDate).split('.')[0]
-        after_openDate = format_time_for_comment(after_openDate)
+        after_openDate_seconds = int(after_openDate.total_seconds())  # timedelta를 초로 변환
+        after_openDate = format_time_for_comment(after_openDate_seconds)
         
         # 상세 로그 저장
         detailed_log = {
