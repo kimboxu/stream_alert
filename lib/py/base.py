@@ -898,3 +898,30 @@ async def save_chatFilter_name(user_id, user_name, platform: str):
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
+# 닉네임 변경시 db 데이터 변경 및 사용자 설정 변경
+async def change_nickname(init, user_id, nickname, platform: str):
+	try:
+		if platform == "chzzk":
+			IDList = list(init.chzzkIDList["channelID"])
+			channelName = init.chzzk_chatFilter.loc[user_id, "channelName"]
+		elif platform == "afreeca":
+			IDList = list(init.afreecaIDList["channelID"])
+			channelName = init.afreeca_chatFilter.loc[user_id, "channelName"]
+
+		if nickname != channelName:
+			for discordWebhookURL in init.userStateData['discordURL']:
+				if init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
+					for channelID in init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
+
+						# 사용자의 치지직 스트리머 채널의 설정 리스트 중에 닉네임 변경이 필요한 사람이 있는지 
+						if  channelID in IDList and channelName in init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID]:
+							index = init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID].index(channelName)
+							init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID][index] = nickname
+							asyncio.create_task(save_user_chat_user_json(discordWebhookURL, init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
+
+			asyncio.create_task(log_error(f"닉네임 변경됨 {platform}:{channelName} -> {nickname}"))
+			channelName = nickname
+			asyncio.create_task(save_chatFilter_name(user_id, nickname, platform = platform))
+			
+	except Exception as e:
+		print(e)

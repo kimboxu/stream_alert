@@ -19,6 +19,7 @@ from base import  (
     save_chat_command_data,
     save_chatFilter_name,
     save_user_chat_user_json,
+    change_nickname,
     )
 
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls, get_chat_json_data
@@ -436,7 +437,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 if user_id not in [*self.init.chzzk_chatFilter["uid"]]:
                     continue
 
-                await self.change_nickname(user_id, nickname)
+                await change_nickname(self.init, user_id, nickname, "chzzk")
 
                 # self.data.chzzk_chat_msg_List.append([chat_data, chat_type])
                 # 채팅 전송 태스크 생성
@@ -450,28 +451,6 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if processing_tasks:
             await asyncio.gather(*processing_tasks, return_exceptions=True)
 
-    # 닉네임 변경시 db 데이터 변경 및 사용자 설정 변경
-    async def change_nickname(self, user_id, nickname):
-        try:
-            if nickname != self.init.chzzk_chatFilter.loc[user_id, "channelName"]:
-
-                chzzkIDList = list(self.init.chzzkIDList["channelID"])
-
-                for discordWebhookURL in self.init.userStateData['discordURL']:
-                    if self.init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
-                        for channelID in self.init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
-
-                            # 사용자의 치지직 스트리머 채널의 설정 리스트 중에 닉네임 변경이 필요한 사람이 있는지 
-                            if  channelID in chzzkIDList and self.init.chzzk_chatFilter.loc[user_id, "channelName"] in self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID]:
-                                index = self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID].index(self.init.chzzk_chatFilter.loc[user_id, "channelName"])
-                                self.init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID][index] = nickname
-                                asyncio.create_task(save_user_chat_user_json(discordWebhookURL, self.init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
-
-                self.init.chzzk_chatFilter.loc[user_id, 'channelName'] = nickname
-                asyncio.create_task(save_chatFilter_name(user_id, nickname, platform = 'chzzk'))
-                asyncio.create_task(log_error(f"닉네임 변경됨 chzzk:{self.init.chzzk_chatFilter.loc[user_id, 'channelName']} -> {nickname}"))
-        except Exception as e:
-            print(e)
 
     # 채팅 전송 함수
     async def _post_chat(self, chat_data, message):

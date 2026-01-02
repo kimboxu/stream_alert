@@ -10,6 +10,7 @@ from base import (
     getDefaultHeaders,
     getAfreecaCookie,
     save_chatFilter_name,
+    change_nickname,
 )
 import certifi #SSL 인증서 검증용 라이브러리
 import asyncio
@@ -391,10 +392,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         if nickname != user_nick:
             return
         
-        # 닉네임 불일치 처리
-        if not self.init.DO_TEST and nickname != self.init.afreeca_chatFilter.loc[user_id, "channelName"]:
-            self.init.afreeca_chatFilter.loc[user_id, "channelName"] = nickname
-            asyncio.create_task(save_chatFilter_name(user_id, nickname, "afreeca"))
+        await change_nickname(self.init, user_id, nickname, "afreeca")
 
         # 메시지 중복 체크 및 처리
         self._process_new_message(user_id, chat)
