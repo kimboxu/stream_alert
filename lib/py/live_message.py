@@ -492,11 +492,10 @@ class chzzk_live_message(base_live_message):
     async def _handle_offline_status(self, state_data):
         message = "뱅종"
         self.data.state_update_time["is_firstConnect"] = True
-        json_data = await self.getOffJson(state_data)
-
         self.offLineTitle()
         self.offLineTime()
 
+        json_data = await self.getOffJson(state_data)
         self.data.livePostList.append((message, json_data))
 
         self.data.state_update_time["myCheckcloseDate"] = datetime.now().isoformat()
