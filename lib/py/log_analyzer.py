@@ -22,6 +22,21 @@ except ImportError as e:
     print(f"AI 기능을 사용할 수 없습니다: {str(e)}")
     AI_AVAILABLE = False
 
+def _parse_time_to_seconds(time_str):
+    """시간 문자열을 초로 변환 (예: "1:23:45" -> 5025초)"""
+    try:
+        parts = time_str.split(':')
+        if len(parts) == 3:  # HH:MM:SS
+            hours, minutes, seconds = map(int, parts)
+            return hours * 3600 + minutes * 60 + seconds
+        elif len(parts) == 2:  # MM:SS
+            minutes, seconds = map(int, parts)
+            return minutes * 60 + seconds
+        else:  # SS
+            return int(parts[0])
+    except (ValueError, IndexError):
+        return 0
+
 class SessionBasedFunScoreAnalyzer:
     """방송 세션별로 재미도 로그를 분석하는 클래스"""
     
@@ -1251,9 +1266,9 @@ class SessionBasedFunScoreAnalyzer:
             
             for comment in timeline_comments:
                 try:
-                    from base import format_time_for_comment
                     after_open = comment.get('comment_after_openDate', '00:00:00')
-                    after_open = format_time_for_comment(after_open, 25)
+                    total_seconds = _parse_time_to_seconds(after_open)
+                    after_open = format_time_for_comment(total_seconds, 25)
                     
                     text = comment.get('image_text', comment.get('text', 'Test 재미구간'))
                     
@@ -1393,9 +1408,7 @@ class SessionBasedFunScoreAnalyzer:
 
     async def _export_test_highlights_basic(self, session_logs, session_stats):
         """기본 로직을 사용한 단순 키워드 기반 하이라이트 댓글 생성"""
-        try:
-            from base import format_time_for_comment
-            
+        try:     
             highlight_lines = []
             
             # 재미도 점수 기준점들 (동일한 기준 사용)
@@ -1413,7 +1426,8 @@ class SessionBasedFunScoreAnalyzer:
                     score_components.get('test_should_create_new_highlight', True)):
                     
                     after_open = log['comment_after_openDate']
-                    after_open = format_time_for_comment(after_open, 25)
+                    total_seconds = _parse_time_to_seconds(after_open)
+                    after_open = format_time_for_comment(total_seconds, 25)
                     test_score_diff = score_components.get('test_score_difference', 0)
                     
                     # Test 재미 점수 계산
@@ -1546,7 +1560,8 @@ class SessionBasedFunScoreAnalyzer:
             for comment in timeline_comments:
                 try:
                     after_open = comment.get('comment_after_openDate', '00:00:00')
-                    after_open = format_time_for_comment(after_open, 25)
+                    total_seconds = _parse_time_to_seconds(after_open)
+                    after_open = format_time_for_comment(total_seconds, 25)
                     
                     # AI가 생성한 text 사용
                     text = comment.get('image_text', comment.get('text', '재미구간'))
@@ -1699,8 +1714,6 @@ class SessionBasedFunScoreAnalyzer:
 
     async def _export_highlights_basic(self, session_logs, session_stats):
         """기본 로직을 사용한 하이라이트 댓글 생성"""
-        from base import format_time_for_comment
-        
         try:
             highlight_lines = []
             
@@ -1719,7 +1732,8 @@ class SessionBasedFunScoreAnalyzer:
                     score_components.get('should_create_new_highlight', True)):
                     
                     after_open = log['comment_after_openDate']
-                    after_open = format_time_for_comment(after_open, 25)
+                    total_seconds = _parse_time_to_seconds(after_open)
+                    after_open = format_time_for_comment(total_seconds, 25)
                     score_diff = score_components.get('score_difference', 0)
                     
                     # 재미 점수 계산 (VOD 시스템과 동일)

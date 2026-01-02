@@ -408,7 +408,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 if chat_type == "채팅":
                     chat = self.get_chat(chat_data)
 
-                    if await self.chat_command(userRoleCode, nickname, chat):
+                    if not self.init.DO_TEST and await self.chat_command(userRoleCode, nickname, chat):
                         continue 
                     
                     if nickname and chat:

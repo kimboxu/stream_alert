@@ -411,11 +411,11 @@ class base_vod(ABC):
             comment_relative_seconds = comment_absolute_seconds - segment_start_offset
             
             # 상대적 시간을 문자열로 변환
-            relative_time_str = self._seconds_to_time_string(comment_relative_seconds)
+            # relative_time_str = self._seconds_to_time_string(comment_relative_seconds)
             
             # 기존 오프셋 적용
             del_sec = int(self.time_offset + min((self.duration_diff - 10), 0))
-            formatted_time = format_time_for_comment(relative_time_str, del_sec)
+            formatted_time = format_time_for_comment(comment_relative_seconds, del_sec)
             
             if not formatted_time:
                 continue
