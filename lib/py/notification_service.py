@@ -354,10 +354,10 @@ class FileNotificationManager:
                         # 타임스탬프 파싱 실패시 유지
                         filtered_notifications.append(notification)
 
-                await asyncio.sleep(0)  # 0초 sleep은 즉시 제어권만 반환
+                await asyncio.sleep(0.01)  # 제어권만 반환
                 
             if len(filtered_notifications) != len(notifications):
-                print(f"{datetime.now()} {webhook_url}: {original_count}개 -> {len(filtered_notifications)}개로 정리")
+                # print(f"{datetime.now()} {webhook_url}: {original_count}개 -> {len(filtered_notifications)}개로 정리")
                 return self.save_notifications(webhook_url, filtered_notifications, force_save=True)
                 
             return True
