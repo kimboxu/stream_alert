@@ -109,6 +109,7 @@ async def userDataVar(init: initVar):
 			'is_use_AI': update_data['is_use_AI'],
 			'is_hot_clip': update_data['is_hot_clip'],
 			'is_save_highlight_data': update_data['is_save_highlight_data'],
+			'is_state_control': update_data['is_state_control'],
 		}.items():
 			setattr(init, attr, value)
 

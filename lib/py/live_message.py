@@ -981,6 +981,8 @@ async def upload_image_to_imgbb(
     UPLOAD_TIMEOUT = 20  # 업로드 타임아웃 (초)
     
     try:
+        if not init.is_state_control["is_upload"]:
+            return ""
         # API 키 확인
         init.api_key_cnt = (init.api_key_cnt + 1) % len(init.IMGBB_API_KEY_LIST)
         api_key = init.IMGBB_API_KEY_LIST[init.api_key_cnt]
@@ -1068,30 +1070,30 @@ async def upload_image_to_imgbb(
                                 result_data = await imgbb_response.json()
                                 if result_data.get('success'):
                                     thumbnail_url = result_data['data']['url']
-                                    print(f"{datetime.now()} ImgBB 업로드 성공: {thumbnail_url}")
+                                    print(f"{datetime.now()} ImgBB 업로드 성공({api_key[:5]}): {thumbnail_url}")
                                     return thumbnail_url
                                 else:
                                     error_msg = result_data.get('error', {}).get('message', 'Unknown error')
-                                    print(f"{datetime.now()} ImgBB API 오류: {error_msg}")
+                                    print(f"{datetime.now()} ImgBB API 오류({api_key[:5]}): {error_msg}")
                                     
                                     # 마지막 시도에서 실패한 경우
                                     if attempt == MAX_RETRIES - 1:
                                         return None
                                     
                             except Exception as e:
-                                print(f"{datetime.now()} ImgBB 응답 파싱 실패: {str(e)}")
+                                print(f"{datetime.now()} ImgBB 응답 파싱 실패({api_key[:5]}): {str(e)}")
                                 
                                 # 마지막 시도에서 실패한 경우
                                 if attempt == MAX_RETRIES - 1:
                                     return None
                             
                         elif imgbb_response.status == 429:
-                            print(f"{datetime.now()} ImgBB 레이트 제한 ({imgbb_response.status})")
+                            print(f"{datetime.now()} ImgBB 레이트 제한({api_key[:5]}) ({imgbb_response.status})")
                             return ""  # 빈 문자열로 재시도 방지
                             
                         elif imgbb_response.status == 400:
                             response_text = await imgbb_response.text()
-                            print(f"{datetime.now()} ImgBB 잘못된 요청 ({imgbb_response.status}): {response_text[:200]}")
+                            print(f"{datetime.now()} ImgBB 잘못된 요청({api_key[:5]}) ({imgbb_response.status}): {response_text[:200]}")
                             return ""  # 빈 문자열로 재시도 방지
                         
                         elif imgbb_response.status == 503:
@@ -1101,7 +1103,7 @@ async def upload_image_to_imgbb(
                             
                         else:
                             response_text = await imgbb_response.text()
-                            print(f"{datetime.now()} ImgBB 업로드 실패: {imgbb_response.status}")
+                            print(f"{datetime.now()} ImgBB 업로드 실패({api_key[:5]}): {imgbb_response.status}")
                             print(f"응답: {response_text[:200]}")
                             
                             # 마지막 시도에서 실패한 경우
@@ -1125,7 +1127,7 @@ async def upload_image_to_imgbb(
                         retry_count=attempt
                     ))
                     
-                    print(f"{datetime.now()} ImgBB 업로드 타임아웃 (시도 {attempt + 1}/{MAX_RETRIES})")
+                    print(f"{datetime.now()} ImgBB 업로드 타임아웃({api_key[:5]}) (시도 {attempt + 1}/{MAX_RETRIES})")
                     
                     # 마지막 시도에서 실패한 경우
                     if attempt == MAX_RETRIES - 1:
@@ -1148,7 +1150,7 @@ async def upload_image_to_imgbb(
                         retry_count=attempt
                     ))
                     
-                    print(f"{datetime.now()} ImgBB 연결 오류 (시도 {attempt + 1}/{MAX_RETRIES}): {type(e).__name__}")
+                    print(f"{datetime.now()} ImgBB 연결 오류({api_key[:5]}) (시도 {attempt + 1}/{MAX_RETRIES}): {type(e).__name__}")
                     
                     # 마지막 시도에서 실패한 경우
                     if attempt == MAX_RETRIES - 1:
@@ -1171,7 +1173,7 @@ async def upload_image_to_imgbb(
                         retry_count=attempt
                     ))
                     
-                    print(f"{datetime.now()} ImgBB 업로드 오류 (시도 {attempt + 1}/{MAX_RETRIES}): {type(e).__name__}: {str(e)[:100]}")
+                    print(f"{datetime.now()} ImgBB 업로드 오류({api_key[:5]}) (시도 {attempt + 1}/{MAX_RETRIES}): {type(e).__name__}: {str(e)[:100]}")
                     
                     # 마지막 시도에서 실패한 경우
                     if attempt == MAX_RETRIES - 1:
@@ -1184,7 +1186,7 @@ async def upload_image_to_imgbb(
         return None
             
     except Exception as e:
-        print(f"{datetime.now()} ImgBB 업로드 전체 프로세스 오류: {type(e).__name__}: {str(e)[:100]}")
+        print(f"{datetime.now()} ImgBB 업로드 전체 프로세스 오류({api_key[:5]}): {type(e).__name__}: {str(e)[:100]}")
         import traceback
         traceback.print_exc()
         return None
