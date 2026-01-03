@@ -1,22 +1,20 @@
 import asyncio
 import re
+import glob
 import json
 import statistics
-from requests import get
+from uuid import uuid4
 from io import BytesIO
-from PIL import Image as PILImage
+from pathlib import Path
 from math import exp, floor
+from PIL import Image as PILImage
+from collections import deque, Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Tuple
-from collections import deque, Counter
-from os import environ, path, makedirs
-import pandas as pd
-import glob
-from uuid import uuid4
-from pathlib import Path
+from json_repair_handler import JSONRepairHandler
 from live_message import upload_image_to_imgbb, highlight_chat_Data
-from base import log_error, if_after_time, changeUTCtime, iconLinkData, initVar, get_stream_start_id, format_time_for_comment, get_message
+from base import log_error, changeUTCtime, iconLinkData, initVar, get_stream_start_id, format_time_for_comment, get_message
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
@@ -1250,7 +1248,7 @@ class ChatAnalyzer:
                 print(f"{datetime.now()} ⚠ 주기적 로그 저장 오류: {str(e)}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
-    async def _make_highlight_chat(self, highlights: list[StreamHighlight], is_emergency = False, is_use_description = True):
+    async def _make_highlight_chat(self, highlights: List, is_emergency: bool = False, is_use_description: bool = True) -> List[dict]:
         try:
             self.init.wait_make_highlight_chat[self.channel_id] = True
             max_retries = len(self.init.GOOGLE_API_KEY_LIST)
@@ -1260,148 +1258,144 @@ class ChatAnalyzer:
             if not highlights: #or not self.init.is_vod_chat_json[self.channel_id]
                 return emergency_timeline_comments
             
-            highlight_data = []
-            images_with_labels = []
-
-            def get_dummy_image():
-                return PILImage.new("RGBA", (1, 1), (0, 0, 0, 0))
+            # 하이라이트 데이터 및 이미지 준비
+            highlight_data, images_with_labels, emergency_timeline_comments = (
+                self._prepare_highlight_data(highlights)
+            )
             
-            for i, highlight in enumerate(highlights):
-                try:
-                    analysis_data = highlight.analysis_data
-                    fun_keywords = analysis_data.get('fun_keywords', {})
-                    score_details = highlight.score_details
-
-                    highlight_data.append({
-                        "하이라이트_ID": f"HIGHLIGHT_{i+1}",
-                        "재미도_점수": highlight.fun_score,
-                        "하이라이트_이유": highlight.reason,
-                        "최근_채팅": highlight.chat_context,
-                        "최고점수_시간": highlight.after_openDate,
-                        "VOD_타임라인_시간": highlight.comment_after_openDate,
-                        "방송_인네일": f"이미지_{i+1}",
-                        "썸네일_존재": bool(highlight.image),
-                        "메시지_개수": analysis_data['message_count'],
-                        "시청자_수": analysis_data['viewer_count'],
-                        "웃음_키워드_수": fun_keywords.get('laugh', 0),
-                        "놀람_키워드_수": fun_keywords.get('surprise', 0),
-                        "흥분_키워드_수": fun_keywords.get('excitement', 0),
-                        "일반반응_키워드_수": fun_keywords.get('reaction', 0),
-                        "인사_키워드_수": fun_keywords.get('greeting', 0),
-                        "채팅_급증_점수": score_details['chat_spike_score'],
-                        "리액션_점수": score_details['reaction_score'],
-                        "다양성_점수": score_details['diversity_score'],
-                        "시청자_급증_점수": score_details['viewer_trend_score'],
-                        "기준_채팅_수": score_details['baseline_chat_count'],
-                        "기준_시청자_수": score_details['baseline_viewer_count'],
-                        "하이라이트_여부": score_details['highlights'],
-                        "큰_하이라이트_여부": score_details['big_highlights'],
-                        "재미도_점수_차이": score_details['score_difference'],
-                    })
-
-                    emergency_timeline_comments.append(
-                        {"comment_after_openDate": highlight.comment_after_openDate, 
-                        "score_difference": score_details['score_difference'],
-                        "text": highlight.reason, 
-                        "image_text": highlight.reason}
-                    )
-
-                    images_with_labels.append(highlight.image if highlight.image else get_dummy_image())
-
-                except Exception as e:
-                    print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {str(e)}")
-                    continue
-            
+            # AI 미사용 또는 테스트 모드 체크
             if not is_use_description or not self.init.is_use_AI[self.channel_id] or self.init.DO_TEST:
                 return emergency_timeline_comments
 
-            # 명확한 이미지 매핑 지시사항 포함
-            prompt = f"""다음 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
-
-                중요: 각 하이라이트의 "방송 썸네일" 필드에 표시된 이미지 번호와 제공된 이미지 순서가 일치합니다.
-                - 첫 번째 이미지는 "이미지_1"에 해당
-                - 두 번째 이미지는 "이미지_2"에 해당
-                - 이런 식으로 순서대로 매핑됩니다.
-
-                각 하이라이트의 "하이라이트_ID"를 참조하여 해당하는 이미지를 분석해주세요.
-
-                분석 데이터:
-                {json.dumps(highlight_data, ensure_ascii=False, indent=2)}"""
-            
-            # 프롬프트와 모든 이미지를 순서대로 전송
+            # 프롬프트 생성
+            prompt = self._create_timeline_prompt(highlight_data)
             msg_list = [prompt] + images_with_labels
             
             print(f"{datetime.now()} {self.channel_name} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
 
-            for attempt in range(max_retries):
-                try:
-                    self.add_genai_cnt()
-                    model = get_genai_model(self.init.genai_cnt, is_emergency)
-                    
-                    response = await asyncio.wait_for(
-                        asyncio.to_thread(model.generate_content, msg_list),
-                        timeout=request_timeout
-                    )
+            # API 호출 및 JSON 파싱
+            def api_call():
+                self.add_genai_cnt()
+                model = get_genai_model(self.init.genai_cnt, is_emergency)
+                return asyncio.to_thread(model.generate_content, msg_list)
 
-                    response_text = response.text.strip()
-                    
-                    # markdown 코드 블록 제거
-                    if response_text.startswith('```json'):
-                        response_text = response_text[7:]
-                    if response_text.startswith('```'):
-                        response_text = response_text[3:]
-                    if response_text.endswith('```'):
-                        response_text = response_text[:-3]
-                    
-                    response_text = response_text.strip()
-                    response_text = re.sub(r',(\s*[}\]])', r'\1', response_text)
-                    
-                    timeline_comments = json.loads(response_text)
-                    
-                    if isinstance(timeline_comments, list):
-                        timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
-                        print(f"{datetime.now()} 배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
-                        return timeline_comments
-                    else:
-                        raise ValueError("응답이 리스트 형태가 아닙니다")
+            def response_validator(response):
+                """응답 검증: 리스트 형태인지 확인"""
+                return isinstance(response, list) and len(response) > 0
 
-                except asyncio.TimeoutError:
-                    print(f"{datetime.now()} ⏱️ API 요청 타임아웃 (시도 {attempt + 1}/{max_retries})")
-                    
-                    if attempt < max_retries - 1:
-                        self.add_genai_cnt(10)
-                        wait_time = 2 ** attempt
-                        print(f"{datetime.now()} {wait_time}초 후 재시도...")
-                        await asyncio.sleep(wait_time)
-                    else:
-                        await log_error(f"API 요청 최종 실패 (타임아웃): {self.channel_name}")
-                        return emergency_timeline_comments
+            # 콜백 함수들
+            def on_retry_callback(attempt, max_retries):
+                self.add_genai_cnt(10)
 
-                except (json.JSONDecodeError, ValueError) as e:
-                    print(f"{datetime.now()} JSON 파싱 오류 (시도 {attempt + 1}/{max_retries}): {str(e)}")
-                    print(f"{datetime.now()} 응답 내용: {response.text}")
-                    
-                    if attempt < max_retries - 1:
-                        self.add_genai_cnt(10)
-                        await asyncio.sleep(1)
-                        continue
-                    else:
-                        await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
-                        return emergency_timeline_comments
+            def on_timeout_callback(attempt, max_retries):
+                asyncio.create_task(
+                    log_error(f"API 요청 타임아웃: {self.channel_name} (시도 {attempt}/{max_retries})")
+                )
 
-                except Exception as e:
-                    print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {str(e)}")
-                    
-                    if attempt < max_retries - 1:
-                        self.add_genai_cnt(10)
-                        wait_time = 2 ** attempt
-                        await asyncio.sleep(wait_time)
-                    else:
-                        await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
-                        return emergency_timeline_comments
-        
+            def on_error_callback(attempt, max_retries, error_msg):
+                asyncio.create_task(
+                    log_error(f"API 요청 오류: {self.channel_name} (시도 {attempt}/{max_retries}) - {error_msg}")
+                )
+
+            timeline_comments = await JSONRepairHandler.call_api_and_parse_json(
+                api_func=api_call,
+                max_retries=max_retries,
+                timeout=request_timeout,
+                on_retry_callback=on_retry_callback,
+                on_timeout_callback=on_timeout_callback,
+                on_error_callback=on_error_callback,
+                response_validator=response_validator,
+            )
+
+            # 파싱 실패 시 긴급 데이터 반환
+            if timeline_comments is None:
+                print(f"{datetime.now()} ⚠️ JSON 파싱 실패, 응급 데이터로 대체")
+                await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
+                return emergency_timeline_comments
+            
+            # 타임라인 기준으로 정렬
+            if isinstance(timeline_comments, list):
+                timeline_comments.sort(key=lambda x: x.get('comment_after_openDate', ''))
+                print(f"{datetime.now()} 배치 분석 완료: {len(timeline_comments)}개 댓글 생성")
+            
+            return timeline_comments
+        except Exception as e:
+            print(f"{datetime.now()} error _make_highlight_chat {str(e)}")
+            return emergency_timeline_comments
+
         finally:
             self.init.wait_make_highlight_chat[self.channel_id] = False
+
+    def _prepare_highlight_data(self, highlights: List[StreamHighlight]) -> tuple:
+        highlight_data = []
+        images_with_labels = []
+        emergency_timeline_comments = []
+
+        def get_dummy_image():
+            return PILImage.new("RGBA", (1, 1), (0, 0, 0, 0))
+        
+        for i, highlight in enumerate(highlights):
+            try:
+                analysis_data = highlight.analysis_data
+                fun_keywords = analysis_data.get('fun_keywords', {})
+                score_details = highlight.score_details
+
+                highlight_data.append({
+                    "하이라이트_ID": f"HIGHLIGHT_{i+1}",
+                    "재미도_점수": highlight.fun_score,
+                    "하이라이트_이유": highlight.reason,
+                    "최근_채팅": highlight.chat_context,
+                    "최고점수_시간": highlight.after_openDate,
+                    "VOD_타임라인_시간": highlight.comment_after_openDate,
+                    "방송_인네일": f"이미지_{i+1}",
+                    "썸네일_존재": bool(highlight.image),
+                    "메시지_개수": analysis_data['message_count'],
+                    "시청자_수": analysis_data['viewer_count'],
+                    "웃음_키워드_수": fun_keywords.get('laugh', 0),
+                    "놀람_키워드_수": fun_keywords.get('surprise', 0),
+                    "흥분_키워드_수": fun_keywords.get('excitement', 0),
+                    "일반반응_키워드_수": fun_keywords.get('reaction', 0),
+                    "인사_키워드_수": fun_keywords.get('greeting', 0),
+                    "채팅_급증_점수": score_details['chat_spike_score'],
+                    "리액션_점수": score_details['reaction_score'],
+                    "다양성_점수": score_details['diversity_score'],
+                    "시청자_급증_점수": score_details['viewer_trend_score'],
+                    "기준_채팅_수": score_details['baseline_chat_count'],
+                    "기준_시청자_수": score_details['baseline_viewer_count'],
+                    "하이라이트_여부": score_details['highlights'],
+                    "큰_하이라이트_여부": score_details['big_highlights'],
+                    "재미도_점수_차이": score_details['score_difference'],
+                })
+
+                emergency_timeline_comments.append({
+                    "comment_after_openDate": highlight.comment_after_openDate, 
+                    "score_difference": score_details['score_difference'],
+                    "text": highlight.reason, 
+                    "image_text": highlight.reason
+                })
+
+                images_with_labels.append(
+                    highlight.image if highlight.image else get_dummy_image()
+                )
+
+            except Exception as e:
+                print(f"{datetime.now()} 하이라이트 데이터 처리 오류: {str(e)}")
+                continue
+
+        return highlight_data, images_with_labels, emergency_timeline_comments
+
+    def _create_timeline_prompt(self, highlight_data: List[dict]) -> str:
+        return f"""다음 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
+
+    중요: 각 하이라이트의 "방송 썸네일" 필드에 표시된 이미지 번호와 제공된 이미지 순서가 일치합니다.
+    - 첫 번째 이미지는 "이미지_1"에 해당
+    - 두 번째 이미지는 "이미지_2"에 해당
+    - 이런 식으로 순서대로 매핑됩니다.
+
+    각 하이라이트의 "하이라이트_ID"를 참조하여 해당하는 이미지를 분석해주세요.
+
+    분석 데이터:
+    {json.dumps(highlight_data, ensure_ascii=False, indent=2)}"""
     
     def add_genai_cnt(self, num = 2):
         self.init.genai_cnt = (self.init.genai_cnt + num) % (
