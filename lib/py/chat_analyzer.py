@@ -58,17 +58,15 @@ class ChatMessageWithAnalyzer:
         self.chat_analyzer = ChatAnalyzer(self.init, self.performance_manager, channel_id, channel_name, platform_name)
         self.analysis_task = None
         self.log_save_task = None
-        self.is_save_log = False
 
     async def start_analyzer(self):
         """분석기 시작 - start() 메서드에서 호출"""
         try:
-            if not self.analysis_task or self.analysis_task.done():
-                self.is_save_log = False
-                self.chat_analyzer.stream_start_time = str(self.init.stream_status[self.chat_analyzer.channel_id].state_update_time['openDate'])
+            if not self.analysis_task or self.analysis_task.done(): 
+                self.chat_analyzer.stream_start_id = get_stream_start_id(self.chat_analyzer.channel_id, str(self.init.stream_status[self.chat_analyzer.channel_id].state_update_time['openDate']))
                 self.chat_analyzer._setup_init_dict()
                 self.analysis_task = asyncio.create_task(self._run_analyzer())
-                print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.chat_analyzer.stream_start_time}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
+                print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.chat_analyzer.stream_start_id}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
 
                 # 주기적 로그 저장 태스크 시작
                 self.log_save_task = asyncio.create_task(self.chat_analyzer.save_logs_periodically())
@@ -116,16 +114,16 @@ class ChatMessageWithAnalyzer:
 
     async def should_offLine(self):
         # 로그 저장
-        if self.is_save_log:
+        if self.chat_analyzer.is_save_log:
             return
         
-        self.is_save_log = True
+        self.chat_analyzer.is_save_log = True
         await self.stop_analyzer()
-        await self.chat_analyzer.highlight_processing(self.is_save_log)
+        await self.chat_analyzer.highlight_processing()
 
     async def highlight_processing(self):
         is_emergency = True
-        asyncio.create_task(self.chat_analyzer.highlight_processing(self.is_save_log, is_emergency))
+        asyncio.create_task(self.chat_analyzer.highlight_processing(is_emergency))
 
     async def _run_analyzer(self):
         """주기적인 분석 실행"""
@@ -136,14 +134,14 @@ class ChatMessageWithAnalyzer:
                     await asyncio.sleep(self.chat_analyzer.analysis_interval) 
 
                     # 분석 실행
-                    if self.is_save_log:
+                    if self.chat_analyzer.is_save_log:
                         break
 
                     try:
                         detailed_log = await self.chat_analyzer.analyze()
                     except Exception as e:
-                        asyncio.create_task(log_error(f"_run_analyzer {self.chat_analyzer.channel_name} 오류: self.is_save_log:{self.is_save_log}, {str(e)}"))
-                        if self.is_save_log:
+                        asyncio.create_task(log_error(f"_run_analyzer {self.chat_analyzer.channel_name} 오류: self.is_save_log:{self.chat_analyzer.is_save_log}, {str(e)}"))
+                        if self.chat_analyzer.is_save_log:
                             break
                         self.chat_analyzer._setup_init_dict()
 
@@ -172,7 +170,8 @@ class ChatAnalyzer:
         self.channel_name = channel_name
         self.platform_name = platform_name
         self.init.wait_make_highlight_chat[self.channel_id] = False
-        self.stream_start_time = None
+        self.is_save_log = False
+        self.stream_start_id = None
         self._setup_init_title_data(init, platform_name)
 
         # 분석 설정
@@ -244,20 +243,19 @@ class ChatAnalyzer:
         self._setup_log_directories()
 
     def _setup_init_dict(self):
-        if self.stream_start_time is None:
+        if self.stream_start_id is None:
             return
         
-        self.is_wait[self.stream_start_time] = False
+        self.is_wait[self.stream_start_id] = False
 
-        if self.stream_start_time not in self.highlights_dict:
-            self.highlights_dict[self.stream_start_time] = []
-        if self.stream_start_time not in self.detailed_logs_dict:
-            self.detailed_logs_dict[self.stream_start_time] = []
+        if self.stream_start_id not in self.highlights_dict:
+            self.highlights_dict[self.stream_start_id] = []
+        if self.stream_start_id not in self.detailed_logs_dict:
+            self.detailed_logs_dict[self.stream_start_id] = []
 
-        stream_start_id = get_stream_start_id(self.channel_id, self.stream_start_time)
-        if stream_start_id not in self.init.highlight_chat[self.channel_id]:
-            self.init.highlight_chat[self.channel_id][stream_start_id] = highlight_chat_Data()
-            self.init.highlight_chat[self.channel_id][stream_start_id].last_title = self.title_data.loc[self.channel_id,'title1']
+        if self.stream_start_id not in self.init.highlight_chat[self.channel_id]:
+            self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
+            self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.title_data.loc[self.channel_id,'title1']
 
     def _setup_init_title_data(self, init: initVar , platform_name: str):
         if platform_name == "chzzk":
@@ -417,10 +415,10 @@ class ChatAnalyzer:
         }
         
         self._setup_init_dict()
-        self.detailed_logs_dict[self.stream_start_time].append(detailed_log)
+        self.detailed_logs_dict[self.stream_start_id].append(detailed_log)
         # 최대 2000개까지만 보관
-        if len(self.detailed_logs_dict[self.stream_start_time]) > 2000:
-            self.detailed_logs_dict[self.stream_start_time] = self.detailed_logs_dict[self.stream_start_time][-2000:]
+        if len(self.detailed_logs_dict[self.stream_start_id]) > 2000:
+            self.detailed_logs_dict[self.stream_start_id] = self.detailed_logs_dict[self.stream_start_id][-2000:]
 
         # 하이라이트 체크
         if score_details['highlights'] or self.init.DO_TEST:
@@ -813,15 +811,15 @@ class ChatAnalyzer:
         await self.change_score_to_peak(highlight)
         if highlight.score_details['should_create_new_highlight']:
             self._setup_init_dict()
-            self.highlights_dict[self.stream_start_time].append(highlight)
+            self.highlights_dict[self.stream_start_id].append(highlight)
             self.last_highlight = highlight
 
         # if not self.init.DO_TEST:
         #     await self._save_highlight_to_db(highlight)
 
-        if len(self.highlights_dict[self.stream_start_time]) > 40:
-            highlights_to_process = self.highlights_dict[self.stream_start_time].copy()
-            self.highlights_dict[self.stream_start_time] = [self.highlights_dict[self.stream_start_time][-1]]
+        if len(self.highlights_dict[self.stream_start_id]) > 40:
+            highlights_to_process = self.highlights_dict[self.stream_start_id].copy()
+            self.highlights_dict[self.stream_start_id] = [self.highlights_dict[self.stream_start_id][-1]]
             asyncio.create_task(self._process_highlights_background(highlights_to_process[:-1]))
             
     # 치지직 방송 시간이 17시간이 지날 때마다
@@ -835,62 +833,61 @@ class ChatAnalyzer:
         
         return False
     
-    async def highlight_processing(self, is_save_log = False, is_emergency = False):
+    async def highlight_processing(self, is_emergency = False):
         """하이라이트 처리"""
         try:
             check_interval = 1
             max_wait_time = 300
-            stream_start_times = list(self.highlights_dict.keys())
+            stream_start_ids = list(self.highlights_dict.keys())
             asyncio.create_task(save_airing_data(self.title_data, self.platform_name, self.channel_id))
 
-            for stream_start_time in stream_start_times:
-                if self.is_wait[stream_start_time]:
+            for stream_start_id in stream_start_ids:
+                if self.is_wait[stream_start_id]:
                     continue
 
                 try:
                     for wait_count in range(max_wait_time):
-                        self.is_wait[stream_start_time] = True
+                        self.is_wait[stream_start_id] = True
                         if wait_count % 30 == 0:
                             remaining_time = max_wait_time - (wait_count * check_interval)
-                            print(f"{datetime.now()} {stream_start_time} 하이라이트 대기 중: {self.channel_name} (남은 시간: {remaining_time}초)")
+                            print(f"{datetime.now()} {stream_start_id} 하이라이트 대기 중: {self.channel_name} (남은 시간: {remaining_time}초)")
                         if self.init.wait_make_highlight_chat[self.channel_id]:
                             await asyncio.sleep(check_interval)
                         else:
                             break
                 finally:
-                    self.is_wait[stream_start_time] = False
+                    self.is_wait[stream_start_id] = False
 
-                if stream_start_time not in self.highlights_dict:
+                if stream_start_id not in self.highlights_dict:
                     continue
                 
-                if stream_start_time not in self.detailed_logs_dict:
-                    self.detailed_logs_dict[stream_start_time] = []
+                if stream_start_id not in self.detailed_logs_dict:
+                    self.detailed_logs_dict[stream_start_id] = []
 
-                print(f"{datetime.now()} 하이라이트 {stream_start_time} 처리 시작: {self.channel_name}")
+                print(f"{datetime.now()} 하이라이트 {stream_start_id} 처리 시작: {self.channel_name}")
 
-                await self.save_detailed_logs_to_file(save_cache=True, force_save=True, stream_start_time=stream_start_time)
+                await self.save_detailed_logs_to_file(save_cache=True, force_save=True, stream_start_id=stream_start_id)
 
                 # 하이라이트 생성
-                highlights_to_process = self.highlights_dict[stream_start_time].copy()
+                highlights_to_process = self.highlights_dict[stream_start_id].copy()
 
-                
-                if is_save_log:
+                if self.is_save_log:
                     # 방송 종료 - 완전히 삭제
-                    del self.highlights_dict[stream_start_time]
-                    if stream_start_time in self.detailed_logs_dict:
-                        del self.detailed_logs_dict[stream_start_time]
-                    del self.is_wait[stream_start_time]
+                    del self.highlights_dict[stream_start_id]
+                    if stream_start_id in self.detailed_logs_dict:
+                        del self.detailed_logs_dict[stream_start_id]
+                    del self.is_wait[stream_start_id]
                 else:
-                    self.highlights_dict[stream_start_time] = []
-                    self.detailed_logs_dict[stream_start_time] = []
+                    self.highlights_dict[stream_start_id] = []
+                    self.detailed_logs_dict[stream_start_id] = []
                 
                 timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
-                self.update_highlight_chat(timeline_comments, stream_start_time)
+                self.update_highlight_chat(timeline_comments, stream_start_id)
 
-
+            stream_start_ids = list(self.init.highlight_chat[self.channel_id].keys())
+            for stream_start_id in stream_start_ids:
                 # 하이라이트 채팅 업데이트 직후 파일로 저장
-                await self._save_completed_highlight_chat_after_update(is_save_log, stream_start_time)
-            
+                await self._save_completed_highlight_chat_after_update(stream_start_id)
             
             return True
             
@@ -900,13 +897,11 @@ class ChatAnalyzer:
         finally:
             print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
 
-    async def _save_completed_highlight_chat_after_update(self, is_save_log, stream_start_time):
+    async def _save_completed_highlight_chat_after_update(self, stream_start_id):
         """하이라이트 채팅 저장"""
         try:
             channel_id = self.channel_id
             channel_name = self.channel_name
-            
-            stream_start_id = get_stream_start_id(channel_id, stream_start_time)
             
             # 해당 채널의 하이라이트 데이터 확인
             if (channel_id not in self.init.highlight_chat or 
@@ -918,7 +913,7 @@ class ChatAnalyzer:
             highlight_data = self.init.highlight_chat[channel_id][stream_start_id]
             
             # timeline_comments가 업데이트되었는지 확인
-            if (hasattr(highlight_data, 'timeline_comments') and highlight_data.timeline_comments) or is_save_log:
+            if (hasattr(highlight_data, 'timeline_comments') and highlight_data.timeline_comments) or self.is_save_log:
                 
                 # print(f"{datetime.now()} 하이라이트 채팅 저장 시작: {channel_name}, {stream_start_id}")
                 # print(f"  - 스트림 ID: {stream_start_id}")
@@ -933,7 +928,7 @@ class ChatAnalyzer:
                     # print(f"{datetime.now()} 하이라이트 채팅 저장 성공: {file_path}")
                     
                     # 저장 성공 후 메모리에서 제거
-                    if is_save_log:
+                    if self.is_save_log:
                         del self.init.highlight_chat[channel_id][stream_start_id]
                         # print(f"{datetime.now()} 메모리에서 제거 완료: {stream_start_id}")
                 else:
@@ -963,19 +958,19 @@ class ChatAnalyzer:
         return " + ".join(reasons) if reasons else "재미있는 순간 감지"
 
     async def change_score_to_peak(self, highlight: StreamHighlight):
-        if not self.highlights_dict[self.stream_start_time]:
+        if not self.highlights_dict[self.stream_start_id]:
             # print(f"{datetime.now()} highlights가 비어있어서 change_score_to_peak 건너뜀")
             return
         
         is_higher_score = False
-        if highlight.fun_score > self.highlights_dict[self.stream_start_time][-1].fun_score:
+        if highlight.fun_score > self.highlights_dict[self.stream_start_id][-1].fun_score:
             is_higher_score = True
             
         
         if (highlight.score_details['highlights'] and not highlight.score_details['should_create_new_highlight']):
             idx = None
             is_new_highlight_check_cnt = 0
-            for i,detailed_log in enumerate(reversed(self.detailed_logs_dict[self.stream_start_time])):
+            for i,detailed_log in enumerate(reversed(self.detailed_logs_dict[self.stream_start_id])):
                 # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있는지
                 if not detailed_log['score_components']['highlights']:
                     is_new_highlight_check_cnt += 1
@@ -991,15 +986,15 @@ class ChatAnalyzer:
                     return
                 
                 highlight.score_details['should_create_new_highlight'] = True
-                self.detailed_logs_dict[self.stream_start_time][-1]['score_components']['should_create_new_highlight'] = True
+                self.detailed_logs_dict[self.stream_start_id][-1]['score_components']['should_create_new_highlight'] = True
 
                 if is_new_highlight_check_cnt >= 3:
                     return
                 
-                highlight.comment_after_openDate = self.detailed_logs_dict[self.stream_start_time][-(idx+1)]['comment_after_openDate']
-                self.detailed_logs_dict[self.stream_start_time][-1]['comment_after_openDate'] = self.detailed_logs_dict[self.stream_start_time][-(idx+1)]['comment_after_openDate']
-                self.detailed_logs_dict[self.stream_start_time][-(idx+1)]['score_components']['should_create_new_highlight'] = False
-                self.highlights_dict[self.stream_start_time] = self.highlights_dict[self.stream_start_time][:-1]
+                highlight.comment_after_openDate = self.detailed_logs_dict[self.stream_start_id][-(idx+1)]['comment_after_openDate']
+                self.detailed_logs_dict[self.stream_start_id][-1]['comment_after_openDate'] = self.detailed_logs_dict[self.stream_start_id][-(idx+1)]['comment_after_openDate']
+                self.detailed_logs_dict[self.stream_start_id][-(idx+1)]['score_components']['should_create_new_highlight'] = False
+                self.highlights_dict[self.stream_start_id] = self.highlights_dict[self.stream_start_id][:-1]
                 return
             
     async def test_change_score_to_peak(self, highlight: StreamHighlight):
@@ -1015,7 +1010,7 @@ class ChatAnalyzer:
         if (highlight.score_details['test_highlights'] and not highlight.score_details['test_should_create_new_highlight']):
             idx = None
             is_new_highlight_check_cnt = 0
-            for i,detailed_log in enumerate(reversed(self.detailed_logs_dict[self.stream_start_time])):
+            for i,detailed_log in enumerate(reversed(self.detailed_logs_dict[self.stream_start_id])):
                 # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있는지
                 if not detailed_log['score_components']['test_highlights']:
                     is_new_highlight_check_cnt += 1
@@ -1031,14 +1026,14 @@ class ChatAnalyzer:
                     return
                 
                 highlight.score_details['test_should_create_new_highlight'] = True
-                self.detailed_logs_dict[self.stream_start_time][-1]['score_components']['test_should_create_new_highlight'] = True
+                self.detailed_logs_dict[self.stream_start_id][-1]['score_components']['test_should_create_new_highlight'] = True
 
                 if is_new_highlight_check_cnt >= 3:
                     return
                 
-                highlight.comment_after_openDate = self.detailed_logs_dict[self.stream_start_time][-(idx+1)]['comment_after_openDate']
-                self.detailed_logs_dict[self.stream_start_time][-1]['comment_after_openDate'] = self.detailed_logs_dict[self.stream_start_time][-(idx+1)]['comment_after_openDate']
-                self.detailed_logs_dict[self.stream_start_time][-(idx+1)]['score_components']['test_should_create_new_highlight'] = False
+                highlight.comment_after_openDate = self.detailed_logs_dict[self.stream_start_id][-(idx+1)]['comment_after_openDate']
+                self.detailed_logs_dict[self.stream_start_id][-1]['comment_after_openDate'] = self.detailed_logs_dict[self.stream_start_id][-(idx+1)]['comment_after_openDate']
+                self.detailed_logs_dict[self.stream_start_id][-(idx+1)]['score_components']['test_should_create_new_highlight'] = False
                 return
 
     #하이라이트 DB 저장
@@ -1139,12 +1134,12 @@ class ChatAnalyzer:
         return author
 
     #detailed_logs를 파일에 저장
-    async def save_detailed_logs_to_file(self, save_cache=False, force_save=False, stream_start_time = None):
+    async def save_detailed_logs_to_file(self, save_cache=False, force_save=False, stream_start_id = None):
         try:
             # 로그가 충분히 쌓였거나 강제 저장일 때만 실행
-            if stream_start_time is None:
-                stream_start_time = self.stream_start_time
-            if len(self.detailed_logs_dict[stream_start_time]) < 100 and not force_save:
+            if stream_start_id is None:
+                stream_start_id = self.stream_start_id
+            if len(self.detailed_logs_dict[stream_start_id]) < 100 and not force_save:
                 print(f"{datetime.now()} {self.channel_name} 저장할 로그가 없습니다.1")
                 return
             
@@ -1156,13 +1151,13 @@ class ChatAnalyzer:
 
             if save_cache:
                 # 전체 로그 저장
-                logs_to_save = self.detailed_logs_dict[stream_start_time].copy()
+                logs_to_save = self.detailed_logs_dict[stream_start_id].copy()
                 remaining_logs = []  # 전부 삭제
             else:
                 # 최근 일부만 제외하고 저장
                 keep_count = int(self.history_1min * 2)
-                logs_to_save = self.detailed_logs_dict[stream_start_time][:-keep_count].copy() if len(self.detailed_logs_dict[stream_start_time]) > keep_count else []
-                remaining_logs = self.detailed_logs_dict[stream_start_time][-keep_count:] if len(self.detailed_logs_dict[stream_start_time]) > keep_count else self.detailed_logs_dict[stream_start_time].copy()
+                logs_to_save = self.detailed_logs_dict[stream_start_id][:-keep_count].copy() if len(self.detailed_logs_dict[stream_start_id]) > keep_count else []
+                remaining_logs = self.detailed_logs_dict[stream_start_id][-keep_count:] if len(self.detailed_logs_dict[stream_start_id]) > keep_count else self.detailed_logs_dict[stream_start_id].copy()
             
             # 저장할 로그가 없으면 종료
             if not logs_to_save:
@@ -1187,10 +1182,10 @@ class ChatAnalyzer:
             # print(f"{datetime.now()} 📄 {self.channel_name} 상세 로그 저장 완료: {file_path} ({len(logs_to_save)}개 기록, {save_type})")
             
             # 저장 후 로그 업데이트
-            self.detailed_logs_dict[stream_start_time] = remaining_logs
+            self.detailed_logs_dict[stream_start_id] = remaining_logs
             
             # 남은 로그 수 출력
-            # print(f"{datetime.now()} 남은 로그: {len(self.detailed_logs_dict[stream_start_time])}개")
+            # print(f"{datetime.now()} 남은 로그: {len(self.detailed_logs_dict[stream_start_id])}개")
                 
         except Exception as e:
             print(f"{datetime.now()} ❌ 로그 저장 오류: {str(e)}")
@@ -1413,11 +1408,10 @@ class ChatAnalyzer:
             10 * len(self.init.GOOGLE_API_KEY_LIST)
         )
 
-    def update_highlight_chat(self, timeline_comments, stream_start_time):
+    def update_highlight_chat(self, timeline_comments, stream_start_id):
         if not timeline_comments:
             return
         
-        stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
         self.init.highlight_chat[self.channel_id][stream_start_id].timeline_comments.extend(timeline_comments)
                 
         # print(f"{datetime.now()} {self.channel_name} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
@@ -1428,6 +1422,7 @@ class ChatAnalyzer:
     async def _process_highlights_background(self, highlights):
         try:
             timeline_comments = await self._make_highlight_chat(highlights)
-            self.update_highlight_chat(timeline_comments, self.stream_start_time)
+            self.update_highlight_chat(timeline_comments, self.stream_start_id)
+            await self._save_completed_highlight_chat_after_update(False, self.stream_start_id)
         except Exception as e:
             await log_error(f"Background highlight processing failed: {str(e)}")
