@@ -885,11 +885,11 @@ class ChatAnalyzer:
                     self.detailed_logs_dict[stream_start_time] = []
                 
                 timeline_comments = await self._make_highlight_chat(highlights_to_process, is_emergency) 
-                self.update_highlight_chat(timeline_comments)
+                self.update_highlight_chat(timeline_comments, stream_start_time)
 
 
                 # 하이라이트 채팅 업데이트 직후 파일로 저장
-                await self._save_completed_highlight_chat_after_update(is_save_log)
+                await self._save_completed_highlight_chat_after_update(is_save_log, stream_start_time)
             
             
             return True
@@ -900,13 +900,13 @@ class ChatAnalyzer:
         finally:
             print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
 
-    async def _save_completed_highlight_chat_after_update(self, is_save_log):
+    async def _save_completed_highlight_chat_after_update(self, is_save_log, stream_start_time):
         """하이라이트 채팅 저장"""
         try:
             channel_id = self.channel_id
             channel_name = self.channel_name
             
-            stream_start_id = get_stream_start_id(channel_id, self.stream_start_time)
+            stream_start_id = get_stream_start_id(channel_id, stream_start_time)
             
             # 해당 채널의 하이라이트 데이터 확인
             if (channel_id not in self.init.highlight_chat or 
@@ -1413,11 +1413,11 @@ class ChatAnalyzer:
             10 * len(self.init.GOOGLE_API_KEY_LIST)
         )
 
-    def update_highlight_chat(self, timeline_comments):
+    def update_highlight_chat(self, timeline_comments, stream_start_time):
         if not timeline_comments:
             return
         
-        stream_start_id = get_stream_start_id(self.channel_id, self.stream_start_time)
+        stream_start_id = get_stream_start_id(self.channel_id, stream_start_time)
         self.init.highlight_chat[self.channel_id][stream_start_id].timeline_comments.extend(timeline_comments)
                 
         # print(f"{datetime.now()} {self.channel_name} 타임라인 댓글 생성 완료: {len(timeline_comments)}개")
@@ -1428,6 +1428,6 @@ class ChatAnalyzer:
     async def _process_highlights_background(self, highlights):
         try:
             timeline_comments = await self._make_highlight_chat(highlights)
-            self.update_highlight_chat(timeline_comments)
+            self.update_highlight_chat(timeline_comments, self.stream_start_time)
         except Exception as e:
             await log_error(f"Background highlight processing failed: {str(e)}")
