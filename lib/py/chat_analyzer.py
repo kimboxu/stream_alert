@@ -1417,6 +1417,6 @@ class ChatAnalyzer:
         try:
             timeline_comments = await self._make_highlight_chat(highlights)
             self.update_highlight_chat(timeline_comments, self.stream_start_id)
-            await self._save_completed_highlight_chat_after_update(self.stream_start_id)
+            # await self._save_completed_highlight_chat_after_update(self.stream_start_id)
         except Exception as e:
             await log_error(f"Background highlight processing failed: {str(e)}")
