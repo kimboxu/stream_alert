@@ -1,0 +1,809 @@
+{
+  "channel_id": "mawang0216",
+  "channel_name": "마왕0216",
+  "save_timestamp": "2026-01-02T14:53:49.919807",
+  "total_logs": 15,
+  "logs": [
+    {
+      "timestamp": "2026-01-02T14:52:36.965219",
+      "fun_score": 8.534579086426056,
+      "test_fun_score": 0.956290418502703,
+      "score_components": {
+        "chat_spike_score": 6.856620873619629,
+        "reaction_score": 1.1818900175541358,
+        "test_reaction_score": 0.956290418502703,
+        "diversity_score": 35.94532688030983,
+        "viewer_trend_score": 10,
+        "final_score": 8.534579086426056,
+        "baseline_chat_count": 7.51376354421236,
+        "baseline_viewer_count": 502.3425411815183,
+        "baseline_threshold": 9.912731564881508,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.4998398398686374,
+        "test_score_difference": 0.4978867956960758,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 509,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "surprise": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "surprise": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:56:42",
+      "comment_after_openDate": "04:56:42",
+      "chat_context": [
+        "한국놈: 아유",
+        "WAK수트: 원대한꿈이",
+        "으오앙: 재활가자잇",
+        "WAK수트: 날아갔따",
+        "곡궁_: 무너진 마왕의 꿈",
+        "저녁은꽃등심: 라칸 뭐야",
+        "한국놈: 조합이 빡셋다 이판은",
+        "아준타: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "ujuro001: 보여주나?",
+        "아준타: 어우"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:52:41.967843",
+      "fun_score": 8.536928999571076,
+      "test_fun_score": 1.0821301746341923,
+      "score_components": {
+        "chat_spike_score": 5.257788557234262,
+        "reaction_score": 2.2612774319171964,
+        "test_reaction_score": 1.0821301746341923,
+        "diversity_score": 39.92540919240499,
+        "viewer_trend_score": 10,
+        "final_score": 8.536928999571076,
+        "baseline_chat_count": 7.537581689458805,
+        "baseline_viewer_count": 502.40631963699934,
+        "baseline_threshold": 9.899528864137903,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.502189753013657,
+        "test_score_difference": 0.623726551827565,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 509,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 2.7
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "04:56:47",
+      "comment_after_openDate": "04:56:47",
+      "chat_context": [
+        "곡궁_: 무너진 마왕의 꿈",
+        "저녁은꽃등심: 라칸 뭐야",
+        "한국놈: 조합이 빡셋다 이판은",
+        "아준타: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "ujuro001: 보여주나?",
+        "아준타: 어우",
+        "베니로포: ㅋ켄치가 녹네",
+        "차뿔라: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: ㅈㅈㅇㅇ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:52:46.970714",
+      "fun_score": 8.757629885109893,
+      "test_fun_score": 1.597493399019392,
+      "score_components": {
+        "chat_spike_score": 4.041680662635005,
+        "reaction_score": 3.3243017028743833,
+        "test_reaction_score": 1.597493399019392,
+        "diversity_score": 44.415830760618256,
+        "viewer_trend_score": 10,
+        "final_score": 8.757629885109893,
+        "baseline_chat_count": 7.551591656873789,
+        "baseline_viewer_count": 502.46948709487685,
+        "baseline_threshold": 9.886475157435353,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.7228906385524736,
+        "test_score_difference": 1.1390897762127647,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 509,
+        "fun_keywords": {
+          "laugh": 3.7
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "04:56:52",
+      "comment_after_openDate": "04:56:52",
+      "chat_context": [
+        "한국놈: 조합이 빡셋다 이판은",
+        "아준타: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "ujuro001: 보여주나?",
+        "아준타: 어우",
+        "베니로포: ㅋ켄치가 녹네",
+        "차뿔라: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: ㅈㅈㅇㅇ",
+        "장안구임: 라칸 ㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:52:51.973482",
+      "fun_score": 15.038058247003626,
+      "test_fun_score": 4.529083972675148,
+      "score_components": {
+        "chat_spike_score": 14.365173632362671,
+        "reaction_score": 9.272895271599998,
+        "test_reaction_score": 4.529083972675148,
+        "diversity_score": 42.91861530960424,
+        "viewer_trend_score": 10,
+        "final_score": 15.038058247003626,
+        "baseline_chat_count": 7.555887408800938,
+        "baseline_viewer_count": 502.53204940850793,
+        "baseline_threshold": 9.875660819726473,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.003319000446208,
+        "test_score_difference": 4.070680349868521,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 509,
+        "fun_keywords": {
+          "laugh": 4.7
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "04:56:57",
+      "comment_after_openDate": "04:56:57",
+      "chat_context": [
+        "한국놈: 조합이 빡셋다 이판은",
+        "아준타: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "ujuro001: 보여주나?",
+        "아준타: 어우",
+        "베니로포: ㅋ켄치가 녹네",
+        "차뿔라: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: ㅈㅈㅇㅇ",
+        "장안구임: 라칸 ㅋㅋ",
+        "카메오출연: 줴줴",
+        "Vfor:D: 몰락 줜네맛잇겟네",
+        "곡궁_: ㅋㅋ",
+        "히이임: 라칸 바론급이네",
+        "카누____: 운동가자미"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:52:56.975518",
+      "fun_score": 47.37426707260347,
+      "test_fun_score": 38.681886187264034,
+      "score_components": {
+        "chat_spike_score": 43.914309597037104,
+        "reaction_score": 76.37299561711102,
+        "test_reaction_score": 38.681886187264034,
+        "diversity_score": 32.00929068803479,
+        "viewer_trend_score": 10,
+        "final_score": 47.37426707260347,
+        "baseline_chat_count": 7.608042007424625,
+        "baseline_viewer_count": 502.5940123751744,
+        "baseline_threshold": 9.925116587079788,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 41.33952782604605,
+        "test_score_difference": 38.223482564457406,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 509,
+        "fun_keywords": {
+          "laugh": 6.9,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "04:57:02",
+      "comment_after_openDate": "04:57:02",
+      "chat_context": [
+        "아준타: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "ujuro001: 보여주나?",
+        "아준타: 어우",
+        "베니로포: ㅋ켄치가 녹네",
+        "차뿔라: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: ㅈㅈㅇㅇ",
+        "장안구임: 라칸 ㅋㅋ",
+        "카메오출연: 줴줴",
+        "Vfor:D: 몰락 줜네맛잇겟네",
+        "곡궁_: ㅋㅋ",
+        "히이임: 라칸 바론급이네",
+        "카누____: 운동가자미",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: 아무래도",
+        "차뿔라: 줴줴이~야",
+        "Vfor:D: 벨베스 밥인데 저런거",
+        "곡궁_: 할건해야지",
+        "boraJoa●: 재바",
+        ".쭈너니.: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:02.022751",
+      "fun_score": 42.11237851278232,
+      "test_fun_score": 35.864427701465864,
+      "score_components": {
+        "chat_spike_score": 41.66400674469397,
+        "reaction_score": 62.20666433201939,
+        "test_reaction_score": 35.864427701465864,
+        "diversity_score": 32.015761780642144,
+        "viewer_trend_score": 10,
+        "final_score": 42.11237851278232,
+        "baseline_chat_count": 7.717176964993496,
+        "baseline_viewer_count": 502.6553817366202,
+        "baseline_threshold": 10.283879448731104,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 34.58640625864955,
+        "test_score_difference": 35.406024078659236,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 509,
+        "fun_keywords": {
+          "laugh": 6.7,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "04:57:08",
+      "comment_after_openDate": "04:57:08",
+      "chat_context": [
+        "ujuro001: 보여주나?",
+        "아준타: 어우",
+        "베니로포: ㅋ켄치가 녹네",
+        "차뿔라: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: ㅈㅈㅇㅇ",
+        "장안구임: 라칸 ㅋㅋ",
+        "카메오출연: 줴줴",
+        "Vfor:D: 몰락 줜네맛잇겟네",
+        "곡궁_: ㅋㅋ",
+        "히이임: 라칸 바론급이네",
+        "카누____: 운동가자미",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: 아무래도",
+        "차뿔라: 줴줴이~야",
+        "Vfor:D: 벨베스 밥인데 저런거",
+        "곡궁_: 할건해야지",
+        "boraJoa●: 재바",
+        ".쭈너니.: ㅋㅋㅋㅋ",
+        ".쭈너니.: 보내주네 재수님 ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:07.026359",
+      "fun_score": 56.28781699560152,
+      "test_fun_score": 71.41364383584263,
+      "score_components": {
+        "chat_spike_score": 48.31971370181646,
+        "reaction_score": 100,
+        "test_reaction_score": 71.41364383584263,
+        "diversity_score": 30.439458297841107,
+        "viewer_trend_score": 10,
+        "final_score": 56.28781699560152,
+        "baseline_chat_count": 7.825266409668858,
+        "baseline_viewer_count": 502.71616317958336,
+        "baseline_threshold": 10.588796469764715,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 48.2183665981405,
+        "test_score_difference": 70.955240213036,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "laugh": 7.7,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "04:57:13",
+      "comment_after_openDate": "04:57:02",
+      "chat_context": [
+        "베니로포: ㅋ켄치가 녹네",
+        "차뿔라: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: ㅈㅈㅇㅇ",
+        "장안구임: 라칸 ㅋㅋ",
+        "카메오출연: 줴줴",
+        "Vfor:D: 몰락 줜네맛잇겟네",
+        "곡궁_: ㅋㅋ",
+        "히이임: 라칸 바론급이네",
+        "카누____: 운동가자미",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: 아무래도",
+        "차뿔라: 줴줴이~야",
+        "Vfor:D: 벨베스 밥인데 저런거",
+        "곡궁_: 할건해야지",
+        "boraJoa●: 재바",
+        ".쭈너니.: ㅋㅋㅋㅋ",
+        ".쭈너니.: 보내주네 재수님 ㅋㅋㅋ",
+        "천벌s: 2판 ㅋㅋㅋㅋ",
+        "머머머머머: 재수고 오라 고 하자",
+        "베니로포: 재수도 운동하자~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:12.246255",
+      "fun_score": 51.498387235805815,
+      "test_fun_score": 66.49722649731102,
+      "score_components": {
+        "chat_spike_score": 45.754654113339,
+        "reaction_score": 85.40322596909267,
+        "test_reaction_score": 66.49722649731102,
+        "diversity_score": 37.878250940754675,
+        "viewer_trend_score": 10,
+        "final_score": 51.498387235805815,
+        "baseline_chat_count": 7.94190035746423,
+        "baseline_viewer_count": 502.72846233632293,
+        "baseline_threshold": 11.02659308640223,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.96380814937976,
+        "test_score_difference": 65.63734859210903,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "laugh": 7.4,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "04:57:18",
+      "comment_after_openDate": "04:57:18",
+      "chat_context": [
+        "장안구임: 라칸 ㅋㅋ",
+        "카메오출연: 줴줴",
+        "Vfor:D: 몰락 줜네맛잇겟네",
+        "곡궁_: ㅋㅋ",
+        "히이임: 라칸 바론급이네",
+        "카누____: 운동가자미",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: 아무래도",
+        "차뿔라: 줴줴이~야",
+        "Vfor:D: 벨베스 밥인데 저런거",
+        "곡궁_: 할건해야지",
+        "boraJoa●: 재바",
+        ".쭈너니.: ㅋㅋㅋㅋ",
+        ".쭈너니.: 보내주네 재수님 ㅋㅋㅋ",
+        "천벌s: 2판 ㅋㅋㅋㅋ",
+        "머머머머머: 재수고 오라 고 하자",
+        "베니로포: 재수도 운동하자~",
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "냐루호두: 재수 환자재활 ㄱ?",
+        "김주황: 재수도 오던가~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:17.254112",
+      "fun_score": 62.398322152858796,
+      "test_fun_score": 61.93396625710347,
+      "score_components": {
+        "chat_spike_score": 73.6750725883614,
+        "reaction_score": 80.04567149840068,
+        "test_reaction_score": 61.93396625710347,
+        "diversity_score": 37.308380385759676,
+        "viewer_trend_score": 10,
+        "final_score": 62.398322152858796,
+        "baseline_chat_count": 8.057416952039722,
+        "baseline_viewer_count": 502.74064366714094,
+        "baseline_threshold": 11.414312874353516,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 53.86374306643274,
+        "test_score_difference": 61.07408835190148,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "laugh": 7.4,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "04:57:23",
+      "comment_after_openDate": "04:57:02",
+      "chat_context": [
+        "카메오출연: 줴줴",
+        "Vfor:D: 몰락 줜네맛잇겟네",
+        "곡궁_: ㅋㅋ",
+        "히이임: 라칸 바론급이네",
+        "카누____: 운동가자미",
+        "베니로포: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "곡궁_: 아무래도",
+        "차뿔라: 줴줴이~야",
+        "Vfor:D: 벨베스 밥인데 저런거",
+        "곡궁_: 할건해야지",
+        "boraJoa●: 재바",
+        ".쭈너니.: ㅋㅋㅋㅋ",
+        ".쭈너니.: 보내주네 재수님 ㅋㅋㅋ",
+        "천벌s: 2판 ㅋㅋㅋㅋ",
+        "머머머머머: 재수고 오라 고 하자",
+        "베니로포: 재수도 운동하자~",
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "냐루호두: 재수 환자재활 ㄱ?",
+        "김주황: 재수도 오던가~",
+        "마82♥: 아프니깐 재활센터 오라고하자",
+        "한국놈: 크산테 할듯",
+        "타키온0801: 바로 랭크 돌리네ㅋㅋㅋ",
+        "베니로포: 재활이 가장 필요한 재수"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:22.258504",
+      "fun_score": 19.33059624380048,
+      "test_fun_score": 10.646314358162142,
+      "score_components": {
+        "chat_spike_score": 21.861567978795918,
+        "reaction_score": 12.793268433760554,
+        "test_reaction_score": 10.646314358162142,
+        "diversity_score": 41.54910123214148,
+        "viewer_trend_score": 10,
+        "final_score": 19.33059624380048,
+        "baseline_chat_count": 8.200566897639181,
+        "baseline_viewer_count": 502.75270830080973,
+        "baseline_threshold": 11.902739683241595,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.796017157374422,
+        "test_score_difference": 9.786436452960153,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 5.2
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "04:57:28",
+      "comment_after_openDate": "04:57:28",
+      "chat_context": [
+        "곡궁_: 아무래도",
+        "차뿔라: 줴줴이~야",
+        "Vfor:D: 벨베스 밥인데 저런거",
+        "곡궁_: 할건해야지",
+        "boraJoa●: 재바",
+        ".쭈너니.: ㅋㅋㅋㅋ",
+        ".쭈너니.: 보내주네 재수님 ㅋㅋㅋ",
+        "천벌s: 2판 ㅋㅋㅋㅋ",
+        "머머머머머: 재수고 오라 고 하자",
+        "베니로포: 재수도 운동하자~",
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "냐루호두: 재수 환자재활 ㄱ?",
+        "김주황: 재수도 오던가~",
+        "마82♥: 아프니깐 재활센터 오라고하자",
+        "한국놈: 크산테 할듯",
+        "타키온0801: 바로 랭크 돌리네ㅋㅋㅋ",
+        "베니로포: 재활이 가장 필요한 재수"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:27.260864",
+      "fun_score": 10.285820111384215,
+      "test_fun_score": 3.1422714443484567,
+      "score_components": {
+        "chat_spike_score": 6.814780540959223,
+        "reaction_score": 3.7989614380033148,
+        "test_reaction_score": 3.1422714443484567,
+        "diversity_score": 45.794804365515695,
+        "viewer_trend_score": 10,
+        "final_score": 10.285820111384215,
+        "baseline_chat_count": 8.284865466759797,
+        "baseline_viewer_count": 502.76465735528797,
+        "baseline_threshold": 11.973898549091748,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7512410249581585,
+        "test_score_difference": 2.282393539146468,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "laugh": 4.2
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "04:57:33",
+      "comment_after_openDate": "04:57:33",
+      "chat_context": [
+        ".쭈너니.: 보내주네 재수님 ㅋㅋㅋ",
+        "천벌s: 2판 ㅋㅋㅋㅋ",
+        "머머머머머: 재수고 오라 고 하자",
+        "베니로포: 재수도 운동하자~",
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "냐루호두: 재수 환자재활 ㄱ?",
+        "김주황: 재수도 오던가~",
+        "마82♥: 아프니깐 재활센터 오라고하자",
+        "한국놈: 크산테 할듯",
+        "타키온0801: 바로 랭크 돌리네ㅋㅋㅋ",
+        "베니로포: 재활이 가장 필요한 재수"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:32.262873",
+      "fun_score": 8.87591069305771,
+      "test_fun_score": 1.1973308511750773,
+      "score_components": {
+        "chat_spike_score": 5.353081101115849,
+        "reaction_score": 1.4496808630044034,
+        "test_reaction_score": 1.1973308511750773,
+        "diversity_score": 45.321199386542574,
+        "viewer_trend_score": 10,
+        "final_score": 8.87591069305771,
+        "baseline_chat_count": 8.310876455588238,
+        "baseline_viewer_count": 502.7764919378243,
+        "baseline_threshold": 11.95772675765851,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.34133160663165363,
+        "test_score_difference": 0.2410404326723743,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "04:57:38",
+      "comment_after_openDate": "04:57:38",
+      "chat_context": [
+        "천벌s: 2판 ㅋㅋㅋㅋ",
+        "머머머머머: 재수고 오라 고 하자",
+        "베니로포: 재수도 운동하자~",
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "냐루호두: 재수 환자재활 ㄱ?",
+        "김주황: 재수도 오던가~",
+        "마82♥: 아프니깐 재활센터 오라고하자",
+        "한국놈: 크산테 할듯",
+        "타키온0801: 바로 랭크 돌리네ㅋㅋㅋ",
+        "베니로포: 재활이 가장 필요한 재수"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:37.265098",
+      "fun_score": 8.677962142139304,
+      "test_fun_score": 1.1906704150957728,
+      "score_components": {
+        "chat_spike_score": 3.3300057627147948,
+        "reaction_score": 1.74371904631593,
+        "test_reaction_score": 1.1906704150957728,
+        "diversity_score": 51.563438350228665,
+        "viewer_trend_score": 10,
+        "final_score": 8.677962142139304,
+        "baseline_chat_count": 8.327058259143703,
+        "baseline_viewer_count": 502.78821314505996,
+        "baseline_threshold": 11.928202959759634,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.1433830557132474,
+        "test_score_difference": 0.23437999659306974,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "04:57:43",
+      "comment_after_openDate": "04:57:43",
+      "chat_context": [
+        "뜌땨땨뜌땨: ㅋㅋㅋㅋㅋㅋㅋ",
+        "냐루호두: 재수 환자재활 ㄱ?",
+        "김주황: 재수도 오던가~",
+        "마82♥: 아프니깐 재활센터 오라고하자",
+        "한국놈: 크산테 할듯",
+        "타키온0801: 바로 랭크 돌리네ㅋㅋㅋ",
+        "베니로포: 재활이 가장 필요한 재수",
+        "애정이꼬순내: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:42.267287",
+      "fun_score": 7.307229803697718,
+      "test_fun_score": 0.45758023377951984,
+      "score_components": {
+        "chat_spike_score": 2.6299874099417475,
+        "reaction_score": 0.5542880460882564,
+        "test_reaction_score": 0.45758023377951984,
+        "diversity_score": 44.57449055397454,
+        "viewer_trend_score": 10,
+        "final_score": 7.307229803697718,
+        "baseline_chat_count": 8.323925041021106,
+        "baseline_viewer_count": 502.7998220631303,
+        "baseline_threshold": 11.89706565272683,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "04:57:48",
+      "comment_after_openDate": "04:57:48",
+      "chat_context": [
+        "마82♥: 아프니깐 재활센터 오라고하자",
+        "한국놈: 크산테 할듯",
+        "타키온0801: 바로 랭크 돌리네ㅋㅋㅋ",
+        "베니로포: 재활이 가장 필요한 재수",
+        "애정이꼬순내: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "냐루호두: 뫙듁이네",
+        "애정이꼬순내: 우수크루원이야"
+      ]
+    },
+    {
+      "timestamp": "2026-01-02T14:53:47.319822",
+      "fun_score": 5.415531542565954,
+      "test_fun_score": 0.17551883703562726,
+      "score_components": {
+        "chat_spike_score": 1.0152571510267356,
+        "reaction_score": 0.21273992820325427,
+        "test_reaction_score": 0.17551883703562726,
+        "diversity_score": 33.94843846142946,
+        "viewer_trend_score": 10,
+        "final_score": 5.415531542565954,
+        "baseline_chat_count": 8.311241839128122,
+        "baseline_viewer_count": 502.8113197677655,
+        "baseline_threshold": 11.85309502529313,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 504,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:57:53",
+      "comment_after_openDate": "04:57:53",
+      "chat_context": [
+        "애정이꼬순내: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "냐루호두: 뫙듁이네",
+        "애정이꼬순내: 우수크루원이야"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
