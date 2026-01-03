@@ -2,45 +2,6 @@
   "webhook_url": "https://discord.com/api/webhooks/1177910973038874664/GjP569HKcL6JlWtSGsHY3Nz4l4YMAka1UlZokpv2zg6nuoyQdV5FOXs6FrgPZJYEMOnr",
   "notifications": [
     {
-      "id": "cf3e290a-c627-4826-aa29-51356ccb52ba",
-      "username": " [유튜브 알림] 빅헤드",
-      "content": "",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2025-12-04T23:15:05.036865+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 16711680,
-          "author": {
-            "name": "빅헤드",
-            "url": "https://www.youtube.com/@빅헤드",
-            "icon_url": "https://yt3.googleusercontent.com/ytc/AIdro_kh0MuWumKm1yCxRr_wXwU_fpjChoIwbjOamSyTnZSIS2o=s900-c-k-c0x00ffffff-no-rj"
-          },
-          "title": "마크하는 잼민이들 지들만 재밌는거 하고 있었지",
-          "url": "https://www.youtube.com/watch?v=5uwgbwMR7Zc",
-          "description": "빅헤드 유튜브 영상 업로드!",
-          "fields": [
-            {
-              "name": "Description",
-              "value": "▼ 게임정보 및 빅헤드정보"
-            }
-          ],
-          "thumbnail": {
-            "url": "https://yt3.googleusercontent.com/ytc/AIdro_kh0MuWumKm1yCxRr_wXwU_fpjChoIwbjOamSyTnZSIS2o=s900-c-k-c0x00ffffff-no-rj"
-          },
-          "image": {
-            "url": "https://i.ytimg.com/vi/5uwgbwMR7Zc/maxresdefault.jpg"
-          },
-          "footer": {
-            "text": "YouTube",
-            "inline": true,
-            "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQif7xGKRoQ0YzL1AtIAj92R3A6YRNQ8lCF-A&s"
-          },
-          "timestamp": "2025-12-04T14:14:49Z"
-        }
-      ]
-    },
-    {
       "id": "94f53292-5ba8-477f-952b-55f2acdd5212",
       "username": " [유튜브 알림] 빅헤드",
       "content": "",
@@ -1170,8 +1131,47 @@
           "timestamp": "2026-01-02T08:00:55Z"
         }
       ]
+    },
+    {
+      "id": "05f1c52a-ac7a-4f1e-a905-a2153c2d21ea",
+      "username": " [유튜브 알림] 빅헤드",
+      "content": "",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-01-03T12:02:06.499466+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16711680,
+          "author": {
+            "name": "두번째 빅헤드 (다시보기)",
+            "url": "https://www.youtube.com/@두번째빅헤드다시보기",
+            "icon_url": "https://yt3.googleusercontent.com/px1hNn0LLspQbiBuZBcYh1B40a28lLViFXGU4juNQEv1xzK5LhBqDsWgjcN-RULcQ81Qj4Mu=s900-c-k-c0x00ffffff-no-rj"
+          },
+          "title": "【12/25】보스 벨로나 레이드 - 멋사 공책 RPG 서버 4일차 (2부)",
+          "url": "https://www.youtube.com/watch?v=trqbHIuEvfo",
+          "description": "두번째 빅헤드 (다시보기) 유튜브 영상 업로드!",
+          "fields": [
+            {
+              "name": "Description",
+              "value": "좋아요와 댓글, 구독은 스트리머에게 큰 힘이 됩니다."
+            }
+          ],
+          "thumbnail": {
+            "url": "https://yt3.googleusercontent.com/px1hNn0LLspQbiBuZBcYh1B40a28lLViFXGU4juNQEv1xzK5LhBqDsWgjcN-RULcQ81Qj4Mu=s900-c-k-c0x00ffffff-no-rj"
+          },
+          "image": {
+            "url": "https://i.ytimg.com/vi/trqbHIuEvfo/maxresdefault.jpg"
+          },
+          "footer": {
+            "text": "YouTube",
+            "inline": true,
+            "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQif7xGKRoQ0YzL1AtIAj92R3A6YRNQ8lCF-A&s"
+          },
+          "timestamp": "2026-01-03T03:01:09Z"
+        }
+      ]
     }
   ],
-  "last_save_time": "2026-01-03T08:01:08.257701+09:00",
+  "last_save_time": "2026-01-04T07:00:45.421225+09:00",
   "notification_count": 30
 }
