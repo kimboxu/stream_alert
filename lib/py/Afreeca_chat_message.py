@@ -137,12 +137,16 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             self.data.sock = sock
             self.run_analyzer = True
 
+            if not self.start_program and self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
+                await asyncio.sleep(0.1)
+                return
+
             # 채팅 채널에 연결
             await self.connect()
 
-            # if self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
-            #     self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
-            #     asyncio.create_task(save_airing_data(self.init.afreeca_titleData, 'afreeca', self.data.channel_id))
+            if self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
+                self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
+                asyncio.create_task(save_airing_data(self.init.afreeca_titleData, 'afreeca', self.data.channel_id))
             
             await self.start_analyzer()     # 분석기 시작
 
@@ -229,7 +233,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = self.check_live_state_close()
-            # is_new_chatChannel = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
+            is_new_chatChannel = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
                                   and (if_after_time(self.data.last_chat_time, sec = 60))
                                   and if_after_time(join_time, sec = 30))
@@ -237,9 +241,11 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             if (self.run_analyzer and is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
                 self.run_analyzer = False
-            if (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel:
-                print(f"should_close_connection {self.data.channel_name} is_close:{is_close}, is_change_chatChannel:{is_change_chatChannel}, check_chat:{check_chat},is_old_chatChannel:{is_old_chatChannel}")
-            return not self.run_analyzer and ((is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel)
+                
+            if  is_change_chatChannel or is_new_chatChannel or check_chat or is_old_chatChannel:
+                print(f"should_close_connection {self.data.channel_name} is_change_chatChannel:{is_change_chatChannel},is_new_chatChannel:{is_new_chatChannel}, check_chat:{check_chat},is_old_chatChannel:{is_old_chatChannel}")
+
+            return not self.run_analyzer and (is_change_chatChannel or is_new_chatChannel or check_chat) or is_old_chatChannel
                  
         # 메시지 버퍼링을 위한 변수들
         message_buffer = []
@@ -301,6 +307,15 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                     await self.data.sock.close()
                     await self.data.sock.wait_closed()
                 except Exception: pass
+
+    # 채팅 채널 ID 가 다른지
+    async def is_different_chatChannelId(self, BNO = None):
+        if BNO is None:
+            BNO = self.data.BNO
+
+        if BNO != self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']:
+            return True
+        return False
 
     async def check_change_chatChannel(self, connect_time):
         if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60):
