@@ -1139,7 +1139,8 @@ class ChatAnalyzer:
                 stream_start_id = self.stream_start_id
             if len(self.detailed_logs_dict[stream_start_id]) < 100 and not force_save:
                 print(f"{datetime.now()} {self.channel_name} 저장할 로그가 없습니다.1")
-                self.init.chat_json[self.data.channel_id] = True
+                print(f"{datetime.now()} {self.detailed_logs_dict}")
+                self.init.chat_json[self.channel_id] = True
                 return
             
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
