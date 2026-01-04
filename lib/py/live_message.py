@@ -977,7 +977,7 @@ async def upload_image_to_imgbb(
 ) -> str | None:
     # 재시도 설정
     MAX_RETRIES = 3
-    BASE_DELAY = 0.5  # 초
+    BASE_DELAY = 1  # 초
     UPLOAD_TIMEOUT = 20  # 업로드 타임아웃 (초)
     
     try:
@@ -1131,7 +1131,7 @@ async def upload_image_to_imgbb(
                     
                     # 마지막 시도에서 실패한 경우
                     if attempt == MAX_RETRIES - 1:
-                        return None
+                        return "" # 빈 문자열로 재시도 방지
                     
                     # 지수 백오프 적용
                     await asyncio.sleep(BASE_DELAY * (2 ** attempt))
@@ -1154,7 +1154,7 @@ async def upload_image_to_imgbb(
                     
                     # 마지막 시도에서 실패한 경우
                     if attempt == MAX_RETRIES - 1:
-                        return None
+                        return "" # 빈 문자열로 재시도 방지
                     
                     # 지수 백오프 적용
                     await asyncio.sleep(BASE_DELAY * (2 ** attempt))
@@ -1177,7 +1177,7 @@ async def upload_image_to_imgbb(
                     
                     # 마지막 시도에서 실패한 경우
                     if attempt == MAX_RETRIES - 1:
-                        return None
+                        return "" # 빈 문자열로 재시도 방지
                     
                     # 지수 백오프 적용
                     await asyncio.sleep(BASE_DELAY * (2 ** attempt))
