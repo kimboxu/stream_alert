@@ -153,7 +153,7 @@ async def youtube_task(init: initVar, performance_manager: PerformanceManager):
         try:
             shuffle(YoutubeChannelID_list)
             for youtubeChannelID in YoutubeChannelID_list:
-                if not init.is_youtube:
+                if not init.is_state_control["is_youtube"]:
                     await asyncio.sleep(3)
                     continue
                     

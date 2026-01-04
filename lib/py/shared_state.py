@@ -97,7 +97,7 @@ class StateManager:
             # PerformanceManager 초기화 및 스케줄러 시작
             await self._initialize_performance_manager()
 
-            await DataBaseVars(self.init_var)  # db의 데이터 로드
+            await DataBaseVars(self.init_var, is_start = True)  # db의 데이터 로드
             await userDataVar(self.init_var)  # 사용자 데이터 로드
 
 

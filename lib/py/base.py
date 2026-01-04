@@ -101,7 +101,6 @@ async def userDataVar(init: initVar):
 
 		# 단순 속성 설정
 		for attr, value in {
-			'is_youtube': update_data['is_youtube'],
 			'chat_json': update_data['chat_json'],
 			'is_vod_json': update_data['is_vod_json'],
 			'is_vod_chat_json': update_data['is_vod_chat_json'],
@@ -116,14 +115,14 @@ async def userDataVar(init: initVar):
 		# 병렬로 필요한 데이터 로드
 		tasks = []
 		
-		if update_data['user_date']:
+		if update_data['is_state_control']['user_date']:
 			tasks.append(load_user_state_data(init))
 			
-		if update_data['all_date']:
+		if update_data['is_state_control']['all_date']:
 			tasks.append(DataBaseVars(init))
 
-		if update_data['is_print_log']:
-			tasks.append(print_log())
+		if update_data['is_state_control']['is_print_log']:
+			tasks.append(print_log(init))
 
 		for channel_id in update_data['is_save_highlight_data']:
 			state = update_data['is_save_highlight_data'][channel_id]
@@ -156,7 +155,9 @@ async def load_user_state_data(init: initVar):
 	init.userStateData.index = list(init.userStateData['discordURL'])
 	
 	# 플래그 업데이트
-	await update_flag('user_date', False)
+	init.is_state_control["user_date"] = False
+	await update_flag('is_state_control', init.is_state_control)
+	
 
 # 비동기로 플래그 업데이트
 async def update_flag(field, value):
@@ -167,7 +168,7 @@ async def update_flag(field, value):
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert({"idx": 0,field: value}).execute())
 
 ## db 초기화 함수
-async def DataBaseVars(init: initVar):
+async def DataBaseVars(init: initVar, is_start = False):
 	
 	while True:
 		try:
@@ -216,7 +217,9 @@ async def DataBaseVars(init: initVar):
 				if not data.empty:  # 데이터가 있을 때만 인덱스 설정
 					data.index = list(data[index_col])
 
-			await update_flag('all_date', False)
+			if not is_start:
+				init.is_state_control["all_date"] = False
+				await update_flag('is_state_control', init.is_state_control)
 
 			break
 			
@@ -292,15 +295,11 @@ async def save_highlight_data(init, channelID = "all"):
 	except Exception as e:
 		asyncio.create_task(log_error(f"하이라이트 데이터 저장 실패: {str(e)}"))
 
-async def print_log():
-	# print(f"{datetime.now()} is_print_log_start", flush=True)
-	# for _ in range(10):
-	# 	print("\n", flush=True)
-	# 	await asyncio.sleep(0.01)
-	# print(f"{datetime.now()} is_print_log_end", flush=True)
+async def print_log(init):
 	print(f"{datetime.now()} is_print_log", flush=True)
+	init.is_state_control["is_print_log"] = False
 	await asyncio.sleep(0.3)
-	await update_flag('is_print_log', False)
+	await update_flag('is_state_control', init.is_state_control)
 
 
 # db에서 데이터 가져오는 함수
