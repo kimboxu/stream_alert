@@ -95,16 +95,17 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             # 방송 정보 가져오기
             self.data.BNO = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
-            self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
+            # self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
 
             # 채널 상태 데이터 가져오기
             channel_data = await self.afreeca_getChannelStateData()
-            if_adult_channel, TITLE, thumbnail_url, self.CHDOMAIN, self.CHATNO, FTK, BJID, self.CHPT = channel_data
+            if_adult_channel, TITLE, BNO, self.CHDOMAIN, self.CHATNO, FTK, BJID, self.CHPT = channel_data
             
             # 방송 정보가 없으면 대기
             if TITLE is None: 
                 await asyncio.sleep(1)
                 continue
+            self.data.BID = BNO
             
             # 성인 채널인 경우 채팅을 확인 할 수 없기 때문에 건너뛰기
             adult_channel_state = -6
@@ -142,6 +143,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 return
 
             # 채팅 채널에 연결
+            await self.change_chatChannelId()
             await self.connect()
 
             if self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
@@ -314,6 +316,19 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             BNO = self.data.BNO
 
         if BNO != self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']:
+            return True
+        return False
+    
+    # 채팅 채널 ID 변경 함수
+    async def change_chatChannelId(self, BNO = None):
+        if BNO is None:
+            BNO = self.data.BNO
+
+        if BNO != self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']:
+            self.init.afreeca_titleData.loc[self.data.channel_id, 'oldChatChannelId'] = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
+            self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId'] = BNO
+            self.state_update_time["changeChatChannelIdDate"] = datetime.now().isoformat()
+            asyncio.create_task(save_airing_data(self.init.afreeca_titleData, 'afreeca', self.data.channel_id))
             return True
         return False
 
@@ -597,11 +612,12 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         black_list = -3
         if live in [adult_channel_state, subscription_Plus, black_list]:  # 연령제한 채널로 썸네일링크 못 읽을 경우
             thumbnail_url = f"https://liveimg.afreecatv.com/m/{self.data.BNO}"
-            return live, title, thumbnail_url, None, None, None, None, None
+            BNO = self.data.BNO
+            return live, title, self.data.BNO, None, None, None, None, None
         
         # 방송 중인 경우 필요한 정보 추출
         if live:
-            try: int(res['CHANNEL']['BNO'])
+            try: BNO = int(res['CHANNEL']['BNO'])
             except: 
                 asyncio.create_task(log_error(f"error res['CHANNEL']['BNO'] None"))
 
@@ -624,11 +640,11 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         else:
             # 방송이 없는 경우 모든 값을 None으로 설정
             title = None
-            thumbnail_url = None
+            BNO = None
             CHDOMAIN = None
             CHATNO = None
             FTK = None
             BJID = None
             CHPT = None
 
-        return live, title, thumbnail_url, CHDOMAIN, CHATNO, FTK, BJID, CHPT
+        return live, title,BNO, CHDOMAIN, CHATNO, FTK, BJID, CHPT
