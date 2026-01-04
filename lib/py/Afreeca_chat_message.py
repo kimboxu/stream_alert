@@ -237,8 +237,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             if (self.run_analyzer and is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
                 self.run_analyzer = False
-            print(f"should_close_connection {self.data.channel_name} is_close:{is_close}, is_change_chatChannel:{is_change_chatChannel}, check_chat:{check_chat},is_old_chatChannel:{is_old_chatChannel}")
-            return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel
+            if (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel:
+                print(f"should_close_connection {self.data.channel_name} is_close:{is_close}, is_change_chatChannel:{is_change_chatChannel}, check_chat:{check_chat},is_old_chatChannel:{is_old_chatChannel}")
+            return not self.run_analyzer and ((is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel)
                  
         # 메시지 버퍼링을 위한 변수들
         message_buffer = []
