@@ -94,8 +94,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 continue
 
             # 방송 정보 가져오기
-            self.data.BNO = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
-            # self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
+            # self.data.BNO = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
+            self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
 
             # 채널 상태 데이터 가져오기
             channel_data = await self.afreeca_getChannelStateData()
