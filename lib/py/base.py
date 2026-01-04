@@ -158,7 +158,6 @@ async def load_user_state_data(init: initVar):
 	init.is_state_control["user_date"] = False
 	await update_flag('is_state_control', init.is_state_control)
 	
-
 # 비동기로 플래그 업데이트
 async def update_flag(field, value):
 	table_name = 'date_update'
