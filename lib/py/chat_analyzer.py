@@ -177,9 +177,9 @@ class ChatAnalyzer:
         self.analysis_interval = 5  # 5초마다 분석
         self.max_file_age_days = 30 # 30일 이상된 파일 삭제
 
-        # 채팅 데이터 저장 (약 30분)
+        # 채팅 데이터 저장 (약 60분)
         self.history_1min = int(60/self.analysis_interval)
-        self.chat_buffer = deque(maxlen=3600)  #30분 분량(2/초 채팅 기준)
+        self.chat_buffer = deque(maxlen=7200)  #60분 분량(2/초 채팅 기준)
         self.analysis_history = deque(maxlen= self.history_1min * 30)  # 30분간 분석 결과
 
         # 재미 키워드 패턴 (한국어 최적화)
@@ -1138,8 +1138,8 @@ class ChatAnalyzer:
             # 로그가 충분히 쌓였거나 강제 저장일 때만 실행
             if stream_start_id is None:
                 stream_start_id = self.stream_start_id
-            if len(self.detailed_logs_dict[stream_start_id]) < 100 and not force_save:
-                print(f"{datetime.now()} {self.channel_name} 저장할 로그가 없습니다.1")
+            if len(self.detailed_logs_dict[stream_start_id]) < 50 and not force_save:
+                print(f"{datetime.now()} {self.channel_name}, {len(self.detailed_logs_dict[stream_start_id])} 저장할 로그가 없습니다.1")
                 print(f"{datetime.now()} {self.detailed_logs_dict}")
                 self.init.chat_json[self.channel_id] = True
                 return
