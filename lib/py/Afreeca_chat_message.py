@@ -94,7 +94,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 continue
 
             # 방송 정보 가져오기
-            # self.data.BNO = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
+            self.data.BNO = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
             self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
 
             # 채널 상태 데이터 가져오기
@@ -138,12 +138,12 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             self.data.sock = sock
             self.run_analyzer = True
 
-            if not self.start_program and self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
-                await asyncio.sleep(0.1)
-                return
+            # if not self.start_program and self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
+            #     await asyncio.sleep(0.1)
+            #     return
 
             # 채팅 채널에 연결
-            await self.change_chatChannelId()
+            # await self.change_chatChannelId()
             await self.connect()
 
             if self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
