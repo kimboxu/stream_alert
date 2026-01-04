@@ -156,6 +156,8 @@ class ChatMessageWithAnalyzer:
             print(f"{datetime.now()} 분석기 태스크 취소됨: {self.chat_analyzer.channel_name}")
         except Exception as e:
             await log_error(f"_run_analyzer 예상치 못한 오류: {str(e)}")
+        finally:
+            print(f"{datetime.now()} 분석기 종료됨: {self.chat_analyzer.channel_name}, {self.chat_analyzer.is_save_log}")
 
 class ChatAnalyzer:
     """채팅 데이터를 분석하여 재미있는 순간을 감지하는 클래스"""
