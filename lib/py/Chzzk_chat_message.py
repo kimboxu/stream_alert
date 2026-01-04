@@ -196,7 +196,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 asyncio.create_task(self.should_offLine())    
             
             if  is_change_chatChannel or is_new_chatChannel or check_chat or is_old_chatChannel:
-                print(f"should_close_connection {self.data.channel_name} is_change_chatChannel:{is_change_chatChannel},is_new_chatChannel:{is_new_chatChannel}, check_chat:{check_chat},is_old_chatChannel:{is_old_chatChannel}")
+                print(f"{datetime.now()} should_close_connection {self.data.channel_name} is_change_chatChannel:{is_change_chatChannel},is_new_chatChannel:{is_new_chatChannel}, check_chat:{check_chat},is_old_chatChannel:{is_old_chatChannel}")
 
             return not self.run_analyzer and (is_change_chatChannel or is_new_chatChannel or check_chat) or is_old_chatChannel
 
