@@ -234,7 +234,7 @@ class base_vod(ABC):
 
         print(f"{datetime.now()} 하이라이트 처리 대기 시작: {channel_name}")
         # await change_field_state("is_save_highlight_data", self.init.is_save_highlight_data, self.channel_id)
-        self.run_highlight_processing()
+        await self.run_highlight_processing()
 
         await asyncio.sleep(10)
         
