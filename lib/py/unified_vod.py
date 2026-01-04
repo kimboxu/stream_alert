@@ -3,9 +3,10 @@ import aiohttp
 from os import environ
 from pathlib import Path
 from json import loads, load
+from abc import ABC, abstractmethod
+from shared_state import StateManager
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
-from abc import ABC, abstractmethod
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
@@ -15,7 +16,6 @@ from base import (
     iconLinkData, 
     initVar, 
     save_video_data,
-    change_field_state,
     if_after_time,
     log_error,
     getChzzkCookie,
@@ -233,7 +233,9 @@ class base_vod(ABC):
         max_checks = max_wait_time // check_interval
 
         print(f"{datetime.now()} 하이라이트 처리 대기 시작: {channel_name}")
-        await change_field_state("is_save_highlight_data", self.init.is_save_highlight_data, self.channel_id)
+        # await change_field_state("is_save_highlight_data", self.init.is_save_highlight_data, self.channel_id)
+        self.run_highlight_processing()
+
         await asyncio.sleep(10)
         
         while wait_count < max_checks:
@@ -256,6 +258,21 @@ class base_vod(ABC):
         # 타임아웃 시 기본 처리
         print(f"{datetime.now()} 하이라이트 대기 시간 초과, 기본 처리: {channel_name}")
         await self._process_highlight_chat()
+
+    async def run_highlight_processing(self):
+        state_manager = StateManager.get_instance()
+
+        # StateManager에서 하이라이트가 있는 챗 인스턴스들 가져오기
+        instances_with_highlights = state_manager.get_chat_instances_with_highlights()
+        for instance_info in instances_with_highlights:
+            channel_id = instance_info['channel_id']
+            channel_name = instance_info['channel_name']
+            platform = instance_info['platform']
+            highlights_count = instance_info['highlights_count']
+            chat_instance = instance_info['instance']
+
+            if self.channel_id == channel_id:
+                await chat_instance.highlight_processing()
 
     async def _process_highlight_chat(self):
         """하이라이트 채팅 처리 - 파일에서 직접 로드"""
