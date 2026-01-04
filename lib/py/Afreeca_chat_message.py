@@ -120,8 +120,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 await self._connect_and_run()   # 웹소켓 연결 및 메시지 처리 실행
             except Exception as e:
                 # 오류 발생 시 로그 기록
-                await log_error(f"error in chat manager afreeca", str(e))
-                asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
+                await log_error(f"error in chat manager afreeca {self.data.channel_id}.{str(e)}")
+                if not self.init.DO_TEST:
+                    asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
             finally:
                 # 실행 중인 태스크 정리
                 await self._cleanup_tasks()
@@ -170,7 +171,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                     task.cancel()
                     await asyncio.wait([task], timeout=2)
                 except Exception as cancel_error:
-                    await log_error(f"Error cancelling task for {self.data.channel_id}", cancel_error)
+                    await log_error(f"Error cancelling task for {self.data.channel_id}.{cancel_error}")
         await self.stop_analyzer()
 
         print(f"{datetime.now()} {self.data.channel_id} 연결 정리 완료")
