@@ -1228,7 +1228,6 @@ class ChatAnalyzer:
                 print(f"{datetime.now()} 총 {deleted_count}개의 오래된 fun_score 로그 파일 삭제 완료")
                 
         except Exception as e:
-            from base import log_error
             await log_error(f"fun_score 로그 파일 정리 실패: {str(e)}")
     
     #주기적으로 로그 저장
