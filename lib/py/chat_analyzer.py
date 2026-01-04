@@ -244,7 +244,8 @@ class ChatAnalyzer:
         if self.stream_start_id is None:
             return
         
-        self.is_wait[self.stream_start_id] = False
+        if self.stream_start_id not in self.is_wait:
+            self.is_wait[self.stream_start_id] = False
 
         if self.stream_start_id not in self.highlights_dict:
             self.highlights_dict[self.stream_start_id] = []
