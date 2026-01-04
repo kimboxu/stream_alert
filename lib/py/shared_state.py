@@ -195,44 +195,48 @@ class StateManager:
     def get_chat_instances_with_highlights(self):
         """
         하이라이트 데이터가 있는 챗 인스턴스들을 찾는 함수
-        
+
         Returns:
             하이라이트가 있는 인스턴스 정보 리스트
         """
         instances_with_highlights = []
-        
+
         for platform in ['chzzk', 'afreeca']:
             chat_instances = self.get_chat_instances(platform)
-            
+
             for channel_id, chat_instance in chat_instances.items():
-                if (hasattr(chat_instance, 'chat_analyzer') and 
-                    chat_instance.chat_analyzer and
-                    hasattr(chat_instance.chat_analyzer, 'highlights_dict')):
-                    if len(chat_instance.chat_analyzer.highlights_dict) == 0:
-                        highlights_count = 0
+                analyzer = getattr(chat_instance, 'chat_analyzer', None)
+                highlights_dict = getattr(analyzer, 'highlights_dict', None)
+
+                if not highlights_dict:
+                    continue
+
+                highlights_count = sum(len(v) for v in highlights_dict.values())
+
+                if highlights_count <= 0:
+                    continue
+
+                # 채널명 가져오기
+                try:
+                    if platform == 'chzzk':
+                        channel_name = self.init_var.chzzkIDList.loc[channel_id, 'channelName']
+                    elif platform == 'afreeca':
+                        channel_name = self.init_var.afreecaIDList.loc[channel_id, 'channelName']
                     else:
-                        highlights_count = len(*[chat_instance.chat_analyzer.highlights_dict[highlights] for highlights in chat_instance.chat_analyzer.highlights_dict])
-                    if highlights_count > 0:
-                        # 채널명 가져오기
-                        try:
-                            if platform == 'chzzk':
-                                channel_name = self.init_var.chzzkIDList.loc[channel_id, 'channelName']
-                            elif platform == 'afreeca':
-                                channel_name = self.init_var.afreecaIDList.loc[channel_id, 'channelName']
-                            else:
-                                channel_name = "Unknown"
-                        except:
-                            channel_name = "Unknown"
-                        
-                        instances_with_highlights.append({
-                            'channel_id': channel_id,
-                            'channel_name': channel_name,
-                            'platform': platform,
-                            'highlights_count': highlights_count,
-                            'instance': chat_instance
-                        })
-        
+                        channel_name = "Unknown"
+                except Exception:
+                    channel_name = "Unknown"
+
+                instances_with_highlights.append({
+                    'channel_id': channel_id,
+                    'channel_name': channel_name,
+                    'platform': platform,
+                    'highlights_count': highlights_count,
+                    'instance': chat_instance
+                })
+
         return instances_with_highlights
+
     
     # API 성능 로깅을 위한 편의 함수
     async def log_api_performance(self, api_type: str, response_time_ms: int, 
