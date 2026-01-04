@@ -61,6 +61,7 @@ class ChatMessageWithAnalyzer:
         """분석기 시작 - start() 메서드에서 호출"""
         try:
             if not self.analysis_task or self.analysis_task.done(): 
+                self.chat_analyzer.is_save_log = False
                 self.chat_analyzer.stream_start_id = get_stream_start_id(self.chat_analyzer.channel_id, str(self.init.stream_status[self.chat_analyzer.channel_id].state_update_time['openDate']))
                 self.chat_analyzer._setup_init_dict()
                 self.analysis_task = asyncio.create_task(self._run_analyzer())
