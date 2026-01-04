@@ -10,6 +10,7 @@ from base import (
     getDefaultHeaders,
     getAfreecaCookie,
     save_chatFilter_name,
+    save_airing_data,
     change_nickname,
 )
 import certifi #SSL 인증서 검증용 라이브러리
@@ -138,6 +139,10 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             # 채팅 채널에 연결
             await self.connect()
+
+            # if self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
+            #     self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
+            #     asyncio.create_task(save_airing_data(self.init.afreeca_titleData, 'afreeca', self.data.channel_id))
             
             await self.start_analyzer()     # 분석기 시작
 
@@ -161,6 +166,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 except Exception as cancel_error:
                     await log_error(f"Error cancelling task for {self.data.channel_id}", cancel_error)
         await self.stop_analyzer()
+
+        print(f"{datetime.now()} {self.data.channel_id} 연결 정리 완료")
 
     # 채팅 서버 연결
     async def connect(self):
@@ -222,6 +229,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = self.check_live_state_close()
+            # is_new_chatChannel = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
                                   and (if_after_time(self.data.last_chat_time, sec = 60))
                                   and if_after_time(join_time, sec = 30))
@@ -229,6 +237,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             if (self.run_analyzer and is_close or is_change_chatChannel or check_chat):
                 asyncio.create_task(self.should_offLine())
                 self.run_analyzer = False
+            print(f"should_close_connection {self.data.channel_name} is_close:{is_close}, is_change_chatChannel:{is_change_chatChannel}, check_chat:{check_chat},is_old_chatChannel:{is_old_chatChannel}")
             return (is_close and if_after_time(self.data.last_chat_time)) or is_change_chatChannel or check_chat or is_old_chatChannel
                  
         # 메시지 버퍼링을 위한 변수들
