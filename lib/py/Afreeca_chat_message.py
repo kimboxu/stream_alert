@@ -233,7 +233,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = self.check_live_state_close()
-            is_new_chatChannel = self.init.chzzk_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
+            is_new_chatChannel = self.init.afreeca_titleData.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
                                   and (if_after_time(self.data.last_chat_time, sec = 60))
                                   and if_after_time(join_time, sec = 30))
