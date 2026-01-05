@@ -500,7 +500,7 @@ class base_vod(ABC):
         except:
             return "0:00"
 
-    def _split_comments_with_notice(self, comment_lines, split_len = 90):
+    def _split_comments_with_notice(self, comment_lines, split_len=90):
         """댓글 분할"""
         chunks = []
         current_chunk = []
@@ -509,7 +509,7 @@ class base_vod(ABC):
             if len(current_chunk) >= split_len:
                 chunks.append("\n\n".join(current_chunk))
                 current_chunk = []
-        else:
+        if current_chunk:
             chunks.append("\n\n".join(current_chunk))
             
         return chunks
