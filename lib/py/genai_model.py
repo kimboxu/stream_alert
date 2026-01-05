@@ -107,7 +107,7 @@ class GenAIModelManager:
             # 캐시에 저장해두고 다음에 재사용
             self._models[cache_key] = model
             
-            print(f"새 AI 모델 생성됨 (API 키 #{api_key_index})")
+            print(f"{datetime.now()} 새 AI 모델 생성됨 (API 키 #{api_key_index})")
             return model
             
         except Exception as e:
@@ -118,7 +118,7 @@ class GenAIModelManager:
         """저장된 모델들 모두 삭제 - 메모리 정리할 때 사용"""
         self._models.clear()
         self._current_api_key = None
-        print("AI 모델 캐시 정리 완료")
+        print(f"{datetime.now()} AI 모델 캐시 정리 완료")
     
     def get_cache_info(self) -> Dict[str, int]:
         """현재 캐시된 모델 개수와 상태 확인용"""
