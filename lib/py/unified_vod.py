@@ -666,7 +666,7 @@ class chzzk_vod(base_vod):
                     cookies=getChzzkCookie()
                 ) as response:
                     
-                    print(f"{datetime.now()} 첫 번째 댓글 응답 상태: {response.status}")
+                    # print(f"{datetime.now()} 첫 번째 댓글 응답 상태: {response.status}")
                     response_text = await response.text()
                     
                     if response.status == 200:
@@ -674,7 +674,7 @@ class chzzk_vod(base_vod):
                             response_data = loads(response_text)
                             if response_data.get('code') == 200 and 'content' in response_data:
                                 comment_id = response_data['content'].get('comment',{}).get('commentId')
-                                print(f"{datetime.now()} 첫 번째 댓글 작성 성공! ID: {comment_id}")
+                                # print(f"{datetime.now()} 첫 번째 댓글 작성 성공! ID: {comment_id}")
                                 return comment_id
                             else:
                                 print(f"{datetime.now()} 첫 번째 댓글 실패: {response_data}")
@@ -683,7 +683,7 @@ class chzzk_vod(base_vod):
                             print(f"{datetime.now()} 응답 파싱 오류: {parse_error}")
                             return None
                     else:
-                        await log_error(f"{datetime.now()} {comment_id} {self.data.videoNo}, 첫 번째 댓글 HTTP 오류: {response.status}")
+                        await log_error(f"{datetime.now()} {comment_id} {self.data.videoNo}, 첫 번째 댓글 HTTP 오류: {response_data}")
                         return None
                         
         except Exception as e:
@@ -741,7 +741,7 @@ class chzzk_vod(base_vod):
                                 except Exception as parse_error:
                                     print(f"{datetime.now()} 답글 {i+1} 파싱 오류: {parse_error}")
                             else:
-                                print(f"{datetime.now()} 답글 {i+1} HTTP 오류: {response.status}")
+                                print(f"{datetime.now()} 답글 {i+1} HTTP 오류: {response_data}")
                         
                     except Exception as reply_error:
                         print(f"{datetime.now()} 답글 {i+1} 전송 오류: {reply_error}")
