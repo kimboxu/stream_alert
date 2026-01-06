@@ -276,6 +276,7 @@ class JSONRepairHandler:
             # 응답 검증 (선택사항)
             if response_validator and not response_validator(parsed_json):
                 print(f"{datetime.now()} ⚠️ 응답 검증 실패 (전체 시도 {parse_attempt + 1}/{max_parse_retries})")
+                print(f"응답 내용:\n{response_text}")
                 
                 if parse_attempt < max_parse_retries - 1:
                     if on_retry_callback:
