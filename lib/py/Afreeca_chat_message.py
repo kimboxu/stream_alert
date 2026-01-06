@@ -400,6 +400,10 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
     # 단일 메시지 처리 
     async def _process_single_message(self, messages):
+        # 채팅방 입장, 퇴장 시 last_chat_time update
+        if self._is_chat_connection(messages):
+            self.data.last_chat_time = datetime.now().isoformat()
+            return
         # 유효하지 않은 메시지 필터링
         if self._is_invalid_message(messages):
             if self.if_afreeca_chat(messages): 
@@ -496,6 +500,10 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         if len(self.data.processed_messages) > 20:
             self.data.processed_messages.pop(0)
 
+    def _is_chat_connection(self, messages):
+        # arr = ['\x1b\t000400003800', '1', 'kimboxu', '코딩노예_', '65536|163840', ''] # 방송 접속 
+        return (len(messages) == 6 and messages[1] in [-1, 1]) 
+
     # 메시지 유효성 검사 
     def _is_invalid_message(self, messages):
         # 메시지가 유효하지 않은지 확인
@@ -562,7 +570,11 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     # 비밀번호 설정 여부 확인 
     async def check_is_passwordDict(self):
         stateData = await get_message(self.performance_manager, "afreeca", afreeca_getLink(self.init.afreecaIDList["afreecaID"][self.data.channel_id]))
-        return stateData is not None and stateData.get('broad',{}).get('is_password',{False})
+        return (
+            isinstance(stateData, dict)
+            and isinstance(stateData.get('broad'), dict)
+            and stateData['broad'].get('is_password', False)
+        )
     
     # 방송 종료 여부 확인 
     def check_live_state_close(self):
