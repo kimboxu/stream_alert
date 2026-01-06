@@ -1289,6 +1289,7 @@ class PerformanceManager:
                 trigger="interval",
                 minutes=30,
                 # second=0,
+                misfire_grace_time=60,  # 60초까지 지연 허용
                 id='force_save_logs'
             )
             
@@ -1299,6 +1300,7 @@ class PerformanceManager:
             #     hour=7,
             #     minute=10,
             #     # second=0,
+            #     misfire_grace_time=60,  # 60초까지 지연 허용
             #     id='daily_statistics'
             # )
             
@@ -1308,6 +1310,7 @@ class PerformanceManager:
                 trigger="cron",
                 hour=5,
                 minute=10,
+                misfire_grace_time=60,  # 60초까지 지연 허용
                 id='cleanup_old_files'
             )
             
