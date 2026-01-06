@@ -532,6 +532,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 연결 수립 함수
     async def connect(self):
         """연결 수립 함수"""
+        sock_response = None
         try:
             # 액세스 토큰과 추가 토큰 가져오기
             self.data.accessToken, self.data.extraToken = chzzk_api.fetch_accessToken(self.data.cid, getChzzkCookie())
