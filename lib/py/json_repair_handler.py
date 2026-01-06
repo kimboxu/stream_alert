@@ -12,6 +12,7 @@ class JSONRepairHandler:
     주요 기능:
     - 손상된 JSON 자동 복구
     - API 호출 재시도 로직
+    - JSON 파싱 실패 시 API 재호출
     - Markdown 형식 제거
     - 안전한 파싱 처리
     """
@@ -88,6 +89,7 @@ class JSONRepairHandler:
             return json.loads(json_str)
         except json.JSONDecodeError as e:
             print(f"초기 파싱 실패: {str(e)}")
+            print(json_str)
             
         # 재시도 루프: 자동 복구 시도
         for attempt in range(1, max_retries + 1):
@@ -98,6 +100,7 @@ class JSONRepairHandler:
                 return result
             except json.JSONDecodeError as e:
                 print(f"복구 시도 {attempt} 실패: {str(e)}")
+                print(json_str)
                 if attempt == max_retries:
                     print("❌ 최대 재시도 횟수 초과")
                     return None
@@ -133,7 +136,31 @@ class JSONRepairHandler:
                     api_func(),
                     timeout=timeout
                 )
-                return response.text.strip()
+                response_text = response.text.strip()
+                
+                # 429 Rate Limit 에러 감지
+                if '429' in response_text and 'quota' in response_text.lower():
+                    print(f"{datetime.now()} 🚫 API 할당량 초과 (429 Error)")
+                    
+                    # retry_delay 추출 시도
+                    import re
+                    retry_match = re.search(r'retry in (\d+(?:\.\d+)?)', response_text, re.IGNORECASE)
+                    if retry_match:
+                        retry_seconds = float(retry_match.group(1))
+                        print(f"{datetime.now()} ⏳ API 권장 대기 시간: {retry_seconds:.1f}초")
+                    else:
+                        retry_seconds = 60  # 기본값
+                    
+                    if attempt < max_retries - 1:
+                        if on_retry_callback:
+                            on_retry_callback(attempt + 1, max_retries)
+                        await asyncio.sleep(retry_seconds)
+                        continue
+                    else:
+                        print(f"{datetime.now()} ❌ API 요청 최종 실패 (할당량 초과)")
+                        return None
+                
+                return response_text
 
             except asyncio.TimeoutError:
                 print(f"{datetime.now()} ⏱️ API 요청 타임아웃 (시도 {attempt + 1}/{max_retries})")
@@ -142,7 +169,8 @@ class JSONRepairHandler:
                     on_timeout_callback(attempt + 1, max_retries)
                 
                 if attempt < max_retries - 1:
-                    on_retry_callback(attempt + 1, max_retries)
+                    if on_retry_callback:
+                        on_retry_callback(attempt + 1, max_retries)
                     wait_time = 2 ** attempt
                     print(f"{datetime.now()} {wait_time}초 후 재시도...")
                     await asyncio.sleep(wait_time)
@@ -157,7 +185,8 @@ class JSONRepairHandler:
                     on_error_callback(attempt + 1, max_retries, str(e))
                 
                 if attempt < max_retries - 1:
-                    on_retry_callback(attempt + 1, max_retries)
+                    if on_retry_callback:
+                        on_retry_callback(attempt + 1, max_retries)
                     wait_time = 2 ** attempt
                     await asyncio.sleep(wait_time)
                 else:
@@ -175,48 +204,92 @@ class JSONRepairHandler:
         on_timeout_callback: Optional[Callable[[int, int], None]] = None,
         on_error_callback: Optional[Callable[[int, int, str], None]] = None,
         response_validator: Optional[Callable[[Any], bool]] = None,
+        max_parse_retries: int = 3,
     ) -> Optional[Any]:
         """
         API를 호출하고 JSON을 파싱하며 재시도 로직을 처리합니다.
+        JSON 파싱이 실패하면 API를 다시 호출합니다.
         
         Args:
             api_func: 호출할 비동기 API 함수
-            max_retries: 최대 재시도 횟수
+            max_retries: 최대 API 재시도 횟수
             timeout: 요청 타임아웃 (초)
-            on_retry_callback: 재시도 시 호출될 콜백 함수
+            on_retry_callback: 재시도 시 호출될 콜백 함수 (API 호출 실패, 파싱 실패 모두 포함)
             on_timeout_callback: 타임아웃 시 호출될 콜백 함수
             on_error_callback: 오류 발생 시 호출될 콜백 함수
             response_validator: 파싱된 응답을 검증할 함수 (bool 반환)
+            max_parse_retries: JSON 파싱 실패 시 API 재호출 최대 횟수
             
         Returns:
             파싱된 JSON 객체, 실패 시 None
         """
-        # API 호출
-        response_text = await JSONRepairHandler.call_api_with_retry(
-            api_func=api_func,
-            max_retries=max_retries,
-            timeout=timeout,
-            on_retry_callback=on_retry_callback,
-            on_timeout_callback=on_timeout_callback,
-            on_error_callback=on_error_callback,
-        )
+        # 전체 재시도 루프 (API 호출 + JSON 파싱)
+        for parse_attempt in range(max_parse_retries):
+            print(f"{datetime.now()} 🔄 전체 시도 {parse_attempt + 1}/{max_parse_retries}")
+            
+            # API 호출
+            response_text = await JSONRepairHandler.call_api_with_retry(
+                api_func=api_func,
+                max_retries=max_retries,
+                timeout=timeout,
+                on_retry_callback=on_retry_callback,
+                on_timeout_callback=on_timeout_callback,
+                on_error_callback=on_error_callback,
+            )
+            
+            # API 호출 자체가 실패한 경우
+            if response_text is None:
+                print(f"{datetime.now()} ❌ API 호출 실패 (전체 시도 {parse_attempt + 1}/{max_parse_retries})")
+                if parse_attempt < max_parse_retries - 1:
+                    if on_retry_callback:
+                        on_retry_callback(parse_attempt + 1, max_parse_retries)
+                    wait_time = 2 ** parse_attempt
+                    print(f"{datetime.now()} {wait_time}초 후 전체 재시도...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                else:
+                    print(f"{datetime.now()} ❌ 전체 시도 최종 실패 (API 호출 불가)")
+                    return None
+            
+            # Markdown 정제
+            response_text = JSONRepairHandler.clean_markdown(response_text)
+            
+            # JSON 파싱 (자동 복구 포함)
+            parsed_json = JSONRepairHandler.validate_and_parse(response_text, max_retries=3)
+            
+            # JSON 파싱 실패
+            if parsed_json is None:
+                print(f"{datetime.now()} ❌ JSON 파싱 실패 (전체 시도 {parse_attempt + 1}/{max_parse_retries})")
+                print(f"응답 내용:\n{response_text}")
+                
+                if parse_attempt < max_parse_retries - 1:
+                    if on_retry_callback:
+                        on_retry_callback(parse_attempt + 1, max_parse_retries)
+                    wait_time = 2 ** parse_attempt
+                    print(f"{datetime.now()} {wait_time}초 후 API 재호출 및 파싱 재시도...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                else:
+                    print(f"{datetime.now()} ❌ 전체 시도 최종 실패 (JSON 파싱 불가)")
+                    return None
+            
+            # 응답 검증 (선택사항)
+            if response_validator and not response_validator(parsed_json):
+                print(f"{datetime.now()} ⚠️ 응답 검증 실패 (전체 시도 {parse_attempt + 1}/{max_parse_retries})")
+                
+                if parse_attempt < max_parse_retries - 1:
+                    if on_retry_callback:
+                        on_retry_callback(parse_attempt + 1, max_parse_retries)
+                    wait_time = 2 ** parse_attempt
+                    print(f"{datetime.now()} {wait_time}초 후 API 재호출 및 검증 재시도...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                else:
+                    print(f"{datetime.now()} ❌ 전체 시도 최종 실패 (검증 실패)")
+                    return None
+            
+            # 성공!
+            print(f"{datetime.now()} ✅ JSON 파싱 및 검증 성공")
+            return parsed_json
         
-        if response_text is None:
-            return None
-        
-        # Markdown 정제
-        response_text = JSONRepairHandler.clean_markdown(response_text)
-        
-        # JSON 파싱 (자동 복구 포함)
-        parsed_json = JSONRepairHandler.validate_and_parse(response_text, max_retries=3)
-        
-        if parsed_json is None:
-            print(f"{datetime.now()} ❌ JSON 파싱 최종 실패")
-            return None
-        
-        # 응답 검증 (선택사항)
-        if response_validator and not response_validator(parsed_json):
-            print(f"{datetime.now()} ⚠️ 응답 검증 실패: 예상한 형식이 아닙니다")
-            return None
-        
-        return parsed_json
+        return None
