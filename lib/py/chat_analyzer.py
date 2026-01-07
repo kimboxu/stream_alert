@@ -1141,10 +1141,13 @@ class ChatAnalyzer:
             # 로그가 충분히 쌓였거나 강제 저장일 때만 실행
             if stream_start_id is None:
                 stream_start_id = self.stream_start_id
-            if len(self.detailed_logs_dict[stream_start_id]) < 50 and not force_save:
+            if len(self.detailed_logs_dict[stream_start_id]) < 100 and not force_save:
                 print(f"{datetime.now()} {self.channel_name}, {len(self.detailed_logs_dict[stream_start_id])} 저장할 로그가 없습니다.1")
-                print(f"{datetime.now()} {self.detailed_logs_dict}")
-                self.init.chat_json[self.channel_id] = True
+                tmp_list = []
+                for idx in self.detailed_logs_dict[stream_start_id]:
+                    tmp_list.append(self.detailed_logs_dict[stream_start_id][idx]['comment_after_openDate'])
+                print(f"{datetime.now()} {tmp_list}")
+                # self.init.chat_json[self.channel_id] = True
                 return
             
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
