@@ -297,7 +297,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             except websockets.exceptions.ConnectionClosed:
                 # 연결 종료 시 로그 기록
-                asyncio.create_task(log_error(f"{self.data.channel_id}: 연결 비정상 종료"), webhook_url=environ['chat_post_url'])
+                asyncio.create_task(log_error(f"{self.data.channel_id}: 연결 비정상 종료", webhook_url=environ['chat_post_url']))
                 try: 
                     await self.data.sock.close()
                     await self.data.sock.wait_closed()

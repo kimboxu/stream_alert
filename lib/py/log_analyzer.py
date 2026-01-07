@@ -2205,7 +2205,7 @@ async def main():
             use_ai = args.use_ai
 
         except:
-            channel_name, date, use_ai = "빅헤드", '2025-12-23', True
+            channel_name, date, use_ai = "빅헤드", '2026-01-06', True
         
         # AI 사용 가능 여부 확인
         if use_ai and not AI_AVAILABLE:
@@ -2218,7 +2218,7 @@ async def main():
         print(f"분석할 날짜: {date}")
         print(f"AI 사용: {'예' if use_ai else '아니오'}")
         if use_ai:
-            print(f"AI 모델: Gemini 2.0 Flash (base.py에서 로드)")
+            print(f"AI 모델: Gemini 2.5 Flash (base.py에서 로드)")
         print("="*60)
         
         # 분석기 생성 및 실행
