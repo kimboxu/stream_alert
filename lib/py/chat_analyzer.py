@@ -1282,9 +1282,11 @@ class ChatAnalyzer:
             print(f"{datetime.now()} {self.channel_name} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지")
 
             # API 호출 및 JSON 파싱
-            def api_call():
+            def api_call(emergency = None):
+                if emergency is None:
+                    emergency = is_emergency
                 self.add_genai_cnt()
-                model = get_genai_model(self.init.genai_cnt, is_emergency)
+                model = get_genai_model(self.init.genai_cnt, emergency)
                 return asyncio.to_thread(model.generate_content, msg_list)
 
             def response_validator(response):
