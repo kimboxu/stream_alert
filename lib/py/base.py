@@ -94,6 +94,7 @@ async def log_error(message, is_Do_test = False, webhook_url = environ.get('erro
 async def userDataVar(init: initVar):
 	try:
 		# 1. 업데이트 정보 가져오기
+		date_update = None
 		date_update = await asyncio.to_thread(
 			lambda: init.supabase.table('date_update').select("*").execute()
 		)
@@ -145,6 +146,7 @@ async def userDataVar(init: initVar):
 			error_details += "\nSSL connection error occurred"
 			
 		asyncio.create_task(log_error(error_details))
+		print(f"{datetime.now()} date_update:{date_update}")
 
 ## 사용자 상태 데이터 로드
 async def load_user_state_data(init: initVar):
@@ -873,7 +875,7 @@ async def save_chat_command_data(chat_command_data, _id):
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
-async def save_chatFilter_name(user_id, user_name, platform: str): 
+async def save_chatFilter_name(init, user_id, user_name, platform: str): 
 	table_name = f'{platform}_chatFilter'
 	lock = get_table_lock(table_name)
 	async with lock:
@@ -881,8 +883,10 @@ async def save_chatFilter_name(user_id, user_name, platform: str):
 		data = {'channelName': user_name}
 
 		if platform == "chzzk":
+			init.chzzk_chatFilter.loc[user_id, "channelName"] = user_name
 			data["uid"] = user_id
 		elif platform == "afreeca":
+			init.afreeca_chatFilter.loc[user_id, "channelName"] = user_name
 			data["channelID"] = user_id
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
@@ -907,10 +911,8 @@ async def change_nickname(init, user_id, nickname, platform: str):
 							index = init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID].index(channelName)
 							init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID][index] = nickname
 							asyncio.create_task(save_user_chat_user_json(discordWebhookURL, init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
-
 			asyncio.create_task(log_error(f"닉네임 변경됨 {platform}:{channelName} -> {nickname}"))
-			channelName = nickname
-			asyncio.create_task(save_chatFilter_name(user_id, nickname, platform = platform))
+			asyncio.create_task(save_chatFilter_name(init, user_id, nickname, platform = platform))
 			
 	except Exception as e:
 		print(e)
