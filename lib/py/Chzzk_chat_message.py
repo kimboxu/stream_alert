@@ -983,7 +983,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if sp_chat[0] == "!멤버수정" or (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (sp_chat[0] == "!멤버" or self.is_authority(userRoleCode, nickname)):
             if (len(sp_chat) == 2 and sp_chat[0] == "!멤버") or (len(sp_chat) == 1 and sp_chat[0] == "!멤버수정"):
                 save_text = " "
-            elif len(sp_chat) == 2 and sp_chat[0] == "!멤버수정":
+            elif sp_chat[0] == "!멤버수정":
                 sp_chat[0] = "!멤버"
                 save_text = " ".join(sp_chat[1:])
             else:
