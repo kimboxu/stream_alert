@@ -16,7 +16,6 @@ class JSONRepairHandler:
     - Markdown 형식 제거
     - 안전한 파싱 처리
     """
-
     @staticmethod
     def repair_json_string(json_str: str) -> str:
         """
@@ -112,6 +111,7 @@ class JSONRepairHandler:
         api_func: Callable[[], Coroutine],
         max_retries: int,
         timeout: int,
+        is_emergency: bool,
         on_retry_callback: Optional[Callable[[int, int], None]] = None,
         on_timeout_callback: Optional[Callable[[int, int], None]] = None,
         on_error_callback: Optional[Callable[[int, int, str], None]] = None,
@@ -123,6 +123,7 @@ class JSONRepairHandler:
             api_func: 호출할 비동기 API 함수
             max_retries: 최대 재시도 횟수
             timeout: 요청 타임아웃 (초)
+            is_emergency: 사용량 소진시 사용
             on_retry_callback: 재시도 시 호출될 콜백 함수
             on_timeout_callback: 타임아웃 시 호출될 콜백 함수
             on_error_callback: 오류 발생 시 호출될 콜백 함수
@@ -133,7 +134,7 @@ class JSONRepairHandler:
         for attempt in range(max_retries):
             try:
                 response = await asyncio.wait_for(
-                    api_func(),
+                    api_func(is_emergency),
                     timeout=timeout
                 )
                 response_text = response.text.strip()
@@ -153,6 +154,7 @@ class JSONRepairHandler:
                     
                     if attempt < max_retries - 1:
                         if on_retry_callback:
+                            is_emergency = False
                             on_retry_callback(attempt + 1, max_retries)
                         await asyncio.sleep(retry_seconds)
                         continue
@@ -170,6 +172,7 @@ class JSONRepairHandler:
                 
                 if attempt < max_retries - 1:
                     if on_retry_callback:
+                        is_emergency = False
                         on_retry_callback(attempt + 1, max_retries)
                     wait_time = 2 ** attempt
                     print(f"{datetime.now()} {wait_time}초 후 재시도...")
@@ -186,6 +189,7 @@ class JSONRepairHandler:
                 
                 if attempt < max_retries - 1:
                     if on_retry_callback:
+                        is_emergency = False
                         on_retry_callback(attempt + 1, max_retries)
                     wait_time = 2 ** attempt
                     await asyncio.sleep(wait_time)
@@ -200,6 +204,7 @@ class JSONRepairHandler:
         api_func: Callable[[], Coroutine],
         max_retries: int,
         timeout: int,
+        is_emergency: bool,
         on_retry_callback: Optional[Callable[[int, int], None]] = None,
         on_timeout_callback: Optional[Callable[[int, int], None]] = None,
         on_error_callback: Optional[Callable[[int, int, str], None]] = None,
@@ -232,6 +237,7 @@ class JSONRepairHandler:
                 api_func=api_func,
                 max_retries=max_retries,
                 timeout=timeout,
+                is_emergency=is_emergency,
                 on_retry_callback=on_retry_callback,
                 on_timeout_callback=on_timeout_callback,
                 on_error_callback=on_error_callback,

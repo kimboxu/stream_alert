@@ -1311,6 +1311,7 @@ class ChatAnalyzer:
                 api_func=api_call,
                 max_retries=max_retries,
                 timeout=request_timeout,
+                is_emergency=is_emergency,
                 on_retry_callback=on_retry_callback,
                 on_timeout_callback=on_timeout_callback,
                 on_error_callback=on_error_callback,
