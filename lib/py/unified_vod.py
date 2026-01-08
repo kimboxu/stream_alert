@@ -133,7 +133,7 @@ class base_vod(ABC):
         # 비디오 데이터 JSON 생성 및 저장
         json_data = await self._get_video_json()
         self._update_video_list()
-        asyncio.create_task(save_video_data(self.video_data, self.channel_id))
+        # asyncio.create_task(save_video_data(self.video_data, self.channel_id))
 
         # 알림 목록에 추가
         self.data.video_alarm_List.append(json_data)
@@ -350,18 +350,34 @@ class base_vod(ABC):
         except Exception as e:
             await log_error(f"하이라이트 파일 로딩 오류: {str(e)}")
             return None
+        
+    async def uptime_command(self):
+        if self.init.chzzk_titleData.loc[self.channel_id, 'live_state'] == "CLOSE":
+            await self._send("채널이 오프라인 상태입니다.")
+            return 0
+        start_time_str = self.init.chzzk_titleData.loc[self.channel_id, 'state_update_time']['openDate']
+        current_time = datetime.now()
+        start_time = datetime.fromisoformat(start_time_str)
+        uptime = current_time - start_time
+        return int(uptime.total_seconds())+30
 
     async def _match_chzzk_vod_segment(self, data):
+        
         """치지직 17시간 이상 장시간 방송 VOD 세그먼트 매칭 로직"""
+
         try:
+            is_done = False
+            segment_duration = 17 * 3600
+            if await self.uptime_command() < segment_duration:
+                return None
+            
             stream_start_id = data.get('stream_start_id', '')
             start_time = get_timestamp_from_stream_id(stream_start_id)
             
             # 기존 로직으로 한 번 더 시도 (17시간 이상 단일 방송)
             timestamp = datetime.fromisoformat(str(data.get('last_updated', '')))
 
-            is_done = False
-            segment_duration = 17 * 3600
+            
             # 17시간 단위로 체크하여 해당 세그먼트 찾기
             for i in range(1, 60):  # 최대 60개 세그먼트 (1000시간)
                 hours_threshold = 17 * i
