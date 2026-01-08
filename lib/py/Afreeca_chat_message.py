@@ -70,6 +70,11 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         self.tasks = []
         self.start_program = False if self.check_live_state_close() else True
 
+        # 방송 타입 상태
+        self.adult_channel_state = -6
+        self.subscription_Plus = -14
+        self.black_list = -3
+
         self.setup_analyzer(channel_id, channel_name, 'afreeca')
 
     # SSL 컨텍스트 생성
@@ -97,22 +102,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             self.data.BNO = self.init.afreeca_titleData.loc[self.data.channel_id, 'chatChannelId']
             self.data.BID = self.init.afreecaIDList["afreecaID"][self.data.channel_id]
 
-            # 채널 상태 데이터 가져오기
-            channel_data = await self.afreeca_getChannelStateData()
-            if_adult_channel, TITLE, BNO, self.CHDOMAIN, self.CHATNO, FTK, BJID, self.CHPT = channel_data
-            
             # 방송 정보가 없으면 대기
-            if TITLE is None: 
-                await asyncio.sleep(1)
-                continue
-            self.data.BID = BNO
-            
-            # 성인 채널인 경우 채팅을 확인 할 수 없기 때문에 건너뛰기
-            adult_channel_state = -6
-            subscription_Plus   = -14
-            if if_adult_channel in [adult_channel_state, subscription_Plus]:
-                if adult_channel_state == if_adult_channel:
-                    await log_error(f"channel_data {channel_data}")
+            if not await self.afreeca_getChannelStateData(): 
                 await asyncio.sleep(5)
                 continue
             
@@ -613,31 +604,29 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
         except Exception as e:
             asyncio.create_task(log_error(f"error get player live {str(e)}"))
-            return None, None, None, None, None, None, None, None
+            return False
         
         # 방송 상태 및 제목 정보 추출
-        live = res["CHANNEL"]["RESULT"]
-        title = res["CHANNEL"].get("TITLE","TITLE")
+        self.stream_type_state = res["CHANNEL"]["RESULT"]
+        self.TITLE = res["CHANNEL"].get("TITLE",None)
 
         # 성인, 구독 플러스 채널 처리
-        adult_channel_state = -6
-        subscription_Plus = -14
-        black_list = -3
-        if live in [adult_channel_state, subscription_Plus, black_list]:  # 연령제한 채널로 썸네일링크 못 읽을 경우
+        if self.stream_type_state in [self.adult_channel_state, self.subscription_Plus, self.black_list]:  # 연령제한 채널로 썸네일링크 못 읽을 경우
             thumbnail_url = f"https://liveimg.afreecatv.com/m/{self.data.BNO}"
             BNO = self.data.BNO
-            return live, title, self.data.BNO, None, None, None, None, None
+            return False
         
         # 방송 중인 경우 필요한 정보 추출
-        if live:
+        if self.stream_type_state:
             try: BNO = int(res['CHANNEL']['BNO'])
             except: 
                 asyncio.create_task(log_error(f"error res['CHANNEL']['BNO'] None"))
 
             thumbnail_url = f"https://liveimg.afreecatv.com/m/{res['CHANNEL']['BNO']}"
 
-            CHDOMAIN = res["CHANNEL"]["CHDOMAIN"].lower()
-            CHATNO = res["CHANNEL"]["CHATNO"]
+            self.data.BNO = BNO
+            self.CHDOMAIN = res["CHANNEL"]["CHDOMAIN"].lower()
+            self.CHATNO = res["CHANNEL"]["CHATNO"]
 
             try: FTK = res["CHANNEL"]["FTK"]
             except Exception as e:
@@ -649,15 +638,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 BJID = None
                 asyncio.create_task(log_error(f"{datetime.now()} error afreeca BJID {res}"))
 
-            CHPT = str(int(res["CHANNEL"]["CHPT"]) + 1)
-        else:
-            # 방송이 없는 경우 모든 값을 None으로 설정
-            title = None
-            BNO = None
-            CHDOMAIN = None
-            CHATNO = None
-            FTK = None
-            BJID = None
-            CHPT = None
-
-        return live, title,BNO, CHDOMAIN, CHATNO, FTK, BJID, CHPT
+            self.CHPT = str(int(res["CHANNEL"]["CHPT"]) + 1)
+            return True
+        
+        return False
