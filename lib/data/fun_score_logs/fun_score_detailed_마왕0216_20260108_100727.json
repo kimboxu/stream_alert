@@ -1,0 +1,330 @@
+{
+  "channel_id": "mawang0216",
+  "channel_name": "마왕0216",
+  "save_timestamp": "2026-01-08T10:07:27.348539",
+  "total_logs": 8,
+  "logs": [
+    {
+      "timestamp": "2026-01-08T10:06:17.165510",
+      "fun_score": 5.271263416352021,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.5580942411645146,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.271263416352021,
+        "baseline_chat_count": 16.4949044846616,
+        "baseline_viewer_count": 253.7871701054366,
+        "baseline_threshold": 25.05697358468119,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8059174343108584,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 21,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:00:46",
+      "comment_after_openDate": "00:00:46",
+      "chat_context": [
+        "sunjine33: 뫙하뫙하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T10:06:22.225260",
+      "fun_score": 5.281228148866783,
+      "test_fun_score": 0.07579590133704006,
+      "score_components": {
+        "chat_spike_score": 0.5587073570084555,
+        "reaction_score": 0.07579590133704006,
+        "test_reaction_score": 0.07579590133704006,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.281228148866783,
+        "baseline_chat_count": 16.34646329969854,
+        "baseline_viewer_count": 251.5570690158265,
+        "baseline_threshold": 24.8674264812686,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8158821668256211,
+        "test_score_difference": 0.008725875243744435,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 21,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:00:51",
+      "comment_after_openDate": "00:00:51",
+      "chat_context": [
+        "sunjine33: 뫙하뫙하",
+        "한국놈: ㅎㅇ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T10:06:27.232070",
+      "fun_score": 5.356170022765282,
+      "test_fun_score": 0.07587454539390819,
+      "score_components": {
+        "chat_spike_score": 0.6325006479693789,
+        "reaction_score": 0.07587454539390819,
+        "test_reaction_score": 0.07587454539390819,
+        "diversity_score": 50.48782367560888,
+        "viewer_trend_score": 0,
+        "final_score": 5.356170022765282,
+        "baseline_chat_count": 16.20902418128743,
+        "baseline_viewer_count": 249.34833229465488,
+        "baseline_threshold": 24.679790701244187,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8908240407241195,
+        "test_score_difference": 0.00880451930061256,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 33,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:00:56",
+      "comment_after_openDate": "00:00:56",
+      "chat_context": [
+        "sunjine33: 뫙하뫙하",
+        "한국놈: ㅎㅇ",
+        "〃예천화: 뚜뚜따따"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T10:06:32.237231",
+      "fun_score": 5.356743570407079,
+      "test_fun_score": 0.07594821668667329,
+      "score_components": {
+        "chat_spike_score": 0.6337260840893069,
+        "reaction_score": 0.07594821668667329,
+        "test_reaction_score": 0.07594821668667329,
+        "diversity_score": 50.48782367560888,
+        "viewer_trend_score": 0,
+        "final_score": 5.356743570407079,
+        "baseline_chat_count": 16.082481729630693,
+        "baseline_viewer_count": 247.27571527127208,
+        "baseline_threshold": 24.49467041514436,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8913975883659164,
+        "test_score_difference": 0.00887819059337766,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 33,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:01:01",
+      "comment_after_openDate": "00:01:01",
+      "chat_context": [
+        "sunjine33: 뫙하뫙하",
+        "한국놈: ㅎㅇ",
+        "〃예천화: 뚜뚜따따"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T10:06:37.239275",
+      "fun_score": 5.357321686122975,
+      "test_fun_score": 0.07602240607437517,
+      "score_components": {
+        "chat_spike_score": 0.6349613260883876,
+        "reaction_score": 0.07602240607437517,
+        "test_reaction_score": 0.07602240607437517,
+        "diversity_score": 50.48782367560888,
+        "viewer_trend_score": 0,
+        "final_score": 5.357321686122975,
+        "baseline_chat_count": 15.95715155466083,
+        "baseline_viewer_count": 245.22295391897327,
+        "baseline_threshold": 24.311329075971774,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8763118024951986,
+        "test_score_difference": 0.008952379981079547,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 33,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:01:06",
+      "comment_after_openDate": "00:01:06",
+      "chat_context": [
+        "sunjine33: 뫙하뫙하",
+        "한국놈: ㅎㅇ",
+        "〃예천화: 뚜뚜따따"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T10:06:42.242497",
+      "fun_score": 5.282315230783755,
+      "test_fun_score": 0.07609711553214861,
+      "score_components": {
+        "chat_spike_score": 0.5609222851383212,
+        "reaction_score": 0.07609711553214861,
+        "test_reaction_score": 0.07609711553214861,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.282315230783755,
+        "baseline_chat_count": 15.83302204276718,
+        "baseline_viewer_count": 243.18985802042948,
+        "baseline_threshold": 24.12974968517702,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.429256613202762,
+        "test_score_difference": 0.009027089438852984,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 33,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:01:11",
+      "comment_after_openDate": "00:01:11",
+      "chat_context": [
+        "한국놈: ㅎㅇ",
+        "〃예천화: 뚜뚜따따"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T10:06:47.244358",
+      "fun_score": 5.2826080850114,
+      "test_fun_score": 0.07617826197990782,
+      "score_components": {
+        "chat_spike_score": 0.5615189746790271,
+        "reaction_score": 0.07617826197990782,
+        "test_reaction_score": 0.07617826197990782,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 5.2826080850114,
+        "baseline_chat_count": 15.700501691597468,
+        "baseline_viewer_count": 241.17623918059374,
+        "baseline_threshold": 23.94919126310393,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0762814796089124,
+        "test_score_difference": 0.009108235886612193,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 37,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:01:16",
+      "comment_after_openDate": "00:01:16",
+      "chat_context": [
+        "한국놈: ㅎㅇ",
+        "〃예천화: 뚜뚜따따"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T10:06:52.248311",
+      "fun_score": 5.273075277777308,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.5621205998873763,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.273075277777308,
+        "baseline_chat_count": 15.569250885391963,
+        "baseline_viewer_count": 239.22023080924365,
+        "baseline_threshold": 23.7703653962578,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0018118614252875531,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 37,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:21",
+      "comment_after_openDate": "00:01:21",
+      "chat_context": [
+        "〃예천화: 뚜뚜따따"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

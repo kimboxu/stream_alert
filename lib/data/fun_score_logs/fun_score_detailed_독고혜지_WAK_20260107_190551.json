@@ -1,0 +1,1178 @@
+{
+  "channel_id": "dokkhye",
+  "channel_name": "독고혜지_WAK",
+  "save_timestamp": "2026-01-07T19:05:51.164904",
+  "total_logs": 29,
+  "logs": [
+    {
+      "timestamp": "2026-01-07T19:02:56.631747",
+      "fun_score": 5.604802874093087,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.2992930361446637,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.604802874093087,
+        "baseline_chat_count": 2.0618119029440853,
+        "baseline_viewer_count": 68.3896333718944,
+        "baseline_threshold": 9.46474058318302,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.3176588741238806,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 13,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:00:29",
+      "comment_after_openDate": "00:00:29",
+      "chat_context": [
+        "DHz.곰돌이: 머임?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:01.635918",
+      "fun_score": 6.585517846170566,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 3.423662446668995,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 0,
+        "final_score": 6.585517846170566,
+        "baseline_chat_count": 2.051639744913881,
+        "baseline_viewer_count": 67.85900068419166,
+        "baseline_threshold": 9.427762379929938,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.2983738462013594,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 13,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:00:34",
+      "comment_after_openDate": "00:00:34",
+      "chat_context": [
+        "DHz.곰돌이: 머임?",
+        "On령이: 방금 방송국 터짐?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:06.640315",
+      "fun_score": 7.628278993075267,
+      "test_fun_score": 0.7650208057083451,
+      "score_components": {
+        "chat_spike_score": 8.83171737626326,
+        "reaction_score": 0.7650208057083451,
+        "test_reaction_score": 0.7650208057083451,
+        "diversity_score": 34.244999320442965,
+        "viewer_trend_score": 0,
+        "final_score": 7.628278993075267,
+        "baseline_chat_count": 2.051145036157606,
+        "baseline_viewer_count": 67.3334514576371,
+        "baseline_threshold": 9.400533677296522,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.3411349931060608,
+        "test_score_difference": 0.6979507796150495,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 19,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:00:39",
+      "comment_after_openDate": "00:00:39",
+      "chat_context": [
+        "DHz.곰돌이: 머임?",
+        "On령이: 방금 방송국 터짐?",
+        "On령이: 레전드"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:11.643880",
+      "fun_score": 7.57709222078069,
+      "test_fun_score": 0.7568678435886939,
+      "score_components": {
+        "chat_spike_score": 8.72340430146619,
+        "reaction_score": 0.7568678435886939,
+        "test_reaction_score": 0.7568678435886939,
+        "diversity_score": 34.244999320442965,
+        "viewer_trend_score": 0,
+        "final_score": 7.57709222078069,
+        "baseline_chat_count": 2.0602350667112157,
+        "baseline_viewer_count": 66.87041699267293,
+        "baseline_threshold": 9.383555477421684,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.2899482208114836,
+        "test_score_difference": 0.6897978174953983,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 19,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:00:44",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "DHz.곰돌이: 머임?",
+        "On령이: 방금 방송국 터짐?",
+        "On령이: 레전드"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:16.648149",
+      "fun_score": 54.50205919029553,
+      "test_fun_score": 64.12266019127763,
+      "score_components": {
+        "chat_spike_score": 47.46855906721323,
+        "reaction_score": 100,
+        "test_reaction_score": 64.12266019127763,
+        "diversity_score": 31.41207610049583,
+        "viewer_trend_score": 0,
+        "final_score": 54.50205919029553,
+        "baseline_chat_count": 2.069238014772122,
+        "baseline_viewer_count": 66.41181839788311,
+        "baseline_threshold": 9.366249559423064,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 50.21491519032632,
+        "test_score_difference": 64.05559016518434,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 22,
+        "fun_keywords": {
+          "surprise": 4.0
+        },
+        "test_keyword_counter": {
+          "surprise": 3.0
+        }
+      },
+      "after_openDate": "00:00:49",
+      "comment_after_openDate": "00:00:49",
+      "chat_context": [
+        "DHz.곰돌이: 머임?",
+        "On령이: 방금 방송국 터짐?",
+        "On령이: 레전드",
+        "On령이: 혜지님 1명 보고 있음 레전드",
+        "DHz.헤끙: 뭐야뭐야"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:21.651924",
+      "fun_score": 53.46607478425026,
+      "test_fun_score": 59.970617606231826,
+      "score_components": {
+        "chat_spike_score": 45.16637149822372,
+        "reaction_score": 100,
+        "test_reaction_score": 59.970617606231826,
+        "diversity_score": 31.41207610049583,
+        "viewer_trend_score": 0,
+        "final_score": 53.46607478425026,
+        "baseline_chat_count": 2.097314714590605,
+        "baseline_viewer_count": 65.98635317763139,
+        "baseline_threshold": 9.798650615686823,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 49.17893078428105,
+        "test_score_difference": 59.90354758013853,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 22,
+        "fun_keywords": {
+          "surprise": 4.0
+        },
+        "test_keyword_counter": {
+          "surprise": 3.0
+        }
+      },
+      "after_openDate": "00:00:54",
+      "comment_after_openDate": "00:00:54",
+      "chat_context": [
+        "DHz.곰돌이: 머임?",
+        "On령이: 방금 방송국 터짐?",
+        "On령이: 레전드",
+        "On령이: 혜지님 1명 보고 있음 레전드",
+        "DHz.헤끙: 뭐야뭐야"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:26.658394",
+      "fun_score": 77.61360724031506,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.136072403150642,
+        "viewer_trend_score": 0,
+        "final_score": 77.61360724031506,
+        "baseline_chat_count": 2.1251224396248265,
+        "baseline_viewer_count": 65.56496391418968,
+        "baseline_threshold": 10.216984539221661,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 73.32646324034586,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 22,
+        "fun_keywords": {
+          "surprise": 5.0
+        },
+        "test_keyword_counter": {
+          "surprise": 4.0
+        }
+      },
+      "after_openDate": "00:00:59",
+      "comment_after_openDate": "00:00:49",
+      "chat_context": [
+        "On령이: 방금 방송국 터짐?",
+        "On령이: 레전드",
+        "On령이: 혜지님 1명 보고 있음 레전드",
+        "DHz.헤끙: 뭐야뭐야",
+        "챠미쓰: 숲 터졌네",
+        "DHz.헤끙: 숲 다 터졌네",
+        "챠미쓰: 레전드",
+        "DHz.샤우버거: 모든 방송이 터졌네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:31.662671",
+      "fun_score": 77.61154845400407,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.115484540040615,
+        "viewer_trend_score": 0,
+        "final_score": 77.61154845400407,
+        "baseline_chat_count": 2.1814037666532204,
+        "baseline_viewer_count": 65.14761155989173,
+        "baseline_threshold": 10.862644184698135,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 73.32440445403486,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 22,
+        "fun_keywords": {
+          "surprise": 5.0
+        },
+        "test_keyword_counter": {
+          "surprise": 4.0
+        }
+      },
+      "after_openDate": "00:01:04",
+      "comment_after_openDate": "00:01:04",
+      "chat_context": [
+        "On령이: 레전드",
+        "On령이: 혜지님 1명 보고 있음 레전드",
+        "DHz.헤끙: 뭐야뭐야",
+        "챠미쓰: 숲 터졌네",
+        "DHz.헤끙: 숲 다 터졌네",
+        "챠미쓰: 레전드",
+        "DHz.샤우버거: 모든 방송이 터졌네",
+        "On령이: 숲 번개맞았나?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:36.666872",
+      "fun_score": 81.19353753820579,
+      "test_fun_score": 43.00058589265667,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 43.00058589265667,
+        "diversity_score": 31.93537538205784,
+        "viewer_trend_score": 20,
+        "final_score": 81.19353753820579,
+        "baseline_chat_count": 2.2371459185686824,
+        "baseline_viewer_count": 64.73425744114796,
+        "baseline_threshold": 11.502098687598085,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": false,
+        "score_difference": 76.90639353823659,
+        "test_score_difference": 42.933515866563376,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간 + 💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 31,
+        "fun_keywords": {
+          "surprise": 4.0
+        },
+        "test_keyword_counter": {
+          "surprise": 3.0
+        }
+      },
+      "after_openDate": "00:01:09",
+      "comment_after_openDate": "00:00:49",
+      "chat_context": [
+        "On령이: 혜지님 1명 보고 있음 레전드",
+        "DHz.헤끙: 뭐야뭐야",
+        "챠미쓰: 숲 터졌네",
+        "DHz.헤끙: 숲 다 터졌네",
+        "챠미쓰: 레전드",
+        "DHz.샤우버거: 모든 방송이 터졌네",
+        "On령이: 숲 번개맞았나?",
+        "도넛츤식이: 무슨일이여 이게"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:41.671335",
+      "fun_score": 81.40116981813942,
+      "test_fun_score": 37.800393610710536,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 37.800393610710536,
+        "diversity_score": 34.01169818139419,
+        "viewer_trend_score": 20,
+        "final_score": 81.40116981813942,
+        "baseline_chat_count": 2.292354060668794,
+        "baseline_viewer_count": 64.41108325486177,
+        "baseline_threshold": 12.169742671786906,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": false,
+        "score_difference": 77.11402581817022,
+        "test_score_difference": 37.73332358461724,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간 + 💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 31,
+        "fun_keywords": {
+          "surprise": 4.0
+        },
+        "test_keyword_counter": {
+          "surprise": 3.0
+        }
+      },
+      "after_openDate": "00:01:14",
+      "comment_after_openDate": "00:00:49",
+      "chat_context": [
+        "On령이: 혜지님 1명 보고 있음 레전드",
+        "DHz.헤끙: 뭐야뭐야",
+        "챠미쓰: 숲 터졌네",
+        "DHz.헤끙: 숲 다 터졌네",
+        "챠미쓰: 레전드",
+        "DHz.샤우버거: 모든 방송이 터졌네",
+        "On령이: 숲 번개맞았나?",
+        "도넛츤식이: 무슨일이여 이게",
+        "고양이와둘기: 아이고 다 그런가보네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:46.680706",
+      "fun_score": 54.114244285672115,
+      "test_fun_score": 0.5583387299030262,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.5583387299030262,
+        "test_reaction_score": 0.5583387299030262,
+        "diversity_score": 44.46742666701206,
+        "viewer_trend_score": 30,
+        "final_score": 54.114244285672115,
+        "baseline_chat_count": 2.356613308767587,
+        "baseline_viewer_count": 64.09100507728019,
+        "baseline_threshold": 12.832979743848963,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 49.82710028570291,
+        "test_score_difference": 0.49126870380973064,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 31,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:01:19",
+      "comment_after_openDate": "00:01:19",
+      "chat_context": [
+        "챠미쓰: 숲 터졌네",
+        "DHz.헤끙: 숲 다 터졌네",
+        "챠미쓰: 레전드",
+        "DHz.샤우버거: 모든 방송이 터졌네",
+        "On령이: 숲 번개맞았나?",
+        "도넛츤식이: 무슨일이여 이게",
+        "고양이와둘기: 아이고 다 그런가보네",
+        "나나옐로: 글로벌이랑 통합한다고 이거저거 하다가 뭐 잘못만졌나"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:51.684687",
+      "fun_score": 54.106481496994206,
+      "test_fun_score": 0.5324627676433322,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.5324627676433322,
+        "test_reaction_score": 0.5324627676433322,
+        "diversity_score": 44.46742666701206,
+        "viewer_trend_score": 30,
+        "final_score": 54.106481496994206,
+        "baseline_chat_count": 2.410676953269593,
+        "baseline_viewer_count": 63.77399324863984,
+        "baseline_threshold": 13.228454258159628,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 49.819337497025,
+        "test_score_difference": 0.4653927415500366,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 41,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:01:24",
+      "comment_after_openDate": "00:01:24",
+      "chat_context": [
+        "챠미쓰: 숲 터졌네",
+        "DHz.헤끙: 숲 다 터졌네",
+        "챠미쓰: 레전드",
+        "DHz.샤우버거: 모든 방송이 터졌네",
+        "On령이: 숲 번개맞았나?",
+        "도넛츤식이: 무슨일이여 이게",
+        "고양이와둘기: 아이고 다 그런가보네",
+        "나나옐로: 글로벌이랑 통합한다고 이거저거 하다가 뭐 잘못만졌나"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:03:56.719909",
+      "fun_score": 20.914517672849673,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 25.087301897893195,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.05110810969745,
+        "viewer_trend_score": 30,
+        "final_score": 20.914517672849673,
+        "baseline_chat_count": 2.4642226680572703,
+        "baseline_viewer_count": 63.55581839331787,
+        "baseline_threshold": 13.620065759107664,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.309714798756586,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 41,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:29",
+      "comment_after_openDate": "00:01:29",
+      "chat_context": [
+        "On령이: 숲 번개맞았나?",
+        "도넛츤식이: 무슨일이여 이게",
+        "고양이와둘기: 아이고 다 그런가보네",
+        "나나옐로: 글로벌이랑 통합한다고 이거저거 하다가 뭐 잘못만졌나",
+        "김땝땝_: 렉오져"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:01.731759",
+      "fun_score": 30.827429721103417,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 47.087876435694994,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.17764317212683,
+        "viewer_trend_score": 30,
+        "final_score": 30.827429721103417,
+        "baseline_chat_count": 2.4885154148972815,
+        "baseline_viewer_count": 63.33973365310989,
+        "baseline_threshold": 13.689946608441312,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 24.241911874932853,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 41,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:34",
+      "comment_after_openDate": "00:01:34",
+      "chat_context": [
+        "도넛츤식이: 무슨일이여 이게",
+        "고양이와둘기: 아이고 다 그런가보네",
+        "나나옐로: 글로벌이랑 통합한다고 이거저거 하다가 뭐 잘못만졌나",
+        "김땝땝_: 렉오져",
+        "DHz.곰돌이: /하끄냥/",
+        "DHz.헤끙: 고멤들 뱅온 알림ㄹㅈㄱ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:06.737109",
+      "fun_score": 29.81121054291848,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 44.81188026665916,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.25743415093867,
+        "viewer_trend_score": 30,
+        "final_score": 29.81121054291848,
+        "baseline_chat_count": 2.5221554372225654,
+        "baseline_viewer_count": 63.1257190047131,
+        "baseline_threshold": 13.854123696660615,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 22.23411832213779,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 45,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:39",
+      "comment_after_openDate": "00:01:39",
+      "chat_context": [
+        "고양이와둘기: 아이고 다 그런가보네",
+        "나나옐로: 글로벌이랑 통합한다고 이거저거 하다가 뭐 잘못만졌나",
+        "김땝땝_: 렉오져",
+        "DHz.곰돌이: /하끄냥/",
+        "DHz.헤끙: 고멤들 뱅온 알림ㄹㅈㄱ",
+        "마츠도뚤기: 아 다 터진거여?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:11.742135",
+      "fun_score": 18.096616988524815,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 22.076688361639178,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.419862179591945,
+        "viewer_trend_score": 20,
+        "final_score": 18.096616988524815,
+        "baseline_chat_count": 2.555473188133973,
+        "baseline_viewer_count": 62.95207461664794,
+        "baseline_threshold": 14.006992588647766,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.519524767744125,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 45,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:44",
+      "comment_after_openDate": "00:01:44",
+      "chat_context": [
+        "나나옐로: 글로벌이랑 통합한다고 이거저거 하다가 뭐 잘못만졌나",
+        "김땝땝_: 렉오져",
+        "DHz.곰돌이: /하끄냥/",
+        "DHz.헤끙: 고멤들 뱅온 알림ㄹㅈㄱ",
+        "마츠도뚤기: 아 다 터진거여?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:16.746037",
+      "fun_score": 12.827247641190707,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 10.451570635754754,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.039198472730796,
+        "viewer_trend_score": 20,
+        "final_score": 12.827247641190707,
+        "baseline_chat_count": 2.5788917549916492,
+        "baseline_viewer_count": 62.78009374182045,
+        "baseline_threshold": 14.046171190398587,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 45,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:49",
+      "comment_after_openDate": "00:01:49",
+      "chat_context": [
+        "김땝땝_: 렉오져",
+        "DHz.곰돌이: /하끄냥/",
+        "DHz.헤끙: 고멤들 뱅온 알림ㄹㅈㄱ",
+        "마츠도뚤기: 아 다 터진거여?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:21.749728",
+      "fun_score": 16.878819039049908,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 21.002539336737208,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.57555329690177,
+        "viewer_trend_score": 15,
+        "final_score": 16.878819039049908,
+        "baseline_chat_count": 2.5925059719788295,
+        "baseline_viewer_count": 62.60976044377381,
+        "baseline_threshold": 14.034493902797175,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.051571397859201,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 45,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:54",
+      "comment_after_openDate": "00:01:54",
+      "chat_context": [
+        "김땝땝_: 렉오져",
+        "DHz.곰돌이: /하끄냥/",
+        "DHz.헤끙: 고멤들 뱅온 알림ㄹㅈㄱ",
+        "마츠도뚤기: 아 다 터진거여?",
+        "DHz.샤우버거: 다다다 터짐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:26.759296",
+      "fun_score": 12.71785408238469,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 10.028976528428412,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.84693636763915,
+        "viewer_trend_score": 20,
+        "final_score": 12.71785408238469,
+        "baseline_chat_count": 2.615569764767272,
+        "baseline_viewer_count": 62.441058938722456,
+        "baseline_threshold": 14.061742537602475,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 48,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:59",
+      "comment_after_openDate": "00:01:59",
+      "chat_context": [
+        "DHz.곰돌이: /하끄냥/",
+        "DHz.헤끙: 고멤들 뱅온 알림ㄹㅈㄱ",
+        "마츠도뚤기: 아 다 터진거여?",
+        "DHz.샤우버거: 다다다 터짐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:31.763192",
+      "fun_score": 8.290889023367907,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.2448031418269325,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.10606601717798,
+        "viewer_trend_score": 15,
+        "final_score": 8.290889023367907,
+        "baseline_chat_count": 2.6288326064208016,
+        "baseline_viewer_count": 62.30271359408949,
+        "baseline_threshold": 14.048868086201487,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 48,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:04",
+      "comment_after_openDate": "00:02:04",
+      "chat_context": [
+        "마츠도뚤기: 아 다 터진거여?",
+        "DHz.샤우버거: 다다다 터짐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:36.826003",
+      "fun_score": 6.995830177940388,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0571314891386658,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.995830177940388,
+        "baseline_chat_count": 2.62280839005129,
+        "baseline_viewer_count": 62.16569359785811,
+        "baseline_threshold": 13.993706646779541,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 48,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:09",
+      "comment_after_openDate": "00:02:09",
+      "chat_context": [
+        "DHz.샤우버거: 다다다 터짐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:42.333421",
+      "fun_score": 7.747986574762633,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0619234820769876,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 15,
+        "final_score": 7.747986574762633,
+        "baseline_chat_count": 2.607261885674599,
+        "baseline_viewer_count": 62.02998625319063,
+        "baseline_threshold": 13.926666990208062,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7521563968222447,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 52,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:15",
+      "comment_after_openDate": "00:02:15",
+      "chat_context": [
+        "DHz.샤우버거: 다다다 터짐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:47.339720",
+      "fun_score": 7.000157567081911,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0667479094531611,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.000157567081911,
+        "baseline_chat_count": 2.5918643168098363,
+        "baseline_viewer_count": 61.93389898488506,
+        "baseline_threshold": 13.867475231828095,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.004327389141522531,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 52,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:20",
+      "comment_after_openDate": "00:02:20",
+      "chat_context": [
+        "DHz.샤우버거: 다다다 터짐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:52.358999",
+      "fun_score": 7.002343179205842,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0716048252841182,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.002343179205842,
+        "baseline_chat_count": 2.576614256654798,
+        "baseline_viewer_count": 61.83873223260986,
+        "baseline_threshold": 13.801686328599827,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.006513001265453511,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 52,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:25",
+      "comment_after_openDate": "00:02:25",
+      "chat_context": [
+        "앉아둘기: 숲이 아프다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:04:57.421686",
+      "fun_score": 7.004543434000077,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0764942803824185,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.004543434000077,
+        "baseline_chat_count": 2.5615102920760453,
+        "baseline_viewer_count": 61.74447717782145,
+        "baseline_threshold": 13.736548621228632,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.008713256059688312,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 45,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:30",
+      "comment_after_openDate": "00:02:30",
+      "chat_context": [
+        "앉아둘기: 숲이 아프다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:05:02.446391",
+      "fun_score": 7.0067583528642485,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0814163223027988,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.0067583528642485,
+        "baseline_chat_count": 2.546551023477957,
+        "baseline_viewer_count": 61.58406508645792,
+        "baseline_threshold": 13.672056011534982,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.010928174923860112,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 45,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:35",
+      "comment_after_openDate": "00:02:35",
+      "chat_context": [
+        "앉아둘기: 숲이 아프다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:05:07.451279",
+      "fun_score": 7.008987955708018,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0863709952889546,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.008987955708018,
+        "baseline_chat_count": 2.5317350646730383,
+        "baseline_viewer_count": 61.42518974292965,
+        "baseline_threshold": 13.608202459964916,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.013157777767629497,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 45,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:40",
+      "comment_after_openDate": "00:02:40",
+      "chat_context": [
+        "앉아둘기: 숲이 아프다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:05:12.455652",
+      "fun_score": 7.011232260927243,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0913583402205658,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.011232260927243,
+        "baseline_chat_count": 2.5170610427534705,
+        "baseline_viewer_count": 61.267836425192385,
+        "baseline_threshold": 13.544981985014134,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.015402082986854637,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 40,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:45",
+      "comment_after_openDate": "00:02:45",
+      "chat_context": [
+        "앉아둘기: 숲이 아프다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T19:05:17.517654",
+      "fun_score": 7.013491285380267,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.096378394560618,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.013491285380267,
+        "baseline_chat_count": 2.5025275979638923,
+        "baseline_viewer_count": 61.064090552239044,
+        "baseline_threshold": 13.482388662657382,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.017661107439878698,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 40,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:50",
+      "comment_after_openDate": "00:02:50",
+      "chat_context": [
+        "앉아둘기: 숲이 아프다"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

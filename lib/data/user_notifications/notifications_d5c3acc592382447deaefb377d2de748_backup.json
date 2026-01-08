@@ -2,201 +2,6 @@
   "webhook_url": "https://discord.com/api/webhooks/1101487673505484920/8T3EEDr-AMzO1fgQzqwkGEjDXVIX_FL5kp54Z7nBb5s62xQIja41EbI6JRNBTmuwZUmr",
   "notifications": [
     {
-      "id": "2adc093f-13ca-43b6-8ea0-d19f771fa9b5",
-      "username": "마왕0216",
-      "content": "",
-      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
-      "timestamp": "2025-12-08T02:41:31.943004+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 16777215,
-          "author": {
-            "name": "마왕0216",
-            "url": "https://www.sooplive.co.kr/station/mawang0216",
-            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
-          },
-          "title": "마왕0216 방송 종료\n",
-          "footer": {
-            "text": "방종 시간",
-            "inline": true,
-            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
-          },
-          "timestamp": "2025-12-07T17:41:31.843263Z"
-        }
-      ]
-    },
-    {
-      "id": "74690c84-959c-4b43-9838-cdaaeb15574d",
-      "username": "[아프리카TV 알림] 마왕0216",
-      "content": "",
-      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
-      "timestamp": "2025-12-08T02:41:51.421465+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 629759,
-          "author": {
-            "name": "마왕0216",
-            "url": "https://www.sooplive.co.kr/station/mawang0216",
-            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
-          },
-          "title": "|오늘은 느긋하게 해야지|",
-          "url": "https://vod.sooplive.co.kr/player/180098875",
-          "description": "마왕0216 아프리카TV 영상 업로드!",
-          "fields": [
-            {
-              "name": "Category",
-              "value": "버추얼"
-            }
-          ],
-          "thumbnail": {
-            "url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
-          },
-          "image": {
-            "url": "https://videoimg.sooplive.co.kr/php/SnapshotLoad.php?rowKey=20251207_3B11F41B_289779314_1_r"
-          },
-          "footer": {
-            "text": "AfreecaTV",
-            "inline": true,
-            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
-          },
-          "timestamp": "2025-12-07T17:41:34.000000Z"
-        }
-      ]
-    },
-    {
-      "id": "ab5b92c8-0936-48d7-8aaa-4202e4b19a9b",
-      "username": "마왕0216",
-      "content": "",
-      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
-      "timestamp": "2025-12-08T14:58:22.170523+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 16777215,
-          "author": {
-            "name": "마왕0216",
-            "url": "https://www.sooplive.co.kr/station/mawang0216",
-            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
-          },
-          "fields": [
-            {
-              "name": "방제",
-              "value": "2계층 열리는 날임",
-              "inline": true
-            },
-            {
-              "name": ":busts_in_silhouette: 시청자수",
-              "value": 0,
-              "inline": true
-            }
-          ],
-          "title": "마왕0216 뱅온!\n",
-          "url": "https://play.sooplive.co.kr/mawang0216/289791090",
-          "image": {
-            "url": "https://i.ibb.co/hxJwjxJT/afreeca-mawang0216-20251208-145820-jpg.jpg"
-          },
-          "footer": {
-            "text": "뱅온 시간",
-            "inline": true,
-            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
-          },
-          "timestamp": "2025-12-08T05:58:15.000000Z"
-        }
-      ]
-    },
-    {
-      "id": "0061dfe0-0aa6-4262-8b27-2b12193af273",
-      "username": "마왕0216",
-      "content": "",
-      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
-      "timestamp": "2025-12-08T15:34:19.517988+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 16777215,
-          "author": {
-            "name": "마왕0216",
-            "url": "https://www.sooplive.co.kr/station/mawang0216",
-            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
-          },
-          "fields": [
-            {
-              "name": "방제",
-              "value": "2계층 열리는 날임",
-              "inline": true
-            },
-            {
-              "name": ":busts_in_silhouette: 시청자수",
-              "value": 364,
-              "inline": true
-            },
-            {
-              "name": "Description",
-              "value": "분석 결과를 가져올 수 없습니다"
-            }
-          ],
-          "title": "마왕0216 🎉 하이라이트: 재미도: 88/100\n",
-          "url": "https://play.sooplive.co.kr/mawang0216/289791090",
-          "image": {
-            "url": "https://i.ibb.co/3YdRjGmG/afreeca-mawang0216-20251208-153406-jpg.jpg"
-          },
-          "footer": {
-            "text": "뱅온 시간",
-            "inline": true,
-            "icon_url": "https://play-lh.googleusercontent.com/BQ66ZXHi_oKNOXQCfiED3WizFpxZlmG7YCf0bHaFG8o9i0tE4_z9WDJ-J6z2pGA4VQ"
-          },
-          "timestamp": "2025-12-08T05:58:21.738147Z"
-        }
-      ]
-    },
-    {
-      "id": "cfe0789d-9e35-4534-a11a-4a945e1ad2aa",
-      "username": "마왕0216",
-      "content": "",
-      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
-      "timestamp": "2025-12-08T20:39:30.639603+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 16777215,
-          "author": {
-            "name": "마왕0216",
-            "url": "https://www.sooplive.co.kr/station/mawang0216",
-            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
-          },
-          "fields": [
-            {
-              "name": "방제",
-              "value": "2계층 열리는 날임",
-              "inline": true
-            },
-            {
-              "name": ":busts_in_silhouette: 시청자수",
-              "value": 370,
-              "inline": true
-            },
-            {
-              "name": "Description",
-              "value": "분석 결과를 가져올 수 없습니다"
-            }
-          ],
-          "title": "마왕0216 🎉 하이라이트: 재미도: 78/100\n",
-          "url": "https://play.sooplive.co.kr/mawang0216/289791090",
-          "image": {
-            "url": "https://i.ibb.co/Y7J1kqRR/afreeca-mawang0216-20251208-203915-jpg.jpg"
-          },
-          "footer": {
-            "text": "뱅온 시간",
-            "inline": true,
-            "icon_url": "https://play-lh.googleusercontent.com/BQ66ZXHi_oKNOXQCfiED3WizFpxZlmG7YCf0bHaFG8o9i0tE4_z9WDJ-J6z2pGA4VQ"
-          },
-          "timestamp": "2025-12-08T05:58:21.738147Z"
-        }
-      ]
-    },
-    {
       "id": "a8289681-b5ff-4ba1-b735-5fb08db390d1",
       "username": "마왕0216",
       "content": "",
@@ -7570,8 +7375,473 @@
           "timestamp": "2026-01-06T05:55:06.000000Z"
         }
       ]
+    },
+    {
+      "id": "8a1d9045-cc91-45a0-a57c-40273efc1600",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-07T10:00:15.031180+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "fields": [
+            {
+              "name": "방제",
+              "value": "소소한 api 모션 추가 했습니다",
+              "inline": true
+            },
+            {
+              "name": ":busts_in_silhouette: 시청자수",
+              "value": 0,
+              "inline": true
+            }
+          ],
+          "title": "마왕0216 뱅온!\n",
+          "url": "https://play.sooplive.co.kr/mawang0216/290554238",
+          "image": {
+            "url": "https://i.ibb.co/20BpZcY2/afreeca-mawang0216-20260107-100012.jpg"
+          },
+          "footer": {
+            "text": "뱅온 시간",
+            "inline": true,
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-07T01:00:06.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "d95b8b56-b0be-4c3b-ab35-400216a5dcec",
+      "username": "재수피기 >> 마왕0216",
+      "content": "왜 협곡함?",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ja/jaesu111/jaesu111.jpg",
+      "timestamp": "2026-01-07T11:56:46.133590+09:00",
+      "read": false
+    },
+    {
+      "id": "0b04c62d-8af3-4ded-b6f6-c27d3ae2d3ae",
+      "username": "재수피기 >> 마왕0216",
+      "content": "신고할게",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ja/jaesu111/jaesu111.jpg",
+      "timestamp": "2026-01-07T11:56:57.623560+09:00",
+      "read": false
+    },
+    {
+      "id": "b1b41df5-e9aa-4ff7-84dc-265963307e3a",
+      "username": "재수피기 >> 마왕0216",
+      "content": "심고할게",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ja/jaesu111/jaesu111.jpg",
+      "timestamp": "2026-01-07T11:56:57.730199+09:00",
+      "read": false
+    },
+    {
+      "id": "27bf6cc9-460f-4937-b468-b6cb74caed5b",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-07T15:15:49.753066+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "fields": [
+            {
+              "name": "방제",
+              "value": "박재박님 팀 야구로 뿌수기 (털즈란)",
+              "inline": true
+            },
+            {
+              "name": ":busts_in_silhouette: 시청자수",
+              "value": 369,
+              "inline": true
+            }
+          ],
+          "title": "마왕0216 방제 변경\n",
+          "url": "https://play.sooplive.co.kr/mawang0216/290554238",
+          "image": {
+            "url": "https://i.ibb.co/8ndpGb14/afreeca-mawang0216-20260107-151547.jpg"
+          },
+          "footer": {
+            "text": "뱅온 시간",
+            "inline": true,
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-07T01:00:06.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "45810696-1ab6-48b0-997e-691a6cb6c880",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-07T20:45:41.682995+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "title": "마왕0216 방송 종료\n",
+          "footer": {
+            "text": "방종 시간",
+            "inline": true,
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-07T11:45:41.680854Z"
+        }
+      ]
+    },
+    {
+      "id": "9eb6c594-4c45-4822-a3f3-bf7c0362f7a5",
+      "username": "[아프리카TV 알림] 마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-07T20:45:45.827588+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 629759,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "title": "|박재박님 팀 야구로 뿌수기 (털즈란)|",
+          "url": "https://vod.sooplive.co.kr/player/183072269",
+          "description": "마왕0216 아프리카TV 영상 업로드!",
+          "fields": [
+            {
+              "name": "Category",
+              "value": "버추얼"
+            }
+          ],
+          "thumbnail": {
+            "url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "image": {
+            "url": "https://videoimg.sooplive.co.kr/php/SnapshotLoad.php?rowKey=20260107_4F2F6921_290566606_1_r"
+          },
+          "footer": {
+            "text": "AfreecaTV",
+            "inline": true,
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-07T11:45:44.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "abe7b76f-4f32-4a70-8938-46d91a81911a",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-08T10:05:38.630977+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "fields": [
+            {
+              "name": "방제",
+              "value": "하이",
+              "inline": true
+            },
+            {
+              "name": ":busts_in_silhouette: 시청자수",
+              "value": 0,
+              "inline": true
+            }
+          ],
+          "title": "마왕0216 뱅온!\n",
+          "url": "https://play.sooplive.co.kr/mawang0216/290583006",
+          "image": {
+            "url": "https://i.ibb.co/ZRpb1q8H/afreeca-mawang0216-20260108-100536.jpg"
+          },
+          "footer": {
+            "text": "뱅온 시간",
+            "inline": true,
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-08T01:05:31.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "837ee95d-92c0-4f4a-85b9-26c15b056e69",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-08T11:14:09.645337+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "fields": [
+            {
+              "name": "방제",
+              "value": "하이",
+              "inline": true
+            },
+            {
+              "name": ":busts_in_silhouette: 시청자수",
+              "value": 349,
+              "inline": true
+            },
+            {
+              "name": "Description",
+              "value": "😂 폭소 반응 + 💬 채팅량 폭증 + 🏆 레전드 순간"
+            }
+          ],
+          "title": "마왕0216 🎉 하이라이트: 재미도: 87/100\n",
+          "url": "https://play.sooplive.co.kr/mawang0216/290583006",
+          "image": {
+            "url": "https://i.ibb.co/W4PFnk9w/afreeca-mawang0216-20260108-111407.jpg"
+          },
+          "footer": {
+            "text": "뱅온 시간",
+            "inline": true,
+            "icon_url": "https://play-lh.googleusercontent.com/BQ66ZXHi_oKNOXQCfiED3WizFpxZlmG7YCf0bHaFG8o9i0tE4_z9WDJ-J6z2pGA4VQ"
+          },
+          "timestamp": "2026-01-08T01:05:31.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "d25e0b5f-9db0-4ad6-ad1b-fac124075b6d",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-08T11:49:14.970285+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "fields": [
+            {
+              "name": "방제",
+              "value": "하이큐 찍먹",
+              "inline": true
+            },
+            {
+              "name": ":busts_in_silhouette: 시청자수",
+              "value": 382,
+              "inline": true
+            }
+          ],
+          "title": "마왕0216 방제 변경\n",
+          "url": "https://play.sooplive.co.kr/mawang0216/290583006",
+          "image": {
+            "url": "https://i.ibb.co/Z6VWxcyq/afreeca-mawang0216-20260108-114913.jpg"
+          },
+          "footer": {
+            "text": "뱅온 시간",
+            "inline": true,
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-08T01:05:31.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "54d22479-9fef-4c79-896c-02654f955605",
+      "username": "재수피기 >> 마왕0216",
+      "content": "숲 치니까잇엇음",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ja/jaesu111/jaesu111.jpg",
+      "timestamp": "2026-01-08T14:02:04.020236+09:00",
+      "read": false
+    },
+    {
+      "id": "728996c6-74be-4ed2-80a9-966289e7812d",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-08T14:41:46.824860+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "fields": [
+            {
+              "name": "방제",
+              "value": "오랜만에 브챗 잔잔 소통뱅",
+              "inline": true
+            },
+            {
+              "name": ":busts_in_silhouette: 시청자수",
+              "value": 328,
+              "inline": true
+            }
+          ],
+          "title": "마왕0216 방제 변경\n",
+          "url": "https://play.sooplive.co.kr/mawang0216/290583006",
+          "image": {
+            "url": "https://i.ibb.co/8DzgN8Jm/afreeca-mawang0216-20260108-144144.jpg"
+          },
+          "footer": {
+            "text": "뱅온 시간",
+            "inline": true,
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-08T01:05:31.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "6b622deb-3a22-444b-a22b-024928c8deb0",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-08T15:48:42.722628+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "fields": [
+            {
+              "name": "방제",
+              "value": "오랜만에 브챗 잔잔 소통뱅",
+              "inline": true
+            },
+            {
+              "name": ":busts_in_silhouette: 시청자수",
+              "value": 346,
+              "inline": true
+            },
+            {
+              "name": "Description",
+              "value": "💬 채팅량 폭증 + 🏆 레전드 순간"
+            }
+          ],
+          "title": "마왕0216 🎉 하이라이트: 재미도: 82/100\n",
+          "url": "https://play.sooplive.co.kr/mawang0216/290583006",
+          "image": {
+            "url": "https://i.ibb.co/0pTZ2L34/afreeca-mawang0216-20260108-154840.jpg"
+          },
+          "footer": {
+            "text": "뱅온 시간",
+            "inline": true,
+            "icon_url": "https://play-lh.googleusercontent.com/BQ66ZXHi_oKNOXQCfiED3WizFpxZlmG7YCf0bHaFG8o9i0tE4_z9WDJ-J6z2pGA4VQ"
+          },
+          "timestamp": "2026-01-08T01:05:31.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "dac818cb-e1c8-421d-9072-95c3e8f508b8",
+      "username": "[핫클립] 마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-08T16:54:40.231891+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "title": "🔥 핫클립: [클립]마왕OFFICIAL) 나 헬기 아니다",
+          "url": "https://vod.sooplive.co.kr/player/183141581",
+          "description": "👀 조회수: 456회\n",
+          "fields": [
+            {
+              "name": "카테고리",
+              "value": "버추얼",
+              "inline": true
+            },
+            {
+              "name": "길이",
+              "value": "83초",
+              "inline": true
+            },
+            {
+              "name": "채널 평균 조회수",
+              "value": "172회",
+              "inline": true
+            }
+          ],
+          "thumbnail": {
+            "url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "image": {
+            "url": "https://iflv14.sooplive.co.kr/clip/20260108/391/b60754ca-ab09-47a1-94fb-163329f5cf9e/36709391_r.jpg"
+          },
+          "footer": {
+            "text": "핫클립 생성 시간",
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-08T05:08:53.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "e799ff89-7a82-414b-a5ed-f1ed4378a8c3",
+      "username": "마왕0216",
+      "content": "",
+      "avatar_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg",
+      "timestamp": "2026-01-08T18:13:23.949271+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16777215,
+          "author": {
+            "name": "마왕0216",
+            "url": "https://www.sooplive.co.kr/station/mawang0216",
+            "icon_url": "https://profile.img.sooplive.co.kr/LOGO/ma/mawang0216/mawang0216.jpg"
+          },
+          "title": "마왕0216 방송 종료\n",
+          "footer": {
+            "text": "방종 시간",
+            "inline": true,
+            "icon_url": "https://cdn.zonebourse.com/static/instruments-squared-6496837"
+          },
+          "timestamp": "2026-01-08T09:13:23.946856Z"
+        }
+      ]
     }
   ],
-  "last_save_time": "2026-01-07T06:00:41.035078+09:00",
-  "notification_count": 198
+  "last_save_time": "2026-01-08T18:13:24.395433+09:00",
+  "notification_count": 208
 }

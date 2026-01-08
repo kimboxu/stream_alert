@@ -1,0 +1,679 @@
+{
+  "channel_id": "toryvac",
+  "channel_name": "빅토리~!",
+  "save_timestamp": "2026-01-07T20:15:49.332563",
+  "total_logs": 13,
+  "logs": [
+    {
+      "timestamp": "2026-01-07T20:14:44.143406",
+      "fun_score": 22.960278224045037,
+      "test_fun_score": 15.155769792135084,
+      "score_components": {
+        "chat_spike_score": 27.684722217034984,
+        "reaction_score": 15.155769792135084,
+        "test_reaction_score": 15.155769792135084,
+        "diversity_score": 29.554222887387695,
+        "viewer_trend_score": 20,
+        "final_score": 22.960278224045037,
+        "baseline_chat_count": 5.2738128801125335,
+        "baseline_viewer_count": 323.2897572616047,
+        "baseline_threshold": 10.255772632809695,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 16.228862046204036,
+        "test_score_difference": 15.057265486018597,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 336,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "reaction": 2.0,
+          "laugh": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "reaction": 2.0,
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:59:36",
+      "comment_after_openDate": "03:59:36",
+      "chat_context": [
+        "브렉스: ㅅㅅ",
+        "..루카리오: ㄲㅂ",
+        "토끼장주인: 카이사 질꺼같은대",
+        "애니씽: ㅅㅅ",
+        "307번버스: 굿",
+        "에노테카: 굿",
+        "브렉스: 이득",
+        "빛토리.: /응원/",
+        "..루카리오: 앗",
+        "애니씽: ㅋㅋㅋㅋ",
+        "토끼장주인: ㅁㅍ!!",
+        "빛토리.: ㅁㅍ ㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:14:49.147992",
+      "fun_score": 26.367699364411656,
+      "test_fun_score": 14.251812597377562,
+      "score_components": {
+        "chat_spike_score": 36.361642671171865,
+        "reaction_score": 14.251812597377562,
+        "test_reaction_score": 14.251812597377562,
+        "diversity_score": 27.29416383171049,
+        "viewer_trend_score": 20,
+        "final_score": 26.367699364411656,
+        "baseline_chat_count": 5.3382497527210555,
+        "baseline_viewer_count": 323.41152138703853,
+        "baseline_threshold": 10.37748179637373,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 19.636283186570655,
+        "test_score_difference": 14.153308291261075,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 337,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "reaction": 2.0,
+          "laugh": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "reaction": 2.0,
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:59:41",
+      "comment_after_openDate": "03:59:41",
+      "chat_context": [
+        "브렉스: ㅅㅅ",
+        "..루카리오: ㄲㅂ",
+        "토끼장주인: 카이사 질꺼같은대",
+        "애니씽: ㅅㅅ",
+        "307번버스: 굿",
+        "에노테카: 굿",
+        "브렉스: 이득",
+        "빛토리.: /응원/",
+        "..루카리오: 앗",
+        "애니씽: ㅋㅋㅋㅋ",
+        "토끼장주인: ㅁㅍ!!",
+        "빛토리.: ㅁㅍ ㅋㅋ",
+        "307번버스: 서폿"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:14:54.221818",
+      "fun_score": 48.67350503070271,
+      "test_fun_score": 35.52649317881341,
+      "score_components": {
+        "chat_spike_score": 60.89929200280974,
+        "reaction_score": 44.99826692033116,
+        "test_reaction_score": 35.52649317881341,
+        "diversity_score": 32.69343553338977,
+        "viewer_trend_score": 30,
+        "final_score": 48.67350503070271,
+        "baseline_chat_count": 5.411649320089987,
+        "baseline_viewer_count": 323.5416990121507,
+        "baseline_threshold": 10.53066808067553,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 41.9420888528617,
+        "test_score_difference": 35.42798887269692,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 337,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "laugh": 3.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "laugh": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:59:46",
+      "comment_after_openDate": "03:59:36",
+      "chat_context": [
+        "토끼장주인: 카이사 질꺼같은대",
+        "애니씽: ㅅㅅ",
+        "307번버스: 굿",
+        "에노테카: 굿",
+        "브렉스: 이득",
+        "빛토리.: /응원/",
+        "..루카리오: 앗",
+        "애니씽: ㅋㅋㅋㅋ",
+        "토끼장주인: ㅁㅍ!!",
+        "빛토리.: ㅁㅍ ㅋㅋ",
+        "307번버스: 서폿",
+        "두족강문어목: ㅋㅋㅋㅋㅋㅋㅋ",
+        "에노테카: ㅇㅅㅇ",
+        "빅듁: 역시 세나야"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:14:59.224377",
+      "fun_score": 69.74406759494676,
+      "test_fun_score": 82.42472435923685,
+      "score_components": {
+        "chat_spike_score": 73.66432600340006,
+        "reaction_score": 96.80296005614754,
+        "test_reaction_score": 82.42472435923685,
+        "diversity_score": 30.542328765724655,
+        "viewer_trend_score": 30,
+        "final_score": 69.74406759494676,
+        "baseline_chat_count": 5.493925719603525,
+        "baseline_viewer_count": 323.67062953561424,
+        "baseline_threshold": 10.896076458656792,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 63.01265141710576,
+        "test_score_difference": 82.32622005312037,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 337,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "laugh": 3.2,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "laugh": 3.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "03:59:51",
+      "comment_after_openDate": "03:59:36",
+      "chat_context": [
+        "애니씽: ㅅㅅ",
+        "307번버스: 굿",
+        "에노테카: 굿",
+        "브렉스: 이득",
+        "빛토리.: /응원/",
+        "..루카리오: 앗",
+        "애니씽: ㅋㅋㅋㅋ",
+        "토끼장주인: ㅁㅍ!!",
+        "빛토리.: ㅁㅍ ㅋㅋ",
+        "307번버스: 서폿",
+        "두족강문어목: ㅋㅋㅋㅋㅋㅋㅋ",
+        "에노테카: ㅇㅅㅇ",
+        "빅듁: 역시 세나야",
+        "307번버스: 강하구나",
+        "토끼장주인: 서폿한태 따잇..!"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:04.248654",
+      "fun_score": 48.87266590680873,
+      "test_fun_score": 76.4575772118953,
+      "score_components": {
+        "chat_spike_score": 30.820750864884666,
+        "reaction_score": 90.36168315220503,
+        "test_reaction_score": 76.4575772118953,
+        "diversity_score": 33.948230719491185,
+        "viewer_trend_score": 30,
+        "final_score": 48.87266590680873,
+        "baseline_chat_count": 5.5849939112097235,
+        "baseline_viewer_count": 323.79832490466305,
+        "baseline_threshold": 11.45984021374245,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 42.14124972896772,
+        "test_score_difference": 76.35907290577882,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 331,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "laugh": 3.2,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "laugh": 3.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "03:59:56",
+      "comment_after_openDate": "03:59:56",
+      "chat_context": [
+        "빛토리.: /응원/",
+        "..루카리오: 앗",
+        "애니씽: ㅋㅋㅋㅋ",
+        "토끼장주인: ㅁㅍ!!",
+        "빛토리.: ㅁㅍ ㅋㅋ",
+        "307번버스: 서폿",
+        "두족강문어목: ㅋㅋㅋㅋㅋㅋㅋ",
+        "에노테카: ㅇㅅㅇ",
+        "빅듁: 역시 세나야",
+        "307번버스: 강하구나",
+        "토끼장주인: 서폿한태 따잇..!",
+        "두족강문어목: 아프네 세나"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:09.321796",
+      "fun_score": 20.13885176641344,
+      "test_fun_score": 12.749838579194858,
+      "score_components": {
+        "chat_spike_score": 15.771806136728786,
+        "reaction_score": 16.580281032393902,
+        "test_reaction_score": 12.749838579194858,
+        "diversity_score": 35.67454695167312,
+        "viewer_trend_score": 30,
+        "final_score": 20.13885176641344,
+        "baseline_chat_count": 5.646449669540334,
+        "baseline_viewer_count": 323.86731695207635,
+        "baseline_threshold": 11.818255083882026,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 13.407435588572437,
+        "test_score_difference": 12.65133427307837,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 331,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "04:00:01",
+      "comment_after_openDate": "04:00:01",
+      "chat_context": [
+        "토끼장주인: ㅁㅍ!!",
+        "빛토리.: ㅁㅍ ㅋㅋ",
+        "307번버스: 서폿",
+        "두족강문어목: ㅋㅋㅋㅋㅋㅋㅋ",
+        "에노테카: ㅇㅅㅇ",
+        "빅듁: 역시 세나야",
+        "307번버스: 강하구나",
+        "토끼장주인: 서폿한태 따잇..!",
+        "두족강문어목: 아프네 세나",
+        "브렉스: 리치"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:14.327604",
+      "fun_score": 13.267862547569973,
+      "test_fun_score": 0.9330461464388288,
+      "score_components": {
+        "chat_spike_score": 11.086823377503588,
+        "reaction_score": 1.2342596446182883,
+        "test_reaction_score": 0.9330461464388288,
+        "diversity_score": 34.08514134307872,
+        "viewer_trend_score": 30,
+        "final_score": 13.267862547569973,
+        "baseline_chat_count": 5.688156681706137,
+        "baseline_viewer_count": 323.9356480556754,
+        "baseline_threshold": 11.897966400100676,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.536446369728971,
+        "test_score_difference": 0.834541840322342,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 331,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:00:06",
+      "comment_after_openDate": "04:00:06",
+      "chat_context": [
+        "307번버스: 서폿",
+        "두족강문어목: ㅋㅋㅋㅋㅋㅋㅋ",
+        "에노테카: ㅇㅅㅇ",
+        "빅듁: 역시 세나야",
+        "307번버스: 강하구나",
+        "토끼장주인: 서폿한태 따잇..!",
+        "두족강문어목: 아프네 세나",
+        "브렉스: 리치",
+        "에노테카: 지평"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:19.329451",
+      "fun_score": 14.722503765060596,
+      "test_fun_score": 3.6723991394455675,
+      "score_components": {
+        "chat_spike_score": 10.90443317532134,
+        "reaction_score": 6.338389533347939,
+        "test_reaction_score": 3.6723991394455675,
+        "diversity_score": 34.13991976161611,
+        "viewer_trend_score": 30,
+        "final_score": 14.722503765060596,
+        "baseline_chat_count": 5.719884140695392,
+        "baseline_viewer_count": 324.00332454730204,
+        "baseline_threshold": 11.911090005193433,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.991087587219594,
+        "test_score_difference": 3.573894833329081,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 331,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:00:11",
+      "comment_after_openDate": "04:00:11",
+      "chat_context": [
+        "두족강문어목: ㅋㅋㅋㅋㅋㅋㅋ",
+        "에노테카: ㅇㅅㅇ",
+        "빅듁: 역시 세나야",
+        "307번버스: 강하구나",
+        "토끼장주인: 서폿한태 따잇..!",
+        "두족강문어목: 아프네 세나",
+        "브렉스: 리치",
+        "에노테카: 지평",
+        "307번버스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:24.335230",
+      "fun_score": 10.979543695168777,
+      "test_fun_score": 0.9065373023986536,
+      "score_components": {
+        "chat_spike_score": 5.4995351765333425,
+        "reaction_score": 1.195568389861828,
+        "test_reaction_score": 0.9065373023986536,
+        "diversity_score": 36.46082348770225,
+        "viewer_trend_score": 30,
+        "final_score": 10.979543695168777,
+        "baseline_chat_count": 5.751307650627529,
+        "baseline_viewer_count": 324.0703526981389,
+        "baseline_threshold": 11.938023349012958,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.2481275173277755,
+        "test_score_difference": 0.8080329962821668,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 331,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:00:16",
+      "comment_after_openDate": "04:00:16",
+      "chat_context": [
+        "307번버스: 강하구나",
+        "토끼장주인: 서폿한태 따잇..!",
+        "두족강문어목: 아프네 세나",
+        "브렉스: 리치",
+        "에노테카: 지평",
+        "307번버스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "브렉스: 이건 취향차이다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:31.640612",
+      "fun_score": 9.941466418175551,
+      "test_fun_score": 0.268494409987635,
+      "score_components": {
+        "chat_spike_score": 2.7717741252702486,
+        "reaction_score": 0.3542563418367931,
+        "test_reaction_score": 0.268494409987635,
+        "diversity_score": 40.878911592529015,
+        "viewer_trend_score": 30,
+        "final_score": 9.941466418175551,
+        "baseline_chat_count": 5.763270123334517,
+        "baseline_viewer_count": 324.1367387192907,
+        "baseline_threshold": 11.928841113929131,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.5177592137492777,
+        "test_score_difference": 0.16999010387114832,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 331,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:00:23",
+      "comment_after_openDate": "04:00:23",
+      "chat_context": [
+        "브렉스: 리치",
+        "에노테카: 지평",
+        "307번버스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "브렉스: 이건 취향차이다",
+        "크루아넬: 레이저 원거리 포킹할꺼면 지평선"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:36.718989",
+      "fun_score": 11.713272307551568,
+      "test_fun_score": 0.9046377487698684,
+      "score_components": {
+        "chat_spike_score": 3.9093586024221256,
+        "reaction_score": 1.1928003055801841,
+        "test_reaction_score": 0.9046377487698684,
+        "diversity_score": 50.962208447875554,
+        "viewer_trend_score": 30,
+        "final_score": 11.713272307551568,
+        "baseline_chat_count": 5.755957995552973,
+        "baseline_viewer_count": 324.20248876235985,
+        "baseline_threshold": 11.909802064343811,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.1513443502966147,
+        "test_score_difference": 0.8061334426533816,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 332,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:00:28",
+      "comment_after_openDate": "04:00:28",
+      "chat_context": [
+        "에노테카: 지평",
+        "307번버스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "브렉스: 이건 취향차이다",
+        "크루아넬: 레이저 원거리 포킹할꺼면 지평선",
+        "애니씽: 리치베인은 평타 섞어야해용",
+        "토끼장주인: 뭐니뭐니해도 대천사!"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:41.721825",
+      "fun_score": 11.706764523684342,
+      "test_fun_score": 0.9036854177004444,
+      "score_components": {
+        "chat_spike_score": 3.906115538445426,
+        "reaction_score": 1.1914127664695482,
+        "test_reaction_score": 0.9036854177004444,
+        "diversity_score": 50.91588701443035,
+        "viewer_trend_score": 30,
+        "final_score": 11.706764523684342,
+        "baseline_chat_count": 5.758295917955575,
+        "baseline_viewer_count": 324.27718892001644,
+        "baseline_threshold": 11.90791930927374,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7652981055087906,
+        "test_score_difference": 0.6351910077128093,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 332,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:00:33",
+      "comment_after_openDate": "04:00:33",
+      "chat_context": [
+        "307번버스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "브렉스: 이건 취향차이다",
+        "크루아넬: 레이저 원거리 포킹할꺼면 지평선",
+        "애니씽: 리치베인은 평타 섞어야해용",
+        "토끼장주인: 뭐니뭐니해도 대천사!",
+        "에노테카: 지평 데캡 존야 공허"
+      ]
+    },
+    {
+      "timestamp": "2026-01-07T20:15:47.043489",
+      "fun_score": 10.201120714978684,
+      "test_fun_score": 0.9027439544016441,
+      "score_components": {
+        "chat_spike_score": 5.478547569002643,
+        "reaction_score": 1.1900412096276396,
+        "test_reaction_score": 0.9027439544016441,
+        "diversity_score": 43.78761946039202,
+        "viewer_trend_score": 20,
+        "final_score": 10.201120714978684,
+        "baseline_chat_count": 5.760611443061561,
+        "baseline_viewer_count": 324.35117345016266,
+        "baseline_threshold": 11.905992246427793,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.25965429680313257,
+        "test_score_difference": 0.634249544414009,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 332,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:00:39",
+      "comment_after_openDate": "04:00:39",
+      "chat_context": [
+        "307번버스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "브렉스: 이건 취향차이다",
+        "크루아넬: 레이저 원거리 포킹할꺼면 지평선",
+        "애니씽: 리치베인은 평타 섞어야해용",
+        "토끼장주인: 뭐니뭐니해도 대천사!",
+        "에노테카: 지평 데캡 존야 공허",
+        "307번버스: 데캡가야지"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
