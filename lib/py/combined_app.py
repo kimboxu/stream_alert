@@ -252,11 +252,11 @@ async def run_discord_bot():
     # 모든 작업 동시 실행
     bot_tasks = [
         asyncio.create_task(main_loop(init, performance_manager)),
-        # asyncio.create_task(generic_chat(init, performance_manager, 'chzzk')),
-        # asyncio.create_task(generic_chat(init, performance_manager, 'afreeca')),
-        # asyncio.create_task(generic_hot_clip(init, performance_manager, 'chzzk')),
-        # asyncio.create_task(generic_hot_clip(init, performance_manager, 'afreeca')),
-        # asyncio.create_task(youtube_task(init, performance_manager)),
+        asyncio.create_task(generic_chat(init, performance_manager, 'chzzk')),
+        asyncio.create_task(generic_chat(init, performance_manager, 'afreeca')),
+        asyncio.create_task(generic_hot_clip(init, performance_manager, 'chzzk')),
+        asyncio.create_task(generic_hot_clip(init, performance_manager, 'afreeca')),
+        asyncio.create_task(youtube_task(init, performance_manager)),
     ]
     
     await asyncio.gather(*bot_tasks)
