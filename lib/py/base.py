@@ -1,21 +1,22 @@
-from os import environ
+
 import logging
 import asyncio
-import aiohttp
 import threading
-from json import loads
 import pandas as pd
+from json import loads
+from os import environ
 from typing import Dict
 from random import randint
 from requests import post, get
-from requests.exceptions import HTTPError, ReadTimeout, ConnectTimeout, SSLError
-from http.client import RemoteDisconnected
+from dotenv import load_dotenv
 from timeit import default_timer
 from dataclasses import dataclass
 from supabase import create_client
+from collections import defaultdict
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
-from concurrent.futures import ThreadPoolExecutor
+from http.client import RemoteDisconnected
+from requests.exceptions import HTTPError, ReadTimeout, ConnectTimeout, SSLError
+
 from discord_webhook_sender import DiscordWebhookSender
 from make_log_api_performance import PerformanceManager
 
@@ -34,6 +35,7 @@ class initVar:
 	stream_status = {}
 	highlight_chat = {}
 	wait_make_highlight_chat = {}
+	chat_user_index = defaultdict(list)
 
 	supabase = create_client(environ['supabase_url'], environ['supabase_key'])  # Supabase DB 클라이언트
 	GOOGLE_API_KEY_LIST = environ['GOOGLE_API_KEY'].split(",")
@@ -154,10 +156,26 @@ async def load_user_state_data(init: initVar):
 	)
 	init.userStateData = make_list_to_dict(userStateData.data)
 	init.userStateData.index = list(init.userStateData['discordURL'])
+	build_chat_user_index(init)
 	
 	# 플래그 업데이트
 	init.is_state_control["user_date"] = False
 	await update_flag('is_state_control', init.is_state_control)
+
+def build_chat_user_index(init: initVar):
+	index = defaultdict(list)
+
+	for discordURL in init.userStateData.index:
+		chat_json = init.userStateData.loc[discordURL, 'chat_user_json']
+		if not isinstance(chat_json, dict):
+			continue
+
+
+		for channelID, user_list in chat_json.items():
+			for name in user_list:
+				index[(channelID, name)].append(discordURL)
+
+	init.chat_user_index = index
 	
 # 비동기로 플래그 업데이트
 async def update_flag(field, value):
@@ -203,6 +221,7 @@ async def DataBaseVars(init: initVar, is_start = False):
 				data = getattr(init, table_name)
 				if not data.empty:  # 데이터가 있을 때만 인덱스 설정
 					data.index = list(data[index_col])
+			build_chat_user_index(init)
 
 			def preprocess_by_platform(df, index_col):
 				if df is None or df.empty:
@@ -903,22 +922,37 @@ async def save_chatFilter_name(init, user_id, user_name, platform: str):
 # 닉네임 변경시 db 데이터 변경 및 사용자 설정 변경
 async def change_nickname(init, user_id, nickname, platform: str):
 	try:
-		channelName = init.chatFilter[platform].loc[user_id, "channelName"]
-
-		if nickname == channelName:
+		old_name = init.chatFilter[platform].loc[user_id, "channelName"]
+		if nickname == old_name:
 			return
-		
-		for discordWebhookURL in init.userStateData['discordURL']:
-			if init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
-				for channelID in init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
 
-					# 사용자의 치지직 스트리머 채널의 설정 리스트 중에 닉네임 변경이 필요한 사람이 있는지 
-					if  channelName in init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID]:
-						index = init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID].index(channelName)
-						init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID][index] = nickname
-						asyncio.create_task(save_user_chat_user_json(discordWebhookURL, init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
-		asyncio.create_task(log_error(f"닉네임 변경됨 {platform}:{channelName} -> {nickname}"))
-		asyncio.create_task(save_chatFilter_name(init, user_id, nickname, platform = platform))
-			
+		channel_id = init.chatFilter[platform].loc[user_id, "channelID"]
+		key = (channel_id, old_name)
+		targets = init.chat_user_index.get(key, [])
+
+		for discordURL in targets:
+			chat_json = init.userStateData.loc[discordURL, 'chat_user_json']
+			if not isinstance(chat_json, dict):
+				continue
+
+			user_list = chat_json.get(channel_id)
+			if not user_list:
+				continue
+
+			while old_name in user_list:
+				idx = user_list.index(old_name)
+				user_list[idx] = nickname
+
+			asyncio.create_task(save_user_chat_user_json(discordURL, chat_json))
+
+		if targets:
+			new_key = (channel_id, nickname)
+			init.chat_user_index[new_key].extend(targets)
+			if key in init.chat_user_index:
+				del init.chat_user_index[key]
+
+		asyncio.create_task(log_error(f"닉네임 변경됨 {platform}:{old_name} -> {nickname}"))
+		asyncio.create_task(save_chatFilter_name(init, user_id, nickname, platform=platform))
+
 	except Exception as e:
-		print(e)
+		asyncio.create_task(log_error(f"change_nickname error: {e}"))
