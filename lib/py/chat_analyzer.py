@@ -51,9 +51,9 @@ class StreamHighlight:
     image: PILImage.Image = None
 
 class ChatMessageWithAnalyzer:
-    def setup_analyzer(self, channel_id: str, channel_name: str, platform_name: str):
+    def setup_analyzer(self, channel_id: str, channel_name: str, platform: str):
         """분석기 초기화"""
-        self.chat_analyzer = ChatAnalyzer(self.init, self.performance_manager, channel_id, channel_name, platform_name)
+        self.chat_analyzer = ChatAnalyzer(self.init, self.performance_manager, channel_id, channel_name, platform)
         self.analysis_task = None
         self.log_save_task = None
 
@@ -162,18 +162,20 @@ class ChatMessageWithAnalyzer:
 
 class ChatAnalyzer:
     """채팅 데이터를 분석하여 재미있는 순간을 감지하는 클래스"""
-    def __init__(self, init: initVar, performance_manager: PerformanceManager, channel_id: str, channel_name: str = "", platform_name: str = ""):
+    def __init__(self, init: initVar, performance_manager: PerformanceManager, channel_id: str, channel_name: str = "", platform: str = ""):
         self.init = init
         self.performance_manager = performance_manager
         self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.highlight_saver = HighlightChatSaver()
         self.channel_id = channel_id
         self.channel_name = channel_name
-        self.platform_name = platform_name
+        self.platform = platform
+        self.IDList = init.IDList
         self.init.wait_make_highlight_chat[self.channel_id] = False
         self.is_save_log = False
         self.stream_start_id = None
-        self._setup_init_title_data(init, platform_name)
+        self.title_data = init.titleData[platform]
+        self.title_data.loc[self.channel_id, 'baseline_metrics']
 
         # 분석 설정
         self.window_size = 30       # 30초 윈도우
@@ -258,18 +260,6 @@ class ChatAnalyzer:
         if self.stream_start_id not in self.init.highlight_chat[self.channel_id]:
             self.init.highlight_chat[self.channel_id][self.stream_start_id] = highlight_chat_Data()
             self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.title_data.loc[self.channel_id,'title1']
-
-    def _setup_init_title_data(self, init: initVar , platform_name: str):
-        if platform_name == "chzzk":
-            self.id_list = init.chzzkIDList
-            self.title_data = init.chzzk_titleData
-        elif platform_name == "afreeca":
-            self.id_list = init.afreecaIDList
-            self.title_data = init.afreeca_titleData
-        else:
-            raise ValueError(f"Unsupported platform: {platform_name}")
-        
-        self.title_data.loc[self.channel_id, 'baseline_metrics']
         
     def _setup_log_directories(self):
         """프로젝트 구조에 맞는 로그 디렉토리 설정"""
@@ -829,7 +819,7 @@ class ChatAnalyzer:
         parts = str(detailed_log['after_openDate']).strip().split(':')
         hours = int(parts[0])
 
-        if self.check_after_openDate < hours//17 and self.platform_name == 'chzzk':
+        if self.check_after_openDate < hours//17 and self.platform == 'chzzk':
             self.check_after_openDate += 1
             return True
         
@@ -841,7 +831,7 @@ class ChatAnalyzer:
             check_interval = 1
             max_wait_time = 300
             stream_start_ids = list(self.highlights_dict.keys())
-            asyncio.create_task(save_airing_data(self.title_data, self.platform_name, self.channel_id))
+            asyncio.create_task(save_airing_data(self.title_data, self.platform, self.channel_id))
 
             for stream_start_id in stream_start_ids:
                 if self.is_wait[stream_start_id]:
@@ -1070,17 +1060,17 @@ class ChatAnalyzer:
         try:
             message = "🎉 하이라이트"
             channel_name = self.channel_name
-            channel_color = self.init.stream_status[self.channel_id].id_list.loc[self.channel_id, 'channel_color']
+            channel_color = self.IDList[self.platform].loc[self.channel_id, 'channel_color']
             openDate=self.init.stream_status[self.channel_id].state_update_time['openDate']
 
             thumbnail_url = self.init.stream_status[self.channel_id].thumbnail_url
-            platform_name= self.init.stream_status[self.channel_id].platform_name
-            icon = iconLinkData().chzzk_icon if platform_name == 'chzzk' else iconLinkData().afreeca_icon
+            platform= self.init.stream_status[self.channel_id].platform
+            icon = iconLinkData().chzzk_icon if platform == 'chzzk' else iconLinkData().afreeca_icon
 
             if self.init.DO_TEST: 
                 image_url = 'https://i.imgur.com/Mwbjz5a.jpeg'
             else:
-                image_url = await upload_image_to_imgbb(self.init, self.performance_manager, self.channel_id, thumbnail_url, platform_prefix = platform_name)
+                image_url = await upload_image_to_imgbb(self.init, self.performance_manager, self.channel_id, thumbnail_url, platform_prefix = platform)
             
  
             timeline_comments = await self._make_highlight_chat([highlight], is_use_description = self.init.is_use_description[self.channel_id])
@@ -1124,9 +1114,9 @@ class ChatAnalyzer:
             await log_error(f"디스코드 알림 오류: {str(e)}")
 
     def get_author(self):
-        avatar_url = self.init.stream_status[self.channel_id].id_list.loc[self.channel_id, 'profile_image']
-        channel_data = self.init.stream_status[self.channel_id].id_list.loc[self.channel_id]
-        video_url = f"https://chzzk.naver.com/{channel_data['channel_code']}" if self.platform_name == 'chzzk' else f"https://www.sooplive.co.kr/station/{channel_data['afreecaID']}"
+        avatar_url = self.IDList[self.platform].loc[self.channel_id, 'profile_image']
+        channel_data = self.IDList[self.platform].loc[self.channel_id]
+        video_url = f"https://chzzk.naver.com/{channel_data['uid']}" if self.platform == 'chzzk' else f"https://www.sooplive.co.kr/station/{channel_data['uid']}"
         
         author = {
             "name": self.channel_name,

@@ -36,12 +36,12 @@ class VOD_Data:
     videoCategoryValue: str = ""               # 비디오 카테고리
     video_alarm_List: list = field(default_factory=list)
     duration: int = 0                          # 비디오 길이(초)
-    platform_name: str = ""                   # 플랫폼 이름
+    platform: str = ""                   # 플랫폼 이름
 
 class base_vod(ABC):
     """모든 VOD 처리 플랫폼에 공통으로 사용되는 기본 클래스"""
     
-    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id, platform):
         """
         초기화 함수
         
@@ -49,7 +49,7 @@ class base_vod(ABC):
             init_var: 초기화 변수들이 포함된 객체
             performance_manager: 성능 관리자
             channel_id: 채널 ID
-            platform_name: 플랫폼 이름
+            platform: 플랫폼 이름
         """
         self.init = init_var
         self.performance_manager = performance_manager
@@ -57,8 +57,10 @@ class base_vod(ABC):
         self.DO_TEST = init_var.DO_TEST
         self.userStateData = init_var.userStateData
         self.video_data = self.init.video_data
-        self.platform_name = self.video_data.loc[channel_id, 'platform_name']
+        self.platform = platform
         self.channel_id = channel_id
+        self.IDList = init_var.IDList
+        self.uid = self.IDList[self.platform].loc[self.channel_id, 'uid']
         self.time_offset = 25
         self.duration_diff = 10
         self.thumb_check_times = {}
@@ -68,16 +70,10 @@ class base_vod(ABC):
         self.fun_difference3 = 40
         self.fun_difference4 = 60
         self.fun_difference5 = 70
-        
-        # 플랫폼별 데이터 초기화
-        self._initialize_platform_data()
-        
-        self.data = VOD_Data(platform_name=self.platform_name)
 
-    @abstractmethod
-    def _initialize_platform_data(self):
-        """플랫폼별 데이터 초기화 (추상 메서드)"""
-        pass
+        self.title_data = self.init.titleData[self.platform]
+        
+        self.data = VOD_Data(platform=self.platform)
 
     async def start(self):
         """VOD 처리 시작점"""
@@ -99,7 +95,7 @@ class base_vod(ABC):
             await self._process_video_data(state_data)
 
         except Exception as e:
-            asyncio.create_task(log_error(f"error get video data {self.platform_name}.{self.channel_id}.{str(e)}"))
+            asyncio.create_task(log_error(f"error get video data {self.platform}.{self.channel_id}.{str(e)}"))
 
     @abstractmethod
     async def _get_video_data(self):
@@ -133,15 +129,15 @@ class base_vod(ABC):
         # 비디오 데이터 JSON 생성 및 저장
         json_data = await self._get_video_json()
         self._update_video_list()
-        asyncio.create_task(save_video_data(self.video_data, self.channel_id))
+        asyncio.create_task(save_video_data(self.video_data, self.channel_id, self.platform))
 
         # 알림 목록에 추가
         self.data.video_alarm_List.append(json_data)
 
     def _check_new_video(self):
         """새 비디오인지 확인하는 공통 로직"""
-        old_publish_date = self.video_data.loc[self.channel_id, 'VOD_json']["publishDate"]
-        video_list = self.video_data.loc[self.channel_id, 'VOD_json']["videoNo_list"]
+        old_publish_date = self.video_data[self.platform].loc[self.channel_id, 'VOD_json']["publishDate"]
+        video_list = self.video_data[self.platform].loc[self.channel_id, 'VOD_json']["videoNo_list"]
 
         # 이미 등록된 비디오거나 이전 날짜의 비디오인 경우 건너뛰기
         if (changeUTCtime(self.data.publishDate) <= old_publish_date or 
@@ -197,7 +193,7 @@ class base_vod(ABC):
                 return
             
             json_data = self.data.video_alarm_List.pop(0)
-            channel_name = self.id_list.loc[self.channel_id, 'channelName']
+            channel_name = self.IDList[self.platform].loc[self.channel_id, 'channelName']
             print(f"{datetime.now()} VOD upload {channel_name} {self.data.videoTitle}")
 
             if self.init.is_vod_json[self.channel_id]:
@@ -301,7 +297,7 @@ class base_vod(ABC):
                 return None
             
             # 채널의 모든 하이라이트 파일 검색
-            channel_name = self.id_list.loc[self.channel_id, 'channelName']
+            channel_name = self.IDList[self.platform].loc[self.channel_id, 'channelName']
             pattern = f"highlight_chat_{channel_name}_*.json"
             files = sorted(highlight_dir.glob(pattern), reverse=True)[:20]
             duration_diff = 0
@@ -335,7 +331,7 @@ class base_vod(ABC):
                         
                     # 치지직 방송 중인데, 방송 시간이 길어서 VOD가 분할 된 경우
                     segment_duration = 17 * 3600
-                    if self.platform_name == 'chzzk' and (not stream_end_id or duration_diff >= segment_duration):
+                    if self.platform == 'chzzk' and (not stream_end_id or duration_diff >= segment_duration):
                         if (data:= await self._match_chzzk_vod_segment(data)) is not None:
                             return data
                         continue
@@ -352,10 +348,10 @@ class base_vod(ABC):
             return None
         
     async def uptime_command(self):
-        if self.init.chzzk_titleData.loc[self.channel_id, 'live_state'] == "CLOSE":
+        if self.title_data.loc[self.channel_id, 'live_state'] == "CLOSE":
             await self._send("채널이 오프라인 상태입니다.")
             return 0
-        start_time_str = self.init.chzzk_titleData.loc[self.channel_id, 'state_update_time']['openDate']
+        start_time_str = self.title_data.loc[self.channel_id, 'state_update_time']['openDate']
         current_time = datetime.now()
         start_time = datetime.fromisoformat(start_time_str)
         uptime = current_time - start_time
@@ -537,7 +533,7 @@ class base_vod(ABC):
 
     def _update_video_list(self):
         """ 비디오 번호 목록 업데이트"""
-        chzzk_video_json = self.video_data.loc[self.channel_id, 'VOD_json']
+        chzzk_video_json = self.video_data[self.platform].loc[self.channel_id, 'VOD_json']
         
         if len(chzzk_video_json["videoNo_list"]) >= 10:
             chzzk_video_json["videoNo_list"][:-1] = chzzk_video_json["videoNo_list"][1:]
@@ -557,20 +553,14 @@ class base_vod(ABC):
 class chzzk_vod(base_vod):
     """치지직 VOD 처리 클래스"""
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
-        super().__init__(init_var, performance_manager, channel_id)
-    
-    def _initialize_platform_data(self):
-        """치지직 플랫폼 데이터 초기화"""
-        self.id_list = self.init.chzzkIDList
-        self.title_data = self.init.chzzk_titleData
-        
+        super().__init__(init_var, performance_manager, channel_id, "chzzk")
+
     async def _get_video_data(self):
         """치지직 비디오 API 데이터 가져오기"""
-        def get_link(uid):
-            return f"https://api.chzzk.naver.com/service/v1/channels/{uid}/videos"
+        def get_link():
+            return f"https://api.chzzk.naver.com/service/v1/channels/{self.uid}/videos"
         
-        uid = self.id_list.loc[self.channel_id, 'channel_code']
-        return await get_message(self.performance_manager, "chzzk", get_link(uid))
+        return await get_message(self.performance_manager, "chzzk", get_link())
 
     def _should_process_video(self, state_data):
         """치지직 비디오 데이터 처리 여부 확인"""
@@ -607,10 +597,10 @@ class chzzk_vod(base_vod):
         """치지직 비디오 웹훅 JSON 데이터 생성"""
         videoTitle = "|" + (self.data.videoTitle if self.data.videoTitle != " " else "                                                  ") + "|"
         
-        channel_data = self.id_list.loc[self.channel_id]
+        channel_data = self.IDList[self.platform].loc[self.channel_id]
         username = channel_data['channelName']
         avatar_url = channel_data['profile_image']
-        video_url = f"https://chzzk.naver.com/{channel_data['channel_code']}/video"
+        video_url = f"https://chzzk.naver.com/{self.uid}/video"
         
         embed = {
             "color": 65443,
@@ -769,18 +759,12 @@ class chzzk_vod(base_vod):
 class afreeca_vod(base_vod):
     """아프리카TV VOD 처리 클래스"""
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
-        super().__init__(init_var, performance_manager, channel_id)
-    
-    def _initialize_platform_data(self):
-        """아프리카TV 플랫폼 데이터 초기화"""
-        self.id_list = self.init.afreecaIDList
-        self.title_data = self.init.afreeca_titleData
+        super().__init__(init_var, performance_manager, channel_id, "afreeca")
         self.base_url = 'https://stbbs.sooplive.co.kr/api/bbs_memo_action.php'
 
     async def _get_video_data(self):
         """아프리카TV 비디오 API 데이터 가져오기"""
-        afreeca_id = self.id_list.loc[self.channel_id, "afreecaID"]
-        link = f"https://chapi.sooplive.co.kr/api/{afreeca_id}/vods/review?keyword=&orderby=reg_date&perPage=20&field=title,contents,user_nick,user_id&page={1}&start_date=&end_date="
+        link = f"https://chapi.sooplive.co.kr/api/{self.uid}/vods/review?keyword=&orderby=reg_date&perPage=20&field=title,contents,user_nick,user_id&page={1}&start_date=&end_date="
         return await get_message(self.performance_manager, "afreeca", link)
 
     def _should_process_video(self, state_data):
@@ -822,11 +806,10 @@ class afreeca_vod(base_vod):
         """아프리카TV 비디오 웹훅 JSON 데이터 생성"""
         videoTitle = "|" + (self.data.videoTitle if self.data.videoTitle != " " else "                                                  ") + "|"
         
-        channel_data = self.id_list.loc[self.channel_id]
+        channel_data = self.IDList[self.platform].loc[self.channel_id]
         username = channel_data['channelName']
         avatar_url = channel_data['profile_image']
-        afreeca_id = channel_data['afreecaID']
-        video_url = f"https://www.sooplive.co.kr/station/{afreeca_id}"
+        video_url = f"https://www.sooplive.co.kr/station/{self.uid}"
         
         embed = {
             "color": 629759,
@@ -864,7 +847,7 @@ class afreeca_vod(base_vod):
             
             vod_info = {
                 'title_no': str(self.data.videoNo),
-                'bj_id': self.id_list.loc[self.channel_id, 'afreecaID']
+                'bj_id': self.uid
             }
 
             post_data = {
@@ -962,12 +945,10 @@ class afreeca_vod(base_vod):
             # 쿠키와 헤더 준비
             headers = getDefaultHeaders()
             cookies = getAfreecaCookie()
-            
-            bj_id = self.id_list.loc[self.channel_id, 'afreecaID']
 
             post_data = {
                 'nTitleNo': str(self.data.videoNo),
-                'bj_id': bj_id,
+                'bj_id': self.uid,
                 'nBoardType': '105',
                 'szContent': message,
                 'szAction': 'write',
@@ -1029,12 +1010,10 @@ class afreeca_vod(base_vod):
         headers = getDefaultHeaders()
         cookies = getAfreecaCookie()
 
-        bj_id = self.id_list.loc[self.channel_id, 'afreecaID']
-
         def get_reply_json(message):
             return {
                 'nTitleNo': str(self.data.videoNo),
-                'bj_id': bj_id,
+                'bj_id': self.uid,
                 'nBoardType': '105',
                 'szContent': message,
                 'szAction': 'write',

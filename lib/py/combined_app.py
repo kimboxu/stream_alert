@@ -95,28 +95,28 @@ async def main_loop(init: initVar, performance_manager: PerformanceManager):
                 asyncio.create_task(
                     get_or_create_instance('chzzk_video', init, performance_manager, channel_id).start()
                 ) 
-                for channel_id in init.chzzkIDList["channelID"]
+                for channel_id in list(init.IDList["chzzk"].index)
             ]
 
             afreeca_video_tasks = [
                 asyncio.create_task(
                     get_or_create_instance('afreeca_video', init, performance_manager, channel_id).start()
                 ) 
-                for channel_id in init.afreecaIDList["channelID"]
+                for channel_id in list(init.IDList["afreeca"].index)
             ]
             
             chzzk_live_tasks = [
                 asyncio.create_task(
                     get_or_create_instance('chzzk_live', init, performance_manager, channel_id).start()
                 ) 
-                for channel_id in init.chzzkIDList["channelID"]
+                for channel_id in list(init.IDList["chzzk"].index)
             ]
             
             afreeca_live_tasks = [
                 asyncio.create_task(
                     get_or_create_instance('afreeca_live', init, performance_manager, channel_id).start()
                 ) 
-                for channel_id in init.afreecaIDList["channelID"]
+                for channel_id in list(init.IDList["afreeca"].index)
             ]
 
             tasks = []
@@ -128,7 +128,7 @@ async def main_loop(init: initVar, performance_manager: PerformanceManager):
             if init.count % 3 == 2: 
                 tasks.extend(chzzk_video_tasks)
             if init.count % 3 == 0:
-                tasks.extend(afreeca_video_tasks) 
+                tasks.extend(afreeca_video_tasks)
             if init.count % 3 == 1: 
                 tasks.extend(cafe_tasks)
 
@@ -175,23 +175,16 @@ async def youtube_task(init: initVar, performance_manager: PerformanceManager):
             await asyncio.sleep(3)
 
 # 채팅 작업 함수
-async def generic_chat(init: initVar, performance_manager: PerformanceManager, platform_name: str):
+async def generic_chat(init: initVar, performance_manager: PerformanceManager, platform: str):
     await asyncio.sleep(3)
     
     tasks = {}  # 채널 ID별 실행 중인 task를 관리할 딕셔너리
     
     while True:
         try:
-            # ID 리스트 결정
-            if platform_name == 'chzzk':
-                id_list = init.chzzkIDList
-                chat_class = 'chzzk_chat'
-            elif platform_name == 'afreeca':
-                id_list = init.afreecaIDList
-                chat_class = 'afreeca_chat'
-            
+            chat_class = f'{platform}_chat'
             # 기존 실행 중인 태스크를 유지하면서, 새로운 채널이 추가되면 실행
-            for channel_id in id_list["channelID"]:
+            for channel_id in list(init.IDList[platform].index):
                 if channel_id not in tasks or tasks[channel_id].done():
                     # StateManager를 활용하여 인스턴스 생성/재사용
                     chat_instance = get_or_create_instance(chat_class, init, performance_manager, channel_id)
@@ -200,31 +193,22 @@ async def generic_chat(init: initVar, performance_manager: PerformanceManager, p
             await asyncio.sleep(1)  # 1초마다 체크
         
         except Exception as e:
-            print(f"{datetime.now()} error {platform_name}_chatf {str(e)}")
-            await asyncio.create_task(log_error(f"Error in {platform_name}_chatf: {str(e)}"))
+            print(f"{datetime.now()} error {platform}_chatf {str(e)}")
+            await asyncio.create_task(log_error(f"Error in {platform}_chatf: {str(e)}"))
             await asyncio.sleep(1)
 
 # 핫클립 작업
-async def generic_hot_clip(init: initVar, performance_manager: PerformanceManager, platform_name: str):
+async def generic_hot_clip(init: initVar, performance_manager: PerformanceManager, platform: str):
     await asyncio.sleep(3)
     
     tasks = {}
     
     while True:
         try:
-            # 플랫폼에 따른 ID 리스트 선택
-            if platform_name == "chzzk":
-                id_list = init.chzzkIDList
-                hot_clip_class = 'chzzk_hot_clips'
-            elif platform_name == "afreeca":
-                id_list = init.afreecaIDList
-                hot_clip_class = 'afreeca_hot_clips'
-            else:
-                await asyncio.sleep(60)
-                continue
+            hot_clip_class = f'{platform}_hot_clips'
             
             # 각 채널별 모니터링 태스크 관리
-            for channel_id in id_list["channelID"]:
+            for channel_id in list(init.IDList[platform].index):
                 if channel_id not in tasks or tasks[channel_id].done():
                     hot_clip_instance = get_or_create_instance(hot_clip_class, init, performance_manager, channel_id)
                     tasks[channel_id] = asyncio.create_task(hot_clip_instance.start_monitoring())
@@ -232,7 +216,7 @@ async def generic_hot_clip(init: initVar, performance_manager: PerformanceManage
             await asyncio.sleep(60)
             
         except Exception as e:
-            await log_error(f"{platform_name} 핫클립 모니터링 오류: {str(e)}")
+            await log_error(f"{platform} 핫클립 모니터링 오류: {str(e)}")
             await asyncio.sleep(60)
 
 # 디스코드 봇 작업 실행 함수

@@ -340,8 +340,8 @@ def update_username():
 def get_streamers():
     try:
         # init 객체에서 직접 데이터를 가져와 JSON 직렬화 가능한 형태로 변환
-        afreecaIDList = app.init.afreecaIDList.to_dict('records')
-        chzzkIDList = app.init.chzzkIDList.to_dict('records')
+        afreecaIDList = app.init.IDList["afreeca"].to_dict('records')
+        chzzkIDList = app.init.IDList["chzzk"].to_dict('records')
         cafeData = app.init.cafeData.to_dict('records')
         videoData = app.init.video_data.to_dict('records')
         youtubeData = app.init.youtubeData.to_dict('records')
@@ -814,10 +814,11 @@ def get_active_highlight_chats():
             try:
                 # 채널명 찾기 (chzzk 또는 afreeca에서)
                 channel_name = "Unknown"
-                if ch_id in app.init.chzzkIDList.index:
-                    channel_name = app.init.chzzkIDList.loc[ch_id, 'channelName']
-                elif ch_id in app.init.afreecaIDList.index:
-                    channel_name = app.init.afreecaIDList.loc[ch_id, 'channelName']
+                platform_list = ["chzzk", "afreeca"]
+                for platform in platform_list:
+                    if ch_id in app.init.IDList[platform].index:
+                        channel_name = app.init.IDList[platform].loc[ch_id, 'channelName']
+
                 
                 result[ch_id] = {
                     "channel_name": channel_name,
@@ -906,10 +907,10 @@ def get_highlight_chat_detail():
                 
                 # 채널 정보 추가
                 channel_name = "Unknown"
-                if channel_id in app.init.chzzkIDList.index:
-                    channel_name = app.init.chzzkIDList.loc[channel_id, 'channelName']
-                elif channel_id in app.init.afreecaIDList.index:
-                    channel_name = app.init.afreecaIDList.loc[channel_id, 'channelName']
+                platform_list = ["chzzk", "afreeca"]
+                for platform in platform_list:
+                    if channel_id in app.init.IDList[platform].index:
+                        channel_name = app.init.IDList[platform].loc[channel_id, 'channelName']
                 
                 result_data = {
                     "source": "active_memory",
@@ -1032,10 +1033,10 @@ def get_highlight_chat_statistics():
             # 채널명 찾기
             channel_name = "Unknown"
             try:
-                if channel_id in app.init.chzzkIDList.index:
-                    channel_name = app.init.chzzkIDList.loc[channel_id, 'channelName']
-                elif channel_id in app.init.afreecaIDList.index:
-                    channel_name = app.init.afreecaIDList.loc[channel_id, 'channelName']
+                platform_list = ["chzzk", "afreeca"]
+                for platform in platform_list:
+                    if channel_id in app.init.IDList[platform].index:
+                        channel_name = app.init.IDList[platform].loc[channel_id, 'channelName']
             except:
                 pass
             
@@ -1151,10 +1152,10 @@ def cleanup_highlight_data():
             try:
                 # 채널명 찾기
                 channel_name = "Unknown"
-                if channel_id in app.init.chzzkIDList.index:
-                    channel_name = app.init.chzzkIDList.loc[channel_id, 'channelName']
-                elif channel_id in app.init.afreecaIDList.index:
-                    channel_name = app.init.afreecaIDList.loc[channel_id, 'channelName']
+                platform_list = ["chzzk", "afreeca"]
+                for platform in platform_list:
+                    if channel_id in app.init.IDList[platform].index:
+                        channel_name = app.init.IDList[platform].loc[channel_id, 'channelName']
                 
                 channel_data = app.init.highlight_chat[channel_id]
                 streams_to_remove = []

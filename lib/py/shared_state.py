@@ -218,12 +218,8 @@ class StateManager:
 
                 # 채널명 가져오기
                 try:
-                    if platform == 'chzzk':
-                        channel_name = self.init_var.chzzkIDList.loc[channel_id, 'channelName']
-                    elif platform == 'afreeca':
-                        channel_name = self.init_var.afreecaIDList.loc[channel_id, 'channelName']
-                    else:
-                        channel_name = "Unknown"
+                    channel_name = self.init_var.IDList[platform].loc[channel_id, 'channelName']
+
                 except Exception:
                     channel_name = "Unknown"
 
