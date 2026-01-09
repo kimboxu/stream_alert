@@ -88,7 +88,6 @@ class JSONRepairHandler:
             return json.loads(json_str)
         except json.JSONDecodeError as e:
             print(f"초기 파싱 실패: {str(e)}")
-            print(json_str)
             
         # 재시도 루프: 자동 복구 시도
         for attempt in range(1, max_retries + 1):

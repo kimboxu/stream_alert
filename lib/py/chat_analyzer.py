@@ -65,7 +65,7 @@ class ChatMessageWithAnalyzer:
                 self.chat_analyzer.stream_start_id = get_stream_start_id(self.chat_analyzer.channel_id, str(self.init.stream_status[self.chat_analyzer.channel_id].state_update_time['openDate']))
                 self.chat_analyzer._setup_init_dict()
                 self.analysis_task = asyncio.create_task(self._run_analyzer())
-                print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.chat_analyzer.stream_start_id}, {self.init.highlight_chat[self.chat_analyzer.channel_id]}")
+                print(f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.chat_analyzer.stream_start_id}, {list(self.init.highlight_chat[self.chat_analyzer.channel_id].keys())}")
 
                 # 주기적 로그 저장 태스크 시작
                 self.log_save_task = asyncio.create_task(self.chat_analyzer.save_logs_periodically())
