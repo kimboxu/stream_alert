@@ -50,9 +50,7 @@ class getYoutubeJsonData:
 		self.DO_TEST = init_var.DO_TEST          # 테스트 모드 여부
 		self.userStateData = init_var.userStateData  # 사용자 상태 데이터
 		self.youtubeData = init_var.youtubeData  # 유튜브 데이터
-		self.chzzkIDList = init_var.chzzkIDList  # 치지직 ID 목록
-		self.afreecaIDList = init_var.afreecaIDList  # 아프리카 ID 목록
-		self.twitchIDList = init_var.twitchIDList    # 트위치 ID 목록
+		self.IDList = init_var.IDList  # 치지직 ID 목록
 		self.youtubeChannelID = youtubeChannelID     # 처리할 유튜브 채널 ID
 		self.youtubechannelName = init_var.youtubeData.loc[youtubeChannelID, 'channelName']  # 채널 이름
 		self.channel_id = init_var.youtubeData.loc[youtubeChannelID, 'channelID']  # 내부 채널 ID
@@ -456,20 +454,13 @@ class getYoutubeJsonData:
 	def get_user_data(self):
 		channelID = self.youtubeData.loc[self.youtubeChannelID, "channelID"]
 		
-		# 플랫폼별 ID 리스트를 딕셔너리로 관리
-		platform_lists = {
-			'chzzk': self.chzzkIDList,
-			'afreeca': self.afreecaIDList,
-			'twitch': self.twitchIDList
-		}
-		
 		# 각 플랫폼에서 채널 정보 찾기
 		username = None
 		avatar_url = None
-		for platform_list in platform_lists.values():
+		for platform in self.IDList.keys():
 			try:
-				username = platform_list.loc[channelID, 'channelName']
-				avatar_url = platform_list.loc[channelID, 'profile_image']
+				username = self.IDList[platform].loc[channelID, 'channelName']
+				avatar_url = self.IDList[platform].loc[channelID, 'profile_image']
 				break  # 정보를 찾으면 반복 중단
 			except Exception as e:
 				continue

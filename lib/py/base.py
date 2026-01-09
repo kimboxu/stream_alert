@@ -49,7 +49,6 @@ class initVar:
 	# logging.getLogger().setLevel(logging.WARNING)
 	print("start!")
 
-
 _TABLE_LOCKS: Dict[str, asyncio.Lock] = {}
 _TABLE_LOCKS_LOCK = threading.Lock()
 _CURRENT_LOOP_ID = None
@@ -176,11 +175,9 @@ async def DataBaseVars(init: initVar, is_start = False):
 			
 			# 모든 테이블 이름을 리스트로 정의
 			table_names = [
-				'userStateData', 'twitch_titleData', 'chzzk_titleData', 
-				'afreeca_titleData', 'twitchIDList', 'chzzkIDList', 
-				'afreecaIDList', 'youtubeData', 'twitch_chatFilter',
-				'chzzk_chatFilter', 'afreeca_chatFilter', 'video_data',
-				'cafeData', 'hot_clip_data', 'chat_commands',
+				'IDList', 'titleData', 'chatFilter',
+				'chat_commands', 'video_data', 'hot_clip_data',
+				'userStateData', 'cafeData', 'youtubeData', 
 			]
 			
 			# 모든 테이블의 데이터를 비동기로 가져오기
@@ -198,25 +195,36 @@ async def DataBaseVars(init: initVar, is_start = False):
 			# index 설정
 			index_mappings = {
 				'userStateData': 'discordURL',
-				'twitchIDList': 'channelID',
-				'chzzkIDList': 'channelID',
-				'afreecaIDList': 'channelID',
-				'twitch_titleData': 'channelID',
-				'chzzk_titleData': 'channelID',
-				'afreeca_titleData': 'channelID',
 				'youtubeData': 'YoutubeChannelID',
-				'chzzk_chatFilter': 'uid',
-				'afreeca_chatFilter': 'channelID',
 				'cafeData': 'channelID',
-				'video_data': 'channelID',
-				'hot_clip_data': 'channelID',
-				'chat_commands': 'channelID',
 			}
 			
 			for table_name, index_col in index_mappings.items():
 				data = getattr(init, table_name)
 				if not data.empty:  # 데이터가 있을 때만 인덱스 설정
 					data.index = list(data[index_col])
+
+			def preprocess_by_platform(df, index_col):
+				if df is None or df.empty:
+					return {}
+
+				return {
+					platform: g.drop(columns="platform").set_index(index_col)
+					for platform, g in df.groupby("platform")
+				}
+
+			preprocess_targets = {
+				"chatFilter": "uid",
+				"IDList": "channelID",
+				"titleData": "channelID",
+				"chat_commands": "channelID",
+				"hot_clip_data": "channelID",
+				"video_data": "channelID",
+			}
+
+			for attr, index_col in preprocess_targets.items():
+				df = getattr(init, attr)
+				setattr(init, attr, preprocess_by_platform(df, index_col))
 
 			if not is_start:
 				init.is_state_control["all_date"] = False
@@ -302,7 +310,6 @@ async def print_log(init):
 	await asyncio.sleep(0.3)
 	await update_flag('is_state_control', init.is_state_control)
 
-
 # db에서 데이터 가져오는 함수
 async def fetch_data(supabase, date_name):
 	return supabase.table(date_name).select("*").execute()
@@ -345,17 +352,15 @@ async def fSleep(init: initVar):
 	init.countTimeList[-1] += sleepTime
 
 # 온라인 채널이 있는지 여부 확인하는 함수
-def get_online_count(data, id_column="channelID"):
-	return sum(1 for channel_id in data[id_column] if data.loc[channel_id, "live_state"] == "OPEN")
+def get_online_count(data):
+	return sum(1 for channel_id in data["live_state"].index if data.loc[channel_id, "live_state"] == "OPEN")
 
 # 각 플랫폼의 온라인 카운트 계산
 def printCount(init: initVar):
-	online_counts = {
-		'twitch': get_online_count(init.twitch_titleData),
-		'chzzk': get_online_count(init.chzzk_titleData),
-		'afreeca': get_online_count(init.afreeca_titleData)
-	}
-	
+	online_counts = {}
+	for platform in list(init.titleData):
+		online_counts[platform] = get_online_count(init.titleData[platform])
+
 	# 모든 플랫폼이 오프라인인지 확인
 	all_offline = not any(online_counts.values())
 	
@@ -749,12 +754,13 @@ def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image = ""):
 
 # 방송 정보 데이터 저장 함수
 async def save_airing_data(titleData, platform: str, id_):
-	table_name = platform + "_titleData"
+	table_name = "titleData"
 	lock = get_table_lock(table_name)
 	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data_func = {
 					"channelID": id_,
+					"platform": platform,
 					"live_state": titleData.loc[id_, "live_state"],
 					"title1": titleData.loc[id_, "title1"],
 					"title2": titleData.loc[id_, "title2"],
@@ -769,14 +775,15 @@ async def save_airing_data(titleData, platform: str, id_):
 
 # 프로필 이미지 url 저장 함수
 async def save_profile_data(IDList, platform: str, id):
-	table_name = platform + "IDList"
+	table_name = "IDList"
 	lock = get_table_lock(table_name)
 	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		
 		data_func = {
 				"channelID": id,
-				'profile_image': IDList.loc[id, 'profile_image']
+				"platform": platform,
+				'profile_image': IDList[platform].loc[id, 'profile_image']
 			}
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data_func).execute())
@@ -791,14 +798,15 @@ async def change_field_state(field, field_data, channel_id, field_state = True):
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert({"idx": 0, field: field_data}).execute())
 
 # 비디오 데이터 저장 함수
-async def save_video_data(video_data, _id):
+async def save_video_data(video_data, _id, platform):
 	table_name = "video_data"
 	lock = get_table_lock(table_name)
 	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 			"channelID": _id,
-			'VOD_json': video_data.loc[_id, 'VOD_json']
+			"VOD_json": video_data[platform].loc[_id, 'VOD_json'],
+			"platform": platform,
 		}
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
@@ -836,6 +844,7 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
+# 유저 챗 데이터 저장 함수
 async def save_user_chat_user_json(webhook_url, chat_user_json):
 	table_name = "userStateData"
 	lock = get_table_lock(table_name)
@@ -849,70 +858,67 @@ async def save_user_chat_user_json(webhook_url, chat_user_json):
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
 # 보낸 클립 UID 저장 함수
-async def save_sent_notifications(channel_id, hot_clip_data):
+async def save_sent_notifications(channel_id, hot_clip_data, platform: str):
 	table_name = "hot_clip_data"
 	lock = get_table_lock(table_name)
 	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
-					'channelID': channel_id,
-					'last_updated': datetime.now().isoformat(),
-					'sent_clip_uids': hot_clip_data.loc[channel_id, 'sent_clip_uids']
+					"channelID": channel_id,
+					"platform": platform,
+					"last_updated": datetime.now().isoformat(),
+					"sent_clip_uids": hot_clip_data[platform].loc[channel_id, 'sent_clip_uids']
 				}
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
 # 챗 명령어 데이터 저장 함수
-async def save_chat_command_data(chat_command_data, _id):
+async def save_chat_command_data(chat_command_data, _id, platform: str):
 	table_name = "chat_commands"
 	lock = get_table_lock(table_name)
 	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 			"channelID": _id,
-			'chat_command': chat_command_data.loc[_id, 'chat_command']
+			"platform": platform,
+			'chat_command': chat_command_data[platform].loc[_id, 'chat_command']
 		}
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
-async def save_chatFilter_name(init, user_id, user_name, platform: str): 
-	table_name = f'{platform}_chatFilter'
+async def save_chatFilter_name(init, user_id, user_name, platform: str):
+	table_name = "chatFilter"
 	lock = get_table_lock(table_name)
 	async with lock:
 		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-		data = {'channelName': user_name}
-
-		if platform == "chzzk":
-			init.chzzk_chatFilter.loc[user_id, "channelName"] = user_name
-			data["uid"] = user_id
-		elif platform == "afreeca":
-			init.afreeca_chatFilter.loc[user_id, "channelName"] = user_name
-			data["channelID"] = user_id
+		init.chatFilter[platform].loc[user_id, "channelName"] = user_name
+		data = {
+			"uid": user_id,
+			"platform": platform,
+			"channelName": user_name,
+		}
 
 		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
 
 # 닉네임 변경시 db 데이터 변경 및 사용자 설정 변경
 async def change_nickname(init, user_id, nickname, platform: str):
 	try:
-		if platform == "chzzk":
-			IDList = list(init.chzzkIDList["channelID"])
-			channelName = init.chzzk_chatFilter.loc[user_id, "channelName"]
-		elif platform == "afreeca":
-			IDList = list(init.afreecaIDList["channelID"])
-			channelName = init.afreeca_chatFilter.loc[user_id, "channelName"]
+		channelName = init.chatFilter[platform].loc[user_id, "channelName"]
 
-		if nickname != channelName:
-			for discordWebhookURL in init.userStateData['discordURL']:
-				if init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
-					for channelID in init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
+		if nickname == channelName:
+			return
+		
+		for discordWebhookURL in init.userStateData['discordURL']:
+			if init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
+				for channelID in init.userStateData.loc[discordWebhookURL, 'chat_user_json']:
 
-						# 사용자의 치지직 스트리머 채널의 설정 리스트 중에 닉네임 변경이 필요한 사람이 있는지 
-						if  channelID in IDList and channelName in init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID]:
-							index = init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID].index(channelName)
-							init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID][index] = nickname
-							asyncio.create_task(save_user_chat_user_json(discordWebhookURL, init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
-			asyncio.create_task(log_error(f"닉네임 변경됨 {platform}:{channelName} -> {nickname}"))
-			asyncio.create_task(save_chatFilter_name(init, user_id, nickname, platform = platform))
+					# 사용자의 치지직 스트리머 채널의 설정 리스트 중에 닉네임 변경이 필요한 사람이 있는지 
+					if  channelName in init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID]:
+						index = init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID].index(channelName)
+						init.userStateData.loc[discordWebhookURL, 'chat_user_json'][channelID][index] = nickname
+						asyncio.create_task(save_user_chat_user_json(discordWebhookURL, init.userStateData.loc[discordWebhookURL, 'chat_user_json']))
+		asyncio.create_task(log_error(f"닉네임 변경됨 {platform}:{channelName} -> {nickname}"))
+		asyncio.create_task(save_chatFilter_name(init, user_id, nickname, platform = platform))
 			
 	except Exception as e:
 		print(e)

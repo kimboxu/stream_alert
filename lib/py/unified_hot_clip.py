@@ -35,7 +35,7 @@ class ClipData:
     duration: int                  # 길이(초)
     createdDate: datetime          # 생성일
     readCount: int                 # 조회수
-    platform_name: str = ""       # 플랫폼 이름
+    platform: str = ""       # 플랫폼 이름
     clipUrl: str = ""              # 클립 URL
     hotScore: float = 0.0          # 핫클립 점수
     isHot: bool = False           # 핫클립 여부
@@ -45,7 +45,7 @@ class HotClipAnalysisResult:
     """핫클립 분석 결과"""
     channel_id: str
     channel_name: str
-    platform_name: str
+    platform: str
     hot_clips: List[ClipData] = field(default_factory=list)
     total_clips_analyzed: int = 0
     average_views: float = 0.0
@@ -54,13 +54,14 @@ class HotClipAnalysisResult:
 class BaseHotClipDetector(ABC):
     """모든 핫클립 감지 플랫폼에 공통으로 사용되는 기본 클래스"""
     
-    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id: str, platform_name: str):
+    def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id: str, platform: str):
         self.init = init_var
         self.hot_clip_data = init_var.hot_clip_data
         self.performance_manager = performance_manager
         self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.channel_id = channel_id
-        self.platform_name = platform_name
+        self.platform = platform
+        self.IDList = self.init.IDList
         
         # 공통 설정값
         self.days_to_analyze = 14      # 2주
@@ -80,14 +81,6 @@ class BaseHotClipDetector(ABC):
             'avg_views': 100.0,
             'view_threshold': 200.0
         }
-        
-        # 플랫폼별 데이터 초기화
-        self._initialize_platform_data()
-        
-    @abstractmethod
-    def _initialize_platform_data(self):
-        """플랫폼별 데이터 초기화 (추상 메서드)"""
-        pass
 
     @abstractmethod
     async def _collect_clips_data(self) -> List[ClipData]:
@@ -99,11 +92,6 @@ class BaseHotClipDetector(ABC):
         """플랫폼별 아이콘 URL 반환 (추상 메서드)"""
         pass
     
-    @abstractmethod
-    def _get_channel_name_field(self) -> str:
-        """플랫폼별 채널명 필드 반환"""
-        pass
-
     async def start_monitoring(self):
         """핫클립 모니터링 시작"""
         # print(f"{datetime.now()} 핫클립 감지 시작: {self.channel_id}")
@@ -117,7 +105,7 @@ class BaseHotClipDetector(ABC):
 
                     # 알림 기록 저장
                     if not self.init.DO_TEST:  
-                        asyncio.create_task(save_sent_notifications(self.channel_id, self.hot_clip_data))
+                        asyncio.create_task(save_sent_notifications(self.channel_id, self.hot_clip_data, self.platform))
                 
                 await asyncio.sleep(self.analysis_interval)
                 
@@ -129,7 +117,7 @@ class BaseHotClipDetector(ABC):
         """핫클립 분석 실행 (공통 로직)"""
         try:
             # 채널 정보 가져오기
-            channel_name = self.id_list.loc[self.channel_id, self._get_channel_name_field()]
+            channel_name = self.IDList[self.platform].loc[self.channel_id, "channelName"]
             
             # 클립 데이터 수집
             clips = await self._collect_clips_data()
@@ -163,7 +151,7 @@ class BaseHotClipDetector(ABC):
             result = HotClipAnalysisResult(
                 channel_id=self.channel_id,
                 channel_name=channel_name,
-                platform_name=self.platform_name,
+                platform=self.platform,
                 hot_clips=hot_clips,  # 상위 5개 제한 제거
                 total_clips_analyzed=len(recent_clips),
                 average_views=self.baseline_metrics['avg_views']
@@ -239,9 +227,9 @@ class BaseHotClipDetector(ABC):
             return 10.0
         
     def get_author(self, channel_name):
-        avatar_url = self.id_list.loc[self.channel_id, 'profile_image']
-        channel_data = self.id_list.loc[self.channel_id]
-        video_url = f"https://chzzk.naver.com/{channel_data['channel_code']}" if self.platform_name == 'chzzk' else f"https://www.sooplive.co.kr/station/{channel_data['afreecaID']}"
+        avatar_url = self.IDList[self.platform].loc[self.channel_id, 'profile_image']
+        channel_data = self.IDList[self.platform].loc[self.channel_id]
+        video_url = f"https://chzzk.naver.com/{channel_data['uid']}" if self.platform == 'chzzk' else f"https://www.sooplive.co.kr/station/{channel_data['uid']}"
         
         author = {
             "name": channel_name,
@@ -257,9 +245,9 @@ class BaseHotClipDetector(ABC):
                 return
             
             channel_name = result.channel_name
-            channel_data = self.id_list.loc[self.channel_id]
+            channel_data = self.IDList[self.platform].loc[self.channel_id]
             channel_color = int(channel_data['channel_color'])
-            sent_notifications = set(self.hot_clip_data.loc[self.channel_id, 'sent_clip_uids'])
+            sent_notifications = set(self.hot_clip_data[self.platform].loc[self.channel_id, 'sent_clip_uids'])
 
             # 이미 알림 보낸 클립은 제외
             new_hot_clips = [clip for clip in result.hot_clips 
@@ -329,7 +317,7 @@ class BaseHotClipDetector(ABC):
                     asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
                 
                 # 알림 보낸 클립으로 기록
-                self.hot_clip_data.loc[self.channel_id, 'sent_clip_uids'].append(clip.clipUID)
+                self.hot_clip_data[self.platform].loc[self.channel_id, 'sent_clip_uids'].append(clip.clipUID)
                 
                 # 연속 알림 간 간격
                 await asyncio.sleep(1)
@@ -344,13 +332,6 @@ class ChzzkHotClipDetector(BaseHotClipDetector):
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id: str):
         super().__init__(init_var, performance_manager, channel_id, "chzzk")
     
-    def _initialize_platform_data(self):
-        """치지직 플랫폼 데이터 초기화"""
-        self.id_list = self.init.chzzkIDList
-
-    def _get_channel_name_field(self) -> str:
-        return 'channelName'
-
     def _get_platform_icon_url(self) -> str:
         return iconLinkData().chzzk_icon
 
@@ -358,7 +339,7 @@ class ChzzkHotClipDetector(BaseHotClipDetector):
         """치지직 클립 데이터 수집"""
         all_clips = []
         next_clip_uid = None
-        channel_code = self.id_list.loc[self.channel_id, 'channel_code']
+        channel_code = self.IDList[self.platform].loc[self.channel_id, 'uid']
         
         cutoff_date = datetime.now() - timedelta(days=self.days_to_analyze)
         
@@ -397,7 +378,7 @@ class ChzzkHotClipDetector(BaseHotClipDetector):
                         duration=clip_info["duration"],
                         createdDate=created_date,
                         readCount=clip_info["readCount"],
-                        platform_name=self.platform_name,
+                        platform=self.platform,
                         clipUrl=f"https://chzzk.naver.com/clips/{clip_info['clipUID']}"
                     )
                     
@@ -424,13 +405,6 @@ class AfreecaHotClipDetector(BaseHotClipDetector):
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id: str):
         super().__init__(init_var, performance_manager, channel_id, "afreeca")
     
-    def _initialize_platform_data(self):
-        """아프리카TV 플랫폼 데이터 초기화"""
-        self.id_list = self.init.afreecaIDList
-
-    def _get_channel_name_field(self) -> str:
-        return 'channelName'
-
     def _get_platform_icon_url(self) -> str:
         return iconLinkData().soop_icon
 
@@ -438,7 +412,7 @@ class AfreecaHotClipDetector(BaseHotClipDetector):
         """아프리카TV 클립 데이터 수집"""
         all_clips = []
         page = 1
-        afreeca_id = self.id_list.loc[self.channel_id, "afreecaID"]
+        afreeca_id = self.IDList[self.platform].loc[self.channel_id, "uid"]
         
         cutoff_date = datetime.now() - timedelta(days=self.days_to_analyze)
         
@@ -488,7 +462,7 @@ class AfreecaHotClipDetector(BaseHotClipDetector):
                         duration=ucc_info.get("total_file_duration", 0) // 1000,  # 밀리초를 초로
                         createdDate=created_date,
                         readCount=clip_info.get("count", {}).get("vod_read_cnt", 0),
-                        platform_name=self.platform_name,
+                        platform=self.platform,
                         clipUrl=f"https://vod.sooplive.co.kr/player/{clip_info['title_no']}"
                     )
                     
