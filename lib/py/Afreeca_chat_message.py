@@ -493,7 +493,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
     def _is_chat_connection(self, messages):
         # arr = ['\x1b\t000400003800', '1', 'kimboxu', '코딩노예_', '65536|163840', ''] # 방송 접속 
-        return (len(messages) == 6 and messages[1] in [-1, 1]) 
+        return (len(messages) == 6 and messages[1] in ['-1', '', '1']) 
 
     # 메시지 유효성 검사 
     def _is_invalid_message(self, messages):
