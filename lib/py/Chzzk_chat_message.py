@@ -44,7 +44,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         self.init = init_var
         self.performance_manager = performance_manager
         channel_name = init_var.IDList["chzzk"].loc[channel_id, 'channelName']
-        self.state_update_time = init_var.titleData["chzzk"].loc[channel_id, 'state_update_time']
+        self.title_data = init_var.titleData["chzzk"]
+        self.state_update_time = self.title_data.loc[channel_id, 'state_update_time']
         self.data = ChzzkChatData(channel_id=channel_id, channel_name = channel_name)
         self.DiscordWebhookSender_class = DiscordWebhookSender()
         self.post_chat_semaphore = asyncio.Semaphore(5)  # 동시 실행 제한 세마포어
@@ -84,7 +85,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def _connect_and_run(self):
         connect_start_msg = f"{self.data.channel_id} 방송 켜짐"
         if len(self.data.cid):
-            connect_start_msg += f", 기존 cid:{self.data.cid}, 지금 {self.init.titleData['chzzk'].loc[self.data.channel_id, 'chatChannelId']}"
+            connect_start_msg += f", 기존 cid:{self.data.cid}, 지금 {self.title_data.loc[self.data.channel_id, 'chatChannelId']}"
         # print(f"{datetime.now()} {connect_start_msg}")
 
         async with websockets.connect('wss://kr-ss3.chat.naver.com/chat', 
@@ -92,12 +93,12 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                                     ping_interval=None) as sock:
             self.data.sock = sock
             self.run_analyzer = True
-            # self.data.cid = self.init.titleData["chzzk"].loc[self.data.channel_id, 'chatChannelId']
+            # self.data.cid = self.title_data.loc[self.data.channel_id, 'chatChannelId']
 
             # 채널 ID 확인 및 갱신
             await self.get_check_channel_id()
             
-            if not self.start_program and self.init.titleData["chzzk"].loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
+            if not self.start_program and self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
                 await asyncio.sleep(0.1)
                 return 
             
@@ -108,9 +109,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             if not (await self.connect()):  # 연결 수립
                 return 
             
-            if self.init.titleData["chzzk"].loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
-                self.init.titleData["chzzk"].loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
-                asyncio.create_task(save_airing_data(self.init.titleData, 'chzzk', self.data.channel_id))
+            if self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
+                self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
+                asyncio.create_task(save_airing_data(self.title_data, 'chzzk', self.data.channel_id))
 
             message_queue = asyncio.Queue()  # 메시지 큐 생성
             if self.start_program and self.check_live_state_close():
@@ -184,7 +185,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         async def should_close_connection():
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
             is_close = self.check_live_state_close()
-            is_new_chatChannel = self.init.titleData["chzzk"].loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
+            is_new_chatChannel = self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
             check_chat = self.init.chat_json[self.data.channel_id]
             
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 600) 
@@ -691,7 +692,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if cid is None:
             cid = self.data.cid
 
-        if cid != self.init.titleData["chzzk"].loc[self.data.channel_id, 'chatChannelId']:
+        if cid != self.title_data.loc[self.data.channel_id, 'chatChannelId']:
             return True
         return False
     
@@ -700,11 +701,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if cid is None:
             cid = self.data.cid
 
-        if cid != self.init.titleData["chzzk"].loc[self.data.channel_id, 'chatChannelId']:
-            self.init.titleData["chzzk"].loc[self.data.channel_id, 'oldChatChannelId'] = self.init.titleData["chzzk"].loc[self.data.channel_id, 'chatChannelId']
-            self.init.titleData["chzzk"].loc[self.data.channel_id, 'chatChannelId'] = cid
+        if cid != self.title_data.loc[self.data.channel_id, 'chatChannelId']:
+            self.title_data.loc[self.data.channel_id, 'oldChatChannelId'] = self.title_data.loc[self.data.channel_id, 'chatChannelId']
+            self.title_data.loc[self.data.channel_id, 'chatChannelId'] = cid
             self.state_update_time["changeChatChannelIdDate"] = datetime.now().isoformat()
-            asyncio.create_task(save_airing_data(self.init.titleData, 'chzzk', self.data.channel_id))
+            asyncio.create_task(save_airing_data(self.title_data, 'chzzk', self.data.channel_id))
             return True
         return False
 
@@ -1055,7 +1056,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if self.check_live_state_close():
             await self._send("채널이 오프라인 상태입니다.")
             return
-        start_time_str = self.init.titleData["chzzk"].loc[self.data.channel_id, 'state_update_time']['openDate']
+        start_time_str = self.title_data.loc[self.data.channel_id, 'state_update_time']['openDate']
         current_time = datetime.now()
         start_time = datetime.fromisoformat(start_time_str)
         uptime = current_time - start_time
@@ -1082,7 +1083,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         await self._send(format_time(int(uptime.total_seconds())))
     
     async def title_command(self):
-        title = self.init.titleData["chzzk"].loc[self.data.channel_id, 'title1']
+        title = self.title_data.loc[self.data.channel_id, 'title1']
         
         await self._send("방제 : " + title)
 
@@ -1114,7 +1115,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         return result
 
     async def category_command(self):
-        category = self.init.titleData["chzzk"].loc[self.data.channel_id, 'category']
+        category = self.title_data.loc[self.data.channel_id, 'category']
         await self._send("카테고리 : " + category)
 
     async def add_command(self, sp_chat):
@@ -1195,7 +1196,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     def check_live_state_close(self):
         try:
             # 채널의 라이브 상태가 "CLOSE"인지 확인
-            return self.init.titleData["chzzk"].loc[self.data.channel_id, 'live_state'] == "CLOSE"
+            return self.title_data.loc[self.data.channel_id, 'live_state'] == "CLOSE"
         except Exception as e:
             # 예외 발생 시 로그 기록 후 기본값으로 True(종료) 반환
             asyncio.create_task(log_error(f"Error in check_live_state_close: {str(e)}"))

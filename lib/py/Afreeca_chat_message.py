@@ -59,7 +59,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         channel_name = self.init.IDList["afreeca"].loc[channel_id, 'channelName']
         
         # 채팅 데이터 객체 초기화
-        self.state_update_time = init_var.titleData["afreeca"].loc[channel_id, 'state_update_time']
+        self.title_data = init_var.titleData["afreeca"]
+        self.state_update_time = self.title_data.loc[channel_id, 'state_update_time']
         self.data = AfreecaChatData(channel_id=channel_id, channel_name=channel_name)
         
         # 동시 채팅 요청 제한을 위한 세마포어
@@ -98,7 +99,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 continue
 
             # 방송 정보 가져오기
-            self.data.BNO = self.init.titleData["afreeca"].loc[self.data.channel_id, 'chatChannelId']
+            self.data.BNO = self.title_data.loc[self.data.channel_id, 'chatChannelId']
             self.data.BID = self.init.IDList["afreeca"]["uid"][self.data.channel_id]
 
             # 방송 정보가 없으면 대기
@@ -129,7 +130,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             self.data.sock = sock
             self.run_analyzer = True
 
-            # if not self.start_program and self.init.titleData["afreeca"].loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
+            # if not self.start_program and self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not await self.is_different_chatChannelId():
             #     await asyncio.sleep(0.1)
             #     return
 
@@ -137,9 +138,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             # await self.change_chatChannelId()
             await self.connect()
 
-            if self.init.titleData["afreeca"].loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
-                self.init.titleData["afreeca"].loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
-                asyncio.create_task(save_airing_data(self.init.titleData, 'afreeca', self.data.channel_id))
+            if self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
+                self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
+                asyncio.create_task(save_airing_data(self.title_data, 'afreeca', self.data.channel_id))
             
             await self.start_analyzer()     # 분석기 시작
 
@@ -176,7 +177,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # 연결 패킷 전송
         await self.data.sock.send(CONNECT_PACKET)
 
-        chatChannelId = self.init.titleData["afreeca"].loc[self.data.channel_id, 'chatChannelId']
+        chatChannelId = self.title_data.loc[self.data.channel_id, 'chatChannelId']
 
         # 연결 완료 로그 기록
         if self.start_program:
@@ -226,7 +227,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             is_change_chatChannel = await self.check_change_chatChannel(join_time)
             check_chat = self.init.chat_json[self.data.channel_id]
             is_close = self.check_live_state_close()
-            is_new_chatChannel = self.init.titleData["afreeca"].loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
+            is_new_chatChannel = self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] and not is_close
             is_old_chatChannel = (not if_after_time(self.state_update_time["openDate"], sec = 300) 
                                   and (if_after_time(self.data.last_chat_time, sec = 60))
                                   and if_after_time(join_time, sec = 30))
@@ -306,7 +307,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         if BNO is None:
             BNO = self.data.BNO
 
-        if BNO != self.init.titleData["afreeca"].loc[self.data.channel_id, 'chatChannelId']:
+        if BNO != self.title_data.loc[self.data.channel_id, 'chatChannelId']:
             return True
         return False
     
@@ -315,17 +316,17 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         if BNO is None:
             BNO = self.data.BNO
 
-        if BNO != self.init.titleData["afreeca"].loc[self.data.channel_id, 'chatChannelId']:
-            self.init.titleData["afreeca"].loc[self.data.channel_id, 'oldChatChannelId'] = self.init.titleData["afreeca"].loc[self.data.channel_id, 'chatChannelId']
-            self.init.titleData["afreeca"].loc[self.data.channel_id, 'chatChannelId'] = BNO
+        if BNO != self.title_data.loc[self.data.channel_id, 'chatChannelId']:
+            self.title_data.loc[self.data.channel_id, 'oldChatChannelId'] = self.title_data.loc[self.data.channel_id, 'chatChannelId']
+            self.title_data.loc[self.data.channel_id, 'chatChannelId'] = BNO
             self.state_update_time["changeChatChannelIdDate"] = datetime.now().isoformat()
-            asyncio.create_task(save_airing_data(self.init.titleData, 'afreeca', self.data.channel_id))
+            asyncio.create_task(save_airing_data(self.title_data, 'afreeca', self.data.channel_id))
             return True
         return False
 
     async def check_change_chatChannel(self, connect_time):
         if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60):
-            BNO = self.init.titleData["afreeca"].loc[self.data.channel_id, 'chatChannelId']
+            BNO = self.title_data.loc[self.data.channel_id, 'chatChannelId']
             if BNO != self.data.BNO:
                 print(f"{datetime.now()} check {self.data.channel_id},{self.data.BNO},BNO check_live_state_close")
                 # asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
@@ -569,7 +570,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     # 방송 종료 여부 확인 
     def check_live_state_close(self):
         try:
-            return self.init.titleData["afreeca"].loc[self.data.channel_id, 'live_state'] == "CLOSE"
+            return self.title_data.loc[self.data.channel_id, 'live_state'] == "CLOSE"
         except Exception as e:
             asyncio.create_task(log_error(f"Error in check_live_state_close: {str(e)}"))
             return True

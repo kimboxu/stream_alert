@@ -95,39 +95,38 @@ async def log_error(message, is_Do_test = False, webhook_url = environ.get('erro
 async def userDataVar(init: initVar):
 	try:
 		# 1. 업데이트 정보 가져오기
-		date_update = None
 		date_update = await asyncio.to_thread(
 			lambda: init.supabase.table('date_update').select("*").execute()
 		)
+
+		if not date_update or not date_update.data:
+			print(f"{datetime.now()} ERROR: 유효하지 않은 응답 {date_update}")
+			return
+
 		update_data = date_update.data[0]
 
 		# 단순 속성 설정
-		for attr, value in {
-			'chat_json': update_data['chat_json'],
-			'is_vod_json': update_data['is_vod_json'],
-			'is_vod_chat_json': update_data['is_vod_chat_json'],
-			'is_use_description': update_data['is_use_description'],
-			'is_use_AI': update_data['is_use_AI'],
-			'is_hot_clip': update_data['is_hot_clip'],
-			'is_save_highlight_data': update_data['is_save_highlight_data'],
-			'is_state_control': update_data['is_state_control'],
-		}.items():
-			setattr(init, attr, value)
+		init.chat_json = update_data.get('chat_json')
+		init.is_vod_json = update_data.get('is_vod_json')
+		init.is_vod_chat_json = update_data.get('is_vod_chat_json')
+		init.is_use_description = update_data.get('is_use_description')
+		init.is_use_AI = update_data.get('is_use_AI')
+		init.is_hot_clip = update_data.get('is_hot_clip')
+		init.is_save_highlight_data = update_data.get('is_save_highlight_data')
+		init.is_state_control = update_data.get('is_state_control')
 
 		# 병렬로 필요한 데이터 로드
 		tasks = []
 		
-		if update_data['is_state_control']['user_date']:
+		state_control = update_data.get('is_state_control', {})
+		if state_control.get('user_date'):
 			tasks.append(load_user_state_data(init))
-			
-		if update_data['is_state_control']['all_date']:
+		if state_control.get('all_date'):
 			tasks.append(DataBaseVars(init))
-
-		if update_data['is_state_control']['is_print_log']:
+		if state_control.get('is_print_log'):
 			tasks.append(print_log(init))
-
-		for channel_id in update_data['is_save_highlight_data']:
-			state = update_data['is_save_highlight_data'][channel_id]
+		
+		for channel_id, state in update_data.get('is_save_highlight_data', {}).items():
 			if state:
 				tasks.append(save_highlight_data(init, channel_id))
 			
