@@ -86,7 +86,7 @@ def login():
         check_have_id = False
 
     # 로그인 정보 출력 (디버깅용)
-    print(f"로그인 시도: 사용자명: {username}, 디스코드 웹훅 URL: {discordWebhooksURL}")
+    print(f"{datetime.now()} 로그인 시도: 사용자명: {username}, 디스코드 웹훅 URL: {discordWebhooksURL}")
 
     # 인증 로직
     if check_have_id and db_username == username:
@@ -148,9 +148,7 @@ def register():
         check_have_id = "fail"
 
     # 로그인 정보 출력 (디버깅용)
-    print(
-        f"회원가입 시도: 사용자명: {username}, 디스코드 웹훅 URL: {discordWebhooksURL}"
-    )
+    print(f"{datetime.now()} 회원가입 시도: 사용자명: {username}, 디스코드 웹훅 URL: {discordWebhooksURL}")
     print(check_have_id)
     # 인증 로직
     if check_have_id == "OK":
@@ -1406,7 +1404,7 @@ def run_background_save_with_state_manager(task_id):
             "error": f"이벤트 루프 생성 실패: {str(e)}",
             "failed_at": datetime.now().isoformat()
         })
-        print(f"백그라운드 작업 실패: {str(e)}")
+        print(f"{datetime.now()} 백그라운드 작업 실패: {str(e)}")
     finally:
         try:
             loop.close()
