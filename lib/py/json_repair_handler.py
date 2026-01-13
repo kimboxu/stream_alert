@@ -229,7 +229,7 @@ class JSONRepairHandler:
         """
         # 전체 재시도 루프 (API 호출 + JSON 파싱)
         for parse_attempt in range(max_parse_retries):
-            print(f"{datetime.now()} 🔄 전체 시도 {parse_attempt + 1}/{max_parse_retries}")
+            # print(f"{datetime.now()} 🔄 전체 시도 {parse_attempt + 1}/{max_parse_retries}")
             
             # API 호출
             response_text = await JSONRepairHandler.call_api_with_retry(
