@@ -1126,18 +1126,18 @@ class ChatAnalyzer:
         return author
 
     #detailed_logs를 파일에 저장
-    async def save_detailed_logs_to_file(self, save_cache=False, force_save=False, stream_start_id = None):
+    async def save_detailed_logs_to_file(self, save_cache=False, force_save=False, stream_start_id=None):
         try:
             # 로그가 충분히 쌓였거나 강제 저장일 때만 실행
             if stream_start_id is None:
                 stream_start_id = self.stream_start_id
+            
             if len(self.detailed_logs_dict[stream_start_id]) < 100 and not force_save:
                 print(f"{datetime.now()} {self.channel_name}, {len(self.detailed_logs_dict[stream_start_id])} 저장할 로그가 없습니다.1")
                 tmp_list = []
-                for idx in self.detailed_logs_dict[stream_start_id]:
-                    tmp_list.append(self.detailed_logs_dict[stream_start_id][idx]['comment_after_openDate'])
+                for log_item in self.detailed_logs_dict[stream_start_id]:
+                    tmp_list.append(log_item['comment_after_openDate'])
                 print(f"{datetime.now()} {tmp_list}")
-                # self.init.chat_json[self.channel_id] = True
                 return
             
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1186,6 +1186,8 @@ class ChatAnalyzer:
                 
         except Exception as e:
             print(f"{datetime.now()} ❌ 로그 저장 오류: {str(e)}")
+            import traceback
+            traceback.print_exc()  # 디버깅을 위한 상세 에러 출력
 
     async def _cleanup_old_log_files(self):
         """오래된 fun_score_logs 파일 삭제"""
