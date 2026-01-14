@@ -1325,6 +1325,7 @@ def save_highlight_data():
                             "timestamp": datetime.now().isoformat()
                         }
                         yield f"data: {dumps(error_data, ensure_ascii=False)}\n\n"
+                        print(f"{datetime.now()} 저장할 하이라이트 데이터가 없습니다")
                         break
                     
                     # 진행 상황 변경시에만 전송
