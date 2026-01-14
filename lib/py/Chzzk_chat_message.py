@@ -54,9 +54,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         self.profile_cache_ttl = 1800  # 프로필 캐시 유효 시간 (초)
         self.tasks = []  # 비동기 태스크
         self.command_task = None
+        self.command_delay = {}
+        
 
         self.is_connect = False
-        self.sendMSG_time_dict = {}
         self.start_program = True
 
         self.setup_analyzer(channel_id, channel_name, 'chzzk')
@@ -589,7 +590,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return False
 
     # 메시지 전송 함수
-    async def _send(self, message):
+    async def _send(self, message, command):
         # 기본 딕셔너리
         default_dict = {
             "ver": 2,
@@ -619,6 +620,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "msgTime": int(datetime.now().timestamp())
             }
         }
+        
+        self.command_delay[command] = datetime.now().isoformat()
         await self.data.sock.send(dumps(dict(send_dict, **default_dict)))
 
     # Chzzk 채팅 딕셔너리 생성 함수
@@ -982,69 +985,71 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
-        if sp_chat[0] == "!멤버수정" or (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (sp_chat[0] == "!멤버" or self.is_authority(userRoleCode, nickname)):
-            if (len(sp_chat) == 2 and sp_chat[0] == "!멤버") or (len(sp_chat) == 1 and sp_chat[0] == "!멤버수정"):
+        command = sp_chat[0]
+        if command == "!멤버수정" or (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (command == "!멤버" or self.is_authority(userRoleCode, nickname)):
+            if (len(sp_chat) == 2 and command == "!멤버") or (len(sp_chat) == 1 and command == "!멤버수정"):
                 save_text = " "
-            elif sp_chat[0] == "!멤버수정":
-                sp_chat[0] = "!멤버"
+            elif command == "!멤버수정":
+                command = "!멤버"
                 save_text = " ".join(sp_chat[1:])
             else:
                 save_text = " ".join(sp_chat[2:])
 
-            if not self.is_sendMSG_time(sp_chat[0]):
+            if not self.is_sendMSG_time(command):
                 return
             
             await self._send(f"{save_text}(으)로 변경되었습니다.")
-            self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"][sp_chat[0]] = save_text
+            self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"][command] = save_text
             await save_chat_command_data(self.init.chat_commands, self.data.channel_id, "chzzk")
             return
         
-        if len(sp_chat) >= 2 and sp_chat[0] in ["!수정"] and sp_chat[1] == "!멤버":
+        if len(sp_chat) >= 2 and command in ["!수정"] and sp_chat[1] == "!멤버":
             await self.fix_command(chat_command, sp_chat)
             return
         
         chat_command = self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"]
         # 메시지 보네기
-        if len(sp_chat) == 1 and sp_chat[0] in list(chat_command.keys()) + special_command_list:
-            if not self.is_sendMSG_time(sp_chat[0]):
+        if len(sp_chat) == 1 and command in list(chat_command.keys()) + special_command_list:
+            if not self.is_sendMSG_time(command):
                 return
             
-            if sp_chat[0] in special_command_list:
-                if sp_chat[0] == "!업타임":
-                    await self.uptime_command()
+            if command in special_command_list:
+                if command == "!업타임":
+                    await self.uptime_command(command)
                     return
 
-                if sp_chat[0] == "!방제":
-                    await self.title_command()
+                if command == "!방제":
+                    await self.title_command(command)
                     return
                 
-                if sp_chat[0] == "!명령어":
+                if command == "!명령어":
                     if self.command_task and not self.command_task.done():
                         return
-                    self.command_task = asyncio.create_task(self.command_list(chat_command, special_command_list))
+                    self.command_task = asyncio.create_task(self.command_list(chat_command, special_command_list, command))
                     return
 
-                if sp_chat[0] in ["!카테고리", "!게임"]:
-                    await self.category_command()
+                if command in ["!카테고리", "!게임"]:
+                    await self.category_command(command)
                     return
                 
-            send_command = chat_command[sp_chat[0]]
-            await self._send(send_command)
-        elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and sp_chat[0] in ["!삭제"]:
-            if not self.is_sendMSG_time(sp_chat[0]):
+            send_command = chat_command[command]
+            await self._send(send_command, command)
+
+        elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and command in ["!삭제"]:
+            if not self.is_sendMSG_time(command):
                 return
             
             await self.del_command(chat_command)
             return
 
-        elif self.is_authority(userRoleCode, nickname) and len(sp_chat) >= 2 and sp_chat[0] in ["!추가", "!수정"]:
-            if not self.is_sendMSG_time(sp_chat[0]):
+        elif self.is_authority(userRoleCode, nickname) and len(sp_chat) >= 2 and command in ["!추가", "!수정"]:
+            if not self.is_sendMSG_time(command):
                 return
             
-            if sp_chat[0] == "!추가":
+            if command == "!추가":
                 await self.add_command(sp_chat)
                 return
-            if sp_chat[0] == "!수정":
+            if command == "!수정":
                 await self.fix_command(chat_command, sp_chat)
                 return
         return
@@ -1052,7 +1057,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     def is_authority(self, userRoleCode, nickname):
         return (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")
 
-    async def uptime_command(self):
+    async def uptime_command(self, command):
         if self.check_live_state_close():
             await self._send("채널이 오프라인 상태입니다.")
             return
@@ -1080,19 +1085,19 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             return " ".join(parts)
             
-        await self._send(format_time(int(uptime.total_seconds())))
+        await self._send(format_time(int(uptime.total_seconds())), command)
     
-    async def title_command(self):
+    async def title_command(self, command):
         title = self.title_data.loc[self.data.channel_id, 'title1']
         
-        await self._send("방제 : " + title)
+        await self._send("방제 : " + title, command)
 
-    async def command_list(self, chat_command, special_command_list):
+    async def command_list(self, chat_command, special_command_list, command):
         commands = list(chat_command.keys()) + special_command_list
 
         async with self.command_semaphore:
             for msg in self.split_message(commands):
-                await self._send(msg)
+                await self._send(msg, command)
                 await asyncio.sleep(0.5)
 
     def split_message(self, items, sep=",", max_len=100):
@@ -1114,9 +1119,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         return result
 
-    async def category_command(self):
+    async def category_command(self, command):
         category = self.title_data.loc[self.data.channel_id, 'category']
-        await self._send("카테고리 : " + category)
+        await self._send("카테고리 : " + category, command)
 
     async def add_command(self, sp_chat):
         if sp_chat[1] not in self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"]:
@@ -1153,11 +1158,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             await self._send(f"{chat_command} 명령어는 없습니다.")
 
     def is_sendMSG_time(self, command):
-        if command not in self.sendMSG_time_dict:
-            self.sendMSG_time_dict[command] = datetime.now().isoformat()
+        if command not in self.command_delay:
+            self.command_delay[command] = datetime.now().isoformat()
             return True
         
-        return if_after_time(self.sendMSG_time_dict[command], sec = 2)
+        return if_after_time(self.command_delay[command], sec = 2)
         
 
     # 채팅방 입장 시 인사 메시지 전송 함수
