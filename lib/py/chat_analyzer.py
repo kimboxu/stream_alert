@@ -275,9 +275,11 @@ class ChatAnalyzer:
         # 로그 디렉토리 경로 설정
         self.data_dir = project_root / "data"
         self.log_dir = self.data_dir / "fun_score_logs"
-        
+        self.log_stream_dir = self.log_dir / self.channel_name
+
         # 디렉토리 생성
         self.log_dir.mkdir(parents=True, exist_ok=True)
+        self.log_stream_dir.mkdir(parents=True, exist_ok=True)
 
     async def add_chat_message(self, nickname: str, message: str, timestamp: Optional[datetime] = None) -> None:
         """채팅 메시지 추가"""
@@ -408,9 +410,6 @@ class ChatAnalyzer:
         
         self._setup_init_dict()
         self.detailed_logs_dict[self.stream_start_id].append(detailed_log)
-        # 최대 2000개까지만 보관
-        if len(self.detailed_logs_dict[self.stream_start_id]) > 2000:
-            self.detailed_logs_dict[self.stream_start_id] = self.detailed_logs_dict[self.stream_start_id][-2000:]
 
         # 하이라이트 체크
         if score_details['highlights'] or self.init.DO_TEST:
@@ -1134,7 +1133,7 @@ class ChatAnalyzer:
             
             if len(self.detailed_logs_dict[stream_start_id]) < 100 and not force_save:
                 print(f"{datetime.now()} {self.channel_name}, {len(self.detailed_logs_dict[stream_start_id])} 저장할 로그가 없습니다.1")
-                tmp_list = []
+                tmp_list = [stream_start_id]
                 for log_item in self.detailed_logs_dict[stream_start_id]:
                     tmp_list.append(log_item['comment_after_openDate'])
                 print(f"{datetime.now()} {tmp_list}")
@@ -1144,7 +1143,7 @@ class ChatAnalyzer:
             filename = f"fun_score_detailed_{self.channel_name}_{timestamp}.json"
             
             # 전체 파일 경로
-            file_path = self.log_dir / filename
+            file_path = self.log_stream_dir / filename
 
             if save_cache:
                 # 전체 로그 저장
@@ -1193,10 +1192,11 @@ class ChatAnalyzer:
         """오래된 fun_score_logs 파일 삭제"""
         try:
             cutoff_date = datetime.now() - timedelta(days=self.max_file_age_days)
-            pattern = str(self.log_dir / "fun_score_detailed_*.json")
+            pattern1 = str(self.log_dir / "fun_score_detailed_*.json")
+            pattern2 = str(self.log_stream_dir / "fun_score_detailed_*.json")
             
             deleted_count = 0
-            for file_path in glob.glob(pattern):
+            for file_path in glob.glob(pattern1) + glob.glob(pattern2):
                 file_path = Path(file_path)
                 
                 try:
@@ -1231,18 +1231,18 @@ class ChatAnalyzer:
         
         while True:
             try:
-                await asyncio.sleep(1800)  # 30분마다
+                await asyncio.sleep(3600)  # 60분마다
                 await self.save_detailed_logs_to_file()
 
                 # 매일 한 번씩 파일 정리
                 current_date = datetime.now().date()
                 current_hour = datetime.now().hour
                 
-                if (5 <= current_hour <= 7 and 
+                if (5 <= current_hour <= 9 and 
                     cleanup_last_run_date != current_date):
                     await self._cleanup_old_log_files()
                     cleanup_last_run_date = current_date
-                    print(f"{datetime.now()} 일일 파일 정리 완료 - 다음 실행: {current_date + timedelta(days=1)}")
+                    print(f"{datetime.now()} {self.channel_name} 일일 파일 정리 완료 - 다음 실행: {current_date + timedelta(days=1)}")
 
             except Exception as e:
                 print(f"{datetime.now()} ⚠ 주기적 로그 저장 오류: {str(e)}")
