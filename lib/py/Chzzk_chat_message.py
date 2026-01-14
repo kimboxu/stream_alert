@@ -590,7 +590,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return False
 
     # 메시지 전송 함수
-    async def _send(self, message, command):
+    async def _send(self, message, command = None):
         # 기본 딕셔너리
         default_dict = {
             "ver": 2,
@@ -620,8 +620,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "msgTime": int(datetime.now().timestamp())
             }
         }
-        
-        self.command_delay[command] = datetime.now().isoformat()
+        if command:
+            self.command_delay[command] = datetime.now().isoformat()
+            
         await self.data.sock.send(dumps(dict(send_dict, **default_dict)))
 
     # Chzzk 채팅 딕셔너리 생성 함수
