@@ -159,7 +159,7 @@ class FileNotificationManager:
         
         return []
     
-    def save_notifications(self, webhook_url: str, notifications: list, force_save: bool = False) -> bool:
+    async def save_notifications(self, webhook_url: str, notifications: list, force_save: bool = False) -> bool:
         """사용자 알림 데이터 저장"""
         try:
             current_time = datetime.now().astimezone().isoformat()
@@ -215,6 +215,7 @@ class FileNotificationManager:
                     text=True
                 )
                 temp_path = Path(temp_path_str)
+                await asyncio.sleep(0.001)
                 
                 with os.fdopen(temp_fd, 'w', encoding='utf-8') as f:
                     json.dump(save_data, f, ensure_ascii=False, indent=2)
@@ -293,7 +294,7 @@ class FileNotificationManager:
             
             return False
    
-    def add_notification(self, webhook_url: str, notification_data: dict) -> bool:
+    async def add_notification(self, webhook_url: str, notification_data: dict) -> bool:
         """알림 추가"""
         try:
             notifications = self.load_notifications(webhook_url)
@@ -305,7 +306,7 @@ class FileNotificationManager:
                 for idx, existing in enumerate(notifications):
                     if existing.get('id') == notification_id:
                         notifications[idx] = notification_data
-                        return self.save_notifications(webhook_url, notifications)
+                        return await self.save_notifications(webhook_url, notifications)
             
             # 새 알림 추가
             notifications.append(notification_data)
@@ -314,7 +315,7 @@ class FileNotificationManager:
             if len(notifications) > 100000:
                 notifications = notifications[-100000:]
             
-            return self.save_notifications(webhook_url, notifications)
+            return await self.save_notifications(webhook_url, notifications)
             
         except Exception as e:
             print(f"알림 추가 오류 ({webhook_url}): {str(e)}")
@@ -358,7 +359,7 @@ class FileNotificationManager:
                 
             if len(filtered_notifications) != len(notifications):
                 # print(f"{datetime.now()} {webhook_url}: {original_count}개 -> {len(filtered_notifications)}개로 정리")
-                return self.save_notifications(webhook_url, filtered_notifications, force_save=True)
+                return await self.save_notifications(webhook_url, filtered_notifications, force_save=True)
                 
             return True
             
@@ -385,7 +386,7 @@ class FileNotificationManager:
                 
                 for webhook_url, notifications in batch:
                     try:
-                        if self.save_notifications(webhook_url, notifications.copy(), force_save=True):
+                        if await self.save_notifications(webhook_url, notifications.copy(), force_save=True):
                             saved_count += 1
                         else:
                             failed_count += 1
@@ -620,7 +621,7 @@ async def send_fcm_messages_in_batch(performance_manager: PerformanceManager, to
     return all_results
 
 # 배치 알림 저장 함수
-def batch_save_notifications(user_data_map, data_fields):
+async def batch_save_notifications(user_data_map, data_fields):
     """
     여러 사용자의 알림을 파일 기반으로 일괄 처리
     """
@@ -634,7 +635,7 @@ def batch_save_notifications(user_data_map, data_fields):
             clean_data_fields = sanitize_data_for_json(data_fields)
             
             # 파일에 알림 추가
-            result = file_notification_manager.add_notification(
+            result = await file_notification_manager.add_notification(
                 webhook_url,
                 clean_data_fields
             )
@@ -772,7 +773,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
         for batch in user_batches:
             batch_dict = {url: data for url, data in batch}
             try:
-                batch_save_notifications(batch_dict, data_fields)
+                await batch_save_notifications(batch_dict, data_fields)
             except Exception as e:
                 print(f"{datetime.now()} 배치 알림 저장 오류: {str(e)}")
         

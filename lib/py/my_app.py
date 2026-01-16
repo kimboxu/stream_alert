@@ -498,6 +498,8 @@ def mark_notifications_read():
     else:
         data = request.form
 
+    loop = asyncio.new_event_loop()
+
     discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
     username = data.get("username")
     notification_ids = data.get("notification_ids")
@@ -536,11 +538,12 @@ def mark_notifications_read():
             updated_notifications.append(notification)
 
         # 파일에 저장
-        success = file_notification_manager.save_notifications(
+        success = loop.run_until_complete(file_notification_manager.save_notifications(
             discordWebhooksURL, 
             updated_notifications,
             force_save=True  # 읽음 표시는 즉시 저장
-        )
+        ))
+        
         
         if success:
             return jsonify({"status": "success", "message": "알림이 읽음으로 표시되었습니다"})
@@ -561,6 +564,8 @@ def clear_notifications():
         data = request.get_json()
     else:
         data = request.form
+
+    loop = asyncio.new_event_loop()
 
     discordWebhooksURL = normalize_discord_webhook_url(data.get("discordWebhooksURL"))
     username = data.get("username")
@@ -584,11 +589,11 @@ def clear_notifications():
 
     try:
         # 빈 알림 목록으로 덮어쓰기 (모든 알림 삭제)
-        success = file_notification_manager.save_notifications(
+        success = loop.run_until_complete(file_notification_manager.save_notifications(
             discordWebhooksURL, 
             [],  # 빈 목록
             force_save=True
-        )
+        ))
         
         if success:
             return jsonify({"status": "success", "message": "모든 알림이 삭제되었습니다"})
