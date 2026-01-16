@@ -1,22 +1,20 @@
 import os
 import json
-import asyncio
-import tempfile
-from uuid import uuid4
-from datetime import datetime, timedelta
-from pathlib import Path
-import hashlib
-
-from firebase_admin import messaging, credentials, get_app, initialize_app
-from json import loads, dumps
-from base import initVar, if_after_time
-from shared_state import StateManager
-from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
-from base import update_flag
-from make_log_api_performance import PerformanceManager
+import asyncio
+import hashlib
+import tempfile
 import threading
-from copy import deepcopy
+from uuid import uuid4
+from pathlib import Path
+from json import loads, dumps
+from datetime import datetime, timedelta
+from firebase_admin import messaging, credentials, get_app, initialize_app
+from apscheduler.schedulers.background import BackgroundScheduler
+
+from shared_state import StateManager
+from base import initVar, if_after_time, get_online_count
+from make_log_api_performance import PerformanceManager
 
 def sanitize_data_for_json(data):
     """ JSON 직렬화 데이터 정리"""
@@ -414,9 +412,27 @@ class FileNotificationManager:
             import gc
             gc.collect()
             return saved_count
-    
+ 
+class gcManager:
+    def __init__(self):
+        self.last_gc_time = datetime.now().isoformat()
+    async def should_gc(self):
+        state = StateManager.get_instance()
+        init = state.get_init()
+        online_counts = {}
+        for platform in list(init.titleData):
+            online_counts[platform] = get_online_count(init.titleData[platform])
+
+        # 모든 플랫폼이 오프라인인지 확인
+        all_offline = not any(online_counts.values())
+
+        if all_offline and if_after_time(self.last_gc_time, sec=60*60*12):
+            import gc
+            gc.collect()
+            self.last_gc_time = datetime.now().isoformat()   
 
 file_notification_manager = FileNotificationManager()
+gc_class = gcManager()
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -1002,6 +1018,14 @@ def setup_scheduled_tasks():
         trigger="cron",
         hour=2,
         minute=10
+        # second=0
+    )
+
+    # 매시 30분에 실행, 모든 방송이 꺼져있고, 마지막 가비지 컬랙션 실행 후 12시간이 지났을 경우 실행
+    scheduler.add_job(
+        func=lambda: asyncio.run(gc_class.should_gc()),
+        trigger="cron",
+        minute=30
         # second=0
     )
     
