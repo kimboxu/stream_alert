@@ -430,12 +430,6 @@ Response:
 
 ---
 
-## 📄 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
-
----
-
 ## 📚 논문 및 참고자료
 
 ### 논문
@@ -450,13 +444,6 @@ Response:
 2. 이주헌, 염익준, "실시간 채팅 데이터를 사용하여 하이라이트 추출", 한국통신학회, 2021
 3. 문하겸, "사용자 채팅 데이터를 활용한 스트리밍 방송 하이라이트 구간 자동추출 시스템", 충남대학교, 2020
 
-### 관련 링크
-- [Chzzk API (비공식)](https://github.com/Buddha7771/ChzzkChat)
-- [Soop API Documentation](https://developers.afreecatv.com/)
-- [YouTube Data API v3](https://developers.google.com/youtube/v3)
-- [Discord Webhook Guide](https://discord.com/developers/docs/resources/webhook)
-- [Firebase FCM](https://firebase.google.com/docs/cloud-messaging)
-
 ---
 
 ## 👨‍💻 개발자
@@ -465,12 +452,6 @@ Response:
 - GitHub: [@kimboxu](https://github.com/kimboxu)
 - Email: kimboxu@soongsil.ac.kr
 - 소속: 숭실대학교 IT대학 AI융합학부
-
----
-
-## 🙏 감사의 글
-
-본 프로젝트는 숭실대학교 IT대학 AI융합학부 학사학위 논문의 일환으로 진행되었습니다. 지도해 주신 박건우 교수님과 연구를 응원해 준 가족, 친구들에게 깊은 감사를 드립니다.
 
 ---
 
@@ -489,4 +470,5 @@ Response:
 [⬆ Back to top](#streamalert-)
 
 </div>
+
 
