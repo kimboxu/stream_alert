@@ -336,7 +336,7 @@ stream_alert/
 │
 ├── data/                        # 데이터 저장 디렉토리
 │   ├── highlight_chats/         # 하이라이트 JSON 파일
-│   └── notifications/           # 알림 로그 파일
+│   └── user_notifications/      # 유저 알림 로그 파일
 │
 ├── py/                          # 핵심 모듈
 │   ├── live_message.py          # 방송 상태 모니터링
@@ -351,7 +351,6 @@ stream_alert/
 │
 └── docs/                        # 문서
     ├── 졸업논문_김성재.pdf       # 학사 논문 (전체 알고리즘 설명)
-    └── README.md                # 이 파일
 ```
 
 ---
@@ -490,3 +489,4 @@ Response:
 [⬆ Back to top](#streamalert-)
 
 </div>
+
