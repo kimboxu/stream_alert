@@ -5,7 +5,6 @@
 [![Python](https://img.shields.io/badge/Python-3.13.3-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-009688.svg)](https://fastapi.tiangolo.com/)
 [![Flutter](https://img.shields.io/badge/Flutter-Latest-02569B.svg)](https://flutter.dev/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > 💡 **1GB RAM 환경에서도 동작하는 실시간 방송 모니터링 & 하이라이트 분석 시스템**
 
@@ -507,6 +506,7 @@ Response:
 [⬆ Back to top](#streamalert-)
 
 </div>
+
 
 
 
