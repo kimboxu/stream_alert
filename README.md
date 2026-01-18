@@ -30,7 +30,7 @@
 
 ## 🎯 소개
 
-**StreamAlert**는 다중 플랫폼(Chzzk, Soop, YouTube, 네이버 카페)의 인터넷 방송 활동을 실시간으로 모니터링하고, **경량 AI 기반 통계 분석**을 통해 방송의 **재미도(Fun Score)**를 자동으로 계산하여 사용자에게 맞춤형 알림을 제공하는 시스템입니다.
+**StreamAlert**는 다중 플랫폼(Chzzk, Soop, YouTube, 네이버 카페)의 인터넷 방송 활동을 실시간으로 모니터링하고, **경량 AI 기반 통계 분석**을 통해 방송의 **재미도(Fun Score)** 를 자동으로 계산하여 사용자에게 맞춤형 알림을 제공하는 시스템입니다.
 
 ### 🌟 핵심 특징
 
@@ -171,28 +171,66 @@ cp .env.example .env
 
 `.env` 파일 예시:
 ```env
-# Supabase
+# Supabase Database
 supabase_url=https://your-project.supabase.co
 supabase_key=your-supabase-anon-key
 
-# Google APIs
-GOOGLE_API_KEY=your-gemini-api-key
+# YouTube API
 DeveloperKey=your-youtube-api-key
 
-# Firebase
-FIREBASE_PROJECT_ID=your-firebase-project-id
-FIREBASE_PRIVATE_KEY=your-firebase-private-key
-FIREBASE_CLIENT_EMAIL=your-firebase-client-email
+# Discord Webhook URLs (for debugging and notifications)
+HighlightURL=https://discord.com/api/webhooks/your-highlight-webhook
+errorPostBotURL=https://discord.com/api/webhooks/your-error-webhook
+testPostBotURL=https://discord.com/api/webhooks/your-test-webhook
+chat_post_url=https://discord.com/api/webhooks/your-chat-webhook
+donation_post_url=https://discord.com/api/webhooks/your-donation-webhook
+afreeca_chat_log_url=https://discord.com/api/webhooks/your-afreeca-log-webhook
+DeveloperWebhookURL=https://discord.com/api/webhooks/your-developer-webhook
 
-# Imgbb
-IMGBB_API_KEY=your-imgbb-api-key
-
-# Chzzk (네이버 로그인 필요)
+# Chzzk (Naver) Authentication
 NID_AUT=your-naver-auth-token
 NID_SES=your-naver-session-token
 
-# Soop (아프리카TV 로그인 필요)
+# Soop (Afreeca TV) Authentication
 AuthTicket=your-afreeca-auth-ticket
+
+# Default Images
+default_thumbnail=https://your-image-host.com/default-thumbnail.png
+
+# Platform Icon URLs
+CHZZK_ICON=https://your-image-host.com/chzzk-icon.png
+AFREECA_ICON=https://your-image-host.com/afreeca-icon.png
+SOOP_ICON=https://your-image-host.com/soop-icon.png
+BLACK_IMG=https://your-image-host.com/black-image.png
+YOUTUBE_ICON=https://your-image-host.com/youtube-icon.png
+CAFE_ICON=https://your-image-host.com/cafe-icon.png
+
+# Firebase Configuration
+FIREBASE_TYPE=service_account
+FIREBASE_PROJECT_ID=your-firebase-project-id
+FIREBASE_PRIVATE_KEY_ID=your-firebase-private-key-id
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYour-Firebase-Private-Key-Here\n-----END PRIVATE KEY-----\n"
+FIREBASE_CLIENT_EMAIL=your-service-account@your-project.iam.gserviceaccount.com
+FIREBASE_CLIENT_ID=your-firebase-client-id
+FIREBASE_AUTH_URI=https://accounts.google.com/o/oauth2/auth
+FIREBASE_TOKEN_URI=https://oauth2.googleapis.com/token
+FIREBASE_AUTH_PROVIDER_X509_CERT_URL=https://www.googleapis.com/oauth2/v1/certs
+FIREBASE_CLIENT_X509_CERT_URL=https://www.googleapis.com/robot/v1/metadata/x509/your-service-account%40your-project.iam.gserviceaccount.com
+FIREBASE_UNIVERSE_DOMAIN=googleapis.com
+
+# Imgbb API (for image uploads)
+IMGBB_API_KEY=your-imgbb-api-key
+IMGBB_API_KEY_LIST=your-imgbb-api-key
+
+# Server URLs
+BASE_URL=https://your-production-server.com
+DEBUG_BASE_URL=http://localhost:8080
+
+# Google Gemini API (for AI-powered highlight descriptions)
+GOOGLE_API_KEY=your-gemini-api-key
+
+# Developer ID
+MY_afreeca_ID=your-afreeca-developer-id
 ```
 
 ### 6. 데이터베이스 스키마 설정
@@ -469,6 +507,7 @@ Response:
 [⬆ Back to top](#streamalert-)
 
 </div>
+
 
 
 
