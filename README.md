@@ -487,7 +487,7 @@ Response:
 
 **김성재** (Kim Sungjae)
 - GitHub: [@kimboxu](https://github.com/kimboxu)
-- Email: kimboxu@soongsil.ac.kr
+- Email: kimboxu@gmail.com
 - 소속: 숭실대학교 IT대학 AI융합학부
 
 ---
