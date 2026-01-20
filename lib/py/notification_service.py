@@ -427,6 +427,8 @@ class gcManager:
         all_offline = not any(online_counts.values())
 
         if all_offline and if_after_time(self.last_gc_time, sec=60*60*12):
+            await asyncio.sleep(0.1)
+            print(f"{datetime.now()} run gc")
             import gc
             gc.collect()
             self.last_gc_time = datetime.now().isoformat()   
