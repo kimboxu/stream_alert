@@ -136,10 +136,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         
         self.start_program = False
         # 분석기 정리
-        try:
-            await self.stop_analyzer()
-        except Exception as e:
-            await log_error(f"stop_analyzer 에러 ({self.data.channel_id}): {str(e)}")
+        # try:
+        #     await self.stop_analyzer()
+        # except Exception as e:
+        #     await log_error(f"stop_analyzer 에러 ({self.data.channel_id}): {str(e)}")
         
         # 웹소켓 연결 강제 종료 및 정리
         try:
@@ -195,7 +195,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             if (self.run_analyzer and (is_close or is_change_chatChannel or is_new_chatChannel or check_chat)):
                 self.run_analyzer = False
-                asyncio.create_task(self.should_offLine())    
+                asyncio.create_task(self.should_offLine())
             
             if  is_change_chatChannel or is_new_chatChannel or check_chat or is_old_chatChannel:
                 print(f"{datetime.now()} should_close_connection {self.data.channel_name} is_change_chatChannel:{is_change_chatChannel},is_new_chatChannel:{is_new_chatChannel}, check_chat:{check_chat},is_old_chatChannel:{is_old_chatChannel}")
@@ -217,10 +217,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     try: 
                         await self.data.sock.close()
                         await self.data.sock.wait_closed()
+                        await self.stop_analyzer()
                     except Exception: pass
 
                 if self.data.sock.state.name == 'CLOSED':
-                    asyncio.create_task(self.should_offLine())
                     asyncio.create_task(log_error(f"{self.data.channel_id} 연결 종료 {self.data.cid}", webhook_url=environ['chat_post_url']))
                     break
 
