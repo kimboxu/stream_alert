@@ -625,6 +625,7 @@ async def get_message(performance_manager: PerformanceManager, platform, link):
 		while retry_count < max_retries:
 			try:
 				# API 요청 실행
+				await asyncio.sleep(0.01)  # 이벤트 루프 양보
 				response = await asyncio.to_thread(
 					get,
 					formatted_url,
