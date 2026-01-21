@@ -110,7 +110,7 @@ class getYoutubeJsonData:
 			return
 		
 		# 채널 정보 요청
-		channel_response = await self.get_youtube_channels_response(self.youtube_build)
+		channel_response = await self.get_youtube_channels_response()
 
 		# 응답 유효성 검사
 		if not self.check_item((channel_response)):
@@ -134,7 +134,7 @@ class getYoutubeJsonData:
 			await self.get_youtube_thumbnail_url()  # 채널 썸네일 이미지 확인 및 가져오기 
 
 			# 검색 API로 최신 비디오 정보 가져오기
-			search_response = await self.get_youtube_search_response(self.youtube_build)
+			search_response = await self.get_youtube_search_response()
 			await self.filter_video(search_response, video_count)
 		
 		# 비디오가 삭제된 경우
@@ -287,14 +287,14 @@ class getYoutubeJsonData:
 			HttpError               # YouTube API HTTP 에러
 		))
 	)
-	async def get_youtube_channels_response(self, youtube_build):
+	async def get_youtube_channels_response(self):
 		try:
 			# 채널 통계 정보 요청
 			await asyncio.sleep(0.01)  # 이벤트 루프 양보
 			channel_response = await asyncio.wait_for(
 				asyncio.get_event_loop().run_in_executor(
 					None,
-					youtube_build.channels().list(
+					self.youtube_build.channels().list(
 						part='statistics', 
 						id=self.youtubeData.loc[self.youtubeChannelID, "channelCode"]
 					).execute
@@ -342,14 +342,14 @@ class getYoutubeJsonData:
 	@retry(stop=stop_after_attempt(5), 
 		wait=wait_exponential(multiplier=1, min=2, max=5), 
 		retry=retry_if_exception_type((asyncio.TimeoutError, ConnectionError, HttpError)))
-	async def get_youtube_search_response(self, youtube_build):
+	async def get_youtube_search_response(self):
 		try:
 			# 채널의 최신 비디오 검색
 			await asyncio.sleep(0.01)  # 이벤트 루프 양보
 			search_response = await asyncio.wait_for(
 				asyncio.get_event_loop().run_in_executor(
 					None,
-					youtube_build.search().list(
+					self.youtube_build.search().list(
 						part="id,snippet", 
 						channelId=self.youtubeData.loc[self.youtubeChannelID, "channelCode"], 
 						order="date",
