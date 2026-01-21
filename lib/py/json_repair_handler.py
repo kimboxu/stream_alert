@@ -135,30 +135,7 @@ class JSONRepairHandler:
                 response = await asyncio.wait_for(
                     api_func(is_emergency),
                     timeout=timeout
-                )
-                # 429 Rate Limit 에러 감지
-                if '429' in str(response) and 'quota' in str(response).lower():
-                    print(f"{datetime.now()} 🚫 API 할당량 초과 (429 Error)")
-                    
-                    # retry_delay 추출 시도
-                    import re
-                    retry_match = re.search(r'retry in (\d+(?:\.\d+)?)', response_text, re.IGNORECASE)
-                    if retry_match:
-                        retry_seconds = float(retry_match.group(1))
-                        print(f"{datetime.now()} ⏳ API 권장 대기 시간: {retry_seconds:.1f}초")
-                    else:
-                        retry_seconds = 60  # 기본값
-                    
-                    if attempt < max_retries - 1:
-                        if on_retry_callback:
-                            is_emergency = False
-                            on_retry_callback(attempt + 1, max_retries)
-                        await asyncio.sleep(retry_seconds)
-                        continue
-                    else:
-                        print(f"{datetime.now()} ❌ API 요청 최종 실패 (할당량 초과)")
-                        return None
-                
+                )       
                 response_text = response.text.strip()
                 
                 return response_text
@@ -182,6 +159,29 @@ class JSONRepairHandler:
 
             except Exception as e:
                 print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {str(e)}")
+                
+                # 429 Rate Limit 에러 감지
+                if '429' in str(e) and 'quota' in str(e).lower():
+                    print(f"{datetime.now()} 🚫 API 할당량 초과 (429 Error)")
+                    
+                    # retry_delay 추출 시도
+                    import re
+                    retry_match = re.search(r'retry in (\d+(?:\.\d+)?)', response_text, re.IGNORECASE)
+                    if retry_match:
+                        retry_seconds = float(retry_match.group(1))
+                        print(f"{datetime.now()} ⏳ API 권장 대기 시간: {retry_seconds:.1f}초")
+                    else:
+                        retry_seconds = 60  # 기본값
+                    
+                    if attempt < max_retries - 1:
+                        if on_retry_callback:
+                            is_emergency = False
+                            on_retry_callback(attempt + 1, max_retries)
+                        await asyncio.sleep(retry_seconds)
+                        continue
+                    else:
+                        print(f"{datetime.now()} ❌ API 요청 최종 실패 (할당량 초과)")
+                        return None
                 
                 if on_error_callback:
                     on_error_callback(attempt + 1, max_retries, str(e))
