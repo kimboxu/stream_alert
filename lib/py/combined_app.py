@@ -40,7 +40,7 @@ def setup_flask_app():
     
     return app
 
-def get_or_create_instance(instance_type, init, performance_manager, channel_id):
+def get_or_create_instance(instance_type, init, performance_manager, channel_id, **kwargs):
     """인스턴스를 가져오거나 생성하는 헬퍼 함수"""
     # StateManager에서 인스턴스 확인
     existing_instance = state_manager.get_instance_by_type(instance_type, channel_id)
@@ -69,6 +69,10 @@ def get_or_create_instance(instance_type, init, performance_manager, channel_id)
         new_instance = ChzzkHotClipDetector(init, performance_manager, channel_id)
     elif instance_type == 'afreeca_hot_clips':
         new_instance = AfreecaHotClipDetector(init, performance_manager, channel_id)
+    elif instance_type == 'youtube':
+        developer_key = kwargs.get('developer_key')
+        if developer_key:
+            new_instance = getYoutubeJsonData(init, performance_manager, developer_key, channel_id)
     
     # 생성된 인스턴스를 StateManager에 저장
     if new_instance is not None:
@@ -159,9 +163,29 @@ async def youtube_task(init: initVar, performance_manager: PerformanceManager):
                     
                 start_time = asyncio.get_event_loop().time()
                 
+                # 현재 사용할 API 키 결정
+                key_index = init.youtube_key_index // len(init.youtubeData["YoutubeChannelID"])
+                developerKey = developer_keys[key_index]
+                
+                # 인스턴스 키 생성 (채널ID + API 키 인덱스)
+                instance_key = f"{youtubeChannelID}_key{key_index}"
+                
+                # 기존 인스턴스가 있는지 확인
+                youtube_instance = state_manager.get_instance_by_type('youtube', instance_key)
+                
+                # 인스턴스가 없거나, API 키가 변경된 경우 새로 생성
+                if youtube_instance is None:
+                    # print(f"{datetime.now()} YouTube 인스턴스 생성: {youtubeChannelID} (키 인덱스: {key_index})")
+                    youtube_instance = getYoutubeJsonData(
+                        init, 
+                        performance_manager, 
+                        developerKey, 
+                        youtubeChannelID
+                    )
+                    state_manager.set_instance('youtube', instance_key, youtube_instance)
+                
                 # 작업 실행
-                developerKey = developer_keys[init.youtube_key_index//len(init.youtubeData["YoutubeChannelID"])]
-                await asyncio.create_task(getYoutubeJsonData(init, performance_manager, developerKey, youtubeChannelID).start())
+                await asyncio.create_task(youtube_instance.start())
                 
                 # 다음 키로 순환
                 init.youtube_key_index = (init.youtube_key_index + 1) % (len(developer_keys) * len(init.youtubeData["YoutubeChannelID"]))
