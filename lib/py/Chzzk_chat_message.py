@@ -409,15 +409,13 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 # 채팅 메시지인 경우 분석기로 전달
                 if chat_type == "채팅":
                     chat = self.get_chat(chat_data)
-
-                    if not self.init.DO_TEST and await self.chat_command(userRoleCode, nickname, chat):
+                    time = self.get_msgTime(chat_data)
+                    if not self.init.DO_TEST and await self.chat_command(userRoleCode, nickname, chat, time):
                         continue 
                     
                     if nickname and chat:
                         # 분석기로 메시지 전달
-                        time = chat_data.get('msgTime') or chat_data.get('messageTime')
-                        timestamp = datetime.fromtimestamp(time/1000)
-                        await self.chat_analyzer.add_chat_message(nickname, chat, timestamp)
+                        await self.chat_analyzer.add_chat_message(nickname, chat, datetime.fromisoformat(time))
 
                 # 메시지 출력
                 message = self.print_msg(chat_data, chat_type)
@@ -590,7 +588,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return False
 
     # 메시지 전송 함수
-    async def _send(self, message, command = None):
+    async def _send(self, message, command = None, time = datetime.now().timestamp()):
         # 기본 딕셔너리
         default_dict = {
             "ver": 2,
@@ -621,7 +619,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             }
         }
         if command:
-            self.command_delay[command] = datetime.now().isoformat()
+            self.command_delay[command] = time
             
         await self.data.sock.send(dumps(dict(send_dict, **default_dict)))
 
@@ -763,6 +761,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 사용자 ID 가져오기 함수
     def get_uid(self, chat_data) -> str:
         return chat_data.get('uid') or chat_data.get('userId')
+    
+    def get_msgTime(self, chat_data) -> int:
+        seconds = chat_data.get('msgTime') or chat_data.get('messageTime')
+        time = datetime.fromtimestamp(seconds/1000).isoformat()
+        return time
 
     # 결제 금액 가져오기 함수
     def get_payAmount(self, chat_data, chat_type) -> str:
@@ -776,7 +779,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         # 일반 채팅 메시지 처리
         if chat_type == "채팅":
             msg = chat_data.get('msg') or chat_data.get('content')  # 메시지 내용 가져오기
-            time = chat_data.get('msgTime') or chat_data.get('messageTime')  # 메시지 시간 가져오기
+            time = self.get_msgTime(chat_data)  # 메시지 시간 가져오기
             return self.format_message('채팅', chat_type, self.get_nickname(chat_data), msg, time)
         
         # 후원 메시지 처리
@@ -804,36 +807,35 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     # 메시지 포맷팅 함수 - 다양한 메시지 타입에 맞는 형식으로 문자열 생성
     def format_message(self, msg_type, chat_type, nickname, message, time, **kwargs):
         base = f"[{chat_type} - {self.data.channel_name}] {nickname}"  # 기본 메시지 형식
-        formatted_time = datetime.fromtimestamp(time/1000)  # 밀리초 타임스탬프를 datetime으로 변환
         if message is None or not len(message):
             message = "(메시지 없음)"
         # 다양한 메시지 타입에 대한 포맷 정의
         message_formats = {
             # 후원 채팅 메시지 형식
-            "후원채팅": lambda: [f"{base} ({kwargs.get('amount')}치즈): {message}, {formatted_time}", f"({kwargs.get('amount')}치즈): {message}"], 
+            "후원채팅": lambda: [f"{base} ({kwargs.get('amount')}치즈): {message}, {time}", f"({kwargs.get('amount')}치즈): {message}"], 
 
             # 영상 후원 메시지 형식
-            "영상후원": lambda: [f"{base} ({kwargs.get('amount')}치즈) 영상후원: {message}, {formatted_time}", f"({kwargs.get('amount')}치즈) 영상후원: {message}"],
+            "영상후원": lambda: [f"{base} ({kwargs.get('amount')}치즈) 영상후원: {message}, {time}", f"({kwargs.get('amount')}치즈) 영상후원: {message}"],
             
             # 모금함 미션 생성 메시지 형식
-            "후원미션걸기": lambda: [f"{base} ({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}, {formatted_time}", f"({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}"],
+            "후원미션걸기": lambda: [f"{base} ({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}, {time}", f"({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}"],
             
             # 모금함 미션 추가 메시지 형식
-            "후원미션추가": lambda: [f"{base} ({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}, {formatted_time}", f"({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}"],
+            "후원미션추가": lambda: [f"{base} ({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}, {time}", f"({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}"],
 
-            "파티후원": lambda: [f"{base} ({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}, {formatted_time}", f"({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}"],
+            "파티후원": lambda: [f"{base} ({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}, {time}", f"({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}"],
             
             # 구독 메시지 형식
-            "구독": lambda: [f"{base} ({kwargs.get('month')}개월 동안 구독): {message}, {formatted_time}", f"({kwargs.get('month')}개월 동안 구독): {message}"],
+            "구독": lambda: [f"{base} ({kwargs.get('month')}개월 동안 구독): {message}, {time}", f"({kwargs.get('month')}개월 동안 구독): {message}"],
             
             # 구독 선물 메시지 형식 여러개
-            "구독선물": lambda: [f"{base} ({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}, {formatted_time}", f"({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}"],
+            "구독선물": lambda: [f"{base} ({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}, {time}", f"({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}"],
 
             # 구독 선물 메시지 형식 1개
-            "단일구독선물": lambda: [f"{base} ({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}, {formatted_time}", f"({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}"],
+            "단일구독선물": lambda: [f"{base} ({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}, {time}", f"({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}"],
 
             # 기본 메시지 형식
-            "default": lambda: [f"{base}: {message}, {formatted_time}", f"{message}"]
+            "default": lambda: [f"{base}: {message}, {time}", f"{message}"]
         }
 
         # 메시지 타입에 맞는 포맷터 선택 및 실행
@@ -974,14 +976,14 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
     # 챗팅 명령어
-    async def chat_command(self, userRoleCode: str, nickname: str, chat: str):
+    async def chat_command(self, userRoleCode: str, nickname: str, chat: str, time: int) -> bool:
         # 빅헤드가 아니면 동작 안함
         if (nickname == "ai코딩" and chat[0] == "[" and chat[-1] == "]"):
             return True
         
         if self.data.channel_id not in ["bighead033", "kimboxu"]:
             return
-                
+        
         special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제", "!추가", "!수정"]
 
         # 명령어 수정 기능
@@ -996,7 +998,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             else:
                 save_text = " ".join(sp_chat[2:])
 
-            if not self.is_sendMSG_time(command):
+            if not self.is_sendMSG_time(command, time):
                 return
             
             await self._send(f"{save_text}(으)로 변경되었습니다.")
@@ -1016,25 +1018,25 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             
             if command in special_command_list:
                 if command == "!업타임":
-                    await self.uptime_command(command)
+                    await self.uptime_command(command, time)
                     return
 
                 if command == "!방제":
-                    await self.title_command(command)
+                    await self.title_command(command, time)
                     return
                 
                 if command == "!명령어":
                     if self.command_task and not self.command_task.done():
                         return
-                    self.command_task = asyncio.create_task(self.command_list(chat_command, special_command_list, command))
+                    self.command_task = asyncio.create_task(self.command_list(chat_command, special_command_list, command, time))
                     return
 
                 if command in ["!카테고리", "!게임"]:
-                    await self.category_command(command)
+                    await self.category_command(command, time)
                     return
                 
             send_command = chat_command[command]
-            await self._send(send_command, command)
+            await self._send(send_command, command, time)
 
         elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and command in ["!삭제"]:
             if not self.is_sendMSG_time(command):
@@ -1058,7 +1060,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     def is_authority(self, userRoleCode, nickname):
         return (userRoleCode in ["streamer", "streaming_chat_manager"] or nickname == "ai코딩")
 
-    async def uptime_command(self, command):
+    async def uptime_command(self, command, time):
         if self.check_live_state_close():
             await self._send("채널이 오프라인 상태입니다.")
             return
@@ -1086,19 +1088,19 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             return " ".join(parts)
             
-        await self._send(format_time(int(uptime.total_seconds())), command)
+        await self._send(format_time(int(uptime.total_seconds())), command, time)
     
-    async def title_command(self, command):
+    async def title_command(self, command, time):
         title = self.title_data.loc[self.data.channel_id, 'title1']
         
-        await self._send("방제 : " + title, command)
+        await self._send("방제 : " + title, command, time)
 
-    async def command_list(self, chat_command, special_command_list, command):
+    async def command_list(self, chat_command, special_command_list, command, time):
         commands = list(chat_command.keys()) + special_command_list
 
         async with self.command_semaphore:
             for msg in self.split_message(commands):
-                await self._send(msg, command)
+                await self._send(msg, command, time)
                 await asyncio.sleep(0.5)
 
     def split_message(self, items, sep=",", max_len=100):
@@ -1120,9 +1122,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         return result
 
-    async def category_command(self, command):
+    async def category_command(self, command, time):
         category = self.title_data.loc[self.data.channel_id, 'category']
-        await self._send("카테고리 : " + category, command)
+        await self._send("카테고리 : " + category, command, time)
 
     async def add_command(self, sp_chat):
         if sp_chat[1] not in self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"]:
@@ -1158,9 +1160,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         else:
             await self._send(f"{chat_command} 명령어는 없습니다.")
 
-    def is_sendMSG_time(self, command):
+    def is_sendMSG_time(self, command, time):
         if command not in self.command_delay:
-            self.command_delay[command] = datetime.now().isoformat()
+            self.command_delay[command] = time
             return True
         
         return if_after_time(self.command_delay[command], sec = 2)
