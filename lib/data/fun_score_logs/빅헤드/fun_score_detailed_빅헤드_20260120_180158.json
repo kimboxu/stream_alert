@@ -1,0 +1,1008 @@
+{
+  "channel_id": "bighead033",
+  "channel_name": "빅헤드",
+  "save_timestamp": "2026-01-20T18:01:58.180127",
+  "total_logs": 24,
+  "logs": [
+    {
+      "timestamp": "2026-01-20T17:57:50.259262",
+      "fun_score": 5.340310048122073,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7115312006535214,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.340310048122073,
+        "baseline_chat_count": 5.480794136299801,
+        "baseline_viewer_count": 1449.4915972622687,
+        "baseline_threshold": 10.727017881972458,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7768750952949555,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1438,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:58:00",
+      "comment_after_openDate": "01:58:00",
+      "chat_context": [
+        "유키토 Yukito: 불쌍한놈"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:57:55.320159",
+      "fun_score": 5.598193007702459,
+      "test_fun_score": 0.2917151383213253,
+      "score_components": {
+        "chat_spike_score": 1.0291576752752534,
+        "reaction_score": 0.3913146143297704,
+        "test_reaction_score": 0.2917151383213253,
+        "diversity_score": 50.17677669529664,
+        "viewer_trend_score": 0,
+        "final_score": 5.598193007702459,
+        "baseline_chat_count": 5.437868128474048,
+        "baseline_viewer_count": 1449.381507760496,
+        "baseline_threshold": 10.675413220924172,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.0347580548753417,
+        "test_score_difference": 0.22464511222802966,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1438,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:58:05",
+      "comment_after_openDate": "01:58:05",
+      "chat_context": [
+        "유키토 Yukito: 불쌍한놈",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:00.336140",
+      "fun_score": 5.601529898547322,
+      "test_fun_score": 0.2943381070535204,
+      "score_components": {
+        "chat_spike_score": 1.0337570700921772,
+        "reaction_score": 0.39553849158725957,
+        "test_reaction_score": 0.2943381070535204,
+        "diversity_score": 50.17677669529664,
+        "viewer_trend_score": 0,
+        "final_score": 5.601529898547322,
+        "baseline_chat_count": 5.404933351803267,
+        "baseline_viewer_count": 1449.2724729161505,
+        "baseline_threshold": 10.626773451281508,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.0341881641366673,
+        "test_score_difference": 0.2272680809602248,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1438,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:58:10",
+      "comment_after_openDate": "01:58:10",
+      "chat_context": [
+        "유키토 Yukito: 불쌍한놈",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:05.343700",
+      "fun_score": 3.6593168918290777,
+      "test_fun_score": 0.2969912853181534,
+      "score_components": {
+        "chat_spike_score": 2.1738608288980563,
+        "reaction_score": 0.39981862397554374,
+        "test_reaction_score": 0.2969912853181534,
+        "diversity_score": 25.611339316322887,
+        "viewer_trend_score": 0,
+        "final_score": 3.6593168918290777,
+        "baseline_chat_count": 5.372314090292992,
+        "baseline_viewer_count": 1449.1644826256138,
+        "baseline_threshold": 10.578631618046314,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.08806664246413076,
+        "test_score_difference": 0.22992125922485776,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:58:15",
+      "comment_after_openDate": "01:58:15",
+      "chat_context": [
+        "유키토 Yukito: 불쌍한놈",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유키토 Yukito: 옐로도 못들어오고",
+        "유키토 Yukito: 죽었네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:10.355372",
+      "fun_score": 3.6633837700621585,
+      "test_fun_score": 0.29807656018589945,
+      "score_components": {
+        "chat_spike_score": 2.181729690905734,
+        "reaction_score": 0.40157159174096485,
+        "test_reaction_score": 0.29807656018589945,
+        "diversity_score": 25.611339316322887,
+        "viewer_trend_score": 0,
+        "final_score": 3.6633837700621585,
+        "baseline_chat_count": 5.359167321307985,
+        "baseline_viewer_count": 1449.2587068820603,
+        "baseline_threshold": 10.512344582969153,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.004066878233080828,
+        "test_score_difference": 0.23100653409260383,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:58:20",
+      "comment_after_openDate": "01:58:20",
+      "chat_context": [
+        "유키토 Yukito: 불쌍한놈",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유키토 Yukito: 옐로도 못들어오고",
+        "유키토 Yukito: 죽었네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:15.366544",
+      "fun_score": 3.6674462734051145,
+      "test_fun_score": 0.29916063110442237,
+      "score_components": {
+        "chat_spike_score": 2.1895892840409847,
+        "reaction_score": 0.40332387984794127,
+        "test_reaction_score": 0.29916063110442237,
+        "diversity_score": 25.611339316322887,
+        "viewer_trend_score": 0,
+        "final_score": 3.6674462734051145,
+        "baseline_chat_count": 5.346146498369854,
+        "baseline_viewer_count": 1449.35202847013,
+        "baseline_threshold": 10.446731538381503,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.00812938157603682,
+        "test_score_difference": 0.23209060501112674,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:58:25",
+      "comment_after_openDate": "01:58:25",
+      "chat_context": [
+        "유키토 Yukito: 불쌍한놈",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유키토 Yukito: 옐로도 못들어오고",
+        "유키토 Yukito: 죽었네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:20.442968",
+      "fun_score": 5.862778280530261,
+      "test_fun_score": 0.7649256058221272,
+      "score_components": {
+        "chat_spike_score": 3.1813696074162623,
+        "reaction_score": 1.0311665741899,
+        "test_reaction_score": 0.7649256058221272,
+        "diversity_score": 41.21811984935973,
+        "viewer_trend_score": 0,
+        "final_score": 5.862778280530261,
+        "baseline_chat_count": 5.3332504149154705,
+        "baseline_viewer_count": 1449.444456037386,
+        "baseline_threshold": 10.38178598554303,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.203461388701183,
+        "test_score_difference": 0.6978555797288316,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "01:58:30",
+      "comment_after_openDate": "01:58:30",
+      "chat_context": [
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유키토 Yukito: 옐로도 못들어오고",
+        "유키토 Yukito: 죽었네",
+        "핑거스틱: 헉 에넬이다",
+        "솜솜솜솜솜: 맛있다 총"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:25.449349",
+      "fun_score": 4.9357682916012005,
+      "test_fun_score": 0.1712786912022693,
+      "score_components": {
+        "chat_spike_score": 2.199392702525973,
+        "reaction_score": 0.1712786912022693,
+        "test_reaction_score": 0.1712786912022693,
+        "diversity_score": 38.946579681038315,
+        "viewer_trend_score": 0,
+        "final_score": 4.9357682916012005,
+        "baseline_chat_count": 5.330057875940581,
+        "baseline_viewer_count": 1449.5359981485478,
+        "baseline_threshold": 10.338493891729005,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.2764513997721227,
+        "test_score_difference": 0.10420866510897367,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "01:58:35",
+      "comment_after_openDate": "01:58:35",
+      "chat_context": [
+        "유키토 Yukito: 옐로도 못들어오고",
+        "유키토 Yukito: 죽었네",
+        "핑거스틱: 헉 에넬이다",
+        "솜솜솜솜솜: 맛있다 총"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:30.454904",
+      "fun_score": 4.93941061059696,
+      "test_fun_score": 0.17166381494902522,
+      "score_components": {
+        "chat_spike_score": 2.2072299955742682,
+        "reaction_score": 0.17166381494902522,
+        "test_reaction_score": 0.17166381494902522,
+        "diversity_score": 38.946579681038315,
+        "viewer_trend_score": 0,
+        "final_score": 4.93941061059696,
+        "baseline_chat_count": 5.31731592148907,
+        "baseline_viewer_count": 1449.6266632862846,
+        "baseline_threshold": 10.28673578047978,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.2800937187678825,
+        "test_score_difference": 0.10459378885572959,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "01:58:40",
+      "comment_after_openDate": "01:58:40",
+      "chat_context": [
+        "유키토 Yukito: 옐로도 못들어오고",
+        "유키토 Yukito: 죽었네",
+        "핑거스틱: 헉 에넬이다",
+        "솜솜솜솜솜: 맛있다 총"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:35.461462",
+      "fun_score": 5.526857292350921,
+      "test_fun_score": 0.17204793178657496,
+      "score_components": {
+        "chat_spike_score": 1.048238619797812,
+        "reaction_score": 0.17204793178657496,
+        "test_reaction_score": 0.17204793178657496,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.526857292350921,
+        "baseline_chat_count": 5.304696034961204,
+        "baseline_viewer_count": 1449.716459852002,
+        "baseline_threshold": 10.235508405352302,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.8675404005218432,
+        "test_score_difference": 0.10497790569327933,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "01:58:45",
+      "comment_after_openDate": "01:58:45",
+      "chat_context": [
+        "핑거스틱: 헉 에넬이다",
+        "솜솜솜솜솜: 맛있다 총"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:40.524984",
+      "fun_score": 5.529279072595906,
+      "test_fun_score": 0.17302347995421438,
+      "score_components": {
+        "chat_spike_score": 1.052969988230463,
+        "reaction_score": 0.17302347995421438,
+        "test_reaction_score": 0.17302347995421438,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.529279072595906,
+        "baseline_chat_count": 5.273037046946276,
+        "baseline_viewer_count": 1449.8053961666196,
+        "baseline_threshold": 10.190399527689749,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.8699621807668283,
+        "test_score_difference": 0.10595345386091876,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "01:58:50",
+      "comment_after_openDate": "01:58:50",
+      "chat_context": [
+        "핑거스틱: 헉 에넬이다",
+        "솜솜솜솜솜: 맛있다 총"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:45.530636",
+      "fun_score": 5.06337839878894,
+      "test_fun_score": 0.17400684398191676,
+      "score_components": {
+        "chat_spike_score": 2.2551252774972093,
+        "reaction_score": 0.17400684398191676,
+        "test_reaction_score": 0.17400684398191676,
+        "diversity_score": 39.9636997072062,
+        "viewer_trend_score": 0,
+        "final_score": 5.06337839878894,
+        "baseline_chat_count": 5.24168135203653,
+        "baseline_viewer_count": 1449.8934804713433,
+        "baseline_threshold": 10.14574599372995,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.404061506959862,
+        "test_score_difference": 0.10693681788862114,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1459,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "01:58:55",
+      "comment_after_openDate": "01:58:55",
+      "chat_context": [
+        "핑거스틱: 헉 에넬이다",
+        "솜솜솜솜솜: 맛있다 총",
+        "아 딸: bt는 좀",
+        "솜솜솜솜솜: 탄이 왜 BT냐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:58:50.536949",
+      "fun_score": 5.759523749259301,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.5493183833139004,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.42209468940058,
+        "viewer_trend_score": 0,
+        "final_score": 5.759523749259301,
+        "baseline_chat_count": 5.22978604468402,
+        "baseline_viewer_count": 1449.9807209284277,
+        "baseline_threshold": 10.097056912170414,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.1002068574302237,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1459,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:59:00",
+      "comment_after_openDate": "01:59:00",
+      "chat_context": [
+        "아 딸: bt는 좀",
+        "솜솜솜솜솜: 탄이 왜 BT냐",
+        "핑거스틱: 탄창이 2개밖에 없냐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:09.333760",
+      "fun_score": 5.762786408445528,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.5565687370610697,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.42209468940058,
+        "viewer_trend_score": 0,
+        "final_score": 5.762786408445528,
+        "baseline_chat_count": 5.208424694375947,
+        "baseline_viewer_count": 1450.0671256219332,
+        "baseline_threshold": 10.055503344469725,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.1034695166164505,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1459,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:59:19",
+      "comment_after_openDate": "01:59:19",
+      "chat_context": [
+        "아 딸: bt는 좀",
+        "솜솜솜솜솜: 탄이 왜 BT냐",
+        "핑거스틱: 탄창이 2개밖에 없냐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:14.345731",
+      "fun_score": 5.799900162586211,
+      "test_fun_score": 0.09860666973206611,
+      "score_components": {
+        "chat_spike_score": 1.563842079772191,
+        "reaction_score": 0.09860666973206611,
+        "test_reaction_score": 0.09860666973206611,
+        "diversity_score": 50.66589225769105,
+        "viewer_trend_score": 0,
+        "final_score": 5.799900162586211,
+        "baseline_chat_count": 5.1872679858038255,
+        "baseline_viewer_count": 1450.152702558475,
+        "baseline_threshold": 10.014379116222614,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.1405832707571335,
+        "test_score_difference": 0.031536643638770484,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "01:59:24",
+      "comment_after_openDate": "01:59:24",
+      "chat_context": [
+        "핑거스틱: 탄창이 2개밖에 없냐",
+        "lklkccc: bt면 랩은 힘들텐데 쌀먹맨이네",
+        "neko inu: 빅하",
+        "번개맞은치즈: 검색해봤는데 스탯으론 핵 아닌듯"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:19.352281",
+      "fun_score": 5.572014976011962,
+      "test_fun_score": 0.09869021005255321,
+      "score_components": {
+        "chat_spike_score": 1.0679879717233565,
+        "reaction_score": 0.09869021005255321,
+        "test_reaction_score": 0.09869021005255321,
+        "diversity_score": 50.61813325720686,
+        "viewer_trend_score": 0,
+        "final_score": 5.572014976011962,
+        "baseline_chat_count": 5.175893958499825,
+        "baseline_viewer_count": 1449.9404796679648,
+        "baseline_threshold": 9.974004407846778,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9126980841828845,
+        "test_score_difference": 0.031620183959257586,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "01:59:29",
+      "comment_after_openDate": "01:59:29",
+      "chat_context": [
+        "lklkccc: bt면 랩은 힘들텐데 쌀먹맨이네",
+        "neko inu: 빅하",
+        "번개맞은치즈: 검색해봤는데 스탯으론 핵 아닌듯"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:24.427877",
+      "fun_score": 5.837025531808828,
+      "test_fun_score": 0.4657211826495097,
+      "score_components": {
+        "chat_spike_score": 1.071312711080573,
+        "reaction_score": 0.4657211826495097,
+        "test_reaction_score": 0.4657211826495097,
+        "diversity_score": 52.15218457027717,
+        "viewer_trend_score": 0,
+        "final_score": 5.837025531808828,
+        "baseline_chat_count": 5.155048894377396,
+        "baseline_viewer_count": 1449.7302898727455,
+        "baseline_threshold": 9.9318333490898,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.1736417617466692,
+        "test_score_difference": 0.3986511565562141,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:59:34",
+      "comment_after_openDate": "01:59:34",
+      "chat_context": [
+        "neko inu: 빅하",
+        "번개맞은치즈: 검색해봤는데 스탯으론 핵 아닌듯",
+        "화밀이: ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:29.443072",
+      "fun_score": 5.62146761076835,
+      "test_fun_score": 0.31817362816904793,
+      "score_components": {
+        "chat_spike_score": 1.0746424787698712,
+        "reaction_score": 0.31817362816904793,
+        "test_reaction_score": 0.31817362816904793,
+        "diversity_score": 50.42426406871193,
+        "viewer_trend_score": 0,
+        "final_score": 5.62146761076835,
+        "baseline_chat_count": 5.13440352596926,
+        "baseline_viewer_count": 1449.5221136957646,
+        "baseline_threshold": 9.892605090200249,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9540213373632351,
+        "test_score_difference": 0.25110360207575233,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "01:59:39",
+      "comment_after_openDate": "01:59:39",
+      "chat_context": [
+        "번개맞은치즈: 검색해봤는데 스탯으론 핵 아닌듯",
+        "화밀이: ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:34.461263",
+      "fun_score": 6.498310910619313,
+      "test_fun_score": 1.5299021922573803,
+      "score_components": {
+        "chat_spike_score": 1.5932583307572696,
+        "reaction_score": 2.0872515728747603,
+        "test_reaction_score": 1.5299021922573803,
+        "diversity_score": 51.551691899161135,
+        "viewer_trend_score": 0,
+        "final_score": 6.498310910619313,
+        "baseline_chat_count": 5.104375940190475,
+        "baseline_viewer_count": 1449.3159318465591,
+        "baseline_threshold": 9.851687593147291,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5625426190181129,
+        "test_score_difference": 1.4628321661640846,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "01:59:44",
+      "comment_after_openDate": "01:59:44",
+      "chat_context": [
+        "번개맞은치즈: 검색해봤는데 스탯으론 핵 아닌듯",
+        "화밀이: ㅋㅋㅋㅋㅋ",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:39.523341",
+      "fun_score": 9.774421945852893,
+      "test_fun_score": 7.2561815739060345,
+      "score_components": {
+        "chat_spike_score": 1.6006421729656741,
+        "reaction_score": 13.196454644626243,
+        "test_reaction_score": 7.2561815739060345,
+        "diversity_score": 50.95196574630467,
+        "viewer_trend_score": 0,
+        "final_score": 9.774421945852893,
+        "baseline_chat_count": 5.08421601868345,
+        "baseline_viewer_count": 1449.111725219469,
+        "baseline_threshold": 9.819562244528672,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.838653654251693,
+        "test_score_difference": 7.189111547812739,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "01:59:49",
+      "comment_after_openDate": "01:59:49",
+      "chat_context": [
+        "화밀이: ㅋㅋㅋㅋㅋ",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:44.627984",
+      "fun_score": 9.856467726577709,
+      "test_fun_score": 7.387459230622692,
+      "score_components": {
+        "chat_spike_score": 1.6080470778475773,
+        "reaction_score": 13.458833223052771,
+        "test_reaction_score": 7.387459230622692,
+        "diversity_score": 50.95196574630467,
+        "viewer_trend_score": 0,
+        "final_score": 9.856467726577709,
+        "baseline_chat_count": 5.064249229224463,
+        "baseline_viewer_count": 1448.9094748918665,
+        "baseline_threshold": 9.819129800467357,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.917057115980748,
+        "test_score_difference": 7.320389204529397,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "01:59:54",
+      "comment_after_openDate": "01:59:54",
+      "chat_context": [
+        "화밀이: ㅋㅋㅋㅋㅋ",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T17:59:51.432465",
+      "fun_score": 9.939829105103128,
+      "test_fun_score": 7.520779870625521,
+      "score_components": {
+        "chat_spike_score": 1.6154727106234594,
+        "reaction_score": 13.725566035640346,
+        "test_reaction_score": 7.520779870625521,
+        "diversity_score": 50.95196574630467,
+        "viewer_trend_score": 0,
+        "final_score": 9.939829105103128,
+        "baseline_chat_count": 5.044473721608492,
+        "baseline_viewer_count": 1448.7091621224022,
+        "baseline_threshold": 9.819487497799493,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.876450706314188,
+        "test_score_difference": 7.453709844532225,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "02:00:01",
+      "comment_after_openDate": "02:00:01",
+      "chat_context": [
+        "화밀이: ㅋㅋㅋㅋㅋ",
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T18:00:04.421166",
+      "fun_score": 5.466611429316782,
+      "test_fun_score": 0.32914584595718366,
+      "score_components": {
+        "chat_spike_score": 0.7353949796290254,
+        "reaction_score": 0.45227896161240017,
+        "test_reaction_score": 0.32914584595718366,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.466611429316782,
+        "baseline_chat_count": 5.024887663355482,
+        "baseline_viewer_count": 1448.5107683492695,
+        "baseline_threshold": 9.820640370397461,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.40323303052784176,
+        "test_score_difference": 0.26207581986388806,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "02:00:14",
+      "comment_after_openDate": "02:00:14",
+      "chat_context": [
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-20T18:00:09.827221",
+      "fun_score": 6.451263342590989,
+      "test_fun_score": 1.6467812883570607,
+      "score_components": {
+        "chat_spike_score": 1.0996558144018695,
+        "reaction_score": 3.1055649625620645,
+        "test_reaction_score": 1.6467812883570607,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 0,
+        "final_score": 6.451263342590989,
+        "baseline_chat_count": 4.986329239540536,
+        "baseline_viewer_count": 1448.3142751884834,
+        "baseline_threshold": 9.778928773141907,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.3878849438020495,
+        "test_score_difference": 1.579711262263765,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1428,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "02:00:19",
+      "comment_after_openDate": "02:00:19",
+      "chat_context": [
+        "훈련병생산: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

@@ -1,0 +1,2985 @@
+{
+  "channel_id": "ma_mwa",
+  "channel_name": "마뫄",
+  "save_timestamp": "2026-01-15T04:36:04.622119",
+  "total_logs": 52,
+  "logs": [
+    {
+      "timestamp": "2026-01-15T04:31:44.258948",
+      "fun_score": 8.239263382031938,
+      "test_fun_score": 1.6693726541544578,
+      "score_components": {
+        "chat_spike_score": 2.628461686575693,
+        "reaction_score": 2.0844966120840134,
+        "test_reaction_score": 1.6693726541544578,
+        "diversity_score": 34.31106639447672,
+        "viewer_trend_score": 20,
+        "final_score": 8.239263382031938,
+        "baseline_chat_count": 7.137288226046979,
+        "baseline_viewer_count": 875.0813628856209,
+        "baseline_threshold": 16.646848337109095,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.0698226046219173,
+        "test_score_difference": 0.9351359060832832,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 888,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:07:20",
+      "comment_after_openDate": "06:07:20",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "뉴캣: 근데 이렇게 막 들어와도 되는거에요?",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 집주인이 있었다",
+        "카자리: 오",
+        "다다다0: 집보단 무슨 갤러리 같다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:31:49.264169",
+      "fun_score": 7.82349539264387,
+      "test_fun_score": 0.5490421964120387,
+      "score_components": {
+        "chat_spike_score": 2.6351376519805987,
+        "reaction_score": 0.6867717704553207,
+        "test_reaction_score": 0.5490421964120387,
+        "diversity_score": 34.31651918116004,
+        "viewer_trend_score": 20,
+        "final_score": 7.82349539264387,
+        "baseline_chat_count": 7.126393004841449,
+        "baseline_viewer_count": 875.2051234291766,
+        "baseline_threshold": 16.566303673239453,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.6540546152338491,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 888,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:07:25",
+      "comment_after_openDate": "06:07:25",
+      "chat_context": [
+        "뉴캣: 근데 이렇게 막 들어와도 되는거에요?",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 집주인이 있었다",
+        "카자리: 오",
+        "다다다0: 집보단 무슨 갤러리 같다",
+        "팩토리얼: 따봉~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:31:54.270686",
+      "fun_score": 8.148075479194897,
+      "test_fun_score": 1.6857097711303,
+      "score_components": {
+        "chat_spike_score": 3.484240349390529,
+        "reaction_score": 2.1062765785773636,
+        "test_reaction_score": 1.6857097711303,
+        "diversity_score": 29.482843483959506,
+        "viewer_trend_score": 20,
+        "final_score": 8.148075479194897,
+        "baseline_chat_count": 7.115602159855068,
+        "baseline_viewer_count": 875.327698346725,
+        "baseline_threshold": 16.482547569911347,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9786347017848769,
+        "test_score_difference": 1.1366675747182613,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 888,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:07:30",
+      "comment_after_openDate": "06:07:30",
+      "chat_context": [
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 집주인이 있었다",
+        "카자리: 오",
+        "다다다0: 집보단 무슨 갤러리 같다",
+        "팩토리얼: 따봉~",
+        "뉴캣: 넓고 좋다",
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:31:59.275596",
+      "fun_score": 9.567700295081156,
+      "test_fun_score": 1.6865510070640033,
+      "score_components": {
+        "chat_spike_score": 3.485289030535408,
+        "reaction_score": 2.107398448933042,
+        "test_reaction_score": 1.6865510070640033,
+        "diversity_score": 43.6710069666031,
+        "viewer_trend_score": 20,
+        "final_score": 9.567700295081156,
+        "baseline_chat_count": 7.114494691163656,
+        "baseline_viewer_count": 875.4490989965633,
+        "baseline_threshold": 16.402703327282282,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.3982595176711357,
+        "test_score_difference": 1.1375088106519646,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 888,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:07:35",
+      "comment_after_openDate": "06:07:35",
+      "chat_context": [
+        "카자리: 오",
+        "다다다0: 집보단 무슨 갤러리 같다",
+        "팩토리얼: 따봉~",
+        "뉴캣: 넓고 좋다",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "에이 A: b",
+        "몽작: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:04.280721",
+      "fun_score": 9.568501578187114,
+      "test_fun_score": 1.6873848526111894,
+      "score_components": {
+        "chat_spike_score": 3.4863282929026913,
+        "reaction_score": 2.108510499068637,
+        "test_reaction_score": 1.6873848526111894,
+        "diversity_score": 43.6710069666031,
+        "viewer_trend_score": 20,
+        "final_score": 9.568501578187114,
+        "baseline_chat_count": 7.113397832022307,
+        "baseline_viewer_count": 875.5693366281762,
+        "baseline_threshold": 16.337223998233792,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.399060800777093,
+        "test_score_difference": 1.1383426561991508,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:07:40",
+      "comment_after_openDate": "06:07:40",
+      "chat_context": [
+        "카자리: 오",
+        "다다다0: 집보단 무슨 갤러리 같다",
+        "팩토리얼: 따봉~",
+        "뉴캣: 넓고 좋다",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "에이 A: b",
+        "몽작: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:09.287580",
+      "fun_score": 11.289768294233664,
+      "test_fun_score": 5.858125790207309,
+      "score_components": {
+        "chat_spike_score": 6.040414335168756,
+        "reaction_score": 9.03628386760899,
+        "test_reaction_score": 5.858125790207309,
+        "diversity_score": 28.60696683125025,
+        "viewer_trend_score": 20,
+        "final_score": 11.289768294233664,
+        "baseline_chat_count": 7.112311480791533,
+        "baseline_viewer_count": 875.5255623832783,
+        "baseline_threshold": 16.272379637449745,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.120327516823643,
+        "test_score_difference": 5.30908359379527,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 4.4
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "06:07:45",
+      "comment_after_openDate": "06:07:45",
+      "chat_context": [
+        "다다다0: 집보단 무슨 갤러리 같다",
+        "팩토리얼: 따봉~",
+        "뉴캣: 넓고 좋다",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "에이 A: b",
+        "몽작: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아직 인테리어중인가봐",
+        "팩토리얼: 외관은 몬가몬가인데 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:14.293536",
+      "fun_score": 10.318076285992579,
+      "test_fun_score": 5.793584416602775,
+      "score_components": {
+        "chat_spike_score": 4.568231268191376,
+        "reaction_score": 8.928600933123935,
+        "test_reaction_score": 5.793584416602775,
+        "diversity_score": 25.837919353692776,
+        "viewer_trend_score": 20,
+        "final_score": 10.318076285992579,
+        "baseline_chat_count": 7.130395536805549,
+        "baseline_viewer_count": 875.4822074956464,
+        "baseline_threshold": 16.224646220781732,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.148635508582558,
+        "test_score_difference": 5.244542220190736,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 4.4
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "06:07:50",
+      "comment_after_openDate": "06:07:50",
+      "chat_context": [
+        "팩토리얼: 따봉~",
+        "뉴캣: 넓고 좋다",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "에이 A: b",
+        "몽작: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아직 인테리어중인가봐",
+        "팩토리얼: 외관은 몬가몬가인데 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:19.299389",
+      "fun_score": 10.174849365316692,
+      "test_fun_score": 5.764193524299734,
+      "score_components": {
+        "chat_spike_score": 3.462488184309856,
+        "reaction_score": 8.879588564960807,
+        "test_reaction_score": 5.764193524299734,
+        "diversity_score": 29.528531128890144,
+        "viewer_trend_score": 20,
+        "final_score": 10.174849365316692,
+        "baseline_chat_count": 7.138726347562952,
+        "baseline_viewer_count": 875.4392679478382,
+        "baseline_threshold": 16.16806128080645,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.005408587906672,
+        "test_score_difference": 5.215151327887695,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 4.4
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "06:07:55",
+      "comment_after_openDate": "06:07:55",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "에이 A: b",
+        "몽작: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아직 인테리어중인가봐",
+        "팩토리얼: 외관은 몬가몬가인데 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 깔끔하다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:24.304544",
+      "fun_score": 8.515197072755958,
+      "test_fun_score": 1.9179399002339823,
+      "score_components": {
+        "chat_spike_score": 2.6283950096446964,
+        "reaction_score": 2.9867444023943364,
+        "test_reaction_score": 1.9179399002339823,
+        "diversity_score": 34.36395997697544,
+        "viewer_trend_score": 20,
+        "final_score": 8.515197072755958,
+        "baseline_chat_count": 7.137397349153298,
+        "baseline_viewer_count": 875.396739760898,
+        "baseline_threshold": 16.11064631065606,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3457562953459377,
+        "test_score_difference": 1.3688977038219436,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "06:08:00",
+      "comment_after_openDate": "06:08:00",
+      "chat_context": [
+        "에이 A: b",
+        "몽작: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아직 인테리어중인가봐",
+        "팩토리얼: 외관은 몬가몬가인데 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 깔끔하다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:29.311969",
+      "fun_score": 6.729283952509897,
+      "test_fun_score": 1.9277307030600008,
+      "score_components": {
+        "chat_spike_score": 1.9967020258860144,
+        "reaction_score": 2.40712806775157,
+        "test_reaction_score": 1.9277307030600008,
+        "diversity_score": 21.0862962053572,
+        "viewer_trend_score": 20,
+        "final_score": 6.729283952509897,
+        "baseline_chat_count": 7.126501082548409,
+        "baseline_viewer_count": 875.3546189939885,
+        "baseline_threshold": 16.037881906956976,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5598431750998767,
+        "test_score_difference": 1.3786885066479622,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "06:08:05",
+      "comment_after_openDate": "06:08:05",
+      "chat_context": [
+        "뉴캣: 아직 인테리어중인가봐",
+        "팩토리얼: 외관은 몬가몬가인데 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 깔끔하다",
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:34.316845",
+      "fun_score": 8.74239729528564,
+      "test_fun_score": 5.880425692973828,
+      "score_components": {
+        "chat_spike_score": 2.0046697390617463,
+        "reaction_score": 9.073506642793063,
+        "test_reaction_score": 5.880425692973828,
+        "diversity_score": 21.182439198699353,
+        "viewer_trend_score": 20,
+        "final_score": 8.74239729528564,
+        "baseline_chat_count": 7.106129202177596,
+        "baseline_viewer_count": 875.3129017440261,
+        "baseline_threshold": 15.948705538553373,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.5729565178756193,
+        "test_score_difference": 5.33138349656179,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 4.4
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "06:08:10",
+      "comment_after_openDate": "06:08:10",
+      "chat_context": [
+        "팩토리얼: 외관은 몬가몬가인데 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 깔끔하다",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:39.323737",
+      "fun_score": 6.549328972031118,
+      "test_fun_score": 0.6396096589756775,
+      "score_components": {
+        "chat_spike_score": 1.5214673806864663,
+        "reaction_score": 0.8009889329807861,
+        "test_reaction_score": 0.6396096589756775,
+        "diversity_score": 26.243719708279716,
+        "viewer_trend_score": 20,
+        "final_score": 6.549328972031118,
+        "baseline_chat_count": 7.085952484420734,
+        "baseline_viewer_count": 875.2715841453183,
+        "baseline_threshold": 15.879669105582867,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.09056746256363879,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:08:15",
+      "comment_after_openDate": "06:08:15",
+      "chat_context": [
+        "뉴캣: 깔끔하다",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 옥상까지 있나보네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:44.329175",
+      "fun_score": 6.230706298753624,
+      "test_fun_score": 0.6456694899485078,
+      "score_components": {
+        "chat_spike_score": 2.6789332818631317,
+        "reaction_score": 0.8093336914443146,
+        "test_reaction_score": 0.6456694899485078,
+        "diversity_score": 17.823862144819202,
+        "viewer_trend_score": 20,
+        "final_score": 6.230706298753624,
+        "baseline_chat_count": 7.056389059619983,
+        "baseline_viewer_count": 875.2306623692062,
+        "baseline_threshold": 15.79028444710344,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.09662729353646915,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:08:20",
+      "comment_after_openDate": "06:08:20",
+      "chat_context": [
+        "뉴캣: 깔끔하다",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 옥상까지 있나보네",
+        "팩토리얼: 초라..",
+        "뉴캣: 아..니야~ 아담하구 귀여워"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:49.335762",
+      "fun_score": 6.209293815675276,
+      "test_fun_score": 0.6477687990460427,
+      "score_components": {
+        "chat_spike_score": 2.6853965256377803,
+        "reaction_score": 0.8122263605782517,
+        "test_reaction_score": 0.6477687990460427,
+        "diversity_score": 17.571974709647996,
+        "viewer_trend_score": 20,
+        "final_score": 6.209293815675276,
+        "baseline_chat_count": 7.046268852428823,
+        "baseline_viewer_count": 875.1901326237092,
+        "baseline_threshold": 15.698703688442249,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.09872660263400401,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:08:25",
+      "comment_after_openDate": "06:08:25",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 옥상까지 있나보네",
+        "팩토리얼: 초라..",
+        "뉴캣: 아..니야~ 아담하구 귀여워",
+        "팩토리얼: 집.. 지어야겠지..?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:54.344037",
+      "fun_score": 13.990158400356897,
+      "test_fun_score": 5.34929803719753,
+      "score_components": {
+        "chat_spike_score": 4.704197984218958,
+        "reaction_score": 20.967295779203834,
+        "test_reaction_score": 5.34929803719753,
+        "diversity_score": 25.830805736972174,
+        "viewer_trend_score": 20,
+        "final_score": 13.990158400356897,
+        "baseline_chat_count": 7.036245596822555,
+        "baseline_viewer_count": 875.1499911531741,
+        "baseline_threshold": 15.607795141861141,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.780864584681621,
+        "test_score_difference": 4.709688378221852,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:08:30",
+      "comment_after_openDate": "06:08:30",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 옥상까지 있나보네",
+        "팩토리얼: 초라..",
+        "뉴캣: 아..니야~ 아담하구 귀여워",
+        "팩토리얼: 집.. 지어야겠지..?",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이춘향: 아녜요!! 마뫄님 예뻐요ㅕ!!"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:32:59.355192",
+      "fun_score": 15.3137485715221,
+      "test_fun_score": 5.31932169427835,
+      "score_components": {
+        "chat_spike_score": 4.690529121670091,
+        "reaction_score": 25.45696773883065,
+        "test_reaction_score": 5.31932169427835,
+        "diversity_score": 25.659201451213637,
+        "viewer_trend_score": 20,
+        "final_score": 15.3137485715221,
+        "baseline_chat_count": 7.045478364004995,
+        "baseline_viewer_count": 875.1102342379268,
+        "baseline_threshold": 15.59229818187753,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.104454755846824,
+        "test_score_difference": 4.679712035302672,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 3.5999999999999996,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:08:35",
+      "comment_after_openDate": "06:08:35",
+      "chat_context": [
+        "팩토리얼: 옥상까지 있나보네",
+        "팩토리얼: 초라..",
+        "뉴캣: 아..니야~ 아담하구 귀여워",
+        "팩토리얼: 집.. 지어야겠지..?",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이춘향: 아녜요!! 마뫄님 예뻐요ㅕ!!",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:04.365203",
+      "fun_score": 30.255743625676974,
+      "test_fun_score": 15.573072843327251,
+      "score_components": {
+        "chat_spike_score": 6.162835071947041,
+        "reaction_score": 72.1437347270283,
+        "test_reaction_score": 15.573072843327251,
+        "diversity_score": 28.393474251923163,
+        "viewer_trend_score": 20,
+        "final_score": 30.255743625676974,
+        "baseline_chat_count": 7.054622681277827,
+        "baseline_viewer_count": 875.0708581939274,
+        "baseline_threshold": 15.589629676610324,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 24.046449810001697,
+        "test_score_difference": 14.933463184351574,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 871,
+        "fun_keywords": {
+          "laugh": 4.8,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:08:40",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "팩토리얼: 옥상까지 있나보네",
+        "팩토리얼: 초라..",
+        "뉴캣: 아..니야~ 아담하구 귀여워",
+        "팩토리얼: 집.. 지어야겠지..?",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이춘향: 아녜요!! 마뫄님 예뻐요ㅕ!!",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:09.372170",
+      "fun_score": 40.515075822385214,
+      "test_fun_score": 41.00249122326992,
+      "score_components": {
+        "chat_spike_score": 10.53307503698779,
+        "reaction_score": 100,
+        "test_reaction_score": 41.00249122326992,
+        "diversity_score": 27.751920557407118,
+        "viewer_trend_score": 20,
+        "final_score": 40.515075822385214,
+        "baseline_chat_count": 7.073259395991185,
+        "baseline_viewer_count": 875.0318593724296,
+        "baseline_threshold": 15.73013104824238,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 34.30578200670994,
+        "test_score_difference": 40.36288156429424,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 6.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:08:45",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "팩토리얼: 초라..",
+        "뉴캣: 아..니야~ 아담하구 귀여워",
+        "팩토리얼: 집.. 지어야겠지..?",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이춘향: 아녜요!! 마뫄님 예뻐요ㅕ!!",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아싸 7분 더한다",
+        "뉴캣: 내일 자라것네 아유"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:14.436662",
+      "fun_score": 39.61453067411848,
+      "test_fun_score": 86.80877261805485,
+      "score_components": {
+        "chat_spike_score": 7.928471110825399,
+        "reaction_score": 100,
+        "test_reaction_score": 86.80877261805485,
+        "diversity_score": 30.467186742470446,
+        "viewer_trend_score": 20,
+        "final_score": 39.61453067411848,
+        "baseline_chat_count": 7.110877570977589,
+        "baseline_viewer_count": 875.0219741596417,
+        "baseline_threshold": 15.967570819178668,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 33.4052368584432,
+        "test_score_difference": 86.16916295907917,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 7.2,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:08:50",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "팩토리얼: 집.. 지어야겠지..?",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이춘향: 아녜요!! 마뫄님 예뻐요ㅕ!!",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아싸 7분 더한다",
+        "뉴캣: 내일 자라것네 아유",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:19.441774",
+      "fun_score": 40.21824207499715,
+      "test_fun_score": 99.24045678822061,
+      "score_components": {
+        "chat_spike_score": 7.845853757422311,
+        "reaction_score": 100,
+        "test_reaction_score": 99.24045678822061,
+        "diversity_score": 36.8760788415711,
+        "viewer_trend_score": 20,
+        "final_score": 40.21824207499715,
+        "baseline_chat_count": 7.138555363847623,
+        "baseline_viewer_count": 875.0121836471923,
+        "baseline_threshold": 16.19410869458899,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 34.008948259321876,
+        "test_score_difference": 98.60084712924494,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 7.2,
+          "excitement": 2.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "excitement": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:08:55",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이춘향: 아녜요!! 마뫄님 예뻐요ㅕ!!",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아싸 7분 더한다",
+        "뉴캣: 내일 자라것네 아유",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "딸기밀크쉐이크: 트러플 한번 더 캐?",
+        "슬아아: 춘하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:24.450183",
+      "fun_score": 40.10414983908008,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 10.099329834856768,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.594514133945346,
+        "viewer_trend_score": 20,
+        "final_score": 40.10414983908008,
+        "baseline_chat_count": 7.175548003461963,
+        "baseline_viewer_count": 875.0024869278521,
+        "baseline_threshold": 16.4242598923733,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 33.894856023404806,
+        "test_score_difference": 99.36039034102433,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 9.399999999999999,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:09:00",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아싸 7분 더한다",
+        "뉴캣: 내일 자라것네 아유",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "딸기밀크쉐이크: 트러플 한번 더 캐?",
+        "슬아아: 춘하",
+        "팩토리얼: 또 피아노 난입을 ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:29.520879",
+      "fun_score": 40.853433144000896,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 9.91282108019875,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 33.926636579114536,
+        "viewer_trend_score": 20,
+        "final_score": 40.853433144000896,
+        "baseline_chat_count": 7.221766253588798,
+        "baseline_viewer_count": 874.9928831030833,
+        "baseline_threshold": 16.651113238062752,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 34.64413932832562,
+        "test_score_difference": 99.36039034102433,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 8.2,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:09:05",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아싸 7분 더한다",
+        "뉴캣: 내일 자라것네 아유",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "딸기밀크쉐이크: 트러플 한번 더 캐?",
+        "슬아아: 춘하",
+        "팩토리얼: 또 피아노 난입을 ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋ",
+        "따따따무: 작고 소증해",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:34.536660",
+      "fun_score": 40.4815221760008,
+      "test_fun_score": 49.19874930540684,
+      "score_components": {
+        "chat_spike_score": 9.733597938243987,
+        "reaction_score": 99.03454628877539,
+        "test_reaction_score": 49.19874930540684,
+        "diversity_score": 33.910392171583965,
+        "viewer_trend_score": 20,
+        "final_score": 40.4815221760008,
+        "baseline_chat_count": 7.267541732879416,
+        "baseline_viewer_count": 874.9833712829558,
+        "baseline_threshold": 16.882971462761642,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 34.27222836032553,
+        "test_score_difference": 48.55913964643116,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 7.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:09:10",
+      "comment_after_openDate": "06:09:10",
+      "chat_context": [
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아싸 7분 더한다",
+        "뉴캣: 내일 자라것네 아유",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "딸기밀크쉐이크: 트러플 한번 더 캐?",
+        "슬아아: 춘하",
+        "팩토리얼: 또 피아노 난입을 ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋ",
+        "따따따무: 작고 소증해",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 먼저 난입해서 할말없음"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:39.553319",
+      "fun_score": 36.849322061795014,
+      "test_fun_score": 47.633691356394515,
+      "score_components": {
+        "chat_spike_score": 9.561280642337348,
+        "reaction_score": 85.71934005312104,
+        "test_reaction_score": 47.633691356394515,
+        "diversity_score": 38.30943756806895,
+        "viewer_trend_score": 20,
+        "final_score": 36.849322061795014,
+        "baseline_chat_count": 7.312878683078432,
+        "baseline_viewer_count": 874.973950586065,
+        "baseline_threshold": 17.109045578594476,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 30.640028246119737,
+        "test_score_difference": 46.994081697418835,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 6.800000000000001,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:09:15",
+      "comment_after_openDate": "06:09:15",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "딸기밀크쉐이크: 트러플 한번 더 캐?",
+        "슬아아: 춘하",
+        "팩토리얼: 또 피아노 난입을 ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋ",
+        "따따따무: 작고 소증해",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 먼저 난입해서 할말없음",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "미네티: {:d_47:}{:d_47:}{:d_47:}{:d_47:}"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:44.561433",
+      "fun_score": 47.995239956932636,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 25.51251455086004,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.146084090456235,
+        "viewer_trend_score": 20,
+        "final_score": 47.995239956932636,
+        "baseline_chat_count": 7.35778130529454,
+        "baseline_viewer_count": 874.9646201394505,
+        "baseline_threshold": 17.298157427303536,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 41.78594614125736,
+        "test_score_difference": 99.3543305100515,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 11.899999999999999
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 10.0
+        }
+      },
+      "after_openDate": "06:09:20",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "슬아아: 춘하",
+        "팩토리얼: 또 피아노 난입을 ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋ",
+        "따따따무: 작고 소증해",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 먼저 난입해서 할말없음",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "미네티: {:d_47:}{:d_47:}{:d_47:}{:d_47:}",
+        "팩토리얼: 하늘을 봐..",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:49.570378",
+      "fun_score": 60.60586903655348,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 58.1037079203091,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 29.59200472414389,
+        "viewer_trend_score": 10,
+        "final_score": 60.60586903655348,
+        "baseline_chat_count": 7.440573760389817,
+        "baseline_viewer_count": 874.9553790785146,
+        "baseline_threshold": 17.592235477937383,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 54.396575220878205,
+        "test_score_difference": 99.35223120095395,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 15.299999999999997
+        },
+        "test_keyword_counter": {
+          "laugh": 13.0
+        }
+      },
+      "after_openDate": "06:09:25",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "팩토리얼: 또 피아노 난입을 ㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋ",
+        "따따따무: 작고 소증해",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 먼저 난입해서 할말없음",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "미네티: {:d_47:}{:d_47:}{:d_47:}{:d_47:}",
+        "팩토리얼: 하늘을 봐..",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 그거 천장에 조명 ㅋㅋ",
+        "서선호: 집 칸수 9칸까지 늘리고 집 컨텐츠 해보는것도",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:54.646333",
+      "fun_score": 69.48340341041266,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 78.44098040797029,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.84962226826026,
+        "viewer_trend_score": 10,
+        "final_score": 69.48340341041266,
+        "baseline_chat_count": 7.551313063765282,
+        "baseline_viewer_count": 874.9462265469424,
+        "baseline_threshold": 18.004306087428926,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 55.493245010055766,
+        "test_score_difference": 94.68067830572166,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 16.999999999999996
+        },
+        "test_keyword_counter": {
+          "laugh": 14.0
+        }
+      },
+      "after_openDate": "06:09:30",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "따따따무: 작고 소증해",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 먼저 난입해서 할말없음",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "미네티: {:d_47:}{:d_47:}{:d_47:}{:d_47:}",
+        "팩토리얼: 하늘을 봐..",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 그거 천장에 조명 ㅋㅋ",
+        "서선호: 집 칸수 9칸까지 늘리고 집 컨텐츠 해보는것도",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "따따따무: ㅋㅋㅋㅋㅋㅋ",
+        "humananimal: {:m19:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:33:59.652398",
+      "fun_score": 79.05774600594049,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.577460059404896,
+        "viewer_trend_score": 10,
+        "final_score": 79.05774600594049,
+        "baseline_chat_count": 7.68015148461441,
+        "baseline_viewer_count": 874.9371616966226,
+        "baseline_threshold": 18.49747583978311,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 63.74399743441839,
+        "test_score_difference": 94.68067830572166,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 874,
+        "fun_keywords": {
+          "laugh": 25.099999999999994
+        },
+        "test_keyword_counter": {
+          "laugh": 20.0
+        }
+      },
+      "after_openDate": "06:09:35",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "미네티: {:d_47:}{:d_47:}{:d_47:}{:d_47:}",
+        "팩토리얼: 하늘을 봐..",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 그거 천장에 조명 ㅋㅋ",
+        "서선호: 집 칸수 9칸까지 늘리고 집 컨텐츠 해보는것도",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "따따따무: ㅋㅋㅋㅋㅋㅋ",
+        "humananimal: {:m19:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 개웃겨 아",
+        "갱생불가: ㅁㅁㄱㅇㅇ~~ ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: {:mHh:}{:mHh:}{:mHh:}{:mHh:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 천장에 조명 있으면 계속 쳐다보더라 ㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅌㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:04.661088",
+      "fun_score": 79.05774600594049,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.577460059404896,
+        "viewer_trend_score": 10,
+        "final_score": 79.05774600594049,
+        "baseline_chat_count": 7.855655633391804,
+        "baseline_viewer_count": 874.928183687569,
+        "baseline_threshold": 19.0776432279749,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 48.80200238026352,
+        "test_score_difference": 84.42692715667275,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 25.099999999999994
+        },
+        "test_keyword_counter": {
+          "laugh": 20.0
+        }
+      },
+      "after_openDate": "06:09:40",
+      "comment_after_openDate": "06:09:40",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "미네티: {:d_47:}{:d_47:}{:d_47:}{:d_47:}",
+        "팩토리얼: 하늘을 봐..",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 그거 천장에 조명 ㅋㅋ",
+        "서선호: 집 칸수 9칸까지 늘리고 집 컨텐츠 해보는것도",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "따따따무: ㅋㅋㅋㅋㅋㅋ",
+        "humananimal: {:m19:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 개웃겨 아",
+        "갱생불가: ㅁㅁㄱㅇㅇ~~ ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: {:mHh:}{:mHh:}{:mHh:}{:mHh:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 천장에 조명 있으면 계속 쳐다보더라 ㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅌㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:09.666303",
+      "fun_score": 79.16210166679375,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.621016667937454,
+        "viewer_trend_score": 10,
+        "final_score": 79.16210166679375,
+        "baseline_chat_count": 8.029478452423911,
+        "baseline_viewer_count": 874.8522316878422,
+        "baseline_threshold": 19.652252612587812,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.31277960499873,
+        "test_score_difference": 58.99750877673008,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 25,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 27.699999999999992
+        },
+        "test_keyword_counter": {
+          "laugh": 22.0
+        }
+      },
+      "after_openDate": "06:09:45",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 그거 천장에 조명 ㅋㅋ",
+        "서선호: 집 칸수 9칸까지 늘리고 집 컨텐츠 해보는것도",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "따따따무: ㅋㅋㅋㅋㅋㅋ",
+        "humananimal: {:m19:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 개웃겨 아",
+        "갱생불가: ㅁㅁㄱㅇㅇ~~ ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: {:mHh:}{:mHh:}{:mHh:}{:mHh:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 천장에 조명 있으면 계속 쳐다보더라 ㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅌㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아오ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:14.716725",
+      "fun_score": 79.76350398188602,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 32.63503981886024,
+        "viewer_trend_score": 10,
+        "final_score": 79.76350398188602,
+        "baseline_chat_count": 8.19205604884969,
+        "baseline_viewer_count": 874.7770073082727,
+        "baseline_threshold": 20.222356966527105,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.914181920091,
+        "test_score_difference": 52.366308643605485,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 25,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 26.799999999999994
+        },
+        "test_keyword_counter": {
+          "laugh": 21.0
+        }
+      },
+      "after_openDate": "06:09:50",
+      "comment_after_openDate": "06:08:40",
+      "chat_context": [
+        "서선호: 집 칸수 9칸까지 늘리고 집 컨텐츠 해보는것도",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "따따따무: ㅋㅋㅋㅋㅋㅋ",
+        "humananimal: {:m19:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 개웃겨 아",
+        "갱생불가: ㅁㅁㄱㅇㅇ~~ ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: {:mHh:}{:mHh:}{:mHh:}{:mHh:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 천장에 조명 있으면 계속 쳐다보더라 ㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅌㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아오ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "솜냐: ㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뽀롬: 뒤에 박수친다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ배우분들 다 모이네",
+        "솜냐: 커튼콜하신다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:19.745955",
+      "fun_score": 79.44534541474816,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 29.453454147481626,
+        "viewer_trend_score": 10,
+        "final_score": 79.44534541474816,
+        "baseline_chat_count": 8.353076151901709,
+        "baseline_viewer_count": 874.7025035782594,
+        "baseline_threshold": 20.792761154934244,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.59602335295315,
+        "test_score_difference": 52.366308643605485,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 28.999999999999993
+        },
+        "test_keyword_counter": {
+          "laugh": 23.0
+        }
+      },
+      "after_openDate": "06:09:55",
+      "comment_after_openDate": "06:09:55",
+      "chat_context": [
+        "따따따무: ㅋㅋㅋㅋㅋㅋ",
+        "humananimal: {:m19:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 개웃겨 아",
+        "갱생불가: ㅁㅁㄱㅇㅇ~~ ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: {:mHh:}{:mHh:}{:mHh:}{:mHh:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 천장에 조명 있으면 계속 쳐다보더라 ㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅌㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아오ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "솜냐: ㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뽀롬: 뒤에 박수친다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ배우분들 다 모이네",
+        "솜냐: 커튼콜하신다",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 온 세상이ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "미네티: 뫄루먼쇼였어 ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:24.756314",
+      "fun_score": 50.32735092915402,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 35.277328522154825,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 29.525530941843503,
+        "viewer_trend_score": 10,
+        "final_score": 50.32735092915402,
+        "baseline_chat_count": 8.522133682366489,
+        "baseline_viewer_count": 874.6287135939797,
+        "baseline_threshold": 21.35465291214326,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 13.478028867359008,
+        "test_score_difference": 52.366308643605485,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 22.399999999999995,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 18.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:10:00",
+      "comment_after_openDate": "06:10:00",
+      "chat_context": [
+        "포잉이: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 천장에 조명 있으면 계속 쳐다보더라 ㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅌㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아오ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "솜냐: ㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뽀롬: 뒤에 박수친다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ배우분들 다 모이네",
+        "솜냐: 커튼콜하신다",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 온 세상이ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "미네티: 뫄루먼쇼였어 ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: 어떻게만나는거야 ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 뫄루먼쇼 ㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:29.816852",
+      "fun_score": 44.81832227506975,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 22.672744828413215,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.155871022837974,
+        "viewer_trend_score": 10,
+        "final_score": 44.81832227506975,
+        "baseline_chat_count": 8.622511641689417,
+        "baseline_viewer_count": 874.5556305177494,
+        "baseline_threshold": 21.63221135914622,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.969000213274732,
+        "test_score_difference": 52.366308643605485,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 19.199999999999996,
+          "surprise": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 16.0,
+          "surprise": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:10:05",
+      "comment_after_openDate": "06:10:05",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아오ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "솜냐: ㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뽀롬: 뒤에 박수친다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ배우분들 다 모이네",
+        "솜냐: 커튼콜하신다",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 온 세상이ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "미네티: 뫄루먼쇼였어 ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: 어떻게만나는거야 ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 뫄루먼쇼 ㅋㅋ",
+        "뽀롬: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Ol 응: 뫄바"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:34.834912",
+      "fun_score": 49.058102811564936,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 32.53727596854063,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 29.163286257216544,
+        "viewer_trend_score": 10,
+        "final_score": 49.058102811564936,
+        "baseline_chat_count": 8.712347980162033,
+        "baseline_viewer_count": 874.4832475773893,
+        "baseline_threshold": 21.854334301720765,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 12.208780749769922,
+        "test_score_difference": 52.366308643605485,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 19.199999999999996,
+          "surprise": 1.0,
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 16.0,
+          "surprise": 1.0,
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "06:10:10",
+      "comment_after_openDate": "06:10:10",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 아오ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "솜냐: ㅋㅋㅋㅋㅋ",
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뽀롬: 뒤에 박수친다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ배우분들 다 모이네",
+        "솜냐: 커튼콜하신다",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 온 세상이ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "미네티: 뫄루먼쇼였어 ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: 어떻게만나는거야 ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 뫄루먼쇼 ㅋㅋ",
+        "뽀롬: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Ol 응: 뫄바",
+        "박째롱: 빠빠이",
+        "미네티: 뫄바",
+        "팩토리얼: 재밌었숴~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:39.850668",
+      "fun_score": 44.118341486394634,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 20.875251839250797,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 32.24478158731778,
+        "viewer_trend_score": 10,
+        "final_score": 44.118341486394634,
+        "baseline_chat_count": 8.83006368651208,
+        "baseline_viewer_count": 874.4115580655979,
+        "baseline_threshold": 22.11494640404507,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.26901942459962,
+        "test_score_difference": 52.366308643605485,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 14.599999999999998,
+          "surprise": 1.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 12.0,
+          "surprise": 1.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:10:15",
+      "comment_after_openDate": "06:10:15",
+      "chat_context": [
+        "미네티: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뽀롬: 뒤에 박수친다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ배우분들 다 모이네",
+        "솜냐: 커튼콜하신다",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 온 세상이ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "미네티: 뫄루먼쇼였어 ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: 어떻게만나는거야 ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 뫄루먼쇼 ㅋㅋ",
+        "뽀롬: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Ol 응: 뫄바",
+        "박째롱: 빠빠이",
+        "미네티: 뫄바",
+        "팩토리얼: 재밌었숴~",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 오늘 재밌었어용~~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:44.859586",
+      "fun_score": 38.83125168675714,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 8.723931251201398,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 34.05482623716517,
+        "viewer_trend_score": 10,
+        "final_score": 38.83125168675714,
+        "baseline_chat_count": 8.927491676395293,
+        "baseline_viewer_count": 874.3405553393295,
+        "baseline_threshold": 22.32573892893398,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 9.2,
+          "surprise": 1.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "surprise": 1.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:10:20",
+      "comment_after_openDate": "06:10:20",
+      "chat_context": [
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 온 세상이ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "미네티: 뫄루먼쇼였어 ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라라스페이스: 어떻게만나는거야 ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 뫄루먼쇼 ㅋㅋ",
+        "뽀롬: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Ol 응: 뫄바",
+        "박째롱: 빠빠이",
+        "미네티: 뫄바",
+        "팩토리얼: 재밌었숴~",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 오늘 재밌었어용~~",
+        "팩토리얼: ㅇㄱㅇ~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:49.923213",
+      "fun_score": 7.558066929757533,
+      "test_fun_score": 1.3449481102575933,
+      "score_components": {
+        "chat_spike_score": 2.32716376502718,
+        "reaction_score": 1.6049731252207586,
+        "test_reaction_score": 1.3449481102575933,
+        "diversity_score": 45.293512979290746,
+        "viewer_trend_score": 10,
+        "final_score": 7.558066929757533,
+        "baseline_chat_count": 8.985666306135426,
+        "baseline_viewer_count": 874.2702328191788,
+        "baseline_threshold": 22.483861741153923,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "greeting": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:10:25",
+      "comment_after_openDate": "06:10:25",
+      "chat_context": [
+        "와이키키99: 뫄루먼쇼 ㅋㅋ",
+        "뽀롬: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Ol 응: 뫄바",
+        "박째롱: 빠빠이",
+        "미네티: 뫄바",
+        "팩토리얼: 재밌었숴~",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 오늘 재밌었어용~~",
+        "팩토리얼: ㅇㄱㅇ~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:54.942310",
+      "fun_score": 11.939064477520407,
+      "test_fun_score": 2.60560076162625,
+      "score_components": {
+        "chat_spike_score": 3.60842090160342,
+        "reaction_score": 13.937900309637882,
+        "test_reaction_score": 2.60560076162625,
+        "diversity_score": 46.33904978907505,
+        "viewer_trend_score": 10,
+        "final_score": 11.939064477520407,
+        "baseline_chat_count": 8.98580362292265,
+        "baseline_viewer_count": 874.2005839887711,
+        "baseline_threshold": 22.340872626860747,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.380997547762874,
+        "test_score_difference": 1.2606526513686567,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "greeting": 2.0,
+          "excitement": 5.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "greeting": 2.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "06:10:30",
+      "comment_after_openDate": "06:10:30",
+      "chat_context": [
+        "뽀롬: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Ol 응: 뫄바",
+        "박째롱: 빠빠이",
+        "미네티: 뫄바",
+        "팩토리얼: 재밌었숴~",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 오늘 재밌었어용~~",
+        "팩토리얼: ㅇㄱㅇ~",
+        "부정맥 흑막: 캬ㅑ",
+        "뎊뜨: 뫄바뫄바~!~!~!",
+        "와이키키99: 뫄바~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:34:59.947902",
+      "fun_score": 16.558653713001384,
+      "test_fun_score": 1.8597107494868172,
+      "score_components": {
+        "chat_spike_score": 19.516808322217393,
+        "reaction_score": 8.507669490420442,
+        "test_reaction_score": 1.8597107494868172,
+        "diversity_score": 37.23789120877425,
+        "viewer_trend_score": 10,
+        "final_score": 16.558653713001384,
+        "baseline_chat_count": 9.00509962421505,
+        "baseline_viewer_count": 874.1316023941587,
+        "baseline_threshold": 22.24122330479007,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.00058678324385,
+        "test_score_difference": 0.5147626392292239,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 867,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 6.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "06:10:35",
+      "comment_after_openDate": "06:10:35",
+      "chat_context": [
+        "미네티: 뫄바",
+        "팩토리얼: 재밌었숴~",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 오늘 재밌었어용~~",
+        "팩토리얼: ㅇㄱㅇ~",
+        "부정맥 흑막: 캬ㅑ",
+        "뎊뜨: 뫄바뫄바~!~!~!",
+        "와이키키99: 뫄바~",
+        "포잉이: 뫄바~ 짧 두두타도 넘 재밌었당",
+        "메리임: 뫄바뫄바",
+        "카자리: 뫄바~{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 뫄바{:m5:}",
+        "humananimal: {:m19:}{:m33:}{:m1:}{:m1:}{:m1:}{:m5:}",
+        "뽀롬: 굿모닝 굿에프터눈 앤 굿나잇 (꾸벅)",
+        "미네티: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "애애애애옹: 뫄바ㅏㅏ",
+        "웅냥냥웅냥냥: {:m8:}{:m8:}{:m8:}",
+        "팩토리얼: 뫄바뫄바~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:04.954282",
+      "fun_score": 24.075507144381643,
+      "test_fun_score": 2.498280950880967,
+      "score_components": {
+        "chat_spike_score": 33.59143024948444,
+        "reaction_score": 11.142715255155455,
+        "test_reaction_score": 2.498280950880967,
+        "diversity_score": 41.16548955567008,
+        "viewer_trend_score": 10,
+        "final_score": 24.075507144381643,
+        "baseline_chat_count": 9.09127076981507,
+        "baseline_viewer_count": 874.0632816432227,
+        "baseline_threshold": 22.186784288100736,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 16.51744021462411,
+        "test_score_difference": 1.1533328406233738,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "excitement": 6.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:10:40",
+      "comment_after_openDate": "06:10:40",
+      "chat_context": [
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 오늘 재밌었어용~~",
+        "팩토리얼: ㅇㄱㅇ~",
+        "부정맥 흑막: 캬ㅑ",
+        "뎊뜨: 뫄바뫄바~!~!~!",
+        "와이키키99: 뫄바~",
+        "포잉이: 뫄바~ 짧 두두타도 넘 재밌었당",
+        "메리임: 뫄바뫄바",
+        "카자리: 뫄바~{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 뫄바{:m5:}",
+        "humananimal: {:m19:}{:m33:}{:m1:}{:m1:}{:m1:}{:m5:}",
+        "뽀롬: 굿모닝 굿에프터눈 앤 굿나잇 (꾸벅)",
+        "미네티: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "애애애애옹: 뫄바ㅏㅏ",
+        "웅냥냥웅냥냥: {:m8:}{:m8:}{:m8:}",
+        "팩토리얼: 뫄바뫄바~",
+        "뉴캣: 아 배경 진짜 웃기네",
+        "Danyang: {:m111:}{:m111:}{:m111:}{:m111:}{:m111:}{:m111:}",
+        "매운맛케잌: {:m1:}",
+        "슈퍼스타마뫄: 수고하셨어요"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:10.044154",
+      "fun_score": 32.44893200144604,
+      "test_fun_score": 5.065666836374487,
+      "score_components": {
+        "chat_spike_score": 45.7566412912537,
+        "reaction_score": 21.285967314998935,
+        "test_reaction_score": 5.065666836374487,
+        "diversity_score": 39.72653225882197,
+        "viewer_trend_score": 10,
+        "final_score": 32.44893200144604,
+        "baseline_chat_count": 9.195776395840241,
+        "baseline_viewer_count": 873.9860354050807,
+        "baseline_threshold": 22.204878253063903,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 24.890865071688506,
+        "test_score_difference": 3.720718726116894,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "excitement": 7.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 5.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:10:46",
+      "comment_after_openDate": "06:10:40",
+      "chat_context": [
+        "팩토리얼: ㅇㄱㅇ~",
+        "부정맥 흑막: 캬ㅑ",
+        "뎊뜨: 뫄바뫄바~!~!~!",
+        "와이키키99: 뫄바~",
+        "포잉이: 뫄바~ 짧 두두타도 넘 재밌었당",
+        "메리임: 뫄바뫄바",
+        "카자리: 뫄바~{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 뫄바{:m5:}",
+        "humananimal: {:m19:}{:m33:}{:m1:}{:m1:}{:m1:}{:m5:}",
+        "뽀롬: 굿모닝 굿에프터눈 앤 굿나잇 (꾸벅)",
+        "미네티: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "애애애애옹: 뫄바ㅏㅏ",
+        "웅냥냥웅냥냥: {:m8:}{:m8:}{:m8:}",
+        "팩토리얼: 뫄바뫄바~",
+        "뉴캣: 아 배경 진짜 웃기네",
+        "Danyang: {:m111:}{:m111:}{:m111:}{:m111:}{:m111:}{:m111:}",
+        "매운맛케잌: {:m1:}",
+        "슈퍼스타마뫄: 수고하셨어요",
+        "메리임: 오늘도 너무 재밌었다요",
+        "팩토리얼: 오늘도 재밌었숴ㅓ",
+        "고양이전용캔따개: 뫄바ㅏ",
+        "웅냥냥웅냥냥: {:mWw:}"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:15.127604",
+      "fun_score": 60.14133730921788,
+      "test_fun_score": 24.04267822220261,
+      "score_components": {
+        "chat_spike_score": 59.931737594925714,
+        "reaction_score": 92.78214277842696,
+        "test_reaction_score": 24.04267822220261,
+        "diversity_score": 38.37412557973225,
+        "viewer_trend_score": 10,
+        "final_score": 60.14133730921788,
+        "baseline_chat_count": 9.318440857968092,
+        "baseline_viewer_count": 873.9095291858999,
+        "baseline_threshold": 22.303016287973403,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 52.583270379460345,
+        "test_score_difference": 22.697730111945017,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 24,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "excitement": 7.0,
+          "surprise": 1.0,
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "excitement": 5.0,
+          "surprise": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "06:10:51",
+      "comment_after_openDate": "06:10:40",
+      "chat_context": [
+        "부정맥 흑막: 캬ㅑ",
+        "뎊뜨: 뫄바뫄바~!~!~!",
+        "와이키키99: 뫄바~",
+        "포잉이: 뫄바~ 짧 두두타도 넘 재밌었당",
+        "메리임: 뫄바뫄바",
+        "카자리: 뫄바~{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 뫄바{:m5:}",
+        "humananimal: {:m19:}{:m33:}{:m1:}{:m1:}{:m1:}{:m5:}",
+        "뽀롬: 굿모닝 굿에프터눈 앤 굿나잇 (꾸벅)",
+        "미네티: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "애애애애옹: 뫄바ㅏㅏ",
+        "웅냥냥웅냥냥: {:m8:}{:m8:}{:m8:}",
+        "팩토리얼: 뫄바뫄바~",
+        "뉴캣: 아 배경 진짜 웃기네",
+        "Danyang: {:m111:}{:m111:}{:m111:}{:m111:}{:m111:}{:m111:}",
+        "매운맛케잌: {:m1:}",
+        "슈퍼스타마뫄: 수고하셨어요",
+        "메리임: 오늘도 너무 재밌었다요",
+        "팩토리얼: 오늘도 재밌었숴ㅓ",
+        "고양이전용캔따개: 뫄바ㅏ",
+        "웅냥냥웅냥냥: {:mWw:}",
+        "치즈주는제리: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:20.145907",
+      "fun_score": 68.96800031193783,
+      "test_fun_score": 48.89487575071663,
+      "score_components": {
+        "chat_spike_score": 75.3839724414362,
+        "reaction_score": 100,
+        "test_reaction_score": 48.89487575071663,
+        "diversity_score": 35.45212713291546,
+        "viewer_trend_score": 10,
+        "final_score": 68.96800031193783,
+        "baseline_chat_count": 9.459090194548757,
+        "baseline_viewer_count": 873.8337558962991,
+        "baseline_threshold": 22.665507403356923,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 61.4099333821803,
+        "test_score_difference": 47.54992764045904,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "excitement": 6.0,
+          "surprise": 1.0,
+          "laugh": 4.8
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0,
+          "surprise": 1.0,
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "06:10:56",
+      "comment_after_openDate": "06:10:40",
+      "chat_context": [
+        "뎊뜨: 뫄바뫄바~!~!~!",
+        "와이키키99: 뫄바~",
+        "포잉이: 뫄바~ 짧 두두타도 넘 재밌었당",
+        "메리임: 뫄바뫄바",
+        "카자리: 뫄바~{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 뫄바{:m5:}",
+        "humananimal: {:m19:}{:m33:}{:m1:}{:m1:}{:m1:}{:m5:}",
+        "뽀롬: 굿모닝 굿에프터눈 앤 굿나잇 (꾸벅)",
+        "미네티: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "애애애애옹: 뫄바ㅏㅏ",
+        "웅냥냥웅냥냥: {:m8:}{:m8:}{:m8:}",
+        "팩토리얼: 뫄바뫄바~",
+        "뉴캣: 아 배경 진짜 웃기네",
+        "Danyang: {:m111:}{:m111:}{:m111:}{:m111:}{:m111:}{:m111:}",
+        "매운맛케잌: {:m1:}",
+        "슈퍼스타마뫄: 수고하셨어요",
+        "메리임: 오늘도 너무 재밌었다요",
+        "팩토리얼: 오늘도 재밌었숴ㅓ",
+        "고양이전용캔따개: 뫄바ㅏ",
+        "웅냥냥웅냥냥: {:mWw:}",
+        "치즈주는제리: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: 항상 좋은 방송 재미있는 방송 감사합니다",
+        "부정맥 흑막: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:25.154147",
+      "fun_score": 66.69304428565465,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 71.1793309634809,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.62345352088238,
+        "viewer_trend_score": 10,
+        "final_score": 66.69304428565465,
+        "baseline_chat_count": 9.61755211048498,
+        "baseline_viewer_count": 873.7587085148125,
+        "baseline_threshold": 23.109085285421127,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 59.13497735589712,
+        "test_score_difference": 98.65505188974241,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "surprise": 1.0,
+          "laugh": 8.2
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "surprise": 1.0,
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "06:11:01",
+      "comment_after_openDate": "06:10:40",
+      "chat_context": [
+        "카자리: 뫄바~{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 뫄바{:m5:}",
+        "humananimal: {:m19:}{:m33:}{:m1:}{:m1:}{:m1:}{:m5:}",
+        "뽀롬: 굿모닝 굿에프터눈 앤 굿나잇 (꾸벅)",
+        "미네티: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "애애애애옹: 뫄바ㅏㅏ",
+        "웅냥냥웅냥냥: {:m8:}{:m8:}{:m8:}",
+        "팩토리얼: 뫄바뫄바~",
+        "뉴캣: 아 배경 진짜 웃기네",
+        "Danyang: {:m111:}{:m111:}{:m111:}{:m111:}{:m111:}{:m111:}",
+        "매운맛케잌: {:m1:}",
+        "슈퍼스타마뫄: 수고하셨어요",
+        "메리임: 오늘도 너무 재밌었다요",
+        "팩토리얼: 오늘도 재밌었숴ㅓ",
+        "고양이전용캔따개: 뫄바ㅏ",
+        "웅냥냥웅냥냥: {:mWw:}",
+        "치즈주는제리: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: 항상 좋은 방송 재미있는 방송 감사합니다",
+        "부정맥 흑막: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "푸딩소스추가: ㅁ머리짱커",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋ 커여워"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:30.161082",
+      "fun_score": 61.14294390599562,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 58.443158222914434,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 33.435227056841214,
+        "viewer_trend_score": 10,
+        "final_score": 61.14294390599562,
+        "baseline_chat_count": 9.774495961266533,
+        "baseline_viewer_count": 873.6843800872406,
+        "baseline_threshold": 23.526619612643366,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 53.58487697623809,
+        "test_score_difference": 98.65505188974241,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "excitement": 2.0,
+          "laugh": 11.899999999999999,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "excitement": 2.0,
+          "laugh": 10.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:11:06",
+      "comment_after_openDate": "06:11:06",
+      "chat_context": [
+        "뉴캣: 아 배경 진짜 웃기네",
+        "Danyang: {:m111:}{:m111:}{:m111:}{:m111:}{:m111:}{:m111:}",
+        "매운맛케잌: {:m1:}",
+        "슈퍼스타마뫄: 수고하셨어요",
+        "메리임: 오늘도 너무 재밌었다요",
+        "팩토리얼: 오늘도 재밌었숴ㅓ",
+        "고양이전용캔따개: 뫄바ㅏ",
+        "웅냥냥웅냥냥: {:mWw:}",
+        "치즈주는제리: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: 항상 좋은 방송 재미있는 방송 감사합니다",
+        "부정맥 흑막: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "푸딩소스추가: ㅁ머리짱커",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋ 커여워",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: 머뚱",
+        "humananimal: {:m19:}{:m19:}{:m19:}{:m19:}{:m5:}",
+        "지지우우우: 뫄바",
+        "치즈주는제리: {:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 어울려ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박째롱: ㄱㅇㅇ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:35.166476",
+      "fun_score": 67.81123274057735,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 72.62165279391877,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 36.31488983313901,
+        "viewer_trend_score": 10,
+        "final_score": 67.81123274057735,
+        "baseline_chat_count": 9.929936289957599,
+        "baseline_viewer_count": 873.6107637260048,
+        "baseline_threshold": 23.88698399937368,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 60.25316581081982,
+        "test_score_difference": 98.65505188974241,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 28,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 14.299999999999997,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 12.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "06:11:11",
+      "comment_after_openDate": "06:11:11",
+      "chat_context": [
+        "메리임: 오늘도 너무 재밌었다요",
+        "팩토리얼: 오늘도 재밌었숴ㅓ",
+        "고양이전용캔따개: 뫄바ㅏ",
+        "웅냥냥웅냥냥: {:mWw:}",
+        "치즈주는제리: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: 항상 좋은 방송 재미있는 방송 감사합니다",
+        "부정맥 흑막: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "푸딩소스추가: ㅁ머리짱커",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋ 커여워",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: 머뚱",
+        "humananimal: {:m19:}{:m19:}{:m19:}{:m19:}{:m5:}",
+        "지지우우우: 뫄바",
+        "치즈주는제리: {:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 어울려ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박째롱: ㄱㅇㅇ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: {:m33:}{:m33:}{:m33:}{:m33:}",
+        "매운맛케잌: 와 머리커",
+        "Danyang: 머리크다....",
+        "o신시o: ㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:40.174608",
+      "fun_score": 75.59815558176157,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 87.11414317391865,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 33.96791153498188,
+        "viewer_trend_score": 20,
+        "final_score": 75.59815558176157,
+        "baseline_chat_count": 10.103047500299805,
+        "baseline_viewer_count": 873.5378526095097,
+        "baseline_threshold": 24.307778302314407,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 68.04008865200404,
+        "test_score_difference": 98.65505188974241,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 30,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "laugh": 17.899999999999995,
+          "greeting": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 15.0,
+          "greeting": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "06:11:16",
+      "comment_after_openDate": "06:10:40",
+      "chat_context": [
+        "치즈주는제리: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: 항상 좋은 방송 재미있는 방송 감사합니다",
+        "부정맥 흑막: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "푸딩소스추가: ㅁ머리짱커",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋ 커여워",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: 머뚱",
+        "humananimal: {:m19:}{:m19:}{:m19:}{:m19:}{:m5:}",
+        "지지우우우: 뫄바",
+        "치즈주는제리: {:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 어울려ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박째롱: ㄱㅇㅇ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: {:m33:}{:m33:}{:m33:}{:m33:}",
+        "매운맛케잌: 와 머리커",
+        "Danyang: 머리크다....",
+        "o신시o: ㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: ㅔㅔㅔㅔㅔ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: 머리가 좀 크지만 귀어요",
+        "humananimal: {:m33:}{:m33:}{:mHh:}{:m3:}{:m19:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:45.181054",
+      "fun_score": 73.2724510058429,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 81.92750847973561,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 34.05072189961878,
+        "viewer_trend_score": 20,
+        "final_score": 73.2724510058429,
+        "baseline_chat_count": 10.293660305246933,
+        "baseline_viewer_count": 873.4656399815107,
+        "baseline_threshold": 24.79914011665151,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 65.71438407608537,
+        "test_score_difference": 98.65505188974241,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 30,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "laugh": 16.699999999999996,
+          "greeting": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 14.0,
+          "greeting": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "06:11:21",
+      "comment_after_openDate": "06:11:21",
+      "chat_context": [
+        "부정맥 흑막: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "푸딩소스추가: ㅁ머리짱커",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋ 커여워",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: 머뚱",
+        "humananimal: {:m19:}{:m19:}{:m19:}{:m19:}{:m5:}",
+        "지지우우우: 뫄바",
+        "치즈주는제리: {:mHi:}{:mHi:}{:mHi:}",
+        "뉴캣: 어울려ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박째롱: ㄱㅇㅇ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: {:m33:}{:m33:}{:m33:}{:m33:}",
+        "매운맛케잌: 와 머리커",
+        "Danyang: 머리크다....",
+        "o신시o: ㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: ㅔㅔㅔㅔㅔ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: 머리가 좀 크지만 귀어요",
+        "humananimal: {:m33:}{:m33:}{:mHh:}{:m3:}{:m19:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: 딱맞네",
+        "메리임: {:m5:}{:m3:}{:m5:}{:m3:}{:m5:}{:m3:}",
+        "화연화: 와 대두",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:50.229470",
+      "fun_score": 80.75591803128414,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 27.55918031284141,
+        "viewer_trend_score": 20,
+        "final_score": 80.75591803128414,
+        "baseline_chat_count": 10.482447039522667,
+        "baseline_viewer_count": 873.3941191504878,
+        "baseline_threshold": 25.263514434969963,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 73.19785110152661,
+        "test_score_difference": 98.65505188974241,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 39,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "laugh": 15.499999999999996,
+          "greeting": 3.0,
+          "excitement": 6.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 13.0,
+          "greeting": 3.0,
+          "excitement": 4.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:11:26",
+      "comment_after_openDate": "06:10:40",
+      "chat_context": [
+        "뉴캣: 어울려ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박째롱: ㄱㅇㅇ",
+        "saamu: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: {:m33:}{:m33:}{:m33:}{:m33:}",
+        "매운맛케잌: 와 머리커",
+        "Danyang: 머리크다....",
+        "o신시o: ㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: ㅔㅔㅔㅔㅔ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: 머리가 좀 크지만 귀어요",
+        "humananimal: {:m33:}{:m33:}{:mHh:}{:m3:}{:m19:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: 딱맞네",
+        "메리임: {:m5:}{:m3:}{:m5:}{:m3:}{:m5:}{:m3:}",
+        "화연화: 와 대두",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뎊뜨: 뒤에 따봉ㅋㅋㅋㅋㅋㅋ",
+        "saamu: o0o",
+        "포잉이: 아 짱귀여워",
+        "뉴캣: 뫄바뫄바~~",
+        "팩토리얼: 앙!",
+        "민에라: 뫄바",
+        "와이키키99: 뫄바~",
+        "뎊뜨: 뫄바!~~!~!",
+        "메리임: 뫄린이 안녕",
+        "치즈주는제리: {:mWw:}",
+        "슈퍼스타마뫄: 마바 뫄바 잘자여"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:35:55.243289",
+      "fun_score": 80.63486189843132,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.348618984313227,
+        "viewer_trend_score": 20,
+        "final_score": 80.63486189843132,
+        "baseline_chat_count": 10.75564519688404,
+        "baseline_viewer_count": 873.323283489026,
+        "baseline_threshold": 25.79513166142265,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 68.69579742091092,
+        "test_score_difference": 98.14028925051318,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 37,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "laugh": 11.1,
+          "excitement": 6.0,
+          "surprise": 1.0,
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0,
+          "excitement": 4.0,
+          "surprise": 1.0,
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "06:11:31",
+      "comment_after_openDate": "06:11:31",
+      "chat_context": [
+        "o신시o: ㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅁㅁㄱㅇㅇ",
+        "슈퍼스타마뫄: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: ㅔㅔㅔㅔㅔ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "미네티: 머리가 좀 크지만 귀어요",
+        "humananimal: {:m33:}{:m33:}{:mHh:}{:m3:}{:m19:}",
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: 딱맞네",
+        "메리임: {:m5:}{:m3:}{:m5:}{:m3:}{:m5:}{:m3:}",
+        "화연화: 와 대두",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뎊뜨: 뒤에 따봉ㅋㅋㅋㅋㅋㅋ",
+        "saamu: o0o",
+        "포잉이: 아 짱귀여워",
+        "뉴캣: 뫄바뫄바~~",
+        "팩토리얼: 앙!",
+        "민에라: 뫄바",
+        "와이키키99: 뫄바~",
+        "뎊뜨: 뫄바!~~!~!",
+        "메리임: 뫄린이 안녕",
+        "치즈주는제리: {:mWw:}",
+        "슈퍼스타마뫄: 마바 뫄바 잘자여",
+        "메리임: 뫄바뫄바",
+        "뉴캣: {:m1:}{:m1:}{:m1:}",
+        "갱생불가: 뫄바 귀여워",
+        "웅냥냥웅냥냥: {:mWw:}",
+        "humananimal: {:m1:}{:m1:}{:m8:}{:m8:}{:m8:}{:mQ:}{:m3:}",
+        "팩토리얼: 마뫄가 더 바보"
+      ]
+    },
+    {
+      "timestamp": "2026-01-15T04:36:00.248978",
+      "fun_score": 80.57051676843209,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.705167684320905,
+        "viewer_trend_score": 20,
+        "final_score": 80.57051676843209,
+        "baseline_chat_count": 11.007066115897889,
+        "baseline_viewer_count": 873.2531264332011,
+        "baseline_threshold": 26.32049627709319,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 64.0118630554307,
+        "test_score_difference": 98.14028925051318,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 40,
+        "viewer_count": 866,
+        "fun_keywords": {
+          "excitement": 7.0,
+          "laugh": 8.4,
+          "surprise": 2.0,
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 5.0,
+          "laugh": 7.0,
+          "surprise": 2.0,
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "06:11:36",
+      "comment_after_openDate": "06:11:36",
+      "chat_context": [
+        "포잉이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "갱생불가: 딱맞네",
+        "메리임: {:m5:}{:m3:}{:m5:}{:m3:}{:m5:}{:m3:}",
+        "화연화: 와 대두",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뎊뜨: 뒤에 따봉ㅋㅋㅋㅋㅋㅋ",
+        "saamu: o0o",
+        "포잉이: 아 짱귀여워",
+        "뉴캣: 뫄바뫄바~~",
+        "팩토리얼: 앙!",
+        "민에라: 뫄바",
+        "와이키키99: 뫄바~",
+        "뎊뜨: 뫄바!~~!~!",
+        "메리임: 뫄린이 안녕",
+        "치즈주는제리: {:mWw:}",
+        "슈퍼스타마뫄: 마바 뫄바 잘자여",
+        "메리임: 뫄바뫄바",
+        "뉴캣: {:m1:}{:m1:}{:m1:}",
+        "갱생불가: 뫄바 귀여워",
+        "웅냥냥웅냥냥: {:mWw:}",
+        "humananimal: {:m1:}{:m1:}{:m8:}{:m8:}{:m8:}{:mQ:}{:m3:}",
+        "팩토리얼: 마뫄가 더 바보",
+        "슈퍼스타마뫄: 수고하셨어요",
+        "포잉이: ?",
+        "루 가: 뫄바",
+        "뉴캣: 그래라...",
+        "Danyang: {:mBO:}{:mBO:}{:mBO:}{:mBO:}{:mBO:}",
+        "웅냥냥웅냥냥: ㅏㅏㅏ",
+        "슈퍼스타마뫄: {:mHi:}{:mHi:}{:m1:}{:m1:}{:mHi:}",
+        "마모아1: 마뫄바보"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

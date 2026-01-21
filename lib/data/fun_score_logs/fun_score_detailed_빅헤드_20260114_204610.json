@@ -1,0 +1,1138 @@
+{
+  "channel_id": "bighead033",
+  "channel_name": "빅헤드",
+  "save_timestamp": "2026-01-14T20:46:10.168598",
+  "total_logs": 19,
+  "logs": [
+    {
+      "timestamp": "2026-01-14T20:44:39.458159",
+      "fun_score": 9.47793622703708,
+      "test_fun_score": 0.20841595847842703,
+      "score_components": {
+        "chat_spike_score": 7.272438529187236,
+        "reaction_score": 0.20841595847842703,
+        "test_reaction_score": 0.20841595847842703,
+        "diversity_score": 31.428141013592956,
+        "viewer_trend_score": 20,
+        "final_score": 9.47793622703708,
+        "baseline_chat_count": 8.814410172759317,
+        "baseline_viewer_count": 1565.8566498057264,
+        "baseline_threshold": 13.35219432137514,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5165677134241928,
+        "test_score_difference": 0.1413459323851314,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1546,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:11:54",
+      "comment_after_openDate": "03:11:54",
+      "chat_context": [
+        "djaxogns: 드라이버가 충돌나면서 꺼지는 거 같긴한데 방법이 없음",
+        "라비렌스: 아 제조사?",
+        "하양아: 지금도 두개잖아...아 인텔있구나",
+        "머사62: 이미 2개 아닌가?",
+        "월중소영: 이미두개야",
+        "하양아: 인텔 아크 있음",
+        "월중소영: 인텔있긴한데..",
+        "머사62: 아하",
+        "라비렌스: msi 같은 제조사 말하는거",
+        "우롸랄라: 독점 맛좀 보쉴?",
+        "elliz: 그러면 더 가격 오를거 같은데 ㅋㅋㅋ",
+        "킹씨: 그래픽 칩셋 제조사 1개로 통합하면 가격이..",
+        "하양아: AMD 엔비디아 아크"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:44:44.527569",
+      "fun_score": 9.0445359803032,
+      "test_fun_score": 0.20734904349614267,
+      "score_components": {
+        "chat_spike_score": 7.186519685108612,
+        "reaction_score": 0.20734904349614267,
+        "test_reaction_score": 0.20734904349614267,
+        "diversity_score": 27.48397408955481,
+        "viewer_trend_score": 20,
+        "final_score": 9.0445359803032,
+        "baseline_chat_count": 8.854508123304281,
+        "baseline_viewer_count": 1565.6664231005875,
+        "baseline_threshold": 13.315078928831381,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0831674666903126,
+        "test_score_difference": 0.14027901740284704,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1546,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:11:59",
+      "comment_after_openDate": "03:11:59",
+      "chat_context": [
+        "하양아: 지금도 두개잖아...아 인텔있구나",
+        "머사62: 이미 2개 아닌가?",
+        "월중소영: 이미두개야",
+        "하양아: 인텔 아크 있음",
+        "월중소영: 인텔있긴한데..",
+        "머사62: 아하",
+        "라비렌스: msi 같은 제조사 말하는거",
+        "우롸랄라: 독점 맛좀 보쉴?",
+        "elliz: 그러면 더 가격 오를거 같은데 ㅋㅋㅋ",
+        "킹씨: 그래픽 칩셋 제조사 1개로 통합하면 가격이..",
+        "하양아: AMD 엔비디아 아크",
+        "킹씨: 엄....",
+        "머사62: 제조사 통일되면 가격 감당이..."
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:44:49.544533",
+      "fun_score": 8.3720944455773,
+      "test_fun_score": 0.20630713776702286,
+      "score_components": {
+        "chat_spike_score": 4.589420498011681,
+        "reaction_score": 0.20630713776702286,
+        "test_reaction_score": 0.20630713776702286,
+        "diversity_score": 32.44963080141935,
+        "viewer_trend_score": 20,
+        "final_score": 8.3720944455773,
+        "baseline_chat_count": 8.894221935483026,
+        "baseline_viewer_count": 1565.4780187672839,
+        "baseline_threshold": 13.27416712738448,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.41072593196441254,
+        "test_score_difference": 0.13923711167372724,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 1546,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:12:04",
+      "comment_after_openDate": "03:12:04",
+      "chat_context": [
+        "하양아: 인텔 아크 있음",
+        "월중소영: 인텔있긴한데..",
+        "머사62: 아하",
+        "라비렌스: msi 같은 제조사 말하는거",
+        "우롸랄라: 독점 맛좀 보쉴?",
+        "elliz: 그러면 더 가격 오를거 같은데 ㅋㅋㅋ",
+        "킹씨: 그래픽 칩셋 제조사 1개로 통합하면 가격이..",
+        "하양아: AMD 엔비디아 아크",
+        "킹씨: 엄....",
+        "머사62: 제조사 통일되면 가격 감당이...",
+        "월중소영: 사실상...제조사로 보기도어렵..."
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:44:54.550998",
+      "fun_score": 8.3698515786343,
+      "test_fun_score": 0.20578342514143763,
+      "score_components": {
+        "chat_spike_score": 4.566657459393829,
+        "reaction_score": 0.20578342514143763,
+        "test_reaction_score": 0.20578342514143763,
+        "diversity_score": 32.53120694364647,
+        "viewer_trend_score": 20,
+        "final_score": 8.3698515786343,
+        "baseline_chat_count": 8.9143952893411,
+        "baseline_viewer_count": 1565.2914193474933,
+        "baseline_threshold": 13.227205271092767,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.40848306502141263,
+        "test_score_difference": 0.138713399048142,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 1546,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:12:09",
+      "comment_after_openDate": "03:12:09",
+      "chat_context": [
+        "월중소영: 인텔있긴한데..",
+        "머사62: 아하",
+        "라비렌스: msi 같은 제조사 말하는거",
+        "우롸랄라: 독점 맛좀 보쉴?",
+        "elliz: 그러면 더 가격 오를거 같은데 ㅋㅋㅋ",
+        "킹씨: 그래픽 칩셋 제조사 1개로 통합하면 가격이..",
+        "하양아: AMD 엔비디아 아크",
+        "킹씨: 엄....",
+        "머사62: 제조사 통일되면 가격 감당이...",
+        "월중소영: 사실상...제조사로 보기도어렵...",
+        "라비렌스: 근데 제조사 1개에도 하급 중급 상급 최상급 막 나눠서 내서"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:44:59.620378",
+      "fun_score": 10.143995041269257,
+      "test_fun_score": 0.9798652850761086,
+      "score_components": {
+        "chat_spike_score": 8.705228728484215,
+        "reaction_score": 0.9798652850761086,
+        "test_reaction_score": 0.9798652850761086,
+        "diversity_score": 29.32682527928528,
+        "viewer_trend_score": 20,
+        "final_score": 10.143995041269257,
+        "baseline_chat_count": 8.934375382469211,
+        "baseline_viewer_count": 1565.1066075501442,
+        "baseline_threshold": 13.180671822719015,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.182626527656369,
+        "test_score_difference": 0.912795258982813,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1546,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "03:12:14",
+      "comment_after_openDate": "03:12:14",
+      "chat_context": [
+        "머사62: 아하",
+        "라비렌스: msi 같은 제조사 말하는거",
+        "우롸랄라: 독점 맛좀 보쉴?",
+        "elliz: 그러면 더 가격 오를거 같은데 ㅋㅋㅋ",
+        "킹씨: 그래픽 칩셋 제조사 1개로 통합하면 가격이..",
+        "하양아: AMD 엔비디아 아크",
+        "킹씨: 엄....",
+        "머사62: 제조사 통일되면 가격 감당이...",
+        "월중소영: 사실상...제조사로 보기도어렵...",
+        "라비렌스: 근데 제조사 1개에도 하급 중급 상급 최상급 막 나눠서 내서",
+        "하양아: 우주 기업 ㄷㄷ",
+        "djaxogns: 제조사 통일이면 가격이 지금보다 2배는 뛰지",
+        "우롸랄라: 아라사카",
+        "우롸랄라: 밀리테크 ㄷㄷㄷ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:04.627240",
+      "fun_score": 14.650338971364016,
+      "test_fun_score": 4.04238004353925,
+      "score_components": {
+        "chat_spike_score": 16.06886841415975,
+        "reaction_score": 4.04238004353925,
+        "test_reaction_score": 4.04238004353925,
+        "diversity_score": 32.06634171930353,
+        "viewer_trend_score": 20,
+        "final_score": 14.650338971364016,
+        "baseline_chat_count": 8.982904066305155,
+        "baseline_viewer_count": 1564.9235662498138,
+        "baseline_threshold": 13.151580459152726,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.688970457751129,
+        "test_score_difference": 3.9753100174459544,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "laugh": 2.0,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "03:12:19",
+      "comment_after_openDate": "03:12:19",
+      "chat_context": [
+        "elliz: 그러면 더 가격 오를거 같은데 ㅋㅋㅋ",
+        "킹씨: 그래픽 칩셋 제조사 1개로 통합하면 가격이..",
+        "하양아: AMD 엔비디아 아크",
+        "킹씨: 엄....",
+        "머사62: 제조사 통일되면 가격 감당이...",
+        "월중소영: 사실상...제조사로 보기도어렵...",
+        "라비렌스: 근데 제조사 1개에도 하급 중급 상급 최상급 막 나눠서 내서",
+        "하양아: 우주 기업 ㄷㄷ",
+        "djaxogns: 제조사 통일이면 가격이 지금보다 2배는 뛰지",
+        "우롸랄라: 아라사카",
+        "우롸랄라: 밀리테크 ㄷㄷㄷ",
+        "블베쉐잌: 엔비디아 이제 신제품 발표 안 하던데 평범한 컴퓨터용",
+        "월중소영: 기판만 가져와서 쿨러만 솔루션하는정도인데뭐",
+        "킹씨: ㄷㄷㄷㄷ",
+        "달콤한 버터: ㅋㅋㅋㅋ",
+        "하양아: 제조국가 달"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:09.654298",
+      "fun_score": 15.701464100662282,
+      "test_fun_score": 9.238058285064357,
+      "score_components": {
+        "chat_spike_score": 12.771308341101683,
+        "reaction_score": 12.90371182888185,
+        "test_reaction_score": 9.238058285064357,
+        "diversity_score": 30.832617985019695,
+        "viewer_trend_score": 20,
+        "final_score": 15.701464100662282,
+        "baseline_chat_count": 9.050127845349952,
+        "baseline_viewer_count": 1564.9147184851406,
+        "baseline_threshold": 13.16593856569971,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.740095587049394,
+        "test_score_difference": 9.170988258971061,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1546,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 3.4000000000000004
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "03:12:24",
+      "comment_after_openDate": "03:12:24",
+      "chat_context": [
+        "킹씨: 엄....",
+        "머사62: 제조사 통일되면 가격 감당이...",
+        "월중소영: 사실상...제조사로 보기도어렵...",
+        "라비렌스: 근데 제조사 1개에도 하급 중급 상급 최상급 막 나눠서 내서",
+        "하양아: 우주 기업 ㄷㄷ",
+        "djaxogns: 제조사 통일이면 가격이 지금보다 2배는 뛰지",
+        "우롸랄라: 아라사카",
+        "우롸랄라: 밀리테크 ㄷㄷㄷ",
+        "블베쉐잌: 엔비디아 이제 신제품 발표 안 하던데 평범한 컴퓨터용",
+        "월중소영: 기판만 가져와서 쿨러만 솔루션하는정도인데뭐",
+        "킹씨: ㄷㄷㄷㄷ",
+        "달콤한 버터: ㅋㅋㅋㅋ",
+        "하양아: 제조국가 달",
+        "월중소영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:14.659724",
+      "fun_score": 18.263833279941544,
+      "test_fun_score": 15.034875765430558,
+      "score_components": {
+        "chat_spike_score": 12.52549328486342,
+        "reaction_score": 20.709374942155154,
+        "test_reaction_score": 15.034875765430558,
+        "diversity_score": 34.14548819106457,
+        "viewer_trend_score": 20,
+        "final_score": 18.263833279941544,
+        "baseline_chat_count": 9.1071276205915,
+        "baseline_viewer_count": 1564.733515482053,
+        "baseline_threshold": 13.19022890032465,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.302464766328656,
+        "test_score_difference": 14.967805739337262,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 3.4000000000000004,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 3.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "03:12:29",
+      "comment_after_openDate": "03:12:29",
+      "chat_context": [
+        "월중소영: 사실상...제조사로 보기도어렵...",
+        "라비렌스: 근데 제조사 1개에도 하급 중급 상급 최상급 막 나눠서 내서",
+        "하양아: 우주 기업 ㄷㄷ",
+        "djaxogns: 제조사 통일이면 가격이 지금보다 2배는 뛰지",
+        "우롸랄라: 아라사카",
+        "우롸랄라: 밀리테크 ㄷㄷㄷ",
+        "블베쉐잌: 엔비디아 이제 신제품 발표 안 하던데 평범한 컴퓨터용",
+        "월중소영: 기판만 가져와서 쿨러만 솔루션하는정도인데뭐",
+        "킹씨: ㄷㄷㄷㄷ",
+        "달콤한 버터: ㅋㅋㅋㅋ",
+        "하양아: 제조국가 달",
+        "월중소영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "Dalek Caan: 뭣",
+        "움파루움파: 엔비디아 글카 안만든다드만"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:19.725717",
+      "fun_score": 41.604265408874234,
+      "test_fun_score": 62.108863544992154,
+      "score_components": {
+        "chat_spike_score": 18.396584358490262,
+        "reaction_score": 95.0461131029849,
+        "test_reaction_score": 62.108863544992154,
+        "diversity_score": 33.11968516658147,
+        "viewer_trend_score": 10,
+        "final_score": 41.604265408874234,
+        "baseline_chat_count": 9.163581337986233,
+        "baseline_viewer_count": 1564.726488403735,
+        "baseline_threshold": 13.238834030281378,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 33.642896895261345,
+        "test_score_difference": 62.04179351889886,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 5.800000000000001,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 5.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "03:12:34",
+      "comment_after_openDate": "03:12:34",
+      "chat_context": [
+        "라비렌스: 근데 제조사 1개에도 하급 중급 상급 최상급 막 나눠서 내서",
+        "하양아: 우주 기업 ㄷㄷ",
+        "djaxogns: 제조사 통일이면 가격이 지금보다 2배는 뛰지",
+        "우롸랄라: 아라사카",
+        "우롸랄라: 밀리테크 ㄷㄷㄷ",
+        "블베쉐잌: 엔비디아 이제 신제품 발표 안 하던데 평범한 컴퓨터용",
+        "월중소영: 기판만 가져와서 쿨러만 솔루션하는정도인데뭐",
+        "킹씨: ㄷㄷㄷㄷ",
+        "달콤한 버터: ㅋㅋㅋㅋ",
+        "하양아: 제조국가 달",
+        "월중소영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "Dalek Caan: 뭣",
+        "움파루움파: 엔비디아 글카 안만든다드만",
+        "홀드킬: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "월중소영: 글카 장당 2천만원씩하긋네",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:24.736867",
+      "fun_score": 44.68795279286176,
+      "test_fun_score": 69.06646034610988,
+      "score_components": {
+        "chat_spike_score": 21.75474453466164,
+        "reaction_score": 100,
+        "test_reaction_score": 69.06646034610988,
+        "diversity_score": 33.9831775226402,
+        "viewer_trend_score": 10,
+        "final_score": 44.68795279286176,
+        "baseline_chat_count": 9.238654228768326,
+        "baseline_viewer_count": 1564.7195286448273,
+        "baseline_threshold": 13.510574862888298,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 36.72658427924887,
+        "test_score_difference": 68.99939032001659,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 5.800000000000001,
+          "surprise": 1.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 5.0,
+          "surprise": 1.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "03:12:39",
+      "comment_after_openDate": "03:12:34",
+      "chat_context": [
+        "하양아: 우주 기업 ㄷㄷ",
+        "djaxogns: 제조사 통일이면 가격이 지금보다 2배는 뛰지",
+        "우롸랄라: 아라사카",
+        "우롸랄라: 밀리테크 ㄷㄷㄷ",
+        "블베쉐잌: 엔비디아 이제 신제품 발표 안 하던데 평범한 컴퓨터용",
+        "월중소영: 기판만 가져와서 쿨러만 솔루션하는정도인데뭐",
+        "킹씨: ㄷㄷㄷㄷ",
+        "달콤한 버터: ㅋㅋㅋㅋ",
+        "하양아: 제조국가 달",
+        "월중소영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "Dalek Caan: 뭣",
+        "움파루움파: 엔비디아 글카 안만든다드만",
+        "홀드킬: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "월중소영: 글카 장당 2천만원씩하긋네",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "블베쉐잌: 엔비디아 이제 ai용 글카만 만든데",
+        "굴낙지: 그거 완전 빨개지는 길아니냐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:29.745608",
+      "fun_score": 20.943458601301906,
+      "test_fun_score": 19.813712860228378,
+      "score_components": {
+        "chat_spike_score": 11.660826038412758,
+        "reaction_score": 35.8595565151858,
+        "test_reaction_score": 19.813712860228378,
+        "diversity_score": 34.38219929460424,
+        "viewer_trend_score": 10,
+        "final_score": 20.943458601301906,
+        "baseline_chat_count": 9.322587921256725,
+        "baseline_viewer_count": 1564.7126355604098,
+        "baseline_threshold": 13.809254143457443,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 12.982090087689018,
+        "test_score_difference": 19.746642834135084,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 5.800000000000001,
+          "surprise": 1.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 5.0,
+          "surprise": 1.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "03:12:44",
+      "comment_after_openDate": "03:12:44",
+      "chat_context": [
+        "블베쉐잌: 엔비디아 이제 신제품 발표 안 하던데 평범한 컴퓨터용",
+        "월중소영: 기판만 가져와서 쿨러만 솔루션하는정도인데뭐",
+        "킹씨: ㄷㄷㄷㄷ",
+        "달콤한 버터: ㅋㅋㅋㅋ",
+        "하양아: 제조국가 달",
+        "월중소영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "Dalek Caan: 뭣",
+        "움파루움파: 엔비디아 글카 안만든다드만",
+        "홀드킬: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "월중소영: 글카 장당 2천만원씩하긋네",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "블베쉐잌: 엔비디아 이제 ai용 글카만 만든데",
+        "굴낙지: 그거 완전 빨개지는 길아니냐",
+        "라비렌스: Windows 키 + Ctrl + Shift + B << 요게 그래픽 재시작 인가 그럴거임 가끔 화면 멈추면 해보셈"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:34.751654",
+      "fun_score": 31.912868746540465,
+      "test_fun_score": 39.94348583740386,
+      "score_components": {
+        "chat_spike_score": 9.35980679741629,
+        "reaction_score": 73.87458117046309,
+        "test_reaction_score": 39.94348583740386,
+        "diversity_score": 40.38581336564211,
+        "viewer_trend_score": 10,
+        "final_score": 31.912868746540465,
+        "baseline_chat_count": 9.376977528971086,
+        "baseline_viewer_count": 1564.7058085117412,
+        "baseline_threshold": 13.877599822163592,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 23.95150023292758,
+        "test_score_difference": 39.859293974395484,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "laugh": 7.0,
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:12:49",
+      "comment_after_openDate": "03:12:34",
+      "chat_context": [
+        "월중소영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋ",
+        "Dalek Caan: 뭣",
+        "움파루움파: 엔비디아 글카 안만든다드만",
+        "홀드킬: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "월중소영: 글카 장당 2천만원씩하긋네",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "블베쉐잌: 엔비디아 이제 ai용 글카만 만든데",
+        "굴낙지: 그거 완전 빨개지는 길아니냐",
+        "라비렌스: Windows 키 + Ctrl + Shift + B << 요게 그래픽 재시작 인가 그럴거임 가끔 화면 멈추면 해보셈",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "djaxogns: 지금 세상돌아가는 거 보면 얼마 안남았을듯 ㅋㅋ",
+        "Oliver Tree: 오...",
+        "피누스: ㅇㅈ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:39.758089",
+      "fun_score": 42.38275621717722,
+      "test_fun_score": 58.286814913261594,
+      "score_components": {
+        "chat_spike_score": 16.7701136946185,
+        "reaction_score": 98.03592705934882,
+        "test_reaction_score": 58.286814913261594,
+        "diversity_score": 39.25426936794245,
+        "viewer_trend_score": 10,
+        "final_score": 42.38275621717722,
+        "baseline_chat_count": 9.421266084243541,
+        "baseline_viewer_count": 1564.6990468661988,
+        "baseline_threshold": 14.050377698459123,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 34.01290463854292,
+        "test_score_difference": 58.08103148812015,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "surprise": 2.0,
+          "laugh": 7.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 2.0,
+          "laugh": 6.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:12:54",
+      "comment_after_openDate": "03:12:34",
+      "chat_context": [
+        "Dalek Caan: 뭣",
+        "움파루움파: 엔비디아 글카 안만든다드만",
+        "홀드킬: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "월중소영: 글카 장당 2천만원씩하긋네",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "블베쉐잌: 엔비디아 이제 ai용 글카만 만든데",
+        "굴낙지: 그거 완전 빨개지는 길아니냐",
+        "라비렌스: Windows 키 + Ctrl + Shift + B << 요게 그래픽 재시작 인가 그럴거임 가끔 화면 멈추면 해보셈",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "djaxogns: 지금 세상돌아가는 거 보면 얼마 안남았을듯 ㅋㅋ",
+        "Oliver Tree: 오...",
+        "피누스: ㅇㅈ",
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅇㅈ",
+        "라비렌스: xbox ps 멈춰",
+        "하양아: 진짜 씹인정",
+        "달콤한 버터: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:44.764743",
+      "fun_score": 22.251314497668304,
+      "test_fun_score": 18.024838049638934,
+      "score_components": {
+        "chat_spike_score": 16.350930304072588,
+        "reaction_score": 32.54746814823082,
+        "test_reaction_score": 18.024838049638934,
+        "diversity_score": 36.29155416366393,
+        "viewer_trend_score": 10,
+        "final_score": 22.251314497668304,
+        "baseline_chat_count": 9.493870355156488,
+        "baseline_viewer_count": 1564.6923499972206,
+        "baseline_threshold": 14.32180188466844,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 13.881462919034004,
+        "test_score_difference": 17.819054624497497,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "laugh": 5.8,
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "03:12:59",
+      "comment_after_openDate": "03:12:59",
+      "chat_context": [
+        "월중소영: 글카 장당 2천만원씩하긋네",
+        "하양아: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "블베쉐잌: 엔비디아 이제 ai용 글카만 만든데",
+        "굴낙지: 그거 완전 빨개지는 길아니냐",
+        "라비렌스: Windows 키 + Ctrl + Shift + B << 요게 그래픽 재시작 인가 그럴거임 가끔 화면 멈추면 해보셈",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "djaxogns: 지금 세상돌아가는 거 보면 얼마 안남았을듯 ㅋㅋ",
+        "Oliver Tree: 오...",
+        "피누스: ㅇㅈ",
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅇㅈ",
+        "라비렌스: xbox ps 멈춰",
+        "하양아: 진짜 씹인정",
+        "달콤한 버터: ㅋㅋㅋㅋㅋㅋ",
+        "183의 맛: 탈콥 램 가격은 왜 안오름",
+        "머사62: 엑박 플스는 쳐낼만하다",
+        "헤귁: 아라사카는 닌텐도 스위치 쓰라고할듯"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:49.773279",
+      "fun_score": 43.11964911805704,
+      "test_fun_score": 46.11935810954898,
+      "score_components": {
+        "chat_spike_score": 39.55465070378611,
+        "reaction_score": 66.22258557534617,
+        "test_reaction_score": 46.11935810954898,
+        "diversity_score": 39.5328062874944,
+        "viewer_trend_score": 10,
+        "final_score": 43.11964911805704,
+        "baseline_chat_count": 9.565779077154088,
+        "baseline_viewer_count": 1564.6857172842474,
+        "baseline_threshold": 14.397766615500979,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 34.749797539422744,
+        "test_score_difference": 45.91357468440754,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 4.6000000000000005,
+          "excitement": 3.0,
+          "surprise": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 4.0,
+          "excitement": 3.0,
+          "surprise": 2.0
+        }
+      },
+      "after_openDate": "03:13:04",
+      "comment_after_openDate": "03:12:34",
+      "chat_context": [
+        "블베쉐잌: 엔비디아 이제 ai용 글카만 만든데",
+        "굴낙지: 그거 완전 빨개지는 길아니냐",
+        "라비렌스: Windows 키 + Ctrl + Shift + B << 요게 그래픽 재시작 인가 그럴거임 가끔 화면 멈추면 해보셈",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "djaxogns: 지금 세상돌아가는 거 보면 얼마 안남았을듯 ㅋㅋ",
+        "Oliver Tree: 오...",
+        "피누스: ㅇㅈ",
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅇㅈ",
+        "라비렌스: xbox ps 멈춰",
+        "하양아: 진짜 씹인정",
+        "달콤한 버터: ㅋㅋㅋㅋㅋㅋ",
+        "183의 맛: 탈콥 램 가격은 왜 안오름",
+        "머사62: 엑박 플스는 쳐낼만하다",
+        "헤귁: 아라사카는 닌텐도 스위치 쓰라고할듯",
+        "A132334158: 3단 합체 로봇이 더 빠르겠따",
+        "갈비냉면1인분: 게임계의 USB C 가 나와야한다",
+        "월중소영: 완전 공산주의..",
+        "치지직늅: 너드기어 만들어...",
+        "기와이: 그러다가 독재 해서 가격을 ㅁㅊ듯이 올리면 어떻게 할건데",
+        "머사62: 걍 pc로 겜 내라고!!!",
+        "우롸랄라: 독과점 맛으로 글카 1억 되는거 아이냐"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:54.778807",
+      "fun_score": 41.465772243546006,
+      "test_fun_score": 36.6336618061766,
+      "score_components": {
+        "chat_spike_score": 44.52834004596045,
+        "reaction_score": 53.81146130510056,
+        "test_reaction_score": 36.6336618061766,
+        "diversity_score": 37.84580831333637,
+        "viewer_trend_score": 10,
+        "final_score": 41.465772243546006,
+        "baseline_chat_count": 9.684898913594953,
+        "baseline_viewer_count": 1564.6791481126643,
+        "baseline_threshold": 14.672922249875466,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 33.0959206649117,
+        "test_score_difference": 36.42787838103516,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "laugh": 4.6000000000000005,
+          "excitement": 3.0,
+          "surprise": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "excitement": 3.0,
+          "surprise": 2.0
+        }
+      },
+      "after_openDate": "03:13:09",
+      "comment_after_openDate": "03:13:09",
+      "chat_context": [
+        "라비렌스: Windows 키 + Ctrl + Shift + B << 요게 그래픽 재시작 인가 그럴거임 가끔 화면 멈추면 해보셈",
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "djaxogns: 지금 세상돌아가는 거 보면 얼마 안남았을듯 ㅋㅋ",
+        "Oliver Tree: 오...",
+        "피누스: ㅇㅈ",
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅇㅈ",
+        "라비렌스: xbox ps 멈춰",
+        "하양아: 진짜 씹인정",
+        "달콤한 버터: ㅋㅋㅋㅋㅋㅋ",
+        "183의 맛: 탈콥 램 가격은 왜 안오름",
+        "머사62: 엑박 플스는 쳐낼만하다",
+        "헤귁: 아라사카는 닌텐도 스위치 쓰라고할듯",
+        "A132334158: 3단 합체 로봇이 더 빠르겠따",
+        "갈비냉면1인분: 게임계의 USB C 가 나와야한다",
+        "월중소영: 완전 공산주의..",
+        "치지직늅: 너드기어 만들어...",
+        "기와이: 그러다가 독재 해서 가격을 ㅁㅊ듯이 올리면 어떻게 할건데",
+        "머사62: 걍 pc로 겜 내라고!!!",
+        "우롸랄라: 독과점 맛으로 글카 1억 되는거 아이냐",
+        "엔9: ㅇㅈ",
+        "핑거스틱: 통일된 그래픽 카드 성능이 gtx 980이면 어떠캐",
+        "라비렌스: 탈콥 램 가격은 이미 올랐다는거임"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:45:59.817871",
+      "fun_score": 39.66652174444782,
+      "test_fun_score": 34.17070890768528,
+      "score_components": {
+        "chat_spike_score": 42.42774359215201,
+        "reaction_score": 50.307990543086156,
+        "test_reaction_score": 34.17070890768528,
+        "diversity_score": 39.81639965053571,
+        "viewer_trend_score": 10,
+        "final_score": 39.66652174444782,
+        "baseline_chat_count": 9.812457582002713,
+        "baseline_viewer_count": 1564.672641873745,
+        "baseline_threshold": 14.92959775281483,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 29.522526703178563,
+        "test_score_difference": 33.19084362260917,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 1564,
+        "fun_keywords": {
+          "laugh": 4.6000000000000005,
+          "excitement": 3.0,
+          "surprise": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "excitement": 3.0,
+          "surprise": 2.0
+        }
+      },
+      "after_openDate": "03:13:14",
+      "comment_after_openDate": "03:13:14",
+      "chat_context": [
+        "라비렌스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "djaxogns: 지금 세상돌아가는 거 보면 얼마 안남았을듯 ㅋㅋ",
+        "Oliver Tree: 오...",
+        "피누스: ㅇㅈ",
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅇㅈ",
+        "라비렌스: xbox ps 멈춰",
+        "하양아: 진짜 씹인정",
+        "달콤한 버터: ㅋㅋㅋㅋㅋㅋ",
+        "183의 맛: 탈콥 램 가격은 왜 안오름",
+        "머사62: 엑박 플스는 쳐낼만하다",
+        "헤귁: 아라사카는 닌텐도 스위치 쓰라고할듯",
+        "A132334158: 3단 합체 로봇이 더 빠르겠따",
+        "갈비냉면1인분: 게임계의 USB C 가 나와야한다",
+        "월중소영: 완전 공산주의..",
+        "치지직늅: 너드기어 만들어...",
+        "기와이: 그러다가 독재 해서 가격을 ㅁㅊ듯이 올리면 어떻게 할건데",
+        "머사62: 걍 pc로 겜 내라고!!!",
+        "우롸랄라: 독과점 맛으로 글카 1억 되는거 아이냐",
+        "엔9: ㅇㅈ",
+        "핑거스틱: 통일된 그래픽 카드 성능이 gtx 980이면 어떠캐",
+        "라비렌스: 탈콥 램 가격은 이미 올랐다는거임",
+        "cpu235: 이거 완전 헬다이버즈?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:46:04.841314",
+      "fun_score": 19.81568068916053,
+      "test_fun_score": 8.058677036541681,
+      "score_components": {
+        "chat_spike_score": 24.36271866369092,
+        "reaction_score": 10.952095208632432,
+        "test_reaction_score": 8.058677036541681,
+        "diversity_score": 40.66828727909886,
+        "viewer_trend_score": 10,
+        "final_score": 19.81568068916053,
+        "baseline_chat_count": 9.938794238367127,
+        "baseline_viewer_count": 1564.6661979645946,
+        "baseline_threshold": 15.166577484654674,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.1653417177965135,
+        "test_score_difference": 4.016296993002431,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 1548,
+        "fun_keywords": {
+          "laugh": 3.4,
+          "surprise": 2.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "surprise": 2.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "03:13:19",
+      "comment_after_openDate": "03:13:19",
+      "chat_context": [
+        "머사62: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "하양아: ㅇㅈ",
+        "라비렌스: xbox ps 멈춰",
+        "하양아: 진짜 씹인정",
+        "달콤한 버터: ㅋㅋㅋㅋㅋㅋ",
+        "183의 맛: 탈콥 램 가격은 왜 안오름",
+        "머사62: 엑박 플스는 쳐낼만하다",
+        "헤귁: 아라사카는 닌텐도 스위치 쓰라고할듯",
+        "A132334158: 3단 합체 로봇이 더 빠르겠따",
+        "갈비냉면1인분: 게임계의 USB C 가 나와야한다",
+        "월중소영: 완전 공산주의..",
+        "치지직늅: 너드기어 만들어...",
+        "기와이: 그러다가 독재 해서 가격을 ㅁㅊ듯이 올리면 어떻게 할건데",
+        "머사62: 걍 pc로 겜 내라고!!!",
+        "우롸랄라: 독과점 맛으로 글카 1억 되는거 아이냐",
+        "엔9: ㅇㅈ",
+        "핑거스틱: 통일된 그래픽 카드 성능이 gtx 980이면 어떠캐",
+        "라비렌스: 탈콥 램 가격은 이미 올랐다는거임",
+        "cpu235: 이거 완전 헬다이버즈?",
+        "YooJiMin1: 독과점 무서운거 모르는군 ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-14T20:46:09.847572",
+      "fun_score": 11.740293378164148,
+      "test_fun_score": 1.1997747406605128,
+      "score_components": {
+        "chat_spike_score": 11.344192174129809,
+        "reaction_score": 1.1997747406605128,
+        "test_reaction_score": 1.1997747406605128,
+        "diversity_score": 47.75474477607581,
+        "viewer_trend_score": 10,
+        "final_score": 11.740293378164148,
+        "baseline_chat_count": 10.035180589563568,
+        "baseline_viewer_count": 1564.506535788094,
+        "baseline_threshold": 15.21111589335384,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1548,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "surprise": 1.0,
+          "laugh": 1.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "surprise": 1.0,
+          "laugh": 1.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "03:13:24",
+      "comment_after_openDate": "03:13:24",
+      "chat_context": [
+        "183의 맛: 탈콥 램 가격은 왜 안오름",
+        "머사62: 엑박 플스는 쳐낼만하다",
+        "헤귁: 아라사카는 닌텐도 스위치 쓰라고할듯",
+        "A132334158: 3단 합체 로봇이 더 빠르겠따",
+        "갈비냉면1인분: 게임계의 USB C 가 나와야한다",
+        "월중소영: 완전 공산주의..",
+        "치지직늅: 너드기어 만들어...",
+        "기와이: 그러다가 독재 해서 가격을 ㅁㅊ듯이 올리면 어떻게 할건데",
+        "머사62: 걍 pc로 겜 내라고!!!",
+        "우롸랄라: 독과점 맛으로 글카 1억 되는거 아이냐",
+        "엔9: ㅇㅈ",
+        "핑거스틱: 통일된 그래픽 카드 성능이 gtx 980이면 어떠캐",
+        "라비렌스: 탈콥 램 가격은 이미 올랐다는거임",
+        "cpu235: 이거 완전 헬다이버즈?",
+        "YooJiMin1: 독과점 무서운거 모르는군 ㅋㅋㅋ",
+        "djaxogns: 공산주의가 아니라 기업주의를 원하는 거 같은데"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

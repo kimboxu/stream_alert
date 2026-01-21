@@ -1,0 +1,958 @@
+{
+  "channel_id": "dokkhye",
+  "channel_name": "독고혜지_WAK",
+  "save_timestamp": "2026-01-09T10:32:18.636749",
+  "total_logs": 23,
+  "logs": [
+    {
+      "timestamp": "2026-01-09T10:29:30.832876",
+      "fun_score": 5.250554150537776,
+      "test_fun_score": 0.09339355480215479,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09339355480215479,
+        "test_reaction_score": 0.09339355480215479,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.250554150537776,
+        "baseline_chat_count": 6.038341638092272,
+        "baseline_viewer_count": 228.05349686549366,
+        "baseline_threshold": 16.25376733800182,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:00:14",
+      "comment_after_openDate": "00:00:14",
+      "chat_context": [
+        "고양이와둘기: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:29:35.834492",
+      "fun_score": 5.2617572790302605,
+      "test_fun_score": 0.13073731644376987,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.13073731644376987,
+        "test_reaction_score": 0.13073731644376987,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2617572790302605,
+        "baseline_chat_count": 5.990074325199348,
+        "baseline_viewer_count": 225.87832436552222,
+        "baseline_threshold": 16.148356555665913,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:19",
+      "comment_after_openDate": "00:00:19",
+      "chat_context": [
+        "고양이와둘기: 혜하",
+        "안전모도둑: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:29:40.845627",
+      "fun_score": 5.261925736223645,
+      "test_fun_score": 0.1312988404217188,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.1312988404217188,
+        "test_reaction_score": 0.1312988404217188,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.261925736223645,
+        "baseline_chat_count": 5.951849413163939,
+        "baseline_viewer_count": 223.7239900181005,
+        "baseline_threshold": 16.044062934595743,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:24",
+      "comment_after_openDate": "00:00:24",
+      "chat_context": [
+        "고양이와둘기: 혜하",
+        "안전모도둑: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:29:45.846747",
+      "fun_score": 5.2620954525327255,
+      "test_fun_score": 0.13186456145198494,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.13186456145198494,
+        "test_reaction_score": 0.13186456145198494,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2620954525327255,
+        "baseline_chat_count": 5.913990695785828,
+        "baseline_viewer_count": 221.5902941937271,
+        "baseline_threshold": 15.940770060235337,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 10,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:29",
+      "comment_after_openDate": "00:00:29",
+      "chat_context": [
+        "고양이와둘기: 혜하",
+        "안전모도둑: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:29:50.918102",
+      "fun_score": 5.262266432587267,
+      "test_fun_score": 0.13243449496712287,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.13243449496712287,
+        "test_reaction_score": 0.13243449496712287,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.262266432587267,
+        "baseline_chat_count": 5.8764946649202,
+        "baseline_viewer_count": 219.56325917535116,
+        "baseline_threshold": 15.838468357493545,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 10,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:34",
+      "comment_after_openDate": "00:00:34",
+      "chat_context": [
+        "고양이와둘기: 혜하",
+        "안전모도둑: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:29:55.919461",
+      "fun_score": 5.262438680934703,
+      "test_fun_score": 0.1330086561252442,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.1330086561252442,
+        "test_reaction_score": 0.1330086561252442,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.262438680934703,
+        "baseline_chat_count": 5.839357846030264,
+        "baseline_viewer_count": 217.5556431524513,
+        "baseline_threshold": 15.737148343052942,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 10,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:39",
+      "comment_after_openDate": "00:00:39",
+      "chat_context": [
+        "고양이와둘기: 혜하",
+        "안전모도둑: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:00.927879",
+      "fun_score": 5.2509335778574355,
+      "test_fun_score": 0.09465831253435318,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09465831253435318,
+        "test_reaction_score": 0.09465831253435318,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2509335778574355,
+        "baseline_chat_count": 5.802576797865294,
+        "baseline_viewer_count": 215.5672600910508,
+        "baseline_threshold": 15.63680062448985,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 15,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:00:44",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "안전모도둑: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:10.935885",
+      "fun_score": 5.276975599272865,
+      "test_fun_score": 0.13432459850668185,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.13432459850668185,
+        "test_reaction_score": 0.13432459850668185,
+        "diversity_score": 50.14142135623731,
+        "viewer_trend_score": 0,
+        "final_score": 5.276975599272865,
+        "baseline_chat_count": 5.756568112141744,
+        "baseline_viewer_count": 213.64582573937852,
+        "baseline_threshold": 15.53730401818311,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 15,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:54",
+      "comment_after_openDate": "00:00:54",
+      "chat_context": [
+        "[C9]♥먼산댁: 안녕하세요?",
+        "망류: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:15.937100",
+      "fun_score": 5.405880385862752,
+      "test_fun_score": 0.13491266319583686,
+      "score_components": {
+        "chat_spike_score": 0.7007684635585657,
+        "reaction_score": 0.13491266319583686,
+        "test_reaction_score": 0.13491266319583686,
+        "diversity_score": 50.50060778302646,
+        "viewer_trend_score": 0,
+        "final_score": 5.405880385862752,
+        "baseline_chat_count": 5.720580189627426,
+        "baseline_viewer_count": 211.74279872879526,
+        "baseline_threshold": 15.43901007192995,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 23,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:00:59",
+      "comment_after_openDate": "00:00:59",
+      "chat_context": [
+        "[C9]♥먼산댁: 안녕하세요?",
+        "망류: 혜하",
+        "나츄러쓰: 혜하혜하혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:20.944771",
+      "fun_score": 4.7377396356118995,
+      "test_fun_score": 0.2730259168961445,
+      "score_components": {
+        "chat_spike_score": 0.995765167887744,
+        "reaction_score": 0.2730259168961445,
+        "test_reaction_score": 0.2730259168961445,
+        "diversity_score": 42.07737534993571,
+        "viewer_trend_score": 0,
+        "final_score": 4.7377396356118995,
+        "baseline_chat_count": 5.694517031410795,
+        "baseline_viewer_count": 209.9346427169734,
+        "baseline_threshold": 15.342892689537425,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 23,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:01:04",
+      "comment_after_openDate": "00:01:04",
+      "chat_context": [
+        "[C9]♥먼산댁: 안녕하세요?",
+        "망류: 혜하",
+        "나츄러쓰: 혜하혜하혜하",
+        "[C9]♥먼산댁: 혜하^^7",
+        "제두Z: 혜하",
+        "도넛츤식이: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:25.946548",
+      "fun_score": 4.7375197895357255,
+      "test_fun_score": 0.27282923702640577,
+      "score_components": {
+        "chat_spike_score": 0.9954077409649611,
+        "reaction_score": 0.27282923702640577,
+        "test_reaction_score": 0.27282923702640577,
+        "diversity_score": 42.07737534993571,
+        "viewer_trend_score": 0,
+        "final_score": 4.7375197895357255,
+        "baseline_chat_count": 5.69744355824988,
+        "baseline_viewer_count": 208.1438088397448,
+        "baseline_threshold": 15.241295323280818,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 23,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:01:09",
+      "comment_after_openDate": "00:01:09",
+      "chat_context": [
+        "[C9]♥먼산댁: 안녕하세요?",
+        "망류: 혜하",
+        "나츄러쓰: 혜하혜하혜하",
+        "[C9]♥먼산댁: 혜하^^7",
+        "제두Z: 혜하",
+        "도넛츤식이: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:30.948243",
+      "fun_score": 5.102288901433731,
+      "test_fun_score": 0.2726347796552946,
+      "score_components": {
+        "chat_spike_score": 1.4103095999017314,
+        "reaction_score": 0.2726347796552946,
+        "test_reaction_score": 0.2726347796552946,
+        "diversity_score": 43.858591475813625,
+        "viewer_trend_score": 0,
+        "final_score": 5.102288901433731,
+        "baseline_chat_count": 5.700342048961846,
+        "baseline_viewer_count": 206.37013115106004,
+        "baseline_threshold": 15.14066915366754,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 26,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:01:14",
+      "comment_after_openDate": "00:01:14",
+      "chat_context": [
+        "[C9]♥먼산댁: 안녕하세요?",
+        "망류: 혜하",
+        "나츄러쓰: 혜하혜하혜하",
+        "[C9]♥먼산댁: 혜하^^7",
+        "제두Z: 혜하",
+        "도넛츤식이: 혜하",
+        "DHz.헤끙: m-flo로 시작하는 방송"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:35.950931",
+      "fun_score": 5.100595478624928,
+      "test_fun_score": 0.2718032805168942,
+      "score_components": {
+        "chat_spike_score": 1.4071007708633259,
+        "reaction_score": 0.2718032805168942,
+        "test_reaction_score": 0.2718032805168942,
+        "diversity_score": 43.858591475813625,
+        "viewer_trend_score": 0,
+        "final_score": 5.100595478624928,
+        "baseline_chat_count": 5.712792772132791,
+        "baseline_viewer_count": 204.64218529463287,
+        "baseline_threshold": 15.04450147085114,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.36307568908920285,
+        "test_score_difference": 0.1784097257147394,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 26,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:01:19",
+      "comment_after_openDate": "00:01:19",
+      "chat_context": [
+        "[C9]♥먼산댁: 안녕하세요?",
+        "망류: 혜하",
+        "나츄러쓰: 혜하혜하혜하",
+        "[C9]♥먼산댁: 혜하^^7",
+        "제두Z: 혜하",
+        "도넛츤식이: 혜하",
+        "DHz.헤끙: m-flo로 시작하는 방송"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:40.951975",
+      "fun_score": 5.793521498230169,
+      "test_fun_score": 0.1348378608379253,
+      "score_components": {
+        "chat_spike_score": 1.403943538604568,
+        "reaction_score": 0.1348378608379253,
+        "test_reaction_score": 0.1348378608379253,
+        "diversity_score": 51.21295547606736,
+        "viewer_trend_score": 0,
+        "final_score": 5.793521498230169,
+        "baseline_chat_count": 5.725124217375758,
+        "baseline_viewer_count": 202.93079315951027,
+        "baseline_threshold": 14.949238851445612,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0560017086944438,
+        "test_score_difference": 0.04017954830357211,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 26,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:01:24",
+      "comment_after_openDate": "00:01:24",
+      "chat_context": [
+        "나츄러쓰: 혜하혜하혜하",
+        "[C9]♥먼산댁: 혜하^^7",
+        "제두Z: 혜하",
+        "도넛츤식이: 혜하",
+        "DHz.헤끙: m-flo로 시작하는 방송"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:45.953322",
+      "fun_score": 5.633814963031614,
+      "test_fun_score": 0.13495227990306682,
+      "score_components": {
+        "chat_spike_score": 0.9928895323025128,
+        "reaction_score": 0.13495227990306682,
+        "test_reaction_score": 0.13495227990306682,
+        "diversity_score": 51.465289895245625,
+        "viewer_trend_score": 0,
+        "final_score": 5.633814963031614,
+        "baseline_chat_count": 5.718177527373299,
+        "baseline_viewer_count": 201.23579616104215,
+        "baseline_threshold": 14.861527079201807,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8962951734958882,
+        "test_score_difference": 0.04029396736871364,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 27,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:01:29",
+      "comment_after_openDate": "00:01:29",
+      "chat_context": [
+        "[C9]♥먼산댁: 혜하^^7",
+        "제두Z: 혜하",
+        "도넛츤식이: 혜하",
+        "DHz.헤끙: m-flo로 시작하는 방송"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:50.954324",
+      "fun_score": 5.335830482321006,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7015766099844836,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.335830482321006,
+        "baseline_chat_count": 5.701717386661062,
+        "baseline_viewer_count": 199.56661723381936,
+        "baseline_threshold": 14.773125597128896,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5983106927852804,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 27,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:34",
+      "comment_after_openDate": "00:01:34",
+      "chat_context": [
+        "DHz.헤끙: m-flo로 시작하는 방송"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:30:55.955913",
+      "fun_score": 5.336710414076336,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.703532013885216,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.336710414076336,
+        "baseline_chat_count": 5.6566749340968485,
+        "baseline_viewer_count": 197.91342904071936,
+        "baseline_threshold": 14.682716309929036,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5991906245406105,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 27,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:01:39",
+      "comment_after_openDate": "00:01:39",
+      "chat_context": [
+        "DHz.헤끙: m-flo로 시작하는 방송"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:31:20.962937",
+      "fun_score": 5.251267638958794,
+      "test_fun_score": 0.09577184953887985,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09577184953887985,
+        "test_reaction_score": 0.09577184953887985,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.251267638958794,
+        "baseline_chat_count": 5.612063988228201,
+        "baseline_viewer_count": 196.27607839050927,
+        "baseline_threshold": 14.593181573446767,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5137478494230683,
+        "test_score_difference": 0.028701823445584224,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 30,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:02:04",
+      "comment_after_openDate": "00:02:04",
+      "chat_context": [
+        "다와_: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:31:25.964408",
+      "fun_score": 5.25134896751748,
+      "test_fun_score": 0.09604294473449998,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09604294473449998,
+        "test_reaction_score": 0.09604294473449998,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.25134896751748,
+        "baseline_chat_count": 5.567880415220974,
+        "baseline_viewer_count": 194.68315355952817,
+        "baseline_threshold": 14.503686037954372,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5138291779817541,
+        "test_score_difference": 0.028972918641204354,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 30,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:02:09",
+      "comment_after_openDate": "00:02:09",
+      "chat_context": [
+        "다와_: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:31:30.965616",
+      "fun_score": 5.251431031535648,
+      "test_fun_score": 0.09631649146172795,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09631649146172795,
+        "test_reaction_score": 0.09631649146172795,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.251431031535648,
+        "baseline_chat_count": 5.524120120843157,
+        "baseline_viewer_count": 193.10548894842788,
+        "baseline_threshold": 14.415048648819587,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5139112419999226,
+        "test_score_difference": 0.029246465368432326,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 30,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:02:14",
+      "comment_after_openDate": "00:02:14",
+      "chat_context": [
+        "다와_: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:31:35.967085",
+      "fun_score": 5.2515138368440955,
+      "test_fun_score": 0.09659250915655342,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09659250915655342,
+        "test_reaction_score": 0.09659250915655342,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2515138368440955,
+        "baseline_chat_count": 5.480779050085479,
+        "baseline_viewer_count": 191.54293836430193,
+        "baseline_threshold": 14.327261192046006,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.51399404730837,
+        "test_score_difference": 0.02952248306325779,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 30,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:02:19",
+      "comment_after_openDate": "00:02:19",
+      "chat_context": [
+        "다와_: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:31:40.970517",
+      "fun_score": 5.251597389299869,
+      "test_fun_score": 0.09687101734246355,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09687101734246355,
+        "test_reaction_score": 0.09687101734246355,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.251597389299869,
+        "baseline_chat_count": 5.437853186785659,
+        "baseline_viewer_count": 189.9953570147719,
+        "baseline_threshold": 14.240315532383171,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5140775997641436,
+        "test_score_difference": 0.02980099124916792,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 32,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:02:24",
+      "comment_after_openDate": "00:02:24",
+      "chat_context": [
+        "다와_: 혜하"
+      ]
+    },
+    {
+      "timestamp": "2026-01-09T10:31:45.971506",
+      "fun_score": 5.251681694785878,
+      "test_fun_score": 0.09715203562916135,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.09715203562916135,
+        "test_reaction_score": 0.09715203562916135,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.251681694785878,
+        "baseline_chat_count": 5.395338553256252,
+        "baseline_viewer_count": 188.48176149457038,
+        "baseline_threshold": 14.154203612572433,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5141619052501527,
+        "test_score_difference": 0.03008200953586572,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 32,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:02:29",
+      "comment_after_openDate": "00:02:29",
+      "chat_context": [
+        "다와_: 혜하"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
