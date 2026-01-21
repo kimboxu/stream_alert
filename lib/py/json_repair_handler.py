@@ -136,10 +136,8 @@ class JSONRepairHandler:
                     api_func(is_emergency),
                     timeout=timeout
                 )
-                response_text = response.text.strip()
-                
                 # 429 Rate Limit 에러 감지
-                if '429' in response_text and 'quota' in response_text.lower():
+                if '429' in str(response) and 'quota' in str(response).lower():
                     print(f"{datetime.now()} 🚫 API 할당량 초과 (429 Error)")
                     
                     # retry_delay 추출 시도
@@ -160,6 +158,8 @@ class JSONRepairHandler:
                     else:
                         print(f"{datetime.now()} ❌ API 요청 최종 실패 (할당량 초과)")
                         return None
+                
+                response_text = response.text.strip()
                 
                 return response_text
 
