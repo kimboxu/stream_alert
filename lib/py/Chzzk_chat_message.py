@@ -1013,7 +1013,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         chat_command = self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"]
         # 메시지 보네기
         if len(sp_chat) == 1 and command in list(chat_command.keys()) + special_command_list:
-            if not self.is_sendMSG_time(command):
+            if not self.is_sendMSG_time(command, time):
                 return
             
             if command in special_command_list:
@@ -1039,14 +1039,14 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             await self._send(send_command, command, time)
 
         elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and command in ["!삭제"]:
-            if not self.is_sendMSG_time(command):
+            if not self.is_sendMSG_time(command, time):
                 return
             
             await self.del_command(chat_command)
             return
 
         elif self.is_authority(userRoleCode, nickname) and len(sp_chat) >= 2 and command in ["!추가", "!수정"]:
-            if not self.is_sendMSG_time(command):
+            if not self.is_sendMSG_time(command, time):
                 return
             
             if command == "!추가":
