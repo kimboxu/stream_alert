@@ -55,17 +55,6 @@ class getYoutubeJsonData:
 		self.youtubechannelName = init_var.youtubeData.loc[youtubeChannelID, 'channelName']  # 채널 이름
 		self.channel_id = init_var.youtubeData.loc[youtubeChannelID, 'channelID']  # 내부 채널 ID
 
-		# YouTube API 클라이언트를 인스턴스 변수로 저장 (재사용)
-		self.youtube_build = None
-		self.client_creation_failed_count = 0  # 클라이언트 생성 실패 횟수
-		self.max_client_retry = 3  # 최대 재시도 횟수
-		
-		# 초기화 시 클라이언트 생성 시도
-		loop = asyncio.new_event_loop()
-		asyncio.set_event_loop(loop)
-		loop.run_until_complete(self._init_youtube_client())
-		loop.close()
-
 	async def start(self):
 		try:
 			self.new_video_json_data_list = []  # 새 비디오 데이터 목록
@@ -101,19 +90,13 @@ class getYoutubeJsonData:
 			
 	# 유튜브 채널의 새 비디오를 확인하는 함수
 	async def check_youtube(self):
-		# youtube_build = self.get_youtube_build()
-		# if youtube_build is None: 
-		#     return
-		
-		# YouTube API 클라이언트 존재 확인 및 필요 시 재생성
-		if not await self._ensure_youtube_client():
-			asyncio.create_task(
-				log_error(f"YouTube 클라이언트 사용 불가 ({self.youtubeChannelID})")
-			)
+		# YouTube API 클라이언트 생성
+		youtube_build = await self.get_youtube_build()
+		if youtube_build is None: 
 			return
 		
 		# 채널 정보 요청
-		channel_response = await self.get_youtube_channels_response()
+		channel_response = await self.get_youtube_channels_response(youtube_build)
 
 		# 응답 유효성 검사
 		if not self.check_item((channel_response)):
@@ -129,6 +112,7 @@ class getYoutubeJsonData:
 		if self.check_none_new_video():
 			self.youtubeData.loc[self.youtubeChannelID, "videoCount"] += 1
 			self.youtubeData.loc[self.youtubeChannelID, "video_count_check"] = 0
+			# 데이터 저장
 			asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
 			
 		# 새 비디오가 있는 경우
@@ -137,7 +121,7 @@ class getYoutubeJsonData:
 			await self.get_youtube_thumbnail_url()  # 채널 썸네일 이미지 확인 및 가져오기 
 
 			# 검색 API로 최신 비디오 정보 가져오기
-			search_response = await self.get_youtube_search_response()
+			search_response = await self.get_youtube_search_response(youtube_build)
 			await self.filter_video(search_response, video_count)
 		
 		# 비디오가 삭제된 경우
@@ -166,267 +150,124 @@ class getYoutubeJsonData:
 					
 			# 데이터 저장
 			asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
-
-	# YouTube API 클라이언트 초기화
-	async def _init_youtube_client(self):
-		"""
-		YouTube API 클라이언트 초기화 (SSL 안정성 개선)
-		
-		설명:
-		- SSL 컨텍스트를 명시적으로 설정하여 연결 안정성을 높입니다
-		- 재시도 로직을 통해 일시적인 SSL 에러를 처리합니다
-		- 여러 번 실패 시 적절한 에러 로깅을 수행합니다
-		"""
-		max_init_retries = 3  # 초기화 재시도 횟수
-		
-		for attempt in range(max_init_retries):
-			try:
-				await asyncio.sleep(0.01)  # 이벤트 루프 양보
-				if self.youtube_build is None:
-					self.youtube_build = build(
-						'youtube', 
-						'v3', 
-						developerKey=self.developerKey,
-						cache_discovery=False
-					)
-					
-					self.client_creation_failed_count = 0
-					return  # 성공 시 종료
-					
-			except ssl.SSLError as e:
-				# SSL 에러 발생 시 재시도
-				self.client_creation_failed_count += 1
-				print(f"{datetime.now()} SSL Error (시도 {attempt + 1}/{max_init_retries}): {str(e)}")
-				
-				if attempt < max_init_retries - 1:
-					# 지수 백오프: 2초, 4초, 8초
-					import time
-					wait_time = 2 ** (attempt + 1)
-					time.sleep(wait_time)  # 동기 sleep (초기화 단계이므로)
-				else:
-					asyncio.create_task(
-						log_error(f"YouTube 클라이언트 SSL 초기화 실패 ({self.youtubeChannelID}): {str(e)}")
-					)
-					
-			except HttpError as e:
-				self.client_creation_failed_count += 1
-				asyncio.create_task(
-					log_error(f"YouTube API 클라이언트 생성 HTTP 오류 ({self.youtubeChannelID}): {e.resp.status} - {e.content}")
-				)
-				
-				if e.resp.status in [403, 429]:
-					asyncio.create_task(
-						log_error("API 키 할당량이 초과되었거나 권한이 없습니다.")
-					)
-				break  # HTTP 에러는 재시도하지 않음
-				
-			except Error as e:
-				self.client_creation_failed_count += 1
-				asyncio.create_task(
-					log_error(f"Google API 클라이언트 생성 오류 ({self.youtubeChannelID}): {str(e)}")
-				)
-				break
-				
-			except Exception as e:
-				self.client_creation_failed_count += 1
-				asyncio.create_task(
-					log_error(f"YouTube 클라이언트 초기화 실패 ({self.youtubeChannelID}): {str(e)}")
-				)
-				break
-		
-	# YouTube API 클라이언트 재생성
-	async def _recreate_youtube_client(self):
-		"""
-		YouTube API 클라이언트 재생성
-		
-		설명:
-		- 기존 클라이언트에 문제가 발생했을 때 새로 생성합니다
-		- 최대 재시도 횟수를 초과하면 생성을 중단합니다
-		- 성공하면 실패 카운트를 리셋합니다
-		"""
-		if self.client_creation_failed_count >= self.max_client_retry:
-			asyncio.create_task(
-				log_error(f"YouTube 클라이언트 재생성 포기 ({self.youtubeChannelID}): 최대 재시도 횟수 초과")
-			)
-			return False
-		
-		print(f"{datetime.now()} YouTube 클라이언트 재생성 시도: {self.youtubeChannelID}")
-		self.youtube_build = None  # 기존 클라이언트 제거
-		await self._init_youtube_client()  # 새로 생성
-		
-		return self.youtube_build is not None
-	
-	# YouTube API 클라이언트 존재 여부 확인 및 필요 시 재생성
-	async def _ensure_youtube_client(self):
-		"""
-		YouTube API 클라이언트 존재 여부 확인 및 필요 시 재생성
-		
-		설명:
-		- API 호출 전에 클라이언트가 있는지 확인합니다
-		- 없으면 재생성을 시도합니다
-		- 재생성에 실패하면 False를 반환합니다
-		
-		Returns:
-			bool: 클라이언트가 사용 가능하면 True, 아니면 False
-		"""
-		if self.youtube_build is None:
-			print(f"{datetime.now()} YouTube 클라이언트가 없음 - 재생성 시도: {self.youtubeChannelID}")
-			return await self._recreate_youtube_client()
-		return True
 			
-	# # YouTube API 클라이언트 생성 함수 (재시도 로직 포함)
-	# @retry(stop=stop_after_attempt(5), 
-	# 	wait=wait_exponential(multiplier=1, min=2, max=5),
-	# 	retry=retry_if_exception_type((asyncio.TimeoutError, ConnectionError)))
-	# async def get_youtube_build(self):
-	# 	try:
-	# 		# YouTube API v3 클라이언트 생성
-	# 		await asyncio.sleep(0.01)  # 이벤트 루프 양보
-	# 		youtube_build = build('youtube', 'v3', 
-	# 						developerKey=self.developerKey,
-	# 						cache_discovery=False)
-	# 		return youtube_build
-	# 	except HttpError as e:
-	# 		# HTTP 관련 오류 처리
-	# 		asyncio.create_task(log_error(f"YouTube API HTTP 오류: {e.resp.status} {e.content}"))
-	# 		if e.resp.status in [403, 429]:
-	# 			asyncio.create_task(log_error("API 키 할당량이 초과되었거나 권한이 없습니다."))
-	# 		return None
-	# 	except Error as e:
-	# 		# Google API 클라이언트 관련 오류
-	# 		asyncio.create_task(log_error(f"Google API 클라이언트 오류: {str(e)}"))
-	# 		return None
-	# 	except Exception as e:
-	# 		# 기타 예상치 못한 오류
-	# 		asyncio.create_task(log_error(f"YouTube API build 오류: {str(e)}"))
-	# 		return None
+	# YouTube API 클라이언트 생성 함수 (재시도 로직 포함)
+	@retry(stop=stop_after_attempt(5), 
+		wait=wait_exponential(multiplier=1, min=2, max=5),
+		retry=retry_if_exception_type((asyncio.TimeoutError, ConnectionError)))
+	async def get_youtube_build(self):
+		try:
+			# 이벤트 루프 양보
+			await asyncio.sleep(0.01)
+			# YouTube API v3 클라이언트 생성
+			youtube_build = build('youtube', 'v3', 
+							developerKey=self.developerKey,
+							cache_discovery=False)
+			return youtube_build
+		except HttpError as e:
+			# HTTP 관련 오류 처리
+			asyncio.create_task(log_error(f"YouTube API HTTP 오류: {e.resp.status} {e.content}"))
+			if e.resp.status in [403, 429]:
+				asyncio.create_task(log_error("API 키 할당량이 초과되었거나 권한이 없습니다."))
+			return None
+		except Error as e:
+			# Google API 클라이언트 관련 오류
+			asyncio.create_task(log_error(f"Google API 클라이언트 오류: {str(e)}"))
+			return None
+		except Exception as e:
+			# 기타 예상치 못한 오류
+			asyncio.create_task(log_error(f"YouTube API build 오류: {str(e)}"))
+			return None
 
 	# 채널 정보 요청 함수 (재시도 로직 포함)
 	@retry(
 		stop=stop_after_attempt(5), 
-		wait=wait_exponential(multiplier=2, min=4, max=30),
+		wait=wait_exponential(multiplier=1, min=2, max=10),
 		retry=retry_if_exception_type((
 			asyncio.TimeoutError, 
 			ConnectionError,
-			ssl.SSLError,
-			aiohttp.ClientError,
-			HttpError
+			ssl.SSLError,           # SSL 에러
+			aiohttp.ClientError,    # aiohttp 관련 에러
+			HttpError               # YouTube API HTTP 에러
 		))
 	)
-	async def get_youtube_channels_response(self):
+	async def get_youtube_channels_response(self, youtube_build):
 		try:
-			# 클라이언트 확인
-			if not await self._ensure_youtube_client():
-				print(f"{datetime.now()} 클라이언트 사용 불가: {self.youtubeChannelID}")
-				return None
-			
 			# 이벤트 루프 양보
 			await asyncio.sleep(0.01)
+			# 채널 통계 정보 요청
 			channel_response = await asyncio.wait_for(
 				asyncio.to_thread(
-					self.youtube_build.channels().list(
+					youtube_build.channels().list(
 						part='statistics', 
 						id=self.youtubeData.loc[self.youtubeChannelID, "channelCode"]
 					).execute
 				),
-				timeout=15
+				timeout=15  # 15초 타임아웃
 			)
 			return channel_response
 			
-		except ssl.SSLError as e:
-			# SSL 에러 상세 로깅
-			error_msg = str(e)
-			print(f"{datetime.now()} SSL Error for {self.youtubeChannelID}: {error_msg}")
-			
-			# EOF 에러는 일시적인 문제일 수 있으므로 재시도
-			if "EOF occurred" in error_msg or "WRONG_VERSION_NUMBER" in error_msg:
-				print(f"{datetime.now()} SSL 연결 문제 감지 - 재시도 예정")
-				await asyncio.sleep(3)  # 추가 대기 (2초 → 3초)
-				
-			raise  # 재시도를 위해 예외 발생
-			
 		except HttpError as e:
+			# 503은 일시적 서버 문제 - 재시도 대상
 			if e.resp.status == 503:
 				print(f"{datetime.now()} YouTube API 일시적 오류 (채널: {self.youtubeChannelID})")
-				await asyncio.sleep(3)
-				raise
+				raise  # 재시도를 위해 예외 다시 발생
 			
+			# 429는 Rate Limit - 더 긴 대기 후 재시도
 			elif e.resp.status == 429:
 				print(f"{datetime.now()} YouTube API Rate Limit (채널: {self.youtubeChannelID})")
-				await asyncio.sleep(5)
+				await asyncio.sleep(5)  # Rate Limit 시 추가 대기
 				raise
 			
-			elif e.resp.status in [401, 403]:
-				print(f"{datetime.now()} YouTube API 인증 오류 - 클라이언트 재생성 시도: {self.youtubeChannelID}")
-				if await self._recreate_youtube_client():
-					raise  # 재생성 성공 시 재시도
-				else:
-					return None  # 재생성 실패 시 None 반환
+			# 그 외 HTTP 에러도 재시도
 			raise
 		
+		except ssl.SSLError as e:
+			# SSL 에러는 로그 남기고 재시도
+			print(f"{datetime.now()} SSL Error for {self.youtubeChannelID}: {str(e)}")
+			raise
+			
 		except asyncio.TimeoutError:
 			print(f"{datetime.now()} Channel response timeout for {self.youtubeChannelID}")
 			raise
 			
 		except Exception as e:
+			# 예상치 못한 에러는 로그만 남기고 None 반환
 			asyncio.create_task(log_error(f"error channel_response {self.youtubeChannelID}: {str(e)}"))
 			return None
 
 	# 비디오 검색 요청 함수 (재시도 로직 포함)
-	@retry(
-		stop=stop_after_attempt(5), 
+	@retry(stop=stop_after_attempt(5), 
 		wait=wait_exponential(multiplier=1, min=2, max=5), 
-		retry=retry_if_exception_type((
-			asyncio.TimeoutError, 
-			ConnectionError,
-			ssl.SSLError,
-			HttpError
-		))
-	)
-	async def get_youtube_search_response(self):
+		retry=retry_if_exception_type((asyncio.TimeoutError, ConnectionError, HttpError)))
+	async def get_youtube_search_response(self, youtube_build):
 		try:
 			# 이벤트 루프 양보
 			await asyncio.sleep(0.01)
-			
+			# 채널의 최신 비디오 검색
 			search_response = await asyncio.wait_for(
 				asyncio.to_thread(
-					self.youtube_build.search().list(
+					youtube_build.search().list(
 						part="id,snippet", 
 						channelId=self.youtubeData.loc[self.youtubeChannelID, "channelCode"], 
 						order="date",
 						type="video",
-						maxResults=3
+						maxResults=3   # 최대 3개
 					).execute
 				),
-				timeout=15
+				timeout=10  # 10초 타임아웃
 			)
 			return search_response
-			
-		except ssl.SSLError as e:
-			print(f"{datetime.now()} SSL Error (search) for {self.youtubeChannelID}: {str(e)}")
-			await asyncio.sleep(2)
-			raise
-			
 		except HttpError as e:
 			if e.resp.status == 503:
 				print(f"{datetime.now()} YouTube API 일시적 오류 (채널 검색: {self.youtubeChannelID})")
-				raise
-			
-			elif e.resp.status in [401, 403]:
-				print(f"{datetime.now()} YouTube API 인증 오류 (검색) - 클라이언트 재생성 시도: {self.youtubeChannelID}")
-				if await self._recreate_youtube_client():
-					raise
-				else:
-					return None
-			raise
-			
+			raise  # 모든 HTTP 에러는 재시도를 위해 다시 발생시킴
 		except asyncio.TimeoutError:
 			print(f"{datetime.now()} Search response timeout for {self.youtubeChannelID}")
 			raise
-			
 		except Exception as e:
 			asyncio.create_task(log_error(f"error search_response {str(e)}"))
-			return None
+			return
 
 	# 응답에 유효한 항목이 있는지 확인하는 함수
 	def check_item(self, channel_response):
@@ -556,37 +397,32 @@ class getYoutubeJsonData:
 	@retry(
 		stop=stop_after_attempt(5), 
 		wait=wait_exponential(multiplier=1, min=2, max=5), 
-		retry=retry_if_exception_type((
-			asyncio.TimeoutError, 
-			ConnectionError,
-			ssl.SSLError,
-			HttpError
-		))
+		retry=retry_if_exception_type((asyncio.TimeoutError, ConnectionError, ssl.SSLError,HttpError))
 	)
 	async def getDescription(self, video_id: str) -> str:
 		try:
+			# 이벤트 루프 양보
+			await asyncio.sleep(0.01)
 			# YouTube API 클라이언트 생성
-			# youtube = build(
-			# 	'youtube', 
-			# 	'v3', 
-			# 	developerKey=self.developerKey, 
-			# 	cache_discovery=False
-			# )
-			# 재사용 가능한 클라이언트 확인
-			if not await self._ensure_youtube_client():
-				return ""
-			
+			youtube_build = build(
+				'youtube', 
+				'v3', 
+				developerKey=self.developerKey, 
+				cache_discovery=False
+			)
+
 			# 이벤트 루프 양보
 			await asyncio.sleep(0.01)
 			
+			# 비디오 상세 정보 요청
 			result = await asyncio.wait_for(
 				asyncio.to_thread(
-					self.youtube_build.videos().list(
+					youtube_build.videos().list(
 						part='snippet',
 						id=video_id
 					).execute
 				),
-				timeout=15
+				timeout=10  # 10초 타임아웃
 			)
 			
 			# 결과가 없으면 빈 문자열 반환
@@ -597,25 +433,11 @@ class getYoutubeJsonData:
 			description = result['items'][0]['snippet']['description']
 			return subjectReplace(description.split('\n')[0])
 			
-		except ssl.SSLError as e:
-			print(f"{datetime.now()} SSL Error (getDescription) for video: {video_id}")
-			await asyncio.sleep(2)
-			raise
-			
 		except HttpError as e:
 			# HTTP 에러는 로깅 후 재시도를 위해 raise
 			if e.resp.status == 503:
 				print(f"{datetime.now()} YouTube API 일시적 오류 (getDescription: {video_id})")
-			
-			# 인증 관련 에러 시 클라이언트 재생성 시도
-			elif e.resp.status in [401, 403]:
-				print(f"{datetime.now()} YouTube API 인증 오류 (getDescription) - 클라이언트 재생성: {video_id}")
-				if await self._recreate_youtube_client():
-					raise  # 재생성 성공 시 재시도
-				else:
-					return ""  # 재생성 실패 시 빈 문자열 반환
-			
-			raise
+			raise  # 재시도를 위해 예외 발생
 			
 		except asyncio.TimeoutError:
 			# 타임아웃 로깅 후 재시도를 위해 raise
