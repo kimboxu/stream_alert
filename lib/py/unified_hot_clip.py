@@ -1,15 +1,12 @@
-import json
 import asyncio
 import statistics
-import pandas as pd
 from math import exp
-from pathlib import Path
-from random import randint
+from random import random
 from collections import deque
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Tuple
+from typing import List, Optional
 
 from base import (
     initVar, 
@@ -67,7 +64,7 @@ class BaseHotClipDetector(ABC):
         # 공통 설정값
         self.days_to_analyze = 14      # 2주
         self.hot_threshold = 70.0      # 핫클립 임계값 (100점 만점)
-        self.randarea = 60
+        self.randarea = 120
         self.analysis_interval = 1800 - self.randarea//2  # 30분 마다 분석
         
         # 가중치 설정
@@ -109,7 +106,7 @@ class BaseHotClipDetector(ABC):
                     if not self.init.DO_TEST:  
                         asyncio.create_task(save_sent_notifications(self.channel_id, self.hot_clip_data, self.platform))
                 
-                await asyncio.sleep(self.analysis_interval + randint(0, self.randarea-1))
+                await asyncio.sleep(self.analysis_interval + random()*self.randarea)
                 
             except Exception as e:
                 await log_error(f" 핫클립 모니터링 오류: {str(e)}")
