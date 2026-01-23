@@ -92,7 +92,6 @@ class JSONRepairHandler:
         # 재시도 루프: 자동 복구 시도
         for attempt in range(1, max_retries + 1):
             try:
-                # 이벤트 루프 양보
                 await asyncio.sleep(0.001)
                 repaired_json = JSONRepairHandler.repair_json_string(json_str)
                 result = json.loads(repaired_json)
@@ -134,7 +133,6 @@ class JSONRepairHandler:
         """
         for attempt in range(max_retries):
             try:
-                # 이벤트 루프 양보
                 await asyncio.sleep(0.001)
                 response = await asyncio.wait_for(
                     api_func(is_emergency),
@@ -162,30 +160,41 @@ class JSONRepairHandler:
                     return None
 
             except Exception as e:
-                print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {str(e)}")
+                
                 
                 # 429 Rate Limit 에러 감지
                 if '429' in str(e) and 'quota' in str(e).lower():
-                    print(f"{datetime.now()} 🚫 API 할당량 초과 (429 Error)")
+                    print(f"{datetime.now()} 🚫 API 할당량 초과 (429 Error, 시도 {attempt + 1}/{max_retries},)")
                     
                     # retry_delay 추출 시도
-                    import re
-                    retry_match = re.search(r'retry in (\d+(?:\.\d+)?)', response_text, re.IGNORECASE)
+                    error_message = str(e)
+                    retry_match = re.search(r'retry in (\d+(?:\.\d+)?)', error_message, re.IGNORECASE)
+                    
                     if retry_match:
                         retry_seconds = float(retry_match.group(1))
                         print(f"{datetime.now()} ⏳ API 권장 대기 시간: {retry_seconds:.1f}초")
                     else:
-                        retry_seconds = 60  # 기본값
+                        # 에러 메시지에서 retry_delay 객체 추출 시도
+                        retry_delay_match = re.search(r'retry_delay\s*{\s*seconds:\s*(\d+)', error_message)
+                        if retry_delay_match:
+                            retry_seconds = float(retry_delay_match.group(1))
+                            print(f"{datetime.now()} ⏳ API retry_delay: {retry_seconds}초")
+                        else:
+                            retry_seconds = 60  # 기본값
+                            print(f"{datetime.now()} ⏳ 기본 대기 시간 사용: {retry_seconds}초")
                     
                     if attempt < max_retries - 1:
                         if on_retry_callback:
                             is_emergency = False
                             on_retry_callback(attempt + 1, max_retries)
+                        print(f"{datetime.now()} {retry_seconds}초 후 재시도...")
                         await asyncio.sleep(retry_seconds)
                         continue
                     else:
                         print(f"{datetime.now()} ❌ API 요청 최종 실패 (할당량 초과)")
                         return None
+                    
+                print(f"{datetime.now()} ⚠️ 오류 발생 (시도 {attempt + 1}/{max_retries}): {str(e)}")
                 
                 if on_error_callback:
                     on_error_callback(attempt + 1, max_retries, str(e))
@@ -222,6 +231,7 @@ class JSONRepairHandler:
             api_func: 호출할 비동기 API 함수
             max_retries: 최대 API 재시도 횟수
             timeout: 요청 타임아웃 (초)
+            is_emergency: 사용량 소진시 사용
             on_retry_callback: 재시도 시 호출될 콜백 함수 (API 호출 실패, 파싱 실패 모두 포함)
             on_timeout_callback: 타임아웃 시 호출될 콜백 함수
             on_error_callback: 오류 발생 시 호출될 콜백 함수
@@ -234,7 +244,6 @@ class JSONRepairHandler:
         # 전체 재시도 루프 (API 호출 + JSON 파싱)
         for parse_attempt in range(max_parse_retries):
             # print(f"{datetime.now()} 🔄 전체 시도 {parse_attempt + 1}/{max_parse_retries}")
-            # 이벤트 루프 양보
             await asyncio.sleep(0.001)
             
             # API 호출
