@@ -1030,6 +1030,8 @@ async def upload_image_to_imgbb(
         # aiohttp 세션으로 재시도 로직 수행
         async with ClientSession(connector=TCPConnector(ssl=False)) as session:
             for attempt in range(MAX_RETRIES):
+                # 이벤트 루프 양보
+                await asyncio.sleep(0.001)
                 start_time = datetime.now()
                 
                 try:
