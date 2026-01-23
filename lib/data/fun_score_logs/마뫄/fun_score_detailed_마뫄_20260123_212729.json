@@ -1,0 +1,3485 @@
+{
+  "channel_id": "ma_mwa",
+  "channel_name": "마뫄",
+  "save_timestamp": "2026-01-23T21:27:29.255806",
+  "total_logs": 59,
+  "logs": [
+    {
+      "timestamp": "2026-01-23T21:22:35.918806",
+      "fun_score": 5.509838130515826,
+      "test_fun_score": 0.08432210956755071,
+      "score_components": {
+        "chat_spike_score": 3.049259893118284,
+        "reaction_score": 0.08432210956755071,
+        "test_reaction_score": 0.08432210956755071,
+        "diversity_score": 41.123745457423325,
+        "viewer_trend_score": 0,
+        "final_score": 5.509838130515826,
+        "baseline_chat_count": 17.467770882593424,
+        "baseline_viewer_count": 1725.0642831734347,
+        "baseline_threshold": 11.602182028286816,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9423966180199885,
+        "test_score_difference": 0.009185258602084453,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1419,
+        "fun_keywords": {
+          "reaction": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0
+        }
+      },
+      "after_openDate": "05:36:35",
+      "comment_after_openDate": "05:36:35",
+      "chat_context": [
+        "뉴캣: 그래도 농심 잘해...",
+        "낫또띠: 숨 막히긴 하네",
+        "Kim씨: 농심...",
+        "팩토리얼: 쉽게 이기는 그림은 안보여..",
+        "코코로띠: 아니야 농심 믿어",
+        "beta1125: 내 무습따....",
+        "에임리스: 농심도 정교해졌는데 스읍",
+        "뛰뛰빵빠: 이번에 폼 올라오긴했던데 그래도 걱정된다",
+        "Kim씨: 어차피 다이겨야해",
+        "졸다가코베인: 솔랭 드가자",
+        "뉴캣: 농심 좔해...",
+        "튜즈: 원래 응원팀은 걱정하는게당연한거야",
+        "칼리오르: {:d_134:}{:d_134:}",
+        "한사람더가요: 다 대떡으로...",
+        "팩토리얼: 슬프네..",
+        "카키색잠옷: GE도 매서운데........"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:22:41.351243",
+      "fun_score": 5.632768486929832,
+      "test_fun_score": 0.08433766051605669,
+      "score_components": {
+        "chat_spike_score": 2.7275884850263576,
+        "reaction_score": 0.08433766051605669,
+        "test_reaction_score": 0.08433766051605669,
+        "diversity_score": 43.80052370513153,
+        "viewer_trend_score": 0,
+        "final_score": 5.632768486929832,
+        "baseline_chat_count": 17.45370963753818,
+        "baseline_viewer_count": 1722.1321873406332,
+        "baseline_threshold": 11.543817373746169,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0653269744339946,
+        "test_score_difference": 0.009200809550590439,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1419,
+        "fun_keywords": {
+          "reaction": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0
+        }
+      },
+      "after_openDate": "05:36:41",
+      "comment_after_openDate": "05:36:41",
+      "chat_context": [
+        "낫또띠: 숨 막히긴 하네",
+        "Kim씨: 농심...",
+        "팩토리얼: 쉽게 이기는 그림은 안보여..",
+        "코코로띠: 아니야 농심 믿어",
+        "beta1125: 내 무습따....",
+        "에임리스: 농심도 정교해졌는데 스읍",
+        "뛰뛰빵빠: 이번에 폼 올라오긴했던데 그래도 걱정된다",
+        "Kim씨: 어차피 다이겨야해",
+        "졸다가코베인: 솔랭 드가자",
+        "뉴캣: 농심 좔해...",
+        "튜즈: 원래 응원팀은 걱정하는게당연한거야",
+        "칼리오르: {:d_134:}{:d_134:}",
+        "한사람더가요: 다 대떡으로...",
+        "팩토리얼: 슬프네..",
+        "카키색잠옷: GE도 매서운데........"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:22:46.418962",
+      "fun_score": 5.305486937354553,
+      "test_fun_score": 0.10020050850834089,
+      "score_components": {
+        "chat_spike_score": 2.1793452003240907,
+        "reaction_score": 0.10020050850834089,
+        "test_reaction_score": 0.10020050850834089,
+        "diversity_score": 42.94721444656209,
+        "viewer_trend_score": 0,
+        "final_score": 5.305486937354553,
+        "baseline_chat_count": 17.430203099210562,
+        "baseline_viewer_count": 1719.2281809859098,
+        "baseline_threshold": 11.487189525410468,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7380454248587158,
+        "test_score_difference": 0.025063657542874637,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1419,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:36:46",
+      "comment_after_openDate": "05:36:46",
+      "chat_context": [
+        "에임리스: 농심도 정교해졌는데 스읍",
+        "뛰뛰빵빠: 이번에 폼 올라오긴했던데 그래도 걱정된다",
+        "Kim씨: 어차피 다이겨야해",
+        "졸다가코베인: 솔랭 드가자",
+        "뉴캣: 농심 좔해...",
+        "튜즈: 원래 응원팀은 걱정하는게당연한거야",
+        "칼리오르: {:d_134:}{:d_134:}",
+        "한사람더가요: 다 대떡으로...",
+        "팩토리얼: 슬프네..",
+        "카키색잠옷: GE도 매서운데........",
+        "뉴캣: 남일같지가않다",
+        "한사람더가요: 씁쓸한 날도 있는거지 뭐~",
+        "싸페ThousandFace: 젠지 진게 너무 충격이네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:22:51.424840",
+      "fun_score": 4.9696928930132085,
+      "test_fun_score": 0.10029872988349675,
+      "score_components": {
+        "chat_spike_score": 1.7416426976112829,
+        "reaction_score": 0.10029872988349675,
+        "test_reaction_score": 0.10029872988349675,
+        "diversity_score": 41.55864060123082,
+        "viewer_trend_score": 0,
+        "final_score": 4.9696928930132085,
+        "baseline_chat_count": 17.387761753520124,
+        "baseline_viewer_count": 1716.3519950120647,
+        "baseline_threshold": 11.427968814616893,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.025161878918030497,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 1419,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:36:51",
+      "comment_after_openDate": "05:36:51",
+      "chat_context": [
+        "Kim씨: 어차피 다이겨야해",
+        "졸다가코베인: 솔랭 드가자",
+        "뉴캣: 농심 좔해...",
+        "튜즈: 원래 응원팀은 걱정하는게당연한거야",
+        "칼리오르: {:d_134:}{:d_134:}",
+        "한사람더가요: 다 대떡으로...",
+        "팩토리얼: 슬프네..",
+        "카키색잠옷: GE도 매서운데........",
+        "뉴캣: 남일같지가않다",
+        "한사람더가요: 씁쓸한 날도 있는거지 뭐~",
+        "싸페ThousandFace: 젠지 진게 너무 충격이네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:22:56.440358",
+      "fun_score": 4.630758753725645,
+      "test_fun_score": 0.10044137014217913,
+      "score_components": {
+        "chat_spike_score": 1.3912517433981308,
+        "reaction_score": 0.10044137014217913,
+        "test_reaction_score": 0.10044137014217913,
+        "diversity_score": 39.745630581538315,
+        "viewer_trend_score": 0,
+        "final_score": 4.630758753725645,
+        "baseline_chat_count": 17.3265669959214,
+        "baseline_viewer_count": 1713.503362899849,
+        "baseline_threshold": 11.366098531287928,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.025304519176712878,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1419,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "05:36:56",
+      "comment_after_openDate": "05:36:56",
+      "chat_context": [
+        "칼리오르: {:d_134:}{:d_134:}",
+        "한사람더가요: 다 대떡으로...",
+        "팩토리얼: 슬프네..",
+        "카키색잠옷: GE도 매서운데........",
+        "뉴캣: 남일같지가않다",
+        "한사람더가요: 씁쓸한 날도 있는거지 뭐~",
+        "싸페ThousandFace: 젠지 진게 너무 충격이네",
+        "팩토리얼: 한국팀 응원하기 무습따",
+        "크림치즈와퍼: 앙"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:01.519004",
+      "fun_score": 4.107573466602448,
+      "test_fun_score": 0.15096716811087832,
+      "score_components": {
+        "chat_spike_score": 1.3979057973616327,
+        "reaction_score": 0.15096716811087832,
+        "test_reaction_score": 0.15096716811087832,
+        "diversity_score": 34.33225707356449,
+        "viewer_trend_score": 0,
+        "final_score": 4.107573466602448,
+        "baseline_chat_count": 17.246798484100474,
+        "baseline_viewer_count": 1710.6820206832683,
+        "baseline_threshold": 11.301573976218881,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.07583031714541207,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1419,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:37:01",
+      "comment_after_openDate": "05:37:01",
+      "chat_context": [
+        "한사람더가요: 다 대떡으로...",
+        "팩토리얼: 슬프네..",
+        "카키색잠옷: GE도 매서운데........",
+        "뉴캣: 남일같지가않다",
+        "한사람더가요: 씁쓸한 날도 있는거지 뭐~",
+        "싸페ThousandFace: 젠지 진게 너무 충격이네",
+        "팩토리얼: 한국팀 응원하기 무습따",
+        "크림치즈와퍼: 앙",
+        "카키색잠옷: 그래도 담비네온이 메이네온 한번 닦은적 있지않나요!?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:06.523840",
+      "fun_score": 5.601113570649835,
+      "test_fun_score": 0.1515317418809392,
+      "score_components": {
+        "chat_spike_score": 0.992355821188961,
+        "reaction_score": 0.1515317418809392,
+        "test_reaction_score": 0.1515317418809392,
+        "diversity_score": 51.0909392855052,
+        "viewer_trend_score": 0,
+        "final_score": 5.601113570649835,
+        "baseline_chat_count": 17.16779415462279,
+        "baseline_viewer_count": 1707.8877069251225,
+        "baseline_threshold": 11.232655451336754,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.493540104047387,
+        "test_score_difference": 0.07639489091547295,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:37:06",
+      "comment_after_openDate": "05:37:06",
+      "chat_context": [
+        "뉴캣: 남일같지가않다",
+        "한사람더가요: 씁쓸한 날도 있는거지 뭐~",
+        "싸페ThousandFace: 젠지 진게 너무 충격이네",
+        "팩토리얼: 한국팀 응원하기 무습따",
+        "크림치즈와퍼: 앙",
+        "카키색잠옷: 그래도 담비네온이 메이네온 한번 닦은적 있지않나요!?"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:11.531128",
+      "fun_score": 5.13946145577036,
+      "test_fun_score": 0.24331589721440333,
+      "score_components": {
+        "chat_spike_score": 1.258383024331834,
+        "reaction_score": 0.24331589721440333,
+        "test_reaction_score": 0.24331589721440333,
+        "diversity_score": 45.00194325656714,
+        "viewer_trend_score": 0,
+        "final_score": 5.13946145577036,
+        "baseline_chat_count": 17.060806686621504,
+        "baseline_viewer_count": 1704.9956226927798,
+        "baseline_threshold": 11.178705280119773,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0318879891679122,
+        "test_score_difference": 0.1681790462489371,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:37:11",
+      "comment_after_openDate": "05:37:11",
+      "chat_context": [
+        "뉴캣: 남일같지가않다",
+        "한사람더가요: 씁쓸한 날도 있는거지 뭐~",
+        "싸페ThousandFace: 젠지 진게 너무 충격이네",
+        "팩토리얼: 한국팀 응원하기 무습따",
+        "크림치즈와퍼: 앙",
+        "카키색잠옷: 그래도 담비네온이 메이네온 한번 닦은적 있지않나요!?",
+        "드챔 막스: \"올해는 다르다\"",
+        "드챔 막스: ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:16.536604",
+      "fun_score": 4.5094969567121685,
+      "test_fun_score": 0.24492373500185155,
+      "score_components": {
+        "chat_spike_score": 1.2643943306239391,
+        "reaction_score": 0.24492373500185155,
+        "test_reaction_score": 0.24492373500185155,
+        "diversity_score": 38.670423874308405,
+        "viewer_trend_score": 0,
+        "final_score": 4.5094969567121685,
+        "baseline_chat_count": 16.97400415856367,
+        "baseline_viewer_count": 1702.1312446273828,
+        "baseline_threshold": 11.120849324282505,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.40192349010972084,
+        "test_score_difference": 0.1697868840363853,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:37:16",
+      "comment_after_openDate": "05:37:16",
+      "chat_context": [
+        "팩토리얼: 한국팀 응원하기 무습따",
+        "크림치즈와퍼: 앙",
+        "카키색잠옷: 그래도 담비네온이 메이네온 한번 닦은적 있지않나요!?",
+        "드챔 막스: \"올해는 다르다\"",
+        "드챔 막스: ㅋㅋㅋ",
+        "팩토리얼: 진짜 달랐다",
+        "에임리스: 첫경기들은 왠지 다 대떡이네",
+        "한사람더가요: 새발동 막내 잘하네..."
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:21.546325",
+      "fun_score": 4.739619546716569,
+      "test_fun_score": 0.2774966422076907,
+      "score_components": {
+        "chat_spike_score": 1.4290217011378012,
+        "reaction_score": 0.2774966422076907,
+        "test_reaction_score": 0.2774966422076907,
+        "diversity_score": 40.13310788542251,
+        "viewer_trend_score": 0,
+        "final_score": 4.739619546716569,
+        "baseline_chat_count": 16.88803319872463,
+        "baseline_viewer_count": 1699.2943073038523,
+        "baseline_threshold": 11.05751256860118,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.6320460801141214,
+        "test_score_difference": 0.202338356245369,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "excitement": 1.0,
+          "laugh": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "excitement": 1.0,
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:37:21",
+      "comment_after_openDate": "05:37:21",
+      "chat_context": [
+        "팩토리얼: 한국팀 응원하기 무습따",
+        "크림치즈와퍼: 앙",
+        "카키색잠옷: 그래도 담비네온이 메이네온 한번 닦은적 있지않나요!?",
+        "드챔 막스: \"올해는 다르다\"",
+        "드챔 막스: ㅋㅋㅋ",
+        "팩토리얼: 진짜 달랐다",
+        "에임리스: 첫경기들은 왠지 다 대떡이네",
+        "한사람더가요: 새발동 막내 잘하네...",
+        "뉴캣: 그래도 농심 운 좋아서 이긴 거 아니야 잘해서 이긴거야~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:26.551233",
+      "fun_score": 5.008379912870528,
+      "test_fun_score": 0.24798909545306658,
+      "score_components": {
+        "chat_spike_score": 1.1335439578289321,
+        "reaction_score": 0.24798909545306658,
+        "test_reaction_score": 0.24798909545306658,
+        "diversity_score": 44.238884032115884,
+        "viewer_trend_score": 0,
+        "final_score": 5.008379912870528,
+        "baseline_chat_count": 16.81246584068085,
+        "baseline_viewer_count": 1696.4845478398813,
+        "baseline_threshold": 10.996987153451526,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9008064462680805,
+        "test_score_difference": 0.17280946737896755,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 1.0,
+          "surprise": 1.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 1.0,
+          "surprise": 1.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "05:37:26",
+      "comment_after_openDate": "05:37:26",
+      "chat_context": [
+        "카키색잠옷: 그래도 담비네온이 메이네온 한번 닦은적 있지않나요!?",
+        "드챔 막스: \"올해는 다르다\"",
+        "드챔 막스: ㅋㅋㅋ",
+        "팩토리얼: 진짜 달랐다",
+        "에임리스: 첫경기들은 왠지 다 대떡이네",
+        "한사람더가요: 새발동 막내 잘하네...",
+        "뉴캣: 그래도 농심 운 좋아서 이긴 거 아니야 잘해서 이긴거야~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:31.617052",
+      "fun_score": 5.172682583869039,
+      "test_fun_score": 0.24981815162323304,
+      "score_components": {
+        "chat_spike_score": 1.282625812653199,
+        "reaction_score": 0.24981815162323304,
+        "test_reaction_score": 0.24981815162323304,
+        "diversity_score": 45.205555226881295,
+        "viewer_trend_score": 0,
+        "final_score": 5.172682583869039,
+        "baseline_chat_count": 16.718462417927128,
+        "baseline_viewer_count": 1693.701705871575,
+        "baseline_threshold": 10.93961629608676,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0651091172665916,
+        "test_score_difference": 0.16551171514214164,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:37:31",
+      "comment_after_openDate": "05:37:31",
+      "chat_context": [
+        "드챔 막스: \"올해는 다르다\"",
+        "드챔 막스: ㅋㅋㅋ",
+        "팩토리얼: 진짜 달랐다",
+        "에임리스: 첫경기들은 왠지 다 대떡이네",
+        "한사람더가요: 새발동 막내 잘하네...",
+        "뉴캣: 그래도 농심 운 좋아서 이긴 거 아니야 잘해서 이긴거야~",
+        "밀키치즈: 캬",
+        "운남동1짱: 역시 우리 새발동 멤버야"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:36.622227",
+      "fun_score": 4.270069034633206,
+      "test_fun_score": 0.998463324718242,
+      "score_components": {
+        "chat_spike_score": 2.0763834050528374,
+        "reaction_score": 0.998463324718242,
+        "test_reaction_score": 0.998463324718242,
+        "diversity_score": 30.36157504943956,
+        "viewer_trend_score": 0,
+        "final_score": 4.270069034633206,
+        "baseline_chat_count": 16.634939547963388,
+        "baseline_viewer_count": 1690.9455235293253,
+        "baseline_threshold": 10.884369071123713,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.16249556803075826,
+        "test_score_difference": 0.9141412151506912,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "laugh": 3.0,
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "surprise": 1.0,
+          "reaction": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "05:37:36",
+      "comment_after_openDate": "05:37:36",
+      "chat_context": [
+        "드챔 막스: \"올해는 다르다\"",
+        "드챔 막스: ㅋㅋㅋ",
+        "팩토리얼: 진짜 달랐다",
+        "에임리스: 첫경기들은 왠지 다 대떡이네",
+        "한사람더가요: 새발동 막내 잘하네...",
+        "뉴캣: 그래도 농심 운 좋아서 이긴 거 아니야 잘해서 이긴거야~",
+        "밀키치즈: 캬",
+        "운남동1짱: 역시 우리 새발동 멤버야",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 쉬러가셔",
+        "뉴캣: 쉬러가자잇..",
+        "한사람더가요: ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:43.138785",
+      "fun_score": 4.265478054182852,
+      "test_fun_score": 0.4606217843956544,
+      "score_components": {
+        "chat_spike_score": 1.456395571446535,
+        "reaction_score": 0.4606217843956544,
+        "test_reaction_score": 0.4606217843956544,
+        "diversity_score": 34.71913511713215,
+        "viewer_trend_score": 0,
+        "final_score": 4.265478054182852,
+        "baseline_chat_count": 16.5905368270939,
+        "baseline_viewer_count": 1688.2157454139144,
+        "baseline_threshold": 10.821004076774132,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.15790458758040415,
+        "test_score_difference": 0.3762841238795977,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 2.0,
+          "laugh": 2.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 2.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "05:37:43",
+      "comment_after_openDate": "05:37:43",
+      "chat_context": [
+        "에임리스: 첫경기들은 왠지 다 대떡이네",
+        "한사람더가요: 새발동 막내 잘하네...",
+        "뉴캣: 그래도 농심 운 좋아서 이긴 거 아니야 잘해서 이긴거야~",
+        "밀키치즈: 캬",
+        "운남동1짱: 역시 우리 새발동 멤버야",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 쉬러가셔",
+        "뉴캣: 쉬러가자잇..",
+        "한사람더가요: ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:48.222745",
+      "fun_score": 4.777448096856087,
+      "test_fun_score": 0.6673243638023417,
+      "score_components": {
+        "chat_spike_score": 2.364302534162899,
+        "reaction_score": 0.6673243638023417,
+        "test_reaction_score": 0.6673243638023417,
+        "diversity_score": 35.133146473420794,
+        "viewer_trend_score": 0,
+        "final_score": 4.777448096856087,
+        "baseline_chat_count": 16.51781948429034,
+        "baseline_viewer_count": 1685.512118572849,
+        "baseline_threshold": 10.758202137477706,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.6698746302536396,
+        "test_score_difference": 0.5671238552940008,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "05:37:48",
+      "comment_after_openDate": "05:37:48",
+      "chat_context": [
+        "밀키치즈: 캬",
+        "운남동1짱: 역시 우리 새발동 멤버야",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 쉬러가셔",
+        "뉴캣: 쉬러가자잇..",
+        "한사람더가요: ㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아직 중계 남아있으니까 쉬고 오십셔",
+        "한사람더가요: 푹 쉬세용",
+        "뉴캣: 정신적으로도 너무 힘들었다ㅋㅋ",
+        "카키색잠옷: 스크림 승률이 좋으셨나보네",
+        "지비1: 내일 무조건 이겨야해…",
+        "파란임: 푹 쉬셔요",
+        "뛰뛰빵빠: 푹쉬세용"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:53.227336",
+      "fun_score": 4.94124470791879,
+      "test_fun_score": 0.6704598476495429,
+      "score_components": {
+        "chat_spike_score": 3.0134005885702213,
+        "reaction_score": 0.6704598476495429,
+        "test_reaction_score": 0.6704598476495429,
+        "diversity_score": 33.840764887673274,
+        "viewer_trend_score": 0,
+        "final_score": 4.94124470791879,
+        "baseline_chat_count": 16.484118773630836,
+        "baseline_viewer_count": 1682.834392476921,
+        "baseline_threshold": 10.700906513768551,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8336712413163418,
+        "test_score_difference": 0.5701611177660462,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "05:37:53",
+      "comment_after_openDate": "05:37:53",
+      "chat_context": [
+        "밀키치즈: 캬",
+        "운남동1짱: 역시 우리 새발동 멤버야",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 쉬러가셔",
+        "뉴캣: 쉬러가자잇..",
+        "한사람더가요: ㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아직 중계 남아있으니까 쉬고 오십셔",
+        "한사람더가요: 푹 쉬세용",
+        "뉴캣: 정신적으로도 너무 힘들었다ㅋㅋ",
+        "카키색잠옷: 스크림 승률이 좋으셨나보네",
+        "지비1: 내일 무조건 이겨야해…",
+        "파란임: 푹 쉬셔요",
+        "뛰뛰빵빠: 푹쉬세용",
+        "히신: {:mW:}{:mR:}{:mQ:}",
+        "뛰뛰빵빠: 덕분에 ㅈ대밌었어요"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:23:58.238643",
+      "fun_score": 5.533113070152654,
+      "test_fun_score": 0.9089958621373033,
+      "score_components": {
+        "chat_spike_score": 5.469896539144251,
+        "reaction_score": 0.9089958621373033,
+        "test_reaction_score": 0.9089958621373033,
+        "diversity_score": 27.98960868896549,
+        "viewer_trend_score": 0,
+        "final_score": 5.533113070152654,
+        "baseline_chat_count": 16.46990091577945,
+        "baseline_viewer_count": 1680.182318996992,
+        "baseline_threshold": 10.64572895366851,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.425539603550206,
+        "test_score_difference": 0.8085544919951242,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 3.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 3.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:37:58",
+      "comment_after_openDate": "05:37:58",
+      "chat_context": [
+        "밀키치즈: 캬",
+        "운남동1짱: 역시 우리 새발동 멤버야",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 쉬러가셔",
+        "뉴캣: 쉬러가자잇..",
+        "한사람더가요: ㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아직 중계 남아있으니까 쉬고 오십셔",
+        "한사람더가요: 푹 쉬세용",
+        "뉴캣: 정신적으로도 너무 힘들었다ㅋㅋ",
+        "카키색잠옷: 스크림 승률이 좋으셨나보네",
+        "지비1: 내일 무조건 이겨야해…",
+        "파란임: 푹 쉬셔요",
+        "뛰뛰빵빠: 푹쉬세용",
+        "히신: {:mW:}{:mR:}{:mQ:}",
+        "뛰뛰빵빠: 덕분에 ㅈ대밌었어요",
+        "팩토리얼: 괜차나~",
+        "뛰뛰빵빠: 재밌었어요",
+        "제로슈가글라이더: {:m1:}{:m1:}",
+        "뉴캣: 밥무거...",
+        "한사람더가요: 내일 진짜 중요한게임이야"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:03.242683",
+      "fun_score": 5.10013046379108,
+      "test_fun_score": 0.41231228286302996,
+      "score_components": {
+        "chat_spike_score": 4.837244063694515,
+        "reaction_score": 0.41231228286302996,
+        "test_reaction_score": 0.41231228286302996,
+        "diversity_score": 27.99676950269639,
+        "viewer_trend_score": 0,
+        "final_score": 5.10013046379108,
+        "baseline_chat_count": 16.503719265006286,
+        "baseline_viewer_count": 1677.5556523810008,
+        "baseline_threshold": 10.596750093504427,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9925569971886326,
+        "test_score_difference": 0.2613451147521516,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 1406,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 2.0,
+          "surprise": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 2.0,
+          "surprise": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:38:03",
+      "comment_after_openDate": "05:38:03",
+      "chat_context": [
+        "뉴캣: 쉬러가자잇..",
+        "한사람더가요: ㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아직 중계 남아있으니까 쉬고 오십셔",
+        "한사람더가요: 푹 쉬세용",
+        "뉴캣: 정신적으로도 너무 힘들었다ㅋㅋ",
+        "카키색잠옷: 스크림 승률이 좋으셨나보네",
+        "지비1: 내일 무조건 이겨야해…",
+        "파란임: 푹 쉬셔요",
+        "뛰뛰빵빠: 푹쉬세용",
+        "히신: {:mW:}{:mR:}{:mQ:}",
+        "뛰뛰빵빠: 덕분에 ㅈ대밌었어요",
+        "팩토리얼: 괜차나~",
+        "뛰뛰빵빠: 재밌었어요",
+        "제로슈가글라이더: {:m1:}{:m1:}",
+        "뉴캣: 밥무거...",
+        "한사람더가요: 내일 진짜 중요한게임이야",
+        "설로아: 중계하시느라 수고 많읏",
+        "설로아: ㅕ",
+        "갈색햄찌: 뫄바",
+        "팩토리얼: 내일은 누가 이겨도 아파.."
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:08.258554",
+      "fun_score": 5.041803372521448,
+      "test_fun_score": 0.26921982966983143,
+      "score_components": {
+        "chat_spike_score": 4.8152799952532925,
+        "reaction_score": 0.26921982966983143,
+        "test_reaction_score": 0.26921982966983143,
+        "diversity_score": 27.941614257565163,
+        "viewer_trend_score": 0,
+        "final_score": 5.041803372521448,
+        "baseline_chat_count": 16.537213634447525,
+        "baseline_viewer_count": 1674.9541492311907,
+        "baseline_threshold": 10.544092477451773,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7763253183385963,
+        "test_score_difference": 0.11768808778889223,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "laugh": 2.0,
+          "surprise": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "surprise": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:38:08",
+      "comment_after_openDate": "05:38:08",
+      "chat_context": [
+        "팩토리얼: 아직 중계 남아있으니까 쉬고 오십셔",
+        "한사람더가요: 푹 쉬세용",
+        "뉴캣: 정신적으로도 너무 힘들었다ㅋㅋ",
+        "카키색잠옷: 스크림 승률이 좋으셨나보네",
+        "지비1: 내일 무조건 이겨야해…",
+        "파란임: 푹 쉬셔요",
+        "뛰뛰빵빠: 푹쉬세용",
+        "히신: {:mW:}{:mR:}{:mQ:}",
+        "뛰뛰빵빠: 덕분에 ㅈ대밌었어요",
+        "팩토리얼: 괜차나~",
+        "뛰뛰빵빠: 재밌었어요",
+        "제로슈가글라이더: {:m1:}{:m1:}",
+        "뉴캣: 밥무거...",
+        "한사람더가요: 내일 진짜 중요한게임이야",
+        "설로아: 중계하시느라 수고 많읏",
+        "설로아: ㅕ",
+        "갈색햄찌: 뫄바",
+        "팩토리얼: 내일은 누가 이겨도 아파..",
+        "뉴캣: 내려놔...",
+        "팩토리얼: ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:13.263310",
+      "fun_score": 6.0077146544191535,
+      "test_fun_score": 0.16574871260765733,
+      "score_components": {
+        "chat_spike_score": 6.062827665539262,
+        "reaction_score": 0.16574871260765733,
+        "test_reaction_score": 0.16574871260765733,
+        "diversity_score": 32.29717591144188,
+        "viewer_trend_score": 0,
+        "final_score": 6.0077146544191535,
+        "baseline_chat_count": 16.57038712782952,
+        "baseline_viewer_count": 1672.262608481556,
+        "baseline_threshold": 10.491380547826541,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7422366002363017,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "greeting": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:38:13",
+      "comment_after_openDate": "05:38:13",
+      "chat_context": [
+        "카키색잠옷: 스크림 승률이 좋으셨나보네",
+        "지비1: 내일 무조건 이겨야해…",
+        "파란임: 푹 쉬셔요",
+        "뛰뛰빵빠: 푹쉬세용",
+        "히신: {:mW:}{:mR:}{:mQ:}",
+        "뛰뛰빵빠: 덕분에 ㅈ대밌었어요",
+        "팩토리얼: 괜차나~",
+        "뛰뛰빵빠: 재밌었어요",
+        "제로슈가글라이더: {:m1:}{:m1:}",
+        "뉴캣: 밥무거...",
+        "한사람더가요: 내일 진짜 중요한게임이야",
+        "설로아: 중계하시느라 수고 많읏",
+        "설로아: ㅕ",
+        "갈색햄찌: 뫄바",
+        "팩토리얼: 내일은 누가 이겨도 아파..",
+        "뉴캣: 내려놔...",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "설로아: 수고 많으",
+        "지비1: 하",
+        "뫔뭄미: 고생하셨어용",
+        "유나이트: 옆집 대회도 우승했다는것이지",
+        "싸페ThousandFace: 티원이 먼치킨까지흡수하고 미쳤던데"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:18.267220",
+      "fun_score": 5.620934712712027,
+      "test_fun_score": 0.22321856712356278,
+      "score_components": {
+        "chat_spike_score": 5.352590935038349,
+        "reaction_score": 0.22321856712356278,
+        "test_reaction_score": 0.22321856712356278,
+        "diversity_score": 31.453032218077013,
+        "viewer_trend_score": 0,
+        "final_score": 5.620934712712027,
+        "baseline_chat_count": 16.622402819144913,
+        "baseline_viewer_count": 1669.5968526923027,
+        "baseline_threshold": 10.448427028567698,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.3554566585291754,
+        "test_score_difference": 0.057469854515905444,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "surprise": 2.0,
+          "greeting": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 2.0,
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:38:18",
+      "comment_after_openDate": "05:38:18",
+      "chat_context": [
+        "히신: {:mW:}{:mR:}{:mQ:}",
+        "뛰뛰빵빠: 덕분에 ㅈ대밌었어요",
+        "팩토리얼: 괜차나~",
+        "뛰뛰빵빠: 재밌었어요",
+        "제로슈가글라이더: {:m1:}{:m1:}",
+        "뉴캣: 밥무거...",
+        "한사람더가요: 내일 진짜 중요한게임이야",
+        "설로아: 중계하시느라 수고 많읏",
+        "설로아: ㅕ",
+        "갈색햄찌: 뫄바",
+        "팩토리얼: 내일은 누가 이겨도 아파..",
+        "뉴캣: 내려놔...",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "설로아: 수고 많으",
+        "지비1: 하",
+        "뫔뭄미: 고생하셨어용",
+        "유나이트: 옆집 대회도 우승했다는것이지",
+        "싸페ThousandFace: 티원이 먼치킨까지흡수하고 미쳤던데",
+        "노도하: {:m5:}{:m5:}",
+        "한사람더가요: 프나틱 13ㄷ0냈을때는 충격이긴했음",
+        "팩토리얼: 스크림도 잘한닫 하고"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:23.271000",
+      "fun_score": 5.499524227479824,
+      "test_fun_score": 0.22254444461719614,
+      "score_components": {
+        "chat_spike_score": 4.733586471510786,
+        "reaction_score": 0.22254444461719614,
+        "test_reaction_score": 0.22254444461719614,
+        "diversity_score": 33.02646981914812,
+        "viewer_trend_score": 0,
+        "final_score": 5.499524227479824,
+        "baseline_chat_count": 16.664340200137506,
+        "baseline_viewer_count": 1666.9566348435105,
+        "baseline_threshold": 10.4021796521818,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.2340461732969725,
+        "test_score_difference": 0.0567957320095388,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "surprise": 2.0,
+          "greeting": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 2.0,
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:38:23",
+      "comment_after_openDate": "05:38:23",
+      "chat_context": [
+        "팩토리얼: 괜차나~",
+        "뛰뛰빵빠: 재밌었어요",
+        "제로슈가글라이더: {:m1:}{:m1:}",
+        "뉴캣: 밥무거...",
+        "한사람더가요: 내일 진짜 중요한게임이야",
+        "설로아: 중계하시느라 수고 많읏",
+        "설로아: ㅕ",
+        "갈색햄찌: 뫄바",
+        "팩토리얼: 내일은 누가 이겨도 아파..",
+        "뉴캣: 내려놔...",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "설로아: 수고 많으",
+        "지비1: 하",
+        "뫔뭄미: 고생하셨어용",
+        "유나이트: 옆집 대회도 우승했다는것이지",
+        "싸페ThousandFace: 티원이 먼치킨까지흡수하고 미쳤던데",
+        "노도하: {:m5:}{:m5:}",
+        "한사람더가요: 프나틱 13ㄷ0냈을때는 충격이긴했음",
+        "팩토리얼: 스크림도 잘한닫 하고",
+        "오미자우웡: 물떠놓고 기도컨 가겠습니다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:28.321588",
+      "fun_score": 4.836716188613414,
+      "test_fun_score": 0.16462202054385278,
+      "score_components": {
+        "chat_spike_score": 3.3141479921464505,
+        "reaction_score": 0.16462202054385278,
+        "test_reaction_score": 0.16462202054385278,
+        "diversity_score": 32.95962985984355,
+        "viewer_trend_score": 0,
+        "final_score": 4.836716188613414,
+        "baseline_chat_count": 16.69629582102019,
+        "baseline_viewer_count": 1664.3417102817098,
+        "baseline_threshold": 10.355212213213155,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5712381344305619,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:38:28",
+      "comment_after_openDate": "05:38:28",
+      "chat_context": [
+        "설로아: 중계하시느라 수고 많읏",
+        "설로아: ㅕ",
+        "갈색햄찌: 뫄바",
+        "팩토리얼: 내일은 누가 이겨도 아파..",
+        "뉴캣: 내려놔...",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "설로아: 수고 많으",
+        "지비1: 하",
+        "뫔뭄미: 고생하셨어용",
+        "유나이트: 옆집 대회도 우승했다는것이지",
+        "싸페ThousandFace: 티원이 먼치킨까지흡수하고 미쳤던데",
+        "노도하: {:m5:}{:m5:}",
+        "한사람더가요: 프나틱 13ㄷ0냈을때는 충격이긴했음",
+        "팩토리얼: 스크림도 잘한닫 하고",
+        "오미자우웡: 물떠놓고 기도컨 가겠습니다",
+        "뉴캣: 그치",
+        "팩토리얼: t1도 우리 한국팀이야~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:33.353510",
+      "fun_score": 5.602974838552676,
+      "test_fun_score": 0.14603150413222954,
+      "score_components": {
+        "chat_spike_score": 3.7267365105477643,
+        "reaction_score": 0.14603150413222954,
+        "test_reaction_score": 0.14603150413222954,
+        "diversity_score": 38.82133957566513,
+        "viewer_trend_score": 0,
+        "final_score": 5.602974838552676,
+        "baseline_chat_count": 16.699205307054815,
+        "baseline_viewer_count": 1661.751836697211,
+        "baseline_threshold": 10.30234502129749,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.337496784369824,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:38:33",
+      "comment_after_openDate": "05:38:33",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "설로아: 수고 많으",
+        "지비1: 하",
+        "뫔뭄미: 고생하셨어용",
+        "유나이트: 옆집 대회도 우승했다는것이지",
+        "싸페ThousandFace: 티원이 먼치킨까지흡수하고 미쳤던데",
+        "노도하: {:m5:}{:m5:}",
+        "한사람더가요: 프나틱 13ㄷ0냈을때는 충격이긴했음",
+        "팩토리얼: 스크림도 잘한닫 하고",
+        "오미자우웡: 물떠놓고 기도컨 가겠습니다",
+        "뉴캣: 그치",
+        "팩토리얼: t1도 우리 한국팀이야~",
+        "히신: 맞긴해",
+        "뉴캣: 티원도 잘하면 좋은거지",
+        "도도한 마왕 1929: 티원이 올시즌 무서울 수 있어",
+        "유나이트: 한국팀이긴 해",
+        "칼리오르: 둘다 잘했으면 좋겠다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:38.362556",
+      "fun_score": 5.324104674928894,
+      "test_fun_score": 0.09046689622674632,
+      "score_components": {
+        "chat_spike_score": 3.3119828040965213,
+        "reaction_score": 0.09046689622674632,
+        "test_reaction_score": 0.09046689622674632,
+        "diversity_score": 38.06572344217436,
+        "viewer_trend_score": 0,
+        "final_score": 5.324104674928894,
+        "baseline_chat_count": 16.702086920213226,
+        "baseline_viewer_count": 1659.1867741016517,
+        "baseline_threshold": 10.257325054946795,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0586266207460424,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:38:38",
+      "comment_after_openDate": "05:38:38",
+      "chat_context": [
+        "뫔뭄미: 고생하셨어용",
+        "유나이트: 옆집 대회도 우승했다는것이지",
+        "싸페ThousandFace: 티원이 먼치킨까지흡수하고 미쳤던데",
+        "노도하: {:m5:}{:m5:}",
+        "한사람더가요: 프나틱 13ㄷ0냈을때는 충격이긴했음",
+        "팩토리얼: 스크림도 잘한닫 하고",
+        "오미자우웡: 물떠놓고 기도컨 가겠습니다",
+        "뉴캣: 그치",
+        "팩토리얼: t1도 우리 한국팀이야~",
+        "히신: 맞긴해",
+        "뉴캣: 티원도 잘하면 좋은거지",
+        "도도한 마왕 1929: 티원이 올시즌 무서울 수 있어",
+        "유나이트: 한국팀이긴 해",
+        "칼리오르: 둘다 잘했으면 좋겠다",
+        "팩토리얼: 누가 이겨도 좋고 슬퍼",
+        "Sunflower1423: 두사랑해야지"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:43.433094",
+      "fun_score": 4.994539405753269,
+      "test_fun_score": 0.09047780257117972,
+      "score_components": {
+        "chat_spike_score": 3.7284515393087565,
+        "reaction_score": 0.09047780257117972,
+        "test_reaction_score": 0.09047780257117972,
+        "diversity_score": 32.89592872292974,
+        "viewer_trend_score": 0,
+        "final_score": 4.994539405753269,
+        "baseline_chat_count": 16.69536092751758,
+        "baseline_viewer_count": 1656.646284805758,
+        "baseline_threshold": 10.210064803706222,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.729061351570417,
+        "test_score_difference": 1.0906344433403437e-05,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:38:43",
+      "comment_after_openDate": "05:38:43",
+      "chat_context": [
+        "노도하: {:m5:}{:m5:}",
+        "한사람더가요: 프나틱 13ㄷ0냈을때는 충격이긴했음",
+        "팩토리얼: 스크림도 잘한닫 하고",
+        "오미자우웡: 물떠놓고 기도컨 가겠습니다",
+        "뉴캣: 그치",
+        "팩토리얼: t1도 우리 한국팀이야~",
+        "히신: 맞긴해",
+        "뉴캣: 티원도 잘하면 좋은거지",
+        "도도한 마왕 1929: 티원이 올시즌 무서울 수 있어",
+        "유나이트: 한국팀이긴 해",
+        "칼리오르: 둘다 잘했으면 좋겠다",
+        "팩토리얼: 누가 이겨도 좋고 슬퍼",
+        "Sunflower1423: 두사랑해야지",
+        "한사람더가요: 구경이지",
+        "튜즈: 티원먼치킨 궁금하다",
+        "팩토리얼: 얼마나 잘 대응하나 봐야지",
+        "뉴캣: 다 잘해라~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:48.448232",
+      "fun_score": 4.821615379087218,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.616836910174097,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 36.23917761680885,
+        "viewer_trend_score": 0,
+        "final_score": 4.821615379087218,
+        "baseline_chat_count": 16.69827936983196,
+        "baseline_viewer_count": 1654.1301333973188,
+        "baseline_threshold": 10.160100070393833,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.044167282231130756,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1394,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "05:38:48",
+      "comment_after_openDate": "05:38:48",
+      "chat_context": [
+        "오미자우웡: 물떠놓고 기도컨 가겠습니다",
+        "뉴캣: 그치",
+        "팩토리얼: t1도 우리 한국팀이야~",
+        "히신: 맞긴해",
+        "뉴캣: 티원도 잘하면 좋은거지",
+        "도도한 마왕 1929: 티원이 올시즌 무서울 수 있어",
+        "유나이트: 한국팀이긴 해",
+        "칼리오르: 둘다 잘했으면 좋겠다",
+        "팩토리얼: 누가 이겨도 좋고 슬퍼",
+        "Sunflower1423: 두사랑해야지",
+        "한사람더가요: 구경이지",
+        "튜즈: 티원먼치킨 궁금하다",
+        "팩토리얼: 얼마나 잘 대응하나 봐야지",
+        "뉴캣: 다 잘해라~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:53.459484",
+      "fun_score": 4.759190470770088,
+      "test_fun_score": 0.10834979406726868,
+      "score_components": {
+        "chat_spike_score": 2.9529955404207353,
+        "reaction_score": 0.10834979406726868,
+        "test_reaction_score": 0.10834979406726868,
+        "diversity_score": 33.97837539360576,
+        "viewer_trend_score": 0,
+        "final_score": 4.759190470770088,
+        "baseline_chat_count": 16.672429853468966,
+        "baseline_viewer_count": 1651.6380867193725,
+        "baseline_threshold": 10.108957387051115,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.04127976797397305,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:38:53",
+      "comment_after_openDate": "05:38:53",
+      "chat_context": [
+        "뉴캣: 그치",
+        "팩토리얼: t1도 우리 한국팀이야~",
+        "히신: 맞긴해",
+        "뉴캣: 티원도 잘하면 좋은거지",
+        "도도한 마왕 1929: 티원이 올시즌 무서울 수 있어",
+        "유나이트: 한국팀이긴 해",
+        "칼리오르: 둘다 잘했으면 좋겠다",
+        "팩토리얼: 누가 이겨도 좋고 슬퍼",
+        "Sunflower1423: 두사랑해야지",
+        "한사람더가요: 구경이지",
+        "튜즈: 티원먼치킨 궁금하다",
+        "팩토리얼: 얼마나 잘 대응하나 봐야지",
+        "뉴캣: 다 잘해라~",
+        "철수책상철첵스초코: 기대컨 ㅋㅋ",
+        "한사람더가요: 누가이기든 둘다 잘했으면 좋겠다"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:24:58.468147",
+      "fun_score": 6.3314200353740215,
+      "test_fun_score": 0.5153000012714561,
+      "score_components": {
+        "chat_spike_score": 4.7386078350276275,
+        "reaction_score": 0.6241070582065512,
+        "test_reaction_score": 0.5153000012714561,
+        "diversity_score": 40.118143921496234,
+        "viewer_trend_score": 0,
+        "final_score": 6.3314200353740215,
+        "baseline_chat_count": 16.65640797547273,
+        "baseline_viewer_count": 1649.169913848601,
+        "baseline_threshold": 10.057706619993143,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5722295646039335,
+        "test_score_difference": 0.44822997517816054,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 1394,
+        "fun_keywords": {
+          "laugh": 4.4,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "05:38:58",
+      "comment_after_openDate": "05:38:58",
+      "chat_context": [
+        "히신: 맞긴해",
+        "뉴캣: 티원도 잘하면 좋은거지",
+        "도도한 마왕 1929: 티원이 올시즌 무서울 수 있어",
+        "유나이트: 한국팀이긴 해",
+        "칼리오르: 둘다 잘했으면 좋겠다",
+        "팩토리얼: 누가 이겨도 좋고 슬퍼",
+        "Sunflower1423: 두사랑해야지",
+        "한사람더가요: 구경이지",
+        "튜즈: 티원먼치킨 궁금하다",
+        "팩토리얼: 얼마나 잘 대응하나 봐야지",
+        "뉴캣: 다 잘해라~",
+        "철수책상철첵스초코: 기대컨 ㅋㅋ",
+        "한사람더가요: 누가이기든 둘다 잘했으면 좋겠다",
+        "시냇가: 농이모라서 살짝 기울거라 예상은합니다 ㅋㅋ",
+        "슬이잉: 댕같이 소리지를예정,,,,,",
+        "인생은순리대로: 뫄바뫄바",
+        "팩토리얼: 앙앙앙 ㅠㅠㅠㅠㅠ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:03.530845",
+      "fun_score": 8.693385677853005,
+      "test_fun_score": 4.905351361835668,
+      "score_components": {
+        "chat_spike_score": 5.9666627280061775,
+        "reaction_score": 7.8972349889243825,
+        "test_reaction_score": 4.905351361835668,
+        "diversity_score": 36.3921695357291,
+        "viewer_trend_score": 0,
+        "final_score": 8.693385677853005,
+        "baseline_chat_count": 16.678859587067702,
+        "baseline_viewer_count": 1646.7253860739315,
+        "baseline_threshold": 10.022008794512491,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.934195207082917,
+        "test_score_difference": 4.838281335742372,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 9.0,
+          "reaction": 4.1
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "reaction": 4.0
+        }
+      },
+      "after_openDate": "05:39:03",
+      "comment_after_openDate": "05:39:03",
+      "chat_context": [
+        "Sunflower1423: 두사랑해야지",
+        "한사람더가요: 구경이지",
+        "튜즈: 티원먼치킨 궁금하다",
+        "팩토리얼: 얼마나 잘 대응하나 봐야지",
+        "뉴캣: 다 잘해라~",
+        "철수책상철첵스초코: 기대컨 ㅋㅋ",
+        "한사람더가요: 누가이기든 둘다 잘했으면 좋겠다",
+        "시냇가: 농이모라서 살짝 기울거라 예상은합니다 ㅋㅋ",
+        "슬이잉: 댕같이 소리지를예정,,,,,",
+        "인생은순리대로: 뫄바뫄바",
+        "팩토리얼: 앙앙앙 ㅠㅠㅠㅠㅠ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "튜즈: ㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "뉴캣: 크아악",
+        "팩토리얼: 듀렉아 정신차려봐 ㅠㅠㅠㅠㅠㅠ",
+        "한사람더가요: 제발 DRX야 해줘...",
+        "히신: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "지비1: 듀렉은 무조건 이겨야해",
+        "보나라: 근데 티원 농심 둘 중 진팀 젠지랑 하던뎅ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:08.548604",
+      "fun_score": 8.586743319932598,
+      "test_fun_score": 4.8544690203477225,
+      "score_components": {
+        "chat_spike_score": 6.659159545762844,
+        "reaction_score": 7.80742428925271,
+        "test_reaction_score": 4.8544690203477225,
+        "diversity_score": 32.47894237563506,
+        "viewer_trend_score": 0,
+        "final_score": 8.586743319932598,
+        "baseline_chat_count": 16.720256112223595,
+        "baseline_viewer_count": 1643.5474568753432,
+        "baseline_threshold": 10.009280585054894,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.82755284916251,
+        "test_score_difference": 4.787398994254427,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 9.0,
+          "reaction": 4.1
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "reaction": 4.0
+        }
+      },
+      "after_openDate": "05:39:08",
+      "comment_after_openDate": "05:39:08",
+      "chat_context": [
+        "튜즈: 티원먼치킨 궁금하다",
+        "팩토리얼: 얼마나 잘 대응하나 봐야지",
+        "뉴캣: 다 잘해라~",
+        "철수책상철첵스초코: 기대컨 ㅋㅋ",
+        "한사람더가요: 누가이기든 둘다 잘했으면 좋겠다",
+        "시냇가: 농이모라서 살짝 기울거라 예상은합니다 ㅋㅋ",
+        "슬이잉: 댕같이 소리지를예정,,,,,",
+        "인생은순리대로: 뫄바뫄바",
+        "팩토리얼: 앙앙앙 ㅠㅠㅠㅠㅠ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "튜즈: ㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "뉴캣: 크아악",
+        "팩토리얼: 듀렉아 정신차려봐 ㅠㅠㅠㅠㅠㅠ",
+        "한사람더가요: 제발 DRX야 해줘...",
+        "히신: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "지비1: 듀렉은 무조건 이겨야해",
+        "보나라: 근데 티원 농심 둘 중 진팀 젠지랑 하던뎅ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 그러고 진빠져서 쉬러가기깔쥐",
+        "철수책상철첵스초코: 프로스트의 유산",
+        "한사람더가요: 듀렉아 이겨야해..."
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:13.553671",
+      "fun_score": 10.249583993405826,
+      "test_fun_score": 7.6118079901151035,
+      "score_components": {
+        "chat_spike_score": 5.88723628270828,
+        "reaction_score": 13.253793358502467,
+        "test_reaction_score": 7.6118079901151035,
+        "diversity_score": 36.2418965863636,
+        "viewer_trend_score": 0,
+        "final_score": 10.249583993405826,
+        "baseline_chat_count": 16.770836058668493,
+        "baseline_viewer_count": 1640.3999722384774,
+        "baseline_threshold": 9.995652678055023,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.490393522635738,
+        "test_score_difference": 7.544737964021808,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 10.2,
+          "reaction": 4.1
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0,
+          "reaction": 4.0
+        }
+      },
+      "after_openDate": "05:39:13",
+      "comment_after_openDate": "05:39:13",
+      "chat_context": [
+        "철수책상철첵스초코: 기대컨 ㅋㅋ",
+        "한사람더가요: 누가이기든 둘다 잘했으면 좋겠다",
+        "시냇가: 농이모라서 살짝 기울거라 예상은합니다 ㅋㅋ",
+        "슬이잉: 댕같이 소리지를예정,,,,,",
+        "인생은순리대로: 뫄바뫄바",
+        "팩토리얼: 앙앙앙 ㅠㅠㅠㅠㅠ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "튜즈: ㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "뉴캣: 크아악",
+        "팩토리얼: 듀렉아 정신차려봐 ㅠㅠㅠㅠㅠㅠ",
+        "한사람더가요: 제발 DRX야 해줘...",
+        "히신: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "지비1: 듀렉은 무조건 이겨야해",
+        "보나라: 근데 티원 농심 둘 중 진팀 젠지랑 하던뎅ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 그러고 진빠져서 쉬러가기깔쥐",
+        "철수책상철첵스초코: 프로스트의 유산",
+        "한사람더가요: 듀렉아 이겨야해...",
+        "메리임: 앙앙앙 이겨줘",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:18.620721",
+      "fun_score": 9.299948088434025,
+      "test_fun_score": 5.3286631095306385,
+      "score_components": {
+        "chat_spike_score": 5.852847678737234,
+        "reaction_score": 9.348129302046141,
+        "test_reaction_score": 5.3286631095306385,
+        "diversity_score": 38.617278423884265,
+        "viewer_trend_score": 0,
+        "final_score": 9.299948088434025,
+        "baseline_chat_count": 16.81135144922645,
+        "baseline_viewer_count": 1637.2826405044327,
+        "baseline_threshold": 9.998085340056084,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.540757617663937,
+        "test_score_difference": 5.261593083437343,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 9.2,
+          "reaction": 5.1
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "reaction": 5.0
+        }
+      },
+      "after_openDate": "05:39:18",
+      "comment_after_openDate": "05:39:18",
+      "chat_context": [
+        "한사람더가요: 누가이기든 둘다 잘했으면 좋겠다",
+        "시냇가: 농이모라서 살짝 기울거라 예상은합니다 ㅋㅋ",
+        "슬이잉: 댕같이 소리지를예정,,,,,",
+        "인생은순리대로: 뫄바뫄바",
+        "팩토리얼: 앙앙앙 ㅠㅠㅠㅠㅠ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "튜즈: ㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "뉴캣: 크아악",
+        "팩토리얼: 듀렉아 정신차려봐 ㅠㅠㅠㅠㅠㅠ",
+        "한사람더가요: 제발 DRX야 해줘...",
+        "히신: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "지비1: 듀렉은 무조건 이겨야해",
+        "보나라: 근데 티원 농심 둘 중 진팀 젠지랑 하던뎅ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 그러고 진빠져서 쉬러가기깔쥐",
+        "철수책상철첵스초코: 프로스트의 유산",
+        "한사람더가요: 듀렉아 이겨야해...",
+        "메리임: 앙앙앙 이겨줘",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "천유현: 앙앙앙 듀렉아...ㅠㅠ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:23.627729",
+      "fun_score": 7.903815480863592,
+      "test_fun_score": 3.3140745372377585,
+      "score_components": {
+        "chat_spike_score": 5.184795366936565,
+        "reaction_score": 5.851766248219494,
+        "test_reaction_score": 3.3140745372377585,
+        "diversity_score": 38.1512769127629,
+        "viewer_trend_score": 0,
+        "final_score": 7.903815480863592,
+        "baseline_chat_count": 16.85147870234286,
+        "baseline_viewer_count": 1634.1951728084002,
+        "baseline_threshold": 9.991397185185546,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.1446250100935043,
+        "test_score_difference": 3.2470045111444628,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "reaction": 5.1,
+          "laugh": 8.2
+        },
+        "test_keyword_counter": {
+          "reaction": 5.0,
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "05:39:23",
+      "comment_after_openDate": "05:39:23",
+      "chat_context": [
+        "슬이잉: 댕같이 소리지를예정,,,,,",
+        "인생은순리대로: 뫄바뫄바",
+        "팩토리얼: 앙앙앙 ㅠㅠㅠㅠㅠ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "튜즈: ㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "뉴캣: 크아악",
+        "팩토리얼: 듀렉아 정신차려봐 ㅠㅠㅠㅠㅠㅠ",
+        "한사람더가요: 제발 DRX야 해줘...",
+        "히신: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "지비1: 듀렉은 무조건 이겨야해",
+        "보나라: 근데 티원 농심 둘 중 진팀 젠지랑 하던뎅ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 그러고 진빠져서 쉬러가기깔쥐",
+        "철수책상철첵스초코: 프로스트의 유산",
+        "한사람더가요: 듀렉아 이겨야해...",
+        "메리임: 앙앙앙 이겨줘",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "천유현: 앙앙앙 듀렉아...ㅠㅠ",
+        "팩토리얼: 혹시 몰라 갑자기 완전체로 나타날지"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:28.638123",
+      "fun_score": 5.260083724035919,
+      "test_fun_score": 0.7147482109445037,
+      "score_components": {
+        "chat_spike_score": 3.246258694904949,
+        "reaction_score": 0.9599477958362345,
+        "test_reaction_score": 0.7147482109445037,
+        "diversity_score": 35.11282972577822,
+        "viewer_trend_score": 0,
+        "final_score": 5.260083724035919,
+        "baseline_chat_count": 16.881641536374417,
+        "baseline_viewer_count": 1631.1372830528958,
+        "baseline_threshold": 9.971398152458141,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.500893253265831,
+        "test_score_difference": 0.6476781848512081,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 4.6000000000000005,
+          "reaction": 4.1
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "reaction": 4.0
+        }
+      },
+      "after_openDate": "05:39:28",
+      "comment_after_openDate": "05:39:28",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "뉴캣: 크아악",
+        "팩토리얼: 듀렉아 정신차려봐 ㅠㅠㅠㅠㅠㅠ",
+        "한사람더가요: 제발 DRX야 해줘...",
+        "히신: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "지비1: 듀렉은 무조건 이겨야해",
+        "보나라: 근데 티원 농심 둘 중 진팀 젠지랑 하던뎅ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: 그러고 진빠져서 쉬러가기깔쥐",
+        "철수책상철첵스초코: 프로스트의 유산",
+        "한사람더가요: 듀렉아 이겨야해...",
+        "메리임: 앙앙앙 이겨줘",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "천유현: 앙앙앙 듀렉아...ㅠㅠ",
+        "팩토리얼: 혹시 몰라 갑자기 완전체로 나타날지",
+        "팩토리얼: 낼 또 보자구",
+        "도도한 마왕 1929: 모라긴해"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:33.642994",
+      "fun_score": 5.0674617095763175,
+      "test_fun_score": 0.2778431630658537,
+      "score_components": {
+        "chat_spike_score": 2.891348545913664,
+        "reaction_score": 0.30543701202381995,
+        "test_reaction_score": 0.2778431630658537,
+        "diversity_score": 36.74723760308023,
+        "viewer_trend_score": 0,
+        "final_score": 5.0674617095763175,
+        "baseline_chat_count": 16.87319541045595,
+        "baseline_viewer_count": 1628.1086878812491,
+        "baseline_threshold": 9.926263760233855,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3082712388062294,
+        "test_score_difference": 0.2107731369725581,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "reaction": 1.0,
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "reaction": 1.0,
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "05:39:33",
+      "comment_after_openDate": "05:39:33",
+      "chat_context": [
+        "뉴캣: 그러고 진빠져서 쉬러가기깔쥐",
+        "철수책상철첵스초코: 프로스트의 유산",
+        "한사람더가요: 듀렉아 이겨야해...",
+        "메리임: 앙앙앙 이겨줘",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "천유현: 앙앙앙 듀렉아...ㅠㅠ",
+        "팩토리얼: 혹시 몰라 갑자기 완전체로 나타날지",
+        "팩토리얼: 낼 또 보자구",
+        "도도한 마왕 1929: 모라긴해",
+        "보나라: 뱌뱌",
+        "뉴캣: 고생했다에요",
+        "Crush UT: ㅋㄲㄲㅋㅋ익숙한 레파토리",
+        "한사람더가요: ㅁㅂ",
+        "지비1: 뫄바",
+        "보나라: 내일 봬용",
+        "유나이트: 뫄바",
+        "퍼브: 내일 또 보자~~",
+        "히신: 수구용"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:38.652904",
+      "fun_score": 5.450049553181796,
+      "test_fun_score": 0.3516683386095869,
+      "score_components": {
+        "chat_spike_score": 3.646109052382311,
+        "reaction_score": 0.3865565139142273,
+        "test_reaction_score": 0.3516683386095869,
+        "diversity_score": 36.93333525435488,
+        "viewer_trend_score": 0,
+        "final_score": 5.450049553181796,
+        "baseline_chat_count": 16.88399019842378,
+        "baseline_viewer_count": 1625.1091066513468,
+        "baseline_threshold": 9.879716436588556,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.6908590824117082,
+        "test_score_difference": 0.2845983125162913,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "reaction": 1.0,
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "reaction": 1.0,
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "05:39:38",
+      "comment_after_openDate": "05:39:38",
+      "chat_context": [
+        "메리임: 앙앙앙 이겨줘",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "천유현: 앙앙앙 듀렉아...ㅠㅠ",
+        "팩토리얼: 혹시 몰라 갑자기 완전체로 나타날지",
+        "팩토리얼: 낼 또 보자구",
+        "도도한 마왕 1929: 모라긴해",
+        "보나라: 뱌뱌",
+        "뉴캣: 고생했다에요",
+        "Crush UT: ㅋㄲㄲㅋㅋ익숙한 레파토리",
+        "한사람더가요: ㅁㅂ",
+        "지비1: 뫄바",
+        "보나라: 내일 봬용",
+        "유나이트: 뫄바",
+        "퍼브: 내일 또 보자~~",
+        "히신: 수구용",
+        "메리임: 너무 재밌었다요",
+        "졸다가코베인: 뫄바",
+        "천유현: 뫄바~",
+        "매콤핵주먹: 내일 보자",
+        "말쨩도로묵: 뫄바",
+        "뉴캣: 우울..허이",
+        "말랑깅ㅇ: 뫄바뫄바"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:43.668059",
+      "fun_score": 5.926703576419055,
+      "test_fun_score": 0.2183514225810081,
+      "score_components": {
+        "chat_spike_score": 4.5692297958374075,
+        "reaction_score": 0.2183514225810081,
+        "test_reaction_score": 0.2183514225810081,
+        "diversity_score": 38.05044741517919,
+        "viewer_trend_score": 0,
+        "final_score": 5.926703576419055,
+        "baseline_chat_count": 16.93300157232288,
+        "baseline_viewer_count": 1622.138261409627,
+        "baseline_threshold": 9.837280227845518,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1675131056489674,
+        "test_score_difference": 0.15128139648771247,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 24,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 1.0,
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 1.0,
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "05:39:43",
+      "comment_after_openDate": "05:39:43",
+      "chat_context": [
+        "천유현: 앙앙앙 듀렉아...ㅠㅠ",
+        "팩토리얼: 혹시 몰라 갑자기 완전체로 나타날지",
+        "팩토리얼: 낼 또 보자구",
+        "도도한 마왕 1929: 모라긴해",
+        "보나라: 뱌뱌",
+        "뉴캣: 고생했다에요",
+        "Crush UT: ㅋㄲㄲㅋㅋ익숙한 레파토리",
+        "한사람더가요: ㅁㅂ",
+        "지비1: 뫄바",
+        "보나라: 내일 봬용",
+        "유나이트: 뫄바",
+        "퍼브: 내일 또 보자~~",
+        "히신: 수구용",
+        "메리임: 너무 재밌었다요",
+        "졸다가코베인: 뫄바",
+        "천유현: 뫄바~",
+        "매콤핵주먹: 내일 보자",
+        "말쨩도로묵: 뫄바",
+        "뉴캣: 우울..허이",
+        "말랑깅ㅇ: 뫄바뫄바",
+        "한사람더가요: 그래도 재밌었어",
+        "카자리: 아쉬운거지 뭐..",
+        "노도하: 뫄바뫄바",
+        "보나라: 고생하셨슈"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:48.734035",
+      "fun_score": 6.271070388138105,
+      "test_fun_score": 0.3278648745439397,
+      "score_components": {
+        "chat_spike_score": 5.080602954291467,
+        "reaction_score": 0.3278648745439397,
+        "test_reaction_score": 0.3278648745439397,
+        "diversity_score": 38.86439596343762,
+        "viewer_trend_score": 0,
+        "final_score": 6.271070388138105,
+        "baseline_chat_count": 17.000703417260027,
+        "baseline_viewer_count": 1619.1958768653226,
+        "baseline_threshold": 9.799816903524853,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5118799173680166,
+        "test_score_difference": 0.26079484845064405,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "greeting": 6.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "greeting": 6.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:39:48",
+      "comment_after_openDate": "05:39:48",
+      "chat_context": [
+        "팩토리얼: 혹시 몰라 갑자기 완전체로 나타날지",
+        "팩토리얼: 낼 또 보자구",
+        "도도한 마왕 1929: 모라긴해",
+        "보나라: 뱌뱌",
+        "뉴캣: 고생했다에요",
+        "Crush UT: ㅋㄲㄲㅋㅋ익숙한 레파토리",
+        "한사람더가요: ㅁㅂ",
+        "지비1: 뫄바",
+        "보나라: 내일 봬용",
+        "유나이트: 뫄바",
+        "퍼브: 내일 또 보자~~",
+        "히신: 수구용",
+        "메리임: 너무 재밌었다요",
+        "졸다가코베인: 뫄바",
+        "천유현: 뫄바~",
+        "매콤핵주먹: 내일 보자",
+        "말쨩도로묵: 뫄바",
+        "뉴캣: 우울..허이",
+        "말랑깅ㅇ: 뫄바뫄바",
+        "한사람더가요: 그래도 재밌었어",
+        "카자리: 아쉬운거지 뭐..",
+        "노도하: 뫄바뫄바",
+        "보나라: 고생하셨슈",
+        "이서화: 뫄바",
+        "하얀악마0804: 오늘도 재밌었습니다~~~",
+        "지비1: 이제 시작이야"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:53.739756",
+      "fun_score": 6.537843368922003,
+      "test_fun_score": 0.3252523739495799,
+      "score_components": {
+        "chat_spike_score": 6.3050696438512635,
+        "reaction_score": 0.3252523739495799,
+        "test_reaction_score": 0.3252523739495799,
+        "diversity_score": 36.0298631700406,
+        "viewer_trend_score": 0,
+        "final_score": 6.537843368922003,
+        "baseline_chat_count": 17.086916678522673,
+        "baseline_viewer_count": 1616.2816803649528,
+        "baseline_threshold": 9.766011511907447,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7786528981519147,
+        "test_score_difference": 0.2169025798823112,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 28,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "greeting": 6.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "greeting": 6.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:39:53",
+      "comment_after_openDate": "05:39:53",
+      "chat_context": [
+        "팩토리얼: 낼 또 보자구",
+        "도도한 마왕 1929: 모라긴해",
+        "보나라: 뱌뱌",
+        "뉴캣: 고생했다에요",
+        "Crush UT: ㅋㄲㄲㅋㅋ익숙한 레파토리",
+        "한사람더가요: ㅁㅂ",
+        "지비1: 뫄바",
+        "보나라: 내일 봬용",
+        "유나이트: 뫄바",
+        "퍼브: 내일 또 보자~~",
+        "히신: 수구용",
+        "메리임: 너무 재밌었다요",
+        "졸다가코베인: 뫄바",
+        "천유현: 뫄바~",
+        "매콤핵주먹: 내일 보자",
+        "말쨩도로묵: 뫄바",
+        "뉴캣: 우울..허이",
+        "말랑깅ㅇ: 뫄바뫄바",
+        "한사람더가요: 그래도 재밌었어",
+        "카자리: 아쉬운거지 뭐..",
+        "노도하: 뫄바뫄바",
+        "보나라: 고생하셨슈",
+        "이서화: 뫄바",
+        "하얀악마0804: 오늘도 재밌었습니다~~~",
+        "지비1: 이제 시작이야",
+        "메리임: 이제 한경기한거니",
+        "팩토리얼: 내일 또 봐야지ㅣ",
+        "보나라: 내일 봬용~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:25:58.744908",
+      "fun_score": 5.588553188773876,
+      "test_fun_score": 0.20240279938475828,
+      "score_components": {
+        "chat_spike_score": 3.5193960797528874,
+        "reaction_score": 0.20240279938475828,
+        "test_reaction_score": 0.20240279938475828,
+        "diversity_score": 39.44104113069648,
+        "viewer_trend_score": 0,
+        "final_score": 5.588553188773876,
+        "baseline_chat_count": 17.191464016742422,
+        "baseline_viewer_count": 1613.3954018670565,
+        "baseline_threshold": 9.735085661097646,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5210914791975583,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 1315,
+        "fun_keywords": {
+          "greeting": 6.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 6.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:39:58",
+      "comment_after_openDate": "05:39:58",
+      "chat_context": [
+        "한사람더가요: ㅁㅂ",
+        "지비1: 뫄바",
+        "보나라: 내일 봬용",
+        "유나이트: 뫄바",
+        "퍼브: 내일 또 보자~~",
+        "히신: 수구용",
+        "메리임: 너무 재밌었다요",
+        "졸다가코베인: 뫄바",
+        "천유현: 뫄바~",
+        "매콤핵주먹: 내일 보자",
+        "말쨩도로묵: 뫄바",
+        "뉴캣: 우울..허이",
+        "말랑깅ㅇ: 뫄바뫄바",
+        "한사람더가요: 그래도 재밌었어",
+        "카자리: 아쉬운거지 뭐..",
+        "노도하: 뫄바뫄바",
+        "보나라: 고생하셨슈",
+        "이서화: 뫄바",
+        "하얀악마0804: 오늘도 재밌었습니다~~~",
+        "지비1: 이제 시작이야",
+        "메리임: 이제 한경기한거니",
+        "팩토리얼: 내일 또 봐야지ㅣ",
+        "보나라: 내일 봬용~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:03.749730",
+      "fun_score": 5.731234170943718,
+      "test_fun_score": 0.21370960500654407,
+      "score_components": {
+        "chat_spike_score": 3.1204445579556874,
+        "reaction_score": 0.21370960500654407,
+        "test_reaction_score": 0.21370960500654407,
+        "diversity_score": 42.62921238361695,
+        "viewer_trend_score": 0,
+        "final_score": 5.731234170943718,
+        "baseline_chat_count": 17.24710979146203,
+        "baseline_viewer_count": 1610.5367739171702,
+        "baseline_threshold": 9.695361880012783,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.6637724613674001,
+        "test_score_difference": 0.011306805621785793,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "05:40:03",
+      "comment_after_openDate": "05:40:03",
+      "chat_context": [
+        "메리임: 너무 재밌었다요",
+        "졸다가코베인: 뫄바",
+        "천유현: 뫄바~",
+        "매콤핵주먹: 내일 보자",
+        "말쨩도로묵: 뫄바",
+        "뉴캣: 우울..허이",
+        "말랑깅ㅇ: 뫄바뫄바",
+        "한사람더가요: 그래도 재밌었어",
+        "카자리: 아쉬운거지 뭐..",
+        "노도하: 뫄바뫄바",
+        "보나라: 고생하셨슈",
+        "이서화: 뫄바",
+        "하얀악마0804: 오늘도 재밌었습니다~~~",
+        "지비1: 이제 시작이야",
+        "메리임: 이제 한경기한거니",
+        "팩토리얼: 내일 또 봐야지ㅣ",
+        "보나라: 내일 봬용~",
+        "하얀악마0804: 항상 재밌는 방송 감사해요~~~",
+        "나는행복: 시간날 때 발로도 해줘용! 뫄바~"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:08.754235",
+      "fun_score": 5.0675058449713335,
+      "test_fun_score": 0.2690535455590321,
+      "score_components": {
+        "chat_spike_score": 2.2105376076616086,
+        "reaction_score": 0.2690535455590321,
+        "test_reaction_score": 0.2690535455590321,
+        "diversity_score": 39.920478578559,
+        "viewer_trend_score": 0,
+        "final_score": 5.0675058449713335,
+        "baseline_chat_count": 17.263902479659826,
+        "baseline_viewer_count": 1606.1535716230437,
+        "baseline_threshold": 9.657385536559902,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.4135395016020595e-05,
+        "test_score_difference": 0.06665074617427383,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 2.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:40:08",
+      "comment_after_openDate": "05:40:08",
+      "chat_context": [
+        "한사람더가요: 그래도 재밌었어",
+        "카자리: 아쉬운거지 뭐..",
+        "노도하: 뫄바뫄바",
+        "보나라: 고생하셨슈",
+        "이서화: 뫄바",
+        "하얀악마0804: 오늘도 재밌었습니다~~~",
+        "지비1: 이제 시작이야",
+        "메리임: 이제 한경기한거니",
+        "팩토리얼: 내일 또 봐야지ㅣ",
+        "보나라: 내일 봬용~",
+        "하얀악마0804: 항상 재밌는 방송 감사해요~~~",
+        "나는행복: 시간날 때 발로도 해줘용! 뫄바~",
+        "팩토리얼: ㅋㅋㅋ 휴일 생겼다",
+        "호얏호: 뫄바뫄바"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:13.758213",
+      "fun_score": 5.148316391036477,
+      "test_fun_score": 0.4046246717418423,
+      "score_components": {
+        "chat_spike_score": 1.761417350592007,
+        "reaction_score": 0.4046246717418423,
+        "test_reaction_score": 0.4046246717418423,
+        "diversity_score": 42.34291181747521,
+        "viewer_trend_score": 0,
+        "final_score": 5.148316391036477,
+        "baseline_chat_count": 17.232634293904685,
+        "baseline_viewer_count": 1601.8123604068949,
+        "baseline_threshold": 9.613414489114483,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.08085468146015984,
+        "test_score_difference": 0.20222187235708403,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 3.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 3.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:40:13",
+      "comment_after_openDate": "05:40:13",
+      "chat_context": [
+        "이서화: 뫄바",
+        "하얀악마0804: 오늘도 재밌었습니다~~~",
+        "지비1: 이제 시작이야",
+        "메리임: 이제 한경기한거니",
+        "팩토리얼: 내일 또 봐야지ㅣ",
+        "보나라: 내일 봬용~",
+        "하얀악마0804: 항상 재밌는 방송 감사해요~~~",
+        "나는행복: 시간날 때 발로도 해줘용! 뫄바~",
+        "팩토리얼: ㅋㅋㅋ 휴일 생겼다",
+        "호얏호: 뫄바뫄바",
+        "뉴캣: 야호~..",
+        "학스리: 오케이 새발동할게요"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:18.762233",
+      "fun_score": 4.855520313073545,
+      "test_fun_score": 0.24110642573889374,
+      "score_components": {
+        "chat_spike_score": 1.5752039538628275,
+        "reaction_score": 0.24110642573889374,
+        "test_reaction_score": 0.24110642573889374,
+        "diversity_score": 40.74346606113605,
+        "viewer_trend_score": 0,
+        "final_score": 4.855520313073545,
+        "baseline_chat_count": 17.182505657369077,
+        "baseline_viewer_count": 1597.5127379941969,
+        "baseline_threshold": 9.570638849334895,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.03870362635413546,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:40:18",
+      "comment_after_openDate": "05:40:18",
+      "chat_context": [
+        "메리임: 이제 한경기한거니",
+        "팩토리얼: 내일 또 봐야지ㅣ",
+        "보나라: 내일 봬용~",
+        "하얀악마0804: 항상 재밌는 방송 감사해요~~~",
+        "나는행복: 시간날 때 발로도 해줘용! 뫄바~",
+        "팩토리얼: ㅋㅋㅋ 휴일 생겼다",
+        "호얏호: 뫄바뫄바",
+        "뉴캣: 야호~..",
+        "학스리: 오케이 새발동할게요",
+        "메리임: 야호.."
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:23.766099",
+      "fun_score": 5.274765397106536,
+      "test_fun_score": 0.3864954553133367,
+      "score_components": {
+        "chat_spike_score": 1.409218673742651,
+        "reaction_score": 0.3864954553133367,
+        "test_reaction_score": 0.3864954553133367,
+        "diversity_score": 45.24668357328341,
+        "viewer_trend_score": 0,
+        "final_score": 5.274765397106536,
+        "baseline_chat_count": 17.11369725317148,
+        "baseline_viewer_count": 1593.2543059642123,
+        "baseline_threshold": 9.52546801375751,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.41924508403299043,
+        "test_score_difference": 0.1840926559285784,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "05:40:23",
+      "comment_after_openDate": "05:40:23",
+      "chat_context": [
+        "하얀악마0804: 항상 재밌는 방송 감사해요~~~",
+        "나는행복: 시간날 때 발로도 해줘용! 뫄바~",
+        "팩토리얼: ㅋㅋㅋ 휴일 생겼다",
+        "호얏호: 뫄바뫄바",
+        "뉴캣: 야호~..",
+        "학스리: 오케이 새발동할게요",
+        "메리임: 야호..",
+        "에임리스: ㅁㅈ 아까 T1 팬의 총 스킨 리뷰도 궁금하네",
+        "팩토리얼: 꺼드럭 해봤으려나 ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:28.771825",
+      "fun_score": 4.4199545635297355,
+      "test_fun_score": 0.9935278076789086,
+      "score_components": {
+        "chat_spike_score": 1.787335377716622,
+        "reaction_score": 1.1975989404245124,
+        "test_reaction_score": 0.9935278076789086,
+        "diversity_score": 32.56373961429902,
+        "viewer_trend_score": 0,
+        "final_score": 4.4199545635297355,
+        "baseline_chat_count": 17.035968033486096,
+        "baseline_viewer_count": 1589.036669713075,
+        "baseline_threshold": 9.484746282689995,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.7911250082941503,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 4.4
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "05:40:28",
+      "comment_after_openDate": "05:40:28",
+      "chat_context": [
+        "나는행복: 시간날 때 발로도 해줘용! 뫄바~",
+        "팩토리얼: ㅋㅋㅋ 휴일 생겼다",
+        "호얏호: 뫄바뫄바",
+        "뉴캣: 야호~..",
+        "학스리: 오케이 새발동할게요",
+        "메리임: 야호..",
+        "에임리스: ㅁㅈ 아까 T1 팬의 총 스킨 리뷰도 궁금하네",
+        "팩토리얼: 꺼드럭 해봤으려나 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 궁금하다",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:33.836116",
+      "fun_score": 4.583419257027192,
+      "test_fun_score": 1.0631671530514921,
+      "score_components": {
+        "chat_spike_score": 2.2666434199051912,
+        "reaction_score": 1.4080889447279537,
+        "test_reaction_score": 1.0631671530514921,
+        "diversity_score": 31.41003034651469,
+        "viewer_trend_score": 0,
+        "final_score": 4.583419257027192,
+        "baseline_chat_count": 16.9781434597253,
+        "baseline_viewer_count": 1584.8594384172238,
+        "baseline_threshold": 9.436225578020439,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.16346469349745618,
+        "test_score_difference": 0.8607643536667339,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "laugh": 5.6000000000000005,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:40:33",
+      "comment_after_openDate": "05:40:33",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋ 휴일 생겼다",
+        "호얏호: 뫄바뫄바",
+        "뉴캣: 야호~..",
+        "학스리: 오케이 새발동할게요",
+        "메리임: 야호..",
+        "에임리스: ㅁㅈ 아까 T1 팬의 총 스킨 리뷰도 궁금하네",
+        "팩토리얼: 꺼드럭 해봤으려나 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 궁금하다",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뛰뛰빵빠: 몇점일려낰ㅋㅋㅋㅋㅋㅋ",
+        "히신: ....",
+        "뉴캣: 유투부를 얼른 올려라 올려라"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:38.841982",
+      "fun_score": 4.6323840321758185,
+      "test_fun_score": 1.0697735514237265,
+      "score_components": {
+        "chat_spike_score": 2.2743769778288327,
+        "reaction_score": 1.5570573833050578,
+        "test_reaction_score": 1.0697735514237265,
+        "diversity_score": 31.417971771613264,
+        "viewer_trend_score": 0,
+        "final_score": 4.6323840321758185,
+        "baseline_chat_count": 16.94003284538113,
+        "baseline_viewer_count": 1580.7222249971867,
+        "baseline_threshold": 9.389735693465322,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.21242946864608303,
+        "test_score_difference": 0.8673707520389683,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 5.800000000000001
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "05:40:38",
+      "comment_after_openDate": "05:40:38",
+      "chat_context": [
+        "학스리: 오케이 새발동할게요",
+        "메리임: 야호..",
+        "에임리스: ㅁㅈ 아까 T1 팬의 총 스킨 리뷰도 궁금하네",
+        "팩토리얼: 꺼드럭 해봤으려나 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 궁금하다",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뛰뛰빵빠: 몇점일려낰ㅋㅋㅋㅋㅋㅋ",
+        "히신: ....",
+        "뉴캣: 유투부를 얼른 올려라 올려라",
+        "졸다가코베인: 유튜브 올라오는거 기대해보죠",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: 내일 사실 마뫄 vs 부니인가"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:44.020759",
+      "fun_score": 4.200515478730801,
+      "test_fun_score": 0.7126899243750118,
+      "score_components": {
+        "chat_spike_score": 2.0300118037852783,
+        "reaction_score": 1.0390420641475127,
+        "test_reaction_score": 0.7126899243750118,
+        "diversity_score": 29.75297547783172,
+        "viewer_trend_score": 0,
+        "final_score": 4.200515478730801,
+        "baseline_chat_count": 16.902287330722377,
+        "baseline_viewer_count": 1576.6246460817135,
+        "baseline_threshold": 9.344160264550169,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.5102871249902535,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "laugh": 5.800000000000001
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "05:40:44",
+      "comment_after_openDate": "05:40:44",
+      "chat_context": [
+        "메리임: 야호..",
+        "에임리스: ㅁㅈ 아까 T1 팬의 총 스킨 리뷰도 궁금하네",
+        "팩토리얼: 꺼드럭 해봤으려나 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 궁금하다",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뛰뛰빵빠: 몇점일려낰ㅋㅋㅋㅋㅋㅋ",
+        "히신: ....",
+        "뉴캣: 유투부를 얼른 올려라 올려라",
+        "졸다가코베인: 유튜브 올라오는거 기대해보죠",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: 내일 사실 마뫄 vs 부니인가"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:49.039288",
+      "fun_score": 12.298771321678295,
+      "test_fun_score": 11.692842868017603,
+      "score_components": {
+        "chat_spike_score": 3.658389143184327,
+        "reaction_score": 25.46616276597044,
+        "test_reaction_score": 11.692842868017603,
+        "diversity_score": 30.126473774542145,
+        "viewer_trend_score": 0,
+        "final_score": 12.298771321678295,
+        "baseline_chat_count": 16.855323418094056,
+        "baseline_viewer_count": 1572.5663219722508,
+        "baseline_threshold": 9.29488414750202,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 8.098255842947495,
+        "test_score_difference": 11.490440068632845,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "laugh": 12.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 11.0
+        }
+      },
+      "after_openDate": "05:40:49",
+      "comment_after_openDate": "05:40:49",
+      "chat_context": [
+        "에임리스: ㅁㅈ 아까 T1 팬의 총 스킨 리뷰도 궁금하네",
+        "팩토리얼: 꺼드럭 해봤으려나 ㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 궁금하다",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뛰뛰빵빠: 몇점일려낰ㅋㅋㅋㅋㅋㅋ",
+        "히신: ....",
+        "뉴캣: 유투부를 얼른 올려라 올려라",
+        "졸다가코베인: 유튜브 올라오는거 기대해보죠",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: 내일 사실 마뫄 vs 부니인가",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엡실릭서: ㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:54.120742",
+      "fun_score": 12.939844534525689,
+      "test_fun_score": 11.688117766324392,
+      "score_components": {
+        "chat_spike_score": 4.614798719867052,
+        "reaction_score": 25.455063708026987,
+        "test_reaction_score": 11.688117766324392,
+        "diversity_score": 32.26665998177419,
+        "viewer_trend_score": 0,
+        "final_score": 12.939844534525689,
+        "baseline_chat_count": 16.85670941974871,
+        "baseline_viewer_count": 1568.5468766077565,
+        "baseline_threshold": 9.323661386630627,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 8.739329055794887,
+        "test_score_difference": 11.485714966939634,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "laugh": 12.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 11.0
+        }
+      },
+      "after_openDate": "05:40:54",
+      "comment_after_openDate": "05:40:54",
+      "chat_context": [
+        "뉴캣: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 궁금하다",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뛰뛰빵빠: 몇점일려낰ㅋㅋㅋㅋㅋㅋ",
+        "히신: ....",
+        "뉴캣: 유투부를 얼른 올려라 올려라",
+        "졸다가코베인: 유튜브 올라오는거 기대해보죠",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: 내일 사실 마뫄 vs 부니인가",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엡실릭서: ㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋ",
+        "지비1: ㅋㅋㅋ",
+        "팩토리얼: 빨리 올려다오~",
+        "히신: 카람빗 녹즙 에디션...",
+        "스턴1203: {:d_44:}{:d_44:}{:d_44:}"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:26:59.129802",
+      "fun_score": 6.319451398152792,
+      "test_fun_score": 2.93186366770227,
+      "score_components": {
+        "chat_spike_score": 4.602450556777308,
+        "reaction_score": 5.120656602120359,
+        "test_reaction_score": 2.93186366770227,
+        "diversity_score": 27.121516669668956,
+        "viewer_trend_score": 0,
+        "final_score": 6.319451398152792,
+        "baseline_chat_count": 16.87724214350752,
+        "baseline_viewer_count": 1564.5659375298542,
+        "baseline_threshold": 9.358304421187462,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.1189359194219914,
+        "test_score_difference": 2.7294608683175117,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 1153,
+        "fun_keywords": {
+          "laugh": 9.2
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0
+        }
+      },
+      "after_openDate": "05:40:59",
+      "comment_after_openDate": "05:40:59",
+      "chat_context": [
+        "히신: ....",
+        "뉴캣: 유투부를 얼른 올려라 올려라",
+        "졸다가코베인: 유튜브 올라오는거 기대해보죠",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: 내일 사실 마뫄 vs 부니인가",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엡실릭서: ㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋ",
+        "지비1: ㅋㅋㅋ",
+        "팩토리얼: 빨리 올려다오~",
+        "히신: 카람빗 녹즙 에디션...",
+        "스턴1203: {:d_44:}{:d_44:}{:d_44:}",
+        "졸다가코베인: 일단 썸네일 어그로는 확실하다 발로란트 여신 마뫄 스킨세트",
+        "지비1: 올려다오",
+        "뉴캣: {:m5:}{:m5:}{:m5:}",
+        "팩토리얼: 재밌었써ㅓㅓ"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:27:04.134966",
+      "fun_score": 10.097715514875816,
+      "test_fun_score": 6.194856037126801,
+      "score_components": {
+        "chat_spike_score": 8.144839032806553,
+        "reaction_score": 10.680613253830801,
+        "test_reaction_score": 6.194856037126801,
+        "diversity_score": 32.28353973963626,
+        "viewer_trend_score": 0,
+        "final_score": 10.097715514875816,
+        "baseline_chat_count": 16.897578163772717,
+        "baseline_viewer_count": 1560.623135848318,
+        "baseline_threshold": 9.32919220922679,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.897200036145015,
+        "test_score_difference": 5.981146432120257,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 27,
+        "viewer_count": 1092,
+        "fun_keywords": {
+          "laugh": 9.2,
+          "greeting": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "greeting": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:41:04",
+      "comment_after_openDate": "05:41:04",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "에임리스: 내일 사실 마뫄 vs 부니인가",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "뉴캣: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "엡실릭서: ㅋㅋㅋㅋㅋㅋ",
+        "에임리스: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋ",
+        "지비1: ㅋㅋㅋ",
+        "팩토리얼: 빨리 올려다오~",
+        "히신: 카람빗 녹즙 에디션...",
+        "스턴1203: {:d_44:}{:d_44:}{:d_44:}",
+        "졸다가코베인: 일단 썸네일 어그로는 확실하다 발로란트 여신 마뫄 스킨세트",
+        "지비1: 올려다오",
+        "뉴캣: {:m5:}{:m5:}{:m5:}",
+        "팩토리얼: 재밌었써ㅓㅓ",
+        "보나라: 뱌뱌~",
+        "뛰뛰빵빠: 뫄바",
+        "소 링: 뫄바",
+        "ㅇ해랑: 뫄바ㅏ",
+        "뛰뛰빵빠: 고생했어요",
+        "노도하: {:m1:}{:m1:}",
+        "보나라: 내일 봬용~~~~",
+        "메리임: {:m5:}{:m3:}{:m5:}{:m3:}{:m5:}{:m3:}",
+        "카자리: 뫄바ㅏㅏㅏㅏ",
+        "학스리: 뫄바",
+        "뉴캣: {:m1:}{:m1:}{:m1:}"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:27:09.141177",
+      "fun_score": 18.166481002750313,
+      "test_fun_score": 11.231370542791872,
+      "score_components": {
+        "chat_spike_score": 21.50340062750961,
+        "reaction_score": 17.396202193214982,
+        "test_reaction_score": 11.231370542791872,
+        "diversity_score": 32.710900624064934,
+        "viewer_trend_score": 0,
+        "final_score": 18.166481002750313,
+        "baseline_chat_count": 16.994359364963774,
+        "baseline_viewer_count": 1556.1337262068912,
+        "baseline_threshold": 9.336554662494907,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 13.965965524019513,
+        "test_score_difference": 10.990264117052979,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 42,
+        "viewer_count": 1092,
+        "fun_keywords": {
+          "laugh": 8.0,
+          "greeting": 9.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "greeting": 9.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "05:41:09",
+      "comment_after_openDate": "05:41:09",
+      "chat_context": [
+        "뉴캣: {:m5:}{:m5:}{:m5:}",
+        "팩토리얼: 재밌었써ㅓㅓ",
+        "보나라: 뱌뱌~",
+        "뛰뛰빵빠: 뫄바",
+        "소 링: 뫄바",
+        "ㅇ해랑: 뫄바ㅏ",
+        "뛰뛰빵빠: 고생했어요",
+        "노도하: {:m1:}{:m1:}",
+        "보나라: 내일 봬용~~~~",
+        "메리임: {:m5:}{:m3:}{:m5:}{:m3:}{:m5:}{:m3:}",
+        "카자리: 뫄바ㅏㅏㅏㅏ",
+        "학스리: 뫄바",
+        "뉴캣: {:m1:}{:m1:}{:m1:}",
+        "팩토리얼: 낼또봐~",
+        "지비1: ㅁ바",
+        "와이키키99: 뫄바~",
+        "천상의 입문자 5227: 뫄바~",
+        "코기궁댕이: 뫄바!!",
+        "Ol 응: 뫄바",
+        "부끄Lover: 뫄바",
+        "팩토리얼: {:m5:}{:m5:}{:m5:}{:m5:}{:m5:}",
+        "PRX 삼띵: 1분마뫄(1분아님)",
+        "학스리: 낼또봐",
+        "매콤핵주먹: 뫄바",
+        "하얀악마0804: 뫄바~~~",
+        "말랑깅ㅇ: 뫄바ㅏ",
+        "메리임: 내일 봅시다잉",
+        "졸다가코베인: 뫄바",
+        "Sunflower1423: 뫄바",
+        "호얏호: 뫄바뫄바"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:27:14.146562",
+      "fun_score": 38.77069701510863,
+      "test_fun_score": 11.707811934573401,
+      "score_components": {
+        "chat_spike_score": 68.07208803795339,
+        "reaction_score": 18.00159377690045,
+        "test_reaction_score": 11.707811934573401,
+        "diversity_score": 27.377792649594706,
+        "viewer_trend_score": 0,
+        "final_score": 38.77069701510863,
+        "baseline_chat_count": 17.23391340224742,
+        "baseline_viewer_count": 1551.687325109829,
+        "baseline_threshold": 9.421145356834554,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 34.57018153637783,
+        "test_score_difference": 11.466705508834508,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 56,
+        "viewer_count": 1092,
+        "fun_keywords": {
+          "laugh": 8.0,
+          "greeting": 10.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "greeting": 10.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "05:41:14",
+      "comment_after_openDate": "05:41:14",
+      "chat_context": [
+        "지비1: ㅁ바",
+        "와이키키99: 뫄바~",
+        "천상의 입문자 5227: 뫄바~",
+        "코기궁댕이: 뫄바!!",
+        "Ol 응: 뫄바",
+        "부끄Lover: 뫄바",
+        "팩토리얼: {:m5:}{:m5:}{:m5:}{:m5:}{:m5:}",
+        "PRX 삼띵: 1분마뫄(1분아님)",
+        "학스리: 낼또봐",
+        "매콤핵주먹: 뫄바",
+        "하얀악마0804: 뫄바~~~",
+        "말랑깅ㅇ: 뫄바ㅏ",
+        "메리임: 내일 봅시다잉",
+        "졸다가코베인: 뫄바",
+        "Sunflower1423: 뫄바",
+        "호얏호: 뫄바뫄바",
+        "카자리: {:m8:}{:m8:}{:m8:}{:m8:}",
+        "에임리스: 뫄바",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}",
+        "메리임: 뫄바뫄바",
+        "말랑깅ㅇ: {:mHi:}{:mHi:}{:mHi:}",
+        "스턴1203: 뫄바요",
+        "톡: {:mlb_78:}{:mlb_78:}",
+        "엡실릭서: 내일 또 본다",
+        "노도하: {:m5:}{:m5:}",
+        "하얀악마0804: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "호얏호: {:m5:}{:m5:}{:m5:}",
+        "게임하는 참외 1921414: 마봐",
+        "에임리스: {:m1:}{:m1:}",
+        "팩토리얼: {:m5:}{:m5:}{:m5:}{:m5:}"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:27:19.152551",
+      "fun_score": 29.491103041158766,
+      "test_fun_score": 0.8134184768403657,
+      "score_components": {
+        "chat_spike_score": 58.3086395585463,
+        "reaction_score": 0.8134184768403657,
+        "test_reaction_score": 0.8134184768403657,
+        "diversity_score": 30.081896967608245,
+        "viewer_trend_score": 0,
+        "final_score": 29.491103041158766,
+        "baseline_chat_count": 17.60529251185389,
+        "baseline_viewer_count": 1547.283520535277,
+        "baseline_threshold": 9.70231406172082,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 25.290587562427966,
+        "test_score_difference": 0.572312051101472,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 56,
+        "viewer_count": 1092,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "greeting": 11.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "greeting": 11.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "05:41:19",
+      "comment_after_openDate": "05:41:19",
+      "chat_context": [
+        "팩토리얼: {:m5:}{:m5:}{:m5:}{:m5:}{:m5:}",
+        "PRX 삼띵: 1분마뫄(1분아님)",
+        "학스리: 낼또봐",
+        "매콤핵주먹: 뫄바",
+        "하얀악마0804: 뫄바~~~",
+        "말랑깅ㅇ: 뫄바ㅏ",
+        "메리임: 내일 봅시다잉",
+        "졸다가코베인: 뫄바",
+        "Sunflower1423: 뫄바",
+        "호얏호: 뫄바뫄바",
+        "카자리: {:m8:}{:m8:}{:m8:}{:m8:}",
+        "에임리스: 뫄바",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}",
+        "메리임: 뫄바뫄바",
+        "말랑깅ㅇ: {:mHi:}{:mHi:}{:mHi:}",
+        "스턴1203: 뫄바요",
+        "톡: {:mlb_78:}{:mlb_78:}",
+        "엡실릭서: 내일 또 본다",
+        "노도하: {:m5:}{:m5:}",
+        "하얀악마0804: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "호얏호: {:m5:}{:m5:}{:m5:}",
+        "게임하는 참외 1921414: 마봐",
+        "에임리스: {:m1:}{:m1:}",
+        "팩토리얼: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "칼든거북이: 뫄바",
+        "뉴캣: 바보",
+        "뫔뭄미: {:m1:}{:m1:}{:m1:}",
+        "학스리: 마뫄바보",
+        "카자리: 바보",
+        "마음만은 음악가: {:m5:}{:m5:}{:m5:}{:m5:}"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:27:24.216550",
+      "fun_score": 19.251084698861103,
+      "test_fun_score": 0.8170650658051859,
+      "score_components": {
+        "chat_spike_score": 35.04883576267757,
+        "reaction_score": 0.8170650658051859,
+        "test_reaction_score": 0.8170650658051859,
+        "diversity_score": 32.33989085914641,
+        "viewer_trend_score": 0,
+        "final_score": 19.251084698861103,
+        "baseline_chat_count": 17.97311380959033,
+        "baseline_viewer_count": 1542.921904408549,
+        "baseline_threshold": 9.891890660143835,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.050569220130303,
+        "test_score_difference": 0.4305696104918492,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 52,
+        "viewer_count": 1092,
+        "fun_keywords": {
+          "greeting": 12.0,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 12.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "05:41:24",
+      "comment_after_openDate": "05:41:24",
+      "chat_context": [
+        "학스리: 낼또봐",
+        "매콤핵주먹: 뫄바",
+        "하얀악마0804: 뫄바~~~",
+        "말랑깅ㅇ: 뫄바ㅏ",
+        "메리임: 내일 봅시다잉",
+        "졸다가코베인: 뫄바",
+        "Sunflower1423: 뫄바",
+        "호얏호: 뫄바뫄바",
+        "카자리: {:m8:}{:m8:}{:m8:}{:m8:}",
+        "에임리스: 뫄바",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}",
+        "메리임: 뫄바뫄바",
+        "말랑깅ㅇ: {:mHi:}{:mHi:}{:mHi:}",
+        "스턴1203: 뫄바요",
+        "톡: {:mlb_78:}{:mlb_78:}",
+        "엡실릭서: 내일 또 본다",
+        "노도하: {:m5:}{:m5:}",
+        "하얀악마0804: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "호얏호: {:m5:}{:m5:}{:m5:}",
+        "게임하는 참외 1921414: 마봐",
+        "에임리스: {:m1:}{:m1:}",
+        "팩토리얼: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "칼든거북이: 뫄바",
+        "뉴캣: 바보",
+        "뫔뭄미: {:m1:}{:m1:}{:m1:}",
+        "학스리: 마뫄바보",
+        "카자리: 바보",
+        "마음만은 음악가: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "지지우우우: 뫄바",
+        "팩토리얼: 오늘은 바부라고 안하네"
+      ]
+    },
+    {
+      "timestamp": "2026-01-23T21:27:29.226371",
+      "fun_score": 21.32001460518053,
+      "test_fun_score": 1.1436829201331171,
+      "score_components": {
+        "chat_spike_score": 39.259173871681064,
+        "reaction_score": 1.1436829201331171,
+        "test_reaction_score": 1.1436829201331171,
+        "diversity_score": 33.10281486884115,
+        "viewer_trend_score": 0,
+        "final_score": 21.32001460518053,
+        "baseline_chat_count": 18.299091379294453,
+        "baseline_viewer_count": 1538.602072564315,
+        "baseline_threshold": 9.981551739034746,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 17.11949912644973,
+        "test_score_difference": 0.43099299575810535,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 54,
+        "viewer_count": 1092,
+        "fun_keywords": {
+          "greeting": 12.0,
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 12.0,
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "05:41:29",
+      "comment_after_openDate": "05:41:29",
+      "chat_context": [
+        "Sunflower1423: 뫄바",
+        "호얏호: 뫄바뫄바",
+        "카자리: {:m8:}{:m8:}{:m8:}{:m8:}",
+        "에임리스: 뫄바",
+        "웅냥냥웅냥냥: {:mHi:}{:mHi:}{:mHi:}",
+        "메리임: 뫄바뫄바",
+        "말랑깅ㅇ: {:mHi:}{:mHi:}{:mHi:}",
+        "스턴1203: 뫄바요",
+        "톡: {:mlb_78:}{:mlb_78:}",
+        "엡실릭서: 내일 또 본다",
+        "노도하: {:m5:}{:m5:}",
+        "하얀악마0804: {:mHi:}{:mHi:}{:mHi:}{:mHi:}{:mHi:}",
+        "호얏호: {:m5:}{:m5:}{:m5:}",
+        "게임하는 참외 1921414: 마봐",
+        "에임리스: {:m1:}{:m1:}",
+        "팩토리얼: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "칼든거북이: 뫄바",
+        "뉴캣: 바보",
+        "뫔뭄미: {:m1:}{:m1:}{:m1:}",
+        "학스리: 마뫄바보",
+        "카자리: 바보",
+        "마음만은 음악가: {:m5:}{:m5:}{:m5:}{:m5:}",
+        "지지우우우: 뫄바",
+        "팩토리얼: 오늘은 바부라고 안하네",
+        "엡실릭서: {:mHi:}{:mHi:}{:mHi:}{:m5:}{:m5:}{:m8:}{:m8:}{:m8:}",
+        "파란임: 뫄바",
+        "팩토리얼: {:m5:}{:m5:}{:m5:}",
+        "메리임: {:m5:}{:m5:}{:m5:}{:m5:}{:m5:}",
+        "슬이잉: 뜨끈한거 드쇼~",
+        "뉴캣: 오늘은 안하네;;"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
