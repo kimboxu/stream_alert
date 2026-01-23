@@ -60,6 +60,8 @@ class DiscordWebhookSender:
 
         async with semaphore:  # 세마포어로 동시 요청 제한
             for attempt in range(self.MAX_RETRIES):
+                # 이벤트 루프 양보
+                await asyncio.sleep(0.001)
                 start_time = datetime.now()
                 
                 try:
