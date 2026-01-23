@@ -166,7 +166,7 @@ class ChatAnalyzer:
         self.init = init
         self.performance_manager = performance_manager
         self.DiscordWebhookSender_class = DiscordWebhookSender()
-        self.highlight_saver = HighlightChatSaver()
+        self.highlight_saver = HighlightChatSaver(channel_name)
         self.channel_id = channel_id
         self.channel_name = channel_name
         self.platform = platform
@@ -275,11 +275,15 @@ class ChatAnalyzer:
         # 로그 디렉토리 경로 설정
         self.data_dir = project_root / "data"
         self.log_dir = self.data_dir / "fun_score_logs"
+        self.highlight_dir = self.data_dir / "highlight_chats"
         self.log_stream_dir = self.log_dir / self.channel_name
+        self.highlight_stream_dir = self.highlight_dir / self.channel_name
 
         # 디렉토리 생성
         self.log_dir.mkdir(parents=True, exist_ok=True)
+        self.highlight_dir.mkdir(parents=True, exist_ok=True)
         self.log_stream_dir.mkdir(parents=True, exist_ok=True)
+        self.highlight_stream_dir.mkdir(parents=True, exist_ok=True)
 
     async def add_chat_message(self, nickname: str, message: str, timestamp: Optional[datetime] = None) -> None:
         """채팅 메시지 추가"""
@@ -812,7 +816,7 @@ class ChatAnalyzer:
             highlights_to_process = self.highlights_dict[self.stream_start_id].copy()
             self.highlights_dict[self.stream_start_id] = [self.highlights_dict[self.stream_start_id][-1]]
             asyncio.create_task(self._process_highlights_background(highlights_to_process[:-1]))
-            
+
     # 치지직 방송 시간이 17시간이 지날 때마다
     def is_check_after_openDate(self, detailed_log):
         parts = str(detailed_log['after_openDate']).strip().split(':')
@@ -1194,9 +1198,10 @@ class ChatAnalyzer:
             cutoff_date = datetime.now() - timedelta(days=self.max_file_age_days)
             pattern1 = str(self.log_dir / "fun_score_detailed_*.json")
             pattern2 = str(self.log_stream_dir / "fun_score_detailed_*.json")
+            pattern3 = str(self.highlight_stream_dir / "highlight_chat_*.json")
             
             deleted_count = 0
-            for file_path in glob.glob(pattern1) + glob.glob(pattern2):
+            for file_path in glob.glob(pattern1) + glob.glob(pattern2) + glob.glob(pattern3):
                 file_path = Path(file_path)
                 
                 try:
@@ -1205,7 +1210,7 @@ class ChatAnalyzer:
                     # fun_score_detailed_{channel_name}_{YYYYMMDD_HHMMSS}.json 형식
                     parts = filename.split('_')
                     if len(parts) >= 2:
-                        datetime_part = parts[-1]  # YYYYMMDD_HHMMSS
+                        datetime_part = parts[-2]  # YYYYMMDD_HHMMSS
                         if len(datetime_part) >= 8:
                             date_str = datetime_part[:8]  # YYYYMMDD
                             file_date = datetime.strptime(date_str, "%Y%m%d")

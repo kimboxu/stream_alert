@@ -860,7 +860,7 @@ def get_saved_highlight_files():
         
         # HighlightChatSaver 인스턴스 생성
         from highlight_chat_saver import HighlightChatSaver
-        saver = HighlightChatSaver()
+        saver = HighlightChatSaver(channel_name)
         
         # 파일 정보 조회
         files_info = saver.get_saved_files_info(channel_name)
@@ -1092,7 +1092,7 @@ def get_highlight_chat_statistics():
         # 저장된 파일 통계
         try:
             from highlight_chat_saver import HighlightChatSaver
-            saver = HighlightChatSaver()
+            saver = HighlightChatSaver(channel_name)
             saved_files = saver.get_saved_files_info()
             
             saved_stats = {
