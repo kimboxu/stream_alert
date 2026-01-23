@@ -99,9 +99,22 @@ class getYoutubeJsonData:
 		channel_response = await self.get_youtube_channels_response(youtube_build)
 
 		# 응답 유효성 검사
-		if not self.check_item((channel_response)):
-			asyncio.create_task(log_error(f"No valid response for channel {self.youtubeChannelID}"))
-			print(f"{datetime.now()} {channel_response}")
+		if not self.check_item(channel_response):
+			# 채널 코드 확인을 위한 상세 로그
+			channel_code = self.youtubeData.loc[self.youtubeChannelID, "channelCode"]
+			error_msg = (
+				f"채널 정보를 찾을 수 없습니다.\n"
+				f"  - 채널 ID: {self.youtubeChannelID}\n"
+				f"  - 채널 코드: {channel_code}\n"
+				f"  - API 응답: {channel_response}"
+			)
+			asyncio.create_task(log_error(error_msg))
+			print(f"{datetime.now()} {error_msg}")
+			
+			# *** 채널 코드 재검증 시도 ***
+			is_valid = await self.validate_channel_code(youtube_build, channel_code)
+			if not is_valid:
+				print(f"{datetime.now()} 채널 코드가 유효하지 않습니다: {channel_code}")
 			return
 
 		# 비디오 수 가져오기
@@ -130,6 +143,53 @@ class getYoutubeJsonData:
 				self.youtubeData.loc[self.youtubeChannelID, "videoCount"] -= 1
 				# 데이터 저장
 				asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
+				
+	async def validate_channel_code(self, youtube_build, channel_code: str) -> bool:
+		"""
+		채널 코드의 유효성을 검증합니다.
+		
+		Args:
+			youtube_build: YouTube API 클라이언트
+			channel_code: 검증할 채널 코드 (UC로 시작하는 채널 ID)
+			
+		Returns:
+			bool: 채널 코드가 유효하면 True, 아니면 False
+		"""
+		try:
+			# 채널 코드가 비어있거나 None인 경우
+			if not channel_code or channel_code == "":
+				print(f"{datetime.now()} 채널 코드가 비어있습니다.")
+				return False
+			
+			# UC로 시작하는지 확인 (YouTube 채널 ID 형식)
+			if not channel_code.startswith("UC"):
+				print(f"{datetime.now()} 채널 코드 형식이 올바르지 않습니다: {channel_code}")
+				return False
+			
+			# 채널 검색 시도 (forUsername 대신 id 사용)
+			await asyncio.sleep(0.01)
+			test_response = await asyncio.wait_for(
+				asyncio.to_thread(
+					youtube_build.channels().list(
+						part='snippet',
+						id=channel_code
+					).execute
+				),
+				timeout=10
+			)
+			
+			# 응답에 items가 있는지 확인
+			if test_response and 'items' in test_response and test_response['items']:
+				channel_title = test_response['items'][0]['snippet']['title']
+				print(f"{datetime.now()} 채널 검증 성공: {channel_title}")
+				return True
+			else:
+				print(f"{datetime.now()} 채널을 찾을 수 없습니다: {channel_code}")
+				return False
+				
+		except Exception as e:
+			print(f"{datetime.now()} 채널 검증 중 오류: {str(e)}")
+			return False
 
 	# 새 비디오 알림을 전송하는 함수
 	async def post_youtube(self):
@@ -270,8 +330,33 @@ class getYoutubeJsonData:
 			return
 
 	# 응답에 유효한 항목이 있는지 확인하는 함수
-	def check_item(self, channel_response):
-		return channel_response and 'items' in channel_response and channel_response['items']
+	def check_item(self, channel_response) -> bool:
+		"""
+		YouTube API 응답의 유효성을 검증합니다.
+		
+		Args:
+			channel_response: YouTube API 채널 응답
+			
+		Returns:
+			bool: 유효한 응답이면 True, 아니면 False
+		"""
+		# None 체크
+		if channel_response is None:
+			return False
+		
+		# 'items' 키 존재 여부 확인
+		if 'items' not in channel_response:
+			return False
+		
+		# items 배열이 비어있지 않은지 확인
+		if not channel_response['items']:
+			return False
+		
+		# items[0]에 'statistics' 키가 있는지 확인
+		if 'statistics' not in channel_response['items'][0]:
+			return False
+		
+		return True
 
 	# 비디오 수를 가져오는 함수
 	def get_video_count(self, channel_response):
