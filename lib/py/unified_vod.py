@@ -903,6 +903,8 @@ class afreeca_vod(base_vod):
             return None
         
         for attempt in range(max_wait):
+            # 이벤트 루프 양보
+            await asyncio.sleep(0.001)
             comments = await self.get_recent_comments()
         
             if comments:
