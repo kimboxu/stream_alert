@@ -9,7 +9,7 @@ from base import log_error, get_timestamp_from_stream_id
 class HighlightChatSaver:
     """방송 종료 시 완성된 하이라이트 채팅 데이터를 저장하는 클래스"""
     
-    def __init__(self, base_dir: str = None):
+    def __init__(self, channel_name: str, base_dir: str = None):
         # 프로젝트 구조에 맞는 디렉토리 설정
         if base_dir is None:
             current_file = Path(__file__)
@@ -21,21 +21,13 @@ class HighlightChatSaver:
         
         self.base_dir = Path(base_dir)
         self.highlight_dir = self.base_dir / "highlight_chats"
+        self.highlight_stream_dir = self.highlight_dir / channel_name
         
         # 디렉토리 생성
         self.highlight_dir.mkdir(parents=True, exist_ok=True)
+        self.highlight_stream_dir.mkdir(parents=True, exist_ok=True)
         
         # print(f"{datetime.now()} 하이라이트 채팅 저장기 초기화: {self.highlight_dir}")
-    
-    def _extract_stream_start_time_from_id(self, stream_id: str) -> str:
-        """stream_id에서 시작 시간을 파일명용 형식으로 추출"""
-        try:
-            timestamp = get_timestamp_from_stream_id(stream_id)
-            return timestamp.strftime("%Y-%m-%d_%H%M")
-        except Exception as e:
-            print(f"{datetime.now()} stream_id 시간 변환 실패 ({stream_id}): {str(e)}")
-            # 파싱 실패시 현재 시간 사용
-            return datetime.now().strftime("%Y-%m-%d_%H%M")
     
     def _extract_readable_time_from_id(self, stream_id: str) -> str:
         """stream_id에서 읽기 쉬운 시간 형식으로 추출"""
@@ -98,13 +90,13 @@ class HighlightChatSaver:
             # print(f"{datetime.now()} [저장 시작] 채널: {channel_name}, 스트림: {stream_id}")
             
             # 방송 시작 시간 추출
-            start_time = self._extract_stream_start_time_from_id(stream_id)
+            start_time = "_".join(stream_id.split('_')[1:])
             readable_time = self._extract_readable_time_from_id(stream_id)
             # print(f"{datetime.now()} [시간 추출] 시작: {readable_time} -> 파일용: {start_time}")
             
             # 파일명 생성: highlight_chat_{채널명}_{시작시간}.json
             filename = f"highlight_chat_{channel_name}_{start_time}.json"
-            file_path = self.highlight_dir / filename
+            file_path = self.highlight_stream_dir / filename
             # print(f"{datetime.now()} [파일 경로] {file_path}")
             
             # 기존 파일 확인 및 로드
@@ -312,7 +304,7 @@ class HighlightChatSaver:
     def get_saved_files_info(self, channel_name: str = None) -> list:
         """저장된 파일들의 정보 반환"""
         try:
-            json_files = list(self.highlight_dir.glob("highlight_chat_*.json"))
+            json_files = list(self.highlight_stream_dir.glob("highlight_chat_*.json"))
             
             file_list = []
             for file_path in sorted(json_files, key=lambda x: x.stat().st_mtime, reverse=True):

@@ -290,14 +290,15 @@ class base_vod(ABC):
                 project_root = current_file.parent.parent
             else:
                 project_root = current_file.parent
+
+            channel_name = str(self.IDList[self.platform].loc[self.channel_id, 'channelName'])
             
-            highlight_dir = project_root / "data" / "highlight_chats"
+            highlight_dir = project_root / "data" / "highlight_chats" / channel_name
             
             if not highlight_dir.exists():
                 return None
             
             # 채널의 모든 하이라이트 파일 검색
-            channel_name = self.IDList[self.platform].loc[self.channel_id, 'channelName']
             pattern = f"highlight_chat_{channel_name}_*.json"
             files = sorted(highlight_dir.glob(pattern), reverse=True)[:20]
             duration_diff = 0
