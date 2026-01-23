@@ -72,7 +72,7 @@ class JSONRepairHandler:
         return response_text.strip()
 
     @staticmethod
-    def validate_and_parse(json_str: str, max_retries: int = 3) -> Optional[Any]:
+    async def validate_and_parse(json_str: str, max_retries: int = 3) -> Optional[Any]:
         """
         JSON 문자열을 파싱하되, 실패 시 자동 복구를 시도합니다.
         
@@ -92,6 +92,8 @@ class JSONRepairHandler:
         # 재시도 루프: 자동 복구 시도
         for attempt in range(1, max_retries + 1):
             try:
+                # 이벤트 루프 양보
+                await asyncio.sleep(0.001)
                 repaired_json = JSONRepairHandler.repair_json_string(json_str)
                 result = json.loads(repaired_json)
                 print(f"✓ JSON 복구 성공 (시도 {attempt}/{max_retries})")
@@ -132,6 +134,8 @@ class JSONRepairHandler:
         """
         for attempt in range(max_retries):
             try:
+                # 이벤트 루프 양보
+                await asyncio.sleep(0.001)
                 response = await asyncio.wait_for(
                     api_func(is_emergency),
                     timeout=timeout
@@ -230,6 +234,8 @@ class JSONRepairHandler:
         # 전체 재시도 루프 (API 호출 + JSON 파싱)
         for parse_attempt in range(max_parse_retries):
             # print(f"{datetime.now()} 🔄 전체 시도 {parse_attempt + 1}/{max_parse_retries}")
+            # 이벤트 루프 양보
+            await asyncio.sleep(0.001)
             
             # API 호출
             response_text = await JSONRepairHandler.call_api_with_retry(
@@ -260,7 +266,7 @@ class JSONRepairHandler:
             response_text = JSONRepairHandler.clean_markdown(response_text)
             
             # JSON 파싱 (자동 복구 포함)
-            parsed_json = JSONRepairHandler.validate_and_parse(response_text, max_retries=3)
+            parsed_json = await JSONRepairHandler.validate_and_parse(response_text, max_retries=3)
             
             # JSON 파싱 실패
             if parsed_json is None:
