@@ -1218,7 +1218,7 @@ class ChatAnalyzer:
                             if file_date < cutoff_date:
                                 file_path.unlink()
                                 deleted_count += 1
-                                print(f"{datetime.now()} 오래된 fun_score 로그 파일 삭제: {file_path.name}")
+                                # print(f"{datetime.now()} 오래된 fun_score 로그 파일 삭제: {file_path.name}")
                                 
                 except (ValueError, IndexError) as e:
                     print(f"{datetime.now()} 파일 날짜 파싱 실패 ({file_path.name}): {str(e)}")
