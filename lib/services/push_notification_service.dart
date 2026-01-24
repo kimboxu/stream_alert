@@ -219,7 +219,7 @@ class PushNotificationService {
 
       // 로컬 알림 클릭 핸들러 설정
       await _localNotifications.initialize(
-        initSettings,
+        settings: initSettings,
         onDidReceiveNotificationResponse: (NotificationResponse response) {
           debugPrint('알림 클릭됨: ${response.payload}');
 

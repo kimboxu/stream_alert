@@ -281,25 +281,23 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
 
   // 채팅 필터 사용자 처리
   void _processAvailableChatUsers(Map<String, dynamic> data) {
-    if (data['chzzkChatFilter'] != null) {
-      List chzzkChatFilterList = data['chzzkChatFilter'];
-      for (var item in chzzkChatFilterList) {
-        if (item is Map && item.containsKey('channelName')) {
-          String channelName = item['channelName'];
-          _availableChzzkChatUsers.add(channelName);
+    final chatFilter = data['chatFilter'];
+    if (chatFilter is! Map<String, dynamic>) return;
+
+    void parse(String key, List<String> target) {
+      final list = chatFilter[key];
+      if (list is! List) return;
+
+      for (final item in list) {
+        final name = item is Map<String, dynamic> ? item['channelName'] : null;
+        if (name is String && name.isNotEmpty) {
+          target.add(name);
         }
       }
     }
 
-    if (data['afreecaChatFilter'] != null) {
-      List afreecaChatFilterList = data['afreecaChatFilter'];
-      for (var item in afreecaChatFilterList) {
-        if (item is Map && item.containsKey('channelName')) {
-          String channelName = item['channelName'];
-          _availableAfreecaChatUsers.add(channelName);
-        }
-      }
-    }
+    parse('chzzk', _availableChzzkChatUsers);
+    parse('afreeca', _availableAfreecaChatUsers);
   }
 
   // 선택된 사용자 초기화
