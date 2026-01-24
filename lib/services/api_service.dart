@@ -405,13 +405,11 @@ class ApiService {
 
           // 응답 검증
           if (data == null ||
-              (!data.containsKey('afreecaStreamers') &&
-                  !data.containsKey('chzzkStreamers') &&
+              (!data.containsKey('streamers') &&
                   !data.containsKey('cafeStreamers') &&
                   !data.containsKey('videoDataStreamers') &&
                   !data.containsKey('youtubeStreamers') &&
-                  !data.containsKey('chzzkChatFilter') &&
-                  !data.containsKey('afreecaChatFilter'))) {
+                  !data.containsKey('chatFilter'))) {
             throw Exception('서버 응답이 유효하지 않습니다.');
           }
 
@@ -471,47 +469,47 @@ class ApiService {
 
   // 스트리머 데이터 파싱
   static List<StreamerData> parseStreamers(Map<String, dynamic> data) {
-    List<StreamerData> streamers = [];
+    final List<StreamerData> streamers = [];
 
     try {
-      // 아프리카TV 스트리머 파싱
-      List<dynamic> afreecaStreamers = data['afreecaStreamers'] ?? [];
-      for (var streamer in afreecaStreamers) {
-        if (streamer is Map &&
-            streamer.containsKey('channelName') &&
-            streamer.containsKey('channelID')) {
-          streamers.add(
-            StreamerData(
-              name: streamer['channelName'] ?? '(알 수 없음)',
-              platform: 'afreeca',
-              channelID: streamer['channelID'] ?? '',
-              profileImageUrl: streamer['profile_image'] ?? '',
-            ),
-          );
-        }
-      }
+      final streamersMap = data['streamers'];
+      if (streamersMap is! Map<String, dynamic>) return streamers;
 
-      // 치지직 스트리머 파싱
-      List<dynamic> chzzkStreamers = data['chzzkStreamers'] ?? [];
-      for (var streamer in chzzkStreamers) {
-        if (streamer is Map &&
-            streamer.containsKey('channelName') &&
-            streamer.containsKey('channelID')) {
-          streamers.add(
-            StreamerData(
-              name: streamer['channelName'] ?? '(알 수 없음)',
-              platform: 'chzzk',
-              channelID: streamer['channelID'] ?? '',
-              profileImageUrl: streamer['profile_image'] ?? '',
-            ),
-          );
+      const platforms = ['afreeca', 'chzzk'];
+
+      for (final platform in platforms) {
+        final list = streamersMap[platform];
+        if (list is! List) continue;
+
+        for (final item in list) {
+          final streamer = _parseSingleStreamer(item, platform);
+          if (streamer != null) {
+            streamers.add(streamer);
+          }
         }
       }
-    } catch (e) {
-      debugPrint('스트리머 데이터 파싱 중 오류: $e');
+    } catch (e, stack) {
+      debugPrint('스트리머 데이터 파싱 중 오류: $e\n$stack');
     }
 
     return streamers;
+  }
+
+  static StreamerData? _parseSingleStreamer(dynamic data, String platform) {
+    if (data is! Map<String, dynamic>) return null;
+
+    final name = data['channelName'];
+    final channelID = data['channelID'];
+
+    if (name is! String || channelID is! String) return null;
+
+    return StreamerData(
+      name: name,
+      platform: platform,
+      channelID: channelID,
+      profileImageUrl:
+          data['profile_image'] is String ? data['profile_image'] : '',
+    );
   }
 
   // 카페 데이터 파싱
@@ -534,14 +532,25 @@ class ApiService {
   // VOD 알림 데이터 파싱
   static List<VideoData> parseVideoData(Map<String, dynamic> data) {
     List<VideoData> videoDataList = [];
-    List<dynamic> videoDataStreamers = data['videoDataStreamers'] ?? [];
+    Map<String, dynamic> videoDataMap = data['videoDataStreamers'] ?? {};
 
-    for (var videoDataStreamer in videoDataStreamers) {
-      try {
-        VideoData videoData = VideoData.fromJson(videoDataStreamer);
-        videoDataList.add(videoData);
-      } catch (e) {
-        debugPrint('Error parsing video data: $e');
+    // 플랫폼별로 처리
+    const platforms = ['chzzk', 'afreeca'];
+
+    for (final platform in platforms) {
+      final List<dynamic> platformData = videoDataMap[platform] ?? [];
+
+      for (var videoDataItem in platformData) {
+        try {
+          // platform을 명시적으로 전달
+          VideoData videoData = VideoData.fromJson(
+            videoDataItem,
+            platform: platform,
+          );
+          videoDataList.add(videoData);
+        } catch (e) {
+          debugPrint('Error parsing video data for $platform: $e');
+        }
       }
     }
 
