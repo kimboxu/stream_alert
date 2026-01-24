@@ -343,8 +343,8 @@ def get_streamers():
         cafeData = app.init.cafeData.to_dict('records')
         videoData = app.init.video_data.to_dict('records')
         youtubeData = app.init.youtubeData.to_dict('records')
-        chzzk_chatFilter = app.init.chzzk_chatFilter.to_dict('records')
-        afreeca_chatFilter = app.init.afreeca_chatFilter.to_dict('records')
+        chzzk_chatFilter = app.init.chatFilter["chzzk"].to_dict('records')
+        afreeca_chatFilter = app.init.chatFilter["afreeca"].to_dict('records')
 
         return jsonify(
             {
