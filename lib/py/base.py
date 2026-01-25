@@ -227,7 +227,7 @@ async def DataBaseVars(init: initVar, is_start = False):
 					return {}
 
 				return {
-					platform: g
+					platform: g.set_index(index_col)
 					for platform, g in df.groupby("platform")
 				}
 
