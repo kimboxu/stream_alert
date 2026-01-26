@@ -618,6 +618,44 @@ def mark_notifications_read():
         )
 
 
+@app.route("/get_notification_queue_status", methods=["GET"])
+def get_notification_queue_status():
+    """알림 큐 상태 확인"""
+    try:
+        from notification_service import notification_queue, file_notification_manager
+
+        if notification_queue is None:
+            return (
+                jsonify(
+                    {"status": "error", "message": "알림 큐가 초기화되지 않았습니다"}
+                ),
+                500,
+            )
+
+        queue_size = notification_queue.qsize()
+        cache_size = len(file_notification_manager.notification_cache)
+
+        return jsonify(
+            {
+                "status": "success",
+                "queue": {
+                    "current_size": queue_size,
+                    "max_size": notification_queue.maxsize,
+                    "utilization_percent": (queue_size / notification_queue.maxsize)
+                    * 100,
+                },
+                "cache": {"cached_users": cache_size},
+                "timestamp": datetime.now().isoformat(),
+            }
+        )
+
+    except Exception as e:
+        return (
+            jsonify({"status": "error", "message": f"큐 상태 조회 실패: {str(e)}"}),
+            500,
+        )
+
+
 # 알림 전체 삭제 엔드포인트
 @app.route("/clear_notifications", methods=["POST"])
 def clear_notifications():
