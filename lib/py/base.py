@@ -1,4 +1,5 @@
 
+import httpx
 import logging
 import asyncio
 import threading
@@ -159,7 +160,7 @@ async def load_user_state_data(init: initVar):
 	
 	# 플래그 업데이트
 	init.is_state_control["user_date"] = False
-	await update_flag('is_state_control', init.is_state_control)
+	await update_flag(init.supabase, 'is_state_control', init.is_state_control)
 
 def build_chat_user_index(init: initVar):
 	index = defaultdict(list)
@@ -177,12 +178,12 @@ def build_chat_user_index(init: initVar):
 	init.chat_user_index = index
 	
 # 비동기로 플래그 업데이트
-async def update_flag(field, value):
+async def update_flag(supabase, field, value):
 	table_name = 'date_update'
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert({"idx": 0,field: value}).execute())
+		data = {"idx": 0,field: value}
+		await safe_upsert(supabase, table_name, data)
 
 ## db 초기화 함수
 async def DataBaseVars(init: initVar, is_start = False):
@@ -246,7 +247,7 @@ async def DataBaseVars(init: initVar, is_start = False):
 
 			if not is_start:
 				init.is_state_control["all_date"] = False
-				await update_flag('is_state_control', init.is_state_control)
+				await update_flag(init.supabase, 'is_state_control', init.is_state_control)
 
 			break
 			
@@ -277,7 +278,7 @@ async def save_highlight_data(init, channelID = "all"):
 		instances_with_highlights = state_manager.get_chat_instances_with_highlights()
 		
 		print(f"{datetime.now()} 하이라이트 데이터가 있는 채널 {len(instances_with_highlights)}개 발견")
-		await change_field_state("is_save_highlight_data", init.is_save_highlight_data, channelID, False)
+		await change_field_state(init.supabase, "is_save_highlight_data", init.is_save_highlight_data, channelID, False)
 		
 		# 각 인스턴스에 대해 highlight_processing 실행
 		for instance_info in instances_with_highlights:
@@ -326,7 +327,7 @@ async def print_log(init):
 	print(f"{datetime.now()} is_print_log", flush=True)
 	init.is_state_control["is_print_log"] = False
 	await asyncio.sleep(0.3)
-	await update_flag('is_state_control', init.is_state_control)
+	await update_flag(init.supabase, 'is_state_control', init.is_state_control)
 
 # db에서 데이터 가져오는 함수
 async def fetch_data(supabase, date_name):
@@ -771,12 +772,23 @@ def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image = ""):
 	except Exception as e: 
 		asyncio.create_task(log_error(f"error getChannelOffStateData afreeca {str(e)}"))
 
+async def safe_upsert(supabase, table_name, data, retry=3):
+    for i in range(retry):
+        try:
+            await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+            return True
+        except Exception as e:
+            if i == retry - 1:
+                asyncio.create_task(log_error(f"Supabase upsert fail: {e}"))
+            else:
+                await asyncio.sleep(0.5 * (i + 1))
+    return False
+
 # 방송 정보 데이터 저장 함수
-async def save_airing_data(titleData, platform: str, id_):
+async def save_airing_data(supabase, titleData, platform: str, id_):
 	table_name = "titleData"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data_func = {
 					"channelID": id_,
 					"platform": platform,
@@ -790,53 +802,48 @@ async def save_airing_data(titleData, platform: str, id_):
 					"baseline_metrics": titleData.loc[id_, "baseline_metrics"],
 			}
 
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data_func).execute())
+		await safe_upsert(supabase, table_name, data_func)
 
 # 프로필 이미지 url 저장 함수
-async def save_profile_data(IDList, platform: str, id):
+async def save_profile_data(supabase, IDList, platform: str, id):
 	table_name = "IDList"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-		
 		data_func = {
 				"channelID": id,
 				"platform": platform,
 				'profile_image': IDList[platform].loc[id, 'profile_image']
 			}
 
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data_func).execute())
+		await safe_upsert(supabase, table_name, data_func)
 
 # 필드 데이터 상태 변경 함수
-async def change_field_state(field, field_data, channel_id, field_state = True):
+async def change_field_state(supabase, field, field_data, channel_id, field_state = True):
 	table_name = "date_update"
 	lock = get_table_lock(table_name)
 	async with lock:
 		field_data[channel_id] = field_state
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert({"idx": 0, field: field_data}).execute())
+		data = {"idx": 0, field: field_data}
+		await safe_upsert(supabase, table_name, data)
 
 # 비디오 데이터 저장 함수
-async def save_video_data(video_data, _id, platform):
+async def save_video_data(supabase, video_data, _id, platform):
 	table_name = "video_data"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 			"channelID": _id,
 			"VOD_json": video_data[platform].loc[_id, 'VOD_json'],
 			"platform": platform,
 		}
 
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+		await safe_upsert(supabase, table_name, data)
 
 # 카페 데이터 저장 함수
-async def saveCafeData(cafeData, _id):
+async def saveCafeData(supabase, cafeData, _id):
 	table_name = "cafeData"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
-
 		data = {
 			"channelID": _id,
 			"update_time": int(cafeData.loc[_id, 'update_time']),
@@ -844,14 +851,13 @@ async def saveCafeData(cafeData, _id):
 			"cafeNameDict": cafeData.loc[_id, 'cafeNameDict']
 		}	
 			
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+		await safe_upsert(supabase, table_name, data)
 
 # 유튜브 데이터 저장 함수
-async def saveYoutubeData(youtubeData, youtubeChannelID):
+async def saveYoutubeData(supabase, youtubeData, youtubeChannelID):
 	table_name = "youtubeData"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 			"YoutubeChannelID": youtubeChannelID,
 			"videoCount": int(youtubeData.loc[youtubeChannelID, "videoCount"]),
@@ -861,27 +867,25 @@ async def saveYoutubeData(youtubeData, youtubeChannelID):
 			'video_count_check': int(youtubeData.loc[youtubeChannelID, "video_count_check"]),
 		}
 
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+		await safe_upsert(supabase, table_name, data)
 
 # 유저 챗 데이터 저장 함수
-async def save_user_chat_user_json(webhook_url, chat_user_json):
+async def save_user_chat_user_json(supabase, webhook_url, chat_user_json):
 	table_name = "userStateData"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 				'discordURL': webhook_url, 
 				'chat_user_json': chat_user_json,
 		}
 		
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+		await safe_upsert(supabase, table_name, data)
 
 # 보낸 클립 UID 저장 함수
-async def save_sent_notifications(channel_id, hot_clip_data, platform: str):
+async def save_sent_notifications(supabase, channel_id, hot_clip_data, platform: str):
 	table_name = "hot_clip_data"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 					"channelID": channel_id,
 					"platform": platform,
@@ -889,27 +893,25 @@ async def save_sent_notifications(channel_id, hot_clip_data, platform: str):
 					"sent_clip_uids": hot_clip_data[platform].loc[channel_id, 'sent_clip_uids']
 				}
 
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+		await safe_upsert(supabase, table_name, data)
 
 # 챗 명령어 데이터 저장 함수
-async def save_chat_command_data(chat_command_data, _id, platform: str):
+async def save_chat_command_data(supabase, chat_command_data, _id, platform: str):
 	table_name = "chat_commands"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		data = {
 			"channelID": _id,
 			"platform": platform,
 			'chat_command': chat_command_data[platform].loc[_id, 'chat_command']
 		}
 
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+		await safe_upsert(supabase, table_name, data)
 
 async def save_chatFilter_name(init, user_id, user_name, platform: str):
 	table_name = "chatFilter"
 	lock = get_table_lock(table_name)
 	async with lock:
-		supabase = create_client(environ['supabase_url'], environ['supabase_key'])
 		init.chatFilter[platform].loc[user_id, "channelName"] = user_name
 		data = {
 			"uid": user_id,
@@ -917,7 +919,7 @@ async def save_chatFilter_name(init, user_id, user_name, platform: str):
 			"channelName": user_name,
 		}
 
-		await asyncio.to_thread(lambda: supabase.table(table_name).upsert(data).execute())
+		await safe_upsert(init.supabase, table_name, data)
 
 # 닉네임 변경시 db 데이터 변경 및 사용자 설정 변경
 async def change_nickname(init, user_id, nickname, platform: str):
@@ -943,7 +945,7 @@ async def change_nickname(init, user_id, nickname, platform: str):
 				idx = user_list.index(old_name)
 				user_list[idx] = nickname
 
-			asyncio.create_task(save_user_chat_user_json(discordURL, chat_json))
+			asyncio.create_task(save_user_chat_user_json(init.supabase, discordURL, chat_json))
 
 		if targets:
 			new_key = (channel_id, nickname)

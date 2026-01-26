@@ -35,6 +35,7 @@ class CafePostData:
 class getCafePostTitle:
     # 초기화 함수: 필요한 데이터와 채널 ID 설정
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
+        self.init: initVar = init_var                                       # 초기화 변수
         self.DO_TEST: bool = init_var.DO_TEST                               # 테스트 모드 여부
         self.userStateData = init_var.userStateData                         # 사용자 상태 데이터
         self.channel_id: str = channel_id                                   # 채널 ID
@@ -84,7 +85,7 @@ class getCafePostTitle:
 
             if should_update:
                 # 카페 데이터 저장
-                asyncio.create_task(saveCafeData(self.cafeData, self.channel_id))
+                asyncio.create_task(saveCafeData(self.init.supabase, self.cafeData, self.channel_id))
                 
         except Exception as e:
             asyncio.create_task(log_error(f"게시글 처리 중 오류 발생: {str(e)}"))

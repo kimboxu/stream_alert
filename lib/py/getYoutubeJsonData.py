@@ -44,6 +44,7 @@ class YouTubeVideoBatch:
 class getYoutubeJsonData:
 	# 초기화 함수
 	def __init__(self, init_var: initVar, performance_manager: PerformanceManager, developerKey, youtubeChannelID):
+		self.init: initVar = init_var                                       # 초기화 변수
 		self.performance_manager = performance_manager
 		self.DiscordWebhookSender_class = DiscordWebhookSender()
 		self.developerKey = developerKey         # YouTube API 키
@@ -126,7 +127,7 @@ class getYoutubeJsonData:
 			self.youtubeData.loc[self.youtubeChannelID, "videoCount"] += 1
 			self.youtubeData.loc[self.youtubeChannelID, "video_count_check"] = 0
 			# 데이터 저장
-			asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
+			asyncio.create_task(saveYoutubeData(self.init.supabase, self.youtubeData, self.youtubeChannelID))
 			
 		# 새 비디오가 있는 경우
 		if self.check_new_video(video_count):
@@ -142,7 +143,7 @@ class getYoutubeJsonData:
 			if video_count - self.youtubeData.loc[self.youtubeChannelID, "videoCount"] < 3:
 				self.youtubeData.loc[self.youtubeChannelID, "videoCount"] -= 1
 				# 데이터 저장
-				asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
+				asyncio.create_task(saveYoutubeData(self.init.supabase, self.youtubeData, self.youtubeChannelID))
 				
 	async def validate_channel_code(self, youtube_build, channel_code: str) -> bool:
 		"""
@@ -209,7 +210,7 @@ class getYoutubeJsonData:
 					await asyncio.sleep(0.5)  # 웹훅 전송 간 딜레이
 					
 			# 데이터 저장
-			asyncio.create_task(saveYoutubeData(self.youtubeData, self.youtubeChannelID))
+			asyncio.create_task(saveYoutubeData(self.init.supabase, self.youtubeData, self.youtubeChannelID))
 			
 	# YouTube API 클라이언트 생성 함수 (재시도 로직 포함)
 	@retry(stop=stop_after_attempt(5), 

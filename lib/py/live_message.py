@@ -154,14 +154,14 @@ class base_live_message:
         except Exception as e:
             error_msg = f"error get state_data {self.platform} live {str(e)}.{self.channel_id}"
             asyncio.create_task(log_error(error_msg))
-            await update_flag('user_date', True)
+            await update_flag(self.init.supabase, 'user_date', True)
 
     #방송 제목이 변경되었는지 확인하고 필요시 업데이트
     def _update_title_if_needed(self):
         if (if_after_time(self.data.state_update_time["titleChangeDate"]) and 
             self._get_old_title() != self._get_title()):
             self.title_data.loc[self.channel_id,'title2'] = self.title_data.loc[self.channel_id,'title1']
-            asyncio.create_task(save_airing_data(self.title_data, self.platform, self.channel_id))
+            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id))
 
     def _get_channel_name(self):
         return self.IDList[self.platform].loc[self.channel_id, 'channelName']
@@ -188,7 +188,7 @@ class base_live_message:
             # 푸시 알림 및 메시지 전송
             asyncio.create_task(send_push_notification(list_of_urls, json_data))
             asyncio.create_task(self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data))
-            asyncio.create_task(save_airing_data(self.title_data, self.platform, self.channel_id))
+            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id))
 
         except Exception as e:
             print(f"{datetime.now()} postLiveMSG {str(e)}")
@@ -303,7 +303,7 @@ class base_live_message:
 
         self.data.livePostList.append((message, json_data))
 
-        asyncio.create_task(save_profile_data(self.IDList, self.platform, self.channel_id))
+        asyncio.create_task(save_profile_data(self.init.supabase, self.IDList, self.platform, self.channel_id))
 
         # 상태 업데이트 시간 저장
         if message == "뱅온!": 
@@ -314,7 +314,7 @@ class base_live_message:
     async def save_profile_image(self):
         if self.IDList[self.platform].loc[self.channel_id, 'profile_image'] != self.data.profile_image:
             self.IDList[self.platform].loc[self.channel_id, 'profile_image'] = self.data.profile_image
-            asyncio.create_task(save_profile_data(self.IDList, self.platform, self.channel_id))
+            asyncio.create_task(save_profile_data(self.init.supabase, self.IDList, self.platform, self.channel_id))
     
     async def getOnAirJson(self, message, state_data):
         raise NotImplementedError
@@ -516,7 +516,7 @@ class chzzk_live_message(base_live_message):
         if self.data.category != category:
             self.data.category = category
             self.title_data.loc[self.channel_id, 'category'] = category
-            asyncio.create_task(save_airing_data(self.title_data, self.platform, self.channel_id))
+            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id))
 
     #상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self) -> str: 
