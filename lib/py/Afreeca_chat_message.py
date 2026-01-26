@@ -91,7 +91,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         while True:
             # 채팅 참여 상태가 활성화되어 있으면 비활성화
             if self.init.chat_json[self.data.channel_id]: 
-                asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id, False))
+                asyncio.create_task(change_field_state(self.init.supabase, "chat_json", self.init.chat_json, self.data.channel_id, False))
 
             # 방송이 종료되었거나 비밀번호가 설정된 경우 대기
             if self.check_live_state_close() or await self.check_is_passwordDict():
@@ -113,7 +113,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 # 오류 발생 시 로그 기록
                 await log_error(f"error in chat manager afreeca {self.data.channel_id}.{str(e)}")
                 if not self.init.DO_TEST:
-                    asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
+                    asyncio.create_task(change_field_state(self.init.supabase, "chat_json", self.init.chat_json, self.data.channel_id))
             finally:
                 # 실행 중인 태스크 정리
                 await self._cleanup_tasks()
@@ -140,7 +140,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
 
             if self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
                 self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
-                asyncio.create_task(save_airing_data(self.title_data, 'afreeca', self.data.channel_id))
+                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, 'afreeca', self.data.channel_id))
             
             await self.start_analyzer()     # 분석기 시작
 
@@ -320,7 +320,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             self.title_data.loc[self.data.channel_id, 'oldChatChannelId'] = self.title_data.loc[self.data.channel_id, 'chatChannelId']
             self.title_data.loc[self.data.channel_id, 'chatChannelId'] = BNO
             self.state_update_time["changeChatChannelIdDate"] = datetime.now().isoformat()
-            asyncio.create_task(save_airing_data(self.title_data, 'afreeca', self.data.channel_id))
+            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, 'afreeca', self.data.channel_id))
             return True
         return False
 

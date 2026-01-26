@@ -834,7 +834,7 @@ class ChatAnalyzer:
             check_interval = 1
             max_wait_time = 300
             stream_start_ids = list(self.highlights_dict.keys())
-            asyncio.create_task(save_airing_data(self.title_data, self.platform, self.channel_id))
+            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id))
 
             for stream_start_id in stream_start_ids:
                 if self.is_wait[stream_start_id]:
