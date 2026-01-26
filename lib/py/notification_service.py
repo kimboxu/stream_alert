@@ -411,30 +411,9 @@ class FileNotificationManager:
             print(f"전체 캐시 저장 중 오류: {str(e)}")
             import gc
             gc.collect()
-            return saved_count
- 
-class gcManager:
-    def __init__(self):
-        self.last_gc_time = datetime.now().isoformat()
-    async def should_gc(self):
-        state = StateManager.get_instance()
-        init = state.get_init()
-        online_counts = {}
-        for platform in list(init.titleData):
-            online_counts[platform] = get_online_count(init.titleData[platform])
-
-        # 모든 플랫폼이 오프라인인지 확인
-        all_offline = not any(online_counts.values())
-
-        if all_offline and if_after_time(self.last_gc_time, sec=60*60*12):
-            await asyncio.sleep(0.001)
-            print(f"{datetime.now()} run gc")
-            import gc
-            gc.collect()
-            self.last_gc_time = datetime.now().isoformat()   
+            return saved_count 
 
 file_notification_manager = FileNotificationManager()
-gc_class = gcManager()
 
 # Firebase 초기화 함수
 def initialize_firebase(firebase_initialized_globally=False):
@@ -1023,14 +1002,6 @@ def setup_scheduled_tasks():
         # second=0
     )
 
-    # 매시 30분에 실행, 모든 방송이 꺼져있고, 마지막 가비지 컬랙션 실행 후 12시간이 지났을 경우 실행
-    scheduler.add_job(
-        func=lambda: asyncio.run(gc_class.should_gc()),
-        trigger="cron",
-        minute=30
-        # second=0
-    )
-    
     scheduler.start()
     
     # 앱 종료 시 스케줄러 종료
