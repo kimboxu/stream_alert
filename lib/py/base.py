@@ -105,6 +105,7 @@ async def log_error(
 async def userDataVar(init: initVar):
     try:
         # 1. 업데이트 정보 가져오기
+        date_update = None
         date_update = await asyncio.to_thread(
             lambda: init.supabase.table("date_update").select("*").execute()
         )
