@@ -709,9 +709,9 @@ async def batch_save_notifications(user_data_map, data_fields):
             print(f"{datetime.now()} 알림 큐 추가 실패 ({webhook_url}): {str(e)}")
             skipped_count += 1
     
-    print(f"{datetime.now()} 알림 배치 처리: "
-        f"{queued_count}개 큐에 추가, {skipped_count}개 스킵, "
-        f"현재 큐 크기: {notification_queue.qsize()}")
+    # print(f"{datetime.now()} 알림 배치 처리: "
+    #     f"{queued_count}개 큐에 추가, {skipped_count}개 스킵, "
+    #     f"현재 큐 크기: {notification_queue.qsize()}")
     
     # 큐에만 추가했으므로 모두 True 반환 (실제 저장은 워커가 함)
     return [True] * len(user_data_map)
@@ -870,7 +870,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             except Exception as e:
                 print(f"{datetime.now()} 누락된 사용자 데이터 조회 실패: {str(e)}")
         
-        print(f"{datetime.now()} 알림 전송 시작: {len(all_users)}명의 사용자")
+        # print(f"{datetime.now()} 알림 전송 시작: {len(all_users)}명의 사용자")
         
         # 파일 기반 알림 저장 (큐에 추가만 함)
         await batch_save_notifications(all_users, data_fields)
@@ -918,7 +918,7 @@ async def send_push_notification(webhook_urls, json_data, firebase_initialized_g
             except asyncio.TimeoutError:
                 print(f"{datetime.now()} 일부 FCM 메시지 작업 시간 초과 ({len(fcm_tasks)}개 배치)")
         
-        print(f"{datetime.now()} 알림 전송 완료")
+        # print(f"{datetime.now()} 알림 전송 완료")
         return True
         
     except Exception as e:

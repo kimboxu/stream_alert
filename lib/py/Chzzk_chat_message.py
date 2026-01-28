@@ -511,6 +511,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             while not self.data.sock.state.name == 'CLOSED':
                 try:
                     # 핑 메시지 전송
+                    await asyncio.sleep(0.0001)
                     await self.data.sock.send(dumps(self._CHZZK_CHAT_DICT("pong")))
                 except websockets.exceptions.ConnectionClosedOK as e: 
                     break

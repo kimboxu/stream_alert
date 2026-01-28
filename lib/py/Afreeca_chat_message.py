@@ -256,6 +256,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             while not self.data.sock.state.name == "CLOSED":
                 try:
                     # 핑 메시지 전송
+                    await asyncio.sleep(0.0001)
                     await self.data.sock.send(self.PING_PACKET)
                 except websockets.exceptions.ConnectionClosedOK as e:
                     break
@@ -721,7 +722,8 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             return 0
 
         # messages[1] 이 BID 인 경우 or messages[2] 가  BID 면서 길이가 11인 경우
-        if messages[1] == self.data.BID or (
+        user_id = messages[1].split("(")[0]
+        if user_id == self.data.BID or (
             messages[2] == self.data.BID and len(messages) == 11
         ):
             return 0
