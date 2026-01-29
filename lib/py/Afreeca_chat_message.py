@@ -675,6 +675,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             or (messages[2] == self.data.BID and len(messages) == 11)
             or ("fw" in messages[2])
             or len(messages) == 13
+            or len(messages) == 21 # 이미지 후원? 혹은 이모티콘?
         )
 
     # 아프리카 채팅 메시지 체크
@@ -733,6 +734,9 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             return 0
 
         if len(messages) == 13:
+            return 0
+        
+        if len(messages) == 21: # 이미지 후원? 혹은 이모티콘?
             return 0
 
         return 1
