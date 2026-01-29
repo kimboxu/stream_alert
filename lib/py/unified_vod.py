@@ -394,9 +394,6 @@ class base_vod(ABC):
             return None
 
     async def uptime_command(self):
-        if self.title_data.loc[self.channel_id, "live_state"] == "CLOSE":
-            await self._send("채널이 오프라인 상태입니다.")
-            return 0
         start_time_str = self.title_data.loc[self.channel_id, "state_update_time"][
             "openDate"
         ]
@@ -426,7 +423,7 @@ class base_vod(ABC):
                 if (timestamp - timedelta(hours=hours_threshold)) >= start_time:
                     is_done = True
                 if (
-                    timestamp - timedelta(hours=hours_threshold, minutes=30)
+                    timestamp - timedelta(hours=hours_threshold, seconds=30)
                 ) < start_time:
                     data["vod_segment_start_offset"] = (i - 1) * segment_duration
                     data["vod_segment_number"] = i - 1
@@ -631,7 +628,7 @@ class chzzk_vod(base_vod):
         """치지직 비디오 데이터 존재 여부 확인"""
         return bool(state_data.get("content", {}).get("data", []))
 
-    def _extract_video_info(self, state_data):
+    def _extract_video_info(self, state_data, videoNo = None):
         """치지직 비디오 정보 추출"""
 
         def get_started_at(date_str) -> str | None:
@@ -641,8 +638,16 @@ class chzzk_vod(base_vod):
                 return datetime.fromisoformat(date_str).isoformat()
             except ValueError:
                 return None
-
-        data = state_data["content"]["data"][0]
+            
+        if videoNo is not None:
+            data = next(
+                (item for item in state_data["content"]["data"] if item["videoNo"] == videoNo),
+                None
+            )
+            if data is None:
+                data = state_data["content"]["data"][0]
+        else:
+            data = state_data["content"]["data"][0]
 
         self.data.duration = data["duration"]
         self.data.videoNo = data["videoNo"]
