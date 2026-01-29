@@ -1176,28 +1176,30 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
     # 방송 시작 시 자동 인사 메시지 함수
     async def onAirChat(self, message):
-        himent = None
-        if message != "뱅온!":return  # "뱅온!" 메시지가 아니면 무시
+        if message != "뱅온!":
+            return
         
-        # 채널별 맞춤 인사말 설정
-        if self.data.channel_id == "charmel"   	: himent = "챠하"
-        if self.data.channel_id == "mawang0216"	: himent = "마하"
-        if self.data.channel_id == "bighead033"	: himent = "빅하"
+        greeting_map = {
+            "charmel": "챠하",
+            "mawang0216": "마하",
+            "bighead033": "빅하"
+        }
         
-        # 인사말이 설정된 경우 전송
-        if himent: await self._send(himent)
+        himent = greeting_map.get(self.data.channel_id)
+        if himent:
+            await self._send(himent)
 
     # 방송 종료 시 자동 작별 인사 메시지 함수
     async def offAirChat(self):
-        byement = None
+        farewell_map = {
+            "charmel": "챠바",
+            "mawang0216": "마바",
+            "bighead033": "빅바"
+        }
         
-        # 채널별 맞춤 작별 인사말 설정
-        if self.data.channel_id =="charmel"   : byement = "챠바"
-        if self.data.channel_id =="mawang0216": byement = "마바"
-        if self.data.channel_id =="bighead033": byement = "빅바"
-        
-        # 작별 인사말이 설정된 경우 전송
-        if byement: await self._send(byement)
+        byement = farewell_map.get(self.data.channel_id)
+        if byement:
+            await self._send(byement)
 
     # 방송 상태가 종료인지 확인하는 함수
     def check_live_state_close(self):
