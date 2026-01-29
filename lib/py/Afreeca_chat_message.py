@@ -478,7 +478,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
     # 유저 채팅 데이터 얻기
     def get_user_chat(self, messages):
         user_id, chat, nickname, chat_type = None, None, None, "채팅"
-        if len(messages) == 14:
+        if len(messages) in [14, 15]:
             user_id, chat, nickname, chat_type = (
                 messages[2],
                 messages[1],
