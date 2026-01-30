@@ -4,8 +4,8 @@ import threading
 import pandas as pd
 from json import loads
 from os import environ
-from typing import Dict
 from random import randint
+from typing import Any, Dict
 from requests import post, get
 from dotenv import load_dotenv
 from timeit import default_timer
@@ -100,36 +100,96 @@ async def log_error(
 ):
     await DiscordWebhookSender()._log_error(message, is_Do_test, webhook_url)
 
-
 # 사용자 데이터 업데이트 함수
 async def userDataVar(init: initVar):
+    date_update = None
+    
     try:
-        # 1. 업데이트 정보 가져오기
-        date_update = None
+        # 데이터베이스에서 업데이트 정보 조회
         date_update = await asyncio.to_thread(
             lambda: init.supabase.table("date_update").select("*").execute()
         )
 
-        if not date_update or not date_update.data:
-            print(f"{datetime.now()} ERROR: 유효하지 않은 응답 {date_update}")
-            return
+        # 응답 유효성 검증
+        if not _is_valid_response(date_update):
+            print(
+                f"{datetime.now()} ERROR: 유효하지 않은 응답 - "
+                f"data: {date_update.data if date_update else 'None'}"
+            )
+            return False
 
         update_data = date_update.data[0]
 
         # 단순 속성 설정
-        init.chat_json = update_data.get("chat_json")
-        init.is_vod_json = update_data.get("is_vod_json")
-        init.is_vod_chat_json = update_data.get("is_vod_chat_json")
-        init.is_use_description = update_data.get("is_use_description")
-        init.is_use_AI = update_data.get("is_use_AI")
-        init.is_hot_clip = update_data.get("is_hot_clip")
-        init.is_save_highlight_data = update_data.get("is_save_highlight_data")
-        init.is_state_control = update_data.get("is_state_control")
+        _set_simple_attributes(init, update_data)
 
-        # 병렬로 필요한 데이터 로드
-        tasks = []
+        # 비동기 작업 준비
+        tasks = _prepare_async_tasks(init, update_data)
 
-        state_control = update_data.get("is_state_control", {})
+        # 모든 비동기 작업 실행
+        if tasks:
+            await asyncio.gather(*tasks, return_exceptions=True)
+
+        return True
+
+    except Exception as e:
+        error_str = str(e)
+        
+        # 무시할 에러 확인
+        ignorable_errors = [
+            "Server disconnected",
+            "EOF occurred in violation of protocol"
+        ]
+        
+        if any(err_type in error_str for err_type in ignorable_errors):
+            return
+
+        # 그 외 에러만 로깅
+        error_details = f"Error in userDataVar: {error_str}"
+        if hasattr(e, "response"):
+            error_details += f"\nResponse: {e.response.text}"
+        if date_update:
+            error_details += f"\nLast date_update: {date_update}"
+
+        await log_error(error_details)
+        print(f"{datetime.now()} {error_details}")
+        return False
+
+
+def _is_valid_response(response: Any) -> bool:
+    """응답이 유효한지 검증합니다."""
+    return (
+        response is not None
+        and hasattr(response, 'data')
+        and response.data
+        and isinstance(response.data, list)
+        and len(response.data) > 0
+    )
+
+
+def _set_simple_attributes(init: initVar, update_data: Dict[str, Any]) -> None:
+    """단순 속성들을 설정합니다."""
+    simple_attributes = {
+        'chat_json': 'chat_json',
+        'is_vod_json': 'is_vod_json',
+        'is_vod_chat_json': 'is_vod_chat_json',
+        'is_use_description': 'is_use_description',
+        'is_use_AI': 'is_use_AI',
+        'is_hot_clip': 'is_hot_clip',
+        'is_save_highlight_data': 'is_save_highlight_data',
+        'is_state_control': 'is_state_control',
+    }
+
+    for init_attr, data_key in simple_attributes.items():
+        setattr(init, init_attr, update_data.get(data_key))
+
+
+def _prepare_async_tasks(init: initVar, update_data: Dict[str, Any]) -> list:
+    """비동기로 실행할 작업들을 준비합니다."""
+    tasks = []
+
+    state_control = update_data.get("is_state_control", {})
+    if isinstance(state_control, dict):
         if state_control.get("user_date"):
             tasks.append(load_user_state_data(init))
         if state_control.get("all_date"):
@@ -137,26 +197,13 @@ async def userDataVar(init: initVar):
         if state_control.get("is_print_log"):
             tasks.append(print_log(init))
 
-        for channel_id, state in update_data.get("is_save_highlight_data", {}).items():
+    highlight_data = update_data.get("is_save_highlight_data", {})
+    if isinstance(highlight_data, dict):
+        for channel_id, state in highlight_data.items():
             if state:
                 tasks.append(save_highlight_data(init, channel_id))
 
-        # 모든 작업 기다리기
-        if tasks:
-            await asyncio.gather(*tasks)
-
-    except Exception as e:
-        error_details = f"Error in userDataVar: {str(e)}"
-        if "Server disconnected" in str(e):
-            return
-        if hasattr(e, "response"):
-            error_details += f"\nResponse: {e.response.text}"
-
-        if "EOF occurred in violation of protocol" in str(e):
-            error_details += "\nSSL connection error occurred"
-
-        asyncio.create_task(log_error(error_details))
-        print(f"{datetime.now()} date_update:{date_update}")
+    return tasks
 
 
 ## 사용자 상태 데이터 로드
