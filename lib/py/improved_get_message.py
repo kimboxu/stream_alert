@@ -2,7 +2,7 @@ import asyncio
 import logging
 from datetime import datetime
 from json import loads
-from typing import Dict, Optional, Any, Callable
+from typing import Dict, Optional, Any, Callable, Union
 from dataclasses import dataclass
 from enum import Enum
 
@@ -113,6 +113,7 @@ class PlatformConfig:
     needs_params: bool = False
     url_formatter: Optional[Callable] = None
     response_handler: Callable = None
+    is_binary: bool = False
     
     def __post_init__(self):
         if self.response_handler is None:
@@ -186,6 +187,7 @@ async def get_message(
                 formatted_url,
                 request_kwargs,
                 timeout,
+                is_binary=config.is_binary,
             )
             
             # ===== 성공 =====
@@ -276,7 +278,8 @@ async def _fetch_with_retry(
     url: str,
     request_kwargs: Dict[str, Any],
     timeout: ClientTimeout,
-) -> str:
+    is_binary: bool = False,
+) -> Union[str, bytes]:
     """
     aiohttp을 사용한 요청 실행
     
@@ -299,7 +302,10 @@ async def _fetch_with_retry(
                 logger.warning(error_msg)
                 raise aiohttp.ClientError(error_msg)
             
-            return await response.text()
+            if is_binary:
+                return await response.read()  # 바이너리 데이터
+            else:
+                return await response.text()  # 텍스트 데이터
     
     except asyncio.TimeoutError:
         logger.warning(f"타임아웃 ({platform}): {url}")
@@ -322,36 +328,45 @@ def _get_platform_configs() -> Dict[str, PlatformConfig]:
             needs_params=False,
             url_formatter=None,
             response_handler=lambda r: loads(r),
+            is_binary=False,
         ),
         "chzzk": PlatformConfig(
             needs_cookies=True,
             needs_params=True,
             url_formatter=None,
             response_handler=lambda r: loads(r),
+            is_binary=False,
         ),
         "twitch": PlatformConfig(
             needs_cookies=False,
             needs_params=False,
             url_formatter=None,
             response_handler=lambda r: loads(r),
+            is_binary=False,
         ),
         "cafe": PlatformConfig(
             needs_cookies=False,
             needs_params=True,
             url_formatter=None,
             response_handler=lambda r: loads(r),
+            is_binary=False,
         ),
         "youtube": PlatformConfig(
             needs_cookies=False,
             needs_params=False,
             url_formatter=None,
-            response_handler=lambda r: r,  # 문자열 그대로 반환
+            response_handler=lambda r: r,
+            is_binary=False,
         ),
         "image": PlatformConfig(
             needs_cookies=False,
             needs_params=False,
             url_formatter=None,
-            response_handler=lambda r: r,
+            response_handler=lambda r: {
+                "status_code": 200,
+                "content": r,
+            },
+            is_binary=True,
         ),
     }
 
