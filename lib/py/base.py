@@ -141,6 +141,7 @@ async def userDataVar(init: initVar):
         ignorable_errors = [
             "Server disconnected",
             "EOF occurred in violation of protocol",
+            "Received pseudo-header in trailer",
             "COMPRESSION_ERROR",
             "PROTOCOL_ERROR",
             "timed out",
