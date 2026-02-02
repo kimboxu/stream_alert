@@ -7,12 +7,12 @@ from abc import ABC, abstractmethod
 from shared_state import StateManager
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
+from improved_get_message import get_message
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
 from base import (
     changeUTCtime,
-    get_message,
     iconLinkData,
     initVar,
     save_video_data,

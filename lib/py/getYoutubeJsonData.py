@@ -9,10 +9,10 @@ from base import (
     subjectReplace,
     iconLinkData,
     initVar,
-    get_message,
     saveYoutubeData,
     log_error,
 )
+from improved_get_message import get_message
 from tenacity import (
     retry,
     stop_after_attempt,

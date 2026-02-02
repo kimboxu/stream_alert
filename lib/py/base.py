@@ -13,11 +13,11 @@ from dataclasses import dataclass
 from supabase import create_client
 from collections import defaultdict
 from datetime import datetime, timedelta
-from http.client import RemoteDisconnected
-from requests.exceptions import HTTPError, ReadTimeout, ConnectTimeout, SSLError
 
 from discord_webhook_sender import DiscordWebhookSender
 from make_log_api_performance import PerformanceManager
+
+from improved_get_message import initialize_session_manager
 
 
 class initVar:
@@ -51,6 +51,8 @@ class initVar:
 
     # 모든 로거의 레벨을 높이려면
     # logging.getLogger().setLevel(logging.WARNING)
+    initialize_session_manager()
+
     print("start!")
 
 
@@ -138,7 +140,11 @@ async def userDataVar(init: initVar):
         # 무시할 에러 확인
         ignorable_errors = [
             "Server disconnected",
-            "EOF occurred in violation of protocol"
+            "EOF occurred in violation of protocol",
+            "COMPRESSION_ERROR",
+            "PROTOCOL_ERROR",
+            "timed out",
+            "None",
         ]
         
         if any(err_type in error_str for err_type in ignorable_errors):
@@ -626,233 +632,6 @@ def chzzk_getLink(uid: str):
 # 아프리카 API URL 생성 함수
 def afreeca_getLink(afreeca_id: str):
     return f"https://chapi.sooplive.co.kr/api/{afreeca_id}/station"
-
-
-# 플랫폼별 API 요청 처리 함수
-async def get_message(performance_manager: PerformanceManager, platform, link):
-    start_time = datetime.now()
-
-    # 플랫폼별 타임아웃 설정
-    platform_timeout = {
-        "image": 3,  # 이미지는 3초만 대기
-        "afreeca": 10,
-        "chzzk": 10,
-        "twitch": 10,
-        "cafe": 10,
-        "youtube": 10,
-    }
-
-    platform_config = {
-        "afreeca": {
-            "needs_cookies": False,
-            "needs_params": False,
-            "url_formatter": link,
-            "response_handler": lambda response: loads(response.text),
-        },
-        "chzzk": {
-            "needs_cookies": True,
-            "needs_params": True,
-            "url_formatter": link,
-            "response_handler": lambda response: loads(response.text),
-        },
-        "twitch": {
-            "needs_cookies": False,
-            "needs_params": False,
-            "url_formatter": link,
-            "response_handler": lambda response: loads(response.text),
-        },
-        "cafe": {
-            "needs_cookies": False,
-            "needs_params": True,
-            "url_formatter": lambda link, cafe_num: link,
-            "response_handler": lambda response: loads(response.text),
-        },
-        "youtube": {
-            "needs_cookies": False,
-            "needs_params": False,
-            "url_formatter": link,
-            "response_handler": lambda response: response.text,
-        },
-        "image": {
-            "needs_cookies": False,
-            "needs_params": False,
-            "url_formatter": link,
-            "response_handler": lambda response: {
-                "status_code": response.status_code,
-                "text": response.text,
-                "content": getattr(response, "content", None),
-            },
-        },
-    }
-
-    try:
-        config = platform_config.get(platform)
-        if not config:
-            raise ValueError(f"지원하지 않는 플랫폼입니다: {platform}")
-
-        # 기본 헤더 및 요청 설정
-        headers = {}
-
-        # 플랫폼별 타임아웃 설정 (이미지는 3초, 나머지는 10초)
-        timeout = platform_timeout.get(platform, 10)
-        request_kwargs = {"timeout": timeout}
-
-        # 플랫폼별 헤더 설정
-        if platform == "chzzk":
-            headers = getDefaultHeaders()
-        elif platform == "twitch":
-            headers = getTwitchHeaders()
-        else:
-            headers = getDefaultHeaders()
-
-        request_kwargs["headers"] = headers
-
-        # 쿠키가 필요한 경우 추가
-        if config["needs_cookies"]:
-            if platform == "chzzk":
-                request_kwargs["cookies"] = getChzzkCookie()
-            elif platform == "afreeca":
-                request_kwargs["cookies"] = getAfreecaCookie()
-
-        # URL 형식 처리
-        formatted_url = link
-        if "url_formatter" in config:
-            if platform == "cafe":
-                BASE_URL, cafe_num = [*link.split(",")]  # 링크에서 카페 번호 추출
-                formatted_url = config["url_formatter"](BASE_URL, cafe_num)
-            else:
-                formatted_url = config["url_formatter"]
-
-        # 파라미터가 필요한 경우 추가
-        if config["needs_params"]:
-            if platform == "cafe":
-                page_num = 1  # 기본값
-                cafe_num = link.split(",")[-1]  # 링크에서 카페 번호 추출
-                request_kwargs["params"] = cafe_params(cafe_num, page_num)
-            elif platform == "chzzk":
-                pass
-
-        # 이미지 요청은 재시도 횟수 감소
-        max_retries = 1 if platform == "image" else 3
-        retry_count = 0
-        retry_delay = 1 if platform == "image" else 2
-
-        # 재시도 메커니즘
-        while retry_count < max_retries:
-            try:
-                # API 요청 실행
-                await asyncio.sleep(0.01)  # 이벤트 루프 양보
-                response = await asyncio.to_thread(get, formatted_url, **request_kwargs)
-
-                end_time = datetime.now()
-                response_time_ms = int((end_time - start_time).total_seconds() * 1000)
-                # 응답 코드 확인
-                if response.status_code != 200:
-                    # 실패 로깅
-                    asyncio.create_task(
-                        performance_manager.log_api_performance(
-                            api_type=f"{platform}_api",
-                            response_time_ms=response_time_ms,
-                            is_success=False,
-                            http_status_code=response.status_code,
-                            retry_count=retry_count,
-                        )
-                    )
-                    # 서버 오류(5xx)의 경우만 재시도
-                    if 500 <= response.status_code < 600:
-                        retry_count += 1
-                        if retry_count < max_retries:
-                            await asyncio.sleep(retry_delay)
-                            # 재시도 간격을 지수적으로 증가 (지수 백오프)
-                            retry_delay *= 2
-                            continue
-                        else:
-                            return {}
-                    else:
-                        # 4xx 등의 클라이언트 오류는 재시도하지 않고 바로 종료
-                        return {}
-
-                # 성공 로깅
-                asyncio.create_task(
-                    performance_manager.log_api_performance(
-                        api_type=f"{platform}_api",
-                        response_time_ms=response_time_ms,
-                        is_success=True,
-                        http_status_code=response.status_code,
-                        retry_count=retry_count,
-                    )
-                )
-                return config["response_handler"](response)
-
-            except (
-                ConnectTimeout,
-                ReadTimeout,
-                ConnectionError,
-                HTTPError,
-                RemoteDisconnected,
-            ) as e:
-                end_time = datetime.now()
-                response_time_ms = int((end_time - start_time).total_seconds() * 1000)
-
-                # 에러 로깅
-                asyncio.create_task(
-                    performance_manager.log_api_performance(
-                        api_type=f"{platform}_api",
-                        response_time_ms=response_time_ms,
-                        is_success=False,
-                        error_type=type(e).__name__,
-                        error_message=str(e),
-                        retry_count=retry_count,
-                    )
-                )
-                # 연결 관련 예외 발생 시 재시도
-                retry_count += 1
-                error_type = type(e).__name__
-                error_msg = f"API 요청 타임아웃/연결 오류 (시도 {retry_count}/{max_retries}): {platform} - {error_type}: {str(e)}"
-
-                if retry_count >= max_retries:
-                    asyncio.create_task(log_error(error_msg))
-                    return {}
-                # else:
-                # 	print(error_msg)
-
-                if "RemoteDisconnected" in error_type or "Connection aborted" in str(e):
-                    await asyncio.sleep(
-                        retry_delay * 1.5
-                    )  # 일반 재시도보다 더 길게 대기
-                else:
-                    await asyncio.sleep(retry_delay)
-
-                retry_delay *= 2
-
-            except SSLError as ssl_err:
-                retry_count += 1
-                error_msg = f"SSL Error (시도 {retry_count}/{max_retries}): {platform} - {str(ssl_err)}"
-
-                if retry_count >= max_retries:
-                    asyncio.create_task(log_error(error_msg))
-                    return {}
-                # else:
-                # 	print(error_msg)
-
-                if retry_count < max_retries:
-                    if "request_kwargs" in locals() and "verify" in request_kwargs:
-                        request_kwargs["verify"] = not request_kwargs["verify"]
-                    await asyncio.sleep(retry_delay)
-                    retry_delay *= 2
-                else:
-                    return {}
-
-            except Exception as e:
-                # 기타 예외는 바로 반환
-                error_msg = f"error get_message: {platform} - {str(e)}"
-                asyncio.create_task(log_error(error_msg))
-                return {}
-
-    except Exception as e:
-        error_msg = f"error get_message2: {platform} - {str(e)}"
-        asyncio.create_task(log_error(error_msg))
-        return {}
 
 
 # 트위치 채널 상태 데이터 추출 함수

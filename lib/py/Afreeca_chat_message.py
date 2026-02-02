@@ -3,7 +3,6 @@ from base import (
     initVar,
     change_field_state,
     if_after_time,
-    get_message,
     afreeca_getLink,
     afreeca_getChannelOffStateData,
     log_error,
@@ -18,10 +17,9 @@ import websockets
 from time import time
 from json import loads
 from os import environ
-from requests import post
 from datetime import datetime
-from supabase import create_client
 from dataclasses import dataclass, field
+from improved_get_message import get_message
 from discord_webhook_sender import (
     DiscordWebhookSender,
     get_list_of_urls,
@@ -30,6 +28,7 @@ from discord_webhook_sender import (
 from notification_service import send_push_notification
 from chat_analyzer import ChatMessageWithAnalyzer
 from make_log_api_performance import PerformanceManager
+
 from aiohttp import ClientSession, ClientError, TCPConnector
 
 
