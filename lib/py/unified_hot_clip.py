@@ -10,12 +10,12 @@ from typing import List, Optional
 
 from base import (
     initVar,
-    get_message,
     log_error,
     changeUTCtime,
     iconLinkData,
     save_sent_notifications,
 )
+from improved_get_message import get_message
 from make_log_api_performance import PerformanceManager
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification

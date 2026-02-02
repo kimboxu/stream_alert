@@ -11,14 +11,13 @@ from base import (
     subjectReplace,
     afreeca_getChannelOffStateData,
     chzzk_getChannelOffStateData,
-    get_message,
     iconLinkData,
     chzzk_getLink,
     afreeca_getLink,
     saveCafeData,
     log_error,
 )
-
+from improved_get_message import get_message
 from notification_service import send_push_notification
 
 

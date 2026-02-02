@@ -11,7 +11,6 @@ from make_log_api_performance import PerformanceManager
 from base import  (
     initVar,
     getChzzkCookie, 
-    get_message, 
     change_field_state,
     save_airing_data, 
     if_after_time, 

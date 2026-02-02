@@ -11,7 +11,7 @@ from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
 from aiohttp import ClientSession, ClientError, TCPConnector
 from io import BytesIO
-
+from improved_get_message import get_message
 from typing import List, Tuple, Dict, Any
 from base import (
     initVar,
@@ -20,7 +20,6 @@ from base import (
     update_flag,
     if_after_time,
     save_profile_data,
-    get_message,
     chzzk_getLink,
     chzzk_getChannelOffStateData,
     iconLinkData,
