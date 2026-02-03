@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 import aiohttp
+from base import log_error
 from aiohttp import ClientTimeout
 
 from session_manager import SessionManager, ConnectorConfig
@@ -133,7 +134,7 @@ async def get_message(
     platform_configs = _get_platform_configs()
     if platform not in platform_configs:
         error_msg = f"지원하지 않는 플랫폼입니다: {platform}"
-        await _log_error(error_msg)
+        await log_error(error_msg)
         return {}
     
     config = platform_configs[platform]
@@ -252,11 +253,11 @@ async def get_message(
         
         # ===== 기타 aiohttp 에러 =====
         except aiohttp.ClientError as e:
-            error_msg = (
-                f"aiohttp 클라이언트 에러: {platform} - "
-                f"{type(e).__name__}: {str(e)}"
-            )
-            await _log_error(error_msg)
+            # error_msg = (
+            #     f"aiohttp 클라이언트 에러: {platform} - "
+            #     f"{type(e).__name__}: {str(e)}"
+            # )
+            # await log_error(error_msg)
             return {}
         
         # ===== 예상치 못한 에러 =====
@@ -265,7 +266,7 @@ async def get_message(
                 f"예상치 못한 에러 in get_message: {platform} - "
                 f"{type(e).__name__}: {str(e)}"
             )
-            await _log_error(error_msg)
+            await log_error(error_msg)
             return {}
     
     return {}
@@ -299,7 +300,7 @@ async def _fetch_with_retry(
                 error_msg = (
                     f"HTTP {response.status} error for {platform}: {url}"
                 )
-                logger.warning(error_msg)
+                # logger.warning(error_msg)
                 raise aiohttp.ClientError(error_msg)
             
             if is_binary:
@@ -308,15 +309,15 @@ async def _fetch_with_retry(
                 return await response.text()  # 텍스트 데이터
     
     except asyncio.TimeoutError:
-        logger.warning(f"타임아웃 ({platform}): {url}")
+        # logger.warning(f"{datetime.now()} 타임아웃 ({platform}): {url}")
         raise
     
     except aiohttp.ClientConnectorError as e:
-        logger.warning(f"연결 에러 ({platform}): {str(e)}")
+        # logger.warning(f"{datetime.now()} 연결 에러 ({platform}): {str(e)}")
         raise
     
     except aiohttp.ClientError as e:
-        logger.warning(f"클라이언트 에러 ({platform}): {str(e)}")
+        # logger.warning(f"{datetime.now()} 클라이언트 에러 ({platform}): {str(e)}")
         raise
 
 
@@ -430,7 +431,7 @@ async def _log_performance(
             error_message=error_message,
         )
     except Exception as e:
-        logger.error(f"성능 로깅 오류: {str(e)}")
+        logger.error(f"{datetime.now()} 성능 로깅 오류: {str(e)}")
 
 
 async def _handle_timeout_error(
@@ -441,13 +442,13 @@ async def _handle_timeout_error(
 ):
     """타임아웃 에러 처리"""
     error_msg = (
-        f"⏱️  API 타임아웃 (시도 {retry_count}/{max_retries}): {platform}"
+        f"{datetime.now()} ⏱️  API 타임아웃 (시도 {retry_count}/{max_retries}): {platform}"
     )
     
-    logger.warning(error_msg)
+    # logger.warning(error_msg)
     
     if retry_count >= max_retries:
-        await _log_error(error_msg)
+        await log_error(error_msg)
     
     await _log_performance(
         performance_manager,
@@ -470,14 +471,15 @@ async def _handle_connection_error(
 ):
     """연결 에러 처리"""
     error_message = (
-        f"🔌 API 연결 오류 (시도 {retry_count}/{max_retries}): "
+        f"{datetime.now()} 🔌 API 연결 오류 (시도 {retry_count}/{max_retries}): "
         f"{platform} - {error_type}: {error_msg}"
     )
     
-    logger.warning(error_message)
+    # logger.warning(error_message)
     
     if retry_count >= max_retries:
-        await _log_error(error_message)
+        await log_error(error_message)
+        
     
     await _log_performance(
         performance_manager,
@@ -489,11 +491,6 @@ async def _handle_connection_error(
         error_message=error_msg,
     )
 
-
-async def _log_error(error_msg: str):
-    """에러 로깅 (비동기)"""
-    # TODO: 실제 log_error 함수 호출
-    logger.error(error_msg)
 
 
 # ==================== 세션 관리자 초기화 ====================
