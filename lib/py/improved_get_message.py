@@ -7,18 +7,20 @@ from dataclasses import dataclass
 from enum import Enum
 
 import aiohttp
-from base import log_error
 from aiohttp import ClientTimeout
-
+from os import environ
+from discord_webhook_sender import DiscordWebhookSender
 from session_manager import SessionManager, ConnectorConfig
 
 
 logger = logging.getLogger(__name__)
 
 
+
 # ==================== 설정 클래스 ====================
 class PlatformType(Enum):
     """플랫폼 타입"""
+
     AFREECA = "afreeca"
     CHZZK = "chzzk"
     TWITCH = "twitch"
@@ -30,11 +32,12 @@ class PlatformType(Enum):
 @dataclass
 class TimeoutConfig:
     """플랫폼별 타임아웃 설정"""
+
     platform: str
     connect_timeout: float = 5.0
     read_timeout: float = 10.0
     total_timeout: float = 30.0
-    
+
     @classmethod
     def get_config(cls, platform: str) -> "TimeoutConfig":
         """플랫폼별 타임아웃 설정 반환"""
@@ -80,7 +83,7 @@ class TimeoutConfig:
             platform,
             cls(platform=platform),
         )
-    
+
     def to_client_timeout(self) -> ClientTimeout:
         """aiohttp ClientTimeout으로 변환"""
         return ClientTimeout(
@@ -93,11 +96,12 @@ class TimeoutConfig:
 @dataclass
 class RetryConfig:
     """재시도 설정"""
+
     max_retries: int = 3
     base_delay: float = 1.0
     max_delay: float = 10.0
     exponential_base: float = 2.0
-    
+
     @classmethod
     def get_config(cls, platform: str) -> "RetryConfig":
         """플랫폼별 재시도 설정"""
@@ -110,12 +114,13 @@ class RetryConfig:
 @dataclass
 class PlatformConfig:
     """플랫폼별 API 설정"""
+
     needs_cookies: bool = False
     needs_params: bool = False
     url_formatter: Optional[Callable] = None
     response_handler: Callable = None
     is_binary: bool = False
-    
+
     def __post_init__(self):
         if self.response_handler is None:
             self.response_handler = lambda r: r
@@ -129,28 +134,28 @@ async def get_message(
 ) -> Dict[str, Any]:
 
     start_time = datetime.now()
-    
+
     # 플랫폼 설정 검증
     platform_configs = _get_platform_configs()
     if platform not in platform_configs:
         error_msg = f"지원하지 않는 플랫폼입니다: {platform}"
         await log_error(error_msg)
         return {}
-    
+
     config = platform_configs[platform]
     timeout_config = TimeoutConfig.get_config(platform)
     retry_config = RetryConfig.get_config(platform)
-    
+
     # 세션 관리자에서 세션 가져오기 (연결 풀 재사용)
     session_manager = SessionManager()
     session = await session_manager.get_session()
-    
+
     # aiohttp ClientTimeout 설정
     timeout = timeout_config.to_client_timeout()
-    
+
     retry_count = 0
     retry_delay = retry_config.base_delay
-    
+
     while retry_count < retry_config.max_retries:
         try:
             # ===== 요청 준비 =====
@@ -159,28 +164,28 @@ async def get_message(
                 "headers": headers,
                 "timeout": timeout,
             }
-            
+
             # 쿠키 추가
             if config.needs_cookies:
                 cookies = _get_cookies(platform)
                 if cookies:
                     request_kwargs["cookies"] = cookies
-            
+
             # 파라미터 추가
             if config.needs_params:
                 params = _get_params(platform, link)
                 if params:
                     request_kwargs["params"] = params
-            
+
             # URL 포맷팅
             formatted_url = link
-            
+
             if config.url_formatter:
                 formatted_url = config.url_formatter(link)
 
             if platform == "cafe":
                 formatted_url = link.split(",")[0]
-            
+
             # ===== API 요청 실행 =====
             response_data = await _fetch_with_retry(
                 session,
@@ -190,11 +195,11 @@ async def get_message(
                 timeout,
                 is_binary=config.is_binary,
             )
-            
+
             # ===== 성공 =====
             end_time = datetime.now()
             response_time_ms = int((end_time - start_time).total_seconds() * 1000)
-            
+
             await _log_performance(
                 performance_manager,
                 platform,
@@ -202,15 +207,15 @@ async def get_message(
                 is_success=True,
                 retry_count=retry_count,
             )
-            
+
             logger.info(
                 f"✅ {platform} API 성공 | "
                 f"응답 시간: {response_time_ms}ms | "
                 f"재시도: {retry_count}회"
             )
-            
+
             return config.response_handler(response_data)
-        
+
         # ===== 타임아웃 에러 =====
         except asyncio.TimeoutError:
             retry_count += 1
@@ -220,7 +225,7 @@ async def get_message(
                 retry_count,
                 retry_config.max_retries,
             )
-            
+
             if retry_count < retry_config.max_retries:
                 await asyncio.sleep(retry_delay)
                 retry_delay = min(
@@ -229,7 +234,7 @@ async def get_message(
                 )
             else:
                 return {}
-        
+
         # ===== 연결 에러 =====
         except aiohttp.ClientConnectorError as e:
             retry_count += 1
@@ -241,7 +246,7 @@ async def get_message(
                 type(e).__name__,
                 str(e),
             )
-            
+
             if retry_count < retry_config.max_retries:
                 await asyncio.sleep(retry_delay)
                 retry_delay = min(
@@ -250,7 +255,7 @@ async def get_message(
                 )
             else:
                 return {}
-        
+
         # ===== 기타 aiohttp 에러 =====
         except aiohttp.ClientError as e:
             # error_msg = (
@@ -259,7 +264,7 @@ async def get_message(
             # )
             # await log_error(error_msg)
             return {}
-        
+
         # ===== 예상치 못한 에러 =====
         except Exception as e:
             error_msg = (
@@ -268,7 +273,7 @@ async def get_message(
             )
             await log_error(error_msg)
             return {}
-    
+
     return {}
 
 
@@ -283,39 +288,37 @@ async def _fetch_with_retry(
 ) -> Union[str, bytes]:
     """
     aiohttp을 사용한 요청 실행
-    
+
     Args:
         session: aiohttp 세션 (연결 풀 포함)
         platform: 플랫폼명
         url: 요청 URL
         request_kwargs: 요청 파라미터
         timeout: 타임아웃 설정
-    
+
     Returns:
         응답 텍스트
     """
     try:
         async with session.get(url, **request_kwargs) as response:
             if response.status != 200:
-                error_msg = (
-                    f"HTTP {response.status} error for {platform}: {url}"
-                )
+                error_msg = f"HTTP {response.status} error for {platform}: {url}"
                 # logger.warning(error_msg)
                 raise aiohttp.ClientError(error_msg)
-            
+
             if is_binary:
                 return await response.read()  # 바이너리 데이터
             else:
                 return await response.text()  # 텍스트 데이터
-    
+
     except asyncio.TimeoutError:
         # logger.warning(f"{datetime.now()} 타임아웃 ({platform}): {url}")
         raise
-    
+
     except aiohttp.ClientConnectorError as e:
         # logger.warning(f"{datetime.now()} 연결 에러 ({platform}): {str(e)}")
         raise
-    
+
     except aiohttp.ClientError as e:
         # logger.warning(f"{datetime.now()} 클라이언트 에러 ({platform}): {str(e)}")
         raise
@@ -376,7 +379,7 @@ def _get_headers(platform: str) -> Dict[str, str]:
     """플랫폼별 헤더 반환"""
     # base.py의 함수들을 임포트해서 사용
     from base import getDefaultHeaders, getTwitchHeaders
-    
+
     if platform == "chzzk":
         return getDefaultHeaders()
     elif platform == "twitch":
@@ -388,24 +391,24 @@ def _get_headers(platform: str) -> Dict[str, str]:
 def _get_cookies(platform: str) -> Optional[Dict]:
     """플랫폼별 쿠키 반환"""
     from base import getChzzkCookie, getAfreecaCookie
-    
+
     if platform == "chzzk":
         return getChzzkCookie()
     elif platform == "afreeca":
         return getAfreecaCookie()
-    
+
     return None
 
 
 def _get_params(platform: str, link: str) -> Optional[Dict]:
     """플랫폼별 파라미터 반환"""
     from base import cafe_params
-    
+
     if platform == "cafe":
         page_num = 1  # 기본값
         cafe_num = link.split(",")[-1]  # 링크에서 카페 번호 추출
         return cafe_params(cafe_num, page_num)
-    
+
     return None
 
 
@@ -441,15 +444,13 @@ async def _handle_timeout_error(
     max_retries: int,
 ):
     """타임아웃 에러 처리"""
-    error_msg = (
-        f"{datetime.now()} ⏱️  API 타임아웃 (시도 {retry_count}/{max_retries}): {platform}"
-    )
-    
+    error_msg = f"{datetime.now()} ⏱️  API 타임아웃 (시도 {retry_count}/{max_retries}): {platform}"
+
     # logger.warning(error_msg)
-    
+
     if retry_count >= max_retries:
         await log_error(error_msg)
-    
+
     await _log_performance(
         performance_manager,
         platform,
@@ -459,6 +460,12 @@ async def _handle_timeout_error(
         error_type="TimeoutError",
         error_message=error_msg,
     )
+
+
+async def log_error(
+    message, is_Do_test=False, webhook_url=environ.get("errorPostBotURL")
+):
+    await DiscordWebhookSender()._log_error(message, is_Do_test, webhook_url)
 
 
 async def _handle_connection_error(
@@ -474,13 +481,12 @@ async def _handle_connection_error(
         f"{datetime.now()} 🔌 API 연결 오류 (시도 {retry_count}/{max_retries}): "
         f"{platform} - {error_type}: {error_msg}"
     )
-    
+
     # logger.warning(error_message)
-    
+
     if retry_count >= max_retries:
         await log_error(error_message)
-        
-    
+
     await _log_performance(
         performance_manager,
         platform,
@@ -492,14 +498,10 @@ async def _handle_connection_error(
     )
 
 
-
 # ==================== 세션 관리자 초기화 ====================
 def initialize_session_manager(config: Optional[ConnectorConfig] = None):
 
     if config:
         SessionManager.configure(config)
-    
-    logger.info(
-        "SessionManager 초기화 완료 - "
-        "aiohttp 연결 풀이 활성화되었습니다"
-    )
+
+    logger.info("SessionManager 초기화 완료 - " "aiohttp 연결 풀이 활성화되었습니다")
