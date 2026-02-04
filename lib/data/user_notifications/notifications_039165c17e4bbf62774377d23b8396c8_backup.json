@@ -2,45 +2,6 @@
   "webhook_url": "https://discord.com/api/webhooks/1177910973038874664/GjP569HKcL6JlWtSGsHY3Nz4l4YMAka1UlZokpv2zg6nuoyQdV5FOXs6FrgPZJYEMOnr",
   "notifications": [
     {
-      "id": "05f1c52a-ac7a-4f1e-a905-a2153c2d21ea",
-      "username": " [유튜브 알림] 빅헤드",
-      "content": "",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2026-01-03T12:02:06.499466+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 16711680,
-          "author": {
-            "name": "두번째 빅헤드 (다시보기)",
-            "url": "https://www.youtube.com/@두번째빅헤드다시보기",
-            "icon_url": "https://yt3.googleusercontent.com/px1hNn0LLspQbiBuZBcYh1B40a28lLViFXGU4juNQEv1xzK5LhBqDsWgjcN-RULcQ81Qj4Mu=s900-c-k-c0x00ffffff-no-rj"
-          },
-          "title": "【12/25】보스 벨로나 레이드 - 멋사 공책 RPG 서버 4일차 (2부)",
-          "url": "https://www.youtube.com/watch?v=trqbHIuEvfo",
-          "description": "두번째 빅헤드 (다시보기) 유튜브 영상 업로드!",
-          "fields": [
-            {
-              "name": "Description",
-              "value": "좋아요와 댓글, 구독은 스트리머에게 큰 힘이 됩니다."
-            }
-          ],
-          "thumbnail": {
-            "url": "https://yt3.googleusercontent.com/px1hNn0LLspQbiBuZBcYh1B40a28lLViFXGU4juNQEv1xzK5LhBqDsWgjcN-RULcQ81Qj4Mu=s900-c-k-c0x00ffffff-no-rj"
-          },
-          "image": {
-            "url": "https://i.ytimg.com/vi/trqbHIuEvfo/maxresdefault.jpg"
-          },
-          "footer": {
-            "text": "YouTube",
-            "inline": true,
-            "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQif7xGKRoQ0YzL1AtIAj92R3A6YRNQ8lCF-A&s"
-          },
-          "timestamp": "2026-01-03T03:01:09Z"
-        }
-      ]
-    },
-    {
       "id": "82e8ecb3-ec4a-41cb-9fb1-9939b5bc0cd6",
       "username": " [유튜브 알림] 빅헤드",
       "content": "",
@@ -1326,8 +1287,47 @@
           "timestamp": "2026-02-01T03:01:06Z"
         }
       ]
+    },
+    {
+      "id": "61aad144-2a71-49a5-ab05-29efe7beae29",
+      "username": " [유튜브 알림] 빅헤드",
+      "content": "",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-02-03T12:03:48.698131+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 16711680,
+          "author": {
+            "name": "두번째 빅헤드 (다시보기)",
+            "url": "https://www.youtube.com/@두번째빅헤드다시보기",
+            "icon_url": "https://yt3.googleusercontent.com/px1hNn0LLspQbiBuZBcYh1B40a28lLViFXGU4juNQEv1xzK5LhBqDsWgjcN-RULcQ81Qj4Mu=s900-c-k-c0x00ffffff-no-rj"
+          },
+          "title": "【01/28】타르코프 컬티찾아 십만리",
+          "url": "https://www.youtube.com/watch?v=0CKPCSbCTO8",
+          "description": "두번째 빅헤드 (다시보기) 유튜브 영상 업로드!",
+          "fields": [
+            {
+              "name": "Description",
+              "value": "좋아요와 댓글, 구독은 스트리머에게 큰 힘이 됩니다."
+            }
+          ],
+          "thumbnail": {
+            "url": "https://yt3.googleusercontent.com/px1hNn0LLspQbiBuZBcYh1B40a28lLViFXGU4juNQEv1xzK5LhBqDsWgjcN-RULcQ81Qj4Mu=s900-c-k-c0x00ffffff-no-rj"
+          },
+          "image": {
+            "url": "https://i.ytimg.com/vi/0CKPCSbCTO8/maxresdefault.jpg"
+          },
+          "footer": {
+            "text": "YouTube",
+            "inline": true,
+            "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQif7xGKRoQ0YzL1AtIAj92R3A6YRNQ8lCF-A&s"
+          },
+          "timestamp": "2026-02-03T03:00:02Z"
+        }
+      ]
     }
   ],
-  "last_save_time": "2026-02-02T20:00:12.132422+09:00",
+  "last_save_time": "2026-02-03T23:00:12.947394+09:00",
   "notification_count": 34
 }
