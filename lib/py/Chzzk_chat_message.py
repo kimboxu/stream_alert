@@ -132,7 +132,6 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def _cleanup_tasks(self):
         """태스크 정리 함수"""
         
-        self.start_program = False
         # 분석기 정리
         # try:
         #     await self.stop_analyzer()
@@ -219,7 +218,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     except Exception: pass
 
                 if self.data.sock.state.name == 'CLOSED':
-                    asyncio.create_task(log_error(f"{self.data.channel_id} 연결 종료 {self.data.cid}", webhook_url=environ['chat_post_url']))
+                    if self.start_program:
+                        print(f"{datetime.now()} {self.data.channel_id} 연결 종료 {self.data.cid}")
+                    else:
+                        asyncio.create_task(log_error(f"{self.data.channel_id} 연결 종료 {self.data.cid}", webhook_url=environ['chat_post_url']))
                     break
 
                 # 메시지 수신(1.0초 타임아웃)
@@ -256,7 +258,13 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                         await self.data.sock.close()
                         await self.data.sock.wait_closed()
                     except Exception: pass
-                asyncio.create_task(log_error(f"Test2 {self.data.channel_id}.{str(e)}{datetime.now()}"))
+                self.start_program = True
+                try:
+                    if if_after_time(self.init.platform_chat_server["chzzk"], sec = 600):
+                        asyncio.create_task(log_error(f"chhzk server error {self.data.channel_id}.{str(e)}"))
+                except Exception as e:
+                    asyncio.create_task(log_error(f"test chhzk server error {self.data.channel_id}.{str(e)}"))
+
                 continue
                     
             except Exception as e:
@@ -559,14 +567,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     messageTime = chzzk_chat_list[-1].get('messageTime') or chzzk_chat_list[-1].get('msgTime')
                     self.data.last_chat_time = datetime.fromtimestamp(messageTime/1000).isoformat()
                     
-                    # 최근 채팅 3개 샘플 출력
-                    print(f"{datetime.now()} {self.data.channel_id} 최근 채팅 {len(chzzk_chat_list)}개 확인:")
-                    for i, chat in enumerate(chzzk_chat_list[-3:]):  # 최근 3개
-                        nickname = self.get_nickname(chat)
-                        content = chat.get('msg', chat.get('content', ''))
-                        chat_time = chat.get('messageTime', chat.get('msgTime', 0))
-                        time_str = datetime.fromtimestamp(chat_time/1000).strftime('%H:%M:%S')
-                        print(f"  [{time_str}] {nickname}: {content}")
+                    if not self.start_program:
+                        # 최근 채팅 3개 샘플 출력
+                        print(f"{datetime.now()} {self.data.channel_id} 최근 채팅 {len(chzzk_chat_list)}개 확인:")
+                        for i, chat in enumerate(chzzk_chat_list[-3:]):  # 최근 3개
+                            nickname = self.get_nickname(chat)
+                            content = chat.get('msg', chat.get('content', ''))
+                            chat_time = chat.get('messageTime', chat.get('msgTime', 0))
+                            time_str = datetime.fromtimestamp(chat_time/1000).strftime('%H:%M:%S')
+                            print(f"  [{time_str}] {nickname}: {content}")
                 else:
                     self.data.last_chat_time = datetime.now().isoformat()
                     print(f"{datetime.now()} {self.data.channel_id} 새로 시작된 방송이거나 채팅 활동이 없는 상태")
@@ -577,6 +586,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 
             if self.start_program:
                 print(f"{datetime.now()} {self.data.channel_id} 연결 완료 {self.data.cid}")
+                self.start_program = False
             else:
                 asyncio.create_task(log_error(f"{self.data.channel_id} 연결 완료 {self.data.cid}", is_Do_test = self.init.DO_TEST, webhook_url=environ['chat_post_url']))
                 

@@ -208,12 +208,6 @@ async def get_message(
                 retry_count=retry_count,
             )
 
-            logger.info(
-                f"✅ {platform} API 성공 | "
-                f"응답 시간: {response_time_ms}ms | "
-                f"재시도: {retry_count}회"
-            )
-
             return config.response_handler(response_data)
 
         # ===== 타임아웃 에러 =====
@@ -444,7 +438,7 @@ async def _handle_timeout_error(
     max_retries: int,
 ):
     """타임아웃 에러 처리"""
-    error_msg = f"{datetime.now()} ⏱️  API 타임아웃 (시도 {retry_count}/{max_retries}): {platform}"
+    error_msg = f"{datetime.now()}  API 타임아웃 (시도 {retry_count}/{max_retries}): {platform}"
 
     # logger.warning(error_msg)
 
