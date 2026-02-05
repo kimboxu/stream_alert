@@ -320,18 +320,15 @@ def run_bot_thread():
 
     # FCM 토큰 정리 작업 실행
     loop.run_until_complete(cleanup_all_invalid_tokens())
-    print("FCM 토큰 정리 작업이 완료되었습니다.")
 
     # 예약 작업 설정
     setup_scheduled_tasks()
 
     # 알림 큐 초기화
     loop.run_until_complete(initialize_notification_queue())
-    print(f"{datetime.now()} 알림 큐 초기화 완료")
 
     # 알림 워커 시작 (백그라운드)
     worker_task = asyncio.ensure_future(notification_worker())
-    print(f"{datetime.now()} 알림 저장 워커 시작")
 
     # 디스코드 봇 실행
     loop.run_until_complete(run_discord_bot())

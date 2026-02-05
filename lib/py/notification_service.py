@@ -93,7 +93,7 @@ async def notification_worker():
     """
     global notification_queue, file_notification_manager
     
-    print(f"{datetime.now()} 알림 저장 워커 시작")
+    # print(f"{datetime.now()} 알림 저장 워커 시작")
     
     while True:
         try:
