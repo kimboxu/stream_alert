@@ -4,9 +4,9 @@ import threading
 import pandas as pd
 from json import loads
 from os import environ
+from requests import post
 from random import randint
 from typing import Any, Dict
-from requests import post, get
 from dotenv import load_dotenv
 from timeit import default_timer
 from dataclasses import dataclass
@@ -15,8 +15,6 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 
 from discord_webhook_sender import DiscordWebhookSender
-from make_log_api_performance import PerformanceManager
-
 from improved_get_message import initialize_session_manager
 
 
@@ -318,6 +316,10 @@ async def DataBaseVars(init: initVar, is_start=False):
             for attr, index_col in preprocess_targets.items():
                 df = getattr(init, attr)
                 setattr(init, attr, preprocess_by_platform(df, index_col))
+
+            init.platform_chat_server_last_close_time = {}
+            for platform in list(init.titleData):
+                init.platform_chat_server_last_close_time[platform] = datetime.now().timestamp()
 
             if not is_start:
                 init.is_state_control["all_date"] = False

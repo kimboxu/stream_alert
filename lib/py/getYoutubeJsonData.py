@@ -681,7 +681,7 @@ class getYoutubeJsonData:
 
         # 디스코드 웹훅 JSON 데이터 생성
         return {
-            "username": f" [유튜브 알림] {username}",
+            "username": f"[유튜브 알림] {username}",
             "avatar_url": avatar_url,
             "embeds": [
                 {
