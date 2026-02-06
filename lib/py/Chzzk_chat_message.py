@@ -260,7 +260,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     except Exception: pass
                 self.start_program = True
                 try:
-                    if if_after_time(self.init.platform_chat_server["chzzk"], sec = 600):
+                    if if_after_time(self.init.platform_chat_server_last_close_time["chzzk"], sec = 600):
                         asyncio.create_task(log_error(f"chhzk server error {self.data.channel_id}.{str(e)}"))
                 except Exception as e:
                     asyncio.create_task(log_error(f"test chhzk server error {self.data.channel_id}.{str(e)}"))
