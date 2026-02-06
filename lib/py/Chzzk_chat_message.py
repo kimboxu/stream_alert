@@ -1010,7 +1010,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             if not self.is_sendMSG_time(command, time):
                 return
             
-            await self._send(f"{save_text}(으)로 변경되었습니다.")
+            await self._send(f"{save_text}(으)로 변경")
             self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"][command] = save_text
             await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, "chzzk")
             return
@@ -1156,7 +1156,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 save_text = " ".join(sp_chat[2:])
         
             self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
-            await self._send(f"{save_text}(으)로 변경되었습니다.")
+            await self._send(f"{save_text}(으)로 변경")
             await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, "chzzk")
         else:
             await self._send(f"{sp_chat[1]} 명령어는 없습니다.")
