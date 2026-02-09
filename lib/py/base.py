@@ -319,7 +319,7 @@ async def DataBaseVars(init: initVar, is_start=False):
 
             init.platform_chat_server_last_close_time = {}
             for platform in list(init.titleData):
-                init.platform_chat_server_last_close_time[platform] = datetime.now().timestamp()
+                init.platform_chat_server_last_close_time[platform] = datetime.now().isoformat()
 
             if not is_start:
                 init.is_state_control["all_date"] = False
@@ -563,12 +563,25 @@ def changeUTCtime(time_str):
 
 
 # 지정된 시간 이후인지 확인하는 함수 (기본 300초/5분)
-def if_after_time(time_str, sec=300):
+# def if_after_time(time_str, sec=300):
+#     try:
+#         time = datetime.fromisoformat(time_str) + timedelta(seconds=sec)
+#         return time <= datetime.now()
+#     except Exception as e:
+#         log_error(f"if_after_time error: {str(e)}")
+#         return time <= datetime.now().astimezone()
+    
+def if_after_time(time_value, sec=300):
     try:
-        time = datetime.fromisoformat(time_str) + timedelta(seconds=sec)
-        return time <= datetime.now()
+        if isinstance(time_value, (int, float)):
+            time = datetime.fromtimestamp(time_value)
+        else:
+            time = datetime.fromisoformat(time_value)
+
+        return time + timedelta(seconds=sec) <= datetime.now()
     except Exception as e:
-        return time <= datetime.now().astimezone()
+        log_error(f"if_after_time error: {time_value}, {str(e)}")
+        return False
 
 
 # 방송 세션을 구분하는 고유 ID 생성
