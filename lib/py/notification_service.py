@@ -213,7 +213,8 @@ class FileNotificationManager:
     async def save_notifications(self, webhook_url: str, notifications: list, force_save: bool = False) -> bool:
         """사용자 알림 데이터 저장"""
         try:
-            current_time = datetime.now().astimezone().isoformat()
+            # current_time = datetime.now().astimezone().isoformat()
+            current_time = datetime.now().isoformat()
 
             # 강제 저장이 아닌 경우 시간 간격 확인 (5분)
             if not force_save:
