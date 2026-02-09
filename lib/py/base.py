@@ -12,7 +12,7 @@ from timeit import default_timer
 from dataclasses import dataclass
 from supabase import create_client
 from collections import defaultdict
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from discord_webhook_sender import DiscordWebhookSender
 from improved_get_message import initialize_session_manager
@@ -585,14 +585,19 @@ def changeUTCtime(time_str):
 def if_after_time(time_value, sec=300):
     try:
         if isinstance(time_value, (int, float)):
-            time = datetime.fromtimestamp(time_value)
+            time = datetime.fromtimestamp(time_value, tz=timezone.utc)
         else:
             time = datetime.fromisoformat(time_value)
 
-        return time + timedelta(seconds=sec) <= datetime.now()
+        now = datetime.now(time.tzinfo) if time.tzinfo else datetime.now()
+        return time + timedelta(seconds=sec) <= now
+
     except Exception as e:
-        asyncio.create_task(log_error(f"if_after_time error: {time_value}, {str(e)}"))
+        asyncio.create_task(
+            log_error(f"if_after_time error: {time_value}, {str(e)}")
+        )
         return False
+
 
 
 # 방송 세션을 구분하는 고유 ID 생성
