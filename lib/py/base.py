@@ -134,9 +134,9 @@ async def userDataVar(init: initVar):
 
     except Exception as e:
         error_str = str(e)
-        
-        # 무시할 에러 확인
+
         ignorable_errors = [
+            # 네트워크/프로토콜
             "Server disconnected",
             "EOF occurred in violation of protocol",
             "Received pseudo-header in trailer",
@@ -144,21 +144,32 @@ async def userDataVar(init: initVar):
             "PROTOCOL_ERROR",
             "timed out",
             "None",
-        ]
-        
-        if any(err_type in error_str for err_type in ignorable_errors):
-            return
 
-        # 그 외 에러만 로깅
+            # 5xx 서버 에러
+            "Internal server error",
+            "Error code 500",
+            "Error code 502",
+            "Error code 503",
+            "Error code 504",
+            "code': 5",
+            "code\": 5",
+            "JSON could not be generated",
+            "Cloudflare",
+        ]
+
+        if any(err in error_str for err in ignorable_errors):
+            return False
+
         error_details = f"Error in userDataVar: {error_str}"
         if hasattr(e, "response"):
             error_details += f"\nResponse: {e.response.text}"
         if date_update:
             error_details += f"\nLast date_update: {date_update}"
 
-        await log_error(error_details)
+        await log_error(error_details[:500])
         print(f"{datetime.now()} {error_details}")
         return False
+
 
 
 def _is_valid_response(response: Any) -> bool:
