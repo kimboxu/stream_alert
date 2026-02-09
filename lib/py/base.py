@@ -591,7 +591,7 @@ def if_after_time(time_value, sec=300):
 
         return time + timedelta(seconds=sec) <= datetime.now()
     except Exception as e:
-        log_error(f"if_after_time error: {time_value}, {str(e)}")
+        asyncio.create_task(log_error(f"if_after_time error: {time_value}, {str(e)}"))
         return False
 
 
