@@ -273,14 +273,13 @@ class base_live_message:
         if message == "뱅온!":
             self.title_data.loc[self.channel_id, "live_state"] = "OPEN"
             self.get_init_last_title()
-        self.title_data.loc[self.channel_id, "title2"] = self._get_title()
-        self.title_data.loc[self.channel_id, "title1"] = self.data.title
+        if self.data.title != self._get_title():
+            self.title_data.loc[self.channel_id, "title2"] = self._get_title()
+            self.title_data.loc[self.channel_id, "title1"] = self.data.title
 
-        self.init_highlight_chat()
-        if self.stream_start_id in self.init.highlight_chat[self.channel_id]:
-            self.init.highlight_chat[self.channel_id][
-                self.stream_start_id
-            ].last_title = self.data.title
+            self.init_highlight_chat()
+            if self.stream_start_id in self.init.highlight_chat[self.channel_id]:
+                self.init.highlight_chat[self.channel_id][self.stream_start_id].last_title = self.data.title
 
     def record_title(self, message):
         try:
