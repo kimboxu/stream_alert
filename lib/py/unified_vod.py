@@ -889,7 +889,10 @@ class afreeca_vod(base_vod):
         self.data.videoCategoryValue = ",".join(data["ucc"].get("category_tags", []))
 
         # 썸네일 URL 생성 (https: 접두사 추가)
-        thumb_url = data["ucc"].get("thumb", "")
+        default_thumb = "https://res.sooplive.co.kr/images/thumb/vod/0082_480x270_dark.png"
+        thumb_url = data["ucc"].get("thumb", default_thumb)
+        if thumb_url is None :
+            thumb_url = default_thumb
         self.data.thumbnailImageUrl = (
             f"https:{thumb_url}" if thumb_url.startswith("//") else thumb_url
         )
