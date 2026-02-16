@@ -484,19 +484,12 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 messages[6],
                 "채팅",
             )
-        elif len(messages) == 19:
+        elif len(messages) == 11:
             user_id, chat, nickname, chat_type = (
-                messages[6],
                 messages[2],
-                messages[7],
-                "채팅",
-            )
-        elif len(messages) == 18:
-            user_id, chat, nickname, chat_type = (
+                messages[6],
                 messages[3],
-                messages[7],
-                messages[4],
-                "애드벌룬 후원",
+                "VOD 후원 알림",
             )
         elif len(messages) == 17:
             user_id, chat, nickname, chat_type = (
@@ -505,6 +498,20 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 messages[3],
                 "구독선물",
             )  # 12,15,16 중 하나가 chat 5(설물 받은 사람), 6(방송 채널 id), 7(방송 채널 이름)
+        elif len(messages) == 18:
+            user_id, chat, nickname, chat_type = (
+                messages[3],
+                messages[7],
+                messages[4],
+                "애드벌룬 후원",
+            )
+        elif len(messages) == 19:
+            user_id, chat, nickname, chat_type = (
+                messages[6],
+                messages[2],
+                messages[7],
+                "채팅",
+            )
         elif len(messages) == 20:
             user_id, chat, nickname, chat_type = (
                 messages[6],
@@ -549,6 +556,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                     f"messages2,{messages}", webhook_url=environ["afreeca_chat_log_url"]
                 )
             )
+            return
 
         # print(f"{datetime.now()} [{chat_type} - {self.data.channel_name}] {nickname}: {chat}")
 
