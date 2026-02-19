@@ -329,9 +329,11 @@ async def DataBaseVars(init: initVar, is_start=False):
                 setattr(init, attr, preprocess_by_platform(df, index_col))
 
             init.platform_chat_server_last_close_time = {}
+            init.platform_vod_last_chat_send_time = {}
             for platform in list(init.titleData):
                 init.platform_chat_server_last_close_time[platform] = datetime.now().isoformat()
-
+                init.platform_vod_last_chat_send_time[platform] = datetime.now().isoformat()
+                
             if not is_start:
                 init.is_state_control["all_date"] = False
                 await update_flag(

@@ -702,11 +702,28 @@ class chzzk_vod(base_vod):
         }
 
     async def _send_comment(self, message_list):
-        """치지직 댓글 전송"""
         try:
-            comment_id = await self._first_send_comment(message_list[0])
+            last_time = self.init.platform_vod_last_chat_send_time.get(self.platform)
+
+            if last_time and not if_after_time(last_time, sec=20):
+                await asyncio.sleep(20)
+
+            max_retry = 3
+            comment_id = None
+
+            for attempt in range(1, max_retry + 1):
+                comment_id = await self._first_send_comment(message_list[0])
+
+                if comment_id:
+                    self.init.platform_vod_last_chat_send_time[self.platform] = datetime.now().isoformat()
+                    break
+
+                if attempt < max_retry:
+                    await asyncio.sleep(2)
+
             if comment_id:
                 await self._send_reply_comments(comment_id, message_list[1:])
+
             return comment_id
 
         except Exception as e:
@@ -769,12 +786,12 @@ class chzzk_vod(base_vod):
                             return None
                     else:
                         await log_error(
-                            f"{datetime.now()} {comment_id} {self.data.videoNo}, 첫 번째 댓글 HTTP 오류: {response_data}"
+                            f"{datetime.now()} {self.data.videoNo} {self.data.videoNo}, 첫 번째 댓글 HTTP 오류: {response_text}"
                         )
                         return None
 
         except Exception as e:
-            await log_error(f"치지직 댓글 전송 오류: {str(e)}")
+            await log_error(f"치지직 첫 번째 댓글 전송 오류: {str(e)}")
 
     async def _send_reply_comments(self, parent_comment_id: int, reply_messages: list):
         """
