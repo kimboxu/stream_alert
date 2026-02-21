@@ -354,6 +354,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             CHZZK_DONATION_CMD['chat']: '채팅',
             CHZZK_DONATION_CMD['subscribe']: '구독',
             CHZZK_DONATION_CMD['donation']: '일반후원',
+            CHZZK_DONATION_CMD['product_purchase']: '상품구매',
             CHZZK_DONATION_CMD['CHAT_RESTRICTION_MSG']: '채팅제한',
             CHZZK_DONATION_CMD['subscription_gift']: '구독선물',
         }.get(msgTypeCode, '모름')
@@ -802,6 +803,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "일반후원": self._handle_donation,       # 일반 후원 처리
                 "구독": self._handle_subscription,       # 구독 처리
                 "구독선물": self._handle_gift_subscription,  # 구독 선물 처리
+                "상품구매": self._handle_product_purchase,  # 상품 구매 처리
                 "채팅": self._handle_chat                # 채팅 처리
             }
             
@@ -816,41 +818,37 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
     # 메시지 포맷팅 함수 - 다양한 메시지 타입에 맞는 형식으로 문자열 생성
     def format_message(self, msg_type, chat_type, nickname, message, time, **kwargs):
-        base = f"[{chat_type} - {self.data.channel_name}] {nickname}"  # 기본 메시지 형식
-        if message is None or not len(message):
-            message = "(메시지 없음)"
-        # 다양한 메시지 타입에 대한 포맷 정의
-        message_formats = {
-            # 후원 채팅 메시지 형식
-            "후원채팅": lambda: [f"{base} ({kwargs.get('amount')}치즈): {message}, {time}", f"({kwargs.get('amount')}치즈): {message}"], 
+        base = f"[{chat_type} - {self.data.channel_name}] {nickname}"
+        message = message or "(메시지 없음)"
 
-            # 영상 후원 메시지 형식
-            "영상후원": lambda: [f"{base} ({kwargs.get('amount')}치즈) 영상후원: {message}, {time}", f"({kwargs.get('amount')}치즈) 영상후원: {message}"],
-            
-            # 모금함 미션 생성 메시지 형식
-            "후원미션걸기": lambda: [f"{base} ({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}, {time}", f"({kwargs.get('missionText')} 모금함 미션 생성{kwargs.get('amount')}치즈 ): {message}"],
-            
-            # 모금함 미션 추가 메시지 형식
-            "후원미션추가": lambda: [f"{base} ({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}, {time}", f"({kwargs.get('missionText')} 모금함에 미션에 {kwargs.get('amount')}치즈 추가): {message}"],
+        amount = kwargs.get("amount")
+        missionText = kwargs.get("missionText")
+        partyName = kwargs.get("partyName")
+        month = kwargs.get("month")
+        giftTierName = kwargs.get("giftTierName")
+        quantity = kwargs.get("quantity")
+        receiverNickname = kwargs.get("receiverNickname")
+        productName = kwargs.get("productName")
+        orderAmount = kwargs.get("orderAmount")
 
-            "파티후원": lambda: [f"{base} ({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}, {time}", f"({kwargs.get('partyName')}파티에 {kwargs.get('amount')}치즈 후원): {message}"],
-            
-            # 구독 메시지 형식
-            "구독": lambda: [f"{base} ({kwargs.get('month')}개월 동안 구독): {message}, {time}", f"({kwargs.get('month')}개월 동안 구독): {message}"],
-            
-            # 구독 선물 메시지 형식 여러개
-            "구독선물": lambda: [f"{base} ({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}, {time}", f"({kwargs.get('giftTierName')}구독권{kwargs.get('quantity')}개를 선물): {message}"],
-
-            # 구독 선물 메시지 형식 1개
-            "단일구독선물": lambda: [f"{base} ({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}, {time}", f"({kwargs.get('receiverNickname')}님에게 {kwargs.get('giftTierName')}구독권선물): {message}"],
-
-            # 기본 메시지 형식
-            "default": lambda: [f"{base}: {message}, {time}", f"{message}"]
+        templates = {
+            "후원채팅": f"({amount}치즈)",
+            "영상후원": f"({amount}치즈) 영상후원",
+            "후원미션걸기": f"({missionText} 모금함 미션 생성 {amount}치즈)",
+            "후원미션추가": f"({missionText} 모금함 미션에 {amount}치즈 추가)",
+            "파티후원": f"({partyName} 파티에 {amount}치즈 후원)",
+            "구독": f"({month}개월 동안 구독)",
+            "구독선물": f"({giftTierName}구독권 {quantity}개 선물)",
+            "단일구독선물": f"({receiverNickname}님에게 {giftTierName}구독권 선물)",
+            "상품구매": f"{productName} {orderAmount}원 구매!",
         }
 
-        # 메시지 타입에 맞는 포맷터 선택 및 실행
-        formatter = message_formats.get(msg_type, message_formats["default"])
-        return formatter()
+        extra = templates.get(msg_type, "")
+        
+        full = f"{base} {extra}: {message}, {time}"
+        short = f"{extra}: {message}" if extra else message
+
+        return [full, short]
 
     # 일반 후원 처리 함수 - 후원 타입에 따라 적절한 메시지 형식 반환
     def _handle_donation(self, chat_data, chat_type, extras):
@@ -969,6 +967,17 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         print(f"{datetime.now()} Unknown gift subscription type: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
+
+    def _handle_product_purchase(self, chat_data, chat_type, extras):
+        return self.format_message(
+            '상품구매', 
+            chat_type, 
+            self.get_nickname(chat_data), 
+            chat_data['productName'], 
+            chat_data['orderAmount'], 
+            chat_data['msg'], 
+            chat_data['msgTime']
+        )
     # 일반 채팅 처리 함수 - 기본 채팅 메시지 형식으로 반환
     def _handle_chat(self, chat_data, chat_type, extras):
         return self.format_message(
