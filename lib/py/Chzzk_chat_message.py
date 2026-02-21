@@ -454,7 +454,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 processing_tasks.append(task)
 
             except Exception as e:
-                asyncio.create_task(log_error(f"error process_message {str(e)}"))
+                asyncio.create_task(log_error(f"error process_message {chat_data}. {str(e)}"))
         
         # 모든 처리 태스크 실행
         if processing_tasks:
@@ -973,10 +973,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             '상품구매', 
             chat_type, 
             self.get_nickname(chat_data), 
-            chat_data['productName'], 
-            chat_data['orderAmount'], 
             chat_data['msg'], 
-            chat_data['msgTime']
+            chat_data['msgTime'],
+            productName=chat_data['productName'], 
+            orderAmount=chat_data['orderAmount'], 
         )
     # 일반 채팅 처리 함수 - 기본 채팅 메시지 형식으로 반환
     def _handle_chat(self, chat_data, chat_type, extras):
