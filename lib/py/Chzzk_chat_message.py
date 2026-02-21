@@ -791,7 +791,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if chat_type == "채팅":
             msg = chat_data.get('msg') or chat_data.get('content')  # 메시지 내용 가져오기
             time = self.get_msgTime(chat_data)  # 메시지 시간 가져오기
-            return self.format_message('채팅', chat_type, self.get_nickname(chat_data), msg, time)
+            return self.format_message('채팅', chat_type, self.get_nickname(chat_data), message=msg, time=time)
         
         # 후원 메시지 처리
         if chat_type == "후원":
@@ -817,10 +817,11 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         return "print_msg 채팅도 후원도 아닌 무언가 현재는 확인X"
 
     # 메시지 포맷팅 함수 - 다양한 메시지 타입에 맞는 형식으로 문자열 생성
-    def format_message(self, msg_type, chat_type, nickname, message, time, **kwargs):
+    def format_message(self, msg_type, chat_type, nickname, **kwargs):
         base = f"[{chat_type} - {self.data.channel_name}] {nickname}"
-        message = message or "(메시지 없음)"
 
+        message = kwargs.get("message", "(메시지 없음)") 
+        time = kwargs.get("time")
         amount = kwargs.get("amount")
         missionText = kwargs.get("missionText")
         partyName = kwargs.get("partyName")
@@ -861,8 +862,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "후원채팅", 
                 chat_type,
                 self.get_nickname(chat_data),
-                chat_data['msg'],
-                chat_data['msgTime'],
+                message=chat_data['msg'],
+                time=chat_data['msgTime'],
                 amount=extras['payAmount']
             ),
             # 영상 후원
@@ -870,8 +871,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "영상후원",
                 chat_type,
                 self.get_nickname(chat_data),
-                chat_data['msg'],
-                chat_data['msgTime'],
+                message=chat_data['msg'],
+                time=chat_data['msgTime'],
                 amount=extras['payAmount']
             ),
             # 모금함 미션 생성
@@ -879,8 +880,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "후원미션걸기",
                 chat_type,
                 self.get_nickname(chat_data),
-                chat_data['msg'],
-                chat_data['msgTime'],
+                message=chat_data['msg'],
+                time=chat_data['msgTime'],
                 amount=extras['payAmount'],
                 missionText=extras['missionText']
             ),
@@ -889,8 +890,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "후원미션추가",
                 chat_type,
                 self.get_nickname(chat_data),
-                chat_data['msg'],
-                chat_data['msgTime'],
+                message=chat_data['msg'],
+                time=chat_data['msgTime'],
                 amount=extras['payAmount'],
                 missionText=extras['missionText']
             ),
@@ -899,8 +900,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "파티후원",
                 chat_type,
                 self.get_nickname(chat_data),
-                chat_data['msg'],
-                chat_data['msgTime'],
+                message=chat_data['msg'],
+                time=chat_data['msgTime'],
                 amount=extras['payAmount'],
                 partyName=extras['partyName']
             ),
@@ -918,8 +919,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             "후원채팅",
             chat_type,
             self.get_nickname(chat_data),
-            chat_data['msg'],
-            chat_data['msgTime'],
+            message=chat_data['msg'],
+            time=chat_data['msgTime'],
             amount=extras['payAmount']
         )
 
@@ -931,8 +932,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             "구독",
             chat_type,
             self.get_nickname(chat_data),
-            chat_data['msg'],
-            chat_data['msgTime'],
+            message=chat_data['msg'],
+            time=chat_data['msgTime'],
             month=extras['month']  # 구독 개월 수
         )
 
@@ -945,8 +946,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "구독선물",
                 chat_type,
                 self.get_nickname(chat_data),
-                chat_data['msg'],
-                chat_data['msgTime'],
+                message=chat_data['msg'],
+                time=chat_data['msgTime'],
                 giftTierName=extras['giftTierName'],  # 선물한 구독권 티어 이름
                 quantity=extras["quantity"],          # 선물한 구독권 수량
             )
@@ -956,8 +957,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 "단일구독선물",
                 chat_type,
                 self.get_nickname(chat_data),
-                chat_data['msg'],
-                chat_data['msgTime'],
+                message=chat_data['msg'],
+                time=chat_data['msgTime'],
                 giftTierName=extras['giftTierName'],        # 선물받은 구독권 티어 이름
                 receiverNickname=extras['receiverNickname'], # 수신자 닉네임
             )
@@ -973,8 +974,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             '상품구매', 
             chat_type, 
             self.get_nickname(chat_data), 
-            chat_data['msg'], 
-            chat_data['msgTime'],
+            message=chat_data['msg'], 
+            time=chat_data['msgTime'],
             productName=chat_data['productName'], 
             orderAmount=chat_data['orderAmount'], 
         )
@@ -984,8 +985,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             '채팅', 
             chat_type, 
             self.get_nickname(chat_data), 
-            chat_data['msg'], 
-            chat_data['msgTime']
+            message=chat_data['msg'], 
+            time=chat_data['msgTime']
         )
 
     # 알 수 없는 메시지 타입 처리 함수 - 오류 로깅 후 기본 메시지 형식 반환
