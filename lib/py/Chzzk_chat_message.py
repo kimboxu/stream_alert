@@ -518,7 +518,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         ping_interval = 10  # 핑 간격(초)
         
         try:
-            while not self.data.sock.state.name == 'CLOSED':
+            while self.data.sock and not self.data.sock.state.name == 'CLOSED':
                 try:
                     # 핑 메시지 전송
                     await asyncio.sleep(0.0001)
