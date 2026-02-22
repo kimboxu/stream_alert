@@ -2,6 +2,7 @@ import asyncio
 import chzzk_api
 import websockets
 from os import environ
+from typing import Dict
 from datetime import datetime
 from urllib.parse import unquote
 from dataclasses import dataclass, field
@@ -852,7 +853,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         return [full, short]
 
     # 일반 후원 처리 함수 - 후원 타입에 따라 적절한 메시지 형식 반환
-    def _handle_donation(self, chat_data, chat_type, extras):
+    def _handle_donation(self, chat_data, chat_type, extras: Dict):
         donation_type = extras.get('donationType')  # 후원 타입 가져오기
         
         # 후원 타입별 핸들러 정의
@@ -925,7 +926,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         )
 
     # 구독 처리 함수 - 구독 메시지 형식으로 반환
-    def _handle_subscription(self, chat_data, chat_type, extras):
+    def _handle_subscription(self, chat_data, chat_type, extras: Dict):
         tierName = extras["tierName"]  # 구독 티어 이름
         tierNo = extras["tierNo"]      # 구독 티어 번호
         return self.format_message(
@@ -938,7 +939,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         )
 
     # 구독 선물 처리 함수 - 구독 선물 타입에 따라 적절한 메시지 형식 반환
-    def _handle_gift_subscription(self, chat_data, chat_type, extras):
+    def _handle_gift_subscription(self, chat_data, chat_type, extras: Dict):
         # 구독 선물 타입 확인
         if extras.get('giftType') == 'SUBSCRIPTION_GIFT':
             # 다수 대상 구독 선물
@@ -968,16 +969,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         print(f"{datetime.now()} Unknown gift subscription type: {chat_data}")
         return f"print_msg 어떤 메시지인지 현재는 확인X.{self.data.channel_name}.{self.get_nickname(chat_data)}.{extras}"
 
-
-    def _handle_product_purchase(self, chat_data, chat_type, extras):
+    def _handle_product_purchase(self, chat_data, chat_type, extras: Dict):
         return self.format_message(
             '상품구매', 
             chat_type, 
             self.get_nickname(chat_data), 
             message=chat_data['msg'], 
             time=chat_data['msgTime'],
-            productName=chat_data['productName'], 
-            orderAmount=chat_data['orderAmount'], 
+            productName=extras.get('productName'),
+            orderAmount=extras.get('orderAmount'),
         )
     # 일반 채팅 처리 함수 - 기본 채팅 메시지 형식으로 반환
     def _handle_chat(self, chat_data, chat_type, extras):
