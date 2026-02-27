@@ -142,11 +142,12 @@ class base_vod(ABC):
         # 비디오 데이터 JSON 생성 및 저장
         json_data = await self._get_video_json()
         self._update_video_list()
-        asyncio.create_task(
-            save_video_data(
-                self.init.supabase, self.video_data, self.channel_id, self.platform
+        if not self.init.DO_TEST:
+            asyncio.create_task(
+                save_video_data(
+                    self.init.supabase, self.video_data, self.channel_id, self.platform
+                )
             )
-        )
 
         # 알림 목록에 추가
         self.data.video_alarm_List.append(json_data)
@@ -406,25 +407,34 @@ class base_vod(ABC):
         """치지직 17시간 이상 장시간 방송 VOD 세그먼트 매칭 로직"""
 
         try:
-            is_done = False
             segment_duration = 17 * 3600
+
             if await self.uptime_command() < segment_duration:
                 return None
 
             stream_start_id = data.get("stream_start_id", "")
             start_time = get_timestamp_from_stream_id(stream_start_id)
 
-            # 기존 로직으로 한 번 더 시도 (17시간 이상 단일 방송)
             timestamp = datetime.fromisoformat(str(data.get("last_updated", "")))
+            live_state = self.init.titleData[self.platform].loc[self.channel_id, "live_state"]
 
-            # 17시간 단위로 체크하여 해당 세그먼트 찾기
+            abs_duration_diff = abs(self.data.duration - segment_duration)
+            tolerance = timedelta(minutes=30) if (
+                abs_duration_diff < 30
+            ) else timedelta(seconds=30)
+
+            is_done = False
+
             for i in range(1, 60):  # 최대 60개 세그먼트 (1000시간)
                 hours_threshold = 17 * i
-                if (timestamp - timedelta(hours=hours_threshold)) >= start_time:
+                threshold_time = timestamp - timedelta(hours=hours_threshold)
+
+                if threshold_time >= start_time:
                     is_done = True
-                if (
-                    timestamp - timedelta(hours=hours_threshold, seconds=30)
-                ) < start_time:
+
+                adjusted_time = timestamp - timedelta(hours=hours_threshold) - tolerance
+
+                if adjusted_time < start_time:
                     data["vod_segment_start_offset"] = (i - 1) * segment_duration
                     data["vod_segment_number"] = i - 1
                     break
@@ -433,9 +443,9 @@ class base_vod(ABC):
                 await log_error(f"{self.channel_id} 매칭 실패!")
                 print(data)
                 return None
-            else:
-                print(f"{datetime.now()} {self.channel_id} 성공!")
-                return data
+
+            print(f"{datetime.now()} {self.channel_id} 성공!")
+            return data
 
         except Exception as e:
             print(f"치지직 VOD 세그먼트 매칭 오류: {str(e)}")
