@@ -139,7 +139,6 @@ class getYoutubeJsonData:
                 f"  - API 응답: {channel_response}"
             )
             asyncio.create_task(log_error(error_msg))
-            print(f"{datetime.now()} {error_msg}")
 
             # *** 채널 코드 재검증 시도 ***
             is_valid = await self.validate_channel_code(youtube_build, channel_code)
