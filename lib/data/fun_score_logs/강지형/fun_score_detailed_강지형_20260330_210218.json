@@ -1,0 +1,1874 @@
+{
+  "channel_id": "cheongalice",
+  "channel_name": "강지형",
+  "save_timestamp": "2026-03-30T21:02:18.411299",
+  "total_logs": 44,
+  "logs": [
+    {
+      "timestamp": "2026-03-30T20:55:04.690739",
+      "fun_score": 5.451897366916287,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9595030201962199,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.451897366916287,
+        "baseline_chat_count": 3.0068320740483054,
+        "baseline_viewer_count": 129.49751733241177,
+        "baseline_threshold": 13.7262083303978,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 134,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:58:10",
+      "comment_after_openDate": "01:58:10",
+      "chat_context": [
+        "하늘원숭이: 요"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:09.696146",
+      "fun_score": 27.425745710546927,
+      "test_fun_score": 54.937752937701426,
+      "score_components": {
+        "chat_spike_score": 13.162847415378632,
+        "reaction_score": 54.937752937701426,
+        "test_reaction_score": 54.937752937701426,
+        "diversity_score": 50.21138492316117,
+        "viewer_trend_score": 0,
+        "final_score": 27.425745710546927,
+        "baseline_chat_count": 2.9876066227789226,
+        "baseline_viewer_count": 129.54065111636726,
+        "baseline_threshold": 13.646940431367646,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 21.97384834363064,
+        "test_score_difference": 54.87068291160813,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "01:58:15",
+      "comment_after_openDate": "01:58:15",
+      "chat_context": [
+        "하늘원숭이: 요",
+        "맹물제하: 오",
+        "귓군영: 오홍",
+        "고마운틴: 올ㅋ",
+        "똥슈리소울이: 오"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:14.702308",
+      "fun_score": 53.63485345213798,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 41.36997085470958,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.18366567518673,
+        "viewer_trend_score": 0,
+        "final_score": 53.63485345213798,
+        "baseline_chat_count": 3.0068853513327003,
+        "baseline_viewer_count": 129.56421167867245,
+        "baseline_threshold": 13.778941385942185,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 48.1829560852217,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "01:58:20",
+      "comment_after_openDate": "01:56:00",
+      "chat_context": [
+        "하늘원숭이: 요",
+        "맹물제하: 오",
+        "귓군영: 오홍",
+        "고마운틴: 올ㅋ",
+        "똥슈리소울이: 오",
+        "박승갈: 이야",
+        "냥냠뇽뇸: 캬"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:20.220879",
+      "fun_score": 52.78600673498677,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 39.48364481659576,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.18366567518673,
+        "viewer_trend_score": 0,
+        "final_score": 52.78600673498677,
+        "baseline_chat_count": 3.045139389666933,
+        "baseline_viewer_count": 129.58754653079075,
+        "baseline_threshold": 14.16076102353634,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 47.334109368070486,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "01:58:26",
+      "comment_after_openDate": "01:58:26",
+      "chat_context": [
+        "하늘원숭이: 요",
+        "맹물제하: 오",
+        "귓군영: 오홍",
+        "고마운틴: 올ㅋ",
+        "똥슈리소울이: 오",
+        "박승갈: 이야",
+        "냥냠뇽뇸: 캬"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:25.227068",
+      "fun_score": 78.59101256549893,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.91012565498929,
+        "viewer_trend_score": 0,
+        "final_score": 78.59101256549893,
+        "baseline_chat_count": 3.083026954313924,
+        "baseline_viewer_count": 129.61065783502576,
+        "baseline_threshold": 14.530790877452034,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 73.13911519858264,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "excitement": 4.0,
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "01:58:31",
+      "comment_after_openDate": "01:56:00",
+      "chat_context": [
+        "하늘원숭이: 요",
+        "맹물제하: 오",
+        "귓군영: 오홍",
+        "고마운틴: 올ㅋ",
+        "똥슈리소울이: 오",
+        "박승갈: 이야",
+        "냥냠뇽뇸: 캬",
+        "귓군영: ㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:30.233700",
+      "fun_score": 78.16169692751173,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.61696927511728,
+        "viewer_trend_score": 0,
+        "final_score": 78.16169692751173,
+        "baseline_chat_count": 3.1492915560915966,
+        "baseline_viewer_count": 129.6335477329662,
+        "baseline_threshold": 15.144487801223523,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.70979956059544,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "excitement": 4.0,
+          "laugh": 5.6000000000000005
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "01:58:36",
+      "comment_after_openDate": "01:58:36",
+      "chat_context": [
+        "하늘원숭이: 요",
+        "맹물제하: 오",
+        "귓군영: 오홍",
+        "고마운틴: 올ㅋ",
+        "똥슈리소울이: 오",
+        "박승갈: 이야",
+        "냥냠뇽뇸: 캬",
+        "귓군영: ㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 위이이잉~"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:35.240290",
+      "fun_score": 78.27289442885878,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 32.72894428858783,
+        "viewer_trend_score": 0,
+        "final_score": 78.27289442885878,
+        "baseline_chat_count": 3.243661342984239,
+        "baseline_viewer_count": 129.65621834568438,
+        "baseline_threshold": 15.748192664653363,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.82099706194249,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 5.6000000000000005
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "01:58:41",
+      "comment_after_openDate": "01:58:41",
+      "chat_context": [
+        "귓군영: 오홍",
+        "고마운틴: 올ㅋ",
+        "똥슈리소울이: 오",
+        "박승갈: 이야",
+        "냥냠뇽뇸: 캬",
+        "귓군영: ㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 위이이잉~"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:40.247565",
+      "fun_score": 47.38128228135424,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 28.847075406592364,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 44.000983483876695,
+        "viewer_trend_score": 0,
+        "final_score": 47.38128228135424,
+        "baseline_chat_count": 3.31796706731845,
+        "baseline_viewer_count": 129.6786717739327,
+        "baseline_threshold": 16.34717930755445,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 41.929384914437954,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 5.6000000000000005
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "01:58:46",
+      "comment_after_openDate": "01:58:46",
+      "chat_context": [
+        "냥냠뇽뇸: 캬",
+        "귓군영: ㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 위이이잉~"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:45.252417",
+      "fun_score": 42.363322312485224,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 16.311476516971275,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.23157879848149,
+        "viewer_trend_score": 0,
+        "final_score": 42.363322312485224,
+        "baseline_chat_count": 3.3532409428135392,
+        "baseline_viewer_count": 129.70091009833843,
+        "baseline_threshold": 16.64448601404345,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 36.91142494556894,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "laugh": 5.6000000000000005
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "01:58:51",
+      "comment_after_openDate": "01:58:51",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 위이이잉~"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:50.258429",
+      "fun_score": 42.18428705331776,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 15.91362038548803,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.23157879848149,
+        "viewer_trend_score": 0,
+        "final_score": 42.18428705331776,
+        "baseline_chat_count": 3.3785968945813853,
+        "baseline_viewer_count": 129.72293537959632,
+        "baseline_threshold": 16.89087246578252,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 36.732389686401476,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "laugh": 5.6000000000000005
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "01:58:56",
+      "comment_after_openDate": "01:58:56",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 위이이잉~"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:55:55.263708",
+      "fun_score": 11.494063478555997,
+      "test_fun_score": 7.119406743778016,
+      "score_components": {
+        "chat_spike_score": 2.848394248127927,
+        "reaction_score": 17.269092257073744,
+        "test_reaction_score": 7.119406743778016,
+        "diversity_score": 50.31558389776307,
+        "viewer_trend_score": 0,
+        "final_score": 11.494063478555997,
+        "baseline_chat_count": 3.4037099363312957,
+        "baseline_viewer_count": 129.74474965865977,
+        "baseline_threshold": 17.133183377531108,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.04216611163971,
+        "test_score_difference": 7.05233671768472,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "01:59:01",
+      "comment_after_openDate": "01:59:01",
+      "chat_context": [
+        "고마운틴: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 위이이잉~"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:00.269129",
+      "fun_score": 10.928904895870945,
+      "test_fun_score": 7.156213263704278,
+      "score_components": {
+        "chat_spike_score": 1.594939534668836,
+        "reaction_score": 17.370607017566563,
+        "test_reaction_score": 7.156213263704278,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 10.928904895870945,
+        "baseline_chat_count": 3.399842395141242,
+        "baseline_viewer_count": 129.7663549569298,
+        "baseline_threshold": 17.079160608898928,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.477007528954657,
+        "test_score_difference": 7.089143237610982,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 132,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "01:59:06",
+      "comment_after_openDate": "01:59:06",
+      "chat_context": [
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:05.287791",
+      "fun_score": 33.4152149245318,
+      "test_fun_score": 46.00427153223476,
+      "score_components": {
+        "chat_spike_score": 5.127978492588863,
+        "reaction_score": 86.91332412096584,
+        "test_reaction_score": 46.00427153223476,
+        "diversity_score": 50.33627366577062,
+        "viewer_trend_score": 0,
+        "final_score": 33.4152149245318,
+        "baseline_chat_count": 3.3864319049957885,
+        "baseline_viewer_count": 129.7877532764424,
+        "baseline_threshold": 17.02024115916812,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 27.963317557615515,
+        "test_score_difference": 45.93720150614146,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "01:59:11",
+      "comment_after_openDate": "01:59:11",
+      "chat_context": [
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋ",
+        "소빡이: 추추추축",
+        "오크헤이즐넛: 오크지온"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:10.293157",
+      "fun_score": 33.208562634705785,
+      "test_fun_score": 45.588731923910025,
+      "score_components": {
+        "chat_spike_score": 5.107565671958811,
+        "reaction_score": 86.25510238582419,
+        "test_reaction_score": 45.588731923910025,
+        "diversity_score": 50.33627366577062,
+        "viewer_trend_score": 0,
+        "final_score": 33.208562634705785,
+        "baseline_chat_count": 3.3923098873459288,
+        "baseline_viewer_count": 129.76104660005407,
+        "baseline_threshold": 17.177305007840303,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 22.279657738834842,
+        "test_score_difference": 38.46932518013201,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "01:59:16",
+      "comment_after_openDate": "01:59:16",
+      "chat_context": [
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋ",
+        "소빡이: 추추추축",
+        "오크헤이즐넛: 오크지온"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:15.298873",
+      "fun_score": 33.004986065316075,
+      "test_fun_score": 45.18119102038056,
+      "score_components": {
+        "chat_spike_score": 5.08749561505023,
+        "reaction_score": 85.6066189065547,
+        "test_reaction_score": 45.18119102038056,
+        "diversity_score": 50.33627366577062,
+        "viewer_trend_score": 0,
+        "final_score": 33.004986065316075,
+        "baseline_chat_count": 3.398131558625155,
+        "baseline_viewer_count": 129.73459577362553,
+        "baseline_threshold": 17.33088445590567,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 22.076081169445132,
+        "test_score_difference": 38.061784276602545,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "01:59:21",
+      "comment_after_openDate": "01:59:21",
+      "chat_context": [
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋ",
+        "소빡이: 추추추축",
+        "오크헤이즐넛: 오크지온"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:20.304662",
+      "fun_score": 34.6503642557188,
+      "test_fun_score": 44.78146512813911,
+      "score_components": {
+        "chat_spike_score": 8.938810851949912,
+        "reaction_score": 84.96774406098756,
+        "test_reaction_score": 44.78146512813911,
+        "diversity_score": 51.37576154045072,
+        "viewer_trend_score": 0,
+        "final_score": 34.6503642557188,
+        "baseline_chat_count": 3.403897458293526,
+        "baseline_viewer_count": 129.7083983461142,
+        "baseline_threshold": 17.481042349323822,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 23.721459359847856,
+        "test_score_difference": 37.662058384361096,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "01:59:26",
+      "comment_after_openDate": "01:59:26",
+      "chat_context": [
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋ",
+        "소빡이: 추추추축",
+        "오크헤이즐넛: 오크지온",
+        "귓군영: 부우웅"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:25.311319",
+      "fun_score": 34.09687877978648,
+      "test_fun_score": 43.740045882725035,
+      "score_components": {
+        "chat_spike_score": 8.827290857492965,
+        "reaction_score": 83.2900724662319,
+        "test_reaction_score": 43.740045882725035,
+        "diversity_score": 51.37576154045072,
+        "viewer_trend_score": 0,
+        "final_score": 34.09687877978648,
+        "baseline_chat_count": 3.419188120643074,
+        "baseline_viewer_count": 129.6824518899584,
+        "baseline_threshold": 17.645524453187083,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 23.167973883915536,
+        "test_score_difference": 36.62063913894702,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "01:59:31",
+      "comment_after_openDate": "01:59:31",
+      "chat_context": [
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋ",
+        "소빡이: 추추추축",
+        "오크헤이즐넛: 오크지온",
+        "귓군영: 부우웅"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:30.316613",
+      "fun_score": 6.579169961381657,
+      "test_fun_score": 0.5137529351885944,
+      "score_components": {
+        "chat_spike_score": 2.8045963427077703,
+        "reaction_score": 0.5137529351885944,
+        "test_reaction_score": 0.5137529351885944,
+        "diversity_score": 51.62975726606582,
+        "viewer_trend_score": 0,
+        "final_score": 6.579169961381657,
+        "baseline_chat_count": 3.434332298447313,
+        "baseline_viewer_count": 129.65675400085257,
+        "baseline_threshold": 17.803128427635905,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "01:59:36",
+      "comment_after_openDate": "01:59:36",
+      "chat_context": [
+        "소빡이: 추추추축",
+        "오크헤이즐넛: 오크지온",
+        "귓군영: 부우웅"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:35.335270",
+      "fun_score": 5.418018853836224,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8842174355738558,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.418018853836224,
+        "baseline_chat_count": 3.4301713950281876,
+        "baseline_viewer_count": 129.6313022975244,
+        "baseline_threshold": 17.69560290552919,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 127,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:59:41",
+      "comment_after_openDate": "01:59:41",
+      "chat_context": [
+        "귓군영: 부우웅"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:40.341311",
+      "fun_score": 5.419600333179637,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8877318341147729,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.419600333179637,
+        "baseline_chat_count": 3.4068903530638175,
+        "baseline_viewer_count": 129.60609442151411,
+        "baseline_threshold": 17.57798365031397,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.001581479343412795,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 127,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "01:59:46",
+      "comment_after_openDate": "01:59:46",
+      "chat_context": [
+        "귓군영: 부우웅"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:45.350941",
+      "fun_score": 11.931068672784015,
+      "test_fun_score": 7.311451350659269,
+      "score_components": {
+        "chat_spike_score": 2.8776162676569883,
+        "reaction_score": 17.799132583711987,
+        "test_reaction_score": 7.311451350659269,
+        "diversity_score": 52.96401577224774,
+        "viewer_trend_score": 0,
+        "final_score": 11.931068672784015,
+        "baseline_chat_count": 3.3838323434814663,
+        "baseline_viewer_count": 129.581128036956,
+        "baseline_threshold": 17.461506338135823,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.513049818947791,
+        "test_score_difference": 7.244381324565973,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "01:59:51",
+      "comment_after_openDate": "01:59:51",
+      "chat_context": [
+        "귓군영: 부우웅",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:50.356091",
+      "fun_score": 11.099531759105258,
+      "test_fun_score": 7.347771418200552,
+      "score_components": {
+        "chat_spike_score": 1.6058183037745977,
+        "reaction_score": 17.89947484864941,
+        "test_reaction_score": 7.347771418200552,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 11.099531759105258,
+        "baseline_chat_count": 3.3801552296309136,
+        "baseline_viewer_count": 129.55640083036192,
+        "baseline_threshold": 17.40852474530175,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.681512905269034,
+        "test_score_difference": 7.2807013921072565,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "01:59:56",
+      "comment_after_openDate": "01:59:56",
+      "chat_context": [
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:56:55.361099",
+      "fun_score": 11.212933952140972,
+      "test_fun_score": 7.48047582941866,
+      "score_components": {
+        "chat_spike_score": 1.613237739319288,
+        "reaction_score": 18.266353005451425,
+        "test_reaction_score": 7.48047582941866,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 11.212933952140972,
+        "baseline_chat_count": 3.3669333425310493,
+        "baseline_viewer_count": 129.53191051040704,
+        "baseline_threshold": 17.348084592493986,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.794915098304748,
+        "test_score_difference": 7.4134058033253645,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "02:00:01",
+      "comment_after_openDate": "02:00:01",
+      "chat_context": [
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:57:00.366062",
+      "fun_score": 11.3281658378536,
+      "test_fun_score": 7.615235974487272,
+      "score_components": {
+        "chat_spike_score": 1.6206776662829843,
+        "reaction_score": 18.639299400714638,
+        "test_reaction_score": 7.615235974487272,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 11.3281658378536,
+        "baseline_chat_count": 3.3538381211096016,
+        "baseline_viewer_count": 129.50765480771733,
+        "baseline_threshold": 17.289309849359405,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.910146984017376,
+        "test_score_difference": 7.548165948393977,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 127,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "02:00:06",
+      "comment_after_openDate": "02:00:06",
+      "chat_context": [
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:57:05.371406",
+      "fun_score": 11.445239068329439,
+      "test_fun_score": 7.752069865896686,
+      "score_components": {
+        "chat_spike_score": 1.628137743182817,
+        "reaction_score": 19.01835338695102,
+        "test_reaction_score": 7.752069865896686,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 11.445239068329439,
+        "baseline_chat_count": 3.3408683519093714,
+        "baseline_viewer_count": 129.48363147465938,
+        "baseline_threshold": 17.23220208972918,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.027220214493215,
+        "test_score_difference": 7.68499983980339,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 129,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "02:00:11",
+      "comment_after_openDate": "02:00:11",
+      "chat_context": [
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:57:10.377803",
+      "fun_score": 11.564164694945111,
+      "test_fun_score": 7.8909952439630375,
+      "score_components": {
+        "chat_spike_score": 1.6356176246752088,
+        "reaction_score": 19.403552320098004,
+        "test_reaction_score": 7.8909952439630375,
+        "diversity_score": 50.07071067811866,
+        "viewer_trend_score": 0,
+        "final_score": 11.564164694945111,
+        "baseline_chat_count": 3.3280228330980792,
+        "baseline_viewer_count": 129.47899828513212,
+        "baseline_threshold": 17.176762983984172,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.146145841108887,
+        "test_score_difference": 7.823925217869742,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 129,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "02:00:16",
+      "comment_after_openDate": "02:00:16",
+      "chat_context": [
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋ",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:59:15.947918",
+      "fun_score": 42.6417383724476,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 16.935625079123497,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.20707086842021,
+        "viewer_trend_score": 0,
+        "final_score": 42.6417383724476,
+        "baseline_chat_count": 3.3153003743569993,
+        "baseline_viewer_count": 129.47440948156054,
+        "baseline_threshold": 17.12299429237518,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 37.223719518611375,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 121,
+        "fun_keywords": {
+          "laugh": 7.2
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "02:02:21",
+      "comment_after_openDate": "02:02:21",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이야오: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:59:20.955073",
+      "fun_score": 42.44960476254348,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 16.50866150155879,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.20707086842021,
+        "viewer_trend_score": 0,
+        "final_score": 42.44960476254348,
+        "baseline_chat_count": 3.341019796770659,
+        "baseline_viewer_count": 129.3932246387272,
+        "baseline_threshold": 17.36746386066227,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 37.03158590870726,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 121,
+        "fun_keywords": {
+          "laugh": 7.2
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "02:02:26",
+      "comment_after_openDate": "02:02:26",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이야오: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:59:26.056672",
+      "fun_score": 55.1451872002234,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 44.634290561270305,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.59756447651757,
+        "viewer_trend_score": 0,
+        "final_score": 55.1451872002234,
+        "baseline_chat_count": 3.366492827117596,
+        "baseline_viewer_count": 129.31281754668817,
+        "baseline_threshold": 17.60775077050229,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 49.727168346387174,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 121,
+        "fun_keywords": {
+          "laugh": 8.4
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "02:02:32",
+      "comment_after_openDate": "02:02:21",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이야오: ㅋㅋㅋㅋㅋㅋㅋ",
+        "오크헤이즐넛: 보여다오 붉은장갑 샤아지형",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:59:31.062746",
+      "fun_score": 54.19666384909625,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 42.52646089209887,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.59756447651757,
+        "viewer_trend_score": 0,
+        "final_score": 54.19666384909625,
+        "baseline_chat_count": 3.4108818258338087,
+        "baseline_viewer_count": 129.23318075459088,
+        "baseline_threshold": 17.967359411499018,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 48.778644995260024,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 121,
+        "fun_keywords": {
+          "laugh": 8.4
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "02:02:37",
+      "comment_after_openDate": "02:02:37",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이야오: ㅋㅋㅋㅋㅋㅋㅋ",
+        "오크헤이즐넛: 보여다오 붉은장갑 샤아지형",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:59:36.068791",
+      "fun_score": 53.31265739356355,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 40.562002102026206,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.59756447651757,
+        "viewer_trend_score": 0,
+        "final_score": 53.31265739356355,
+        "baseline_chat_count": 3.4548455779423204,
+        "baseline_viewer_count": 129.1543068829619,
+        "baseline_threshold": 18.3144361480112,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 47.894638539727325,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 121,
+        "fun_keywords": {
+          "laugh": 8.4
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "02:02:42",
+      "comment_after_openDate": "02:02:42",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이야오: ㅋㅋㅋㅋㅋㅋㅋ",
+        "오크헤이즐넛: 보여다오 붉은장갑 샤아지형",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:59:41.074979",
+      "fun_score": 45.80963981819126,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 23.879311255267528,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 50.63949753320869,
+        "viewer_trend_score": 0,
+        "final_score": 45.80963981819126,
+        "baseline_chat_count": 3.498388157305633,
+        "baseline_viewer_count": 129.0761886230231,
+        "baseline_threshold": 18.64971910754359,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 40.39003948501162,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 121,
+        "fun_keywords": {
+          "laugh": 7.2
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "02:02:47",
+      "comment_after_openDate": "02:02:47",
+      "chat_context": [
+        "냥냠뇽뇸: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이야오: ㅋㅋㅋㅋㅋㅋㅋ",
+        "오크헤이즐넛: 보여다오 붉은장갑 샤아지형",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:59:46.082479",
+      "fun_score": 6.011686958978341,
+      "test_fun_score": 0.6441264521260368,
+      "score_components": {
+        "chat_spike_score": 1.5268063016870042,
+        "reaction_score": 1.0113697326119762,
+        "test_reaction_score": 0.6441264521260368,
+        "diversity_score": 50.21213203435597,
+        "viewer_trend_score": 0,
+        "final_score": 6.011686958978341,
+        "baseline_chat_count": 3.531933598758645,
+        "baseline_viewer_count": 128.99881873601456,
+        "baseline_threshold": 18.909911147951593,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 121,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "02:02:52",
+      "comment_after_openDate": "02:02:52",
+      "chat_context": [
+        "오크헤이즐넛: 보여다오 붉은장갑 샤아지형",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T20:59:51.087888",
+      "fun_score": 6.01835934372294,
+      "test_fun_score": 0.6502230772803458,
+      "score_components": {
+        "chat_spike_score": 1.533982845881568,
+        "reaction_score": 1.022846198802125,
+        "test_reaction_score": 0.6502230772803458,
+        "diversity_score": 50.21213203435597,
+        "viewer_trend_score": 0,
+        "final_score": 6.01835934372294,
+        "baseline_chat_count": 3.517257674882537,
+        "baseline_viewer_count": 128.92219005252352,
+        "baseline_threshold": 18.78634616022123,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.006672384744598858,
+        "test_score_difference": 0.006096625154308977,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 121,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "02:02:57",
+      "comment_after_openDate": "02:02:57",
+      "chat_context": [
+        "오크헤이즐넛: 보여다오 붉은장갑 샤아지형",
+        "하늘원숭이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:00:56.249065",
+      "fun_score": 5.413263289109217,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8736495139582865,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.413263289109217,
+        "baseline_chat_count": 3.502722346357162,
+        "baseline_viewer_count": 128.84629547182033,
+        "baseline_threshold": 18.664028846519173,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 121,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:02",
+      "comment_after_openDate": "02:04:02",
+      "chat_context": [
+        "쑤벤: 이미 오면서 죽여서 스킵 됐나?"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:01.256107",
+      "fun_score": 5.414806678621957,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8770792684310413,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.414806678621957,
+        "baseline_chat_count": 3.4787462662790603,
+        "baseline_viewer_count": 128.77112796120028,
+        "baseline_threshold": 18.537086512479185,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0015433895127401343,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 121,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:07",
+      "comment_after_openDate": "02:04:07",
+      "chat_context": [
+        "쑤벤: 이미 오면서 죽여서 스킵 됐나?"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:06.260827",
+      "fun_score": 5.774090863226162,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.5654941793669201,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.494974746830586,
+        "viewer_trend_score": 0,
+        "final_score": 5.774090863226162,
+        "baseline_chat_count": 3.454999877048107,
+        "baseline_viewer_count": 128.69668055533197,
+        "baseline_threshold": 18.411375071670832,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.36082757411694466,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 124,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:12",
+      "comment_after_openDate": "02:04:12",
+      "chat_context": [
+        "쑤벤: 이미 오면서 죽여서 스킵 됐나?",
+        "하이멜트: 그러게"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:11.266882",
+      "fun_score": 5.777376367240736,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.572795299399308,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.494974746830586,
+        "viewer_trend_score": 0,
+        "final_score": 5.777376367240736,
+        "baseline_chat_count": 3.441060978225986,
+        "baseline_viewer_count": 128.65168635561187,
+        "baseline_threshold": 18.29030988895393,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3641130781315187,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 124,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:17",
+      "comment_after_openDate": "02:04:17",
+      "chat_context": [
+        "쑤벤: 이미 오면서 죽여서 스킵 됐나?",
+        "하이멜트: 그러게"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:16.272884",
+      "fun_score": 4.715671104171733,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.8145892298567685,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 34.28984942908198,
+        "viewer_trend_score": 0,
+        "final_score": 4.715671104171733,
+        "baseline_chat_count": 3.4272556140545807,
+        "baseline_viewer_count": 128.6071232003251,
+        "baseline_threshold": 18.170435985815917,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 124,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:22",
+      "comment_after_openDate": "02:04:22",
+      "chat_context": [
+        "쑤벤: 이미 오면서 죽여서 스킵 됐나?",
+        "하이멜트: 그러게",
+        "하이멜트: 아까 벌레 잡는게 맨몸으로 하는게 아녔나봐"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:21.280296",
+      "fun_score": 4.718287748346954,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.820403994690594,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 34.28984942908198,
+        "viewer_trend_score": 0,
+        "final_score": 4.718287748346954,
+        "baseline_chat_count": 3.4231625052719377,
+        "baseline_viewer_count": 128.56298696006598,
+        "baseline_threshold": 18.041539338249763,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0026166441752213387,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 124,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:27",
+      "comment_after_openDate": "02:04:27",
+      "chat_context": [
+        "쑤벤: 이미 오면서 죽여서 스킵 됐나?",
+        "하이멜트: 그러게",
+        "하이멜트: 아까 벌레 잡는게 맨몸으로 하는게 아녔나봐"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:26.285862",
+      "fun_score": 3.303849599798628,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.584484253004411,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.707106781186546,
+        "viewer_trend_score": 0,
+        "final_score": 3.303849599798628,
+        "baseline_chat_count": 3.4191086084714324,
+        "baseline_viewer_count": 128.51927354498855,
+        "baseline_threshold": 17.913902588018495,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 124,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:32",
+      "comment_after_openDate": "02:04:32",
+      "chat_context": [
+        "하이멜트: 그러게",
+        "하이멜트: 아까 벌레 잡는게 맨몸으로 하는게 아녔나봐"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:31.291777",
+      "fun_score": 3.307160835798514,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.5918425552263797,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.707106781186546,
+        "viewer_trend_score": 0,
+        "final_score": 3.307160835798514,
+        "baseline_chat_count": 3.405513548002276,
+        "baseline_viewer_count": 128.47597890442756,
+        "baseline_threshold": 17.77393828039135,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0033112359998859198,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 124,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:37",
+      "comment_after_openDate": "02:04:37",
+      "chat_context": [
+        "하이멜트: 그러게",
+        "하이멜트: 아까 벌레 잡는게 맨몸으로 하는게 아녔나봐"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:36.297255",
+      "fun_score": 5.420623170245001,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8900048053711385,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.420623170245001,
+        "baseline_chat_count": 3.392048728212414,
+        "baseline_viewer_count": 128.43309902652314,
+        "baseline_threshold": 17.635346552472146,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.116773570446373,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 124,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:42",
+      "comment_after_openDate": "02:04:42",
+      "chat_context": [
+        "하이멜트: 아까 벌레 잡는게 맨몸으로 하는게 아녔나봐"
+      ]
+    },
+    {
+      "timestamp": "2026-03-30T21:01:41.304141",
+      "fun_score": 5.422225369778155,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8935652487781461,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.422225369778155,
+        "baseline_chat_count": 3.369132901396139,
+        "baseline_viewer_count": 128.39062993784904,
+        "baseline_threshold": 17.51832950247041,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.1183757699795267,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 124,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:04:47",
+      "comment_after_openDate": "02:04:47",
+      "chat_context": [
+        "하이멜트: 아까 벌레 잡는게 맨몸으로 하는게 아녔나봐"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

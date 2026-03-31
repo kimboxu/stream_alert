@@ -1,0 +1,1516 @@
+{
+  "channel_id": "dokkhye",
+  "channel_name": "독고혜지_WAK",
+  "save_timestamp": "2026-03-09T06:33:33.419753",
+  "total_logs": 35,
+  "logs": [
+    {
+      "timestamp": "2026-03-09T06:27:59.747557",
+      "fun_score": 4.892074073638874,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.8748195434742734,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.28284271247462,
+        "viewer_trend_score": 10,
+        "final_score": 4.892074073638874,
+        "baseline_chat_count": 2.9859361901026555,
+        "baseline_viewer_count": 163.1537154131679,
+        "baseline_threshold": 12.243289117687235,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 159,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "17:55:45",
+      "comment_after_openDate": "17:55:45",
+      "chat_context": [
+        "시루s: 레벨이 너무 높아서 안보이는거에요",
+        "시루s: 말걸면 뜨긴할거에요"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:28:04.755576",
+      "fun_score": 6.954820695444756,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9659993058150377,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.954820695444756,
+        "baseline_chat_count": 2.9764909214014716,
+        "baseline_viewer_count": 163.11392281950975,
+        "baseline_threshold": 12.172864477565252,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.062746621805882,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 159,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "17:55:50",
+      "comment_after_openDate": "17:55:50",
+      "chat_context": [
+        "시루s: 말걸면 뜨긴할거에요"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:28:09.761638",
+      "fun_score": 6.956685635152396,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.9701436162764593,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.956685635152396,
+        "baseline_chat_count": 2.9575561383744455,
+        "baseline_viewer_count": 163.07451143889887,
+        "baseline_threshold": 12.122875618132536,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.064611561513522,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 159,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "17:55:55",
+      "comment_after_openDate": "17:55:55",
+      "chat_context": [
+        "시루s: 말걸면 뜨긴할거에요"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:29:49.925465",
+      "fun_score": 7.422610164719257,
+      "test_fun_score": 0.13241747037202,
+      "score_components": {
+        "chat_spike_score": 1.9151462450758776,
+        "reaction_score": 0.13241747037202,
+        "test_reaction_score": 0.13241747037202,
+        "diversity_score": 50.21069113323505,
+        "viewer_trend_score": 10,
+        "final_score": 7.422610164719257,
+        "baseline_chat_count": 2.9388027505688186,
+        "baseline_viewer_count": 163.0354776193142,
+        "baseline_threshold": 12.073383518095586,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.530536091080383,
+        "test_score_difference": 0.06534744427872438,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 171,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "17:57:35",
+      "comment_after_openDate": "17:57:35",
+      "chat_context": [
+        "히빡: ㅔㅔ",
+        "DHz.Yuhan。: 슬슬….",
+        "DHz.샤우버거: 혜바"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:29:54.936821",
+      "fun_score": 11.409244205503066,
+      "test_fun_score": 0.2612799430845542,
+      "score_components": {
+        "chat_spike_score": 13.854320577010068,
+        "reaction_score": 0.2612799430845542,
+        "test_reaction_score": 0.2612799430845542,
+        "diversity_score": 35.96415962923169,
+        "viewer_trend_score": 10,
+        "final_score": 11.409244205503066,
+        "baseline_chat_count": 2.939389020218369,
+        "baseline_viewer_count": 163.11177774372118,
+        "baseline_threshold": 12.028829109370239,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.517170131864193,
+        "test_score_difference": 0.19420991699125859,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 164,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "17:57:40",
+      "comment_after_openDate": "17:57:40",
+      "chat_context": [
+        "히빡: ㅔㅔ",
+        "DHz.Yuhan。: 슬슬….",
+        "DHz.샤우버거: 혜바",
+        "히빡: 혜바",
+        "DHz.곰돌이: 네네",
+        "루이_♡: /",
+        "DHz.곰돌이: 고생하셨어요"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:29:59.944458",
+      "fun_score": 16.357499747315234,
+      "test_fun_score": 0.2566828077376676,
+      "score_components": {
+        "chat_spike_score": 24.459697719161124,
+        "reaction_score": 0.2566828077376676,
+        "test_reaction_score": 0.2566828077376676,
+        "diversity_score": 37.73630931371429,
+        "viewer_trend_score": 10,
+        "final_score": 16.357499747315234,
+        "baseline_chat_count": 2.978289673404677,
+        "baseline_viewer_count": 163.12028691293634,
+        "baseline_threshold": 12.022893485991192,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 11.46542567367636,
+        "test_score_difference": 0.18961278164437198,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 164,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "17:57:45",
+      "comment_after_openDate": "17:57:45",
+      "chat_context": [
+        "히빡: ㅔㅔ",
+        "DHz.Yuhan。: 슬슬….",
+        "DHz.샤우버거: 혜바",
+        "히빡: 혜바",
+        "DHz.곰돌이: 네네",
+        "루이_♡: /",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:30:04.962537",
+      "fun_score": 23.139269344024083,
+      "test_fun_score": 0.2512676969423491,
+      "score_components": {
+        "chat_spike_score": 40.39364001745926,
+        "reaction_score": 0.2512676969423491,
+        "test_reaction_score": 0.2512676969423491,
+        "diversity_score": 33.8675102708471,
+        "viewer_trend_score": 10,
+        "final_score": 23.139269344024083,
+        "baseline_chat_count": 3.02639765833346,
+        "baseline_viewer_count": 163.1287145643104,
+        "baseline_threshold": 12.064419013974675,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 18.24719527038521,
+        "test_score_difference": 0.18419767084905345,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 164,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "17:57:50",
+      "comment_after_openDate": "17:57:50",
+      "chat_context": [
+        "히빡: ㅔㅔ",
+        "DHz.Yuhan。: 슬슬….",
+        "DHz.샤우버거: 혜바",
+        "히빡: 혜바",
+        "DHz.곰돌이: 네네",
+        "루이_♡: /",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "DHz.Yuhan。: 잔짜 고생하셨어요"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:30:09.974007",
+      "fun_score": 21.923900012411867,
+      "test_fun_score": 0.2451868684004527,
+      "score_components": {
+        "chat_spike_score": 37.69687316623782,
+        "reaction_score": 0.2451868684004527,
+        "test_reaction_score": 0.2451868684004527,
+        "diversity_score": 33.8675102708471,
+        "viewer_trend_score": 10,
+        "final_score": 21.923900012411867,
+        "baseline_chat_count": 3.0836247687666254,
+        "baseline_viewer_count": 163.13706147878432,
+        "baseline_threshold": 12.170516080136547,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 17.031825938772993,
+        "test_score_difference": 0.17811684230715707,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 164,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "17:57:55",
+      "comment_after_openDate": "17:57:55",
+      "chat_context": [
+        "히빡: ㅔㅔ",
+        "DHz.Yuhan。: 슬슬….",
+        "DHz.샤우버거: 혜바",
+        "히빡: 혜바",
+        "DHz.곰돌이: 네네",
+        "루이_♡: /",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "DHz.Yuhan。: 잔짜 고생하셨어요"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:30:14.980245",
+      "fun_score": 30.574294877032656,
+      "test_fun_score": 0.23951990010948299,
+      "score_components": {
+        "chat_spike_score": 57.606813530907516,
+        "reaction_score": 0.23951990010948299,
+        "test_reaction_score": 0.23951990010948299,
+        "diversity_score": 30.793728180914265,
+        "viewer_trend_score": 10,
+        "final_score": 30.574294877032656,
+        "baseline_chat_count": 3.140303643481841,
+        "baseline_viewer_count": 163.14532842981757,
+        "baseline_threshold": 12.263953498207744,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 25.682220803393783,
+        "test_score_difference": 0.17244987401618736,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "17:58:00",
+      "comment_after_openDate": "17:57:50",
+      "chat_context": [
+        "히빡: ㅔㅔ",
+        "DHz.Yuhan。: 슬슬….",
+        "DHz.샤우버거: 혜바",
+        "히빡: 혜바",
+        "DHz.곰돌이: 네네",
+        "루이_♡: /",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "DHz.Yuhan。: 잔짜 고생하셨어요",
+        "DHz.곰돌이: 한 몇시쯤 오시나요?"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:30:19.987802",
+      "fun_score": 13.728930740742221,
+      "test_fun_score": 0.1251200112613518,
+      "score_components": {
+        "chat_spike_score": 18.948771898948007,
+        "reaction_score": 0.1251200112613518,
+        "test_reaction_score": 0.1251200112613518,
+        "diversity_score": 36.64447382837211,
+        "viewer_trend_score": 10,
+        "final_score": 13.728930740742221,
+        "baseline_chat_count": 3.206019534577285,
+        "baseline_viewer_count": 163.07687618345992,
+        "baseline_threshold": 12.439366568616887,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 8.836856667103348,
+        "test_score_difference": 0.05804998516805618,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "17:58:05",
+      "comment_after_openDate": "17:58:05",
+      "chat_context": [
+        "히빡: 혜바",
+        "DHz.곰돌이: 네네",
+        "루이_♡: /",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "DHz.Yuhan。: 잔짜 고생하셨어요",
+        "DHz.곰돌이: 한 몇시쯤 오시나요?"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:30:24.994083",
+      "fun_score": 7.979763861656107,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 3.105481425511256,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.62176212348053,
+        "viewer_trend_score": 10,
+        "final_score": 7.979763861656107,
+        "baseline_chat_count": 3.2423658674360345,
+        "baseline_viewer_count": 163.00907970962237,
+        "baseline_threshold": 12.451720593385847,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.087689788017233,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 156,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "17:58:10",
+      "comment_after_openDate": "17:58:10",
+      "chat_context": [
+        "혼부쵸: 혜배",
+        "DHz.Yuhan。: 잔짜 고생하셨어요",
+        "DHz.곰돌이: 한 몇시쯤 오시나요?"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:31:03.862761",
+      "fun_score": 29.11058967426853,
+      "test_fun_score": 0.31346665826278103,
+      "score_components": {
+        "chat_spike_score": 51.39329786855568,
+        "reaction_score": 0.31346665826278103,
+        "test_reaction_score": 0.31346665826278103,
+        "diversity_score": 43.89565635939645,
+        "viewer_trend_score": 10,
+        "final_score": 29.11058967426853,
+        "baseline_chat_count": 3.2400440024259973,
+        "baseline_viewer_count": 162.94193272600418,
+        "baseline_threshold": 12.408879247895875,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 24.218515600629658,
+        "test_score_difference": 0.2463966321694854,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "17:58:49",
+      "comment_after_openDate": "17:58:49",
+      "chat_context": [
+        "DHz.Yuhan。: 일단 잠을 자",
+        "DHz.샤우버거: 감사합니다",
+        "히빡: 감사합니다",
+        "DHz.곰돌이: 감사합니다(?)",
+        "혼부쵸: 선착순?",
+        "DHz.헤끙: 잘 먹을게",
+        "DHz.Yuhan。: 진짜 하종와다",
+        "시루s: 가젯잔 아래방향"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:31:08.946585",
+      "fun_score": 27.950614955563644,
+      "test_fun_score": 0.3068345880521878,
+      "score_components": {
+        "chat_spike_score": 48.8199976515741,
+        "reaction_score": 0.3068345880521878,
+        "test_reaction_score": 0.3068345880521878,
+        "diversity_score": 43.89565635939645,
+        "viewer_trend_score": 10,
+        "final_score": 27.950614955563644,
+        "baseline_chat_count": 3.285644380882756,
+        "baseline_viewer_count": 162.87542901048906,
+        "baseline_threshold": 12.568881633780524,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 23.05854088192477,
+        "test_score_difference": 0.23976456195889215,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "17:58:54",
+      "comment_after_openDate": "17:58:54",
+      "chat_context": [
+        "DHz.Yuhan。: 일단 잠을 자",
+        "DHz.샤우버거: 감사합니다",
+        "히빡: 감사합니다",
+        "DHz.곰돌이: 감사합니다(?)",
+        "혼부쵸: 선착순?",
+        "DHz.헤끙: 잘 먹을게",
+        "DHz.Yuhan。: 진짜 하종와다",
+        "시루s: 가젯잔 아래방향"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:31:13.959113",
+      "fun_score": 26.870833468087945,
+      "test_fun_score": 0.300577591996077,
+      "score_components": {
+        "chat_spike_score": 46.4246545656655,
+        "reaction_score": 0.300577591996077,
+        "test_reaction_score": 0.300577591996077,
+        "diversity_score": 43.89565635939645,
+        "viewer_trend_score": 10,
+        "final_score": 26.870833468087945,
+        "baseline_chat_count": 3.330807907713899,
+        "baseline_viewer_count": 162.80956240056858,
+        "baseline_threshold": 12.716238639003207,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 19.91601277264319,
+        "test_score_difference": 0.23350756590278135,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "17:58:59",
+      "comment_after_openDate": "17:58:59",
+      "chat_context": [
+        "DHz.Yuhan。: 일단 잠을 자",
+        "DHz.샤우버거: 감사합니다",
+        "히빡: 감사합니다",
+        "DHz.곰돌이: 감사합니다(?)",
+        "혼부쵸: 선착순?",
+        "DHz.헤끙: 잘 먹을게",
+        "DHz.Yuhan。: 진짜 하종와다",
+        "시루s: 가젯잔 아래방향"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:31:18.965648",
+      "fun_score": 25.865369054802926,
+      "test_fun_score": 0.2946662179065157,
+      "score_components": {
+        "chat_spike_score": 44.19423011886962,
+        "reaction_score": 0.2946662179065157,
+        "test_reaction_score": 0.2946662179065157,
+        "diversity_score": 43.89565635939645,
+        "viewer_trend_score": 10,
+        "final_score": 25.865369054802926,
+        "baseline_chat_count": 3.3755387679579996,
+        "baseline_viewer_count": 162.74432679277115,
+        "baseline_threshold": 12.851839657465838,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 18.90868341965053,
+        "test_score_difference": 0.22759619181322008,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "17:59:04",
+      "comment_after_openDate": "17:59:04",
+      "chat_context": [
+        "DHz.Yuhan。: 일단 잠을 자",
+        "DHz.샤우버거: 감사합니다",
+        "히빡: 감사합니다",
+        "DHz.곰돌이: 감사합니다(?)",
+        "혼부쵸: 선착순?",
+        "DHz.헤끙: 잘 먹을게",
+        "DHz.Yuhan。: 진짜 하종와다",
+        "시루s: 가젯잔 아래방향"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:31:23.972553",
+      "fun_score": 24.928679475009027,
+      "test_fun_score": 0.2890739280104412,
+      "score_components": {
+        "chat_spike_score": 42.11642591259166,
+        "reaction_score": 0.2890739280104412,
+        "test_reaction_score": 0.2890739280104412,
+        "diversity_score": 43.89565635939645,
+        "viewer_trend_score": 10,
+        "final_score": 24.928679475009027,
+        "baseline_chat_count": 3.4198411065609617,
+        "baseline_viewer_count": 162.6797161420964,
+        "baseline_threshold": 12.976509269092327,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 17.50606931028977,
+        "test_score_difference": 0.22200390191714556,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "17:59:09",
+      "comment_after_openDate": "17:59:09",
+      "chat_context": [
+        "DHz.Yuhan。: 일단 잠을 자",
+        "DHz.샤우버거: 감사합니다",
+        "히빡: 감사합니다",
+        "DHz.곰돌이: 감사합니다(?)",
+        "혼부쵸: 선착순?",
+        "DHz.헤끙: 잘 먹을게",
+        "DHz.Yuhan。: 진짜 하종와다",
+        "시루s: 가젯잔 아래방향"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:31:29.018375",
+      "fun_score": 24.055570758573033,
+      "test_fun_score": 0.2837767551868933,
+      "score_components": {
+        "chat_spike_score": 40.179715769060714,
+        "reaction_score": 0.2837767551868933,
+        "test_reaction_score": 0.2837767551868933,
+        "diversity_score": 43.89565635939645,
+        "viewer_trend_score": 10,
+        "final_score": 24.055570758573033,
+        "baseline_chat_count": 3.4637190287601074,
+        "baseline_viewer_count": 162.62530446145513,
+        "baseline_threshold": 13.091011059665009,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 16.075806896916927,
+        "test_score_difference": 0.2167067290935977,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 157,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "17:59:15",
+      "comment_after_openDate": "17:59:15",
+      "chat_context": [
+        "DHz.Yuhan。: 일단 잠을 자",
+        "DHz.샤우버거: 감사합니다",
+        "히빡: 감사합니다",
+        "DHz.곰돌이: 감사합니다(?)",
+        "혼부쵸: 선착순?",
+        "DHz.헤끙: 잘 먹을게",
+        "DHz.Yuhan。: 진짜 하종와다",
+        "시루s: 가젯잔 아래방향"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:31:54.142645",
+      "fun_score": 6.912979540302209,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8730189610538225,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.912979540302209,
+        "baseline_chat_count": 3.5071766004645855,
+        "baseline_viewer_count": 162.5714140447144,
+        "baseline_threshold": 13.196051541580548,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 154,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "17:59:40",
+      "comment_after_openDate": "17:59:40",
+      "chat_context": [
+        "DHz.곰돌이: ㅇㅇㄱ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:31:59.151458",
+      "fun_score": 7.218081720431526,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.5510238057856378,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.218081720431526,
+        "baseline_chat_count": 3.4831578486321346,
+        "baseline_viewer_count": 162.48929989816605,
+        "baseline_threshold": 13.135859711808301,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.30510218012931656,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 154,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "17:59:45",
+      "comment_after_openDate": "17:59:45",
+      "chat_context": [
+        "DHz.곰돌이: ㅇㅇㄱ",
+        "DHz.Yuhan。: ㅇㅇㄱ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:04.165464",
+      "fun_score": 9.714588789471096,
+      "test_fun_score": 0.6710780741863672,
+      "score_components": {
+        "chat_spike_score": 8.479992951119634,
+        "reaction_score": 1.0622619482545825,
+        "test_reaction_score": 0.6710780741863672,
+        "diversity_score": 40.79913376990885,
+        "viewer_trend_score": 10,
+        "final_score": 9.714588789471096,
+        "baseline_chat_count": 3.4689491964422383,
+        "baseline_viewer_count": 162.40797240514163,
+        "baseline_threshold": 13.079167398650911,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.8016092491688864,
+        "test_score_difference": 0.6040080480930716,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "17:59:50",
+      "comment_after_openDate": "17:59:50",
+      "chat_context": [
+        "DHz.곰돌이: ㅇㅇㄱ",
+        "DHz.Yuhan。: ㅇㅇㄱ",
+        "DHz.샤우버거: ㅇㅇㄱ",
+        "히빡: ㅇㅇㄱ",
+        "히빡: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:09.171822",
+      "fun_score": 9.666809426056163,
+      "test_fun_score": 0.6646150248619771,
+      "score_components": {
+        "chat_spike_score": 8.381977234821553,
+        "reaction_score": 1.050020977985263,
+        "test_reaction_score": 0.6646150248619771,
+        "diversity_score": 40.79913376990885,
+        "viewer_trend_score": 10,
+        "final_score": 9.666809426056163,
+        "baseline_chat_count": 3.4836166631403214,
+        "baseline_viewer_count": 162.32742402950038,
+        "baseline_threshold": 13.046934735574968,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.7538298857539543,
+        "test_score_difference": 0.5975449987686815,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "17:59:55",
+      "comment_after_openDate": "17:59:55",
+      "chat_context": [
+        "DHz.곰돌이: ㅇㅇㄱ",
+        "DHz.Yuhan。: ㅇㅇㄱ",
+        "DHz.샤우버거: ㅇㅇㄱ",
+        "히빡: ㅇㅇㄱ",
+        "히빡: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:14.190303",
+      "fun_score": 9.620398505561376,
+      "test_fun_score": 0.6583277051202555,
+      "score_components": {
+        "chat_spike_score": 8.286765804594367,
+        "reaction_score": 1.038135055010082,
+        "test_reaction_score": 0.6583277051202555,
+        "diversity_score": 40.79913376990885,
+        "viewer_trend_score": 10,
+        "final_score": 9.620398505561376,
+        "baseline_chat_count": 3.498143615507437,
+        "baseline_viewer_count": 162.24764730729777,
+        "baseline_threshold": 13.014553135109777,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.7074189652591665,
+        "test_score_difference": 0.5912576790269599,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 154,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "18:00:00",
+      "comment_after_openDate": "18:00:00",
+      "chat_context": [
+        "DHz.곰돌이: ㅇㅇㄱ",
+        "DHz.Yuhan。: ㅇㅇㄱ",
+        "DHz.샤우버거: ㅇㅇㄱ",
+        "히빡: ㅇㅇㄱ",
+        "히빡: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:19.196862",
+      "fun_score": 11.581854842008033,
+      "test_fun_score": 0.6522095981833969,
+      "score_components": {
+        "chat_spike_score": 14.039487818689247,
+        "reaction_score": 1.0265902255774904,
+        "test_reaction_score": 0.6522095981833969,
+        "diversity_score": 34.56108255924625,
+        "viewer_trend_score": 10,
+        "final_score": 11.581854842008033,
+        "baseline_chat_count": 3.512531399670875,
+        "baseline_viewer_count": 162.16863484609385,
+        "baseline_threshold": 12.982037133758702,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.668875301705824,
+        "test_score_difference": 0.5851395720901013,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 159,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "18:00:05",
+      "comment_after_openDate": "18:00:05",
+      "chat_context": [
+        "DHz.곰돌이: ㅇㅇㄱ",
+        "DHz.Yuhan。: ㅇㅇㄱ",
+        "DHz.샤우버거: ㅇㅇㄱ",
+        "히빡: ㅇㅇㄱ",
+        "히빡: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "DHz.Yuhan。: 자긴 자야지"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:24.202226",
+      "fun_score": 8.558189350533313,
+      "test_fun_score": 0.6423081653578961,
+      "score_components": {
+        "chat_spike_score": 8.044810939273097,
+        "reaction_score": 1.0079510241412963,
+        "test_reaction_score": 0.6423081653578961,
+        "diversity_score": 31.35639120618031,
+        "viewer_trend_score": 10,
+        "final_score": 8.558189350533313,
+        "baseline_chat_count": 3.536361348862028,
+        "baseline_viewer_count": 162.13827932426827,
+        "baseline_threshold": 12.96862338740373,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.645209810231104,
+        "test_score_difference": 0.5752381392646005,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 159,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "18:00:10",
+      "comment_after_openDate": "18:00:10",
+      "chat_context": [
+        "DHz.Yuhan。: ㅇㅇㄱ",
+        "DHz.샤우버거: ㅇㅇㄱ",
+        "히빡: ㅇㅇㄱ",
+        "히빡: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "DHz.Yuhan。: 자긴 자야지"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:29.208240",
+      "fun_score": 9.512281846776421,
+      "test_fun_score": 0.6366133745773374,
+      "score_components": {
+        "chat_spike_score": 7.959023344802729,
+        "reaction_score": 0.9972560116639733,
+        "test_reaction_score": 0.6366133745773374,
+        "diversity_score": 41.31544538116002,
+        "viewer_trend_score": 10,
+        "final_score": 9.512281846776421,
+        "baseline_chat_count": 3.5503830071399296,
+        "baseline_viewer_count": 162.10821460834177,
+        "baseline_threshold": 12.926371429330512,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.599302306474212,
+        "test_score_difference": 0.5695433484840418,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 159,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "18:00:15",
+      "comment_after_openDate": "18:00:15",
+      "chat_context": [
+        "DHz.샤우버거: ㅇㅇㄱ",
+        "히빡: ㅇㅇㄱ",
+        "히빡: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "DHz.Yuhan。: 자긴 자야지",
+        "DHz.헤끙: 도미 수락"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:34.213866",
+      "fun_score": 7.203749164838741,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.5113169402329318,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 7.203749164838741,
+        "baseline_chat_count": 3.5642703379315286,
+        "baseline_viewer_count": 162.07843791239387,
+        "baseline_threshold": 12.893664451129643,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.2907696245365319,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 159,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "18:00:20",
+      "comment_after_openDate": "18:00:20",
+      "chat_context": [
+        "DHz.Yuhan。: 자긴 자야지",
+        "DHz.헤끙: 도미 수락"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:39.219482",
+      "fun_score": 7.206954794890455,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.5184405625700739,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 7.206954794890455,
+        "baseline_chat_count": 3.5492846280941444,
+        "baseline_viewer_count": 162.04894647719314,
+        "baseline_threshold": 12.839155062686975,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.29397525458824614,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 155,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "18:00:25",
+      "comment_after_openDate": "18:00:25",
+      "chat_context": [
+        "DHz.Yuhan。: 자긴 자야지",
+        "DHz.헤끙: 도미 수락"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:44.227708",
+      "fun_score": 7.210171474956189,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.525588740493928,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 7.210171474956189,
+        "baseline_chat_count": 3.534442481357002,
+        "baseline_viewer_count": 161.98141756994164,
+        "baseline_threshold": 12.785198584121485,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.29719193465397975,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 155,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "18:00:30",
+      "comment_after_openDate": "18:00:30",
+      "chat_context": [
+        "DHz.Yuhan。: 자긴 자야지",
+        "DHz.헤끙: 도미 수락"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:49.233310",
+      "fun_score": 6.912184015054156,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.87125112716926,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.912184015054156,
+        "baseline_chat_count": 3.519742522385602,
+        "baseline_viewer_count": 161.9145355896216,
+        "baseline_threshold": 12.73178982441568,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 155,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "18:00:35",
+      "comment_after_openDate": "18:00:35",
+      "chat_context": [
+        "DHz.헤끙: 도미 수락"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:32:54.239101",
+      "fun_score": 6.913718714601987,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8746615706088852,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.913718714601987,
+        "baseline_chat_count": 3.4956033890211478,
+        "baseline_viewer_count": 161.84829433867304,
+        "baseline_threshold": 12.676038000761997,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.001534699547830698,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 156,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "18:00:40",
+      "comment_after_openDate": "18:00:40",
+      "chat_context": [
+        "DHz.헤끙: 도미 수락"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:33:09.253896",
+      "fun_score": 7.275208895501998,
+      "test_fun_score": 0.21212722741597037,
+      "score_components": {
+        "chat_spike_score": 1.5568699109251138,
+        "reaction_score": 0.21212722741597037,
+        "test_reaction_score": 0.21212722741597037,
+        "diversity_score": 50.10979267360905,
+        "viewer_trend_score": 10,
+        "final_score": 7.275208895501998,
+        "baseline_chat_count": 3.4716955085543253,
+        "baseline_viewer_count": 161.79226767890856,
+        "baseline_threshold": 12.620834982000584,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.363024880447842,
+        "test_score_difference": 0.14505720132267474,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 156,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "18:00:55",
+      "comment_after_openDate": "18:00:55",
+      "chat_context": [
+        "DHz.샤우버거: 혜바",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "히빡: 혜바"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:33:14.259972",
+      "fun_score": 6.829519087292045,
+      "test_fun_score": 0.21177211485165567,
+      "score_components": {
+        "chat_spike_score": 2.7462525464303518,
+        "reaction_score": 0.21177211485165567,
+        "test_reaction_score": 0.21177211485165567,
+        "diversity_score": 40.30173806942889,
+        "viewer_trend_score": 10,
+        "final_score": 6.829519087292045,
+        "baseline_chat_count": 3.476756665582375,
+        "baseline_viewer_count": 161.73677775454462,
+        "baseline_threshold": 12.569623884091927,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.14470208875836005,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "18:01:00",
+      "comment_after_openDate": "18:01:00",
+      "chat_context": [
+        "DHz.샤우버거: 혜바",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "히빡: 혜바",
+        "DHz.곰돌이: 좀 주무세요"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:33:19.266286",
+      "fun_score": 7.253949145590974,
+      "test_fun_score": 0.6612543701925492,
+      "score_components": {
+        "chat_spike_score": 2.726784082130439,
+        "reaction_score": 0.6612543701925492,
+        "test_reaction_score": 0.6612543701925492,
+        "diversity_score": 43.285199975745115,
+        "viewer_trend_score": 10,
+        "final_score": 7.253949145590974,
+        "baseline_chat_count": 3.4913493367260955,
+        "baseline_viewer_count": 161.6434994236561,
+        "baseline_threshold": 12.514633680138584,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.4244300582989293,
+        "test_score_difference": 0.5941843440992536,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "18:01:05",
+      "comment_after_openDate": "18:01:05",
+      "chat_context": [
+        "DHz.샤우버거: 혜바",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "히빡: 혜바",
+        "DHz.곰돌이: 좀 주무세요",
+        "마르_.: 혜바",
+        "DHz.Yuhan。: 혜바"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:33:24.272965",
+      "fun_score": 9.273533646500605,
+      "test_fun_score": 0.6470090182986274,
+      "score_components": {
+        "chat_spike_score": 8.11571537659978,
+        "reaction_score": 0.6470090182986274,
+        "test_reaction_score": 0.6470090182986274,
+        "diversity_score": 39.27359021541115,
+        "viewer_trend_score": 10,
+        "final_score": 9.273533646500605,
+        "baseline_chat_count": 3.5249622100802593,
+        "baseline_viewer_count": 161.55111469917748,
+        "baseline_threshold": 12.464236322297618,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.4440145592085596,
+        "test_score_difference": 0.5799389922053318,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "18:01:10",
+      "comment_after_openDate": "18:01:10",
+      "chat_context": [
+        "DHz.샤우버거: 혜바",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "히빡: 혜바",
+        "DHz.곰돌이: 좀 주무세요",
+        "마르_.: 혜바",
+        "DHz.Yuhan。: 혜바",
+        "마르_.: 잘자요",
+        "zl존버튜버: 잘자라잉"
+      ]
+    },
+    {
+      "timestamp": "2026-03-09T06:33:29.278693",
+      "fun_score": 11.019115071722197,
+      "test_fun_score": 1.0921602339652436,
+      "score_components": {
+        "chat_spike_score": 13.251886535598768,
+        "reaction_score": 1.0921602339652436,
+        "test_reaction_score": 1.0921602339652436,
+        "diversity_score": 32.28118060513178,
+        "viewer_trend_score": 10,
+        "final_score": 11.019115071722197,
+        "baseline_chat_count": 3.5774130721076904,
+        "baseline_viewer_count": 161.45961502035937,
+        "baseline_threshold": 12.43366939066348,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.189595984430152,
+        "test_score_difference": 1.025090207871948,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 150,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "18:01:15",
+      "comment_after_openDate": "18:01:15",
+      "chat_context": [
+        "DHz.샤우버거: 혜바",
+        "DHz.곰돌이: 고생하셨어요",
+        "혼부쵸: 혜배",
+        "히빡: 혜바",
+        "DHz.곰돌이: 좀 주무세요",
+        "마르_.: 혜바",
+        "DHz.Yuhan。: 혜바",
+        "마르_.: 잘자요",
+        "zl존버튜버: 잘자라잉",
+        "DHz.Yuhan。: 바바",
+        "DHz.곰돌이: 3시간 반 정도 주무시겠네"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
