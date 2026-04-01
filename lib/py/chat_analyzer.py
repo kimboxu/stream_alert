@@ -12,7 +12,7 @@ from collections import deque, Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Tuple
-from json_repair_handler import JSONRepairHandler
+from json_repair_handler import JSONRepairHandler, ContentCensorHandler
 from live_message import upload_image_to_imgbb, highlight_chat_Data
 from base import (
     log_error,
@@ -1654,6 +1654,11 @@ class ChatAnalyzer:
                 print(f"{datetime.now()} ⚠️ JSON 파싱 실패, 응급 데이터로 대체")
                 await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
                 return emergency_timeline_comments
+
+            # 부적절한 키워드 검열
+            timeline_comments = ContentCensorHandler.censor_timeline_comments(
+                timeline_comments
+            )
 
             # 타임라인 기준으로 정렬
             if isinstance(timeline_comments, list):

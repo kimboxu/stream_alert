@@ -2,7 +2,147 @@ import re
 import json
 import asyncio
 from datetime import datetime
-from typing import List, Optional, Any, Callable, Coroutine
+from typing import List, Optional, Any, Callable, Coroutine, Dict
+
+
+# ──────────────────────────────────────────────
+# 부적절한 키워드 → 초성 치환 규칙 테이블
+# 새 키워드 추가 시 이 딕셔너리에만 추가하면 됨
+# ──────────────────────────────────────────────
+_CENSOR_RULES: Dict[str, str] = {
+    # 자해·생명 관련
+    "자살":    "자ㅅ",
+    "자해":    "자ㅎ",
+    "죽어":    "죽ㅇ",
+    "죽어라":  "죽ㅇㄹ",
+    "뒤져":    "뒤ㅈ",
+    "뒤져라":  "뒤ㅈㄹ",
+    # 성범죄 관련
+    "강간":    "강ㄱ",
+    "성폭행":  "성ㅍㅎ",
+    "성추행":  "성ㅊㅎ",
+    # 욕설 (초성이 이미 관용적으로 쓰이는 표현 참고)
+    "씨발":    "ㅅㅂ",
+    "씨바":    "ㅅㅂ",
+    "씨팔":    "ㅅㅍ",
+    "개새끼":  "ㄱㅅㄲ",
+    "개새":    "ㄱㅅ",
+    "병신":    "ㅂㅅ",
+    "지랄":    "ㅈㄹ",
+    "닥쳐":    "ㄷㅊ",
+    "꺼져":    "ㄲㅈ",
+    "미친놈":  "ㅁㅊㄴ",
+    "미친년":  "ㅁㅊㄴ",
+    "존나":    "ㅈㄴ",
+    "존내":    "ㅈㄴ",
+    "졸라":    "ㅈㄹ",
+    "ㅈㄴ":    "ㅈㄴ",   # 이미 초성이지만 원문 유지
+    # 혐오·차별 관련
+    "장애인":  "장ㅇㅇ",   # 비하 맥락에서만 문제이나 보수적으로 처리
+    "찐따":    "ㅉㄷ",
+    "틱장애":  "틱ㅈㅇ",
+}
+
+# 긴 키워드를 먼저 매칭하도록 길이 내림차순 정렬 (예: "죽어라" > "죽어")
+_SORTED_CENSOR_KEYS: List[str] = sorted(
+    _CENSOR_RULES.keys(), key=len, reverse=True
+)
+
+
+class ContentCensorHandler:
+    """
+    AI가 생성한 텍스트에서 부적절한 키워드를 검열하는 클래스.
+
+    처리 방식:
+    - _CENSOR_RULES 테이블에 정의된 키워드를 초성으로 치환
+    - 긴 키워드를 우선 매칭하여 "죽어라"가 "죽어"보다 먼저 처리됨
+    - timeline_comments 리스트의 'text', 'image_text' 필드에 적용
+    """
+
+    # 검열 대상 필드 목록 — 추가가 필요하면 여기에만 넣으면 됨
+    _TARGET_FIELDS: List[str] = ["text", "image_text"]
+
+    @staticmethod
+    def censor_text(text: str) -> str:
+        """
+        문자열에서 부적절한 키워드를 초성 치환합니다.
+
+        Args:
+            text: 원본 문자열
+
+        Returns:
+            검열된 문자열
+        """
+        if not text or not isinstance(text, str):
+            return text
+
+        result = text
+        for keyword in _SORTED_CENSOR_KEYS:
+            if keyword in result:
+                replacement = _CENSOR_RULES[keyword]
+                result = result.replace(keyword, replacement)
+                print(
+                    f"{datetime.now()} 키워드 검열: '{keyword}' → '{replacement}'"
+                )
+        return result
+
+    @classmethod
+    def censor_comment(cls, comment: dict) -> dict:
+        """
+        단일 타임라인 댓글 딕셔너리의 대상 필드를 검열합니다.
+
+        Args:
+            comment: 타임라인 댓글 딕셔너리
+
+        Returns:
+            검열된 댓글 딕셔너리 (원본 수정 없이 새 dict 반환)
+        """
+        if not isinstance(comment, dict):
+            return comment
+
+        censored = dict(comment)  # 얕은 복사로 원본 보호
+        for field in cls._TARGET_FIELDS:
+            if field in censored:
+                censored[field] = cls.censor_text(censored[field])
+        return censored
+
+    @classmethod
+    def censor_timeline_comments(
+        cls, timeline_comments: List[dict]
+    ) -> List[dict]:
+        """
+        타임라인 댓글 리스트 전체를 검열합니다.
+        JSON 파싱 성공 직후, DB 저장 전에 호출하세요.
+
+        Args:
+            timeline_comments: AI가 생성한 타임라인 댓글 리스트
+
+        Returns:
+            검열된 댓글 리스트
+        """
+        if not timeline_comments or not isinstance(timeline_comments, list):
+            return timeline_comments
+
+        censored_list = [cls.censor_comment(c) for c in timeline_comments]
+
+        # 실제로 검열이 일어난 경우 로그
+        original_texts = [
+            (c.get("text", ""), c.get("image_text", ""))
+            for c in timeline_comments
+        ]
+        censored_texts = [
+            (c.get("text", ""), c.get("image_text", ""))
+            for c in censored_list
+        ]
+        changed_count = sum(
+            1 for o, n in zip(original_texts, censored_texts) if o != n
+        )
+        if changed_count:
+            print(
+                f"{datetime.now()} ✅ 총 {changed_count}개 댓글에서 부적절한 키워드 검열 완료"
+            )
+
+        return censored_list
 
 
 class JSONRepairHandler:
