@@ -226,6 +226,7 @@ class ChatAnalyzer:
         self.window_size = 30  # 30초 윈도우
         self.analysis_interval = 5  # 5초마다 분석
         self.max_file_age_days = 30  # 30일 이상된 파일 삭제
+        self.highlight_batch_size = 50 # 하이라이트 일괄 처리 기준 (50개마다 처리)
 
         # 채팅 데이터 저장 (약 60분)
         self.history_1min = int(60 / self.analysis_interval)
@@ -593,7 +594,7 @@ class ChatAnalyzer:
 
         # 지수 이동 평균으로 부드럽게 업데이트
         # 최근 10분(120회)의 데이터가 90% 반영되도록 [α = 1 - 0.1^(1/120)]
-        alpha = 0.01912  # 1 - 0.1^(1/240) ≈ 0.01912
+        alpha = 0.01912  # 1 - 0.1^(1/120) ≈ 0.01912
 
         self.title_data.loc[self.channel_id, "baseline_metrics"]["avg_chat_count"] = (
             alpha * chat_counts
@@ -1019,7 +1020,7 @@ class ChatAnalyzer:
         # if not self.init.DO_TEST:
         #     await self._save_highlight_to_db(highlight)
 
-        if len(self.highlights_dict[self.stream_start_id]) > 40:
+        if len(self.highlights_dict[self.stream_start_id]) > self.highlight_batch_size:
             highlights_to_process = self.highlights_dict[self.stream_start_id].copy()
             self.highlights_dict[self.stream_start_id] = [
                 self.highlights_dict[self.stream_start_id][-1]
