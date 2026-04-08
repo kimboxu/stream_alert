@@ -74,11 +74,11 @@ class base_vod(ABC):
         self.duration_diff = 10
         self.thumb_check_times = {}
         self.max_check_thumb_min = 10
-        self.fun_difference1 = 15
-        self.fun_difference2 = 30
-        self.fun_difference3 = 40
-        self.fun_difference4 = 60
-        self.fun_difference5 = 70
+        self.fun_difference1 = 20
+        self.fun_difference2 = 35
+        self.fun_difference3 = 50
+        self.fun_difference4 = 65
+        self.fun_difference5 = 80
 
         self.title_data = self.init.titleData[self.platform]
 

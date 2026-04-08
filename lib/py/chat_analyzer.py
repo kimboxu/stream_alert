@@ -292,8 +292,8 @@ class ChatAnalyzer:
         self.check_after_openDate = 0
 
         # 임계값 설정
-        self.small_fun_difference = 15  # 작은 재미 차이
-        self.big_fun_difference = 70  # 큰 재미 차이
+        self.small_fun_difference = 25  # 작은 재미 차이
+        self.big_fun_difference = 80  # 큰 재미 차이
         self.cooldown = 120  # 쿨다운
 
         # 로그 파일 설정
@@ -592,8 +592,8 @@ class ChatAnalyzer:
         final_score = list(self.analysis_history)[-1][1]
 
         # 지수 이동 평균으로 부드럽게 업데이트
-        # 최근 20분(240회)의 데이터가 90% 반영되도록 [α = 1 - 0.1^(1/240)]
-        alpha = 0.00958  # 1 - 0.1^(1/240) ≈ 0.00958
+        # 최근 10분(120회)의 데이터가 90% 반영되도록 [α = 1 - 0.1^(1/120)]
+        alpha = 0.01912  # 1 - 0.1^(1/240) ≈ 0.01912
 
         self.title_data.loc[self.channel_id, "baseline_metrics"]["avg_chat_count"] = (
             alpha * chat_counts
