@@ -1185,7 +1185,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             self.command_delay[command] = time
             return True
         
-        return if_after_time(self.command_delay[command], sec = 2)
+        return if_after_time(self.command_delay[command], sec = 1)
         
 
     # 채팅방 입장 시 인사 메시지 전송 함수
