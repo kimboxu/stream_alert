@@ -343,7 +343,7 @@ class JSONRepairHandler:
                             is_emergency = False
                             on_retry_callback(attempt + 1, max_retries)
                         print(f"{datetime.now()} {retry_seconds}초 후 재시도...")
-                        await asyncio.sleep(retry_seconds)
+                        await asyncio.sleep(retry_seconds + 1)  # 권장 대기 시간 + 1초 여유 
                         continue
                     else:
                         print(f"{datetime.now()} ❌ API 요청 최종 실패 (할당량 초과)")

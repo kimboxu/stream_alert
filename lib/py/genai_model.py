@@ -3,26 +3,27 @@ import google.generativeai as genai
 from typing import Dict, Optional
 from datetime import datetime, timedelta
 
+
 class GenAIModelManager:
     """AI 모델들을 관리하는 매니저 클래스 - 메모리 절약을 위해 한 번만 만들어서 재사용"""
-    
-    _instance: Optional['GenAIModelManager'] = None
+
+    _instance: Optional["GenAIModelManager"] = None
     _models: Dict[str, genai.GenerativeModel] = {}
     _current_api_key: Optional[str] = None
-    
+
     def __new__(cls):
         # 앱 전체에서 이 클래스는 하나만 존재하도록 함
         if cls._instance is None:
             cls._instance = super().__new__(cls)
         return cls._instance
-    
+
     def __init__(self):
         # 처음 한 번만 초기화됨
-        if not hasattr(self, '_initialized'):
+        if not hasattr(self, "_initialized"):
             self._initialized = True
-            self.GOOGLE_API_KEY_LIST = environ['GOOGLE_API_KEY'].split(",")
+            self.GOOGLE_API_KEY_LIST = environ["GOOGLE_API_KEY"].split(",")
             # 시스템 프롬프트 - VOD 댓글 생성용
-            self._system_instruction = '''
+            self._system_instruction = """
                 방송 하이라이트 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
 
                 응답 형식:
@@ -66,9 +67,9 @@ class GenAIModelManager:
                 - 썸네일 분석 예시:
                 text: "섬광탄으로 어그로 끄는 중"
                 image_text: "아서스 또 있네 ㅋㅋㅋ" (썸네일에서 특정 캐릭터 확인시)
-            '''
-    
-    def get_model(self, num: int, is_emergency: bool = False) -> genai.GenerativeModel:
+            """
+
+    def get_models(self, num: int, is_emergency: bool = False) -> genai.GenerativeModel:
         """
         API 키 순서에 맞는 모델을 가져옴 - 이미 만든 건 재사용
         매번 새로 만들면 메모리 낭비가 심해서 캐싱해서 쓰는 방식
@@ -79,12 +80,12 @@ class GenAIModelManager:
                 api_key_index = (num // 10) % len(self.GOOGLE_API_KEY_LIST)
                 target_api_key = self.GOOGLE_API_KEY_LIST[api_key_index]
             else:
-                target_api_key = environ['EMERGENCY_GOOGLE_API_KEY']
+                target_api_key = environ["EMERGENCY_GOOGLE_API_KEY"]
                 api_key_index = len(self.GOOGLE_API_KEY_LIST)
-            
+
             # 각 API 키별로 모델을 구분해서 저장
             cache_key = f"model_{api_key_index}"
-            
+
             # 이미 만든 모델이 있나 확인
             if cache_key in self._models:
                 # API 키가 바뀌었으면 기존 캐시는 무효화
@@ -93,38 +94,46 @@ class GenAIModelManager:
                 else:
                     # 기존 모델 그대로 반환
                     return self._models[cache_key]
-            
+
             # 새 모델 만들어야 하는 경우
             genai.configure(api_key=target_api_key)
             self._current_api_key = target_api_key
-            
-            model = genai.GenerativeModel(
-                "gemini-2.5-flash", 
-                system_instruction=self._system_instruction, 
-                generation_config={"response_mime_type": "application/json"}
-            )
-            
+
+            models = {
+                "3": genai.GenerativeModel(
+                    "gemini-3-flash",
+                    system_instruction=self._system_instruction,
+                    generation_config={"response_mime_type": "application/json"},
+                ),
+                "2.5": genai.GenerativeModel(
+                    "gemini-2.5-flash",
+                    system_instruction=self._system_instruction,
+                    generation_config={"response_mime_type": "application/json"},
+                ),
+            }
+
             # 캐시에 저장해두고 다음에 재사용
-            self._models[cache_key] = model
-            
+            self._models[cache_key] = models
+
+
             print(f"{datetime.now()} 새 AI 모델 생성됨 (API 키 #{api_key_index})")
-            return model
-            
+            return models
+
         except Exception as e:
             print(f"{datetime.now()} AI 모델 생성 실패: {str(e)}")
             raise
-    
+
     def clear_cache(self):
         """저장된 모델들 모두 삭제 - 메모리 정리할 때 사용"""
         self._models.clear()
         self._current_api_key = None
         print(f"{datetime.now()} AI 모델 캐시 정리 완료")
-    
+
     def get_cache_info(self) -> Dict[str, int]:
         """현재 캐시된 모델 개수와 상태 확인용"""
         return {
             "cached_models_count": len(self._models),
-            "cache_keys": list(self._models.keys())
+            "cache_keys": list(self._models.keys()),
         }
 
 
@@ -132,11 +141,11 @@ class GenAIModelManager:
 _model_manager = GenAIModelManager()
 
 
-def get_genai_model(num: int, is_emergency: bool = False) -> genai.GenerativeModel:
+def get_genai_models(num: int, is_emergency: bool = False) -> genai.GenerativeModel:
     """
     내부적으로는 캐싱된 모델을 반환해서 성능 향상
     """
-    return _model_manager.get_model(num, is_emergency)
+    return _model_manager.get_models(num, is_emergency)
 
 
 def clear_genai_cache():
@@ -152,32 +161,32 @@ def get_genai_cache_info() -> Dict[str, int]:
 # 테스트용 코드 - 실제 운영에서는 실행 안됨
 if __name__ == "__main__":
     print("=== AI 모델 매니저 테스트 ===")
-    
+
     try:
         # 첫 번째로 모델 요청해보기
-        model1 = get_genai_model(0)
+        model1 = get_genai_models(0)
         print(f"첫 번째 모델: {type(model1)}")
-        
+
         # 같은 번호로 다시 요청 - 캐시에서 가져와야 함
-        model2 = get_genai_model(0)
+        model2 = get_genai_models(0)
         print(f"두 번째 모델: {type(model2)}")
         print(f"같은 객체인가? {model1 is model2}")  # True여야 함
-        
+
         # 다른 번호로 요청해보기
-        model3 = get_genai_model(10)
+        model3 = get_genai_models(10)
         print(f"다른 API 키 모델: {type(model3)}")
         print(f"다른 객체인가? {model1 is model3}")  # True여야 함
-        
+
         # 현재 캐시 상태 보기
         cache_info = get_genai_cache_info()
         print(f"캐시 상태: {cache_info}")
-        
+
         # 캐시 비우기 테스트
         clear_genai_cache()
         print("캐시 비움")
-        
+
         cache_info_after = get_genai_cache_info()
         print(f"비운 후 캐시 상태: {cache_info_after}")
-        
+
     except Exception as e:
         print(f"테스트 에러: {str(e)}")
