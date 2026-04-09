@@ -27,7 +27,7 @@ from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
 from highlight_chat_saver import HighlightChatSaver
-from genai_model import get_genai_model
+from genai_model import get_genai_models
 from base import save_airing_data
 
 
@@ -226,7 +226,7 @@ class ChatAnalyzer:
         self.window_size = 30  # 30초 윈도우
         self.analysis_interval = 5  # 5초마다 분석
         self.max_file_age_days = 30  # 30일 이상된 파일 삭제
-        self.highlight_batch_size = 50 # 하이라이트 일괄 처리 기준 (50개마다 처리)
+        self.highlight_batch_size = 40  # 하이라이트 일괄 처리 기준 (40개마다 처리)
 
         # 채팅 데이터 저장 (약 60분)
         self.history_1min = int(60 / self.analysis_interval)
@@ -1609,13 +1609,23 @@ class ChatAnalyzer:
                 f"{datetime.now()} {self.channel_name} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지"
             )
 
+            def call_model_with_fallback(models, msg_list):
+                try:
+                    return asyncio.to_thread(
+                        models["3"].generate_content, msg_list
+                    )
+                except Exception as e:
+                    return asyncio.to_thread(
+                        models["2.5"].generate_content, msg_list
+                    )
+
             # API 호출 및 JSON 파싱
             def api_call(emergency=None):
                 if emergency is None:
                     emergency = is_emergency
                 self.add_genai_cnt()
-                model = get_genai_model(self.init.genai_cnt, emergency)
-                return asyncio.to_thread(model.generate_content, msg_list)
+                models = get_genai_models(self.init.genai_cnt, emergency)
+                return call_model_with_fallback(models, msg_list)
 
             def response_validator(response):
                 """응답 검증: 리스트 형태인지 확인"""

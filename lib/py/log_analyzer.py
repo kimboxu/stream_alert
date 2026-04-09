@@ -16,7 +16,7 @@ from PIL import Image as PILImage
 try:
     from base import format_time_for_comment
     from chat_analyzer import StreamHighlight
-    from genai_model import get_genai_model
+    from genai_model import get_genai_models
 
     AI_AVAILABLE = True
 except ImportError as e:
@@ -1667,7 +1667,7 @@ class SessionBasedFunScoreAnalyzer:
                     session_logs, session_stats
                 )
 
-            model = get_genai_model(0, is_emergency=True)
+            model = get_genai_models(0, is_emergency=True)
             print(f"{datetime.now()} 단순 키워드 기반 하이라이트용 AI 모델 로드 완료")
 
             # 1단계: 단순 키워드 기반 하이라이트 데이터 수집
@@ -2006,7 +2006,7 @@ class SessionBasedFunScoreAnalyzer:
                 )
                 return await self._export_highlights_basic(session_logs, session_stats)
 
-            model = get_genai_model(0, is_emergency=True)
+            model = get_genai_models(0, is_emergency=True)
 
             print(f"{datetime.now()} AI 모델 로드 완료")
 
