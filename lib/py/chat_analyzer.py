@@ -294,7 +294,7 @@ class ChatAnalyzer:
 
         # 임계값 설정
         self.small_fun_difference = 25  # 작은 재미 차이
-        self.big_fun_difference = 80  # 큰 재미 차이
+        self.big_fun_difference = 85  # 큰 재미 차이
         self.cooldown = 120  # 쿨다운
 
         # 로그 파일 설정
