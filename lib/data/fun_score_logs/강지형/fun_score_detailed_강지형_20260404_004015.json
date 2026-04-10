@@ -1,0 +1,3927 @@
+{
+  "channel_id": "cheongalice",
+  "channel_name": "강지형",
+  "save_timestamp": "2026-04-04T00:40:15.180287",
+  "total_logs": 74,
+  "logs": [
+    {
+      "timestamp": "2026-04-04T00:33:44.249271",
+      "fun_score": 70.25160662358056,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 77.25023681442184,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 39.89000057090714,
+        "viewer_trend_score": 10,
+        "final_score": 70.25160662358056,
+        "baseline_chat_count": 5.056979385276415,
+        "baseline_viewer_count": 89.84110870166757,
+        "baseline_threshold": 27.741926592259016,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 62.49784195930414,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 91,
+        "fun_keywords": {
+          "laugh": 8.2,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "04:57:53",
+      "comment_after_openDate": "04:57:53",
+      "chat_context": [
+        "반반땅기: ㄱㅇㅇ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "강삣삐: ㄱㅇㅇ",
+        "떡돈: 아ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 아옹아옹~",
+        "피망고양이: ㅋㅋㅋㅋ",
+        "박티백: 먀옹 먕옹~",
+        "박승갈: 어후 귀여워라!!",
+        "피망고양이: ㄱㅇㅇ",
+        "다신: 오리지널로?"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:33:49.254403",
+      "fun_score": 60.98538967553586,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 56.00876340244698,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 42.81446144434716,
+        "viewer_trend_score": 10,
+        "final_score": 60.98538967553586,
+        "baseline_chat_count": 5.1426535227654675,
+        "baseline_viewer_count": 89.85221088030559,
+        "baseline_threshold": 28.149169326959075,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 53.23162501125944,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 91,
+        "fun_keywords": {
+          "laugh": 8.2,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "04:57:58",
+      "comment_after_openDate": "04:57:58",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "강삣삐: ㄱㅇㅇ",
+        "떡돈: 아ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 아옹아옹~",
+        "피망고양이: ㅋㅋㅋㅋ",
+        "박티백: 먀옹 먕옹~",
+        "박승갈: 어후 귀여워라!!",
+        "피망고양이: ㄱㅇㅇ",
+        "다신: 오리지널로?"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:33:54.258674",
+      "fun_score": 16.501296977200496,
+      "test_fun_score": 19.059713304885125,
+      "score_components": {
+        "chat_spike_score": 6.998905371249296,
+        "reaction_score": 25.04279972609845,
+        "test_reaction_score": 19.059713304885125,
+        "diversity_score": 43.38949642308778,
+        "viewer_trend_score": 10,
+        "final_score": 16.501296977200496,
+        "baseline_chat_count": 5.217926902017374,
+        "baseline_viewer_count": 89.86320670007227,
+        "baseline_threshold": 28.463740317898438,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 8.744008049727967,
+        "test_score_difference": 18.99264327879183,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 91,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "04:58:03",
+      "comment_after_openDate": "04:58:03",
+      "chat_context": [
+        "떡돈: 아ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 아옹아옹~",
+        "피망고양이: ㅋㅋㅋㅋ",
+        "박티백: 먀옹 먕옹~",
+        "박승갈: 어후 귀여워라!!",
+        "피망고양이: ㄱㅇㅇ",
+        "다신: 오리지널로?"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:33:59.263595",
+      "fun_score": 8.362097240615462,
+      "test_fun_score": 4.386899397280907,
+      "score_components": {
+        "chat_spike_score": 3.293441440874308,
+        "reaction_score": 4.386899397280907,
+        "test_reaction_score": 4.386899397280907,
+        "diversity_score": 40.63978773037751,
+        "viewer_trend_score": 10,
+        "final_score": 8.362097240615462,
+        "baseline_chat_count": 5.234999162296047,
+        "baseline_viewer_count": 89.87409717988558,
+        "baseline_threshold": 28.349140110694552,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 91,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "04:58:08",
+      "comment_after_openDate": "04:58:08",
+      "chat_context": [
+        "피망고양이: ㅋㅋㅋㅋ",
+        "박티백: 먀옹 먕옹~",
+        "박승갈: 어후 귀여워라!!",
+        "피망고양이: ㄱㅇㅇ",
+        "다신: 오리지널로?"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:34:04.321574",
+      "fun_score": 14.410326115179728,
+      "test_fun_score": 15.77140690065954,
+      "score_components": {
+        "chat_spike_score": 3.2961045979328354,
+        "reaction_score": 20.82493945971375,
+        "test_reaction_score": 15.77140690065954,
+        "diversity_score": 51.795972081958254,
+        "viewer_trend_score": 10,
+        "final_score": 14.410326115179728,
+        "baseline_chat_count": 5.232747870321251,
+        "baseline_viewer_count": 89.88488332890228,
+        "baseline_threshold": 28.157664239999193,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.048228874564266,
+        "test_score_difference": 11.384507503378632,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 92,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:58:13",
+      "comment_after_openDate": "04:58:13",
+      "chat_context": [
+        "박승갈: 어후 귀여워라!!",
+        "피망고양이: ㄱㅇㅇ",
+        "다신: 오리지널로?",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 와옹와옹~"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:34:09.326602",
+      "fun_score": 9.21019971138491,
+      "test_fun_score": 4.402373703581147,
+      "score_components": {
+        "chat_spike_score": 1.5490715393094343,
+        "reaction_score": 5.931012782499376,
+        "test_reaction_score": 4.402373703581147,
+        "diversity_score": 52.33813683945851,
+        "viewer_trend_score": 10,
+        "final_score": 9.21019971138491,
+        "baseline_chat_count": 5.230518145723574,
+        "baseline_viewer_count": 89.90514614661139,
+        "baseline_threshold": 28.02596474076342,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8481024707694473,
+        "test_score_difference": 0.015474306300239604,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 92,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:58:18",
+      "comment_after_openDate": "04:58:18",
+      "chat_context": [
+        "다신: 오리지널로?",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 와옹와옹~"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:34:14.331000",
+      "fun_score": 7.465113411877007,
+      "test_fun_score": 1.1875714428634248,
+      "score_components": {
+        "chat_spike_score": 1.0627597134868871,
+        "reaction_score": 1.6111200230065823,
+        "test_reaction_score": 1.1875714428634248,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 7.465113411877007,
+        "baseline_chat_count": 5.209149781887541,
+        "baseline_viewer_count": 89.92521484652684,
+        "baseline_threshold": 27.84570971178197,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 92,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:58:23",
+      "comment_after_openDate": "04:58:23",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 와옹와옹~"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:34:19.335588",
+      "fun_score": 7.476442505619842,
+      "test_fun_score": 1.2079245241454892,
+      "score_components": {
+        "chat_spike_score": 1.0675897840814437,
+        "reaction_score": 1.641638562924197,
+        "test_reaction_score": 1.2079245241454892,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 7.476442505619842,
+        "baseline_chat_count": 5.178406126977059,
+        "baseline_viewer_count": 89.9450912882971,
+        "baseline_threshold": 27.650463599228882,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.01132909374283475,
+        "test_score_difference": 0.020353081282064478,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 92,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:58:28",
+      "comment_after_openDate": "04:58:28",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 와옹와옹~"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:34:24.340992",
+      "fun_score": 7.487978835569652,
+      "test_fun_score": 1.2286700475288177,
+      "score_components": {
+        "chat_spike_score": 1.0724523521943938,
+        "reaction_score": 1.6727991439208039,
+        "test_reaction_score": 1.2286700475288177,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 7.487978835569652,
+        "baseline_chat_count": 5.147956996280619,
+        "baseline_viewer_count": 89.96477731375522,
+        "baseline_threshold": 27.457196477152106,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.02286542369264488,
+        "test_score_difference": 0.041098604665392946,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 92,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:58:33",
+      "comment_after_openDate": "04:58:33",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 와옹와옹~"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:34:29.349890",
+      "fun_score": 7.499726386220199,
+      "test_fun_score": 1.2498153508552772,
+      "score_components": {
+        "chat_spike_score": 1.0773474680758697,
+        "reaction_score": 1.704614972267081,
+        "test_reaction_score": 1.2498153508552772,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 7.499726386220199,
+        "baseline_chat_count": 5.117799568256251,
+        "baseline_viewer_count": 89.98427474708944,
+        "baseline_threshold": 27.265891372145745,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.03461297434319199,
+        "test_score_difference": 0.06224390799185242,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 92,
+        "fun_keywords": {
+          "laugh": 1.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:58:38",
+      "comment_after_openDate": "04:58:38",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: 와옹와옹~"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:34:54.382350",
+      "fun_score": 7.172573292326676,
+      "test_fun_score": 0.3227267727832854,
+      "score_components": {
+        "chat_spike_score": 1.0822751787089113,
+        "reaction_score": 0.44172151106224805,
+        "test_reaction_score": 0.3227267727832854,
+        "diversity_score": 50.53033008588991,
+        "viewer_trend_score": 10,
+        "final_score": 7.172573292326676,
+        "baseline_chat_count": 5.087931048392356,
+        "baseline_viewer_count": 90.00358539501232,
+        "baseline_threshold": 27.076531511580576,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 92,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "04:59:03",
+      "comment_after_openDate": "04:59:03",
+      "chat_context": [
+        "다신: {:cheong17A45ewtrsdgf:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:34:59.423469",
+      "fun_score": 13.055616134718587,
+      "test_fun_score": 7.42689064748493,
+      "score_components": {
+        "chat_spike_score": 2.3818569227480633,
+        "reaction_score": 18.118163173705916,
+        "test_reaction_score": 7.42689064748493,
+        "diversity_score": 50.483315673701824,
+        "viewer_trend_score": 10,
+        "final_score": 13.055616134718587,
+        "baseline_chat_count": 5.058348668948757,
+        "baseline_viewer_count": 90.02271104692811,
+        "baseline_threshold": 26.885851591840122,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.883042842391911,
+        "test_score_difference": 7.104163874701644,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 92,
+        "fun_keywords": {
+          "laugh": 3.5999999999999996
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "04:59:08",
+      "comment_after_openDate": "04:59:08",
+      "chat_context": [
+        "다신: {:cheong17A45ewtrsdgf:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:04.430135",
+      "fun_score": 32.338040742976986,
+      "test_fun_score": 31.92236578909857,
+      "score_components": {
+        "chat_spike_score": 3.530388956926309,
+        "reaction_score": 80.58256437761176,
+        "test_reaction_score": 31.92236578909857,
+        "diversity_score": 50.74596399076616,
+        "viewer_trend_score": 10,
+        "final_score": 32.338040742976986,
+        "baseline_chat_count": 5.0482096887002275,
+        "baseline_viewer_count": 90.04165347509854,
+        "baseline_threshold": 26.753357936160896,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 25.16546745065031,
+        "test_score_difference": 31.599639016315287,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 4.8
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "04:59:13",
+      "comment_after_openDate": "04:59:13",
+      "chat_context": [
+        "다신: {:cheong17A45ewtrsdgf:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:09.444486",
+      "fun_score": 43.28812175478117,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 16.12251055739083,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 45.329920039553016,
+        "viewer_trend_score": 10,
+        "final_score": 43.28812175478117,
+        "baseline_chat_count": 5.047747839882479,
+        "baseline_viewer_count": 90.1178944348071,
+        "baseline_threshold": 26.806859197450194,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 36.1155484624545,
+        "test_score_difference": 99.67727322721672,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 9.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "04:59:18",
+      "comment_after_openDate": "04:59:13",
+      "chat_context": [
+        "다신: {:cheong17A45ewtrsdgf:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 으하하하하",
+        "다신: {:cheong17Awersgfx:}{:cheong17Awersgfx:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:14.451081",
+      "fun_score": 54.89661804118805,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 43.482730530486776,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 38.293893024689986,
+        "viewer_trend_score": 10,
+        "final_score": 54.89661804118805,
+        "baseline_chat_count": 5.085610415576405,
+        "baseline_viewer_count": 90.19340500612164,
+        "baseline_threshold": 26.96474969274942,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 47.724044748861374,
+        "test_score_difference": 99.67727322721672,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 10.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:59:23",
+      "comment_after_openDate": "04:59:13",
+      "chat_context": [
+        "다신: {:cheong17A45ewtrsdgf:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 으하하하하",
+        "다신: {:cheong17Awersgfx:}{:cheong17Awersgfx:}",
+        "똥슈리소울이: 좋다",
+        "피망고양이: 올 ㅋㅋㅋ",
+        "반반땅기: 해피캣~"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:19.521927",
+      "fun_score": 60.080696951604516,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 55.645555892650975,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.401967999115776,
+        "viewer_trend_score": 10,
+        "final_score": 60.080696951604516,
+        "baseline_chat_count": 5.151850267795183,
+        "baseline_viewer_count": 90.26819218616299,
+        "baseline_threshold": 27.23233699152746,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 52.90812365927784,
+        "test_score_difference": 99.67727322721672,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 10.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:59:28",
+      "comment_after_openDate": "04:59:13",
+      "chat_context": [
+        "다신: {:cheong17A45ewtrsdgf:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 으하하하하",
+        "다신: {:cheong17Awersgfx:}{:cheong17Awersgfx:}",
+        "똥슈리소울이: 좋다",
+        "피망고양이: 올 ㅋㅋㅋ",
+        "반반땅기: 해피캣~",
+        "귓군영: {:cheong17Awersgfx:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:24.527159",
+      "fun_score": 58.41316263557219,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 52.77745443006809,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.63308142041553,
+        "viewer_trend_score": 10,
+        "final_score": 58.41316263557219,
+        "baseline_chat_count": 5.227035542229705,
+        "baseline_viewer_count": 90.34226290501955,
+        "baseline_threshold": 27.547024279945,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 51.24058934324552,
+        "test_score_difference": 99.67727322721672,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 8.8,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:59:33",
+      "comment_after_openDate": "04:59:33",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 으하하하하",
+        "다신: {:cheong17Awersgfx:}{:cheong17Awersgfx:}",
+        "똥슈리소울이: 좋다",
+        "피망고양이: 올 ㅋㅋㅋ",
+        "반반땅기: 해피캣~",
+        "귓군영: {:cheong17Awersgfx:}",
+        "반반땅기: 근데 저 고양이 죽었다는데 ㅠ",
+        "박승갈: {:d_3:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:29.531914",
+      "fun_score": 51.28744312128332,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 37.29802405356362,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.033322971796824,
+        "viewer_trend_score": 10,
+        "final_score": 51.28744312128332,
+        "baseline_chat_count": 5.301500541735144,
+        "baseline_viewer_count": 90.41562402638947,
+        "baseline_threshold": 27.842721885391907,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 44.11486982895664,
+        "test_score_difference": 99.67727322721672,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 6.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:59:38",
+      "comment_after_openDate": "04:59:38",
+      "chat_context": [
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 으하하하하",
+        "다신: {:cheong17Awersgfx:}{:cheong17Awersgfx:}",
+        "똥슈리소울이: 좋다",
+        "피망고양이: 올 ㅋㅋㅋ",
+        "반반땅기: 해피캣~",
+        "귓군영: {:cheong17Awersgfx:}",
+        "반반땅기: 근데 저 고양이 죽었다는데 ㅠ",
+        "박승갈: {:d_3:}",
+        "귓군영: 아와우도 귀여웟는데"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:34.537944",
+      "fun_score": 51.6428085204989,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 35.68304881888282,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.854365520016373,
+        "viewer_trend_score": 20,
+        "final_score": 51.6428085204989,
+        "baseline_chat_count": 5.365672166545321,
+        "baseline_viewer_count": 90.48828234821666,
+        "baseline_threshold": 28.067322314831745,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 44.47023522817223,
+        "test_score_difference": 99.67727322721672,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 6.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "04:59:43",
+      "comment_after_openDate": "04:59:43",
+      "chat_context": [
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 으하하하하",
+        "다신: {:cheong17Awersgfx:}{:cheong17Awersgfx:}",
+        "똥슈리소울이: 좋다",
+        "피망고양이: 올 ㅋㅋㅋ",
+        "반반땅기: 해피캣~",
+        "귓군영: {:cheong17Awersgfx:}",
+        "반반땅기: 근데 저 고양이 죽었다는데 ㅠ",
+        "박승갈: {:d_3:}",
+        "귓군영: 아와우도 귀여웟는데",
+        "피망고양이: ㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:39.542968",
+      "fun_score": 18.77351232238388,
+      "test_fun_score": 18.388148795143824,
+      "score_components": {
+        "chat_spike_score": 12.777497564474697,
+        "reaction_score": 23.935994783352147,
+        "test_reaction_score": 18.388148795143824,
+        "diversity_score": 28.428399833646246,
+        "viewer_trend_score": 20,
+        "final_score": 18.77351232238388,
+        "baseline_chat_count": 5.429229027189816,
+        "baseline_viewer_count": 90.56024460332074,
+        "baseline_threshold": 28.293175472682034,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 11.600939030057205,
+        "test_score_difference": 18.06542202236054,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "04:59:48",
+      "comment_after_openDate": "04:59:48",
+      "chat_context": [
+        "똥슈리소울이: 좋다",
+        "피망고양이: 올 ㅋㅋㅋ",
+        "반반땅기: 해피캣~",
+        "귓군영: {:cheong17Awersgfx:}",
+        "반반땅기: 근데 저 고양이 죽었다는데 ㅠ",
+        "박승갈: {:d_3:}",
+        "귓군영: 아와우도 귀여웟는데",
+        "피망고양이: ㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:44.548190",
+      "fun_score": 7.369220802032453,
+      "test_fun_score": 1.2468533014624894,
+      "score_components": {
+        "chat_spike_score": 4.360954397390775,
+        "reaction_score": 1.667557533616653,
+        "test_reaction_score": 1.2468533014624894,
+        "diversity_score": 34.065240631216085,
+        "viewer_trend_score": 10,
+        "final_score": 7.369220802032453,
+        "baseline_chat_count": 5.4634370131093375,
+        "baseline_viewer_count": 90.63151746002093,
+        "baseline_threshold": 28.201977099702177,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.1966475097057776,
+        "test_score_difference": 0.924126528679204,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "04:59:53",
+      "comment_after_openDate": "04:59:53",
+      "chat_context": [
+        "귓군영: {:cheong17Awersgfx:}",
+        "반반땅기: 근데 저 고양이 죽었다는데 ㅠ",
+        "박승갈: {:d_3:}",
+        "귓군영: 아와우도 귀여웟는데",
+        "피망고양이: ㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:49.553367",
+      "fun_score": 68.73132367399938,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 74.84599298464313,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.506268309099774,
+        "viewer_trend_score": 10,
+        "final_score": 68.73132367399938,
+        "baseline_chat_count": 5.468577286523749,
+        "baseline_viewer_count": 90.70210752275392,
+        "baseline_threshold": 28.0023992943705,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 61.55875038167271,
+        "test_score_difference": 99.67727322721672,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 8.200000000000001
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "04:59:58",
+      "comment_after_openDate": "04:59:13",
+      "chat_context": [
+        "반반땅기: 근데 저 고양이 죽었다는데 ㅠ",
+        "박승갈: {:d_3:}",
+        "귓군영: 아와우도 귀여웟는데",
+        "피망고양이: ㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "떡돈: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅌ",
+        "087: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "노란주황: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "반반땅기: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "고마운틴: {:d_43:}{:d_43:}{:d_43:}{:d_43:}",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:54.558322",
+      "fun_score": 79.99886976858278,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 34.98869768582782,
+        "viewer_trend_score": 10,
+        "final_score": 79.99886976858278,
+        "baseline_chat_count": 5.559888316118852,
+        "baseline_viewer_count": 90.77202133268594,
+        "baseline_threshold": 28.39258238992734,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.8262964762561,
+        "test_score_difference": 99.67727322721672,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 11.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 10.0
+        }
+      },
+      "after_openDate": "05:00:03",
+      "comment_after_openDate": "04:59:13",
+      "chat_context": [
+        "귓군영: 아와우도 귀여웟는데",
+        "피망고양이: ㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "떡돈: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅌ",
+        "087: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "노란주황: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "반반땅기: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "고마운틴: {:d_43:}{:d_43:}{:d_43:}{:d_43:}",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "얀삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: 신난다",
+        "똥슈리소울이: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:35:59.563899",
+      "fun_score": 79.92284543021903,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 34.22845430219025,
+        "viewer_trend_score": 10,
+        "final_score": 79.92284543021903,
+        "baseline_chat_count": 5.698224586050434,
+        "baseline_viewer_count": 90.8412653683188,
+        "baseline_threshold": 28.886970623014857,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.55362462818657,
+        "test_score_difference": 98.7531466985375,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 12.999999999999998
+        },
+        "test_keyword_counter": {
+          "laugh": 11.0
+        }
+      },
+      "after_openDate": "05:00:08",
+      "comment_after_openDate": "05:00:08",
+      "chat_context": [
+        "피망고양이: ㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋ",
+        "떡돈: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅌ",
+        "087: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "노란주황: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "반반땅기: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "고마운틴: {:d_43:}{:d_43:}{:d_43:}{:d_43:}",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "얀삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: 신난다",
+        "똥슈리소울이: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 아우아우",
+        "피망고양이: {:d_54:}{:d_54:}{:d_54:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:04.568216",
+      "fun_score": 79.90309683473478,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 34.03096834734776,
+        "viewer_trend_score": 10,
+        "final_score": 79.90309683473478,
+        "baseline_chat_count": 5.85439559451607,
+        "baseline_viewer_count": 90.90984604609031,
+        "baseline_threshold": 29.375894303667874,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.53387603270232,
+        "test_score_difference": 98.7531466985375,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 10.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "05:00:13",
+      "comment_after_openDate": "05:00:13",
+      "chat_context": [
+        "떡돈: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅌ",
+        "087: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "노란주황: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "반반땅기: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "고마운틴: {:d_43:}{:d_43:}{:d_43:}{:d_43:}",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "얀삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: 신난다",
+        "똥슈리소울이: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 아우아우",
+        "피망고양이: {:d_54:}{:d_54:}{:d_54:}",
+        "반반땅기: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "똥슈리소울이: {:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:09.572920",
+      "fun_score": 79.63096522384659,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.309652238465823,
+        "viewer_trend_score": 10,
+        "final_score": 79.63096522384659,
+        "baseline_chat_count": 6.009070484720606,
+        "baseline_viewer_count": 90.97776972096877,
+        "baseline_threshold": 29.859944903915494,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.26174442181413,
+        "test_score_difference": 98.7531466985375,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 24,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 10.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "05:00:18",
+      "comment_after_openDate": "05:00:18",
+      "chat_context": [
+        "떡돈: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅌ",
+        "087: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "노란주황: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "반반땅기: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "고마운틴: {:d_43:}{:d_43:}{:d_43:}{:d_43:}",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "얀삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: 신난다",
+        "똥슈리소울이: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 아우아우",
+        "피망고양이: {:d_54:}{:d_54:}{:d_54:}",
+        "반반땅기: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "똥슈리소울이: {:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}",
+        "고마운틴: {:d_42:}{:d_42:}{:d_42:}",
+        "귓군영: {:cheong1735qyefgd:}{:cheong1735qyefgd:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:14.579133",
+      "fun_score": 79.52315034463467,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.231503446346714,
+        "viewer_trend_score": 10,
+        "final_score": 79.52315034463467,
+        "baseline_chat_count": 6.1814235894769824,
+        "baseline_viewer_count": 91.04504268704189,
+        "baseline_threshold": 30.336751278580433,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.15392954260221,
+        "test_score_difference": 98.7531466985375,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 25,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 10.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "05:00:23",
+      "comment_after_openDate": "05:00:23",
+      "chat_context": [
+        "떡돈: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅌ",
+        "087: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "노란주황: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "반반땅기: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "고마운틴: {:d_43:}{:d_43:}{:d_43:}{:d_43:}",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "얀삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: 신난다",
+        "똥슈리소울이: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 아우아우",
+        "피망고양이: {:d_54:}{:d_54:}{:d_54:}",
+        "반반땅기: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "똥슈리소울이: {:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}",
+        "고마운틴: {:d_42:}{:d_42:}{:d_42:}",
+        "귓군영: {:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "피망고양이: 먀마옹 먀마옹"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:19.584293",
+      "fun_score": 32.64499625453632,
+      "test_fun_score": 9.760850978350827,
+      "score_components": {
+        "chat_spike_score": 43.36439273473161,
+        "reaction_score": 24.609489684949672,
+        "test_reaction_score": 9.760850978350827,
+        "diversity_score": 42.48172618422196,
+        "viewer_trend_score": 10,
+        "final_score": 32.64499625453632,
+        "baseline_chat_count": 6.361705551489792,
+        "baseline_viewer_count": 91.11167117810002,
+        "baseline_threshold": 30.807956981633232,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 25.275775452503872,
+        "test_score_difference": 8.513997676888337,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 4.8
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "05:00:28",
+      "comment_after_openDate": "05:00:28",
+      "chat_context": [
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "얀삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귓군영: 신난다",
+        "똥슈리소울이: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "강삣삐: {:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: 아우아우",
+        "피망고양이: {:d_54:}{:d_54:}{:d_54:}",
+        "반반땅기: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "똥슈리소울이: {:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}",
+        "고마운틴: {:d_42:}{:d_42:}{:d_42:}",
+        "귓군영: {:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "피망고양이: 먀마옹 먀마옹"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:24.595648",
+      "fun_score": 7.958748724387568,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 4.259693562052638,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 45.21765613635891,
+        "viewer_trend_score": 10,
+        "final_score": 7.958748724387568,
+        "baseline_chat_count": 6.44446041230652,
+        "baseline_viewer_count": 91.17766136821382,
+        "baseline_threshold": 30.82555581786764,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5895279223551144,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 98,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "05:00:33",
+      "comment_after_openDate": "05:00:33",
+      "chat_context": [
+        "박승갈: 아우아우",
+        "피망고양이: {:d_54:}{:d_54:}{:d_54:}",
+        "반반땅기: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "똥슈리소울이: {:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}",
+        "고마운틴: {:d_42:}{:d_42:}{:d_42:}",
+        "귓군영: {:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "피망고양이: 먀마옹 먀마옹"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:29.600673",
+      "fun_score": 8.714298049990838,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 4.252226789431582,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 52.806749869186355,
+        "viewer_trend_score": 10,
+        "final_score": 8.714298049990838,
+        "baseline_chat_count": 6.449782481556623,
+        "baseline_viewer_count": 91.24301937230632,
+        "baseline_threshold": 30.6064918059121,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.3450772479583843,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 98,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "05:00:38",
+      "comment_after_openDate": "05:00:38",
+      "chat_context": [
+        "반반땅기: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "똥슈리소울이: {:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}{:cheong1735qyefgd:}{:cheong17Ae5ryaegf:}",
+        "고마운틴: {:d_42:}{:d_42:}{:d_42:}",
+        "귓군영: {:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "피망고양이: 먀마옹 먀마옹",
+        "박승갈: 그러게요?",
+        "다신: 후원봉투라"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:34.605742",
+      "fun_score": 7.142210106605658,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 4.244856274809604,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 37.11903775113347,
+        "viewer_trend_score": 10,
+        "final_score": 7.142210106605658,
+        "baseline_chat_count": 6.45505356538331,
+        "baseline_viewer_count": 91.30775124671962,
+        "baseline_threshold": 30.396764589730374,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 98,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "05:00:43",
+      "comment_after_openDate": "05:00:43",
+      "chat_context": [
+        "고마운틴: {:d_42:}{:d_42:}{:d_42:}",
+        "귓군영: {:cheong1735qyefgd:}{:cheong1735qyefgd:}",
+        "피망고양이: 먀마옹 먀마옹",
+        "박승갈: 그러게요?",
+        "다신: 후원봉투라",
+        "귓군영: 봉투",
+        "다신: 시청자가 지정하는거임"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:39.611174",
+      "fun_score": 7.297781627967984,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 3.126972549535335,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 43.705229728490934,
+        "viewer_trend_score": 10,
+        "final_score": 7.297781627967984,
+        "baseline_chat_count": 6.460274152226938,
+        "baseline_viewer_count": 91.37186298977603,
+        "baseline_threshold": 30.173985957782037,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.15557152136232588,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 98,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "05:00:48",
+      "comment_after_openDate": "05:00:48",
+      "chat_context": [
+        "피망고양이: 먀마옹 먀마옹",
+        "박승갈: 그러게요?",
+        "다신: 후원봉투라",
+        "귓군영: 봉투",
+        "다신: 시청자가 지정하는거임",
+        "박티백: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:44.616656",
+      "fun_score": 6.728825397818607,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.3064220284748354,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 41.70814477176942,
+        "viewer_trend_score": 10,
+        "final_score": 6.728825397818607,
+        "baseline_chat_count": 6.4558647258486035,
+        "baseline_viewer_count": 91.43536054233398,
+        "baseline_threshold": 29.954831920302418,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 98,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "05:00:53",
+      "comment_after_openDate": "05:00:53",
+      "chat_context": [
+        "박승갈: 그러게요?",
+        "다신: 후원봉투라",
+        "귓군영: 봉투",
+        "다신: 시청자가 지정하는거임",
+        "박티백: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:49.628867",
+      "fun_score": 7.262122836199218,
+      "test_fun_score": 0.23200946722981827,
+      "score_components": {
+        "chat_spike_score": 4.2632700558608,
+        "reaction_score": 0.29732458479224877,
+        "test_reaction_score": 0.23200946722981827,
+        "diversity_score": 37.54453935624183,
+        "viewer_trend_score": 10,
+        "final_score": 7.262122836199218,
+        "baseline_chat_count": 6.441917541774974,
+        "baseline_viewer_count": 91.49824978833841,
+        "baseline_threshold": 29.732326777817022,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.533297438380611,
+        "test_score_difference": 0.16493944113652265,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:00:58",
+      "comment_after_openDate": "05:00:58",
+      "chat_context": [
+        "박승갈: 그러게요?",
+        "다신: 후원봉투라",
+        "귓군영: 봉투",
+        "다신: 시청자가 지정하는거임",
+        "박티백: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "귓군영: ㅔㅔ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:54.634298",
+      "fun_score": 6.53372154003253,
+      "test_fun_score": 0.23177093790387407,
+      "score_components": {
+        "chat_spike_score": 3.138531200677281,
+        "reaction_score": 0.2969579263526477,
+        "test_reaction_score": 0.23177093790387407,
+        "diversity_score": 35.322951218219586,
+        "viewer_trend_score": 10,
+        "final_score": 6.53372154003253,
+        "baseline_chat_count": 6.4472639717247695,
+        "baseline_viewer_count": 91.56053655536613,
+        "baseline_threshold": 29.517062224056325,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.16470091181057844,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:01:03",
+      "comment_after_openDate": "05:01:03",
+      "chat_context": [
+        "다신: 후원봉투라",
+        "귓군영: 봉투",
+        "다신: 시청자가 지정하는거임",
+        "박티백: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "귓군영: ㅔㅔ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:36:59.644519",
+      "fun_score": 6.548259624384201,
+      "test_fun_score": 0.231962051427618,
+      "score_components": {
+        "chat_spike_score": 3.1423573863152283,
+        "reaction_score": 0.2972516930024989,
+        "test_reaction_score": 0.231962051427618,
+        "diversity_score": 35.450232926415985,
+        "viewer_trend_score": 10,
+        "final_score": 6.548259624384201,
+        "baseline_chat_count": 6.442979182875646,
+        "baseline_viewer_count": 91.62222661516572,
+        "baseline_threshold": 29.296881820303376,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.014538084351671365,
+        "test_score_difference": 0.16489202533432237,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 98,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:01:08",
+      "comment_after_openDate": "05:01:08",
+      "chat_context": [
+        "귓군영: 봉투",
+        "다신: 시청자가 지정하는거임",
+        "박티백: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "귓군영: ㅔㅔ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "다신: ㅔㅔ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:04.651981",
+      "fun_score": 7.858951181677229,
+      "test_fun_score": 0.23215174025914254,
+      "score_components": {
+        "chat_spike_score": 2.315835720619462,
+        "reaction_score": 0.2975433173404199,
+        "test_reaction_score": 0.23215174025914254,
+        "diversity_score": 52.27562112196345,
+        "viewer_trend_score": 10,
+        "final_score": 7.858951181677229,
+        "baseline_chat_count": 6.438735442303697,
+        "baseline_viewer_count": 91.68332568419243,
+        "baseline_threshold": 29.078950019666472,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.3252296416446994,
+        "test_score_difference": 0.1650817141658469,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:01:13",
+      "comment_after_openDate": "05:01:13",
+      "chat_context": [
+        "박티백: {:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}{:cheong17Aqw45eyrdgf:}",
+        "귓군영: ㅔㅔ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "다신: ㅔㅔ",
+        "똥슈리소울이: 방종금지"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:09.661757",
+      "fun_score": 7.45504229881737,
+      "test_fun_score": 0.23277062682786365,
+      "score_components": {
+        "chat_spike_score": 1.707260164748171,
+        "reaction_score": 0.2984951124442755,
+        "test_reaction_score": 0.23277062682786365,
+        "diversity_score": 50.972266909474094,
+        "viewer_trend_score": 10,
+        "final_score": 7.45504229881737,
+        "baseline_chat_count": 6.424952356766428,
+        "baseline_viewer_count": 91.80131942413786,
+        "baseline_threshold": 28.875662430798535,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.92132075878484,
+        "test_score_difference": 0.16570060073456802,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:01:18",
+      "comment_after_openDate": "05:01:18",
+      "chat_context": [
+        "귓군영: ㅔㅔ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "다신: ㅔㅔ",
+        "똥슈리소울이: 방종금지"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:14.667800",
+      "fun_score": 7.2007791582663065,
+      "test_fun_score": 0.2338235427975487,
+      "score_components": {
+        "chat_spike_score": 4.320579467933477,
+        "reaction_score": 0.30011556477893897,
+        "test_reaction_score": 0.2338235427975487,
+        "diversity_score": 36.6648372826256,
+        "viewer_trend_score": 10,
+        "final_score": 7.2007791582663065,
+        "baseline_chat_count": 6.401721313188605,
+        "baseline_viewer_count": 91.91818278405461,
+        "baseline_threshold": 28.670452889934154,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.6670576182337769,
+        "test_score_difference": 0.16675351670425306,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "05:01:23",
+      "comment_after_openDate": "05:01:23",
+      "chat_context": [
+        "귓군영: ㅔㅔ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "다신: ㅔㅔ",
+        "똥슈리소울이: 방종금지",
+        "반반땅기: awaw?",
+        "고마운틴: awawaw",
+        "귓군영: Awaw"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:19.674085",
+      "fun_score": 16.69292909593366,
+      "test_fun_score": 9.432765535639984,
+      "score_components": {
+        "chat_spike_score": 7.902898753485697,
+        "reaction_score": 23.694425587228434,
+        "test_reaction_score": 9.432765535639984,
+        "diversity_score": 45.28296980696567,
+        "viewer_trend_score": 10,
+        "final_score": 16.69292909593366,
+        "baseline_chat_count": 6.407452823008257,
+        "baseline_viewer_count": 92.03392659298336,
+        "baseline_threshold": 28.464773415584776,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.15920755590113,
+        "test_score_difference": 9.365695509546688,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 4.8
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "05:01:28",
+      "comment_after_openDate": "05:01:28",
+      "chat_context": [
+        "다신: ㅔㅔ",
+        "똥슈리소울이: 방종금지",
+        "반반땅기: awaw?",
+        "고마운틴: awawaw",
+        "귓군영: Awaw",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:24.683097",
+      "fun_score": 54.30427390740239,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 41.632711184205604,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 40.69553874509861,
+        "viewer_trend_score": 10,
+        "final_score": 54.30427390740239,
+        "baseline_chat_count": 6.432289424963838,
+        "baseline_viewer_count": 92.14856157622258,
+        "baseline_threshold": 28.351999147002516,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 47.77055236736986,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 10.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "05:01:33",
+      "comment_after_openDate": "05:01:33",
+      "chat_context": [
+        "다신: ㅔㅔ",
+        "똥슈리소울이: 방종금지",
+        "반반땅기: awaw?",
+        "고마운틴: awawaw",
+        "귓군영: Awaw",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋㅋ에",
+        "반반땅기: 강냥이 ㄹㅈㄷ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:29.688570",
+      "fun_score": 57.6858248456565,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 50.40725644561086,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.02559445131611,
+        "viewer_trend_score": 10,
+        "final_score": 57.6858248456565,
+        "baseline_chat_count": 6.514368092272685,
+        "baseline_viewer_count": 92.26209835632235,
+        "baseline_threshold": 28.600621939207144,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 51.15210330562397,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 10.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "05:01:38",
+      "comment_after_openDate": "05:01:33",
+      "chat_context": [
+        "똥슈리소울이: 방종금지",
+        "반반땅기: awaw?",
+        "고마운틴: awawaw",
+        "귓군영: Awaw",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋㅋ에",
+        "반반땅기: 강냥이 ㄹㅈㄷ",
+        "박승갈: 똑같네",
+        "귓군영: 발구르는애"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:34.693767",
+      "fun_score": 52.191716996497874,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 37.75003571404519,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 37.04200925177539,
+        "viewer_trend_score": 10,
+        "final_score": 52.191716996497874,
+        "baseline_chat_count": 6.605240445948712,
+        "baseline_viewer_count": 92.37454745406878,
+        "baseline_threshold": 28.87925818305093,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 45.65799545646534,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 10.799999999999999
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "05:01:43",
+      "comment_after_openDate": "05:01:43",
+      "chat_context": [
+        "반반땅기: awaw?",
+        "고마운틴: awawaw",
+        "귓군영: Awaw",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋㅋ에",
+        "반반땅기: 강냥이 ㄹㅈㄷ",
+        "박승갈: 똑같네",
+        "귓군영: 발구르는애"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:39.699643",
+      "fun_score": 66.19129883789802,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 70.16828425535053,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.155709229902826,
+        "viewer_trend_score": 10,
+        "final_score": 66.19129883789802,
+        "baseline_chat_count": 6.685662242476523,
+        "baseline_viewer_count": 92.48591928945879,
+        "baseline_threshold": 29.10259153848375,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 59.65757729786549,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 13.199999999999998
+        },
+        "test_keyword_counter": {
+          "laugh": 11.0
+        }
+      },
+      "after_openDate": "05:01:48",
+      "comment_after_openDate": "05:01:33",
+      "chat_context": [
+        "반반땅기: awaw?",
+        "고마운틴: awawaw",
+        "귓군영: Awaw",
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋㅋ에",
+        "반반땅기: 강냥이 ㄹㅈㄷ",
+        "박승갈: 똑같네",
+        "귓군영: 발구르는애",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: 재촉냥이",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:44.705199",
+      "fun_score": 79.50920711355478,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.09207113554782,
+        "viewer_trend_score": 10,
+        "final_score": 79.50920711355478,
+        "baseline_chat_count": 6.794053598193598,
+        "baseline_viewer_count": 92.59622418266576,
+        "baseline_threshold": 29.457901354412137,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 72.97548557352225,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 21.399999999999995,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 17.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:01:53",
+      "comment_after_openDate": "05:01:33",
+      "chat_context": [
+        "바닐라프라페: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "유0ㅔ: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋㅋ에",
+        "반반땅기: 강냥이 ㄹㅈㄷ",
+        "박승갈: 똑같네",
+        "귓군영: 발구르는애",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: 재촉냥이",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이라시: 후원유도 ㄷㄷ",
+        "노란주황: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋ흨ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:49.733787",
+      "fun_score": 57.262176452285864,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 49.92281857534671,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 32.96908093379845,
+        "viewer_trend_score": 10,
+        "final_score": 57.262176452285864,
+        "baseline_chat_count": 6.9397265647229025,
+        "baseline_viewer_count": 92.70547235499582,
+        "baseline_threshold": 29.937392863584723,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 50.72845491225333,
+        "test_score_difference": 99.76822906209613,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 15.2,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 11.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:01:58",
+      "comment_after_openDate": "05:01:58",
+      "chat_context": [
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋㅋ에",
+        "반반땅기: 강냥이 ㄹㅈㄷ",
+        "박승갈: 똑같네",
+        "귓군영: 발구르는애",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: 재촉냥이",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이라시: 후원유도 ㄷㄷ",
+        "노란주황: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋ흨ㅋㅋㅋㅋ",
+        "반반땅기: 5만원이 그건가?",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ바동바동 ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:54.741852",
+      "fun_score": 46.03211489260682,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 23.412943419455388,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 39.96290353851899,
+        "viewer_trend_score": 10,
+        "final_score": 46.03211489260682,
+        "baseline_chat_count": 7.036103984232857,
+        "baseline_viewer_count": 92.81367392983495,
+        "baseline_threshold": 30.19916429036448,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 39.49839335257429,
+        "test_score_difference": 99.76822906209613,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 12.8,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:02:03",
+      "comment_after_openDate": "05:02:03",
+      "chat_context": [
+        "박승갈: 똑같네",
+        "귓군영: 발구르는애",
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: 재촉냥이",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이라시: 후원유도 ㄷㄷ",
+        "노란주황: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋ흨ㅋㅋㅋㅋ",
+        "반반땅기: 5만원이 그건가?",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ바동바동 ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:37:59.761484",
+      "fun_score": 43.321169564540746,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 17.581102236182886,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 39.0967355825845,
+        "viewer_trend_score": 10,
+        "final_score": 43.321169564540746,
+        "baseline_chat_count": 7.102818108063906,
+        "baseline_viewer_count": 92.92083893358712,
+        "baseline_threshold": 30.350843957133957,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 36.772909940156545,
+        "test_score_difference": 99.76803794857238,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 104,
+        "fun_keywords": {
+          "laugh": 12.8,
+          "excitement": 1.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0,
+          "excitement": 1.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "05:02:08",
+      "comment_after_openDate": "05:02:08",
+      "chat_context": [
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: 재촉냥이",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이라시: 후원유도 ㄷㄷ",
+        "노란주황: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋ흨ㅋㅋㅋㅋ",
+        "반반땅기: 5만원이 그건가?",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ바동바동 ㅋㅋㅋ",
+        "귓군영: ㄹㅇ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:04.772635",
+      "fun_score": 55.12261005356763,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 44.50745619729927,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.94254764782959,
+        "viewer_trend_score": 10,
+        "final_score": 55.12261005356763,
+        "baseline_chat_count": 7.159313110588654,
+        "baseline_viewer_count": 93.02697729660335,
+        "baseline_threshold": 30.475099676452913,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 47.92183089530132,
+        "test_score_difference": 99.76784825974086,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "laugh": 12.8,
+          "excitement": 1.0,
+          "reaction": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0,
+          "excitement": 1.0,
+          "reaction": 2.0
+        }
+      },
+      "after_openDate": "05:02:13",
+      "comment_after_openDate": "05:02:13",
+      "chat_context": [
+        "강삣삐: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: 재촉냥이",
+        "귓군영: ㅋㅋㅋㅋㅋㅋㅋ",
+        "087: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "반반땅기: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이라시: 후원유도 ㄷㄷ",
+        "노란주황: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋ흨ㅋㅋㅋㅋ",
+        "반반땅기: 5만원이 그건가?",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ바동바동 ㅋㅋㅋ",
+        "귓군영: ㄹㅇ",
+        "반반땅기: 여기가 고양이 카페네",
+        "유0ㅔ: 귀 여 워",
+        "고마운틴: ㄹㅇ",
+        "다신: {:cheong17Awersgfx:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:09.781881",
+      "fun_score": 41.13271456292417,
+      "test_fun_score": 31.997799995831933,
+      "score_components": {
+        "chat_spike_score": 12.697829381001235,
+        "reaction_score": 100,
+        "test_reaction_score": 31.997799995831933,
+        "diversity_score": 39.18691341473616,
+        "viewer_trend_score": 10,
+        "final_score": 41.13271456292417,
+        "baseline_chat_count": 7.253586890989214,
+        "baseline_viewer_count": 93.12251885410188,
+        "baseline_threshold": 30.711222825865672,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 33.931935404657864,
+        "test_score_difference": 31.76502936900407,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "laugh": 8.0,
+          "reaction": 2.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "reaction": 2.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:02:18",
+      "comment_after_openDate": "05:02:18",
+      "chat_context": [
+        "노란주황: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "똥슈리소울이: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고마운틴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "윤재영이: ㅋㅋㅋㅋㅋㅋㅋ흨ㅋㅋㅋㅋ",
+        "반반땅기: 5만원이 그건가?",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ바동바동 ㅋㅋㅋ",
+        "귓군영: ㄹㅇ",
+        "반반땅기: 여기가 고양이 카페네",
+        "유0ㅔ: 귀 여 워",
+        "고마운틴: ㄹㅇ",
+        "다신: {:cheong17Awersgfx:}",
+        "우물안의개구리: 백만원도 사운드 넣어줘잉",
+        "반반땅기: ㅇㅎ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:14.787822",
+      "fun_score": 7.925763962738897,
+      "test_fun_score": 0.45456410293623983,
+      "score_components": {
+        "chat_spike_score": 4.330222603518433,
+        "reaction_score": 1.6802400931149122,
+        "test_reaction_score": 0.45456410293623983,
+        "diversity_score": 39.73091763221129,
+        "viewer_trend_score": 10,
+        "final_score": 7.925763962738897,
+        "baseline_chat_count": 7.308637528573537,
+        "baseline_viewer_count": 93.21714512347958,
+        "baseline_threshold": 30.811060716706688,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7249848044725908,
+        "test_score_difference": 0.22074056013869114,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "reaction": 2.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "reaction": 2.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:02:23",
+      "comment_after_openDate": "05:02:23",
+      "chat_context": [
+        "반반땅기: 5만원이 그건가?",
+        "피망고양이: ㅋㅋㅋㅋㅋㅋㅋ바동바동 ㅋㅋㅋ",
+        "귓군영: ㄹㅇ",
+        "반반땅기: 여기가 고양이 카페네",
+        "유0ㅔ: 귀 여 워",
+        "고마운틴: ㄹㅇ",
+        "다신: {:cheong17Awersgfx:}",
+        "우물안의개구리: 백만원도 사운드 넣어줘잉",
+        "반반땅기: ㅇㅎ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:23.340313",
+      "fun_score": 7.482359210904319,
+      "test_fun_score": 0.15208542385842178,
+      "score_components": {
+        "chat_spike_score": 3.2969557585785374,
+        "reaction_score": 0.15208542385842178,
+        "test_reaction_score": 0.15208542385842178,
+        "diversity_score": 44.5310349238645,
+        "viewer_trend_score": 10,
+        "final_score": 7.482359210904319,
+        "baseline_chat_count": 7.324840781049803,
+        "baseline_viewer_count": 93.31086487319664,
+        "baseline_threshold": 30.591819573803676,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "reaction": 2.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 2.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:02:32",
+      "comment_after_openDate": "05:02:32",
+      "chat_context": [
+        "귓군영: ㄹㅇ",
+        "반반땅기: 여기가 고양이 카페네",
+        "유0ㅔ: 귀 여 워",
+        "고마운틴: ㄹㅇ",
+        "다신: {:cheong17Awersgfx:}",
+        "우물안의개구리: 백만원도 사운드 넣어줘잉",
+        "반반땅기: ㅇㅎ",
+        "박티백: 그거 한번 정리해서 사라진듯?"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:28.366886",
+      "fun_score": 7.032803506817276,
+      "test_fun_score": 0.11571139222423621,
+      "score_components": {
+        "chat_spike_score": 2.5155099959845924,
+        "reaction_score": 0.11571139222423621,
+        "test_reaction_score": 0.11571139222423621,
+        "diversity_score": 43.661105909569386,
+        "viewer_trend_score": 10,
+        "final_score": 7.032803506817276,
+        "baseline_chat_count": 7.331308806367345,
+        "baseline_viewer_count": 93.40368678771141,
+        "baseline_threshold": 30.3704309435271,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:02:37",
+      "comment_after_openDate": "05:02:37",
+      "chat_context": [
+        "반반땅기: 여기가 고양이 카페네",
+        "유0ㅔ: 귀 여 워",
+        "고마운틴: ㄹㅇ",
+        "다신: {:cheong17Awersgfx:}",
+        "우물안의개구리: 백만원도 사운드 넣어줘잉",
+        "반반땅기: ㅇㅎ",
+        "박티백: 그거 한번 정리해서 사라진듯?"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:33.519872",
+      "fun_score": 6.957995453119581,
+      "test_fun_score": 0.08810706779003852,
+      "score_components": {
+        "chat_spike_score": 0.8520496323903824,
+        "reaction_score": 0.08810706779003852,
+        "test_reaction_score": 0.08810706779003852,
+        "diversity_score": 50.481409982068975,
+        "viewer_trend_score": 10,
+        "final_score": 6.957995453119581,
+        "baseline_chat_count": 7.328134868002346,
+        "baseline_viewer_count": 93.49561946828513,
+        "baseline_threshold": 30.146856472683417,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:02:42",
+      "comment_after_openDate": "05:02:42",
+      "chat_context": [
+        "우물안의개구리: 백만원도 사운드 넣어줘잉",
+        "반반땅기: ㅇㅎ",
+        "박티백: 그거 한번 정리해서 사라진듯?"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:38.645842",
+      "fun_score": 6.014911008096657,
+      "test_fun_score": 0.08824394464469384,
+      "score_components": {
+        "chat_spike_score": 1.1231162702844677,
+        "reaction_score": 0.08824394464469384,
+        "test_reaction_score": 0.08824394464469384,
+        "diversity_score": 39.830355030752386,
+        "viewer_trend_score": 10,
+        "final_score": 6.014911008096657,
+        "baseline_chat_count": 7.286671335966883,
+        "baseline_viewer_count": 93.58667143377895,
+        "baseline_threshold": 29.924707184115995,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.00013687685465532673,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:02:47",
+      "comment_after_openDate": "05:02:47",
+      "chat_context": [
+        "반반땅기: ㅇㅎ",
+        "박티백: 그거 한번 정리해서 사라진듯?",
+        "우물안의개구리: 웅장해지는걸로",
+        "반반땅기: 강냥이 사운드 어떰"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:43.650910",
+      "fun_score": 7.325257415600673,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.127114261829353,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 52.97934989949475,
+        "viewer_trend_score": 10,
+        "final_score": 7.325257415600673,
+        "baseline_chat_count": 7.25518502456832,
+        "baseline_viewer_count": 93.67685112144333,
+        "baseline_threshold": 29.69565133674973,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.3103464075040154,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 103,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "05:02:52",
+      "comment_after_openDate": "05:02:52",
+      "chat_context": [
+        "박티백: 그거 한번 정리해서 사라진듯?",
+        "우물안의개구리: 웅장해지는걸로",
+        "반반땅기: 강냥이 사운드 어떰"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:48.937821",
+      "fun_score": 7.616614469413978,
+      "test_fun_score": 0.46605213660916744,
+      "score_components": {
+        "chat_spike_score": 1.9631802154664975,
+        "reaction_score": 0.46605213660916744,
+        "test_reaction_score": 0.46605213660916744,
+        "diversity_score": 50.93367731471304,
+        "viewer_trend_score": 10,
+        "final_score": 7.616614469413978,
+        "baseline_chat_count": 7.214420352032955,
+        "baseline_viewer_count": 93.7661668876999,
+        "baseline_threshold": 29.48134296298512,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.6017034613173209,
+        "test_score_difference": 0.39898211051587185,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "05:02:57",
+      "comment_after_openDate": "05:02:57",
+      "chat_context": [
+        "우물안의개구리: 웅장해지는걸로",
+        "반반땅기: 강냥이 사운드 어떰",
+        "쫑긋양이고: 전에 썼던거?",
+        "다신: 직접녹음ㄷㄷ",
+        "히히헤헤호호123: 오이이이이잉"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:53.944165",
+      "fun_score": 7.199751676245627,
+      "test_fun_score": 0.9370695796143327,
+      "score_components": {
+        "chat_spike_score": 2.5947739186742638,
+        "reaction_score": 0.9370695796143327,
+        "test_reaction_score": 0.9370695796143327,
+        "diversity_score": 42.50982538957908,
+        "viewer_trend_score": 10,
+        "final_score": 7.199751676245627,
+        "baseline_chat_count": 7.19320620506048,
+        "baseline_viewer_count": 93.85462700891573,
+        "baseline_threshold": 29.27187886401671,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1848406681489694,
+        "test_score_difference": 0.8699995535210371,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:03:02",
+      "comment_after_openDate": "05:03:02",
+      "chat_context": [
+        "우물안의개구리: 웅장해지는걸로",
+        "반반땅기: 강냥이 사운드 어떰",
+        "쫑긋양이고: 전에 썼던거?",
+        "다신: 직접녹음ㄷㄷ",
+        "히히헤헤호호123: 오이이이이잉",
+        "우물안의개구리: 그거 진짜 좋았는데"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:38:58.949888",
+      "fun_score": 6.980767328421342,
+      "test_fun_score": 0.9409988978032215,
+      "score_components": {
+        "chat_spike_score": 3.422715999260174,
+        "reaction_score": 0.9409988978032215,
+        "test_reaction_score": 0.9409988978032215,
+        "diversity_score": 36.58245459413297,
+        "viewer_trend_score": 10,
+        "final_score": 6.980767328421342,
+        "baseline_chat_count": 7.181775289616,
+        "baseline_viewer_count": 93.94223968217031,
+        "baseline_threshold": 29.06042788555786,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9658563203246846,
+        "test_score_difference": 0.873928871709926,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 103,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:03:07",
+      "comment_after_openDate": "05:03:07",
+      "chat_context": [
+        "우물안의개구리: 웅장해지는걸로",
+        "반반땅기: 강냥이 사운드 어떰",
+        "쫑긋양이고: 전에 썼던거?",
+        "다신: 직접녹음ㄷㄷ",
+        "히히헤헤호호123: 오이이이이잉",
+        "우물안의개구리: 그거 진짜 좋았는데",
+        "다신: 그게 웅장하긴 했음"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:04.020995",
+      "fun_score": 6.981663575919078,
+      "test_fun_score": 0.9416000364043359,
+      "score_components": {
+        "chat_spike_score": 3.4243069012988445,
+        "reaction_score": 0.9416000364043359,
+        "test_reaction_score": 0.9416000364043359,
+        "diversity_score": 36.58245459413297,
+        "viewer_trend_score": 10,
+        "final_score": 6.981663575919078,
+        "baseline_chat_count": 7.180033882341478,
+        "baseline_viewer_count": 94.02901302601511,
+        "baseline_threshold": 28.84890473742049,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9667525678224207,
+        "test_score_difference": 0.8745300103110403,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "05:03:13",
+      "comment_after_openDate": "05:03:13",
+      "chat_context": [
+        "우물안의개구리: 웅장해지는걸로",
+        "반반땅기: 강냥이 사운드 어떰",
+        "쫑긋양이고: 전에 썼던거?",
+        "다신: 직접녹음ㄷㄷ",
+        "히히헤헤호호123: 오이이이이잉",
+        "우물안의개구리: 그거 진짜 좋았는데",
+        "다신: 그게 웅장하긴 했음"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:09.034844",
+      "fun_score": 41.30098841177781,
+      "test_fun_score": 97.0303044011354,
+      "score_components": {
+        "chat_spike_score": 13.11674736643926,
+        "reaction_score": 100,
+        "test_reaction_score": 97.0303044011354,
+        "diversity_score": 38.984520968801434,
+        "viewer_trend_score": 10,
+        "final_score": 41.30098841177781,
+        "baseline_chat_count": 7.178309157748646,
+        "baseline_viewer_count": 94.21075508122587,
+        "baseline_threshold": 28.639416567093306,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 35.28607740368115,
+        "test_score_difference": 96.9632343750421,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "excitement": 4.0,
+          "surprise": 1.0,
+          "laugh": 3.5999999999999996
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0,
+          "surprise": 1.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "05:03:18",
+      "comment_after_openDate": "05:03:18",
+      "chat_context": [
+        "쫑긋양이고: 전에 썼던거?",
+        "다신: 직접녹음ㄷㄷ",
+        "히히헤헤호호123: 오이이이이잉",
+        "우물안의개구리: 그거 진짜 좋았는데",
+        "다신: 그게 웅장하긴 했음",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "노란주황: 배필노래가 좋긴함",
+        "우물안의개구리: 오오",
+        "쫑긋양이고: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: {:cheong17Sfghd546rrt:}{:cheong17Awrgasdfgagf:}{:cheong17Awersgfx:}",
+        "087: 오"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:14.042667",
+      "fun_score": 46.317474229795,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 21.351469884752422,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 37.093127816564134,
+        "viewer_trend_score": 20,
+        "final_score": 46.317474229795,
+        "baseline_chat_count": 7.224500956017414,
+        "baseline_viewer_count": 94.39075604754771,
+        "baseline_threshold": 28.760714425365382,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 40.30256322169835,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "excitement": 5.0,
+          "surprise": 1.0,
+          "laugh": 3.5999999999999996
+        },
+        "test_keyword_counter": {
+          "excitement": 5.0,
+          "surprise": 1.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "05:03:23",
+      "comment_after_openDate": "05:03:18",
+      "chat_context": [
+        "쫑긋양이고: 전에 썼던거?",
+        "다신: 직접녹음ㄷㄷ",
+        "히히헤헤호호123: 오이이이이잉",
+        "우물안의개구리: 그거 진짜 좋았는데",
+        "다신: 그게 웅장하긴 했음",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "노란주황: 배필노래가 좋긴함",
+        "우물안의개구리: 오오",
+        "쫑긋양이고: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: {:cheong17Sfghd546rrt:}{:cheong17Awrgasdfgagf:}{:cheong17Awersgfx:}",
+        "087: 오",
+        "다신: 올",
+        "반반땅기: 짤을 뭘로하지"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:19.049837",
+      "fun_score": 26.7451301750886,
+      "test_fun_score": 27.727303107150806,
+      "score_components": {
+        "chat_spike_score": 12.505832883354106,
+        "reaction_score": 47.43712765107875,
+        "test_reaction_score": 27.727303107150806,
+        "diversity_score": 38.86367082255628,
+        "viewer_trend_score": 20,
+        "final_score": 26.7451301750886,
+        "baseline_chat_count": 7.2894102368587665,
+        "baseline_viewer_count": 94.56903260461219,
+        "baseline_threshold": 28.928908184291817,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 20.730219166991944,
+        "test_score_difference": 27.660233081057513,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "laugh": 3.5999999999999996,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "05:03:28",
+      "comment_after_openDate": "05:03:28",
+      "chat_context": [
+        "다신: 그게 웅장하긴 했음",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "노란주황: 배필노래가 좋긴함",
+        "우물안의개구리: 오오",
+        "쫑긋양이고: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: {:cheong17Sfghd546rrt:}{:cheong17Awrgasdfgagf:}{:cheong17Awersgfx:}",
+        "087: 오",
+        "다신: 올",
+        "반반땅기: 짤을 뭘로하지",
+        "귓군영: 공모받죠",
+        "우물안의개구리: 웅장해지는 고양이"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:24.054402",
+      "fun_score": 26.18793708047342,
+      "test_fun_score": 26.832535349467275,
+      "score_components": {
+        "chat_spike_score": 12.270430550596384,
+        "reaction_score": 45.9329208348314,
+        "test_reaction_score": 26.832535349467275,
+        "diversity_score": 38.86367082255628,
+        "viewer_trend_score": 20,
+        "final_score": 26.18793708047342,
+        "baseline_chat_count": 7.334537686789659,
+        "baseline_viewer_count": 94.74560127225999,
+        "baseline_threshold": 28.90798759096365,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 20.173026072376764,
+        "test_score_difference": 26.76546532337398,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "laugh": 3.5999999999999996,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "05:03:33",
+      "comment_after_openDate": "05:03:33",
+      "chat_context": [
+        "다신: 그게 웅장하긴 했음",
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "노란주황: 배필노래가 좋긴함",
+        "우물안의개구리: 오오",
+        "쫑긋양이고: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: {:cheong17Sfghd546rrt:}{:cheong17Awrgasdfgagf:}{:cheong17Awersgfx:}",
+        "087: 오",
+        "다신: 올",
+        "반반땅기: 짤을 뭘로하지",
+        "귓군영: 공모받죠",
+        "우물안의개구리: 웅장해지는 고양이"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:29.058945",
+      "fun_score": 73.9350529151852,
+      "test_fun_score": 67.15560428989149,
+      "score_components": {
+        "chat_spike_score": 84.70343804362575,
+        "reaction_score": 98.41553343100207,
+        "test_reaction_score": 67.15560428989149,
+        "diversity_score": 32.93845766252986,
+        "viewer_trend_score": 20,
+        "final_score": 73.9350529151852,
+        "baseline_chat_count": 7.379232815750214,
+        "baseline_viewer_count": 94.92047841207173,
+        "baseline_threshold": 28.881929507073153,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 67.92014190708854,
+        "test_score_difference": 67.0885342637982,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "laugh": 3.5999999999999996,
+          "excitement": 4.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 4.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:03:38",
+      "comment_after_openDate": "05:03:18",
+      "chat_context": [
+        "귓군영: ㅋㅋㅋㅋㅋㅋ",
+        "노란주황: 배필노래가 좋긴함",
+        "우물안의개구리: 오오",
+        "쫑긋양이고: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박티백: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "박승갈: {:cheong17Sfghd546rrt:}{:cheong17Awrgasdfgagf:}{:cheong17Awersgfx:}",
+        "087: 오",
+        "다신: 올",
+        "반반땅기: 짤을 뭘로하지",
+        "귓군영: 공모받죠",
+        "우물안의개구리: 웅장해지는 고양이",
+        "반반땅기: ㅔㅔ",
+        "다신: 대회화이팅",
+        "귓군영: ㅐㅐ",
+        "똥슈리소울이: 넵",
+        "쫑긋양이고: ㅔㅔ",
+        "박티백: 강바 강바",
+        "087: ㅔㅔ",
+        "얀삐: ㅔㅔ",
+        "용삼: 강바",
+        "피망고양이: 네넵!",
+        "고마운틴: ㅔㅔ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:34.070755",
+      "fun_score": 80.66153447299892,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.615344729989296,
+        "viewer_trend_score": 20,
+        "final_score": 80.66153447299892,
+        "baseline_chat_count": 7.519299765375326,
+        "baseline_viewer_count": 95.09368022888407,
+        "baseline_threshold": 29.31353842932287,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 74.64662346490226,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 35,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "laugh": 3.5999999999999996,
+          "excitement": 4.0,
+          "greeting": 10.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 4.0,
+          "greeting": 10.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "05:03:43",
+      "comment_after_openDate": "05:03:18",
+      "chat_context": [
+        "박승갈: {:cheong17Sfghd546rrt:}{:cheong17Awrgasdfgagf:}{:cheong17Awersgfx:}",
+        "087: 오",
+        "다신: 올",
+        "반반땅기: 짤을 뭘로하지",
+        "귓군영: 공모받죠",
+        "우물안의개구리: 웅장해지는 고양이",
+        "반반땅기: ㅔㅔ",
+        "다신: 대회화이팅",
+        "귓군영: ㅐㅐ",
+        "똥슈리소울이: 넵",
+        "쫑긋양이고: ㅔㅔ",
+        "박티백: 강바 강바",
+        "087: ㅔㅔ",
+        "얀삐: ㅔㅔ",
+        "용삼: 강바",
+        "피망고양이: 네넵!",
+        "고마운틴: ㅔㅔ",
+        "노란주황: 강바",
+        "반반땅기: ㅎㅇㅌ~",
+        "박승갈: 네엡",
+        "zl존공주: 강바",
+        "떡돈: 예엡",
+        "고마운틴: 강바",
+        "윤스을: 강바",
+        "박티백: 강바~",
+        "귓군영: 강바",
+        "이라시: 강바",
+        "얀삐: 강바",
+        "쫑긋양이고: 파이팅",
+        "똥슈리소울이: 강바"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:39.075578",
+      "fun_score": 61.730212948179336,
+      "test_fun_score": 38.09611725031542,
+      "score_components": {
+        "chat_spike_score": 95.53536033936734,
+        "reaction_score": 38.09611725031542,
+        "test_reaction_score": 38.09611725031542,
+        "diversity_score": 28.104656203694073,
+        "viewer_trend_score": 30,
+        "final_score": 61.730212948179336,
+        "baseline_chat_count": 7.782564873623031,
+        "baseline_viewer_count": 95.26522277229135,
+        "baseline_threshold": 29.805452231421285,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 55.71530194008268,
+        "test_score_difference": 38.029047224222126,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 37,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "greeting": 14.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "greeting": 14.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "05:03:48",
+      "comment_after_openDate": "05:03:48",
+      "chat_context": [
+        "똥슈리소울이: 넵",
+        "쫑긋양이고: ㅔㅔ",
+        "박티백: 강바 강바",
+        "087: ㅔㅔ",
+        "얀삐: ㅔㅔ",
+        "용삼: 강바",
+        "피망고양이: 네넵!",
+        "고마운틴: ㅔㅔ",
+        "노란주황: 강바",
+        "반반땅기: ㅎㅇㅌ~",
+        "박승갈: 네엡",
+        "zl존공주: 강바",
+        "떡돈: 예엡",
+        "고마운틴: 강바",
+        "윤스을: 강바",
+        "박티백: 강바~",
+        "귓군영: 강바",
+        "이라시: 강바",
+        "얀삐: 강바",
+        "쫑긋양이고: 파이팅",
+        "똥슈리소울이: 강바",
+        "강삣삐: 강바강바",
+        "반반땅기: {:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "용삼: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "떡돈: 강바",
+        "쫑긋양이고: 강바",
+        "타뭄: 강바",
+        "피망고양이: 강바강바!!!",
+        "087: 강바",
+        "귓군영: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:44.080254",
+      "fun_score": 82.22990114698233,
+      "test_fun_score": 96.90179679910868,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 96.90179679910868,
+        "diversity_score": 27.29901146982333,
+        "viewer_trend_score": 30,
+        "final_score": 82.22990114698233,
+        "baseline_chat_count": 8.062467902133722,
+        "baseline_viewer_count": 95.4351219381328,
+        "baseline_threshold": 30.111291439087825,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 75.24913381856099,
+        "test_score_difference": 96.83472677301539,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 42,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "greeting": 16.0,
+          "excitement": 2.0,
+          "reaction": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "greeting": 16.0,
+          "excitement": 2.0,
+          "reaction": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "05:03:53",
+      "comment_after_openDate": "05:03:18",
+      "chat_context": [
+        "고마운틴: ㅔㅔ",
+        "노란주황: 강바",
+        "반반땅기: ㅎㅇㅌ~",
+        "박승갈: 네엡",
+        "zl존공주: 강바",
+        "떡돈: 예엡",
+        "고마운틴: 강바",
+        "윤스을: 강바",
+        "박티백: 강바~",
+        "귓군영: 강바",
+        "이라시: 강바",
+        "얀삐: 강바",
+        "쫑긋양이고: 파이팅",
+        "똥슈리소울이: 강바",
+        "강삣삐: 강바강바",
+        "반반땅기: {:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "용삼: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "떡돈: 강바",
+        "쫑긋양이고: 강바",
+        "타뭄: 강바",
+        "피망고양이: 강바강바!!!",
+        "087: 강바",
+        "귓군영: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "다신: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "d b: 강바",
+        "박티백: ㅋㅋㅋㅋㅋㅋ",
+        "쫑긋양이고: {:cheong17A45ewtrsdgf:}",
+        "고마운틴: 굿ㅋㅋ",
+        "좀 앉아있을게요: 강바",
+        "반반땅기: ㅇㅈㅇㅈ"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:49.085233",
+      "fun_score": 81.79869281070937,
+      "test_fun_score": 93.44782720156898,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 93.44782720156898,
+        "diversity_score": 22.98692810709364,
+        "viewer_trend_score": 30,
+        "final_score": 81.79869281070937,
+        "baseline_chat_count": 8.38758945963128,
+        "baseline_viewer_count": 95.60339346996547,
+        "baseline_threshold": 30.610587720089452,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 74.81792548228803,
+        "test_score_difference": 92.98177506495982,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 50,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "greeting": 17.0,
+          "excitement": 2.0,
+          "reaction": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "greeting": 17.0,
+          "excitement": 2.0,
+          "reaction": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "05:03:58",
+      "comment_after_openDate": "05:03:58",
+      "chat_context": [
+        "이라시: 강바",
+        "얀삐: 강바",
+        "쫑긋양이고: 파이팅",
+        "똥슈리소울이: 강바",
+        "강삣삐: 강바강바",
+        "반반땅기: {:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "용삼: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "떡돈: 강바",
+        "쫑긋양이고: 강바",
+        "타뭄: 강바",
+        "피망고양이: 강바강바!!!",
+        "087: 강바",
+        "귓군영: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "다신: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "d b: 강바",
+        "박티백: ㅋㅋㅋㅋㅋㅋ",
+        "쫑긋양이고: {:cheong17A45ewtrsdgf:}",
+        "고마운틴: 굿ㅋㅋ",
+        "좀 앉아있을게요: 강바",
+        "반반땅기: ㅇㅈㅇㅈ",
+        "귓군영: 즐깁시다",
+        "유0ㅔ: 굿",
+        "이라시: {:cheong17Awersgfx:}",
+        "박티백: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "똥슈리소울이: 굿굿",
+        "다신: 연습 잘하구오소",
+        "고마운틴: 강바",
+        "박승갈: {:sd_8:}{:sd_8:}",
+        "박티백: 강바~",
+        "087: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:54.089959",
+      "fun_score": 81.4393455914013,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 19.393455914013096,
+        "viewer_trend_score": 30,
+        "final_score": 81.4393455914013,
+        "baseline_chat_count": 8.786236352608013,
+        "baseline_viewer_count": 95.77005296052319,
+        "baseline_threshold": 31.100969766857588,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 74.45857826297997,
+        "test_score_difference": 99.06293042038567,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 65,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "greeting": 22.0,
+          "excitement": 3.0,
+          "reaction": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "greeting": 22.0,
+          "excitement": 3.0,
+          "reaction": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "05:04:03",
+      "comment_after_openDate": "05:03:18",
+      "chat_context": [
+        "박티백: ㅋㅋㅋㅋㅋㅋ",
+        "쫑긋양이고: {:cheong17A45ewtrsdgf:}",
+        "고마운틴: 굿ㅋㅋ",
+        "좀 앉아있을게요: 강바",
+        "반반땅기: ㅇㅈㅇㅈ",
+        "귓군영: 즐깁시다",
+        "유0ㅔ: 굿",
+        "이라시: {:cheong17Awersgfx:}",
+        "박티백: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "똥슈리소울이: 굿굿",
+        "다신: 연습 잘하구오소",
+        "고마운틴: 강바",
+        "박승갈: {:sd_8:}{:sd_8:}",
+        "박티백: 강바~",
+        "087: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "피망고양이: 주말 방송 귀하다",
+        "다신: 강바",
+        "유0ㅔ: 내일 봐요",
+        "윤재영이: 뱌",
+        "용삼: {:cheong17AERDFG:}",
+        "박승갈: 잘가요우",
+        "똥슈리소울이: 강바",
+        "반반땅기: 강바",
+        "귓군영: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "피망고양이: 네넵!",
+        "플겜이: 강바",
+        "087: 강바강바",
+        "유0ㅔ: 바이",
+        "얀삐: 강바",
+        "노란주황: {:cheong17SDFASFAW34EFS:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:39:59.095839",
+      "fun_score": 81.73692889793406,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 22.369288979340624,
+        "viewer_trend_score": 30,
+        "final_score": 81.73692889793406,
+        "baseline_chat_count": 9.324764208350027,
+        "baseline_viewer_count": 95.93511585316136,
+        "baseline_threshold": 31.583211407256716,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": true,
+        "test_big_highlights": true,
+        "score_difference": 74.75616156951273,
+        "test_score_difference": 99.05900110219677,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 61,
+        "viewer_count": 113,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "greeting": 23.0,
+          "excitement": 2.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "greeting": 23.0,
+          "excitement": 2.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "05:04:08",
+      "comment_after_openDate": "05:04:08",
+      "chat_context": [
+        "박티백: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "똥슈리소울이: 굿굿",
+        "다신: 연습 잘하구오소",
+        "고마운틴: 강바",
+        "박승갈: {:sd_8:}{:sd_8:}",
+        "박티백: 강바~",
+        "087: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "피망고양이: 주말 방송 귀하다",
+        "다신: 강바",
+        "유0ㅔ: 내일 봐요",
+        "윤재영이: 뱌",
+        "용삼: {:cheong17AERDFG:}",
+        "박승갈: 잘가요우",
+        "똥슈리소울이: 강바",
+        "반반땅기: 강바",
+        "귓군영: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "피망고양이: 네넵!",
+        "플겜이: 강바",
+        "087: 강바강바",
+        "유0ㅔ: 바이",
+        "얀삐: 강바",
+        "노란주황: {:cheong17SDFASFAW34EFS:}",
+        "히히헤헤호호123: 강자",
+        "쫑긋양이고: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "엄서현: 강바",
+        "똥슈리소울이: 굿나잇",
+        "얀삐: {:cheong17SDFASFAW34EFS:}",
+        "쫑긋양이고: 강바",
+        "용삼: 안녕히 주무십셔",
+        "다신: {:cheong17SDFASFAW34EFS:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:40:04.101974",
+      "fun_score": 64.43626770815061,
+      "test_fun_score": 37.00808309385406,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 42.176026075622694,
+        "test_reaction_score": 37.00808309385406,
+        "diversity_score": 22.83459885463791,
+        "viewer_trend_score": 30,
+        "final_score": 64.43626770815061,
+        "baseline_chat_count": 9.819812967234032,
+        "baseline_viewer_count": 96.09859744328807,
+        "baseline_threshold": 32.063684020817405,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 57.45460413223153,
+        "test_score_difference": 36.06648305744972,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 53,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 17.0,
+          "excitement": 2.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "greeting": 17.0,
+          "excitement": 2.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "05:04:13",
+      "comment_after_openDate": "05:04:13",
+      "chat_context": [
+        "박티백: 강바~",
+        "087: {:cheong17AERDFG:}{:cheong17AERDFG:}{:cheong17AERDFG:}",
+        "피망고양이: 주말 방송 귀하다",
+        "다신: 강바",
+        "유0ㅔ: 내일 봐요",
+        "윤재영이: 뱌",
+        "용삼: {:cheong17AERDFG:}",
+        "박승갈: 잘가요우",
+        "똥슈리소울이: 강바",
+        "반반땅기: 강바",
+        "귓군영: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "피망고양이: 네넵!",
+        "플겜이: 강바",
+        "087: 강바강바",
+        "유0ㅔ: 바이",
+        "얀삐: 강바",
+        "노란주황: {:cheong17SDFASFAW34EFS:}",
+        "히히헤헤호호123: 강자",
+        "쫑긋양이고: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "엄서현: 강바",
+        "똥슈리소울이: 굿나잇",
+        "얀삐: {:cheong17SDFASFAW34EFS:}",
+        "쫑긋양이고: 강바",
+        "용삼: 안녕히 주무십셔",
+        "다신: {:cheong17SDFASFAW34EFS:}",
+        "반반땅기: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "피망고양이: 강바강바",
+        "다신: 강바",
+        "박티백: 강바",
+        "똥슈리소울이: {:sd_8:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:40:09.107793",
+      "fun_score": 52.883310806063264,
+      "test_fun_score": 2.9870611683158463,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 2.9870611683158463,
+        "test_reaction_score": 2.9870611683158463,
+        "diversity_score": 24.87192455568511,
+        "viewer_trend_score": 30,
+        "final_score": 52.883310806063264,
+        "baseline_chat_count": 10.23347915900793,
+        "baseline_viewer_count": 96.27967287978136,
+        "baseline_threshold": 32.37381337254206,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 26.695373725589842,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 44,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "greeting": 12.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "greeting": 12.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:04:18",
+      "comment_after_openDate": "05:04:18",
+      "chat_context": [
+        "피망고양이: 주말 방송 귀하다",
+        "다신: 강바",
+        "유0ㅔ: 내일 봐요",
+        "윤재영이: 뱌",
+        "용삼: {:cheong17AERDFG:}",
+        "박승갈: 잘가요우",
+        "똥슈리소울이: 강바",
+        "반반땅기: 강바",
+        "귓군영: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "피망고양이: 네넵!",
+        "플겜이: 강바",
+        "087: 강바강바",
+        "유0ㅔ: 바이",
+        "얀삐: 강바",
+        "노란주황: {:cheong17SDFASFAW34EFS:}",
+        "히히헤헤호호123: 강자",
+        "쫑긋양이고: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "엄서현: 강바",
+        "똥슈리소울이: 굿나잇",
+        "얀삐: {:cheong17SDFASFAW34EFS:}",
+        "쫑긋양이고: 강바",
+        "용삼: 안녕히 주무십셔",
+        "다신: {:cheong17SDFASFAW34EFS:}",
+        "반반땅기: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "피망고양이: 강바강바",
+        "다신: 강바",
+        "박티백: 강바",
+        "똥슈리소울이: {:sd_8:}",
+        "떡돈: {:cheong17SDFASFAW34EFS:}",
+        "플겜이: {:cheong17SDFASFAW34EFS:}"
+      ]
+    },
+    {
+      "timestamp": "2026-04-04T00:40:14.249029",
+      "fun_score": 41.28596905163236,
+      "test_fun_score": 1.040916407921114,
+      "score_components": {
+        "chat_spike_score": 75.22655244122167,
+        "reaction_score": 1.040916407921114,
+        "test_reaction_score": 1.040916407921114,
+        "diversity_score": 26.217455307062718,
+        "viewer_trend_score": 30,
+        "final_score": 41.28596905163236,
+        "baseline_chat_count": 10.556962428664633,
+        "baseline_viewer_count": 96.45901361359304,
+        "baseline_threshold": 32.57029435795519,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.098031971158935,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 40,
+        "viewer_count": 115,
+        "fun_keywords": {
+          "greeting": 11.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 11.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:04:23",
+      "comment_after_openDate": "05:04:23",
+      "chat_context": [
+        "다신: 강바",
+        "유0ㅔ: 내일 봐요",
+        "윤재영이: 뱌",
+        "용삼: {:cheong17AERDFG:}",
+        "박승갈: 잘가요우",
+        "똥슈리소울이: 강바",
+        "반반땅기: 강바",
+        "귓군영: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "피망고양이: 네넵!",
+        "플겜이: 강바",
+        "087: 강바강바",
+        "유0ㅔ: 바이",
+        "얀삐: 강바",
+        "노란주황: {:cheong17SDFASFAW34EFS:}",
+        "히히헤헤호호123: 강자",
+        "쫑긋양이고: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "엄서현: 강바",
+        "똥슈리소울이: 굿나잇",
+        "얀삐: {:cheong17SDFASFAW34EFS:}",
+        "쫑긋양이고: 강바",
+        "용삼: 안녕히 주무십셔",
+        "다신: {:cheong17SDFASFAW34EFS:}",
+        "반반땅기: {:cheong17SDFASFAW34EFS:}{:cheong17SDFASFAW34EFS:}",
+        "피망고양이: 강바강바",
+        "다신: 강바",
+        "박티백: 강바",
+        "똥슈리소울이: {:sd_8:}",
+        "떡돈: {:cheong17SDFASFAW34EFS:}",
+        "플겜이: {:cheong17SDFASFAW34EFS:}",
+        "용삼: 채팅청소 {:cheong17A354ersdtgf:}{:cheong17A354ersdtgf:}{:cheong17A354ersdtgf:}"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
