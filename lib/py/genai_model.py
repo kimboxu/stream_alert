@@ -101,7 +101,12 @@ class GenAIModelManager:
 
             models = {
                 "3": genai.GenerativeModel(
-                    "gemini-3-flash",
+                    "gemini-3-flash-preview",
+                    system_instruction=self._system_instruction,
+                    generation_config={"response_mime_type": "application/json"},
+                ),
+                "3.1": genai.GenerativeModel(
+                    "gemini-3.1-flash-lite-preview",
                     system_instruction=self._system_instruction,
                     generation_config={"response_mime_type": "application/json"},
                 ),
