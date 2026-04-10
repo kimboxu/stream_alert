@@ -1609,23 +1609,37 @@ class ChatAnalyzer:
                 f"{datetime.now()} {self.channel_name} 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지"
             )
 
-            def call_model_with_fallback(models, msg_list):
-                try:
-                    return asyncio.to_thread(
-                        models["3"].generate_content, msg_list
-                    )
-                except Exception as e:
-                    return asyncio.to_thread(
-                        models["2.5"].generate_content, msg_list
-                    )
+            
+            async def call_model_with_fallback(models: dict, msg_list: list):
+                MODEL_PRIORITY = ["3", "3.1", "2.5"]
+                last_exception = None
+
+                for model_key in MODEL_PRIORITY:
+                    model = models.get(model_key)
+
+                    if model is None:
+                        continue
+
+                    try:
+                        return await asyncio.to_thread(model.generate_content, msg_list)
+
+                    except Exception as e:
+                        last_exception = e
+                        error_msg = str(e)
+                        is_quota_error = "429" in error_msg or "quota" in error_msg.lower() or "Resource exhausted" in error_msg
+
+                        if not is_quota_error:
+                            raise
+
+                raise RuntimeError(f"모든 모델({MODEL_PRIORITY}) 할당량 초과. 마지막 에러: {last_exception}")
 
             # API 호출 및 JSON 파싱
-            def api_call(emergency=None):
+            async def api_call(emergency=None):
                 if emergency is None:
                     emergency = is_emergency
                 self.add_genai_cnt()
                 models = get_genai_models(self.init.genai_cnt, emergency)
-                return call_model_with_fallback(models, msg_list)
+                return await call_model_with_fallback(models, msg_list)
 
             def response_validator(response):
                 """응답 검증: 리스트 형태인지 확인"""
