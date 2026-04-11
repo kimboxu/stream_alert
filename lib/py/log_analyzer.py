@@ -161,7 +161,7 @@ class SessionBasedFunScoreAnalyzer:
         pattern += "*.json"
 
         # log_dir에서 파일 검색
-        search_pattern = self.log_dir / pattern
+        search_pattern = self.log_dir / self.channel_name / pattern
         files = glob.glob(str(search_pattern))
         all_logs = []
 
@@ -1667,7 +1667,7 @@ class SessionBasedFunScoreAnalyzer:
                     session_logs, session_stats
                 )
 
-            model = get_genai_models(0, is_emergency=True)
+            models = get_genai_models(0, is_emergency=True)
             print(f"{datetime.now()} 단순 키워드 기반 하이라이트용 AI 모델 로드 완료")
 
             # 1단계: 단순 키워드 기반 하이라이트 데이터 수집
@@ -1707,7 +1707,7 @@ class SessionBasedFunScoreAnalyzer:
 
             # 2단계: Test용 하이라이트 데이터 구성
             timeline_comments = await self._ai_make_test_highlight_chat(
-                highlights, model
+                highlights, models
             )
 
             if not timeline_comments:
@@ -1777,7 +1777,7 @@ class SessionBasedFunScoreAnalyzer:
             return await self._export_test_highlights_basic(session_logs, session_stats)
 
     async def _ai_make_test_highlight_chat(
-        self, highlights: list[StreamHighlight], model
+        self, highlights: list[StreamHighlight], models
     ):
         """단순 키워드 기반 하이라이트용 AI 댓글 생성"""
         if not highlights:
@@ -1867,7 +1867,7 @@ class SessionBasedFunScoreAnalyzer:
                 f"{datetime.now()} Test 배치 분석 실행: 텍스트 데이터와 {len(images_with_labels)}개 이미지"
             )
 
-            response = await asyncio.to_thread(model.generate_content, msg_list)
+            response = await asyncio.to_thread(models["3"].generate_content, msg_list)
 
             # JSON 파싱
             try:
@@ -2006,7 +2006,7 @@ class SessionBasedFunScoreAnalyzer:
                 )
                 return await self._export_highlights_basic(session_logs, session_stats)
 
-            model = get_genai_models(0, is_emergency=True)
+            models = get_genai_models(0, is_emergency=True)
 
             print(f"{datetime.now()} AI 모델 로드 완료")
 
@@ -2046,7 +2046,7 @@ class SessionBasedFunScoreAnalyzer:
                 return None
 
             # 2단계: ChatAnalyzer의 _make_highlight_chat 로직 재현
-            timeline_comments = await self._ai_make_highlight_chat(highlights, model)
+            timeline_comments = await self._ai_make_highlight_chat(highlights, models)
 
             if not timeline_comments:
                 print(f"{datetime.now()} AI 댓글 생성 실패, 기본 로직으로 fallback")
@@ -2085,7 +2085,7 @@ class SessionBasedFunScoreAnalyzer:
             # 4단계: 파일 저장
             final_content = "\n\n".join(highlight_lines)
             start_date = datetime.fromisoformat(session_stats["start_time"]).strftime(
-                "%Y-%m-%d_%H%M"
+                "%Y%m%d_%H%M"
             )
             filename = f"{self.channel_name}_{start_date}_highlights.txt"
             file_path = self.reports_dir / filename
@@ -2107,7 +2107,7 @@ class SessionBasedFunScoreAnalyzer:
             print(f"{datetime.now()} AI 하이라이트 텍스트 생성 중 오류: {str(e)}")
             return await self._export_highlights_basic(session_logs, session_stats)
 
-    async def _ai_make_highlight_chat(self, highlights: list[StreamHighlight], model):
+    async def _ai_make_highlight_chat(self, highlights: list[StreamHighlight], models):
         """ChatAnalyzer의 _make_highlight_chat 로직을 재현"""
         if not highlights:
             return []
@@ -2186,7 +2186,7 @@ class SessionBasedFunScoreAnalyzer:
             )
 
             # AI 모델 호출 (비동기)
-            response = await asyncio.to_thread(model.generate_content, msg_list)
+            response = await asyncio.to_thread(models["3"].generate_content, msg_list)
 
             # JSON 파싱
             try:
@@ -2844,7 +2844,7 @@ async def main():
             use_ai = args.use_ai
 
         except:
-            channel_name, date, use_ai = "빅헤드", "2026-01-06", True
+            channel_name, date, use_ai = "빅헤드", "2026-04-08", True
 
         # AI 사용 가능 여부 확인
         if use_ai and not AI_AVAILABLE:

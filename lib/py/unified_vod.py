@@ -76,9 +76,9 @@ class base_vod(ABC):
         self.max_check_thumb_min = 10
         self.fun_difference1 = 20
         self.fun_difference2 = 35
-        self.fun_difference3 = 50
-        self.fun_difference4 = 65
-        self.fun_difference5 = 80
+        self.fun_difference3 = 45
+        self.fun_difference4 = 60
+        self.fun_difference5 = 75
 
         self.title_data = self.init.titleData[self.platform]
 
