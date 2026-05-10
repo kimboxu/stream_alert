@@ -1,0 +1,1098 @@
+{
+  "channel_id": "ma_mwa",
+  "channel_name": "마뫄",
+  "save_timestamp": "2026-05-02T02:18:16.262991",
+  "total_logs": 21,
+  "logs": [
+    {
+      "timestamp": "2026-05-02T02:16:23.144728",
+      "fun_score": 7.040656385453191,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.731537339840986,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 42.913435746967586,
+        "viewer_trend_score": 10,
+        "final_score": 7.040656385453191,
+        "baseline_chat_count": 6.975531485047985,
+        "baseline_viewer_count": 1191.1448563712986,
+        "baseline_threshold": 17.826339537098658,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.15668237645433436,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 118,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:00:19",
+      "comment_after_openDate": "00:00:19",
+      "chat_context": [
+        "안경쓴 워윅: 그럼 다시오시나용?",
+        "페페로미아: 1분 안에 오실듯?",
+        "뫄동석: 네",
+        "카자리: 금방 오실겁니다",
+        "팩토리얼: 집통매맹 해위",
+        "페페로미아: 왔다"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:16:28.153466",
+      "fun_score": 5.775291716924196,
+      "test_fun_score": 0.24433341142235943,
+      "score_components": {
+        "chat_spike_score": 2.7439918879095937,
+        "reaction_score": 0.24433341142235943,
+        "test_reaction_score": 0.24433341142235943,
+        "diversity_score": 29.6719534393817,
+        "viewer_trend_score": 10,
+        "final_score": 5.775291716924196,
+        "baseline_chat_count": 6.956879323053868,
+        "baseline_viewer_count": 1170.6263267174793,
+        "baseline_threshold": 17.620117275239195,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.1772633853290638,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 2,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:24",
+      "comment_after_openDate": "00:00:24",
+      "chat_context": [
+        "페페로미아: 1분 안에 오실듯?",
+        "뫄동석: 네",
+        "카자리: 금방 오실겁니다",
+        "팩토리얼: 집통매맹 해위",
+        "페페로미아: 왔다",
+        "뫄동석: 하이용",
+        "팩토리얼: 오 오늘은 구슬 안됐다"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:16:33.160552",
+      "fun_score": 6.89103007864406,
+      "test_fun_score": 1.0242584636413496,
+      "score_components": {
+        "chat_spike_score": 2.7434387744837156,
+        "reaction_score": 1.0242584636413496,
+        "test_reaction_score": 1.0242584636413496,
+        "diversity_score": 38.49205091033983,
+        "viewer_trend_score": 10,
+        "final_score": 6.89103007864406,
+        "baseline_chat_count": 6.957703790397078,
+        "baseline_viewer_count": 1148.2821913506411,
+        "baseline_threshold": 17.39364421056421,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1157383617198642,
+        "test_score_difference": 0.957188437548054,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 118,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:00:29",
+      "comment_after_openDate": "00:00:29",
+      "chat_context": [
+        "카자리: 금방 오실겁니다",
+        "팩토리얼: 집통매맹 해위",
+        "페페로미아: 왔다",
+        "뫄동석: 하이용",
+        "팩토리얼: 오 오늘은 구슬 안됐다",
+        "돌체 라때: 뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 부 활"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:16:38.168551",
+      "fun_score": 8.791600128342091,
+      "test_fun_score": 1.0163414190721305,
+      "score_components": {
+        "chat_spike_score": 6.333231059344402,
+        "reaction_score": 1.0163414190721305,
+        "test_reaction_score": 1.0163414190721305,
+        "diversity_score": 41.36743725915471,
+        "viewer_trend_score": 10,
+        "final_score": 8.791600128342091,
+        "baseline_chat_count": 6.977632493924686,
+        "baseline_viewer_count": 1128.5831958520168,
+        "baseline_threshold": 17.192834228361896,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.0163084114178957,
+        "test_score_difference": 0.9492713929788349,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 318,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:00:34",
+      "comment_after_openDate": "00:00:34",
+      "chat_context": [
+        "팩토리얼: 집통매맹 해위",
+        "페페로미아: 왔다",
+        "뫄동석: 하이용",
+        "팩토리얼: 오 오늘은 구슬 안됐다",
+        "돌체 라때: 뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 부 활",
+        "피융냥: 안대",
+        "졸다가코베인: 애도라",
+        "학스리: 부 활",
+        "메리임: 집톡뫄하"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:16:43.174216",
+      "fun_score": 17.179192479738575,
+      "test_fun_score": 9.14195154147724,
+      "score_components": {
+        "chat_spike_score": 17.98697731870692,
+        "reaction_score": 14.021392131128888,
+        "test_reaction_score": 9.14195154147724,
+        "diversity_score": 33.78635046981793,
+        "viewer_trend_score": 10,
+        "final_score": 17.179192479738575,
+        "baseline_chat_count": 7.054540160640846,
+        "baseline_viewer_count": 1113.0848451473262,
+        "baseline_threshold": 17.032202632369515,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 11.403900762814379,
+        "test_score_difference": 9.074881515383945,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 545,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "excitement": 1.0,
+          "laugh": 3.4000000000000004
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "excitement": 1.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:00:39",
+      "comment_after_openDate": "00:00:39",
+      "chat_context": [
+        "팩토리얼: 집통매맹 해위",
+        "페페로미아: 왔다",
+        "뫄동석: 하이용",
+        "팩토리얼: 오 오늘은 구슬 안됐다",
+        "돌체 라때: 뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 부 활",
+        "피융냥: 안대",
+        "졸다가코베인: 애도라",
+        "학스리: 부 활",
+        "메리임: 집톡뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 뫼추얼 퇴그은",
+        "슈퍼스타마뫄: 부활",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:16:48.182837",
+      "fun_score": 36.44689516987149,
+      "test_fun_score": 23.153642792827352,
+      "score_components": {
+        "chat_spike_score": 43.44168387821832,
+        "reaction_score": 40.619056037892726,
+        "test_reaction_score": 23.153642792827352,
+        "diversity_score": 32.12420613305423,
+        "viewer_trend_score": 10,
+        "final_score": 36.44689516987149,
+        "baseline_chat_count": 7.206457352769393,
+        "baseline_viewer_count": 1102.2230629081093,
+        "baseline_threshold": 17.03501307825121,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 30.671603452947295,
+        "test_score_difference": 23.086572766734058,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 545,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "excitement": 1.0,
+          "laugh": 4.6000000000000005
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "excitement": 1.0,
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "00:00:44",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "팩토리얼: 집통매맹 해위",
+        "페페로미아: 왔다",
+        "뫄동석: 하이용",
+        "팩토리얼: 오 오늘은 구슬 안됐다",
+        "돌체 라때: 뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 부 활",
+        "피융냥: 안대",
+        "졸다가코베인: 애도라",
+        "학스리: 부 활",
+        "메리임: 집톡뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 뫼추얼 퇴그은",
+        "슈퍼스타마뫄: 부활",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "siwn2137: 지고쿠지고쿠",
+        "팩토리얼: 그래도 구슬은 안됐네",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: {:mHi:}{:m1:}{:mHi:}{:m1:}"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:16:53.188590",
+      "fun_score": 45.349126854046276,
+      "test_fun_score": 59.10797707633435,
+      "score_components": {
+        "chat_spike_score": 31.04313102035959,
+        "reaction_score": 88.90744503486779,
+        "test_reaction_score": 59.10797707633435,
+        "diversity_score": 32.074843844241215,
+        "viewer_trend_score": 10,
+        "final_score": 45.349126854046276,
+        "baseline_chat_count": 7.431949888184441,
+        "baseline_viewer_count": 1091.5689579453062,
+        "baseline_threshold": 17.406168263842993,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 39.57383513712208,
+        "test_score_difference": 59.04090705024105,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 657,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 1.0,
+          "laugh": 5.6000000000000005
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 1.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "00:00:49",
+      "comment_after_openDate": "00:00:49",
+      "chat_context": [
+        "뫄동석: 하이용",
+        "팩토리얼: 오 오늘은 구슬 안됐다",
+        "돌체 라때: 뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 부 활",
+        "피융냥: 안대",
+        "졸다가코베인: 애도라",
+        "학스리: 부 활",
+        "메리임: 집톡뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 뫼추얼 퇴그은",
+        "슈퍼스타마뫄: 부활",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "siwn2137: 지고쿠지고쿠",
+        "팩토리얼: 그래도 구슬은 안됐네",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: {:mHi:}{:m1:}{:mHi:}{:m1:}",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "하얀악마0804: 뫄하"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:16:58.197327",
+      "fun_score": 27.052997294643582,
+      "test_fun_score": 19.057491152150018,
+      "score_components": {
+        "chat_spike_score": 27.917872038835583,
+        "reaction_score": 32.943865904261116,
+        "test_reaction_score": 19.057491152150018,
+        "diversity_score": 31.067951058892323,
+        "viewer_trend_score": 10,
+        "final_score": 27.052997294643582,
+        "baseline_chat_count": 7.653131006322354,
+        "baseline_viewer_count": 1083.2599994693921,
+        "baseline_threshold": 17.94043763208768,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 21.277705577719388,
+        "test_score_difference": 18.990421126056724,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 657,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "laugh": 5.6000000000000005
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "00:00:54",
+      "comment_after_openDate": "00:00:54",
+      "chat_context": [
+        "돌체 라때: 뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 부 활",
+        "피융냥: 안대",
+        "졸다가코베인: 애도라",
+        "학스리: 부 활",
+        "메리임: 집톡뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 뫼추얼 퇴그은",
+        "슈퍼스타마뫄: 부활",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "siwn2137: 지고쿠지고쿠",
+        "팩토리얼: 그래도 구슬은 안됐네",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: {:mHi:}{:m1:}{:mHi:}{:m1:}",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "하얀악마0804: 뫄하",
+        "팩토리얼: 고쳐지질 않네 이건.."
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:03.205832",
+      "fun_score": 14.837645647950527,
+      "test_fun_score": 4.97199908202538,
+      "score_components": {
+        "chat_spike_score": 16.129844248631706,
+        "reaction_score": 8.975258681786128,
+        "test_reaction_score": 4.97199908202538,
+        "diversity_score": 33.86638131530421,
+        "viewer_trend_score": 10,
+        "final_score": 14.837645647950527,
+        "baseline_chat_count": 7.85096314148147,
+        "baseline_viewer_count": 1075.1099082795374,
+        "baseline_threshold": 18.114669772835747,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.062353931026331,
+        "test_score_difference": 4.904929055932084,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 27,
+        "fun_keywords": {
+          "laugh": 4.6,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:00:59",
+      "comment_after_openDate": "00:00:59",
+      "chat_context": [
+        "피융냥: 안대",
+        "졸다가코베인: 애도라",
+        "학스리: 부 활",
+        "메리임: 집톡뫄하",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 뫼추얼 퇴그은",
+        "슈퍼스타마뫄: 부활",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "siwn2137: 지고쿠지고쿠",
+        "팩토리얼: 그래도 구슬은 안됐네",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: {:mHi:}{:m1:}{:mHi:}{:m1:}",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "하얀악마0804: 뫄하",
+        "팩토리얼: 고쳐지질 않네 이건.."
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:08.211717",
+      "fun_score": 11.822260784526534,
+      "test_fun_score": 4.625063463624764,
+      "score_components": {
+        "chat_spike_score": 9.527162997084522,
+        "reaction_score": 8.277540701849773,
+        "test_reaction_score": 4.625063463624764,
+        "diversity_score": 35.51775225283568,
+        "viewer_trend_score": 10,
+        "final_score": 11.822260784526534,
+        "baseline_chat_count": 7.987652726216345,
+        "baseline_viewer_count": 1055.0700468332325,
+        "baseline_threshold": 18.05201307156794,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.046969067602339,
+        "test_score_difference": 4.557993437531469,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "laugh": 4.6,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:01:04",
+      "comment_after_openDate": "00:01:04",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "고구마크림식빵: 뫼추얼 퇴그은",
+        "슈퍼스타마뫄: 부활",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "siwn2137: 지고쿠지고쿠",
+        "팩토리얼: 그래도 구슬은 안됐네",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: {:mHi:}{:m1:}{:mHi:}{:m1:}",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "하얀악마0804: 뫄하",
+        "팩토리얼: 고쳐지질 않네 이건..",
+        "meow23: 뫄하{:d_41:}{:d_53:}",
+        "페페로미아: 쌀먹컴이 아닌것인데..."
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:13.220340",
+      "fun_score": 10.054965630157959,
+      "test_fun_score": 3.9001678256917223,
+      "score_components": {
+        "chat_spike_score": 5.717282590139461,
+        "reaction_score": 5.740014714915495,
+        "test_reaction_score": 3.9001678256917223,
+        "diversity_score": 42.601840501205515,
+        "viewer_trend_score": 10,
+        "final_score": 10.054965630157959,
+        "baseline_chat_count": 8.083488806091088,
+        "baseline_viewer_count": 1035.661907537781,
+        "baseline_threshold": 17.932900207839708,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.279673913233763,
+        "test_score_difference": 3.8330977995984266,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004,
+          "greeting": 2.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "greeting": 2.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:01:09",
+      "comment_after_openDate": "00:01:09",
+      "chat_context": [
+        "팩토리얼: 그래도 구슬은 안됐네",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "슈퍼스타마뫄: {:mHi:}{:m1:}{:mHi:}{:m1:}",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "하얀악마0804: 뫄하",
+        "팩토리얼: 고쳐지질 않네 이건..",
+        "meow23: 뫄하{:d_41:}{:d_53:}",
+        "페페로미아: 쌀먹컴이 아닌것인데...",
+        "브라운블랙헐크소울: 뫄하",
+        "호얏호: 어째서",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뫄동석: 지금 진짜 비싼데"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:18.226451",
+      "fun_score": 39.551978594865865,
+      "test_fun_score": 53.26642194325554,
+      "score_components": {
+        "chat_spike_score": 8.972639293832122,
+        "reaction_score": 100,
+        "test_reaction_score": 53.26642194325554,
+        "diversity_score": 40.142909126414075,
+        "viewer_trend_score": 10,
+        "final_score": 39.551978594865865,
+        "baseline_chat_count": 8.158372500118626,
+        "baseline_viewer_count": 1016.6248518656586,
+        "baseline_threshold": 17.78227409871443,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 33.77668687794167,
+        "test_score_difference": 53.19935191716224,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "laugh": 7.1000000000000005,
+          "greeting": 2.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "greeting": 2.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:01:14",
+      "comment_after_openDate": "00:01:14",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "하얀악마0804: 뫄하",
+        "팩토리얼: 고쳐지질 않네 이건..",
+        "meow23: 뫄하{:d_41:}{:d_53:}",
+        "페페로미아: 쌀먹컴이 아닌것인데...",
+        "브라운블랙헐크소울: 뫄하",
+        "호얏호: 어째서",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뫄동석: 지금 진짜 비싼데",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 혹시 글카 브랜드 어떤거 쓰시지",
+        "피융냥: 바롴ㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:23.232505",
+      "fun_score": 23.037484712307567,
+      "test_fun_score": 17.947373727507284,
+      "score_components": {
+        "chat_spike_score": 8.63823857399235,
+        "reaction_score": 44.444089600588136,
+        "test_reaction_score": 17.947373727507284,
+        "diversity_score": 43.170504738345684,
+        "viewer_trend_score": 10,
+        "final_score": 23.037484712307567,
+        "baseline_chat_count": 8.270064417916357,
+        "baseline_viewer_count": 997.9517846979871,
+        "baseline_threshold": 18.198510848680847,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 17.262192995383373,
+        "test_score_difference": 17.88030370141399,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 6.1,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 5.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:01:19",
+      "comment_after_openDate": "00:01:19",
+      "chat_context": [
+        "팩토리얼: 고쳐지질 않네 이건..",
+        "meow23: 뫄하{:d_41:}{:d_53:}",
+        "페페로미아: 쌀먹컴이 아닌것인데...",
+        "브라운블랙헐크소울: 뫄하",
+        "호얏호: 어째서",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뫄동석: 지금 진짜 비싼데",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 혹시 글카 브랜드 어떤거 쓰시지",
+        "피융냥: 바롴ㅋㅋ",
+        "레몬비어: cpu랑 호환이 안되나"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:28.239125",
+      "fun_score": 21.72680108929231,
+      "test_fun_score": 16.96807142934265,
+      "score_components": {
+        "chat_spike_score": 6.658404347100526,
+        "reaction_score": 41.97235971941603,
+        "test_reaction_score": 16.96807142934265,
+        "diversity_score": 46.388112172722614,
+        "viewer_trend_score": 10,
+        "final_score": 21.72680108929231,
+        "baseline_chat_count": 8.360500786245796,
+        "baseline_viewer_count": 979.6357465745616,
+        "baseline_threshold": 18.291032028953392,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.951509372368113,
+        "test_score_difference": 16.72373801792029,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 6.1,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 5.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:01:24",
+      "comment_after_openDate": "00:01:24",
+      "chat_context": [
+        "meow23: 뫄하{:d_41:}{:d_53:}",
+        "페페로미아: 쌀먹컴이 아닌것인데...",
+        "브라운블랙헐크소울: 뫄하",
+        "호얏호: 어째서",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뫄동석: 지금 진짜 비싼데",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 혹시 글카 브랜드 어떤거 쓰시지",
+        "피융냥: 바롴ㅋㅋ",
+        "레몬비어: cpu랑 호환이 안되나"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:33.245564",
+      "fun_score": 21.125142093066806,
+      "test_fun_score": 16.261219278670342,
+      "score_components": {
+        "chat_spike_score": 6.519998051082567,
+        "reaction_score": 40.174439176024634,
+        "test_reaction_score": 16.261219278670342,
+        "diversity_score": 46.388112172722614,
+        "viewer_trend_score": 10,
+        "final_score": 21.125142093066806,
+        "baseline_chat_count": 8.430088011212776,
+        "baseline_viewer_count": 961.669911100056,
+        "baseline_threshold": 18.35672393338707,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 14.234112014422745,
+        "test_score_difference": 15.244877859598212,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 6.1,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 5.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:01:29",
+      "comment_after_openDate": "00:01:29",
+      "chat_context": [
+        "meow23: 뫄하{:d_41:}{:d_53:}",
+        "페페로미아: 쌀먹컴이 아닌것인데...",
+        "브라운블랙헐크소울: 뫄하",
+        "호얏호: 어째서",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "뫄동석: 지금 진짜 비싼데",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 혹시 글카 브랜드 어떤거 쓰시지",
+        "피융냥: 바롴ㅋㅋ",
+        "레몬비어: cpu랑 호환이 안되나"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:46.822594",
+      "fun_score": 8.925306253569772,
+      "test_fun_score": 0.15277989173569867,
+      "score_components": {
+        "chat_spike_score": 1.5952158312861817,
+        "reaction_score": 0.15277989173569867,
+        "test_reaction_score": 0.15277989173569867,
+        "diversity_score": 51.616251619702794,
+        "viewer_trend_score": 20,
+        "final_score": 8.925306253569772,
+        "baseline_chat_count": 8.498344728438388,
+        "baseline_viewer_count": 944.0475823998229,
+        "baseline_threshold": 18.409656088600148,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.13370612522768077,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:42",
+      "comment_after_openDate": "00:01:42",
+      "chat_context": [
+        "레몬비어: cpu랑 호환이 안되나",
+        "졸다가코베인: 순대햄이 컴 잘고칠텐데",
+        "피융냥: 오우",
+        "하얀악마0804: 괜찮았었는데 요즘들어 좀 그르네...",
+        "컵댕댕: 글픽보다 메인보드 문제일수도"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:51.828532",
+      "fun_score": 8.666879111017273,
+      "test_fun_score": 0.1537807289539444,
+      "score_components": {
+        "chat_spike_score": 1.2722204023298975,
+        "reaction_score": 0.1537807289539444,
+        "test_reaction_score": 0.1537807289539444,
+        "diversity_score": 50.482457112826346,
+        "viewer_trend_score": 20,
+        "final_score": 8.666879111017273,
+        "baseline_chat_count": 8.431456377230646,
+        "baseline_viewer_count": 926.7621926243382,
+        "baseline_threshold": 18.22831531975437,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0010008372182457315,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:47",
+      "comment_after_openDate": "00:01:47",
+      "chat_context": [
+        "졸다가코베인: 순대햄이 컴 잘고칠텐데",
+        "피융냥: 오우",
+        "하얀악마0804: 괜찮았었는데 요즘들어 좀 그르네...",
+        "컵댕댕: 글픽보다 메인보드 문제일수도"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:17:56.835513",
+      "fun_score": 9.003795629780177,
+      "test_fun_score": 0.15508122785564185,
+      "score_components": {
+        "chat_spike_score": 1.629399298995431,
+        "reaction_score": 0.15508122785564185,
+        "test_reaction_score": 0.15508122785564185,
+        "diversity_score": 52.2404157687554,
+        "viewer_trend_score": 20,
+        "final_score": 9.003795629780177,
+        "baseline_chat_count": 8.346726931297995,
+        "baseline_viewer_count": 909.807299501361,
+        "baseline_threshold": 18.045500659443316,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3369165187629033,
+        "test_score_difference": 0.0023013361199431814,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:52",
+      "comment_after_openDate": "00:01:52",
+      "chat_context": [
+        "졸다가코베인: 순대햄이 컴 잘고칠텐데",
+        "피융냥: 오우",
+        "하얀악마0804: 괜찮았었는데 요즘들어 좀 그르네...",
+        "컵댕댕: 글픽보다 메인보드 문제일수도",
+        "팩토리얼: 에고"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:18:01.841686",
+      "fun_score": 9.247094847960106,
+      "test_fun_score": 0.3630418846889731,
+      "score_components": {
+        "chat_spike_score": 2.0888518237073592,
+        "reaction_score": 0.3630418846889731,
+        "test_reaction_score": 0.3630418846889731,
+        "diversity_score": 51.98198961885102,
+        "viewer_trend_score": 20,
+        "final_score": 9.247094847960106,
+        "baseline_chat_count": 8.282737512371577,
+        "baseline_viewer_count": 893.1765839348949,
+        "baseline_threshold": 17.872623259276157,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5802157369428329,
+        "test_score_difference": 0.2102619929532744,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 40,
+        "fun_keywords": {
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:01:57",
+      "comment_after_openDate": "00:01:57",
+      "chat_context": [
+        "졸다가코베인: 순대햄이 컴 잘고칠텐데",
+        "피융냥: 오우",
+        "하얀악마0804: 괜찮았었는데 요즘들어 좀 그르네...",
+        "컵댕댕: 글픽보다 메인보드 문제일수도",
+        "팩토리얼: 에고",
+        "김토와: !멤버"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:18:06.847115",
+      "fun_score": 13.059756774078359,
+      "test_fun_score": 0.15678832162073247,
+      "score_components": {
+        "chat_spike_score": 1.0216628909636423,
+        "reaction_score": 0.15678832162073247,
+        "test_reaction_score": 0.15678832162073247,
+        "diversity_score": 50.52971976658499,
+        "viewer_trend_score": 50,
+        "final_score": 13.059756774078359,
+        "baseline_chat_count": 8.239091571135033,
+        "baseline_viewer_count": 876.8638476500597,
+        "baseline_threshold": 17.707703156051796,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.3928776630610855,
+        "test_score_difference": 0.004008429885033804,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 810,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:02",
+      "comment_after_openDate": "00:02:02",
+      "chat_context": [
+        "팩토리얼: 에고",
+        "김토와: !멤버",
+        "카자리: 멤버 : 마뫄 순대 뚜띠 실프 짜누"
+      ]
+    },
+    {
+      "timestamp": "2026-05-02T02:18:11.852792",
+      "fun_score": 12.956245114733258,
+      "test_fun_score": 2.0712800409506067,
+      "score_components": {
+        "chat_spike_score": 4.426165275595667,
+        "reaction_score": 2.0712800409506067,
+        "test_reaction_score": 2.0712800409506067,
+        "diversity_score": 28.430867284300255,
+        "viewer_trend_score": 50,
+        "final_score": 12.956245114733258,
+        "baseline_chat_count": 8.13892014029493,
+        "baseline_viewer_count": 875.5854108829906,
+        "baseline_threshold": 17.618834421228463,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.289366003715985,
+        "test_score_difference": 1.918500149214908,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 810,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "00:02:07",
+      "comment_after_openDate": "00:02:07",
+      "chat_context": [
+        "팩토리얼: 에고",
+        "김토와: !멤버",
+        "카자리: 멤버 : 마뫄 순대 뚜띠 실프 짜누",
+        "메리임: 오이",
+        "우마ee: 이열",
+        "우마ee: 캬",
+        "카자리: 이야",
+        "메리임: 이야",
+        "팩토리얼: 오이"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

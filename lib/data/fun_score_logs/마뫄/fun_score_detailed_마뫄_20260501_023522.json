@@ -1,0 +1,3131 @@
+{
+  "channel_id": "ma_mwa",
+  "channel_name": "마뫄",
+  "save_timestamp": "2026-05-01T02:35:22.386774",
+  "total_logs": 66,
+  "logs": [
+    {
+      "timestamp": "2026-05-01T02:29:16.094127",
+      "fun_score": 5.783496488003058,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.3293716408984966,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.65158241770745,
+        "viewer_trend_score": 0,
+        "final_score": 5.783496488003058,
+        "baseline_chat_count": 6.041942801157054,
+        "baseline_viewer_count": 1908.1933109160127,
+        "baseline_threshold": 21.447251444409105,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.44513168685656623,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 30,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:00:19",
+      "comment_after_openDate": "00:00:19",
+      "chat_context": [
+        "치즈주는제리: {:m6:}{:m6:}{:m6:}",
+        "팩토리얼: 살짝 오래걸리는게 전기인가",
+        "갈색햄찌: 흡"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:29:21.100522",
+      "fun_score": 5.7892597740940825,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.3421789433229965,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 51.65158241770745,
+        "viewer_trend_score": 0,
+        "final_score": 5.7892597740940825,
+        "baseline_chat_count": 5.9837808547989315,
+        "baseline_viewer_count": 1872.2822548112983,
+        "baseline_threshold": 21.14776044964262,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.45089497294759084,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 30,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:00:24",
+      "comment_after_openDate": "00:00:24",
+      "chat_context": [
+        "치즈주는제리: {:m6:}{:m6:}{:m6:}",
+        "팩토리얼: 살짝 오래걸리는게 전기인가",
+        "갈색햄찌: 흡"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:29:26.107201",
+      "fun_score": 6.477547477388994,
+      "test_fun_score": 0.36195937895561997,
+      "score_components": {
+        "chat_spike_score": 2.643966255381665,
+        "reaction_score": 0.47387074260378953,
+        "test_reaction_score": 0.36195937895561997,
+        "diversity_score": 51.456014396861065,
+        "viewer_trend_score": 0,
+        "final_score": 6.477547477388994,
+        "baseline_chat_count": 5.926730964855176,
+        "baseline_viewer_count": 1837.0578180993061,
+        "baseline_threshold": 20.854105916726134,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.139182676242502,
+        "test_score_difference": 0.2948893528623243,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:00:29",
+      "comment_after_openDate": "00:00:29",
+      "chat_context": [
+        "팩토리얼: 살짝 오래걸리는게 전기인가",
+        "갈색햄찌: 흡",
+        "스마일ㅋ: 킷타",
+        "tZINE: 뫄하",
+        "페페로미아: 마뫄이즈백~",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:29:31.113303",
+      "fun_score": 15.36017348473212,
+      "test_fun_score": 13.80184191326281,
+      "score_components": {
+        "chat_spike_score": 9.81924900766619,
+        "reaction_score": 22.564878928823436,
+        "test_reaction_score": 13.80184191326281,
+        "diversity_score": 41.72047752635302,
+        "viewer_trend_score": 0,
+        "final_score": 15.36017348473212,
+        "baseline_chat_count": 5.928131868807145,
+        "baseline_viewer_count": 1806.4647126172474,
+        "baseline_threshold": 20.579226119366005,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.021808683585629,
+        "test_score_difference": 13.734771887169515,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 237,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "laugh": 2.4,
+          "surprise": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "laugh": 2.0,
+          "surprise": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:34",
+      "comment_after_openDate": "00:00:34",
+      "chat_context": [
+        "갈색햄찌: 흡",
+        "스마일ㅋ: 킷타",
+        "tZINE: 뫄하",
+        "페페로미아: 마뫄이즈백~",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: ?",
+        "웅냥냥웅냥냥: 뫄하",
+        "팩토리얼: 이미 졌지용",
+        "와이키키99: 귀!환",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: 줴줴이야 ~"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:29:36.118622",
+      "fun_score": 33.526896712806135,
+      "test_fun_score": 40.81190581975967,
+      "score_components": {
+        "chat_spike_score": 17.435233053069197,
+        "reaction_score": 72.50386620197033,
+        "test_reaction_score": 40.81190581975967,
+        "diversity_score": 39.298819783338985,
+        "viewer_trend_score": 0,
+        "final_score": 33.526896712806135,
+        "baseline_chat_count": 6.025105987475553,
+        "baseline_viewer_count": 1776.4565473120056,
+        "baseline_threshold": 20.479437832991806,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 28.188531911659645,
+        "test_score_difference": 40.744835793666375,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 559,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "laugh": 3.5999999999999996,
+          "surprise": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "laugh": 3.0,
+          "surprise": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:39",
+      "comment_after_openDate": "00:00:39",
+      "chat_context": [
+        "갈색햄찌: 흡",
+        "스마일ㅋ: 킷타",
+        "tZINE: 뫄하",
+        "페페로미아: 마뫄이즈백~",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: ?",
+        "웅냥냥웅냥냥: 뫄하",
+        "팩토리얼: 이미 졌지용",
+        "와이키키99: 귀!환",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: 줴줴이야 ~",
+        "팩토리얼: 막라에 아놔 하고 빡종했자너~",
+        "하얀악마0804: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:29:41.127946",
+      "fun_score": 43.44805886474788,
+      "test_fun_score": 89.74363136400108,
+      "score_components": {
+        "chat_spike_score": 21.762558552757543,
+        "reaction_score": 100,
+        "test_reaction_score": 89.74363136400108,
+        "diversity_score": 36.54907516006986,
+        "viewer_trend_score": 0,
+        "final_score": 43.44805886474788,
+        "baseline_chat_count": 6.15846596099502,
+        "baseline_viewer_count": 1753.1787781274,
+        "baseline_threshold": 20.728905246773856,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 38.10787524037488,
+        "test_score_difference": 89.67656133790778,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 880,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "laugh": 4.8,
+          "surprise": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "laugh": 4.0,
+          "surprise": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:44",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "갈색햄찌: 흡",
+        "스마일ㅋ: 킷타",
+        "tZINE: 뫄하",
+        "페페로미아: 마뫄이즈백~",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: ?",
+        "웅냥냥웅냥냥: 뫄하",
+        "팩토리얼: 이미 졌지용",
+        "와이키키99: 귀!환",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: 줴줴이야 ~",
+        "팩토리얼: 막라에 아놔 하고 빡종했자너~",
+        "하얀악마0804: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:29:46.133786",
+      "fun_score": 49.41101214355618,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 34.687138441974454,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 38.017998446676714,
+        "viewer_trend_score": 0,
+        "final_score": 49.41101214355618,
+        "baseline_chat_count": 6.3083960918207955,
+        "baseline_viewer_count": 1736.483599889604,
+        "baseline_threshold": 21.16329546394952,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 44.05289227479477,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 880,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "laugh": 4.8,
+          "surprise": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "laugh": 4.0,
+          "surprise": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:00:49",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "스마일ㅋ: 킷타",
+        "tZINE: 뫄하",
+        "페페로미아: 마뫄이즈백~",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: ?",
+        "웅냥냥웅냥냥: 뫄하",
+        "팩토리얼: 이미 졌지용",
+        "와이키키99: 귀!환",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: 줴줴이야 ~",
+        "팩토리얼: 막라에 아놔 하고 빡종했자너~",
+        "하얀악마0804: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 까비이이이",
+        "닌가닝: 아 누가 막라 탈주해서",
+        "김비버: 와따잉"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:29:51.140643",
+      "fun_score": 47.843794117181325,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 31.204431716697012,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 38.017998446676714,
+        "viewer_trend_score": 0,
+        "final_score": 47.843794117181325,
+        "baseline_chat_count": 6.493699558545182,
+        "baseline_viewer_count": 1720.1076334597146,
+        "baseline_threshold": 21.7033918068636,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 42.08786227561729,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 1031,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "laugh": 4.8,
+          "surprise": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "laugh": 4.0,
+          "surprise": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:00:54",
+      "comment_after_openDate": "00:00:54",
+      "chat_context": [
+        "스마일ㅋ: 킷타",
+        "tZINE: 뫄하",
+        "페페로미아: 마뫄이즈백~",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: ?",
+        "웅냥냥웅냥냥: 뫄하",
+        "팩토리얼: 이미 졌지용",
+        "와이키키99: 귀!환",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: 줴줴이야 ~",
+        "팩토리얼: 막라에 아놔 하고 빡종했자너~",
+        "하얀악마0804: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 까비이이이",
+        "닌가닝: 아 누가 막라 탈주해서",
+        "김비버: 와따잉"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:29:56.147127",
+      "fun_score": 53.44760176899076,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 46.070464428310316,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 27.158927762511148,
+        "viewer_trend_score": 0,
+        "final_score": 53.44760176899076,
+        "baseline_chat_count": 6.675460022985798,
+        "baseline_viewer_count": 1706.9318955079648,
+        "baseline_threshold": 22.203196299036875,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 47.6641052809877,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1031,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "greeting": 1.0,
+          "excitement": 2.0,
+          "laugh": 6.1
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "greeting": 1.0,
+          "excitement": 2.0,
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "00:00:59",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "Krucio: ?",
+        "웅냥냥웅냥냥: 뫄하",
+        "팩토리얼: 이미 졌지용",
+        "와이키키99: 귀!환",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: 줴줴이야 ~",
+        "팩토리얼: 막라에 아놔 하고 빡종했자너~",
+        "하얀악마0804: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 까비이이이",
+        "닌가닝: 아 누가 막라 탈주해서",
+        "김비버: 와따잉",
+        "팩토리얼: 아",
+        "팩토리얼: 새발동 불합격.",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "메리임: 아",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:01.153319",
+      "fun_score": 57.78695262904465,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 51.72952827059273,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.086649072779142,
+        "viewer_trend_score": 10,
+        "final_score": 57.78695262904465,
+        "baseline_chat_count": 6.87286522734631,
+        "baseline_viewer_count": 1694.0080776658524,
+        "baseline_threshold": 22.800589331622394,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 52.00345614104159,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 1031,
+        "fun_keywords": {
+          "laugh": 10.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:01:04",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "팩토리얼: 막라에 아놔 하고 빡종했자너~",
+        "하얀악마0804: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 까비이이이",
+        "닌가닝: 아 누가 막라 탈주해서",
+        "김비버: 와따잉",
+        "팩토리얼: 아",
+        "팩토리얼: 새발동 불합격.",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "메리임: 아",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: 예에엑???",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 야다...",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:06.159302",
+      "fun_score": 60.72366781359807,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 57.58277921344482,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.614171675479028,
+        "viewer_trend_score": 15,
+        "final_score": 60.72366781359807,
+        "baseline_chat_count": 7.066496044199448,
+        "baseline_viewer_count": 1681.3313632208813,
+        "baseline_threshold": 23.469528597869108,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 54.94017132559501,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 1031,
+        "fun_keywords": {
+          "laugh": 12.399999999999999,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 10.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:01:09",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 까비이이이",
+        "닌가닝: 아 누가 막라 탈주해서",
+        "김비버: 와따잉",
+        "팩토리얼: 아",
+        "팩토리얼: 새발동 불합격.",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "메리임: 아",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: 예에엑???",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 야다...",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:11.164842",
+      "fun_score": 80.67439567974942,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.743956797494256,
+        "viewer_trend_score": 20,
+        "final_score": 80.67439567974942,
+        "baseline_chat_count": 7.275544639834354,
+        "baseline_viewer_count": 1668.897027556098,
+        "baseline_threshold": 24.181827739673846,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 74.89089919174637,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증 + 🏆 레전드 순간",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 17.9
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 14.0
+        }
+      },
+      "after_openDate": "00:01:14",
+      "comment_after_openDate": "00:00:44",
+      "chat_context": [
+        "피융냥: 까비이이이",
+        "닌가닝: 아 누가 막라 탈주해서",
+        "김비버: 와따잉",
+        "팩토리얼: 아",
+        "팩토리얼: 새발동 불합격.",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "메리임: 아",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: 예에엑???",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 야다...",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메자희: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아 허리이슈는 마뫄도..",
+        "종이를찢으면치지직: ㅋㅋㅋㅋㅋ",
+        "뫄뚱뫄뚱: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:16.171099",
+      "fun_score": 77.73794879286935,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 90.4127234333966,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.522232478408668,
+        "viewer_trend_score": 30,
+        "final_score": 77.73794879286935,
+        "baseline_chat_count": 7.576196226320721,
+        "baseline_viewer_count": 1657.6755563892254,
+        "baseline_threshold": 25.26196563868809,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 71.9544523048663,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 18.9,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 15.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:19",
+      "comment_after_openDate": "00:01:19",
+      "chat_context": [
+        "팩토리얼: 아",
+        "팩토리얼: 새발동 불합격.",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "메리임: 아",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: 예에엑???",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 야다...",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메자희: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아 허리이슈는 마뫄도..",
+        "종이를찢으면치지직: ㅋㅋㅋㅋㅋ",
+        "뫄뚱뫄뚱: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: 즉시 치트키",
+        "와이키키99: 하필 허리 ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:21.176728",
+      "fun_score": 77.28056166456383,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 92.93157901154136,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 24.613511093702083,
+        "viewer_trend_score": 20,
+        "final_score": 77.28056166456383,
+        "baseline_chat_count": 7.851979354473468,
+        "baseline_viewer_count": 1646.6686397510634,
+        "baseline_threshold": 26.265306436596035,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 71.49130189046976,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 19.9,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 16.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:24",
+      "comment_after_openDate": "00:01:24",
+      "chat_context": [
+        "팩토리얼: 아",
+        "팩토리얼: 새발동 불합격.",
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "메리임: 아",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "Krucio: 예에엑???",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 야다...",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메자희: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아 허리이슈는 마뫄도..",
+        "종이를찢으면치지직: ㅋㅋㅋㅋㅋ",
+        "뫄뚱뫄뚱: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: 즉시 치트키",
+        "와이키키99: 하필 허리 ㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:26.183561",
+      "fun_score": 57.76666775174667,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 50.437986084800734,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 28.195740135863353,
+        "viewer_trend_score": 15,
+        "final_score": 57.76666775174667,
+        "baseline_chat_count": 8.141609509215936,
+        "baseline_viewer_count": 1635.872175359023,
+        "baseline_threshold": 27.240718116554778,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 51.28912027435767,
+        "test_score_difference": 99.63804062104438,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 17.4
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 14.0
+        }
+      },
+      "after_openDate": "00:01:29",
+      "comment_after_openDate": "00:01:29",
+      "chat_context": [
+        "Krucio: 예에엑???",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "웅냥냥웅냥냥: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "피융냥: 야다...",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메자희: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아 허리이슈는 마뫄도..",
+        "종이를찢으면치지직: ㅋㅋㅋㅋㅋ",
+        "뫄뚱뫄뚱: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: 즉시 치트키",
+        "와이키키99: 하필 허리 ㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 그게 전기 트리거가 됐나보네",
+        "피융냥: 집톡마뫄님 어디가쒀어,,,"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:31.189195",
+      "fun_score": 41.958481840441934,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 16.40628960519846,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 30.75651518102623,
+        "viewer_trend_score": 10,
+        "final_score": 41.958481840441934,
+        "baseline_chat_count": 8.368341935399727,
+        "baseline_viewer_count": 1625.2821393661584,
+        "baseline_threshold": 27.824374273579647,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 26.59830835570981,
+        "test_score_difference": 86.1981580867372,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 12.3
+        },
+        "test_keyword_counter": {
+          "laugh": 10.0
+        }
+      },
+      "after_openDate": "00:01:34",
+      "comment_after_openDate": "00:01:34",
+      "chat_context": [
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메자희: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아 허리이슈는 마뫄도..",
+        "종이를찢으면치지직: ㅋㅋㅋㅋㅋ",
+        "뫄뚱뫄뚱: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: 즉시 치트키",
+        "와이키키99: 하필 허리 ㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 그게 전기 트리거가 됐나보네",
+        "피융냥: 집톡마뫄님 어디가쒀어,,,",
+        "팩토리얼: 야다.."
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:36.194982",
+      "fun_score": 38.94632807127934,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 12.547576654068918,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 32.999185769483276,
+        "viewer_trend_score": 0,
+        "final_score": 38.94632807127934,
+        "baseline_chat_count": 8.495139237594882,
+        "baseline_viewer_count": 1614.8945848614774,
+        "baseline_threshold": 28.094618410258054,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.419431358473204,
+        "test_score_difference": 59.18809418024033,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 11.099999999999998
+        },
+        "test_keyword_counter": {
+          "laugh": 9.0
+        }
+      },
+      "after_openDate": "00:01:39",
+      "comment_after_openDate": "00:01:39",
+      "chat_context": [
+        "카자리: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메자희: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 아 허리이슈는 마뫄도..",
+        "종이를찢으면치지직: ㅋㅋㅋㅋㅋ",
+        "뫄뚱뫄뚱: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "카자리: 즉시 치트키",
+        "와이키키99: 하필 허리 ㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 그게 전기 트리거가 됐나보네",
+        "피융냥: 집톡마뫄님 어디가쒀어,,,",
+        "팩토리얼: 야다..",
+        "시원한새벽: 이선님도 엉덩이 기억 한번 잃어봐야 ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ타이밍이"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:41.201460",
+      "fun_score": 8.236479374405206,
+      "test_fun_score": 6.785261963376865,
+      "score_components": {
+        "chat_spike_score": 4.946832750848023,
+        "reaction_score": 9.695410656263576,
+        "test_reaction_score": 6.785261963376865,
+        "diversity_score": 31.017814396445242,
+        "viewer_trend_score": 0,
+        "final_score": 8.236479374405206,
+        "baseline_chat_count": 8.600392175372068,
+        "baseline_viewer_count": 1604.7056403989259,
+        "baseline_threshold": 28.30210309897678,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 5.4
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "00:01:44",
+      "comment_after_openDate": "00:01:44",
+      "chat_context": [
+        "카자리: 즉시 치트키",
+        "와이키키99: 하필 허리 ㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 그게 전기 트리거가 됐나보네",
+        "피융냥: 집톡마뫄님 어디가쒀어,,,",
+        "팩토리얼: 야다..",
+        "시원한새벽: 이선님도 엉덩이 기억 한번 잃어봐야 ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ타이밍이",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "김비버: 복대 찍찍이 전정기로 나간줄"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:46.207359",
+      "fun_score": 5.967224253463412,
+      "test_fun_score": 2.7018459278206324,
+      "score_components": {
+        "chat_spike_score": 4.91215103823917,
+        "reaction_score": 3.891555196998817,
+        "test_reaction_score": 2.7018459278206324,
+        "diversity_score": 25.892897271561406,
+        "viewer_trend_score": 0,
+        "final_score": 5.967224253463412,
+        "baseline_chat_count": 8.627152676978953,
+        "baseline_viewer_count": 1594.7115085544983,
+        "baseline_threshold": 27.91844837336297,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 4.4
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "00:01:49",
+      "comment_after_openDate": "00:01:49",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋ",
+        "팩토리얼: 그게 전기 트리거가 됐나보네",
+        "피융냥: 집톡마뫄님 어디가쒀어,,,",
+        "팩토리얼: 야다..",
+        "시원한새벽: 이선님도 엉덩이 기억 한번 잃어봐야 ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ타이밍이",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "김비버: 복대 찍찍이 전정기로 나간줄",
+        "와이키키99: 뫄트?",
+        "팩토리얼: 뫄이즈~"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:51.213079",
+      "fun_score": 12.771942694664606,
+      "test_fun_score": 11.467723216513415,
+      "score_components": {
+        "chat_spike_score": 11.857063678586837,
+        "reaction_score": 16.1836448923266,
+        "test_reaction_score": 11.467723216513415,
+        "diversity_score": 25.811705716025493,
+        "viewer_trend_score": 0,
+        "final_score": 12.771942694664606,
+        "baseline_chat_count": 8.653401517795116,
+        "baseline_viewer_count": 1584.9084645109363,
+        "baseline_threshold": 27.49874096819049,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.804718441201194,
+        "test_score_difference": 8.765877288692781,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 3.4,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "00:01:54",
+      "comment_after_openDate": "00:01:54",
+      "chat_context": [
+        "팩토리얼: 그게 전기 트리거가 됐나보네",
+        "피융냥: 집톡마뫄님 어디가쒀어,,,",
+        "팩토리얼: 야다..",
+        "시원한새벽: 이선님도 엉덩이 기억 한번 잃어봐야 ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ타이밍이",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "김비버: 복대 찍찍이 전정기로 나간줄",
+        "와이키키99: 뫄트?",
+        "팩토리얼: 뫄이즈~",
+        "피융냥: 뫄이즈",
+        "와이키키99: 뫄이주?",
+        "메리임: 뫄이즈 !",
+        "치즈주는제리: 뫄이즈!",
+        "피융냥: 좋다아!"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:30:56.218921",
+      "fun_score": 13.359899842010046,
+      "test_fun_score": 10.828741359881933,
+      "score_components": {
+        "chat_spike_score": 14.17095620639352,
+        "reaction_score": 15.242315066415168,
+        "test_reaction_score": 10.828741359881933,
+        "diversity_score": 24.102750292084124,
+        "viewer_trend_score": 0,
+        "final_score": 13.359899842010046,
+        "baseline_chat_count": 8.755628480774874,
+        "baseline_viewer_count": 1575.2928546694873,
+        "baseline_threshold": 27.217164585200674,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.392675588546634,
+        "test_score_difference": 8.1268954320613,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 3.4,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "00:01:59",
+      "comment_after_openDate": "00:01:59",
+      "chat_context": [
+        "팩토리얼: 야다..",
+        "시원한새벽: 이선님도 엉덩이 기억 한번 잃어봐야 ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ타이밍이",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "김비버: 복대 찍찍이 전정기로 나간줄",
+        "와이키키99: 뫄트?",
+        "팩토리얼: 뫄이즈~",
+        "피융냥: 뫄이즈",
+        "와이키키99: 뫄이주?",
+        "메리임: 뫄이즈 !",
+        "치즈주는제리: 뫄이즈!",
+        "피융냥: 좋다아!",
+        "팩토리얼: 뫄뜨다 뫄뜨",
+        "메리임: 뫄트다뫄트",
+        "치즈주는제리: 뫄트?"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:01.224751",
+      "fun_score": 17.173855391046917,
+      "test_fun_score": 21.037704859822398,
+      "score_components": {
+        "chat_spike_score": 13.575922363279073,
+        "reaction_score": 28.853309882840257,
+        "test_reaction_score": 21.037704859822398,
+        "diversity_score": 24.08697362719258,
+        "viewer_trend_score": 0,
+        "final_score": 17.173855391046917,
+        "baseline_chat_count": 8.875020864222458,
+        "baseline_viewer_count": 1565.8610952882066,
+        "baseline_threshold": 26.952213683310866,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 11.206631137583505,
+        "test_score_difference": 18.335858932001766,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 3.4,
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "00:02:04",
+      "comment_after_openDate": "00:02:04",
+      "chat_context": [
+        "시원한새벽: 이선님도 엉덩이 기억 한번 잃어봐야 ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ타이밍이",
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "김비버: 복대 찍찍이 전정기로 나간줄",
+        "와이키키99: 뫄트?",
+        "팩토리얼: 뫄이즈~",
+        "피융냥: 뫄이즈",
+        "와이키키99: 뫄이주?",
+        "메리임: 뫄이즈 !",
+        "치즈주는제리: 뫄이즈!",
+        "피융냥: 좋다아!",
+        "팩토리얼: 뫄뜨다 뫄뜨",
+        "메리임: 뫄트다뫄트",
+        "치즈주는제리: 뫄트?",
+        "피융냥: 뫄트도 조타!"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:06.230668",
+      "fun_score": 7.274654193125817,
+      "test_fun_score": 3.6096290076158977,
+      "score_components": {
+        "chat_spike_score": 8.550920949688997,
+        "reaction_score": 3.6096290076158977,
+        "test_reaction_score": 3.6096290076158977,
+        "diversity_score": 23.43851063480998,
+        "viewer_trend_score": 0,
+        "final_score": 7.274654193125817,
+        "baseline_chat_count": 8.992130465298525,
+        "baseline_viewer_count": 1556.609671146296,
+        "baseline_threshold": 26.765251472762777,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.3074299396624047,
+        "test_score_difference": 0.9077830797952653,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 1082,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "00:02:09",
+      "comment_after_openDate": "00:02:09",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋ",
+        "김비버: 복대 찍찍이 전정기로 나간줄",
+        "와이키키99: 뫄트?",
+        "팩토리얼: 뫄이즈~",
+        "피융냥: 뫄이즈",
+        "와이키키99: 뫄이주?",
+        "메리임: 뫄이즈 !",
+        "치즈주는제리: 뫄이즈!",
+        "피융냥: 좋다아!",
+        "팩토리얼: 뫄뜨다 뫄뜨",
+        "메리임: 뫄트다뫄트",
+        "치즈주는제리: 뫄트?",
+        "피융냥: 뫄트도 조타!"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:11.237489",
+      "fun_score": 6.693207478813674,
+      "test_fun_score": 1.4601105573761475,
+      "score_components": {
+        "chat_spike_score": 5.455218189448491,
+        "reaction_score": 1.4601105573761475,
+        "test_reaction_score": 1.4601105573761475,
+        "diversity_score": 23.003261263490085,
+        "viewer_trend_score": 10,
+        "final_score": 6.693207478813674,
+        "baseline_chat_count": 9.068760930802016,
+        "baseline_viewer_count": 1547.5351342339789,
+        "baseline_threshold": 26.392591252776118,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7259832253502623,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "00:02:14",
+      "comment_after_openDate": "00:02:14",
+      "chat_context": [
+        "와이키키99: 뫄트?",
+        "팩토리얼: 뫄이즈~",
+        "피융냥: 뫄이즈",
+        "와이키키99: 뫄이주?",
+        "메리임: 뫄이즈 !",
+        "치즈주는제리: 뫄이즈!",
+        "피융냥: 좋다아!",
+        "팩토리얼: 뫄뜨다 뫄뜨",
+        "메리임: 뫄트다뫄트",
+        "치즈주는제리: 뫄트?",
+        "피융냥: 뫄트도 조타!"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:16.263471",
+      "fun_score": 6.321345001443508,
+      "test_fun_score": 1.4420742202721124,
+      "score_components": {
+        "chat_spike_score": 3.51615125241527,
+        "reaction_score": 1.4420742202721124,
+        "test_reaction_score": 1.4420742202721124,
+        "diversity_score": 28.06454671775003,
+        "viewer_trend_score": 10,
+        "final_score": 6.321345001443508,
+        "baseline_chat_count": 9.105686221805081,
+        "baseline_viewer_count": 1541.0049824674252,
+        "baseline_threshold": 26.015939035017954,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3541207479800965,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "excitement": 4.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "00:02:19",
+      "comment_after_openDate": "00:02:19",
+      "chat_context": [
+        "피융냥: 뫄이즈",
+        "와이키키99: 뫄이주?",
+        "메리임: 뫄이즈 !",
+        "치즈주는제리: 뫄이즈!",
+        "피융냥: 좋다아!",
+        "팩토리얼: 뫄뜨다 뫄뜨",
+        "메리임: 뫄트다뫄트",
+        "치즈주는제리: 뫄트?",
+        "피융냥: 뫄트도 조타!"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:21.333798",
+      "fun_score": 4.91924436097175,
+      "test_fun_score": 0.14464322798682838,
+      "score_components": {
+        "chat_spike_score": 1.4760482183932426,
+        "reaction_score": 0.14464322798682838,
+        "test_reaction_score": 0.14464322798682838,
+        "diversity_score": 42.116296942987425,
+        "viewer_trend_score": 0,
+        "final_score": 4.91924436097175,
+        "baseline_chat_count": 9.103665501244167,
+        "baseline_viewer_count": 1534.599687202648,
+        "baseline_threshold": 25.63937839709601,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:24",
+      "comment_after_openDate": "00:02:24",
+      "chat_context": [
+        "팩토리얼: 뫄뜨다 뫄뜨",
+        "메리임: 뫄트다뫄트",
+        "치즈주는제리: 뫄트?",
+        "피융냥: 뫄트도 조타!",
+        "팩토리얼: 이번엔 또 드라이버 충돌이었어?"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:26.351838",
+      "fun_score": 4.049152858824878,
+      "test_fun_score": 0.14561266314957091,
+      "score_components": {
+        "chat_spike_score": 0.9591718058219699,
+        "reaction_score": 0.14561266314957091,
+        "test_reaction_score": 0.14561266314957091,
+        "diversity_score": 35.7384174726012,
+        "viewer_trend_score": 0,
+        "final_score": 4.049152858824878,
+        "baseline_chat_count": 9.025203416860379,
+        "baseline_viewer_count": 1528.3168611833335,
+        "baseline_threshold": 25.243209434325312,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0009694351627425324,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:29",
+      "comment_after_openDate": "00:02:29",
+      "chat_context": [
+        "피융냥: 뫄트도 조타!",
+        "팩토리얼: 이번엔 또 드라이버 충돌이었어?",
+        "팩토리얼: 지금은 버전 몇쓰시지"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:31.358601",
+      "fun_score": 2.8894805346621317,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7736584964412135,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.212132034355964,
+        "viewer_trend_score": 0,
+        "final_score": 2.8894805346621317,
+        "baseline_chat_count": 8.910001527530007,
+        "baseline_viewer_count": 1522.154162797508,
+        "baseline_threshold": 24.837979072601744,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1206,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:02:34",
+      "comment_after_openDate": "00:02:34",
+      "chat_context": [
+        "팩토리얼: 이번엔 또 드라이버 충돌이었어?",
+        "팩토리얼: 지금은 버전 몇쓰시지"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:36.364208",
+      "fun_score": 3.928279127539906,
+      "test_fun_score": 0.16677073033256778,
+      "score_components": {
+        "chat_spike_score": 0.9772189578890703,
+        "reaction_score": 0.16677073033256778,
+        "test_reaction_score": 0.16677073033256778,
+        "diversity_score": 34.38499377390054,
+        "viewer_trend_score": 0,
+        "final_score": 3.928279127539906,
+        "baseline_chat_count": 8.777882298323632,
+        "baseline_viewer_count": 1516.1092952048195,
+        "baseline_threshold": 24.418323780556335,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0387985928777743,
+        "test_score_difference": 0.09970070423927216,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "00:02:39",
+      "comment_after_openDate": "00:02:39",
+      "chat_context": [
+        "팩토리얼: 이번엔 또 드라이버 충돌이었어?",
+        "팩토리얼: 지금은 버전 몇쓰시지",
+        "와이키키99: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:41.369986",
+      "fun_score": 5.205951019436502,
+      "test_fun_score": 1.0639378857482829,
+      "score_components": {
+        "chat_spike_score": 1.5593009563716707,
+        "reaction_score": 1.2782585768687604,
+        "test_reaction_score": 1.0639378857482829,
+        "diversity_score": 41.20788016008622,
+        "viewer_trend_score": 0,
+        "final_score": 5.205951019436502,
+        "baseline_chat_count": 8.667409188779683,
+        "baseline_viewer_count": 1510.1800054805033,
+        "baseline_threshold": 24.02655412679066,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3164704847743702,
+        "test_score_difference": 0.9968678596549873,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:02:44",
+      "comment_after_openDate": "00:02:44",
+      "chat_context": [
+        "팩토리얼: 이번엔 또 드라이버 충돌이었어?",
+        "팩토리얼: 지금은 버전 몇쓰시지",
+        "와이키키99: ㅋㅋㅋㅋ",
+        "치즈주는제리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:46.391377",
+      "fun_score": 5.559326286198604,
+      "test_fun_score": 1.0881074095942478,
+      "score_components": {
+        "chat_spike_score": 1.9820793683989129,
+        "reaction_score": 1.309221676827213,
+        "test_reaction_score": 1.0881074095942478,
+        "diversity_score": 42.746240673709295,
+        "viewer_trend_score": 0,
+        "final_score": 5.559326286198604,
+        "baseline_chat_count": 8.597288325090215,
+        "baseline_viewer_count": 1504.364083775716,
+        "baseline_threshold": 23.66670419537805,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.669845751536472,
+        "test_score_difference": 1.021037383500952,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:02:49",
+      "comment_after_openDate": "00:02:49",
+      "chat_context": [
+        "팩토리얼: 이번엔 또 드라이버 충돌이었어?",
+        "팩토리얼: 지금은 버전 몇쓰시지",
+        "와이키키99: ㅋㅋㅋㅋ",
+        "치즈주는제리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋ",
+        "카자리: 실곤쥬"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:51.397574",
+      "fun_score": 6.2212129380418215,
+      "test_fun_score": 1.1058004571047846,
+      "score_components": {
+        "chat_spike_score": 1.5845150943617947,
+        "reaction_score": 1.3319158422576027,
+        "test_reaction_score": 1.1058004571047846,
+        "diversity_score": 51.08606392901732,
+        "viewer_trend_score": 0,
+        "final_score": 6.2212129380418215,
+        "baseline_chat_count": 8.54762817231449,
+        "baseline_viewer_count": 1498.6593624939242,
+        "baseline_threshold": 23.320491129754537,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.33173240337969,
+        "test_score_difference": 1.0387304310114889,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:02:54",
+      "comment_after_openDate": "00:02:54",
+      "chat_context": [
+        "팩토리얼: 지금은 버전 몇쓰시지",
+        "와이키키99: ㅋㅋㅋㅋ",
+        "치즈주는제리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋ",
+        "카자리: 실곤쥬"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:31:56.421285",
+      "fun_score": 6.026067674936348,
+      "test_fun_score": 1.13077552540043,
+      "score_components": {
+        "chat_spike_score": 1.2654009318589199,
+        "reaction_score": 1.3639897759936093,
+        "test_reaction_score": 1.13077552540043,
+        "diversity_score": 50.47440322801751,
+        "viewer_trend_score": 0,
+        "final_score": 6.026067674936348,
+        "baseline_chat_count": 8.479797521659835,
+        "baseline_viewer_count": 1493.0637154830404,
+        "baseline_threshold": 22.99355293072899,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.1365871402742163,
+        "test_score_difference": 1.0637054993071342,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:02:59",
+      "comment_after_openDate": "00:02:59",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋ",
+        "치즈주는제리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋ",
+        "카자리: 실곤쥬"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:32:01.427243",
+      "fun_score": 6.044252206604485,
+      "test_fun_score": 1.1637155526160021,
+      "score_components": {
+        "chat_spike_score": 1.2775631140582377,
+        "reaction_score": 1.4063616082550892,
+        "test_reaction_score": 1.1637155526160021,
+        "diversity_score": 50.47440322801751,
+        "viewer_trend_score": 0,
+        "final_score": 6.044252206604485,
+        "baseline_chat_count": 8.394143793045698,
+        "baseline_viewer_count": 1487.5750572430045,
+        "baseline_threshold": 22.669134612638235,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.154771671942353,
+        "test_score_difference": 1.0966455265227064,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1206,
+        "fun_keywords": {
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:03:04",
+      "comment_after_openDate": "00:03:04",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋ",
+        "치즈주는제리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋ",
+        "카자리: 실곤쥬"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:32:06.433471",
+      "fun_score": 5.686131669294545,
+      "test_fun_score": 0.4590395184307975,
+      "score_components": {
+        "chat_spike_score": 1.0153549150034742,
+        "reaction_score": 0.5562318779989571,
+        "test_reaction_score": 0.4590395184307975,
+        "diversity_score": 50.62352394143294,
+        "viewer_trend_score": 0,
+        "final_score": 5.686131669294545,
+        "baseline_chat_count": 8.310127763722665,
+        "baseline_viewer_count": 1482.1913421485183,
+        "baseline_threshold": 22.35126686103487,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.796651134632413,
+        "test_score_difference": 0.3919694923375019,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1196,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:03:09",
+      "comment_after_openDate": "00:03:09",
+      "chat_context": [
+        "치즈주는제리: ㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋ",
+        "카자리: 실곤쥬"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:32:36.462788",
+      "fun_score": 5.406575779125069,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8037911865678911,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 0,
+        "final_score": 5.406575779125069,
+        "baseline_chat_count": 8.208598120880287,
+        "baseline_viewer_count": 1476.7193636866386,
+        "baseline_threshold": 22.032629476168793,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.517095244462937,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1196,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:03:39",
+      "comment_after_openDate": "00:03:39",
+      "chat_context": [
+        "김비버: 제트가 드론이긴해",
+        "구십육: 하핫"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:32:41.470861",
+      "fun_score": 5.4091608815048495,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8095358585229593,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 0,
+        "final_score": 5.4091608815048495,
+        "baseline_chat_count": 8.089889724809057,
+        "baseline_viewer_count": 1471.3520094529501,
+        "baseline_threshold": 21.71473932948132,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.519680346842718,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1196,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:03:44",
+      "comment_after_openDate": "00:03:44",
+      "chat_context": [
+        "김비버: 제트가 드론이긴해",
+        "구십육: 하핫"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:32:46.489445",
+      "fun_score": 5.411790009002847,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8153783640740656,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 0,
+        "final_score": 5.411790009002847,
+        "baseline_chat_count": 7.973451033270707,
+        "baseline_viewer_count": 1466.0872790322096,
+        "baseline_threshold": 21.402976669556008,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.5223094743407155,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1196,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:03:49",
+      "comment_after_openDate": "00:03:49",
+      "chat_context": [
+        "김비버: 제트가 드론이긴해",
+        "구십육: 하핫"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:32:51.495574",
+      "fun_score": 5.4144637230916395,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8213199509380484,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 0,
+        "final_score": 5.4144637230916395,
+        "baseline_chat_count": 7.8592386495145705,
+        "baseline_viewer_count": 1460.9232102571136,
+        "baseline_threshold": 21.09722518060623,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.5249831884295078,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1196,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:03:54",
+      "comment_after_openDate": "00:03:54",
+      "chat_context": [
+        "김비버: 제트가 드론이긴해",
+        "구십육: 하핫"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:32:56.501834",
+      "fun_score": 5.417182583797861,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.827361863618541,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 0,
+        "final_score": 5.417182583797861,
+        "baseline_chat_count": 7.747210006535852,
+        "baseline_viewer_count": 1455.8578784769975,
+        "baseline_threshold": 20.79737078153855,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.5277020491357294,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1196,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:03:59",
+      "comment_after_openDate": "00:03:59",
+      "chat_context": [
+        "김비버: 제트가 드론이긴해",
+        "구십육: 하핫"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:01.506985",
+      "fun_score": 5.419947149252745,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8335053424071713,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.24748737341529,
+        "viewer_trend_score": 0,
+        "final_score": 5.419947149252745,
+        "baseline_chat_count": 7.6373233512108865,
+        "baseline_viewer_count": 1450.8893958405172,
+        "baseline_threshold": 20.503301583197747,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4916680217128389,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1196,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:04:04",
+      "comment_after_openDate": "00:04:04",
+      "chat_context": [
+        "김비버: 제트가 드론이긴해",
+        "구십육: 하핫"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:16.523648",
+      "fun_score": 5.6032655546407755,
+      "test_fun_score": 0.5601655350752718,
+      "score_components": {
+        "chat_spike_score": 0.8397516223473678,
+        "reaction_score": 0.6923321835159841,
+        "test_reaction_score": 0.5601655350752718,
+        "diversity_score": 50.17677669529664,
+        "viewer_trend_score": 0,
+        "final_score": 5.6032655546407755,
+        "baseline_chat_count": 7.529537728735734,
+        "baseline_viewer_count": 1446.0159105920466,
+        "baseline_threshold": 20.214907846420715,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3973145352042735,
+        "test_score_difference": 0.4930955089819762,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:04:19",
+      "comment_after_openDate": "00:04:19",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:21.530460",
+      "fun_score": 8.426480613715482,
+      "test_fun_score": 4.874874890997771,
+      "score_components": {
+        "chat_spike_score": 1.4458181778136527,
+        "reaction_score": 9.104315729020911,
+        "test_reaction_score": 4.874874890997771,
+        "diversity_score": 50.44567714993064,
+        "viewer_trend_score": 0,
+        "final_score": 8.426480613715482,
+        "baseline_chat_count": 7.423812967362307,
+        "baseline_viewer_count": 1441.5606463815266,
+        "baseline_threshold": 19.93553324580188,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.019904834590413,
+        "test_score_difference": 4.807804864904475,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "laugh": 4.6000000000000005
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0
+        }
+      },
+      "after_openDate": "00:04:24",
+      "comment_after_openDate": "00:04:24",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:26.536778",
+      "fun_score": 12.682296206057714,
+      "test_fun_score": 14.29833318883545,
+      "score_components": {
+        "chat_spike_score": 1.9111706209025834,
+        "reaction_score": 25.75848445901987,
+        "test_reaction_score": 14.29833318883545,
+        "diversity_score": 40.94724088945591,
+        "viewer_trend_score": 0,
+        "final_score": 12.682296206057714,
+        "baseline_chat_count": 7.358349663426339,
+        "baseline_viewer_count": 1437.1905668227116,
+        "baseline_threshold": 19.71548015947639,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.275720426932645,
+        "test_score_difference": 14.231263162742154,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "laugh": 5.6000000000000005
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0
+        }
+      },
+      "after_openDate": "00:04:29",
+      "comment_after_openDate": "00:04:29",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 저벽 치는게 더 힘들것 같은데 ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:31.546764",
+      "fun_score": 34.52542077871295,
+      "test_fun_score": 96.54147096720574,
+      "score_components": {
+        "chat_spike_score": 4.3243669240127,
+        "reaction_score": 100,
+        "test_reaction_score": 96.54147096720574,
+        "diversity_score": 25.794556629072307,
+        "viewer_trend_score": 0,
+        "final_score": 34.52542077871295,
+        "baseline_chat_count": 7.313258017861628,
+        "baseline_viewer_count": 1432.9040431850613,
+        "baseline_threshold": 19.581005682287024,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 29.11884499958788,
+        "test_score_difference": 96.47440094111245,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "laugh": 7.800000000000001,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 7.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:04:34",
+      "comment_after_openDate": "00:04:34",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 저벽 치는게 더 힘들것 같은데 ㅋㅋㅋ",
+        "김비버: 아니 벽 하나로 이정도의 어그로를?",
+        "팩토리얼: 벽 리버스크랙 지렸다 ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:36.564581",
+      "fun_score": 35.38188818842305,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 5.621942106866165,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 28.520142403332752,
+        "viewer_trend_score": 0,
+        "final_score": 35.38188818842305,
+        "baseline_chat_count": 7.326388524560113,
+        "baseline_viewer_count": 1428.6994778793628,
+        "baseline_threshold": 19.866742898930685,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 29.975312409297977,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "laugh": 9.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:04:39",
+      "comment_after_openDate": "00:04:34",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 저벽 치는게 더 힘들것 같은데 ㅋㅋㅋ",
+        "김비버: 아니 벽 하나로 이정도의 어그로를?",
+        "팩토리얼: 벽 리버스크랙 지렸다 ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "구구0106: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:41.569912",
+      "fun_score": 37.02205944781864,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 9.393306679071435,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 27.950714422364996,
+        "viewer_trend_score": 0,
+        "final_score": 37.02205944781864,
+        "baseline_chat_count": 7.3583879759705235,
+        "baseline_viewer_count": 1424.5753038623093,
+        "baseline_threshold": 20.16339247686578,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 31.61548366869357,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "laugh": 11.2,
+          "reaction": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 10.0,
+          "reaction": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:04:44",
+      "comment_after_openDate": "00:04:34",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 저벽 치는게 더 힘들것 같은데 ㅋㅋㅋ",
+        "김비버: 아니 벽 하나로 이정도의 어그로를?",
+        "팩토리얼: 벽 리버스크랙 지렸다 ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "구구0106: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "도아율: 실곤듀 뭐야ㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:46.575098",
+      "fun_score": 36.906622276147345,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 9.145582674020874,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 27.911100728379502,
+        "viewer_trend_score": 0,
+        "final_score": 36.906622276147345,
+        "baseline_chat_count": 7.428015597869967,
+        "baseline_viewer_count": 1420.529984052462,
+        "baseline_threshold": 20.4857301893504,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 31.500046497022275,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "laugh": 11.399999999999999,
+          "reaction": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 10.0,
+          "reaction": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:04:49",
+      "comment_after_openDate": "00:04:49",
+      "chat_context": [
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: 저벽 치는게 더 힘들것 같은데 ㅋㅋㅋ",
+        "김비버: 아니 벽 하나로 이정도의 어그로를?",
+        "팩토리얼: 벽 리버스크랙 지렸다 ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "구구0106: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "도아율: 실곤듀 뭐야ㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:51.581468",
+      "fun_score": 35.77961405143573,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 5.325516013078058,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 33.83131845550604,
+        "viewer_trend_score": 0,
+        "final_score": 35.77961405143573,
+        "baseline_chat_count": 7.4963119396386935,
+        "baseline_viewer_count": 1416.5620107573789,
+        "baseline_threshold": 20.799697646049957,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 30.37045316993088,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "laugh": 9.0,
+          "reaction": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 8.0,
+          "reaction": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:04:54",
+      "comment_after_openDate": "00:04:54",
+      "chat_context": [
+        "와이키키99: 저벽 치는게 더 힘들것 같은데 ㅋㅋㅋ",
+        "김비버: 아니 벽 하나로 이정도의 어그로를?",
+        "팩토리얼: 벽 리버스크랙 지렸다 ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "구구0106: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "도아율: 실곤듀 뭐야ㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:33:56.587846",
+      "fun_score": 35.63075328338268,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 4.071366443077882,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 37.98638383997631,
+        "viewer_trend_score": 0,
+        "final_score": 35.63075328338268,
+        "baseline_chat_count": 7.525062455352802,
+        "baseline_viewer_count": 1412.6699051116977,
+        "baseline_threshold": 21.086113647720932,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 30.218963274379835,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 1213,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "laugh": 8.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "laugh": 7.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:04:59",
+      "comment_after_openDate": "00:04:59",
+      "chat_context": [
+        "김비버: 아니 벽 하나로 이정도의 어그로를?",
+        "팩토리얼: 벽 리버스크랙 지렸다 ㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "구구0106: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "도아율: 실곤듀 뭐야ㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:01.624742",
+      "fun_score": 19.992942085660744,
+      "test_fun_score": 23.275497801009397,
+      "score_components": {
+        "chat_spike_score": 1.8520715933556067,
+        "reaction_score": 47.09231206179515,
+        "test_reaction_score": 23.275497801009397,
+        "diversity_score": 50.31816250112178,
+        "viewer_trend_score": 0,
+        "final_score": 19.992942085660744,
+        "baseline_chat_count": 7.534143261206456,
+        "baseline_viewer_count": 1408.852216525962,
+        "baseline_threshold": 21.364207157554784,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 14.578478362569104,
+        "test_score_difference": 23.208427774916103,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 1241,
+        "fun_keywords": {
+          "laugh": 5.800000000000001,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 5.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:05:04",
+      "comment_after_openDate": "00:05:04",
+      "chat_context": [
+        "구구0106: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "도아율: 실곤듀 뭐야ㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:06.631197",
+      "fun_score": 10.599829456154358,
+      "test_fun_score": 8.981218736271812,
+      "score_components": {
+        "chat_spike_score": 1.433088382791911,
+        "reaction_score": 16.391953216846865,
+        "test_reaction_score": 8.981218736271812,
+        "diversity_score": 50.373537188439386,
+        "viewer_trend_score": 0,
+        "final_score": 10.599829456154358,
+        "baseline_chat_count": 7.485690442052189,
+        "baseline_viewer_count": 1405.6428821459856,
+        "baseline_threshold": 21.33798856938017,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.182646872356497,
+        "test_score_difference": 8.914148710178516,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1241,
+        "fun_keywords": {
+          "laugh": 4.6000000000000005,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:05:09",
+      "comment_after_openDate": "00:05:09",
+      "chat_context": [
+        "도아율: 실곤듀 뭐야ㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:11.637334",
+      "fun_score": 5.650968069507451,
+      "test_fun_score": 0.5781248883287591,
+      "score_components": {
+        "chat_spike_score": 0.8463937835267009,
+        "reaction_score": 0.8885177767150096,
+        "test_reaction_score": 0.5781248883287591,
+        "diversity_score": 50.03535533905933,
+        "viewer_trend_score": 0,
+        "final_score": 5.650968069507451,
+        "baseline_chat_count": 7.41904404080015,
+        "baseline_viewer_count": 1402.4949102393543,
+        "baseline_threshold": 21.13267496713529,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.23102092025470622,
+        "test_score_difference": 0.5110548622354635,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1241,
+        "fun_keywords": {
+          "laugh": 2.4
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "00:05:14",
+      "comment_after_openDate": "00:05:14",
+      "chat_context": [
+        "와이키키99: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:21.654738",
+      "fun_score": 5.312399411062457,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6495075627432638,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.312399411062457,
+        "baseline_chat_count": 7.315431918740051,
+        "baseline_viewer_count": 1399.407127555578,
+        "baseline_threshold": 20.836664731252647,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:24",
+      "comment_after_openDate": "00:05:24",
+      "chat_context": [
+        "김비버: 뫄트하니 시원허이 직이네"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:26.660324",
+      "fun_score": 5.313739222710085,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6524849219602138,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.313739222710085,
+        "baseline_chat_count": 7.194680860453741,
+        "baseline_viewer_count": 1396.3783832767153,
+        "baseline_threshold": 20.539840778330607,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0013398116476279753,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:29",
+      "comment_after_openDate": "00:05:29",
+      "chat_context": [
+        "김비버: 뫄트하니 시원허이 직이네"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:31.667547",
+      "fun_score": 5.3151040911495055,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6555179629367051,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3151040911495055,
+        "baseline_chat_count": 7.0762385624018656,
+        "baseline_viewer_count": 1393.4075485884646,
+        "baseline_threshold": 20.248717716587144,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0027046800870484944,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:34",
+      "comment_after_openDate": "00:05:34",
+      "chat_context": [
+        "김비버: 뫄트하니 시원허이 직이네"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:36.673108",
+      "fun_score": 5.4430075922858965,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8768940293565461,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.28284271247462,
+        "viewer_trend_score": 0,
+        "final_score": 5.4430075922858965,
+        "baseline_chat_count": 6.960060881088742,
+        "baseline_viewer_count": 1390.4935162594531,
+        "baseline_threshold": 19.963187024068777,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.13060818122343942,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:39",
+      "comment_after_openDate": "00:05:39",
+      "chat_context": [
+        "김비버: 뫄트하니 시원허이 직이네",
+        "팩토리얼: 빙수만든다"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:41.678593",
+      "fun_score": 5.446138918349418,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.8838525317199286,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.28284271247462,
+        "viewer_trend_score": 0,
+        "final_score": 5.446138918349418,
+        "baseline_chat_count": 6.865224517042325,
+        "baseline_viewer_count": 1387.6352002285723,
+        "baseline_threshold": 19.685561193333086,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.13373950728696116,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:44",
+      "comment_after_openDate": "00:05:44",
+      "chat_context": [
+        "김비버: 뫄트하니 시원허이 직이네",
+        "팩토리얼: 빙수만든다"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:46.692289",
+      "fun_score": 5.449320613629521,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.890922965675712,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.28284271247462,
+        "viewer_trend_score": 0,
+        "final_score": 5.449320613629521,
+        "baseline_chat_count": 6.772201424276475,
+        "baseline_viewer_count": 1384.831535200202,
+        "baseline_threshold": 19.413303439435396,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.13692120256706364,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:49",
+      "comment_after_openDate": "00:05:49",
+      "chat_context": [
+        "김비버: 뫄트하니 시원허이 직이네",
+        "팩토리얼: 빙수만든다"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:51.697470",
+      "fun_score": 5.320061777834611,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6665350444591599,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.320061777834611,
+        "baseline_chat_count": 6.680956933044309,
+        "baseline_viewer_count": 1382.0814762471744,
+        "baseline_threshold": 19.146312087805985,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007662366772153817,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 1241,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:05:54",
+      "comment_after_openDate": "00:05:54",
+      "chat_context": [
+        "팩토리얼: 빙수만든다"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:34:56.748327",
+      "fun_score": 5.4770898467759945,
+      "test_fun_score": 0.19444903122431215,
+      "score_components": {
+        "chat_spike_score": 0.9069967459797825,
+        "reaction_score": 0.19444903122431215,
+        "test_reaction_score": 0.19444903122431215,
+        "diversity_score": 50.10606601717798,
+        "viewer_trend_score": 0,
+        "final_score": 5.4770898467759945,
+        "baseline_chat_count": 6.572337036484501,
+        "baseline_viewer_count": 1379.3839984213284,
+        "baseline_threshold": 18.881954181879333,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.16469043571353748,
+        "test_score_difference": 0.12737900513101652,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1241,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:05:59",
+      "comment_after_openDate": "00:05:59",
+      "chat_context": [
+        "팩토리얼: 빙수만든다",
+        "피융냥: 오우"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:35:01.753861",
+      "fun_score": 4.187642940433569,
+      "test_fun_score": 0.19725833644086316,
+      "score_components": {
+        "chat_spike_score": 1.2427276081116818,
+        "reaction_score": 0.19725833644086316,
+        "test_reaction_score": 0.19725833644086316,
+        "diversity_score": 35.69238015851053,
+        "viewer_trend_score": 0,
+        "final_score": 4.187642940433569,
+        "baseline_chat_count": 6.4849139523469175,
+        "baseline_viewer_count": 1376.7380963715127,
+        "baseline_threshold": 18.625653175792156,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.13018831034756753,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 1241,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:06:04",
+      "comment_after_openDate": "00:06:04",
+      "chat_context": [
+        "팩토리얼: 빙수만든다",
+        "피융냥: 오우",
+        "팩토리얼: 어딜 쇼티를"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:35:06.821353",
+      "fun_score": 4.638313017881703,
+      "test_fun_score": 0.19947905019835727,
+      "score_components": {
+        "chat_spike_score": 1.7094518448645617,
+        "reaction_score": 0.19947905019835727,
+        "test_reaction_score": 0.19947905019835727,
+        "diversity_score": 38.09215972633144,
+        "viewer_trend_score": 0,
+        "final_score": 4.638313017881703,
+        "baseline_chat_count": 6.418282397578045,
+        "baseline_viewer_count": 1374.1427839688895,
+        "baseline_threshold": 18.349598420092097,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.4506700774481347,
+        "test_score_difference": 0.13240902410506164,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 1251,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:06:09",
+      "comment_after_openDate": "00:06:09",
+      "chat_context": [
+        "피융냥: 오우",
+        "팩토리얼: 어딜 쇼티를",
+        "피융냥: 이자슥~",
+        "메리임: 죠타"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:35:11.832454",
+      "fun_score": 12.013896123455154,
+      "test_fun_score": 8.337283426100282,
+      "score_components": {
+        "chat_spike_score": 4.3638447385915695,
+        "reaction_score": 23.734448527182376,
+        "test_reaction_score": 8.337283426100282,
+        "diversity_score": 29.298314329342354,
+        "viewer_trend_score": 0,
+        "final_score": 12.013896123455154,
+        "baseline_chat_count": 6.372044838136352,
+        "baseline_viewer_count": 1371.7882939394044,
+        "baseline_threshold": 18.087438643201832,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 7.826253183021586,
+        "test_score_difference": 8.270213400006986,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 1251,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 3.9
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "00:06:14",
+      "comment_after_openDate": "00:06:14",
+      "chat_context": [
+        "피융냥: 오우",
+        "팩토리얼: 어딜 쇼티를",
+        "피융냥: 이자슥~",
+        "메리임: 죠타",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:35:16.839773",
+      "fun_score": 37.41115913930263,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 10.759871533942853,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.692169490283547,
+        "viewer_trend_score": 0,
+        "final_score": 37.41115913930263,
+        "baseline_chat_count": 6.384051340831185,
+        "baseline_viewer_count": 1369.478821759283,
+        "baseline_threshold": 17.971312510224273,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 33.22351619886906,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 1251,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 7.3
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "00:06:19",
+      "comment_after_openDate": "00:06:19",
+      "chat_context": [
+        "피융냥: 오우",
+        "팩토리얼: 어딜 쇼티를",
+        "피융냥: 이자슥~",
+        "메리임: 죠타",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 안티연습을 팀삥으로 ㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-01T02:35:21.845933",
+      "fun_score": 37.25967182178241,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 10.423233050564578,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.692169490283547,
+        "viewer_trend_score": 0,
+        "final_score": 37.25967182178241,
+        "baseline_chat_count": 6.453188279194493,
+        "baseline_viewer_count": 1367.2135066872454,
+        "baseline_threshold": 18.34300237777225,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 33.07202888134884,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 1251,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 7.3
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 6.0
+        }
+      },
+      "after_openDate": "00:06:24",
+      "comment_after_openDate": "00:06:24",
+      "chat_context": [
+        "피융냥: 오우",
+        "팩토리얼: 어딜 쇼티를",
+        "피융냥: 이자슥~",
+        "메리임: 죠타",
+        "와이키키99: ㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: ㅋㅋㅋㅋㅋㅋ",
+        "피융냥: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "김비버: ㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "팩토리얼: 안티연습을 팀삥으로 ㅋㅋㅋㅋ",
+        "메리임: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

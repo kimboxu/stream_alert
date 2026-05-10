@@ -1,0 +1,1348 @@
+{
+  "channel_id": "madaomm",
+  "channel_name": "마다옴_",
+  "save_timestamp": "2026-05-09T11:39:12.109128",
+  "total_logs": 30,
+  "logs": [
+    {
+      "timestamp": "2026-05-09T11:27:56.524303",
+      "fun_score": 22.00821867389218,
+      "test_fun_score": 1.176380398213175,
+      "score_components": {
+        "chat_spike_score": 20.434762070946036,
+        "reaction_score": 22.43694765276753,
+        "test_reaction_score": 1.176380398213175,
+        "diversity_score": 30.81491446136203,
+        "viewer_trend_score": 20,
+        "final_score": 22.00821867389218,
+        "baseline_chat_count": 5.226436826723103,
+        "baseline_viewer_count": 374.11797657058696,
+        "baseline_threshold": 20.038642870628717,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 17.515555079654405,
+        "test_score_difference": 1.1093103721198794,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 371,
+        "fun_keywords": {
+          "laugh": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "13:56:47",
+      "comment_after_openDate": "13:56:47",
+      "chat_context": [
+        "바람이다옴: 굿",
+        "꿀당고다옴: 개꿀띠~~",
+        "헤웅: ㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅ",
+        "꿀당고다옴: 조아따옴",
+        "(도비): ㅋㅋㅋㅋ ㅋㅋㅋㅋ ㅋㅋㅋㅋ ",
+        "푸른아즈라엘: 캬 ",
+        "바람이다옴: 다옴님 제갈 님대회는 안나가심/",
+        "호누탄: 수고하셨어요",
+        "헤웅: 옴장연",
+        "꿀당고다옴: 탱다옴"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:01.530556",
+      "fun_score": 20.89517492602794,
+      "test_fun_score": 1.1201530572618574,
+      "score_components": {
+        "chat_spike_score": 19.260842945229946,
+        "reaction_score": 20.487680515127543,
+        "test_reaction_score": 1.1201530572618574,
+        "diversity_score": 30.81491446136203,
+        "viewer_trend_score": 20,
+        "final_score": 20.89517492602794,
+        "baseline_chat_count": 5.317707354596157,
+        "baseline_viewer_count": 374.05836085855736,
+        "baseline_threshold": 20.076301159987114,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 16.402511331790166,
+        "test_score_difference": 1.0530830311685617,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 367,
+        "fun_keywords": {
+          "laugh": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "13:56:52",
+      "comment_after_openDate": "13:56:52",
+      "chat_context": [
+        "바람이다옴: 굿",
+        "꿀당고다옴: 개꿀띠~~",
+        "헤웅: ㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅ",
+        "꿀당고다옴: 조아따옴",
+        "(도비): ㅋㅋㅋㅋ ㅋㅋㅋㅋ ㅋㅋㅋㅋ ",
+        "푸른아즈라엘: 캬 ",
+        "바람이다옴: 다옴님 제갈 님대회는 안나가심/",
+        "호누탄: 수고하셨어요",
+        "헤웅: 옴장연",
+        "꿀당고다옴: 탱다옴"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:06.536573",
+      "fun_score": 52.165105712637455,
+      "test_fun_score": 4.611494211914351,
+      "score_components": {
+        "chat_spike_score": 61.07843689145449,
+        "reaction_score": 62.543795129043446,
+        "test_reaction_score": 4.611494211914351,
+        "diversity_score": 29.16670572769903,
+        "viewer_trend_score": 20,
+        "final_score": 52.165105712637455,
+        "baseline_chat_count": 5.407232789976279,
+        "baseline_viewer_count": 373.92340499894175,
+        "baseline_threshold": 20.09195802639381,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 47.67244211839968,
+        "test_score_difference": 4.544424185821056,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 367,
+        "fun_keywords": {
+          "laugh": 4.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "13:56:57",
+      "comment_after_openDate": "13:56:57",
+      "chat_context": [
+        "꿀당고다옴: 개꿀띠~~",
+        "헤웅: ㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅ",
+        "꿀당고다옴: 조아따옴",
+        "(도비): ㅋㅋㅋㅋ ㅋㅋㅋㅋ ㅋㅋㅋㅋ ",
+        "푸른아즈라엘: 캬 ",
+        "바람이다옴: 다옴님 제갈 님대회는 안나가심/",
+        "호누탄: 수고하셨어요",
+        "헤웅: 옴장연",
+        "꿀당고다옴: 탱다옴",
+        "녹림: ㅋㅋㅋㅋ",
+        "꿀당고다옴: 조아요~~",
+        "IN척: 마탱커",
+        "푸른아즈라엘: /하이/",
+        "(도비): 매우가"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:11.543236",
+      "fun_score": 46.71124977009535,
+      "test_fun_score": 4.0789689345940445,
+      "score_components": {
+        "chat_spike_score": 54.798989519537386,
+        "reaction_score": 53.78344637844542,
+        "test_reaction_score": 4.0789689345940445,
+        "diversity_score": 29.16670572769903,
+        "viewer_trend_score": 20,
+        "final_score": 46.71124977009535,
+        "baseline_chat_count": 5.571526499031933,
+        "baseline_viewer_count": 373.79102949536195,
+        "baseline_threshold": 20.70519661015479,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.218586175857574,
+        "test_score_difference": 4.011898908500749,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 367,
+        "fun_keywords": {
+          "laugh": 4.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "13:57:02",
+      "comment_after_openDate": "13:57:02",
+      "chat_context": [
+        "꿀당고다옴: 개꿀띠~~",
+        "헤웅: ㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅ",
+        "꿀당고다옴: 조아따옴",
+        "(도비): ㅋㅋㅋㅋ ㅋㅋㅋㅋ ㅋㅋㅋㅋ ",
+        "푸른아즈라엘: 캬 ",
+        "바람이다옴: 다옴님 제갈 님대회는 안나가심/",
+        "호누탄: 수고하셨어요",
+        "헤웅: 옴장연",
+        "꿀당고다옴: 탱다옴",
+        "녹림: ㅋㅋㅋㅋ",
+        "꿀당고다옴: 조아요~~",
+        "IN척: 마탱커",
+        "푸른아즈라엘: /하이/",
+        "(도비): 매우가"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:16.549150",
+      "fun_score": 65.28753945477453,
+      "test_fun_score": 35.13946772767685,
+      "score_components": {
+        "chat_spike_score": 63.43241848708067,
+        "reaction_score": 100,
+        "test_reaction_score": 35.13946772767685,
+        "diversity_score": 37.429511355882255,
+        "viewer_trend_score": 20,
+        "final_score": 65.28753945477453,
+        "baseline_chat_count": 5.732678912370442,
+        "baseline_viewer_count": 373.6611850114106,
+        "baseline_threshold": 21.202432346572852,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 60.794875860536756,
+        "test_score_difference": 35.072397701583554,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 362,
+        "fun_keywords": {
+          "laugh": 4.0,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "13:57:07",
+      "comment_after_openDate": "13:56:57",
+      "chat_context": [
+        "(도비): ㅋㅋㅋㅋ ㅋㅋㅋㅋ ㅋㅋㅋㅋ ",
+        "푸른아즈라엘: 캬 ",
+        "바람이다옴: 다옴님 제갈 님대회는 안나가심/",
+        "호누탄: 수고하셨어요",
+        "헤웅: 옴장연",
+        "꿀당고다옴: 탱다옴",
+        "녹림: ㅋㅋㅋㅋ",
+        "꿀당고다옴: 조아요~~",
+        "IN척: 마탱커",
+        "푸른아즈라엘: /하이/",
+        "(도비): 매우가",
+        "베스트서푸카: 매우가!",
+        "투더게임: 자면서 듣는데 너무 좋았다",
+        "꿀당고다옴: 마바링~",
+        "seygervayen: 방송을 원래 밤부터 낮까지하나요??"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:21.555269",
+      "fun_score": 22.8514378706332,
+      "test_fun_score": 2.7377059947767473,
+      "score_components": {
+        "chat_spike_score": 33.58011028855642,
+        "reaction_score": 2.7377059947767473,
+        "test_reaction_score": 2.7377059947767473,
+        "diversity_score": 39.190764423497896,
+        "viewer_trend_score": 20,
+        "final_score": 22.8514378706332,
+        "baseline_chat_count": 5.90987009156592,
+        "baseline_viewer_count": 373.43822315399245,
+        "baseline_threshold": 22.045339594481668,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 18.358774276395426,
+        "test_score_difference": 2.6706359686834515,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 362,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "13:57:12",
+      "comment_after_openDate": "13:57:12",
+      "chat_context": [
+        "호누탄: 수고하셨어요",
+        "헤웅: 옴장연",
+        "꿀당고다옴: 탱다옴",
+        "녹림: ㅋㅋㅋㅋ",
+        "꿀당고다옴: 조아요~~",
+        "IN척: 마탱커",
+        "푸른아즈라엘: /하이/",
+        "(도비): 매우가",
+        "베스트서푸카: 매우가!",
+        "투더게임: 자면서 듣는데 너무 좋았다",
+        "꿀당고다옴: 마바링~",
+        "seygervayen: 방송을 원래 밤부터 낮까지하나요??",
+        "베스트서푸카: 푹 쉬세요"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:26.561496",
+      "fun_score": 22.37281677627258,
+      "test_fun_score": 9.151373479117833,
+      "score_components": {
+        "chat_spike_score": 23.216526704208025,
+        "reaction_score": 17.00548633002591,
+        "test_reaction_score": 9.151373479117833,
+        "diversity_score": 38.23733860371194,
+        "viewer_trend_score": 20,
+        "final_score": 22.37281677627258,
+        "baseline_chat_count": 6.04543337541518,
+        "baseline_viewer_count": 373.2195243272881,
+        "baseline_threshold": 22.060752193521683,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 17.880153182034803,
+        "test_score_difference": 9.084303453024537,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 362,
+        "fun_keywords": {
+          "laugh": 2.5,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "13:57:17",
+      "comment_after_openDate": "13:57:17",
+      "chat_context": [
+        "녹림: ㅋㅋㅋㅋ",
+        "꿀당고다옴: 조아요~~",
+        "IN척: 마탱커",
+        "푸른아즈라엘: /하이/",
+        "(도비): 매우가",
+        "베스트서푸카: 매우가!",
+        "투더게임: 자면서 듣는데 너무 좋았다",
+        "꿀당고다옴: 마바링~",
+        "seygervayen: 방송을 원래 밤부터 낮까지하나요??",
+        "베스트서푸카: 푹 쉬세요",
+        "베스트서푸카: 즐거뿌게",
+        "초코샴푸_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:31.567208",
+      "fun_score": 24.171600909499652,
+      "test_fun_score": 8.382905282390045,
+      "score_components": {
+        "chat_spike_score": 28.891990072599526,
+        "reaction_score": 15.456173511040012,
+        "test_reaction_score": 8.382905282390045,
+        "diversity_score": 35.333533235178606,
+        "viewer_trend_score": 20,
+        "final_score": 24.171600909499652,
+        "baseline_chat_count": 6.159284689277242,
+        "baseline_viewer_count": 373.0050070221504,
+        "baseline_threshold": 22.06671886834388,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 19.678937315261877,
+        "test_score_difference": 8.315835256296749,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 361,
+        "fun_keywords": {
+          "laugh": 2.5,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "13:57:22",
+      "comment_after_openDate": "13:57:22",
+      "chat_context": [
+        "녹림: ㅋㅋㅋㅋ",
+        "꿀당고다옴: 조아요~~",
+        "IN척: 마탱커",
+        "푸른아즈라엘: /하이/",
+        "(도비): 매우가",
+        "베스트서푸카: 매우가!",
+        "투더게임: 자면서 듣는데 너무 좋았다",
+        "꿀당고다옴: 마바링~",
+        "seygervayen: 방송을 원래 밤부터 낮까지하나요??",
+        "베스트서푸카: 푹 쉬세요",
+        "베스트서푸카: 즐거뿌게",
+        "초코샴푸_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "꿀당고다옴: 방송은 그때그때 달라용"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:36.573347",
+      "fun_score": 10.802239348510009,
+      "test_fun_score": 2.192116501456384,
+      "score_components": {
+        "chat_spike_score": 8.31055016335013,
+        "reaction_score": 4.100444336465708,
+        "test_reaction_score": 2.192116501456384,
+        "diversity_score": 28.32358474062737,
+        "viewer_trend_score": 20,
+        "final_score": 10.802239348510009,
+        "baseline_chat_count": 6.290079166018261,
+        "baseline_viewer_count": 372.77547128788683,
+        "baseline_threshold": 22.106964212970777,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.149147101708791,
+        "test_score_difference": 2.125046475363088,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 361,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 1.5
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "13:57:27",
+      "comment_after_openDate": "13:57:27",
+      "chat_context": [
+        "베스트서푸카: 매우가!",
+        "투더게임: 자면서 듣는데 너무 좋았다",
+        "꿀당고다옴: 마바링~",
+        "seygervayen: 방송을 원래 밤부터 낮까지하나요??",
+        "베스트서푸카: 푹 쉬세요",
+        "베스트서푸카: 즐거뿌게",
+        "초코샴푸_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "꿀당고다옴: 방송은 그때그때 달라용",
+        "베스트서푸카: 잘 다녀오세요"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:41.623054",
+      "fun_score": 11.700927170040632,
+      "test_fun_score": 2.1310204392926955,
+      "score_components": {
+        "chat_spike_score": 10.973878919737704,
+        "reaction_score": 3.966981498137755,
+        "test_reaction_score": 2.1310204392926955,
+        "diversity_score": 25.725872067173377,
+        "viewer_trend_score": 20,
+        "final_score": 11.700927170040632,
+        "baseline_chat_count": 6.3418928523639915,
+        "baseline_viewer_count": 372.5503242768624,
+        "baseline_threshold": 21.890817873562284,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.069799747925441,
+        "test_score_difference": 2.0639504131993998,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 361,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "laugh": 1.5
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "13:57:32",
+      "comment_after_openDate": "13:57:32",
+      "chat_context": [
+        "베스트서푸카: 매우가!",
+        "투더게임: 자면서 듣는데 너무 좋았다",
+        "꿀당고다옴: 마바링~",
+        "seygervayen: 방송을 원래 밤부터 낮까지하나요??",
+        "베스트서푸카: 푹 쉬세요",
+        "베스트서푸카: 즐거뿌게",
+        "초코샴푸_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "꿀당고다옴: 방송은 그때그때 달라용",
+        "베스트서푸카: 잘 다녀오세요",
+        "꿀당고다옴: 좋아용~"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:46.629488",
+      "fun_score": 5.629794404694381,
+      "test_fun_score": 0.23336359292690373,
+      "score_components": {
+        "chat_spike_score": 3.1704607821168658,
+        "reaction_score": 0.4350382457945441,
+        "test_reaction_score": 0.23336359292690373,
+        "diversity_score": 25.725755790034277,
+        "viewer_trend_score": 10,
+        "final_score": 5.629794404694381,
+        "baseline_chat_count": 6.411835861026792,
+        "baseline_viewer_count": 372.32948207668875,
+        "baseline_threshold": 21.69598716331095,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.1662935668336081,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 361,
+        "fun_keywords": {
+          "laugh": 1.5
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "13:57:37",
+      "comment_after_openDate": "13:57:37",
+      "chat_context": [
+        "베스트서푸카: 푹 쉬세요",
+        "베스트서푸카: 즐거뿌게",
+        "초코샴푸_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "꿀당고다옴: 방송은 그때그때 달라용",
+        "베스트서푸카: 잘 다녀오세요",
+        "꿀당고다옴: 좋아용~"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:51.635545",
+      "fun_score": 6.532946220546444,
+      "test_fun_score": 0.23372146630318563,
+      "score_components": {
+        "chat_spike_score": 4.317346685209156,
+        "reaction_score": 0.43603834146291764,
+        "test_reaction_score": 0.23372146630318563,
+        "diversity_score": 29.59328709763448,
+        "viewer_trend_score": 10,
+        "final_score": 6.532946220546444,
+        "baseline_chat_count": 6.403961559363959,
+        "baseline_viewer_count": 372.1128623793824,
+        "baseline_threshold": 21.3888015577662,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9031518158520635,
+        "test_score_difference": 0.0003578733762819031,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 354,
+        "fun_keywords": {
+          "laugh": 1.5
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "13:57:42",
+      "comment_after_openDate": "13:57:42",
+      "chat_context": [
+        "베스트서푸카: 즐거뿌게",
+        "초코샴푸_: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "꿀당고다옴: 방송은 그때그때 달라용",
+        "베스트서푸카: 잘 다녀오세요",
+        "꿀당고다옴: 좋아용~",
+        "꿀당고다옴: ㅇㅇ",
+        "바람이다옴: 제갈금자님 오버워치 대회는 관심없으신가요~?"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:28:56.641175",
+      "fun_score": 5.685171679298106,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.3288263322253715,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 31.170788219686997,
+        "viewer_trend_score": 10,
+        "final_score": 5.685171679298106,
+        "baseline_chat_count": 6.415357814348921,
+        "baseline_viewer_count": 371.7665444506886,
+        "baseline_threshold": 21.104757603718557,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.055377274603725546,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 354,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "13:57:47",
+      "comment_after_openDate": "13:57:47",
+      "chat_context": [
+        "꿀당고다옴: 방송은 그때그때 달라용",
+        "베스트서푸카: 잘 다녀오세요",
+        "꿀당고다옴: 좋아용~",
+        "꿀당고다옴: ㅇㅇ",
+        "바람이다옴: 제갈금자님 오버워치 대회는 관심없으신가요~?"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:01.647850",
+      "fun_score": 6.419653172953531,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 3.192050546607774,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 34.63109419152044,
+        "viewer_trend_score": 10,
+        "final_score": 6.419653172953531,
+        "baseline_chat_count": 6.38829617293857,
+        "baseline_viewer_count": 371.4268481207915,
+        "baseline_threshold": 20.809935120843637,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7898587682591502,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 354,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "13:57:52",
+      "comment_after_openDate": "13:57:52",
+      "chat_context": [
+        "베스트서푸카: 잘 다녀오세요",
+        "꿀당고다옴: 좋아용~",
+        "꿀당고다옴: ㅇㅇ",
+        "바람이다옴: 제갈금자님 오버워치 대회는 관심없으신가요~?",
+        "바람이다옴: 아항",
+        "썩은나무열매: 마다오무 정신 완전 귀엽네"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:06.653109",
+      "fun_score": 5.719797332063612,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.348296894513884,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 31.429427217043756,
+        "viewer_trend_score": 10,
+        "final_score": 5.719797332063612,
+        "baseline_chat_count": 6.380871950111985,
+        "baseline_viewer_count": 371.09364678472195,
+        "baseline_threshold": 20.534792929999977,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.09000292736923132,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 350,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "13:57:57",
+      "comment_after_openDate": "13:57:57",
+      "chat_context": [
+        "꿀당고다옴: 좋아용~",
+        "꿀당고다옴: ㅇㅇ",
+        "바람이다옴: 제갈금자님 오버워치 대회는 관심없으신가요~?",
+        "바람이다옴: 아항",
+        "썩은나무열매: 마다오무 정신 완전 귀엽네"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:11.659412",
+      "fun_score": 6.211439944018457,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.7307971368813013,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 39.124602245938824,
+        "viewer_trend_score": 10,
+        "final_score": 6.211439944018457,
+        "baseline_chat_count": 6.354469678425843,
+        "baseline_viewer_count": 370.69033625819804,
+        "baseline_threshold": 20.25153021416743,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.581645539324076,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 350,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "13:58:02",
+      "comment_after_openDate": "13:58:02",
+      "chat_context": [
+        "꿀당고다옴: ㅇㅇ",
+        "바람이다옴: 제갈금자님 오버워치 대회는 관심없으신가요~?",
+        "바람이다옴: 아항",
+        "썩은나무열매: 마다오무 정신 완전 귀엽네"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:16.665076",
+      "fun_score": 5.496532240267162,
+      "test_fun_score": 0.0920743954354915,
+      "score_components": {
+        "chat_spike_score": 1.746277798910385,
+        "reaction_score": 0.0920743954354915,
+        "test_reaction_score": 0.0920743954354915,
+        "diversity_score": 31.83084912126841,
+        "viewer_trend_score": 10,
+        "final_score": 5.496532240267162,
+        "baseline_chat_count": 6.309452218174341,
+        "baseline_viewer_count": 370.2947370289413,
+        "baseline_threshold": 19.983083688202182,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.025004369342195867,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 350,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "13:58:07",
+      "comment_after_openDate": "13:58:07",
+      "chat_context": [
+        "꿀당고다옴: ㅇㅇ",
+        "바람이다옴: 제갈금자님 오버워치 대회는 관심없으신가요~?",
+        "바람이다옴: 아항",
+        "썩은나무열매: 마다오무 정신 완전 귀엽네",
+        "꿀당고다옴: 안녕~~"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:21.671395",
+      "fun_score": 6.4627964175005745,
+      "test_fun_score": 0.0921906911967793,
+      "score_components": {
+        "chat_spike_score": 1.7550436446903992,
+        "reaction_score": 0.0921906911967793,
+        "test_reaction_score": 0.0921906911967793,
+        "diversity_score": 41.453695700308614,
+        "viewer_trend_score": 10,
+        "final_score": 6.4627964175005745,
+        "baseline_chat_count": 6.284415491762847,
+        "baseline_viewer_count": 369.906701656948,
+        "baseline_threshold": 19.706100824517662,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9662641772334126,
+        "test_score_difference": 0.02512066510348368,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 309,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "13:58:12",
+      "comment_after_openDate": "13:58:12",
+      "chat_context": [
+        "바람이다옴: 아항",
+        "썩은나무열매: 마다오무 정신 완전 귀엽네",
+        "꿀당고다옴: 안녕~~",
+        "투더게임: 안뇽",
+        "꿀당고다옴: 마바링"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:26.676560",
+      "fun_score": 7.4338804151374624,
+      "test_fun_score": 0.09230581146921904,
+      "score_components": {
+        "chat_spike_score": 3.315399038282454,
+        "reaction_score": 0.09230581146921904,
+        "test_reaction_score": 0.09230581146921904,
+        "diversity_score": 44.14259104469592,
+        "viewer_trend_score": 10,
+        "final_score": 7.4338804151374624,
+        "baseline_chat_count": 6.259857467560342,
+        "baseline_viewer_count": 368.7421655212671,
+        "baseline_threshold": 19.452888844255494,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9373481748703005,
+        "test_score_difference": 0.025235785375923414,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 309,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "13:58:17",
+      "comment_after_openDate": "13:58:17",
+      "chat_context": [
+        "바람이다옴: 아항",
+        "썩은나무열매: 마다오무 정신 완전 귀엽네",
+        "꿀당고다옴: 안녕~~",
+        "투더게임: 안뇽",
+        "꿀당고다옴: 마바링",
+        "베스트서푸카: 짱커서짱귀엽운 매대옴 갔네",
+        "애소리다옴: 마바링"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:31.682735",
+      "fun_score": 4.880215105156023,
+      "test_fun_score": 0.09223934602840689,
+      "score_components": {
+        "chat_spike_score": 1.7587206580098724,
+        "reaction_score": 0.09223934602840689,
+        "test_reaction_score": 0.09223934602840689,
+        "diversity_score": 40.61119005243058,
+        "viewer_trend_score": 0,
+        "final_score": 4.880215105156023,
+        "baseline_chat_count": 6.274008992780588,
+        "baseline_viewer_count": 367.59989531650047,
+        "baseline_threshold": 19.223085403090757,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.025169319935111262,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 309,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "13:58:22",
+      "comment_after_openDate": "13:58:22",
+      "chat_context": [
+        "꿀당고다옴: 안녕~~",
+        "투더게임: 안뇽",
+        "꿀당고다옴: 마바링",
+        "베스트서푸카: 짱커서짱귀엽운 매대옴 갔네",
+        "애소리다옴: 마바링"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:36.688336",
+      "fun_score": 4.884157754032474,
+      "test_fun_score": 0.09235396988120886,
+      "score_components": {
+        "chat_spike_score": 1.7674056840556733,
+        "reaction_score": 0.09235396988120886,
+        "test_reaction_score": 0.09235396988120886,
+        "diversity_score": 40.61119005243058,
+        "viewer_trend_score": 0,
+        "final_score": 4.884157754032474,
+        "baseline_chat_count": 6.249649940838623,
+        "baseline_viewer_count": 366.47946531804894,
+        "baseline_threshold": 18.948849722994243,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.003942648876450683,
+        "test_score_difference": 0.025283943787913238,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 309,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "13:58:27",
+      "comment_after_openDate": "13:58:27",
+      "chat_context": [
+        "꿀당고다옴: 안녕~~",
+        "투더게임: 안뇽",
+        "꿀당고다옴: 마바링",
+        "베스트서푸카: 짱커서짱귀엽운 매대옴 갔네",
+        "애소리다옴: 마바링"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:41.694718",
+      "fun_score": 4.888073832030776,
+      "test_fun_score": 0.09246741344914713,
+      "score_components": {
+        "chat_spike_score": 1.7760324505621643,
+        "reaction_score": 0.09246741344914713,
+        "test_reaction_score": 0.09246741344914713,
+        "diversity_score": 40.61119005243058,
+        "viewer_trend_score": 0,
+        "final_score": 4.888073832030776,
+        "baseline_chat_count": 6.225756633969788,
+        "baseline_viewer_count": 365.38045794116783,
+        "baseline_threshold": 18.679932812547694,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.007858726874752975,
+        "test_score_difference": 0.02539738735585151,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 300,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "13:58:32",
+      "comment_after_openDate": "13:58:32",
+      "chat_context": [
+        "꿀당고다옴: 안녕~~",
+        "투더게임: 안뇽",
+        "꿀당고다옴: 마바링",
+        "베스트서푸카: 짱커서짱귀엽운 매대옴 갔네",
+        "애소리다옴: 마바링"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:46.700190",
+      "fun_score": 5.894813912355738,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.7845998475323834,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.716229731381766,
+        "viewer_trend_score": 0,
+        "final_score": 5.894813912355738,
+        "baseline_chat_count": 6.202320167128286,
+        "baseline_viewer_count": 364.1303835853327,
+        "baseline_threshold": 18.41623246884021,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0145988071997145,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 300,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "13:58:37",
+      "comment_after_openDate": "13:58:37",
+      "chat_context": [
+        "투더게임: 안뇽",
+        "꿀당고다옴: 마바링",
+        "베스트서푸카: 짱커서짱귀엽운 매대옴 갔네",
+        "애소리다옴: 마바링"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:29:51.720005",
+      "fun_score": 5.484041785793157,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.944510899999796,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.3889087296526,
+        "viewer_trend_score": 0,
+        "final_score": 5.484041785793157,
+        "baseline_chat_count": 6.160211805532793,
+        "baseline_viewer_count": 362.90421065118113,
+        "baseline_threshold": 18.176822946040225,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.603826680637134,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 300,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "13:58:42",
+      "comment_after_openDate": "13:58:42",
+      "chat_context": [
+        "베스트서푸카: 짱커서짱귀엽운 매대옴 갔네",
+        "애소리다옴: 마바링"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:31:42.838535",
+      "fun_score": 5.32902729551252,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6864584170767372,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.32902729551252,
+        "baseline_chat_count": 6.080668555811005,
+        "baseline_viewer_count": 361.70148214353054,
+        "baseline_threshold": 17.9341369702563,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.448812190356497,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 248,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "14:00:33",
+      "comment_after_openDate": "14:00:33",
+      "chat_context": [
+        "hujuhuju9595: ㅓ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:31:47.845510",
+      "fun_score": 5.330675518062636,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6901211338547713,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.330675518062636,
+        "baseline_chat_count": 5.983526173023899,
+        "baseline_viewer_count": 359.52750980494625,
+        "baseline_threshold": 17.6931272732752,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.45046041290661254,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 248,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "14:00:38",
+      "comment_after_openDate": "14:00:38",
+      "chat_context": [
+        "hujuhuju9595: ㅓ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:31:52.851380",
+      "fun_score": 5.3323539952834444,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6938510832343471,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3323539952834444,
+        "baseline_chat_count": 5.888241152595682,
+        "baseline_viewer_count": 357.3951038174757,
+        "baseline_threshold": 17.456757195715532,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.45213889012742126,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 248,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "14:00:43",
+      "comment_after_openDate": "14:00:43",
+      "chat_context": [
+        "hujuhuju9595: ㅓ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:31:57.856404",
+      "fun_score": 5.334063221217972,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6976493630888531,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.334063221217972,
+        "baseline_chat_count": 5.7947779817580525,
+        "baseline_viewer_count": 355.30346943248554,
+        "baseline_threshold": 17.224938606523267,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.4538481160619492,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 247,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "14:00:48",
+      "comment_after_openDate": "14:00:48",
+      "chat_context": [
+        "hujuhuju9595: ㅓ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:32:02.862622",
+      "fun_score": 5.3358036949266845,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7015170824415462,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3358036949266845,
+        "baseline_chat_count": 5.703101826746838,
+        "baseline_viewer_count": 353.2327070969364,
+        "baseline_threshold": 16.99758506915623,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.4555885897706613,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 247,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "14:00:53",
+      "comment_after_openDate": "14:00:53",
+      "chat_context": [
+        "hujuhuju9595: ㅓ"
+      ]
+    },
+    {
+      "timestamp": "2026-05-09T11:32:07.868625",
+      "fun_score": 5.3375759203832525,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7054553612339203,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3375759203832525,
+        "baseline_chat_count": 5.613178519819439,
+        "baseline_viewer_count": 351.201537737243,
+        "baseline_threshold": 16.774611809280962,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.45736081522722927,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 247,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "14:00:58",
+      "comment_after_openDate": "14:00:58",
+      "chat_context": [
+        "hujuhuju9595: ㅓ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
