@@ -1,0 +1,3098 @@
+{
+  "channel_id": "bighead033",
+  "channel_name": "빅헤드",
+  "save_timestamp": "2026-06-13T18:27:42.957961",
+  "total_logs": 55,
+  "logs": [
+    {
+      "timestamp": "2026-06-13T18:23:07.813372",
+      "fun_score": 5.245844452787649,
+      "test_fun_score": 0.0776945623017303,
+      "score_components": {
+        "chat_spike_score": 0.49452463132695484,
+        "reaction_score": 0.0776945623017303,
+        "test_reaction_score": 0.0776945623017303,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.245844452787649,
+        "baseline_chat_count": 13.596084515912738,
+        "baseline_viewer_count": 819.1781120599416,
+        "baseline_threshold": 27.312003418784517,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 0,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:00:25",
+      "comment_after_openDate": "00:00:25",
+      "chat_context": [
+        "글리치드: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:12.818675",
+      "fun_score": 5.438995050076192,
+      "test_fun_score": 0.17743161347135752,
+      "score_components": {
+        "chat_spike_score": 0.6666343198960025,
+        "reaction_score": 0.17743161347135752,
+        "test_reaction_score": 0.17743161347135752,
+        "diversity_score": 50.85780122081584,
+        "viewer_trend_score": 0,
+        "final_score": 5.438995050076192,
+        "baseline_chat_count": 13.355247379968485,
+        "baseline_viewer_count": 803.5154265573555,
+        "baseline_threshold": 26.890098459354657,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.19315059728854322,
+        "test_score_difference": 0.09973705116962722,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 10,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:30",
+      "comment_after_openDate": "00:00:30",
+      "chat_context": [
+        "글리치드: 빅하",
+        "버알: ㅂㅎ",
+        "리요우리요우: 빅하ㅏㅏ",
+        "해로우 HARROW: 빅하",
+        "쭈망2: {:bigheadBig:}{:bigheadHa:}"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:17.824284",
+      "fun_score": 5.558583480964646,
+      "test_fun_score": 0.17953304575027101,
+      "score_components": {
+        "chat_spike_score": 0.9048828435587433,
+        "reaction_score": 0.17953304575027101,
+        "test_reaction_score": 0.17953304575027101,
+        "diversity_score": 50.9752628763813,
+        "viewer_trend_score": 0,
+        "final_score": 5.558583480964646,
+        "baseline_chat_count": 13.195495050063487,
+        "baseline_viewer_count": 788.3434116015787,
+        "baseline_threshold": 26.479953362169255,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.3127390281769973,
+        "test_score_difference": 0.10183848344854071,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 10,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:35",
+      "comment_after_openDate": "00:00:35",
+      "chat_context": [
+        "글리치드: 빅하",
+        "버알: ㅂㅎ",
+        "리요우리요우: 빅하ㅏㅏ",
+        "해로우 HARROW: 빅하",
+        "쭈망2: {:bigheadBig:}{:bigheadHa:}",
+        "김스컬: {:bigheadBig:}{:bigheadHa:}",
+        "김띨빵띨빵: {:bigheadBig:}{:bigheadHa:}"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:22.830504",
+      "fun_score": 5.773973678287183,
+      "test_fun_score": 0.4528467954902061,
+      "score_components": {
+        "chat_spike_score": 1.2333947782413832,
+        "reaction_score": 0.4528467954902061,
+        "test_reaction_score": 0.4528467954902061,
+        "diversity_score": 50.830919894314974,
+        "viewer_trend_score": 0,
+        "final_score": 5.773973678287183,
+        "baseline_chat_count": 13.077037184706272,
+        "baseline_viewer_count": 773.4614855717565,
+        "baseline_threshold": 26.07993677004062,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5281292254995336,
+        "test_score_difference": 0.3751522331884758,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 46,
+        "fun_keywords": {
+          "greeting": 9.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 9.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:40",
+      "comment_after_openDate": "00:00:40",
+      "chat_context": [
+        "글리치드: 빅하",
+        "버알: ㅂㅎ",
+        "리요우리요우: 빅하ㅏㅏ",
+        "해로우 HARROW: 빅하",
+        "쭈망2: {:bigheadBig:}{:bigheadHa:}",
+        "김스컬: {:bigheadBig:}{:bigheadHa:}",
+        "김띨빵띨빵: {:bigheadBig:}{:bigheadHa:}",
+        "액화천연가스: 빅하",
+        "바둥어: ㅂㅎ",
+        "하파늘한: ㅂㅎㅂㅎ",
+        "ZENIX: 빅하",
+        "빡목수: 빅하",
+        "감장장장: 빅하",
+        "뮤류텬: 빅하",
+        "야칠101: {:bigheadBig:}{:bigheadHa:}"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:27.836093",
+      "fun_score": 6.257793272172025,
+      "test_fun_score": 1.039050586247839,
+      "score_components": {
+        "chat_spike_score": 1.9370847707499108,
+        "reaction_score": 1.039050586247839,
+        "test_reaction_score": 1.039050586247839,
+        "diversity_score": 50.74389949460213,
+        "viewer_trend_score": 0,
+        "final_score": 6.257793272172025,
+        "baseline_chat_count": 13.113804233734687,
+        "baseline_viewer_count": 759.5524219676245,
+        "baseline_threshold": 25.6916867557263,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.0119488193843758,
+        "test_score_difference": 0.9613560239461086,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 46,
+        "fun_keywords": {
+          "greeting": 11.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 11.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:00:45",
+      "comment_after_openDate": "00:00:45",
+      "chat_context": [
+        "글리치드: 빅하",
+        "버알: ㅂㅎ",
+        "리요우리요우: 빅하ㅏㅏ",
+        "해로우 HARROW: 빅하",
+        "쭈망2: {:bigheadBig:}{:bigheadHa:}",
+        "김스컬: {:bigheadBig:}{:bigheadHa:}",
+        "김띨빵띨빵: {:bigheadBig:}{:bigheadHa:}",
+        "액화천연가스: 빅하",
+        "바둥어: ㅂㅎ",
+        "하파늘한: ㅂㅎㅂㅎ",
+        "ZENIX: 빅하",
+        "빡목수: 빅하",
+        "감장장장: 빅하",
+        "뮤류텬: 빅하",
+        "야칠101: {:bigheadBig:}{:bigheadHa:}",
+        "파크상: {:wc_34:}",
+        "7레벨: 빅하",
+        "머균: ㅂㅎ",
+        "HexagonalED: 빅하ㅏㅏㅏㅏ",
+        "찬라테: 비ㅣㅣㅣㅣㅣㅣㄱ하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:32.842861",
+      "fun_score": 6.6422610419528585,
+      "test_fun_score": 1.3652919341293366,
+      "score_components": {
+        "chat_spike_score": 2.576155928451393,
+        "reaction_score": 1.3652919341293366,
+        "test_reaction_score": 1.3652919341293366,
+        "diversity_score": 50.734032939109305,
+        "viewer_trend_score": 0,
+        "final_score": 6.6422610419528585,
+        "baseline_chat_count": 13.24546829678568,
+        "baseline_viewer_count": 745.9092996596034,
+        "baseline_threshold": 25.32011071232074,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.3964165891652094,
+        "test_score_difference": 1.2875973718276064,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 24,
+        "viewer_count": 90,
+        "fun_keywords": {
+          "greeting": 13.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 13.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:00:50",
+      "comment_after_openDate": "00:00:50",
+      "chat_context": [
+        "글리치드: 빅하",
+        "버알: ㅂㅎ",
+        "리요우리요우: 빅하ㅏㅏ",
+        "해로우 HARROW: 빅하",
+        "쭈망2: {:bigheadBig:}{:bigheadHa:}",
+        "김스컬: {:bigheadBig:}{:bigheadHa:}",
+        "김띨빵띨빵: {:bigheadBig:}{:bigheadHa:}",
+        "액화천연가스: 빅하",
+        "바둥어: ㅂㅎ",
+        "하파늘한: ㅂㅎㅂㅎ",
+        "ZENIX: 빅하",
+        "빡목수: 빅하",
+        "감장장장: 빅하",
+        "뮤류텬: 빅하",
+        "야칠101: {:bigheadBig:}{:bigheadHa:}",
+        "파크상: {:wc_34:}",
+        "7레벨: 빅하",
+        "머균: ㅂㅎ",
+        "HexagonalED: 빅하ㅏㅏㅏㅏ",
+        "찬라테: 비ㅣㅣㅣㅣㅣㅣㄱ하",
+        "에니아: {:bigheadBig:}{:bigheadHa:}",
+        "무트: ㅂㅎ",
+        "Logitech: ㅂㅎ",
+        "하양아: ㅂㅎㅂㅎ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:37.861965",
+      "fun_score": 6.653313412275711,
+      "test_fun_score": 1.5115765316793361,
+      "score_components": {
+        "chat_spike_score": 2.5123799311455906,
+        "reaction_score": 1.5115765316793361,
+        "test_reaction_score": 1.5115765316793361,
+        "diversity_score": 50.69269483756394,
+        "viewer_trend_score": 0,
+        "final_score": 6.653313412275711,
+        "baseline_chat_count": 13.451094942951137,
+        "baseline_viewer_count": 733.3683138501119,
+        "baseline_threshold": 24.962990226623308,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.407468959488062,
+        "test_score_difference": 1.433881969377606,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 25,
+        "viewer_count": 90,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "greeting": 14.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "greeting": 14.0
+        }
+      },
+      "after_openDate": "00:00:55",
+      "comment_after_openDate": "00:00:55",
+      "chat_context": [
+        "리요우리요우: 빅하ㅏㅏ",
+        "해로우 HARROW: 빅하",
+        "쭈망2: {:bigheadBig:}{:bigheadHa:}",
+        "김스컬: {:bigheadBig:}{:bigheadHa:}",
+        "김띨빵띨빵: {:bigheadBig:}{:bigheadHa:}",
+        "액화천연가스: 빅하",
+        "바둥어: ㅂㅎ",
+        "하파늘한: ㅂㅎㅂㅎ",
+        "ZENIX: 빅하",
+        "빡목수: 빅하",
+        "감장장장: 빅하",
+        "뮤류텬: 빅하",
+        "야칠101: {:bigheadBig:}{:bigheadHa:}",
+        "파크상: {:wc_34:}",
+        "7레벨: 빅하",
+        "머균: ㅂㅎ",
+        "HexagonalED: 빅하ㅏㅏㅏㅏ",
+        "찬라테: 비ㅣㅣㅣㅣㅣㅣㄱ하",
+        "에니아: {:bigheadBig:}{:bigheadHa:}",
+        "무트: ㅂㅎ",
+        "Logitech: ㅂㅎ",
+        "하양아: ㅂㅎㅂㅎ",
+        "pMd: 빅하",
+        "피누스: 빅하",
+        "학살중인 힐러 4667: ㅂㅎ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:42.882968",
+      "fun_score": 6.24480155238585,
+      "test_fun_score": 0.7469803331259477,
+      "score_components": {
+        "chat_spike_score": 2.1181090633846344,
+        "reaction_score": 0.7469803331259477,
+        "test_reaction_score": 0.7469803331259477,
+        "diversity_score": 50.675583739249795,
+        "viewer_trend_score": 0,
+        "final_score": 6.24480155238585,
+        "baseline_chat_count": 13.67191000764191,
+        "baseline_viewer_count": 721.0671116892978,
+        "baseline_threshold": 24.61290920593298,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.9989570995982007,
+        "test_score_difference": 0.6692857708242174,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 13.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 13.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:00",
+      "comment_after_openDate": "00:01:00",
+      "chat_context": [
+        "김스컬: {:bigheadBig:}{:bigheadHa:}",
+        "김띨빵띨빵: {:bigheadBig:}{:bigheadHa:}",
+        "액화천연가스: 빅하",
+        "바둥어: ㅂㅎ",
+        "하파늘한: ㅂㅎㅂㅎ",
+        "ZENIX: 빅하",
+        "빡목수: 빅하",
+        "감장장장: 빅하",
+        "뮤류텬: 빅하",
+        "야칠101: {:bigheadBig:}{:bigheadHa:}",
+        "파크상: {:wc_34:}",
+        "7레벨: 빅하",
+        "머균: ㅂㅎ",
+        "HexagonalED: 빅하ㅏㅏㅏㅏ",
+        "찬라테: 비ㅣㅣㅣㅣㅣㅣㄱ하",
+        "에니아: {:bigheadBig:}{:bigheadHa:}",
+        "무트: ㅂㅎ",
+        "Logitech: ㅂㅎ",
+        "하양아: ㅂㅎㅂㅎ",
+        "pMd: 빅하",
+        "피누스: 빅하",
+        "학살중인 힐러 4667: ㅂㅎ",
+        "wnsqja11: {:bigheadBig:}{:bigheadHa:}"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:47.889909",
+      "fun_score": 5.98906568299896,
+      "test_fun_score": 0.7242026679448997,
+      "score_components": {
+        "chat_spike_score": 1.5615697883681536,
+        "reaction_score": 0.7242026679448997,
+        "test_reaction_score": 0.7242026679448997,
+        "diversity_score": 50.6909847784982,
+        "viewer_trend_score": 0,
+        "final_score": 5.98906568299896,
+        "baseline_chat_count": 13.850263088295797,
+        "baseline_viewer_count": 709.4026285137984,
+        "baseline_threshold": 24.261710987597155,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7432212302113106,
+        "test_score_difference": 0.6465081056431694,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 13.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 13.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:05",
+      "comment_after_openDate": "00:01:05",
+      "chat_context": [
+        "하파늘한: ㅂㅎㅂㅎ",
+        "ZENIX: 빅하",
+        "빡목수: 빅하",
+        "감장장장: 빅하",
+        "뮤류텬: 빅하",
+        "야칠101: {:bigheadBig:}{:bigheadHa:}",
+        "파크상: {:wc_34:}",
+        "7레벨: 빅하",
+        "머균: ㅂㅎ",
+        "HexagonalED: 빅하ㅏㅏㅏㅏ",
+        "찬라테: 비ㅣㅣㅣㅣㅣㅣㄱ하",
+        "에니아: {:bigheadBig:}{:bigheadHa:}",
+        "무트: ㅂㅎ",
+        "Logitech: ㅂㅎ",
+        "하양아: ㅂㅎㅂㅎ",
+        "pMd: 빅하",
+        "피누스: 빅하",
+        "학살중인 힐러 4667: ㅂㅎ",
+        "wnsqja11: {:bigheadBig:}{:bigheadHa:}",
+        "부드러운 엘프 2589: ㅂㅎ",
+        "김플: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:52.896391",
+      "fun_score": 5.484068039318945,
+      "test_fun_score": 0.3999937818207349,
+      "score_components": {
+        "chat_spike_score": 1.339809770756665,
+        "reaction_score": 0.3999937818207349,
+        "test_reaction_score": 0.3999937818207349,
+        "diversity_score": 47.61155507932225,
+        "viewer_trend_score": 0,
+        "final_score": 5.484068039318945,
+        "baseline_chat_count": 13.986966058047582,
+        "baseline_viewer_count": 697.9611702566145,
+        "baseline_threshold": 23.91233800937324,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.23822358653129605,
+        "test_score_difference": 0.32229921951900464,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 9.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 9.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:01:10",
+      "comment_after_openDate": "00:01:10",
+      "chat_context": [
+        "파크상: {:wc_34:}",
+        "7레벨: 빅하",
+        "머균: ㅂㅎ",
+        "HexagonalED: 빅하ㅏㅏㅏㅏ",
+        "찬라테: 비ㅣㅣㅣㅣㅣㅣㄱ하",
+        "에니아: {:bigheadBig:}{:bigheadHa:}",
+        "무트: ㅂㅎ",
+        "Logitech: ㅂㅎ",
+        "하양아: ㅂㅎㅂㅎ",
+        "pMd: 빅하",
+        "피누스: 빅하",
+        "학살중인 힐러 4667: ㅂㅎ",
+        "wnsqja11: {:bigheadBig:}{:bigheadHa:}",
+        "부드러운 엘프 2589: ㅂㅎ",
+        "김플: 빅하",
+        "하양아: 헤드 방갑고"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:23:57.902497",
+      "fun_score": 5.1223089231770835,
+      "test_fun_score": 0.2097269389531173,
+      "score_components": {
+        "chat_spike_score": 0.8731338670307537,
+        "reaction_score": 0.2097269389531173,
+        "test_reaction_score": 0.2097269389531173,
+        "diversity_score": 46.664806013273086,
+        "viewer_trend_score": 0,
+        "final_score": 5.1223089231770835,
+        "baseline_chat_count": 14.025455267017712,
+        "baseline_viewer_count": 686.7384726813079,
+        "baseline_threshold": 23.559989487545803,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.132032376651387,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 111,
+        "fun_keywords": {
+          "greeting": 8.0
+        },
+        "test_keyword_counter": {
+          "greeting": 8.0
+        }
+      },
+      "after_openDate": "00:01:15",
+      "comment_after_openDate": "00:01:15",
+      "chat_context": [
+        "에니아: {:bigheadBig:}{:bigheadHa:}",
+        "무트: ㅂㅎ",
+        "Logitech: ㅂㅎ",
+        "하양아: ㅂㅎㅂㅎ",
+        "pMd: 빅하",
+        "피누스: 빅하",
+        "학살중인 힐러 4667: ㅂㅎ",
+        "wnsqja11: {:bigheadBig:}{:bigheadHa:}",
+        "부드러운 엘프 2589: ㅂㅎ",
+        "김플: 빅하",
+        "하양아: 헤드 방갑고",
+        "금손 동생 4125: ㅂㅎ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:02.909604",
+      "fun_score": 6.4117431211320115,
+      "test_fun_score": 0.15810161985767623,
+      "score_components": {
+        "chat_spike_score": 0.7584306516981753,
+        "reaction_score": 0.15810161985767623,
+        "test_reaction_score": 0.15810161985767623,
+        "diversity_score": 45.230188419105296,
+        "viewer_trend_score": 10,
+        "final_score": 6.4117431211320115,
+        "baseline_chat_count": 13.986728562312333,
+        "baseline_viewer_count": 675.7303530836413,
+        "baseline_threshold": 23.207461035155074,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.289434197954928,
+        "test_score_difference": 0.08040705755594593,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 6.0
+        },
+        "test_keyword_counter": {
+          "greeting": 6.0
+        }
+      },
+      "after_openDate": "00:01:20",
+      "comment_after_openDate": "00:01:20",
+      "chat_context": [
+        "피누스: 빅하",
+        "학살중인 힐러 4667: ㅂㅎ",
+        "wnsqja11: {:bigheadBig:}{:bigheadHa:}",
+        "부드러운 엘프 2589: ㅂㅎ",
+        "김플: 빅하",
+        "하양아: 헤드 방갑고",
+        "금손 동생 4125: ㅂㅎ",
+        "다람쥐 이갈이: 빅하",
+        "하양아: 나만 방송소리가 안들리는건가"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:07.915852",
+      "fun_score": 8.758881489989161,
+      "test_fun_score": 0.1192679615213829,
+      "score_components": {
+        "chat_spike_score": 0.8779326923622861,
+        "reaction_score": 0.1192679615213829,
+        "test_reaction_score": 0.1192679615213829,
+        "diversity_score": 38.28031389969717,
+        "viewer_trend_score": 30,
+        "final_score": 8.758881489989161,
+        "baseline_chat_count": 13.89138231220092,
+        "baseline_viewer_count": 665.621028732682,
+        "baseline_threshold": 22.886326908638953,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.6365725668120774,
+        "test_score_difference": 0.0415733992196526,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:01:25",
+      "comment_after_openDate": "00:01:25",
+      "chat_context": [
+        "wnsqja11: {:bigheadBig:}{:bigheadHa:}",
+        "부드러운 엘프 2589: ㅂㅎ",
+        "김플: 빅하",
+        "하양아: 헤드 방갑고",
+        "금손 동생 4125: ㅂㅎ",
+        "다람쥐 이갈이: 빅하",
+        "하양아: 나만 방송소리가 안들리는건가",
+        "하양아: 도네소리도 안들리네"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:12.942508",
+      "fun_score": 9.02279714509159,
+      "test_fun_score": 0.1601608299380644,
+      "score_components": {
+        "chat_spike_score": 0.8820575076196012,
+        "reaction_score": 0.1601608299380644,
+        "test_reaction_score": 0.1601608299380644,
+        "diversity_score": 40.778230176813494,
+        "viewer_trend_score": 30,
+        "final_score": 9.02279714509159,
+        "baseline_chat_count": 13.778739082391638,
+        "baseline_viewer_count": 655.7049946633132,
+        "baseline_threshold": 22.61621015223437,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.9004882219145056,
+        "test_score_difference": 0.04089286841668151,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 6.0
+        },
+        "test_keyword_counter": {
+          "greeting": 6.0
+        }
+      },
+      "after_openDate": "00:01:30",
+      "comment_after_openDate": "00:01:30",
+      "chat_context": [
+        "부드러운 엘프 2589: ㅂㅎ",
+        "김플: 빅하",
+        "하양아: 헤드 방갑고",
+        "금손 동생 4125: ㅂㅎ",
+        "다람쥐 이갈이: 빅하",
+        "하양아: 나만 방송소리가 안들리는건가",
+        "하양아: 도네소리도 안들리네",
+        "피누스: 소리가 안들리네",
+        "LASTAND14: ㅂㅎ",
+        "콩자반시름: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:17.949148",
+      "fun_score": 9.080918031923568,
+      "test_fun_score": 0.13906736787369617,
+      "score_components": {
+        "chat_spike_score": 1.0230317172101107,
+        "reaction_score": 0.13906736787369617,
+        "test_reaction_score": 0.13906736787369617,
+        "diversity_score": 40.788335488169096,
+        "viewer_trend_score": 30,
+        "final_score": 9.080918031923568,
+        "baseline_chat_count": 13.70648959113631,
+        "baseline_viewer_count": 645.9785551653507,
+        "baseline_threshold": 22.3563040955378,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.9586091087464848,
+        "test_score_difference": 0.019799406352313267,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:01:35",
+      "comment_after_openDate": "00:01:35",
+      "chat_context": [
+        "하양아: 헤드 방갑고",
+        "금손 동생 4125: ㅂㅎ",
+        "다람쥐 이갈이: 빅하",
+        "하양아: 나만 방송소리가 안들리는건가",
+        "하양아: 도네소리도 안들리네",
+        "피누스: 소리가 안들리네",
+        "LASTAND14: ㅂㅎ",
+        "콩자반시름: 빅하",
+        "걍갱: 빅하빅하 저도 소리 안들림",
+        "리이치28: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:23.284355",
+      "fun_score": 7.9442836619476385,
+      "test_fun_score": 0.1616303699735067,
+      "score_components": {
+        "chat_spike_score": 1.838871961933664,
+        "reaction_score": 0.1616303699735067,
+        "test_reaction_score": 0.1616303699735067,
+        "diversity_score": 40.683021680854374,
+        "viewer_trend_score": 20,
+        "final_score": 7.9442836619476385,
+        "baseline_chat_count": 13.635621510153783,
+        "baseline_viewer_count": 636.4380851905893,
+        "baseline_threshold": 22.102478714001496,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.821974738770555,
+        "test_score_difference": 0.04236240845212379,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 6.0
+        },
+        "test_keyword_counter": {
+          "greeting": 6.0
+        }
+      },
+      "after_openDate": "00:01:41",
+      "comment_after_openDate": "00:01:41",
+      "chat_context": [
+        "금손 동생 4125: ㅂㅎ",
+        "다람쥐 이갈이: 빅하",
+        "하양아: 나만 방송소리가 안들리는건가",
+        "하양아: 도네소리도 안들리네",
+        "피누스: 소리가 안들리네",
+        "LASTAND14: ㅂㅎ",
+        "콩자반시름: 빅하",
+        "걍갱: 빅하빅하 저도 소리 안들림",
+        "리이치28: 빅하",
+        "머균: 저도 안들려요",
+        "빅헤드: ㅅㅗㄹㅣㅅㅔㅅㅌㅣㅇ",
+        "파크상: 조용하긴혀",
+        "빅헤드: 소리셋팅이",
+        "꾸꾸벌: 빅하",
+        "빅헤드: 고장낫는데?"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:28.290601",
+      "fun_score": 7.312983999226024,
+      "test_fun_score": 0.4829830564373695,
+      "score_components": {
+        "chat_spike_score": 3.7764285350502074,
+        "reaction_score": 0.4829830564373695,
+        "test_reaction_score": 0.4829830564373695,
+        "diversity_score": 32.1869624152222,
+        "viewer_trend_score": 15,
+        "final_score": 7.312983999226024,
+        "baseline_chat_count": 13.661708426879642,
+        "baseline_viewer_count": 627.0800290017452,
+        "baseline_threshold": 21.831774024606226,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.19067507604894,
+        "test_score_difference": 0.3637150949159866,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 5.0,
+          "excitement": 1.0,
+          "surprise": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0,
+          "excitement": 1.0,
+          "surprise": 2.0
+        }
+      },
+      "after_openDate": "00:01:46",
+      "comment_after_openDate": "00:01:46",
+      "chat_context": [
+        "다람쥐 이갈이: 빅하",
+        "하양아: 나만 방송소리가 안들리는건가",
+        "하양아: 도네소리도 안들리네",
+        "피누스: 소리가 안들리네",
+        "LASTAND14: ㅂㅎ",
+        "콩자반시름: 빅하",
+        "걍갱: 빅하빅하 저도 소리 안들림",
+        "리이치28: 빅하",
+        "머균: 저도 안들려요",
+        "빅헤드: ㅅㅗㄹㅣㅅㅔㅅㅌㅣㅇ",
+        "파크상: 조용하긴혀",
+        "빅헤드: 소리셋팅이",
+        "꾸꾸벌: 빅하",
+        "빅헤드: 고장낫는데?",
+        "빅헤드: 머지",
+        "피누스: ??",
+        "하양아: 헉",
+        "무트: ?",
+        "하양아: ㅈ댔다"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:33.297273",
+      "fun_score": 20.591072798429725,
+      "test_fun_score": 35.4890928554626,
+      "score_components": {
+        "chat_spike_score": 11.430267702860732,
+        "reaction_score": 35.4890928554626,
+        "test_reaction_score": 35.4890928554626,
+        "diversity_score": 33.007244755036126,
+        "viewer_trend_score": 10,
+        "final_score": 20.591072798429725,
+        "baseline_chat_count": 13.763776561757702,
+        "baseline_viewer_count": 617.9008988472318,
+        "baseline_threshold": 21.554174759320954,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.468763875252641,
+        "test_score_difference": 35.36982489394122,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 4.0,
+          "excitement": 8.0,
+          "surprise": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0,
+          "excitement": 8.0,
+          "surprise": 5.0
+        }
+      },
+      "after_openDate": "00:01:51",
+      "comment_after_openDate": "00:01:51",
+      "chat_context": [
+        "피누스: 소리가 안들리네",
+        "LASTAND14: ㅂㅎ",
+        "콩자반시름: 빅하",
+        "걍갱: 빅하빅하 저도 소리 안들림",
+        "리이치28: 빅하",
+        "머균: 저도 안들려요",
+        "빅헤드: ㅅㅗㄹㅣㅅㅔㅅㅌㅣㅇ",
+        "파크상: 조용하긴혀",
+        "빅헤드: 소리셋팅이",
+        "꾸꾸벌: 빅하",
+        "빅헤드: 고장낫는데?",
+        "빅헤드: 머지",
+        "피누스: ??",
+        "하양아: 헉",
+        "무트: ?",
+        "하양아: ㅈ댔다",
+        "김스컬: ??",
+        "LASTAND14: ?",
+        "김띨빵띨빵: 뭣",
+        "걍갱: ???",
+        "다람쥐 이갈이: ??",
+        "콩자반시름: ??",
+        "구냥잇: ??",
+        "머균: ?",
+        "빡목수: 헐",
+        "외않됄까: 야호!"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:38.622555",
+      "fun_score": 41.19809765525637,
+      "test_fun_score": 85.87189244711941,
+      "score_components": {
+        "chat_spike_score": 23.85419020828904,
+        "reaction_score": 85.87189244711941,
+        "test_reaction_score": 85.87189244711941,
+        "diversity_score": 32.021443273904794,
+        "viewer_trend_score": 10,
+        "final_score": 41.19809765525637,
+        "baseline_chat_count": 13.997733153896895,
+        "baseline_viewer_count": 608.8972736612727,
+        "baseline_threshold": 21.535760249828712,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 36.07578873207929,
+        "test_score_difference": 85.75262448559802,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 32,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 4.0,
+          "excitement": 9.0,
+          "surprise": 7.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0,
+          "excitement": 9.0,
+          "surprise": 7.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:01:56",
+      "comment_after_openDate": "00:01:51",
+      "chat_context": [
+        "콩자반시름: 빅하",
+        "걍갱: 빅하빅하 저도 소리 안들림",
+        "리이치28: 빅하",
+        "머균: 저도 안들려요",
+        "빅헤드: ㅅㅗㄹㅣㅅㅔㅅㅌㅣㅇ",
+        "파크상: 조용하긴혀",
+        "빅헤드: 소리셋팅이",
+        "꾸꾸벌: 빅하",
+        "빅헤드: 고장낫는데?",
+        "빅헤드: 머지",
+        "피누스: ??",
+        "하양아: 헉",
+        "무트: ?",
+        "하양아: ㅈ댔다",
+        "김스컬: ??",
+        "LASTAND14: ?",
+        "김띨빵띨빵: 뭣",
+        "걍갱: ???",
+        "다람쥐 이갈이: ??",
+        "콩자반시름: ??",
+        "구냥잇: ??",
+        "머균: ?",
+        "빡목수: 헐",
+        "외않됄까: 야호!",
+        "ground3870: ?",
+        "LASTAND14: 비상!",
+        "이걸우째: 내가 이상한게 아니구나",
+        "리요우리요우: 뭣",
+        "하양아: {:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}",
+        "파크상: 윈도우 업데이트했구나"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:43.628710",
+      "fun_score": 38.85930524538797,
+      "test_fun_score": 80.26676542320523,
+      "score_components": {
+        "chat_spike_score": 24.78194821352513,
+        "reaction_score": 80.26676542320523,
+        "test_reaction_score": 80.26676542320523,
+        "diversity_score": 36.2739892234009,
+        "viewer_trend_score": 0,
+        "final_score": 38.85930524538797,
+        "baseline_chat_count": 14.341936495994387,
+        "baseline_viewer_count": 600.0657977888692,
+        "baseline_threshold": 21.911704141020486,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 33.736996322210885,
+        "test_score_difference": 80.14749746168384,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 31,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "excitement": 9.0,
+          "surprise": 8.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "excitement": 9.0,
+          "surprise": 8.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:02:01",
+      "comment_after_openDate": "00:02:01",
+      "chat_context": [
+        "리이치28: 빅하",
+        "머균: 저도 안들려요",
+        "빅헤드: ㅅㅗㄹㅣㅅㅔㅅㅌㅣㅇ",
+        "파크상: 조용하긴혀",
+        "빅헤드: 소리셋팅이",
+        "꾸꾸벌: 빅하",
+        "빅헤드: 고장낫는데?",
+        "빅헤드: 머지",
+        "피누스: ??",
+        "하양아: 헉",
+        "무트: ?",
+        "하양아: ㅈ댔다",
+        "김스컬: ??",
+        "LASTAND14: ?",
+        "김띨빵띨빵: 뭣",
+        "걍갱: ???",
+        "다람쥐 이갈이: ??",
+        "콩자반시름: ??",
+        "구냥잇: ??",
+        "머균: ?",
+        "빡목수: 헐",
+        "외않됄까: 야호!",
+        "ground3870: ?",
+        "LASTAND14: 비상!",
+        "이걸우째: 내가 이상한게 아니구나",
+        "리요우리요우: 뭣",
+        "하양아: {:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}",
+        "파크상: 윈도우 업데이트했구나",
+        "하파늘한: 뭣",
+        "감장장장: 안킨줄"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:48.634902",
+      "fun_score": 51.48654149502085,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 40.7939087365931,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 31.29282563553948,
+        "viewer_trend_score": 0,
+        "final_score": 51.48654149502085,
+        "baseline_chat_count": 14.660438670190974,
+        "baseline_viewer_count": 591.4031797351461,
+        "baseline_threshold": 22.235742274135994,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 46.36423257184377,
+        "test_score_difference": 99.88073203847861,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 36,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "excitement": 10.0,
+          "surprise": 9.0,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "excitement": 10.0,
+          "surprise": 9.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "00:02:06",
+      "comment_after_openDate": "00:01:51",
+      "chat_context": [
+        "빅헤드: 머지",
+        "피누스: ??",
+        "하양아: 헉",
+        "무트: ?",
+        "하양아: ㅈ댔다",
+        "김스컬: ??",
+        "LASTAND14: ?",
+        "김띨빵띨빵: 뭣",
+        "걍갱: ???",
+        "다람쥐 이갈이: ??",
+        "콩자반시름: ??",
+        "구냥잇: ??",
+        "머균: ?",
+        "빡목수: 헐",
+        "외않됄까: 야호!",
+        "ground3870: ?",
+        "LASTAND14: 비상!",
+        "이걸우째: 내가 이상한게 아니구나",
+        "리요우리요우: 뭣",
+        "하양아: {:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}",
+        "파크상: 윈도우 업데이트했구나",
+        "하파늘한: 뭣",
+        "감장장장: 안킨줄",
+        "ground3870: 오늘은 무음 방송인가",
+        "하파늘한: 비이이이이이잉사아아아아아아앙",
+        "무트: 또 너야 윈도우?",
+        "피누스: 헉 윈도우 업데이트를",
+        "Halcyon: 빅하",
+        "하양아: 맞네 윈도우 업데이트했네",
+        "다람쥐 이갈이: 노마이크 방송이구나"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:53.641399",
+      "fun_score": 46.85686392752552,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 29.5410064053721,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.634110451080716,
+        "viewer_trend_score": 0,
+        "final_score": 46.85686392752552,
+        "baseline_chat_count": 15.068451082816921,
+        "baseline_viewer_count": 582.90619093861,
+        "baseline_threshold": 22.795017555239312,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 41.73455500434844,
+        "test_score_difference": 99.88073203847861,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 33,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "excitement": 10.0,
+          "surprise": 10.0,
+          "reaction": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 10.0,
+          "surprise": 10.0,
+          "reaction": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "00:02:11",
+      "comment_after_openDate": "00:02:11",
+      "chat_context": [
+        "무트: ?",
+        "하양아: ㅈ댔다",
+        "김스컬: ??",
+        "LASTAND14: ?",
+        "김띨빵띨빵: 뭣",
+        "걍갱: ???",
+        "다람쥐 이갈이: ??",
+        "콩자반시름: ??",
+        "구냥잇: ??",
+        "머균: ?",
+        "빡목수: 헐",
+        "외않됄까: 야호!",
+        "ground3870: ?",
+        "LASTAND14: 비상!",
+        "이걸우째: 내가 이상한게 아니구나",
+        "리요우리요우: 뭣",
+        "하양아: {:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}",
+        "파크상: 윈도우 업데이트했구나",
+        "하파늘한: 뭣",
+        "감장장장: 안킨줄",
+        "ground3870: 오늘은 무음 방송인가",
+        "하파늘한: 비이이이이이잉사아아아아아아앙",
+        "무트: 또 너야 윈도우?",
+        "피누스: 헉 윈도우 업데이트를",
+        "Halcyon: 빅하",
+        "하양아: 맞네 윈도우 업데이트했네",
+        "다람쥐 이갈이: 노마이크 방송이구나",
+        "버알: 어쩐지 안들리더라",
+        "LASTAND14: 또 윈도우야?",
+        "미케닉: ?"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:24:58.647357",
+      "fun_score": 10.843964211035026,
+      "test_fun_score": 6.503043130241751,
+      "score_components": {
+        "chat_spike_score": 10.575978677905045,
+        "reaction_score": 6.503043130241751,
+        "test_reaction_score": 6.503043130241751,
+        "diversity_score": 41.3386086690523,
+        "viewer_trend_score": 0,
+        "final_score": 10.843964211035026,
+        "baseline_chat_count": 15.41130229811346,
+        "baseline_viewer_count": 574.5716645678639,
+        "baseline_threshold": 23.255080057877425,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.721655287857942,
+        "test_score_difference": 6.383775168720367,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 147,
+        "fun_keywords": {
+          "surprise": 6.0,
+          "excitement": 5.0,
+          "reaction": 1.0,
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "surprise": 6.0,
+          "excitement": 5.0,
+          "reaction": 1.0,
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "00:02:16",
+      "comment_after_openDate": "00:02:16",
+      "chat_context": [
+        "머균: ?",
+        "빡목수: 헐",
+        "외않됄까: 야호!",
+        "ground3870: ?",
+        "LASTAND14: 비상!",
+        "이걸우째: 내가 이상한게 아니구나",
+        "리요우리요우: 뭣",
+        "하양아: {:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}",
+        "파크상: 윈도우 업데이트했구나",
+        "하파늘한: 뭣",
+        "감장장장: 안킨줄",
+        "ground3870: 오늘은 무음 방송인가",
+        "하파늘한: 비이이이이이잉사아아아아아아앙",
+        "무트: 또 너야 윈도우?",
+        "피누스: 헉 윈도우 업데이트를",
+        "Halcyon: 빅하",
+        "하양아: 맞네 윈도우 업데이트했네",
+        "다람쥐 이갈이: 노마이크 방송이구나",
+        "버알: 어쩐지 안들리더라",
+        "LASTAND14: 또 윈도우야?",
+        "미케닉: ?",
+        "라그스: {:bigheadBig:}{:bigheadHa:}",
+        "구냥잇: 윈도우냐??",
+        "이걸우째: 쉽지 않은데?",
+        "얄미운 마왕 4453: 빅하",
+        "해로우 HARROW: {:bigheadLfcae:}{:bigheadCface:}{:bigheadRfcae:}"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:03.654525",
+      "fun_score": 11.995919540277065,
+      "test_fun_score": 1.5355184080966515,
+      "score_components": {
+        "chat_spike_score": 6.224803581890685,
+        "reaction_score": 1.5355184080966515,
+        "test_reaction_score": 1.5355184080966515,
+        "diversity_score": 42.3410240599726,
+        "viewer_trend_score": 30,
+        "final_score": 11.995919540277065,
+        "baseline_chat_count": 15.613758198173532,
+        "baseline_viewer_count": 566.3964943413264,
+        "baseline_threshold": 23.017779522885796,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.584176419145053,
+        "test_score_difference": 1.4162504465752686,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "excitement": 3.0,
+          "reaction": 1.0,
+          "surprise": 4.0,
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "reaction": 1.0,
+          "surprise": 4.0,
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:02:21",
+      "comment_after_openDate": "00:02:21",
+      "chat_context": [
+        "LASTAND14: 비상!",
+        "이걸우째: 내가 이상한게 아니구나",
+        "리요우리요우: 뭣",
+        "하양아: {:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}{:lck_16:}",
+        "파크상: 윈도우 업데이트했구나",
+        "하파늘한: 뭣",
+        "감장장장: 안킨줄",
+        "ground3870: 오늘은 무음 방송인가",
+        "하파늘한: 비이이이이이잉사아아아아아아앙",
+        "무트: 또 너야 윈도우?",
+        "피누스: 헉 윈도우 업데이트를",
+        "Halcyon: 빅하",
+        "하양아: 맞네 윈도우 업데이트했네",
+        "다람쥐 이갈이: 노마이크 방송이구나",
+        "버알: 어쩐지 안들리더라",
+        "LASTAND14: 또 윈도우야?",
+        "미케닉: ?",
+        "라그스: {:bigheadBig:}{:bigheadHa:}",
+        "구냥잇: 윈도우냐??",
+        "이걸우째: 쉽지 않은데?",
+        "얄미운 마왕 4453: 빅하",
+        "해로우 HARROW: {:bigheadLfcae:}{:bigheadCface:}{:bigheadRfcae:}",
+        "엔9: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:08.661858",
+      "fun_score": 9.719077218229929,
+      "test_fun_score": 0.6999647677828202,
+      "score_components": {
+        "chat_spike_score": 3.708779280486508,
+        "reaction_score": 0.6999647677828202,
+        "test_reaction_score": 0.6999647677828202,
+        "diversity_score": 48.40137111676154,
+        "viewer_trend_score": 20,
+        "final_score": 9.719077218229929,
+        "baseline_chat_count": 15.754983141424454,
+        "baseline_viewer_count": 559.8881133695202,
+        "baseline_threshold": 22.807041560018316,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.406093219003905,
+        "test_score_difference": 0.5806968062614374,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "surprise": 3.0,
+          "excitement": 2.0,
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "surprise": 3.0,
+          "excitement": 2.0,
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:02:26",
+      "comment_after_openDate": "00:02:26",
+      "chat_context": [
+        "하파늘한: 뭣",
+        "감장장장: 안킨줄",
+        "ground3870: 오늘은 무음 방송인가",
+        "하파늘한: 비이이이이이잉사아아아아아아앙",
+        "무트: 또 너야 윈도우?",
+        "피누스: 헉 윈도우 업데이트를",
+        "Halcyon: 빅하",
+        "하양아: 맞네 윈도우 업데이트했네",
+        "다람쥐 이갈이: 노마이크 방송이구나",
+        "버알: 어쩐지 안들리더라",
+        "LASTAND14: 또 윈도우야?",
+        "미케닉: ?",
+        "라그스: {:bigheadBig:}{:bigheadHa:}",
+        "구냥잇: 윈도우냐??",
+        "이걸우째: 쉽지 않은데?",
+        "얄미운 마왕 4453: 빅하",
+        "해로우 HARROW: {:bigheadLfcae:}{:bigheadCface:}{:bigheadRfcae:}",
+        "엔9: 빅하",
+        "외않됄까: 빅화",
+        "참잘해요: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:13.668096",
+      "fun_score": 9.958760630987284,
+      "test_fun_score": 0.7365349032927757,
+      "score_components": {
+        "chat_spike_score": 3.6710762259736613,
+        "reaction_score": 0.7365349032927757,
+        "test_reaction_score": 0.7365349032927757,
+        "diversity_score": 50.85815858311303,
+        "viewer_trend_score": 20,
+        "final_score": 9.958760630987284,
+        "baseline_chat_count": 15.836147863760418,
+        "baseline_viewer_count": 553.5041726418949,
+        "baseline_threshold": 22.55679968180332,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.64577663176126,
+        "test_score_difference": 0.5974675354190795,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "surprise": 2.0,
+          "greeting": 7.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "surprise": 2.0,
+          "greeting": 7.0
+        }
+      },
+      "after_openDate": "00:02:31",
+      "comment_after_openDate": "00:02:31",
+      "chat_context": [
+        "ground3870: 오늘은 무음 방송인가",
+        "하파늘한: 비이이이이이잉사아아아아아아앙",
+        "무트: 또 너야 윈도우?",
+        "피누스: 헉 윈도우 업데이트를",
+        "Halcyon: 빅하",
+        "하양아: 맞네 윈도우 업데이트했네",
+        "다람쥐 이갈이: 노마이크 방송이구나",
+        "버알: 어쩐지 안들리더라",
+        "LASTAND14: 또 윈도우야?",
+        "미케닉: ?",
+        "라그스: {:bigheadBig:}{:bigheadHa:}",
+        "구냥잇: 윈도우냐??",
+        "이걸우째: 쉽지 않은데?",
+        "얄미운 마왕 4453: 빅하",
+        "해로우 HARROW: {:bigheadLfcae:}{:bigheadCface:}{:bigheadRfcae:}",
+        "엔9: 빅하",
+        "외않됄까: 빅화",
+        "참잘해요: 빅하",
+        "달콤한 버터: 빅하",
+        "HexagonalED: 마음의 눈으로 들으라고? ㅇㅋ",
+        "감자맛살: 아... ㅈ같은 윈도우 업데이트",
+        "Dawn0602: 빅하",
+        "포카리11: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:18.674651",
+      "fun_score": 9.247541453406608,
+      "test_fun_score": 0.5281599065897672,
+      "score_components": {
+        "chat_spike_score": 2.2028809522218293,
+        "reaction_score": 0.5281599065897672,
+        "test_reaction_score": 0.5281599065897672,
+        "diversity_score": 50.97797052929856,
+        "viewer_trend_score": 20,
+        "final_score": 9.247541453406608,
+        "baseline_chat_count": 15.973120716605319,
+        "baseline_viewer_count": 547.2422928609818,
+        "baseline_threshold": 22.31592517515172,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9345574541805846,
+        "test_score_difference": 0.389092538716071,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "excitement": 2.0,
+          "greeting": 7.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "excitement": 2.0,
+          "greeting": 7.0
+        }
+      },
+      "after_openDate": "00:02:36",
+      "comment_after_openDate": "00:02:36",
+      "chat_context": [
+        "버알: 어쩐지 안들리더라",
+        "LASTAND14: 또 윈도우야?",
+        "미케닉: ?",
+        "라그스: {:bigheadBig:}{:bigheadHa:}",
+        "구냥잇: 윈도우냐??",
+        "이걸우째: 쉽지 않은데?",
+        "얄미운 마왕 4453: 빅하",
+        "해로우 HARROW: {:bigheadLfcae:}{:bigheadCface:}{:bigheadRfcae:}",
+        "엔9: 빅하",
+        "외않됄까: 빅화",
+        "참잘해요: 빅하",
+        "달콤한 버터: 빅하",
+        "HexagonalED: 마음의 눈으로 들으라고? ㅇㅋ",
+        "감자맛살: 아... ㅈ같은 윈도우 업데이트",
+        "Dawn0602: 빅하",
+        "포카리11: 빅하",
+        "개차반센빠이: 빅하!",
+        "김꿀맛: {:bigheadBig:}{:bigheadHa:}",
+        "로아접은땃쥐: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:23.681168",
+      "fun_score": 8.913915322706359,
+      "test_fun_score": 0.43496704911768586,
+      "score_components": {
+        "chat_spike_score": 1.5121804833210584,
+        "reaction_score": 0.43496704911768586,
+        "test_reaction_score": 0.43496704911768586,
+        "diversity_score": 51.02943990476576,
+        "viewer_trend_score": 20,
+        "final_score": 8.913915322706359,
+        "baseline_chat_count": 16.030994648503825,
+        "baseline_viewer_count": 541.1001402214798,
+        "baseline_threshold": 22.066057678391953,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.600931323480335,
+        "test_score_difference": 0.27333667914417914,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "excitement": 2.0,
+          "greeting": 8.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "greeting": 8.0
+        }
+      },
+      "after_openDate": "00:02:41",
+      "comment_after_openDate": "00:02:41",
+      "chat_context": [
+        "구냥잇: 윈도우냐??",
+        "이걸우째: 쉽지 않은데?",
+        "얄미운 마왕 4453: 빅하",
+        "해로우 HARROW: {:bigheadLfcae:}{:bigheadCface:}{:bigheadRfcae:}",
+        "엔9: 빅하",
+        "외않됄까: 빅화",
+        "참잘해요: 빅하",
+        "달콤한 버터: 빅하",
+        "HexagonalED: 마음의 눈으로 들으라고? ㅇㅋ",
+        "감자맛살: 아... ㅈ같은 윈도우 업데이트",
+        "Dawn0602: 빅하",
+        "포카리11: 빅하",
+        "개차반센빠이: 빅하!",
+        "김꿀맛: {:bigheadBig:}{:bigheadHa:}",
+        "로아접은땃쥐: 빅하",
+        "회색오크통: {:bigheadBig:}{:bigheadHa:}",
+        "카르발란: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:28.686745",
+      "fun_score": 7.703522105264101,
+      "test_fun_score": 0.2808250891278586,
+      "score_components": {
+        "chat_spike_score": 1.3344738056379473,
+        "reaction_score": 0.2808250891278586,
+        "test_reaction_score": 0.2808250891278586,
+        "diversity_score": 47.68761365988667,
+        "viewer_trend_score": 15,
+        "final_score": 7.703522105264101,
+        "baseline_chat_count": 16.04952203082443,
+        "baseline_viewer_count": 535.075425540445,
+        "baseline_threshold": 21.814588716551242,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.39053810603807726,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "greeting": 8.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 8.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:46",
+      "comment_after_openDate": "00:02:46",
+      "chat_context": [
+        "엔9: 빅하",
+        "외않됄까: 빅화",
+        "참잘해요: 빅하",
+        "달콤한 버터: 빅하",
+        "HexagonalED: 마음의 눈으로 들으라고? ㅇㅋ",
+        "감자맛살: 아... ㅈ같은 윈도우 업데이트",
+        "Dawn0602: 빅하",
+        "포카리11: 빅하",
+        "개차반센빠이: 빅하!",
+        "김꿀맛: {:bigheadBig:}{:bigheadHa:}",
+        "로아접은땃쥐: 빅하",
+        "회색오크통: {:bigheadBig:}{:bigheadHa:}",
+        "카르발란: 빅하",
+        "포카리11: 조용하네 방숑이",
+        "우는범고래: 빅하",
+        "빡목수: 무음방송"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:33.692743",
+      "fun_score": 7.870601044141441,
+      "test_fun_score": 0.24798278812908542,
+      "score_components": {
+        "chat_spike_score": 1.7090742090731526,
+        "reaction_score": 0.24798278812908542,
+        "test_reaction_score": 0.24798278812908542,
+        "diversity_score": 47.77122813619796,
+        "viewer_trend_score": 15,
+        "final_score": 7.870601044141441,
+        "baseline_chat_count": 16.04857516959507,
+        "baseline_viewer_count": 529.1659034041116,
+        "baseline_threshold": 21.54478512294343,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.16707893887734038,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "greeting": 7.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 7.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:51",
+      "comment_after_openDate": "00:02:51",
+      "chat_context": [
+        "외않됄까: 빅화",
+        "참잘해요: 빅하",
+        "달콤한 버터: 빅하",
+        "HexagonalED: 마음의 눈으로 들으라고? ㅇㅋ",
+        "감자맛살: 아... ㅈ같은 윈도우 업데이트",
+        "Dawn0602: 빅하",
+        "포카리11: 빅하",
+        "개차반센빠이: 빅하!",
+        "김꿀맛: {:bigheadBig:}{:bigheadHa:}",
+        "로아접은땃쥐: 빅하",
+        "회색오크통: {:bigheadBig:}{:bigheadHa:}",
+        "카르발란: 빅하",
+        "포카리11: 조용하네 방숑이",
+        "우는범고래: 빅하",
+        "빡목수: 무음방송",
+        "김이름없음: 좋은 아침",
+        "리요우리요우: 착한 사람만 들린다네요"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:38.722008",
+      "fun_score": 7.014769953094228,
+      "test_fun_score": 0.2476161154577781,
+      "score_components": {
+        "chat_spike_score": 1.5084333696416954,
+        "reaction_score": 0.2476161154577781,
+        "test_reaction_score": 0.2476161154577781,
+        "diversity_score": 47.61690102118131,
+        "viewer_trend_score": 10,
+        "final_score": 7.014769953094228,
+        "baseline_chat_count": 16.06676641235241,
+        "baseline_viewer_count": 523.3693713310249,
+        "baseline_threshold": 21.283334723356738,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "greeting": 7.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 7.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:02:56",
+      "comment_after_openDate": "00:02:56",
+      "chat_context": [
+        "달콤한 버터: 빅하",
+        "HexagonalED: 마음의 눈으로 들으라고? ㅇㅋ",
+        "감자맛살: 아... ㅈ같은 윈도우 업데이트",
+        "Dawn0602: 빅하",
+        "포카리11: 빅하",
+        "개차반센빠이: 빅하!",
+        "김꿀맛: {:bigheadBig:}{:bigheadHa:}",
+        "로아접은땃쥐: 빅하",
+        "회색오크통: {:bigheadBig:}{:bigheadHa:}",
+        "카르발란: 빅하",
+        "포카리11: 조용하네 방숑이",
+        "우는범고래: 빅하",
+        "빡목수: 무음방송",
+        "김이름없음: 좋은 아침",
+        "리요우리요우: 착한 사람만 들린다네요",
+        "하른하늘여우: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:45.196952",
+      "fun_score": 7.019221505153026,
+      "test_fun_score": 0.11033074473113756,
+      "score_components": {
+        "chat_spike_score": 0.9195793868057205,
+        "reaction_score": 0.11033074473113756,
+        "test_reaction_score": 0.11033074473113756,
+        "diversity_score": 50.723115576711095,
+        "viewer_trend_score": 10,
+        "final_score": 7.019221505153026,
+        "baseline_chat_count": 16.06548983854823,
+        "baseline_viewer_count": 517.6836689511757,
+        "baseline_threshold": 21.01051976494932,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.004451552058798214,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:03:03",
+      "comment_after_openDate": "00:03:03",
+      "chat_context": [
+        "로아접은땃쥐: 빅하",
+        "회색오크통: {:bigheadBig:}{:bigheadHa:}",
+        "카르발란: 빅하",
+        "포카리11: 조용하네 방숑이",
+        "우는범고래: 빅하",
+        "빡목수: 무음방송",
+        "김이름없음: 좋은 아침",
+        "리요우리요우: 착한 사람만 들린다네요",
+        "하른하늘여우: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:50.202562",
+      "fun_score": 5.480318441661383,
+      "test_fun_score": 0.11079737482259658,
+      "score_components": {
+        "chat_spike_score": 0.8158005303669551,
+        "reaction_score": 0.11079737482259658,
+        "test_reaction_score": 0.11079737482259658,
+        "diversity_score": 50.79968990549473,
+        "viewer_trend_score": 0,
+        "final_score": 5.480318441661383,
+        "baseline_chat_count": 15.930397672835188,
+        "baseline_viewer_count": 512.1066772008292,
+        "baseline_threshold": 20.743006142222015,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.00046663009145901657,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:03:08",
+      "comment_after_openDate": "00:03:08",
+      "chat_context": [
+        "카르발란: 빅하",
+        "포카리11: 조용하네 방숑이",
+        "우는범고래: 빅하",
+        "빡목수: 무음방송",
+        "김이름없음: 좋은 아침",
+        "리요우리요우: 착한 사람만 들린다네요",
+        "하른하늘여우: 빅하",
+        "KSH098: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:25:55.208431",
+      "fun_score": 5.044286265702264,
+      "test_fun_score": 0.1528107502479589,
+      "score_components": {
+        "chat_spike_score": 1.0550034263645722,
+        "reaction_score": 0.1528107502479589,
+        "test_reaction_score": 0.1528107502479589,
+        "diversity_score": 45.23691498763819,
+        "viewer_trend_score": 0,
+        "final_score": 5.044286265702264,
+        "baseline_chat_count": 15.77876846933058,
+        "baseline_viewer_count": 506.6363175327493,
+        "baseline_threshold": 20.451183553387295,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.04248000551682134,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:13",
+      "comment_after_openDate": "00:03:13",
+      "chat_context": [
+        "빡목수: 무음방송",
+        "김이름없음: 좋은 아침",
+        "리요우리요우: 착한 사람만 들린다네요",
+        "하른하늘여우: 빅하",
+        "KSH098: 빅하",
+        "파크상: 오",
+        "포카리11: 후원소리는 들리나",
+        "빡목수: 고요하다아아아",
+        "miniwar: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:00.216423",
+      "fun_score": 5.553218395618892,
+      "test_fun_score": 0.17481288916698193,
+      "score_components": {
+        "chat_spike_score": 0.9348624194907442,
+        "reaction_score": 0.17481288916698193,
+        "test_reaction_score": 0.17481288916698193,
+        "diversity_score": 50.80086440097962,
+        "viewer_trend_score": 0,
+        "final_score": 5.553218395618892,
+        "baseline_chat_count": 15.649158416196977,
+        "baseline_viewer_count": 501.27055114152313,
+        "baseline_threshold": 20.156603677246757,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5089321299166274,
+        "test_score_difference": 0.06448214443584437,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 226,
+        "fun_keywords": {
+          "greeting": 4.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:18",
+      "comment_after_openDate": "00:03:18",
+      "chat_context": [
+        "김이름없음: 좋은 아침",
+        "리요우리요우: 착한 사람만 들린다네요",
+        "하른하늘여우: 빅하",
+        "KSH098: 빅하",
+        "파크상: 오",
+        "포카리11: 후원소리는 들리나",
+        "빡목수: 고요하다아아아",
+        "miniwar: 빅하",
+        "뿌갹: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:05.223603",
+      "fun_score": 7.714309911825689,
+      "test_fun_score": 0.20039451298286534,
+      "score_components": {
+        "chat_spike_score": 0.7270376751288723,
+        "reaction_score": 0.20039451298286534,
+        "test_reaction_score": 0.20039451298286534,
+        "diversity_score": 50.77024604122836,
+        "viewer_trend_score": 15,
+        "final_score": 7.714309911825689,
+        "baseline_chat_count": 15.52202650727929,
+        "baseline_viewer_count": 496.0073782036972,
+        "baseline_threshold": 19.87738695066203,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.6700236461234246,
+        "test_score_difference": 0.09006376825172778,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 5.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:23",
+      "comment_after_openDate": "00:03:23",
+      "chat_context": [
+        "하른하늘여우: 빅하",
+        "KSH098: 빅하",
+        "파크상: 오",
+        "포카리11: 후원소리는 들리나",
+        "빡목수: 고요하다아아아",
+        "miniwar: 빅하",
+        "뿌갹: 빅하",
+        "라일락한송이: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:10.229659",
+      "fun_score": 7.732575177860709,
+      "test_fun_score": 0.17778762441252266,
+      "score_components": {
+        "chat_spike_score": 0.8305829739450208,
+        "reaction_score": 0.17778762441252266,
+        "test_reaction_score": 0.17778762441252266,
+        "diversity_score": 50.554765522616925,
+        "viewer_trend_score": 15,
+        "final_score": 7.732575177860709,
+        "baseline_chat_count": 15.37820536046011,
+        "baseline_viewer_count": 491.8390771324425,
+        "baseline_threshold": 19.64482891767948,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.688288912158445,
+        "test_score_difference": 0.0674568796813851,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 4.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:28",
+      "comment_after_openDate": "00:03:28",
+      "chat_context": [
+        "KSH098: 빅하",
+        "파크상: 오",
+        "포카리11: 후원소리는 들리나",
+        "빡목수: 고요하다아아아",
+        "miniwar: 빅하",
+        "뿌갹: 빅하",
+        "라일락한송이: 빅하",
+        "이걸우째: 안들리자"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:15.235834",
+      "fun_score": 6.7577011024491,
+      "test_fun_score": 0.20453616696974564,
+      "score_components": {
+        "chat_spike_score": 1.2348284340576772,
+        "reaction_score": 0.20453616696974564,
+        "test_reaction_score": 0.20453616696974564,
+        "diversity_score": 46.40667457032222,
+        "viewer_trend_score": 10,
+        "final_score": 6.7577011024491,
+        "baseline_chat_count": 15.237134073968111,
+        "baseline_viewer_count": 487.7504739776702,
+        "baseline_threshold": 19.417066626174144,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7134148367468356,
+        "test_score_difference": 0.09420542223860807,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 5.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:33",
+      "comment_after_openDate": "00:03:33",
+      "chat_context": [
+        "KSH098: 빅하",
+        "파크상: 오",
+        "포카리11: 후원소리는 들리나",
+        "빡목수: 고요하다아아아",
+        "miniwar: 빅하",
+        "뿌갹: 빅하",
+        "라일락한송이: 빅하",
+        "이걸우째: 안들리자",
+        "ZENIX: 머지",
+        "루버: 뭐지",
+        "CrispWIN2: 빅하",
+        "이걸우째: 도네해도 조용하던데"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:20.241329",
+      "fun_score": 6.987415864219127,
+      "test_fun_score": 0.2054680702806334,
+      "score_components": {
+        "chat_spike_score": 1.6102288657924755,
+        "reaction_score": 0.2054680702806334,
+        "test_reaction_score": 0.2054680702806334,
+        "diversity_score": 47.01172453528323,
+        "viewer_trend_score": 10,
+        "final_score": 6.987415864219127,
+        "baseline_chat_count": 15.17524007047384,
+        "baseline_viewer_count": 483.74004491521714,
+        "baseline_threshold": 19.17501955736052,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9431295985168626,
+        "test_score_difference": 0.09513732554949585,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:03:38",
+      "comment_after_openDate": "00:03:38",
+      "chat_context": [
+        "파크상: 오",
+        "포카리11: 후원소리는 들리나",
+        "빡목수: 고요하다아아아",
+        "miniwar: 빅하",
+        "뿌갹: 빅하",
+        "라일락한송이: 빅하",
+        "이걸우째: 안들리자",
+        "ZENIX: 머지",
+        "루버: 뭐지",
+        "CrispWIN2: 빅하",
+        "이걸우째: 도네해도 조용하던데",
+        "해로우 HARROW: 그의 목소리가 사라졌다",
+        "하른하늘여우: ? 님들 안들림?",
+        "고민놉: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:25.246794",
+      "fun_score": 6.825005181147425,
+      "test_fun_score": 0.11368828205734198,
+      "score_components": {
+        "chat_spike_score": 1.4150003856672075,
+        "reaction_score": 0.11368828205734198,
+        "test_reaction_score": 0.11368828205734198,
+        "diversity_score": 46.54148522979979,
+        "viewer_trend_score": 10,
+        "final_score": 6.825005181147425,
+        "baseline_chat_count": 15.15276948032638,
+        "baseline_viewer_count": 479.80629525643815,
+        "baseline_threshold": 18.94199257474766,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7807189154451608,
+        "test_score_difference": 0.0033575373262044184,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:03:43",
+      "comment_after_openDate": "00:03:43",
+      "chat_context": [
+        "뿌갹: 빅하",
+        "라일락한송이: 빅하",
+        "이걸우째: 안들리자",
+        "ZENIX: 머지",
+        "루버: 뭐지",
+        "CrispWIN2: 빅하",
+        "이걸우째: 도네해도 조용하던데",
+        "해로우 HARROW: 그의 목소리가 사라졌다",
+        "하른하늘여우: ? 님들 안들림?",
+        "고민놉: 빅하",
+        "Dawn0602: 안들려",
+        "이상연05: {:bigheadBig:}{:bigheadHa:}"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:30.252663",
+      "fun_score": 6.5926082204322345,
+      "test_fun_score": 0.15863956867436171,
+      "score_components": {
+        "chat_spike_score": 2.738044105885091,
+        "reaction_score": 0.15863956867436171,
+        "test_reaction_score": 0.15863956867436171,
+        "diversity_score": 38.12896502181635,
+        "viewer_trend_score": 10,
+        "final_score": 6.5926082204322345,
+        "baseline_chat_count": 15.09248852786254,
+        "baseline_viewer_count": 475.94775889113504,
+        "baseline_threshold": 18.71031577578202,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5483219547299703,
+        "test_score_difference": 0.04830882394322415,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:48",
+      "comment_after_openDate": "00:03:48",
+      "chat_context": [
+        "라일락한송이: 빅하",
+        "이걸우째: 안들리자",
+        "ZENIX: 머지",
+        "루버: 뭐지",
+        "CrispWIN2: 빅하",
+        "이걸우째: 도네해도 조용하던데",
+        "해로우 HARROW: 그의 목소리가 사라졌다",
+        "하른하늘여우: ? 님들 안들림?",
+        "고민놉: 빅하",
+        "Dawn0602: 안들려",
+        "이상연05: {:bigheadBig:}{:bigheadHa:}",
+        "ZENIX: 안들려",
+        "얄미운 마왕 4453: 안들리긴해",
+        "루버: 오인페 꺼짐?",
+        "포카리11: 윈도우세팅이 고장났대요",
+        "CrispWIN2: 아무소리가 안나용"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:35.258782",
+      "fun_score": 6.5821590434630535,
+      "test_fun_score": 0.15848285203540294,
+      "score_components": {
+        "chat_spike_score": 4.037985866140969,
+        "reaction_score": 0.15848285203540294,
+        "test_reaction_score": 0.15848285203540294,
+        "diversity_score": 32.175205480889964,
+        "viewer_trend_score": 10,
+        "final_score": 6.5821590434630535,
+        "baseline_chat_count": 15.109840147209809,
+        "baseline_viewer_count": 472.1629977411365,
+        "baseline_threshold": 18.47862520732373,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5378727777607892,
+        "test_score_difference": 0.048152107304265376,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:53",
+      "comment_after_openDate": "00:03:53",
+      "chat_context": [
+        "이걸우째: 안들리자",
+        "ZENIX: 머지",
+        "루버: 뭐지",
+        "CrispWIN2: 빅하",
+        "이걸우째: 도네해도 조용하던데",
+        "해로우 HARROW: 그의 목소리가 사라졌다",
+        "하른하늘여우: ? 님들 안들림?",
+        "고민놉: 빅하",
+        "Dawn0602: 안들려",
+        "이상연05: {:bigheadBig:}{:bigheadHa:}",
+        "ZENIX: 안들려",
+        "얄미운 마왕 4453: 안들리긴해",
+        "루버: 오인페 꺼짐?",
+        "포카리11: 윈도우세팅이 고장났대요",
+        "CrispWIN2: 아무소리가 안나용",
+        "Halcyon: 안들려ㅕ",
+        "Dawn0602: 소리세팅이 고장났다했음",
+        "이상연05: ㅇㅎ",
+        "포카리11: 보치는중"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:40.264878",
+      "fun_score": 5.246797214524687,
+      "test_fun_score": 0.1800149374319599,
+      "score_components": {
+        "chat_spike_score": 4.5470843398893965,
+        "reaction_score": 0.1800149374319599,
+        "test_reaction_score": 0.1800149374319599,
+        "diversity_score": 31.466047803448703,
+        "viewer_trend_score": 0,
+        "final_score": 5.246797214524687,
+        "baseline_chat_count": 15.184220003595156,
+        "baseline_viewer_count": 468.45060122432596,
+        "baseline_threshold": 18.251164774270713,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.2025109488224226,
+        "test_score_difference": 0.06968419270082234,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 4.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:03:58",
+      "comment_after_openDate": "00:03:58",
+      "chat_context": [
+        "ZENIX: 머지",
+        "루버: 뭐지",
+        "CrispWIN2: 빅하",
+        "이걸우째: 도네해도 조용하던데",
+        "해로우 HARROW: 그의 목소리가 사라졌다",
+        "하른하늘여우: ? 님들 안들림?",
+        "고민놉: 빅하",
+        "Dawn0602: 안들려",
+        "이상연05: {:bigheadBig:}{:bigheadHa:}",
+        "ZENIX: 안들려",
+        "얄미운 마왕 4453: 안들리긴해",
+        "루버: 오인페 꺼짐?",
+        "포카리11: 윈도우세팅이 고장났대요",
+        "CrispWIN2: 아무소리가 안나용",
+        "Halcyon: 안들려ㅕ",
+        "Dawn0602: 소리세팅이 고장났다했음",
+        "이상연05: ㅇㅎ",
+        "포카리11: 보치는중",
+        "ZENIX: ㅇㅎ",
+        "포카리11: 고치는중",
+        "버알: 세팅 맛이 갔대"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:45.271147",
+      "fun_score": 5.6108363692720555,
+      "test_fun_score": 0.15683838781461773,
+      "score_components": {
+        "chat_spike_score": 4.475305657021188,
+        "reaction_score": 0.15683838781461773,
+        "test_reaction_score": 0.15683838781461773,
+        "diversity_score": 35.49897307268135,
+        "viewer_trend_score": 0,
+        "final_score": 5.6108363692720555,
+        "baseline_chat_count": 15.295417717126416,
+        "baseline_viewer_count": 464.8091857289168,
+        "baseline_threshold": 18.00252126652837,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5665501035697913,
+        "test_score_difference": 0.04650764308348017,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:04:03",
+      "comment_after_openDate": "00:04:03",
+      "chat_context": [
+        "해로우 HARROW: 그의 목소리가 사라졌다",
+        "하른하늘여우: ? 님들 안들림?",
+        "고민놉: 빅하",
+        "Dawn0602: 안들려",
+        "이상연05: {:bigheadBig:}{:bigheadHa:}",
+        "ZENIX: 안들려",
+        "얄미운 마왕 4453: 안들리긴해",
+        "루버: 오인페 꺼짐?",
+        "포카리11: 윈도우세팅이 고장났대요",
+        "CrispWIN2: 아무소리가 안나용",
+        "Halcyon: 안들려ㅕ",
+        "Dawn0602: 소리세팅이 고장났다했음",
+        "이상연05: ㅇㅎ",
+        "포카리11: 보치는중",
+        "ZENIX: ㅇㅎ",
+        "포카리11: 고치는중",
+        "버알: 세팅 맛이 갔대",
+        "miniwar: {:d_55:}{:d_55:}",
+        "Dawn0602: 고칠때까지 기다려야지 뭐",
+        "이걸우째: ㅇㅇ 쟤가 벌써 이상하다했어"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:50.277355",
+      "fun_score": 5.292990759571955,
+      "test_fun_score": 0.15606157245897118,
+      "score_components": {
+        "chat_spike_score": 3.8906280432712705,
+        "reaction_score": 0.15606157245897118,
+        "test_reaction_score": 0.15606157245897118,
+        "diversity_score": 34.95389668362192,
+        "viewer_trend_score": 0,
+        "final_score": 5.292990759571955,
+        "baseline_chat_count": 15.385369330374958,
+        "baseline_viewer_count": 461.23739409777994,
+        "baseline_threshold": 17.765592251292826,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.24870449386969096,
+        "test_score_difference": 0.0452641976363746,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 19,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:04:08",
+      "comment_after_openDate": "00:04:08",
+      "chat_context": [
+        "Dawn0602: 안들려",
+        "이상연05: {:bigheadBig:}{:bigheadHa:}",
+        "ZENIX: 안들려",
+        "얄미운 마왕 4453: 안들리긴해",
+        "루버: 오인페 꺼짐?",
+        "포카리11: 윈도우세팅이 고장났대요",
+        "CrispWIN2: 아무소리가 안나용",
+        "Halcyon: 안들려ㅕ",
+        "Dawn0602: 소리세팅이 고장났다했음",
+        "이상연05: ㅇㅎ",
+        "포카리11: 보치는중",
+        "ZENIX: ㅇㅎ",
+        "포카리11: 고치는중",
+        "버알: 세팅 맛이 갔대",
+        "miniwar: {:d_55:}{:d_55:}",
+        "Dawn0602: 고칠때까지 기다려야지 뭐",
+        "이걸우째: ㅇㅇ 쟤가 벌써 이상하다했어",
+        "빅개드럽고치사함: {:bigheadPopgif:}{:bigheadPopgif:}{:bigheadPopgif:}",
+        "Logitech: ㅇㅎ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:26:55.283545",
+      "fun_score": 5.485874304724776,
+      "test_fun_score": 0.20135508585020345,
+      "score_components": {
+        "chat_spike_score": 2.6311844050233955,
+        "reaction_score": 0.20135508585020345,
+        "test_reaction_score": 0.20135508585020345,
+        "diversity_score": 42.414347967091864,
+        "viewer_trend_score": 0,
+        "final_score": 5.485874304724776,
+        "baseline_chat_count": 15.454481068778188,
+        "baseline_viewer_count": 457.7338951226304,
+        "baseline_threshold": 17.52711611077112,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.44158803902251176,
+        "test_score_difference": 0.08766680379286147,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:04:13",
+      "comment_after_openDate": "00:04:13",
+      "chat_context": [
+        "얄미운 마왕 4453: 안들리긴해",
+        "루버: 오인페 꺼짐?",
+        "포카리11: 윈도우세팅이 고장났대요",
+        "CrispWIN2: 아무소리가 안나용",
+        "Halcyon: 안들려ㅕ",
+        "Dawn0602: 소리세팅이 고장났다했음",
+        "이상연05: ㅇㅎ",
+        "포카리11: 보치는중",
+        "ZENIX: ㅇㅎ",
+        "포카리11: 고치는중",
+        "버알: 세팅 맛이 갔대",
+        "miniwar: {:d_55:}{:d_55:}",
+        "Dawn0602: 고칠때까지 기다려야지 뭐",
+        "이걸우째: ㅇㅇ 쟤가 벌써 이상하다했어",
+        "빅개드럽고치사함: {:bigheadPopgif:}{:bigheadPopgif:}{:bigheadPopgif:}",
+        "Logitech: ㅇㅎ",
+        "하른하늘여우: ㄲㅂ",
+        "박렁이: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:00.289157",
+      "fun_score": 5.113937453560612,
+      "test_fun_score": 0.12779962259475217,
+      "score_components": {
+        "chat_spike_score": 1.5706466234052734,
+        "reaction_score": 0.12779962259475217,
+        "test_reaction_score": 0.12779962259475217,
+        "diversity_score": 43.688065862498135,
+        "viewer_trend_score": 0,
+        "final_score": 5.113937453560612,
+        "baseline_chat_count": 15.503151390743149,
+        "baseline_viewer_count": 454.29738304788566,
+        "baseline_threshold": 17.296887567439516,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.014111340537410186,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:04:18",
+      "comment_after_openDate": "00:04:18",
+      "chat_context": [
+        "Halcyon: 안들려ㅕ",
+        "Dawn0602: 소리세팅이 고장났다했음",
+        "이상연05: ㅇㅎ",
+        "포카리11: 보치는중",
+        "ZENIX: ㅇㅎ",
+        "포카리11: 고치는중",
+        "버알: 세팅 맛이 갔대",
+        "miniwar: {:d_55:}{:d_55:}",
+        "Dawn0602: 고칠때까지 기다려야지 뭐",
+        "이걸우째: ㅇㅇ 쟤가 벌써 이상하다했어",
+        "빅개드럽고치사함: {:bigheadPopgif:}{:bigheadPopgif:}{:bigheadPopgif:}",
+        "Logitech: ㅇㅎ",
+        "하른하늘여우: ㄲㅂ",
+        "박렁이: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:05.295256",
+      "fun_score": 7.133716777670365,
+      "test_fun_score": 0.12795272016433573,
+      "score_components": {
+        "chat_spike_score": 1.070817811891758,
+        "reaction_score": 0.12795272016433573,
+        "test_reaction_score": 0.12795272016433573,
+        "diversity_score": 51.13462946269774,
+        "viewer_trend_score": 10,
+        "final_score": 7.133716777670365,
+        "baseline_chat_count": 15.47441113615214,
+        "baseline_viewer_count": 450.9265770840101,
+        "baseline_threshold": 17.063949561262152,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.019779324109753,
+        "test_score_difference": 0.014264438106993751,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:04:23",
+      "comment_after_openDate": "00:04:23",
+      "chat_context": [
+        "ZENIX: ㅇㅎ",
+        "포카리11: 고치는중",
+        "버알: 세팅 맛이 갔대",
+        "miniwar: {:d_55:}{:d_55:}",
+        "Dawn0602: 고칠때까지 기다려야지 뭐",
+        "이걸우째: ㅇㅇ 쟤가 벌써 이상하다했어",
+        "빅개드럽고치사함: {:bigheadPopgif:}{:bigheadPopgif:}{:bigheadPopgif:}",
+        "Logitech: ㅇㅎ",
+        "하른하늘여우: ㄲㅂ",
+        "박렁이: 빅하",
+        "우주여행자: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:10.301231",
+      "fun_score": 7.044507573368031,
+      "test_fun_score": 0.12841292811657326,
+      "score_components": {
+        "chat_spike_score": 0.8302851011363646,
+        "reaction_score": 0.12841292811657326,
+        "test_reaction_score": 0.12841292811657326,
+        "diversity_score": 51.323553994216944,
+        "viewer_trend_score": 10,
+        "final_score": 7.044507573368031,
+        "baseline_chat_count": 15.38886039522891,
+        "baseline_viewer_count": 448.53798093016377,
+        "baseline_threshold": 16.874083510439878,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9305701198074185,
+        "test_score_difference": 0.01472464605923128,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:04:28",
+      "comment_after_openDate": "00:04:28",
+      "chat_context": [
+        "miniwar: {:d_55:}{:d_55:}",
+        "Dawn0602: 고칠때까지 기다려야지 뭐",
+        "이걸우째: ㅇㅇ 쟤가 벌써 이상하다했어",
+        "빅개드럽고치사함: {:bigheadPopgif:}{:bigheadPopgif:}{:bigheadPopgif:}",
+        "Logitech: ㅇㅎ",
+        "하른하늘여우: ㄲㅂ",
+        "박렁이: 빅하",
+        "우주여행자: 빅하",
+        "쿠로이: 반갑헤드"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:15.325884",
+      "fun_score": 6.975158415083349,
+      "test_fun_score": 0.12908191469275482,
+      "score_components": {
+        "chat_spike_score": 0.6421774462226496,
+        "reaction_score": 0.12908191469275482,
+        "test_reaction_score": 0.12908191469275482,
+        "diversity_score": 51.47453989875331,
+        "viewer_trend_score": 10,
+        "final_score": 6.975158415083349,
+        "baseline_chat_count": 15.266705384472132,
+        "baseline_viewer_count": 446.19505473477903,
+        "baseline_threshold": 16.686142018523064,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.8612209615227373,
+        "test_score_difference": 0.015393632635412838,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:04:33",
+      "comment_after_openDate": "00:04:33",
+      "chat_context": [
+        "빅개드럽고치사함: {:bigheadPopgif:}{:bigheadPopgif:}{:bigheadPopgif:}",
+        "Logitech: ㅇㅎ",
+        "하른하늘여우: ㄲㅂ",
+        "박렁이: 빅하",
+        "우주여행자: 빅하",
+        "쿠로이: 반갑헤드",
+        "01름: {:bigheadBig:}{:bigheadHa:}"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:20.344486",
+      "fun_score": 6.216734448230447,
+      "test_fun_score": 0.12996891018789436,
+      "score_components": {
+        "chat_spike_score": 0.6439343958650767,
+        "reaction_score": 0.12996891018789436,
+        "test_reaction_score": 0.12996891018789436,
+        "diversity_score": 43.879732970347945,
+        "viewer_trend_score": 10,
+        "final_score": 6.216734448230447,
+        "baseline_chat_count": 15.108645977521023,
+        "baseline_viewer_count": 443.89692528825003,
+        "baseline_threshold": 16.500468012025294,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.102796994669835,
+        "test_score_difference": 0.01628062813055238,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 5.0
+        }
+      },
+      "after_openDate": "00:04:38",
+      "comment_after_openDate": "00:04:38",
+      "chat_context": [
+        "하른하늘여우: ㄲㅂ",
+        "박렁이: 빅하",
+        "우주여행자: 빅하",
+        "쿠로이: 반갑헤드",
+        "01름: {:bigheadBig:}{:bigheadHa:}",
+        "롤로노아이성무: 빅하",
+        "쿠로이: 아"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:25.349920",
+      "fun_score": 5.929520330678322,
+      "test_fun_score": 0.10016438019046472,
+      "score_components": {
+        "chat_spike_score": 0.6456986375638373,
+        "reaction_score": 0.10016438019046472,
+        "test_reaction_score": 0.10016438019046472,
+        "diversity_score": 41.08906629717456,
+        "viewer_trend_score": 10,
+        "final_score": 5.929520330678322,
+        "baseline_chat_count": 14.95360866643082,
+        "baseline_viewer_count": 441.6427360767387,
+        "baseline_threshold": 16.303843026285538,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.81558287711771,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:04:43",
+      "comment_after_openDate": "00:04:43",
+      "chat_context": [
+        "우주여행자: 빅하",
+        "쿠로이: 반갑헤드",
+        "01름: {:bigheadBig:}{:bigheadHa:}",
+        "롤로노아이성무: 빅하",
+        "쿠로이: 아"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:30.356419",
+      "fun_score": 4.6405534987585115,
+      "test_fun_score": 0.1152819072266768,
+      "score_components": {
+        "chat_spike_score": 0.6479217874720165,
+        "reaction_score": 0.1152819072266768,
+        "test_reaction_score": 0.1152819072266768,
+        "diversity_score": 43.14404122228101,
+        "viewer_trend_score": 0,
+        "final_score": 4.6405534987585115,
+        "baseline_chat_count": 14.763295668728663,
+        "baseline_viewer_count": 439.4316469629514,
+        "baseline_threshold": 16.105485976345527,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.01511752703621208,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 4.0
+        },
+        "test_keyword_counter": {
+          "greeting": 4.0
+        }
+      },
+      "after_openDate": "00:04:48",
+      "comment_after_openDate": "00:04:48",
+      "chat_context": [
+        "우주여행자: 빅하",
+        "쿠로이: 반갑헤드",
+        "01름: {:bigheadBig:}{:bigheadHa:}",
+        "롤로노아이성무: 빅하",
+        "쿠로이: 아",
+        "천사데스: 빅하"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:35.378790",
+      "fun_score": 3.8456731737714533,
+      "test_fun_score": 0.10115414635287169,
+      "score_components": {
+        "chat_spike_score": 0.7450261862267628,
+        "reaction_score": 0.10115414635287169,
+        "test_reaction_score": 0.10115414635287169,
+        "diversity_score": 34.800651460635486,
+        "viewer_trend_score": 0,
+        "final_score": 3.8456731737714533,
+        "baseline_chat_count": 14.595741455542571,
+        "baseline_viewer_count": 437.26283387301976,
+        "baseline_threshold": 15.886276467374064,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.000989766162406966,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 3.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0
+        }
+      },
+      "after_openDate": "00:04:53",
+      "comment_after_openDate": "00:04:53",
+      "chat_context": [
+        "쿠로이: 반갑헤드",
+        "01름: {:bigheadBig:}{:bigheadHa:}",
+        "롤로노아이성무: 빅하",
+        "쿠로이: 아",
+        "천사데스: 빅하",
+        "쿠로이: 흡"
+      ]
+    },
+    {
+      "timestamp": "2026-06-13T18:27:40.384254",
+      "fun_score": 4.743886162874295,
+      "test_fun_score": 0.14367894838088513,
+      "score_components": {
+        "chat_spike_score": 0.8592964977631379,
+        "reaction_score": 0.14367894838088513,
+        "test_reaction_score": 0.14367894838088513,
+        "diversity_score": 43.14099054366617,
+        "viewer_trend_score": 0,
+        "final_score": 4.743886162874295,
+        "baseline_chat_count": 14.431390878912596,
+        "baseline_viewer_count": 435.1354884893676,
+        "baseline_threshold": 15.65606013240038,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.8982129891028419,
+        "test_score_difference": 0.043514568190420405,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:04:58",
+      "comment_after_openDate": "00:04:58",
+      "chat_context": [
+        "01름: {:bigheadBig:}{:bigheadHa:}",
+        "롤로노아이성무: 빅하",
+        "쿠로이: 아",
+        "천사데스: 빅하",
+        "쿠로이: 흡",
+        "HexagonalED: 빅바ㅏㅏㅏㅏ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

@@ -1,0 +1,1667 @@
+{
+  "channel_id": "im___o_o",
+  "channel_name": "임나은",
+  "save_timestamp": "2026-06-01T04:31:27.330608",
+  "total_logs": 40,
+  "logs": [
+    {
+      "timestamp": "2026-06-01T04:27:48.072575",
+      "fun_score": 20.885686641218406,
+      "test_fun_score": 4.6921163606997,
+      "score_components": {
+        "chat_spike_score": 30.150955019453512,
+        "reaction_score": 10.686408355008687,
+        "test_reaction_score": 4.6921163606997,
+        "diversity_score": 26.118343759617204,
+        "viewer_trend_score": 10,
+        "final_score": 20.885686641218406,
+        "baseline_chat_count": 1.872963214075185,
+        "baseline_viewer_count": 272.7322203777898,
+        "baseline_threshold": 17.715470845221827,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.031619094974266,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 273,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:57:56",
+      "comment_after_openDate": "06:57:56",
+      "chat_context": [
+        "진모: 참나 ㅋㅋㅋㅋㅋㅋ",
+        "진모: 샀네",
+        "찬동: 으에?",
+        "찬동: 의심이 풀풀..."
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:27:53.078220",
+      "fun_score": 9.83204036337279,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 10.786290504117975,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 34.58088628691713,
+        "viewer_trend_score": 10,
+        "final_score": 9.83204036337279,
+        "baseline_chat_count": 1.9136321574220676,
+        "baseline_viewer_count": 272.7373403241665,
+        "baseline_threshold": 17.77608537124128,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:58:01",
+      "comment_after_openDate": "06:58:01",
+      "chat_context": [
+        "진모: 샀네",
+        "찬동: 으에?",
+        "찬동: 의심이 풀풀..."
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:27:58.084887",
+      "fun_score": 7.1431102343834505,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.3844205034565815,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.1431102343834505,
+        "baseline_chat_count": 1.9344035105721578,
+        "baseline_viewer_count": 272.74236237716843,
+        "baseline_threshold": 17.624195230690834,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:58:06",
+      "comment_after_openDate": "06:58:06",
+      "chat_context": [
+        "찬동: 의심이 풀풀..."
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:03.090286",
+      "fun_score": 7.149101480951898,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.3977343847197974,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.149101480951898,
+        "baseline_chat_count": 1.916537715450018,
+        "baseline_viewer_count": 272.74728840851697,
+        "baseline_threshold": 17.423796885561437,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.005991246568447295,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:58:11",
+      "comment_after_openDate": "06:58:11",
+      "chat_context": [
+        "찬동: 의심이 풀풀..."
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:13.102103",
+      "fun_score": 10.13415543740706,
+      "test_fun_score": 4.431006652462067,
+      "score_components": {
+        "chat_spike_score": 1.4111640463895934,
+        "reaction_score": 9.997105388439142,
+        "test_reaction_score": 4.431006652462067,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 10.13415543740706,
+        "baseline_chat_count": 1.8990135143306137,
+        "baseline_viewer_count": 272.8477202541461,
+        "baseline_threshold": 17.2273447094253,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.991045203023609,
+        "test_score_difference": 4.363936626368771,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:58:21",
+      "comment_after_openDate": "06:58:21",
+      "chat_context": [
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:18.107062",
+      "fun_score": 10.274583806170229,
+      "test_fun_score": 4.600836770849279,
+      "score_components": {
+        "chat_spike_score": 1.4247078396661454,
+        "reaction_score": 10.44488426106821,
+        "test_reaction_score": 4.600836770849279,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 10.274583806170229,
+        "baseline_chat_count": 1.8818243759366124,
+        "baseline_viewer_count": 272.94623184288685,
+        "baseline_threshold": 17.09172293054431,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.1314735717867785,
+        "test_score_difference": 4.533766744755983,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:58:26",
+      "comment_after_openDate": "06:58:26",
+      "chat_context": [
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:23.112973",
+      "fun_score": 10.420560993545925,
+      "test_fun_score": 4.776799699796277,
+      "score_components": {
+        "chat_spike_score": 1.438364035350495,
+        "reaction_score": 10.91099059212734,
+        "test_reaction_score": 4.776799699796277,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 10.420560993545925,
+        "baseline_chat_count": 1.8649638938687043,
+        "baseline_viewer_count": 273.04285989005086,
+        "baseline_threshold": 16.96137923048628,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.277450759162474,
+        "test_score_difference": 4.709729673702982,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:58:31",
+      "comment_after_openDate": "06:58:31",
+      "chat_context": [
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:28.118524",
+      "fun_score": 10.57224512231657,
+      "test_fun_score": 4.959062045691764,
+      "score_components": {
+        "chat_spike_score": 1.4521308242555997,
+        "reaction_score": 11.395954171338502,
+        "test_reaction_score": 4.959062045691764,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 10.57224512231657,
+        "baseline_chat_count": 1.8484257842179346,
+        "baseline_viewer_count": 273.1376404089531,
+        "baseline_threshold": 16.836318785795978,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.4291348879331194,
+        "test_score_difference": 4.891992019598468,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:58:36",
+      "comment_after_openDate": "06:58:36",
+      "chat_context": [
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:33.124277",
+      "fun_score": 10.729793145275767,
+      "test_fun_score": 5.147790883553983,
+      "score_components": {
+        "chat_spike_score": 1.4660063177358318,
+        "reaction_score": 11.90030100764881,
+        "test_reaction_score": 5.147790883553983,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 10.729793145275767,
+        "baseline_chat_count": 1.8322038832236875,
+        "baseline_viewer_count": 273.2306087243339,
+        "baseline_threshold": 16.716549697350253,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.586682910892317,
+        "test_score_difference": 5.080720857460688,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:58:41",
+      "comment_after_openDate": "06:58:41",
+      "chat_context": [
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:38.130799",
+      "fun_score": 10.893360303841643,
+      "test_fun_score": 5.34315345843635,
+      "score_components": {
+        "chat_spike_score": 1.479988548335823,
+        "reaction_score": 12.42455152363508,
+        "test_reaction_score": 5.34315345843635,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 10.893360303841643,
+        "baseline_chat_count": 1.8162921449764506,
+        "baseline_viewer_count": 273.3217994855246,
+        "baseline_threshold": 16.60208291207459,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.7502500694581924,
+        "test_score_difference": 5.2760834323430545,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:58:46",
+      "comment_after_openDate": "06:58:46",
+      "chat_context": [
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:53.148461",
+      "fun_score": 8.835929022835211,
+      "test_fun_score": 5.54531687027849,
+      "score_components": {
+        "chat_spike_score": 1.4940754705592543,
+        "reaction_score": 5.54531687027849,
+        "test_reaction_score": 5.54531687027849,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 8.835929022835211,
+        "baseline_chat_count": 1.8006846391645008,
+        "baseline_viewer_count": 273.41124667936134,
+        "baseline_threshold": 16.492932135805177,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.6928187884517607,
+        "test_score_difference": 5.478246844185194,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:59:01",
+      "comment_after_openDate": "06:59:01",
+      "chat_context": [
+        "진모: 미드로 꺼져 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:28:58.154356",
+      "fun_score": 8.90505355554038,
+      "test_fun_score": 5.754447742497752,
+      "score_components": {
+        "chat_spike_score": 1.508264961757899,
+        "reaction_score": 5.754447742497752,
+        "test_reaction_score": 5.754447742497752,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 8.90505355554038,
+        "baseline_chat_count": 1.7853755488636756,
+        "baseline_viewer_count": 273.49898364285195,
+        "baseline_threshold": 16.34653023628519,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.76194332115693,
+        "test_score_difference": 5.687377716404456,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:59:06",
+      "comment_after_openDate": "06:59:06",
+      "chat_context": [
+        "진모: 미드로 꺼져 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:03.159495",
+      "fun_score": 8.976363232829543,
+      "test_fun_score": 5.970711874720503,
+      "score_components": {
+        "chat_spike_score": 1.5225548231408714,
+        "reaction_score": 5.970711874720503,
+        "test_reaction_score": 5.970711874720503,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 8.976363232829543,
+        "baseline_chat_count": 1.770359168369402,
+        "baseline_viewer_count": 273.5850430756006,
+        "baseline_threshold": 16.20424920214935,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.8332529984460928,
+        "test_score_difference": 5.903641848627207,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 278,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:59:11",
+      "comment_after_openDate": "06:59:11",
+      "chat_context": [
+        "진모: 미드로 꺼져 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:08.165862",
+      "fun_score": 9.0499064154549,
+      "test_fun_score": 6.194273880160657,
+      "score_components": {
+        "chat_spike_score": 1.5369427809037848,
+        "reaction_score": 6.194273880160657,
+        "test_reaction_score": 6.194273880160657,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 9.0499064154549,
+        "baseline_chat_count": 1.755629901070179,
+        "baseline_viewer_count": 273.6694570519951,
+        "baseline_threshold": 16.066052022415953,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9067961810714502,
+        "test_score_difference": 6.1272038540673615,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:59:16",
+      "comment_after_openDate": "06:59:16",
+      "chat_context": [
+        "진모: 미드로 꺼져 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:13.171486",
+      "fun_score": 9.125730961844303,
+      "test_fun_score": 6.425296808265352,
+      "score_components": {
+        "chat_spike_score": 1.551426487477105,
+        "reaction_score": 6.425296808265352,
+        "test_reaction_score": 6.425296808265352,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 9.125730961844303,
+        "baseline_chat_count": 1.7411822573617173,
+        "baseline_viewer_count": 273.733137033161,
+        "baseline_threshold": 15.931903318410857,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.9826207274608523,
+        "test_score_difference": 6.358226782172056,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:59:21",
+      "comment_after_openDate": "06:59:21",
+      "chat_context": [
+        "진모: 미드로 꺼져 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:18.177228",
+      "fun_score": 9.203884111310613,
+      "test_fun_score": 6.663941753362909,
+      "score_components": {
+        "chat_spike_score": 1.5660035228927547,
+        "reaction_score": 6.663941753362909,
+        "test_reaction_score": 6.663941753362909,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 9.203884111310613,
+        "baseline_chat_count": 1.7270108526009613,
+        "baseline_viewer_count": 273.79559945308694,
+        "baseline_threshold": 15.801769302953305,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.054782630358715,
+        "test_score_difference": 6.596871727269614,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "06:59:26",
+      "comment_after_openDate": "06:59:26",
+      "chat_context": [
+        "진모: 미드로 꺼져 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:28.187291",
+      "fun_score": 7.23142313614842,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.5806713962676262,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.23142313614842,
+        "baseline_chat_count": 1.713110405099231,
+        "baseline_viewer_count": 273.8568675915439,
+        "baseline_threshold": 15.675617738089096,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 277,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "06:59:36",
+      "comment_after_openDate": "06:59:36",
+      "chat_context": [
+        "진모: 고생하셨습니다"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:33.192494",
+      "fun_score": 31.09672380371641,
+      "test_fun_score": 82.64825119905501,
+      "score_components": {
+        "chat_spike_score": 5.084680685280389,
+        "reaction_score": 82.64825119905501,
+        "test_reaction_score": 82.64825119905501,
+        "diversity_score": 25.14142135623731,
+        "viewer_trend_score": 10,
+        "final_score": 31.09672380371641,
+        "baseline_chat_count": 1.6994757341537337,
+        "baseline_viewer_count": 273.9169642831936,
+        "baseline_threshold": 15.51416473729999,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 23.865300667567993,
+        "test_score_difference": 82.58118117296172,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:59:41",
+      "comment_after_openDate": "06:59:41",
+      "chat_context": [
+        "진모: 고생하셨습니다",
+        "진모: 진짜 실평 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:38.198041",
+      "fun_score": 30.704963428272503,
+      "test_fun_score": 81.40111445364337,
+      "score_components": {
+        "chat_spike_score": 5.045526570123916,
+        "reaction_score": 81.40111445364337,
+        "test_reaction_score": 81.40111445364337,
+        "diversity_score": 25.14142135623731,
+        "viewer_trend_score": 10,
+        "final_score": 30.704963428272503,
+        "baseline_chat_count": 1.7052217581167142,
+        "baseline_viewer_count": 273.97591192609895,
+        "baseline_threshold": 15.812103266649872,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 23.473540292124085,
+        "test_score_difference": 81.33404442755008,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:59:46",
+      "comment_after_openDate": "06:59:46",
+      "chat_context": [
+        "진모: 고생하셨습니다",
+        "진모: 진짜 실평 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:43.203731",
+      "fun_score": 30.32509729055528,
+      "test_fun_score": 80.19169510769781,
+      "score_components": {
+        "chat_spike_score": 5.00765916138268,
+        "reaction_score": 80.19169510769781,
+        "test_reaction_score": 80.19169510769781,
+        "diversity_score": 25.14142135623731,
+        "viewer_trend_score": 10,
+        "final_score": 30.32509729055528,
+        "baseline_chat_count": 1.7108579181015227,
+        "baseline_viewer_count": 274.03373249007194,
+        "baseline_threshold": 16.096854752940096,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 23.093674154406862,
+        "test_score_difference": 80.12462508160452,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:59:51",
+      "comment_after_openDate": "06:59:51",
+      "chat_context": [
+        "진모: 고생하셨습니다",
+        "진모: 진짜 실평 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:48.211396",
+      "fun_score": 29.956769096726333,
+      "test_fun_score": 79.01888742744217,
+      "score_components": {
+        "chat_spike_score": 4.971023850822121,
+        "reaction_score": 79.01888742744217,
+        "test_reaction_score": 79.01888742744217,
+        "diversity_score": 25.14142135623731,
+        "viewer_trend_score": 10,
+        "final_score": 29.956769096726333,
+        "baseline_chat_count": 1.7163863147074216,
+        "baseline_viewer_count": 274.09044752486176,
+        "baseline_threshold": 16.368898750259298,
+        "highlights": false,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 22.72534596057791,
+        "test_score_difference": 78.95181740134888,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "06:59:56",
+      "comment_after_openDate": "06:59:56",
+      "chat_context": [
+        "진모: 고생하셨습니다",
+        "진모: 진짜 실평 ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:53.218261",
+      "fun_score": 41.77989316239596,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 14.958603518439805,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 35.485215790980455,
+        "viewer_trend_score": 10,
+        "final_score": 41.77989316239596,
+        "baseline_chat_count": 1.7218090083702158,
+        "baseline_viewer_count": 274.1460781681864,
+        "baseline_threshold": 16.62869883128375,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 34.548470026247536,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "😂 폭소 반응 + 😱 놀라운 순간",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "07:00:01",
+      "comment_after_openDate": "06:59:41",
+      "chat_context": [
+        "진모: 고생하셨습니다",
+        "진모: 진짜 실평 ㅋㅋㅋㅋㅋ",
+        "찬동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:29:58.224882",
+      "fun_score": 51.7469689529572,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 38.971546390879546,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 27.09773077061397,
+        "viewer_trend_score": 10,
+        "final_score": 51.7469689529572,
+        "baseline_chat_count": 1.7462480201301773,
+        "baseline_viewer_count": 274.2006451536107,
+        "baseline_threshold": 17.109589666894614,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 44.515545816808775,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 277,
+        "fun_keywords": {
+          "laugh": 3.4000000000000004,
+          "surprise": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 3.0,
+          "surprise": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:00:06",
+      "comment_after_openDate": "06:59:41",
+      "chat_context": [
+        "진모: 진짜 실평 ㅋㅋㅋㅋㅋ",
+        "찬동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "진모: 와 너무하다",
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:03.231509",
+      "fun_score": 40.84800173023119,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 13.237205536010647,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 33.912592390263995,
+        "viewer_trend_score": 10,
+        "final_score": 40.84800173023119,
+        "baseline_chat_count": 1.7893397579852883,
+        "baseline_viewer_count": 274.2541688182737,
+        "baseline_threshold": 17.77185635884413,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 33.61657859408277,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 273,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:00:11",
+      "comment_after_openDate": "07:00:11",
+      "chat_context": [
+        "찬동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "진모: 와 너무하다",
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:08.237330",
+      "fun_score": 40.61417005130876,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 12.717579582849703,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 33.912592390263995,
+        "viewer_trend_score": 10,
+        "final_score": 40.61417005130876,
+        "baseline_chat_count": 1.8124875818126096,
+        "baseline_viewer_count": 274.2301891104683,
+        "baseline_threshold": 18.21307225834505,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 33.38274691516034,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 273,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:00:16",
+      "comment_after_openDate": "07:00:16",
+      "chat_context": [
+        "찬동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "진모: 와 너무하다",
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:13.243703",
+      "fun_score": 40.39856895085716,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 12.238466026290586,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 33.912592390263995,
+        "viewer_trend_score": 10,
+        "final_score": 40.39856895085716,
+        "baseline_chat_count": 1.8351928192483526,
+        "baseline_viewer_count": 274.2066678946762,
+        "baseline_threshold": 18.641381248146516,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 33.16714581470874,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 273,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:00:21",
+      "comment_after_openDate": "07:00:21",
+      "chat_context": [
+        "찬동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "진모: 와 너무하다",
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:18.249700",
+      "fun_score": 48.15131440230275,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 31.074970748686898,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.67577565393651,
+        "viewer_trend_score": 10,
+        "final_score": 48.15131440230275,
+        "baseline_chat_count": 1.857463932544324,
+        "baseline_viewer_count": 274.18359640452996,
+        "baseline_threshold": 19.057378677022342,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 40.91989126615433,
+        "test_score_difference": 99.93292997390671,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 273,
+        "fun_keywords": {
+          "laugh": 2.4,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "07:00:26",
+      "comment_after_openDate": "07:00:26",
+      "chat_context": [
+        "찬동: ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "진모: 와 너무하다",
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "진모: 고생하셨습니다"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:23.256358",
+      "fun_score": 38.36091137727498,
+      "test_fun_score": 95.06745714730944,
+      "score_components": {
+        "chat_spike_score": 11.045403453441976,
+        "reaction_score": 100,
+        "test_reaction_score": 95.06745714730944,
+        "diversity_score": 18.904798232260973,
+        "viewer_trend_score": 10,
+        "final_score": 38.36091137727498,
+        "baseline_chat_count": 1.8984292221540766,
+        "baseline_viewer_count": 274.16096604127534,
+        "baseline_threshold": 19.613654728089703,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 31.12948824112656,
+        "test_score_difference": 95.00038712121615,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응 + 🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 273,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "07:00:31",
+      "comment_after_openDate": "07:00:31",
+      "chat_context": [
+        "진모: 와 너무하다",
+        "진모: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "진모: 고생하셨습니다"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:28.262496",
+      "fun_score": 7.148099367375641,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.39550746566145,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.148099367375641,
+        "baseline_chat_count": 1.9194912554264907,
+        "baseline_viewer_count": 274.13876837056614,
+        "baseline_threshold": 19.972102275222124,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:00:36",
+      "comment_after_openDate": "07:00:36",
+      "chat_context": [
+        "진모: 고생하셨습니다"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:33.267794",
+      "fun_score": 7.1541340827046636,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.4089179441703883,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.1541340827046636,
+        "baseline_chat_count": 1.9019105826227363,
+        "baseline_viewer_count": 274.1169951193209,
+        "baseline_threshold": 19.7269073396241,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.006034715329022333,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:00:41",
+      "comment_after_openDate": "07:00:41",
+      "chat_context": [
+        "진모: 고생하셨습니다"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:38.273704",
+      "fun_score": 7.160220283425229,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.422442834660535,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.160220283425229,
+        "baseline_chat_count": 1.8846660522829894,
+        "baseline_viewer_count": 274.0956381726395,
+        "baseline_threshold": 19.4865159149518,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.012120916049587649,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:00:46",
+      "comment_after_openDate": "07:00:46",
+      "chat_context": [
+        "진모: 고생하셨습니다"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:43.279955",
+      "fun_score": 5.883588771127053,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 4.1331827319847365,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.03535533905933,
+        "viewer_trend_score": 10,
+        "final_score": 5.883588771127053,
+        "baseline_chat_count": 1.8677512373633387,
+        "baseline_viewer_count": 274.0746895707786,
+        "baseline_threshold": 19.25083714247701,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:00:51",
+      "comment_after_openDate": "07:00:51",
+      "chat_context": [
+        "진모: 고생하셨습니다",
+        "진모: 아 줴줴야..."
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:48.286987",
+      "fun_score": 7.165429010002625,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.4340177826103033,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.165429010002625,
+        "baseline_chat_count": 1.8702798337049518,
+        "baseline_viewer_count": 274.0541415061853,
+        "baseline_threshold": 18.995255353616802,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.2818402388755716,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:00:56",
+      "comment_after_openDate": "07:00:56",
+      "chat_context": [
+        "진모: 아 줴줴야..."
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:53.292433",
+      "fun_score": 5.924125159397011,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 4.199693368767315,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.14142135623731,
+        "viewer_trend_score": 10,
+        "final_score": 5.924125159397011,
+        "baseline_chat_count": 1.853640083284513,
+        "baseline_viewer_count": 274.0339863205871,
+        "baseline_threshold": 18.769069073926897,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.04053638826995787,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:01:01",
+      "comment_after_openDate": "07:01:01",
+      "chat_context": [
+        "진모: 아 줴줴야...",
+        "진모: 아이고야"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:30:58.298698",
+      "fun_score": 18.149005775980577,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 31.13746402227423,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 26.170259581291827,
+        "viewer_trend_score": 10,
+        "final_score": 18.149005775980577,
+        "baseline_chat_count": 1.8564384848921132,
+        "baseline_viewer_count": 274.01421650213746,
+        "baseline_threshold": 18.523473746281084,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 12.265417004853523,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 273,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:01:06",
+      "comment_after_openDate": "07:01:06",
+      "chat_context": [
+        "진모: 아 줴줴야...",
+        "진모: 아이고야",
+        "진모: 네넹",
+        "크림어니언: 음음"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:31:03.305948",
+      "fun_score": 19.536622152066375,
+      "test_fun_score": 0.5508357560307836,
+      "score_components": {
+        "chat_spike_score": 28.76799340837282,
+        "reaction_score": 0.5508357560307836,
+        "test_reaction_score": 0.5508357560307836,
+        "diversity_score": 34.25774391489368,
+        "viewer_trend_score": 20,
+        "final_score": 19.536622152066375,
+        "baseline_chat_count": 1.897423381060976,
+        "baseline_viewer_count": 273.9948246826166,
+        "baseline_threshold": 18.516313918688937,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 13.653033380939322,
+        "test_score_difference": 0.483765729937488,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 304,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "07:01:11",
+      "comment_after_openDate": "07:01:11",
+      "chat_context": [
+        "진모: 아 줴줴야...",
+        "진모: 아이고야",
+        "진모: 네넹",
+        "크림어니언: 음음",
+        "이상한나라의점례아님: ㅂㅂ",
+        "바람과달: 나바"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:31:08.311899",
+      "fun_score": 51.017706303086904,
+      "test_fun_score": 0.5067237488954516,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.5067237488954516,
+        "test_reaction_score": 0.5067237488954516,
+        "diversity_score": 28.656891784182623,
+        "viewer_trend_score": 20,
+        "final_score": 51.017706303086904,
+        "baseline_chat_count": 1.97586464601509,
+        "baseline_viewer_count": 274.56852363468494,
+        "baseline_threshold": 18.535822212111114,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 45.13411753195985,
+        "test_score_difference": 0.439653722802156,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 304,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "07:01:16",
+      "comment_after_openDate": "07:01:16",
+      "chat_context": [
+        "진모: 아 줴줴야...",
+        "진모: 아이고야",
+        "진모: 네넹",
+        "크림어니언: 음음",
+        "이상한나라의점례아님: ㅂㅂ",
+        "바람과달: 나바",
+        "하민파: 잘자용",
+        "크림어니언: 너무 고생 많으셨어요",
+        "진모: 얼른 쉬러 가쇼"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:31:13.317790",
+      "fun_score": 49.681332471123724,
+      "test_fun_score": 0.44560259412512865,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.44560259412512865,
+        "test_reaction_score": 0.44560259412512865,
+        "diversity_score": 30.47651692886187,
+        "viewer_trend_score": 10,
+        "final_score": 49.681332471123724,
+        "baseline_chat_count": 2.1101661139832815,
+        "baseline_viewer_count": 275.13125346278974,
+        "baseline_threshold": 19.15687583593057,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 43.79774369999667,
+        "test_score_difference": 0.378532568031833,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 304,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "07:01:21",
+      "comment_after_openDate": "07:01:21",
+      "chat_context": [
+        "진모: 아이고야",
+        "진모: 네넹",
+        "크림어니언: 음음",
+        "이상한나라의점례아님: ㅂㅂ",
+        "바람과달: 나바",
+        "하민파: 잘자용",
+        "크림어니언: 너무 고생 많으셨어요",
+        "진모: 얼른 쉬러 가쇼",
+        "유빙YB: 수고하셨습니다",
+        "진모: 잘자요"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:31:18.323875",
+      "fun_score": 47.37135370265264,
+      "test_fun_score": 0.39276840303604926,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.39276840303604926,
+        "test_reaction_score": 0.39276840303604926,
+        "diversity_score": 22.535231817418282,
+        "viewer_trend_score": 0,
+        "final_score": 47.37135370265264,
+        "baseline_chat_count": 2.2610197378839207,
+        "baseline_viewer_count": 275.6832238965812,
+        "baseline_threshold": 19.740503446795465,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 41.48776493152559,
+        "test_score_difference": 0.3256983769427536,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 304,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "07:01:26",
+      "comment_after_openDate": "07:01:26",
+      "chat_context": [
+        "진모: 아이고야",
+        "진모: 네넹",
+        "크림어니언: 음음",
+        "이상한나라의점례아님: ㅂㅂ",
+        "바람과달: 나바",
+        "하민파: 잘자용",
+        "크림어니언: 너무 고생 많으셨어요",
+        "진모: 얼른 쉬러 가쇼",
+        "유빙YB: 수고하셨습니다",
+        "진모: 잘자요",
+        "바람과달: {:d_41:}{:d_41:}{:d_41:}",
+        "유빙YB: 나바나바",
+        "진모: {:aoo5P:}{:aoo5P:}{:aoo5P:}",
+        "크림어니언: {:aoo5S2:}{:aoo5S2:}{:aoo5S2:}{:aoo5Hi:}{:aoo5Hi:}{:aoo5Hi:}"
+      ]
+    },
+    {
+      "timestamp": "2026-06-01T04:31:23.330145",
+      "fun_score": 48.85263973236048,
+      "test_fun_score": 0.3348729016910542,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.3348729016910542,
+        "test_reaction_score": 0.3348729016910542,
+        "diversity_score": 22.52177861853161,
+        "viewer_trend_score": 10,
+        "final_score": 48.85263973236048,
+        "baseline_chat_count": 2.48546904049558,
+        "baseline_viewer_count": 276.2246406556785,
+        "baseline_threshold": 20.26880530368745,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.96905096123343,
+        "test_score_difference": 0.2678028755977586,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 304,
+        "fun_keywords": {
+          "greeting": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0
+        }
+      },
+      "after_openDate": "07:01:31",
+      "comment_after_openDate": "07:01:31",
+      "chat_context": [
+        "진모: 네넹",
+        "크림어니언: 음음",
+        "이상한나라의점례아님: ㅂㅂ",
+        "바람과달: 나바",
+        "하민파: 잘자용",
+        "크림어니언: 너무 고생 많으셨어요",
+        "진모: 얼른 쉬러 가쇼",
+        "유빙YB: 수고하셨습니다",
+        "진모: 잘자요",
+        "바람과달: {:d_41:}{:d_41:}{:d_41:}",
+        "유빙YB: 나바나바",
+        "진모: {:aoo5P:}{:aoo5P:}{:aoo5P:}",
+        "크림어니언: {:aoo5S2:}{:aoo5S2:}{:aoo5S2:}{:aoo5Hi:}{:aoo5Hi:}{:aoo5Hi:}",
+        "진모: {:aoo5Merong2:}"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

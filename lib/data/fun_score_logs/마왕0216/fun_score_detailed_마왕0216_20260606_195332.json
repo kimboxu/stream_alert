@@ -1,0 +1,1536 @@
+{
+  "channel_id": "mawang0216",
+  "channel_name": "마왕0216",
+  "save_timestamp": "2026-06-06T19:53:32.726108",
+  "total_logs": 28,
+  "logs": [
+    {
+      "timestamp": "2026-06-06T19:51:13.093194",
+      "fun_score": 5.805342786835496,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.6241000585560346,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 31.04376752657291,
+        "viewer_trend_score": 10,
+        "final_score": 5.805342786835496,
+        "baseline_chat_count": 5.9536993767470054,
+        "baseline_viewer_count": 332.58279233806843,
+        "baseline_threshold": 14.083517212313524,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.006077258268661012,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 326,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "09:58:09",
+      "comment_after_openDate": "09:58:09",
+      "chat_context": [
+        "달브®: 맛집 다 알려준다잉",
+        "베니로포: 이게 딱 정리가 되어있으시네",
+        "카누____: 라멘 = 동네에서 꾸리꾸리한 냄새나는곳",
+        "베니로포: 역시 뫙슐랭",
+        "달브®: 라멘 = 꾸리꾸리한 냄새 나는곳을 가라"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:18.098777",
+      "fun_score": 5.510295790322881,
+      "test_fun_score": 0.09393100218278545,
+      "score_components": {
+        "chat_spike_score": 1.89014239234777,
+        "reaction_score": 0.09393100218278545,
+        "test_reaction_score": 0.09393100218278545,
+        "diversity_score": 31.315524131115488,
+        "viewer_trend_score": 10,
+        "final_score": 5.510295790322881,
+        "baseline_chat_count": 5.935464644663603,
+        "baseline_viewer_count": 332.45692934856453,
+        "baseline_threshold": 13.925238517298382,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.026860976089489827,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "09:58:14",
+      "comment_after_openDate": "09:58:14",
+      "chat_context": [
+        "베니로포: 이게 딱 정리가 되어있으시네",
+        "카누____: 라멘 = 동네에서 꾸리꾸리한 냄새나는곳",
+        "베니로포: 역시 뫙슐랭",
+        "달브®: 라멘 = 꾸리꾸리한 냄새 나는곳을 가라",
+        "베니로포: ㄲㅂ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:23.105575",
+      "fun_score": 5.355858537405089,
+      "test_fun_score": 0.09402667144278212,
+      "score_components": {
+        "chat_spike_score": 0.9698715594075931,
+        "reaction_score": 0.09402667144278212,
+        "test_reaction_score": 0.09402667144278212,
+        "diversity_score": 33.91208334238837,
+        "viewer_trend_score": 10,
+        "final_score": 5.355858537405089,
+        "baseline_chat_count": 5.917578560657635,
+        "baseline_viewer_count": 332.33347285941994,
+        "baseline_threshold": 13.76434481235861,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.026956645349486497,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "09:58:19",
+      "comment_after_openDate": "09:58:19",
+      "chat_context": [
+        "베니로포: 역시 뫙슐랭",
+        "달브®: 라멘 = 꾸리꾸리한 냄새 나는곳을 가라",
+        "베니로포: ㄲㅂ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:28.111570",
+      "fun_score": 7.066319651287402,
+      "test_fun_score": 0.09432943989263731,
+      "score_components": {
+        "chat_spike_score": 0.9761000509730442,
+        "reaction_score": 0.09432943989263731,
+        "test_reaction_score": 0.09432943989263731,
+        "diversity_score": 50.98775796381741,
+        "viewer_trend_score": 10,
+        "final_score": 7.066319651287402,
+        "baseline_chat_count": 5.861794458577861,
+        "baseline_viewer_count": 332.2123768583478,
+        "baseline_threshold": 13.603574554781499,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.710461113882313,
+        "test_score_difference": 0.027259413799341686,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 326,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "09:58:24",
+      "comment_after_openDate": "09:58:24",
+      "chat_context": [
+        "달브®: 라멘 = 꾸리꾸리한 냄새 나는곳을 가라",
+        "베니로포: ㄲㅂ",
+        "타키온0801: 라면 : 동네 머리벗겨진 아저씨들이 땀 뻘뻘 흘리면서 먹는곳"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:33.117233",
+      "fun_score": 7.069230176986132,
+      "test_fun_score": 0.09463304436442214,
+      "score_components": {
+        "chat_spike_score": 0.9823654828779206,
+        "reaction_score": 0.09463304436442214,
+        "test_reaction_score": 0.09463304436442214,
+        "diversity_score": 50.98775796381741,
+        "viewer_trend_score": 10,
+        "final_score": 7.069230176986132,
+        "baseline_chat_count": 5.807076948529852,
+        "baseline_viewer_count": 332.0935962128162,
+        "baseline_threshold": 13.478582241026691,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7133716395810428,
+        "test_score_difference": 0.02756301827112652,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 325,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "09:58:29",
+      "comment_after_openDate": "09:58:29",
+      "chat_context": [
+        "달브®: 라멘 = 꾸리꾸리한 냄새 나는곳을 가라",
+        "베니로포: ㄲㅂ",
+        "타키온0801: 라면 : 동네 머리벗겨진 아저씨들이 땀 뻘뻘 흘리면서 먹는곳"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:38.124465",
+      "fun_score": 6.952802395632189,
+      "test_fun_score": 0.09493742994966117,
+      "score_components": {
+        "chat_spike_score": 0.6993769234741672,
+        "reaction_score": 0.09493742994966117,
+        "test_reaction_score": 0.09493742994966117,
+        "diversity_score": 51.09601551083915,
+        "viewer_trend_score": 10,
+        "final_score": 6.952802395632189,
+        "baseline_chat_count": 5.7534056372739615,
+        "baseline_viewer_count": 331.9579666532271,
+        "baseline_threshold": 13.356035429562237,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5969438582271005,
+        "test_score_difference": 0.027867403856365547,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 325,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "09:58:34",
+      "comment_after_openDate": "09:58:34",
+      "chat_context": [
+        "베니로포: ㄲㅂ",
+        "타키온0801: 라면 : 동네 머리벗겨진 아저씨들이 땀 뻘뻘 흘리면서 먹는곳"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:43.129689",
+      "fun_score": 6.954307714611077,
+      "test_fun_score": 0.09535499947934403,
+      "score_components": {
+        "chat_spike_score": 0.7024436970741278,
+        "reaction_score": 0.09535499947934403,
+        "test_reaction_score": 0.09535499947934403,
+        "diversity_score": 51.09601551083915,
+        "viewer_trend_score": 10,
+        "final_score": 6.954307714611077,
+        "baseline_chat_count": 5.681640521489284,
+        "baseline_viewer_count": 331.8249303308174,
+        "baseline_threshold": 13.233605613953493,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5984491772059881,
+        "test_score_difference": 0.028284973386048406,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 325,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "09:58:39",
+      "comment_after_openDate": "09:58:39",
+      "chat_context": [
+        "베니로포: ㄲㅂ",
+        "타키온0801: 라면 : 동네 머리벗겨진 아저씨들이 땀 뻘뻘 흘리면서 먹는곳"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:48.137556",
+      "fun_score": 6.8376147095134625,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.7055415593010523,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 6.8376147095134625,
+        "baseline_chat_count": 5.611247554718409,
+        "baseline_viewer_count": 331.69443766289214,
+        "baseline_threshold": 13.113545438118066,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4817561721083736,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 325,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "09:58:44",
+      "comment_after_openDate": "09:58:44",
+      "chat_context": [
+        "타키온0801: 라면 : 동네 머리벗겨진 아저씨들이 땀 뻘뻘 흘리면서 먹는곳"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:53.143550",
+      "fun_score": 9.382825168710792,
+      "test_fun_score": 0.3416846268812657,
+      "score_components": {
+        "chat_spike_score": 2.088171182521394,
+        "reaction_score": 0.3416846268812657,
+        "test_reaction_score": 0.3416846268812657,
+        "diversity_score": 53.40642748511784,
+        "viewer_trend_score": 20,
+        "final_score": 9.382825168710792,
+        "baseline_chat_count": 5.523080501472193,
+        "baseline_viewer_count": 331.56644001477764,
+        "baseline_threshold": 12.993549642587146,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.026966631305703,
+        "test_score_difference": 0.27461460078797006,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 4,
+        "viewer_count": 325,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "09:58:49",
+      "comment_after_openDate": "09:58:49",
+      "chat_context": [
+        "타키온0801: 라면 : 동네 머리벗겨진 아저씨들이 땀 뻘뻘 흘리면서 먹는곳",
+        "팬리니: ㅠㅠ",
+        "춤추는수평선: 의자빨리 버렷!",
+        "boraJoa●: 지지요"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:51:58.149698",
+      "fun_score": 9.827999386374152,
+      "test_fun_score": 1.4699788031875844,
+      "score_components": {
+        "chat_spike_score": 3.0141351678705544,
+        "reaction_score": 1.4699788031875844,
+        "test_reaction_score": 1.4699788031875844,
+        "diversity_score": 50.306449198761285,
+        "viewer_trend_score": 20,
+        "final_score": 9.827999386374152,
+        "baseline_chat_count": 5.493959202284045,
+        "baseline_viewer_count": 331.44088968169507,
+        "baseline_threshold": 12.924512590646628,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.4721408489690635,
+        "test_score_difference": 1.4029087770942887,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 325,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "09:58:54",
+      "comment_after_openDate": "09:58:54",
+      "chat_context": [
+        "팬리니: ㅠㅠ",
+        "춤추는수평선: 의자빨리 버렷!",
+        "boraJoa●: 지지요",
+        "베니로포: 지지요",
+        "이종소형: ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:03.155956",
+      "fun_score": 9.627094285799146,
+      "test_fun_score": 1.477774448076715,
+      "score_components": {
+        "chat_spike_score": 4.325090695861092,
+        "reaction_score": 1.477774448076715,
+        "test_reaction_score": 1.477774448076715,
+        "diversity_score": 42.3747113823864,
+        "viewer_trend_score": 20,
+        "final_score": 9.627094285799146,
+        "baseline_chat_count": 5.484514702336374,
+        "baseline_viewer_count": 331.31773987098103,
+        "baseline_threshold": 12.865307258180938,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 4.271235748394057,
+        "test_score_difference": 1.4107044219834193,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 325,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "09:58:59",
+      "comment_after_openDate": "09:58:59",
+      "chat_context": [
+        "팬리니: ㅠㅠ",
+        "춤추는수평선: 의자빨리 버렷!",
+        "boraJoa●: 지지요",
+        "베니로포: 지지요",
+        "이종소형: ㅋㅋㅋ",
+        "boraJoa●: 계란후라이 하니까 머독님 생각나네"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:08.161600",
+      "fun_score": 11.80430578341037,
+      "test_fun_score": 1.4696406166238252,
+      "score_components": {
+        "chat_spike_score": 8.721588728605813,
+        "reaction_score": 1.4696406166238252,
+        "test_reaction_score": 1.4696406166238252,
+        "diversity_score": 44.38698670550607,
+        "viewer_trend_score": 20,
+        "final_score": 11.80430578341037,
+        "baseline_chat_count": 5.494370781227702,
+        "baseline_viewer_count": 331.19694468464786,
+        "baseline_threshold": 12.803392626148998,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.448447246005282,
+        "test_score_difference": 1.4025705905305295,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 324,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "09:59:04",
+      "comment_after_openDate": "09:59:04",
+      "chat_context": [
+        "팬리니: ㅠㅠ",
+        "춤추는수평선: 의자빨리 버렷!",
+        "boraJoa●: 지지요",
+        "베니로포: 지지요",
+        "이종소형: ㅋㅋㅋ",
+        "boraJoa●: 계란후라이 하니까 머독님 생각나네",
+        "로우바: 마뱅아루~",
+        "타키온0801: 너무 적게 먹어"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:13.167308",
+      "fun_score": 16.10291775968374,
+      "test_fun_score": 4.970400300925917,
+      "score_components": {
+        "chat_spike_score": 16.766540671208084,
+        "reaction_score": 4.970400300925917,
+        "test_reaction_score": 4.970400300925917,
+        "diversity_score": 40.66854367362329,
+        "viewer_trend_score": 20,
+        "final_score": 16.10291775968374,
+        "baseline_chat_count": 5.542278411890629,
+        "baseline_viewer_count": 331.0593391022774,
+        "baseline_threshold": 12.784290085715835,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.747059222278653,
+        "test_score_difference": 4.903330274832621,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 324,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 2.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "09:59:09",
+      "comment_after_openDate": "09:59:09",
+      "chat_context": [
+        "팬리니: ㅠㅠ",
+        "춤추는수평선: 의자빨리 버렷!",
+        "boraJoa●: 지지요",
+        "베니로포: 지지요",
+        "이종소형: ㅋㅋㅋ",
+        "boraJoa●: 계란후라이 하니까 머독님 생각나네",
+        "로우바: 마뱅아루~",
+        "타키온0801: 너무 적게 먹어",
+        "베니로포: 마뱅알!",
+        "단리: 빠잇"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:18.172773",
+      "fun_score": 21.19292235440849,
+      "test_fun_score": 15.293403354375403,
+      "score_components": {
+        "chat_spike_score": 22.002109402156396,
+        "reaction_score": 15.293403354375403,
+        "test_reaction_score": 15.293403354375403,
+        "diversity_score": 37.03952117125492,
+        "viewer_trend_score": 20,
+        "final_score": 21.19292235440849,
+        "baseline_chat_count": 5.62751004865528,
+        "baseline_viewer_count": 330.9243645386419,
+        "baseline_threshold": 12.8477422468421,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.837063817003402,
+        "test_score_difference": 15.226333328282108,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 324,
+        "fun_keywords": {
+          "reaction": 1.0,
+          "excitement": 3.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 1.0,
+          "excitement": 3.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "09:59:14",
+      "comment_after_openDate": "09:59:14",
+      "chat_context": [
+        "팬리니: ㅠㅠ",
+        "춤추는수평선: 의자빨리 버렷!",
+        "boraJoa●: 지지요",
+        "베니로포: 지지요",
+        "이종소형: ㅋㅋㅋ",
+        "boraJoa●: 계란후라이 하니까 머독님 생각나네",
+        "로우바: 마뱅아루~",
+        "타키온0801: 너무 적게 먹어",
+        "베니로포: 마뱅알!",
+        "단리: 빠잇",
+        "팬리니: 오 말빨라"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:23.178925",
+      "fun_score": 32.617025636657274,
+      "test_fun_score": 10.05062341600649,
+      "score_components": {
+        "chat_spike_score": 49.43873185966173,
+        "reaction_score": 10.05062341600649,
+        "test_reaction_score": 10.05062341600649,
+        "diversity_score": 43.54409275007544,
+        "viewer_trend_score": 20,
+        "final_score": 32.617025636657274,
+        "baseline_chat_count": 5.730232056524991,
+        "baseline_viewer_count": 330.79197068866307,
+        "baseline_threshold": 13.007302090498769,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 27.261167099252184,
+        "test_score_difference": 9.983553389913194,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 318,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "09:59:19",
+      "comment_after_openDate": "09:59:19",
+      "chat_context": [
+        "베니로포: 지지요",
+        "이종소형: ㅋㅋㅋ",
+        "boraJoa●: 계란후라이 하니까 머독님 생각나네",
+        "로우바: 마뱅아루~",
+        "타키온0801: 너무 적게 먹어",
+        "베니로포: 마뱅알!",
+        "단리: 빠잇",
+        "팬리니: 오 말빨라",
+        "시작합니다_: 마랑띠",
+        "카누____: 마뱅알?",
+        "삼킨배터리: 듀댜댜",
+        "타키온0801: 넹~",
+        "솜사탕봉봉: 많관부",
+        "그래서_: 고생띠!"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:28.184549",
+      "fun_score": 28.177715350090697,
+      "test_fun_score": 2.3463950024770712,
+      "score_components": {
+        "chat_spike_score": 44.71865343098676,
+        "reaction_score": 2.3463950024770712,
+        "test_reaction_score": 2.3463950024770712,
+        "diversity_score": 43.504028054035324,
+        "viewer_trend_score": 20,
+        "final_score": 28.177715350090697,
+        "baseline_chat_count": 5.888350019604233,
+        "baseline_viewer_count": 330.5473882090958,
+        "baseline_threshold": 13.38224000470132,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 21.340100640577234,
+        "test_score_difference": 2.2793249763837755,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 318,
+        "fun_keywords": {
+          "excitement": 3.0
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0
+        }
+      },
+      "after_openDate": "09:59:24",
+      "comment_after_openDate": "09:59:24",
+      "chat_context": [
+        "boraJoa●: 계란후라이 하니까 머독님 생각나네",
+        "로우바: 마뱅아루~",
+        "타키온0801: 너무 적게 먹어",
+        "베니로포: 마뱅알!",
+        "단리: 빠잇",
+        "팬리니: 오 말빨라",
+        "시작합니다_: 마랑띠",
+        "카누____: 마뱅알?",
+        "삼킨배터리: 듀댜댜",
+        "타키온0801: 넹~",
+        "솜사탕봉봉: 많관부",
+        "그래서_: 고생띠!",
+        "팬리니: 잘가 왕넴",
+        "달브®: 잘자요 망뉌"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:33.190936",
+      "fun_score": 40.7893905091206,
+      "test_fun_score": 6.669341838243552,
+      "score_components": {
+        "chat_spike_score": 66.14062613645636,
+        "reaction_score": 12.930239082521783,
+        "test_reaction_score": 6.669341838243552,
+        "diversity_score": 41.470370229587076,
+        "viewer_trend_score": 20,
+        "final_score": 40.7893905091206,
+        "baseline_chat_count": 6.0434447672294,
+        "baseline_viewer_count": 330.30748214653784,
+        "baseline_threshold": 13.665129493305164,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 33.95177579960714,
+        "test_score_difference": 6.602271812150256,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 318,
+        "fun_keywords": {
+          "excitement": 4.6
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0
+        }
+      },
+      "after_openDate": "09:59:29",
+      "comment_after_openDate": "09:59:19",
+      "chat_context": [
+        "로우바: 마뱅아루~",
+        "타키온0801: 너무 적게 먹어",
+        "베니로포: 마뱅알!",
+        "단리: 빠잇",
+        "팬리니: 오 말빨라",
+        "시작합니다_: 마랑띠",
+        "카누____: 마뱅알?",
+        "삼킨배터리: 듀댜댜",
+        "타키온0801: 넹~",
+        "솜사탕봉봉: 많관부",
+        "그래서_: 고생띠!",
+        "팬리니: 잘가 왕넴",
+        "달브®: 잘자요 망뉌",
+        "시작합니다_: 마뱅알",
+        "ottomodel: 잘가요",
+        "박가방: ??????????????????????????????????????"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:38.197199",
+      "fun_score": 49.36099828229765,
+      "test_fun_score": 7.927486465585479,
+      "score_components": {
+        "chat_spike_score": 88.79503241049063,
+        "reaction_score": 14.979387769189456,
+        "test_reaction_score": 7.927486465585479,
+        "diversity_score": 34.09417366820027,
+        "viewer_trend_score": 10,
+        "final_score": 49.36099828229765,
+        "baseline_chat_count": 6.2338141032799745,
+        "baseline_viewer_count": 330.072163087896,
+        "baseline_threshold": 14.183745363927555,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.52338357278419,
+        "test_score_difference": 7.860416439492183,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 311,
+        "fun_keywords": {
+          "excitement": 4.6,
+          "reaction": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 4.0,
+          "reaction": 1.0
+        }
+      },
+      "after_openDate": "09:59:34",
+      "comment_after_openDate": "09:59:19",
+      "chat_context": [
+        "베니로포: 마뱅알!",
+        "단리: 빠잇",
+        "팬리니: 오 말빨라",
+        "시작합니다_: 마랑띠",
+        "카누____: 마뱅알?",
+        "삼킨배터리: 듀댜댜",
+        "타키온0801: 넹~",
+        "솜사탕봉봉: 많관부",
+        "그래서_: 고생띠!",
+        "팬리니: 잘가 왕넴",
+        "달브®: 잘자요 망뉌",
+        "시작합니다_: 마뱅알",
+        "ottomodel: 잘가요",
+        "박가방: ??????????????????????????????????????",
+        "ottomodel: 잘자",
+        "팬리니: 빠빠띠",
+        "시작합니다_: 마랑띠",
+        "박가방: 아니 왜 마뱅알이에요"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:43.203657",
+      "fun_score": 52.065441705030956,
+      "test_fun_score": 3.1678378599050587,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 8.310130872937204,
+        "test_reaction_score": 3.1678378599050587,
+        "diversity_score": 30.724024431498005,
+        "viewer_trend_score": 10,
+        "final_score": 52.065441705030956,
+        "baseline_chat_count": 6.458783577625262,
+        "baseline_viewer_count": 329.7075033296554,
+        "baseline_threshold": 14.85633443972679,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 45.227826995517496,
+        "test_score_difference": 3.100767833811763,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 311,
+        "fun_keywords": {
+          "excitement": 3.6,
+          "reaction": 3.1
+        },
+        "test_keyword_counter": {
+          "excitement": 3.0,
+          "reaction": 2.0
+        }
+      },
+      "after_openDate": "09:59:39",
+      "comment_after_openDate": "09:59:19",
+      "chat_context": [
+        "팬리니: 오 말빨라",
+        "시작합니다_: 마랑띠",
+        "카누____: 마뱅알?",
+        "삼킨배터리: 듀댜댜",
+        "타키온0801: 넹~",
+        "솜사탕봉봉: 많관부",
+        "그래서_: 고생띠!",
+        "팬리니: 잘가 왕넴",
+        "달브®: 잘자요 망뉌",
+        "시작합니다_: 마뱅알",
+        "ottomodel: 잘가요",
+        "박가방: ??????????????????????????????????????",
+        "ottomodel: 잘자",
+        "팬리니: 빠빠띠",
+        "시작합니다_: 마랑띠",
+        "박가방: 아니 왜 마뱅알이에요",
+        "boraJoa●: 내일은 무슨 겜을 하게 될까",
+        "박가방: 왜왜왜",
+        "순금백돈: 빠잇",
+        "박가방: 아니 주말이자나ㅠㅠㅠㅠㅠㅠㅠㅠ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:48.209982",
+      "fun_score": 52.71370555386405,
+      "test_fun_score": 5.6710379257675925,
+      "score_components": {
+        "chat_spike_score": 97.72171116988538,
+        "reaction_score": 14.06808197162098,
+        "test_reaction_score": 5.6710379257675925,
+        "diversity_score": 30.18510935929333,
+        "viewer_trend_score": 10,
+        "final_score": 52.71370555386405,
+        "baseline_chat_count": 6.717691635621066,
+        "baseline_viewer_count": 329.3498158659924,
+        "baseline_threshold": 15.567772570639406,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 45.87609084435059,
+        "test_score_difference": 5.603967899674297,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 22,
+        "viewer_count": 311,
+        "fun_keywords": {
+          "excitement": 2.6,
+          "reaction": 3.1,
+          "greeting": 2.0,
+          "laugh": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0,
+          "reaction": 2.0,
+          "greeting": 2.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "09:59:44",
+      "comment_after_openDate": "09:59:19",
+      "chat_context": [
+        "시작합니다_: 마랑띠",
+        "카누____: 마뱅알?",
+        "삼킨배터리: 듀댜댜",
+        "타키온0801: 넹~",
+        "솜사탕봉봉: 많관부",
+        "그래서_: 고생띠!",
+        "팬리니: 잘가 왕넴",
+        "달브®: 잘자요 망뉌",
+        "시작합니다_: 마뱅알",
+        "ottomodel: 잘가요",
+        "박가방: ??????????????????????????????????????",
+        "ottomodel: 잘자",
+        "팬리니: 빠빠띠",
+        "시작합니다_: 마랑띠",
+        "박가방: 아니 왜 마뱅알이에요",
+        "boraJoa●: 내일은 무슨 겜을 하게 될까",
+        "박가방: 왜왜왜",
+        "순금백돈: 빠잇",
+        "박가방: 아니 주말이자나ㅠㅠㅠㅠㅠㅠㅠㅠ",
+        "ottomodel: 마바",
+        "이베리아나: 마바",
+        "시작합니다_: ㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:53.215892",
+      "fun_score": 48.928722100203174,
+      "test_fun_score": 16.08729394995421,
+      "score_components": {
+        "chat_spike_score": 71.82853762357017,
+        "reaction_score": 42.995242843269324,
+        "test_reaction_score": 16.08729394995421,
+        "diversity_score": 22.073073166157954,
+        "viewer_trend_score": 10,
+        "final_score": 48.928722100203174,
+        "baseline_chat_count": 7.009889371547991,
+        "baseline_viewer_count": 328.99896738663466,
+        "baseline_threshold": 16.27800280927866,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 39.54589693149238,
+        "test_score_difference": 15.745609323072943,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "excitement": 1.6,
+          "reaction": 3.1,
+          "greeting": 2.0,
+          "laugh": 3.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "reaction": 2.0,
+          "greeting": 2.0,
+          "laugh": 3.0
+        }
+      },
+      "after_openDate": "09:59:49",
+      "comment_after_openDate": "09:59:49",
+      "chat_context": [
+        "팬리니: 잘가 왕넴",
+        "달브®: 잘자요 망뉌",
+        "시작합니다_: 마뱅알",
+        "ottomodel: 잘가요",
+        "박가방: ??????????????????????????????????????",
+        "ottomodel: 잘자",
+        "팬리니: 빠빠띠",
+        "시작합니다_: 마랑띠",
+        "박가방: 아니 왜 마뱅알이에요",
+        "boraJoa●: 내일은 무슨 겜을 하게 될까",
+        "박가방: 왜왜왜",
+        "순금백돈: 빠잇",
+        "박가방: 아니 주말이자나ㅠㅠㅠㅠㅠㅠㅠㅠ",
+        "ottomodel: 마바",
+        "이베리아나: 마바",
+        "시작합니다_: ㅋㅋㅋ",
+        "달브®: 주말 잘 쉬시고예~",
+        "이종소형: ㅋㅋㅋㅋ",
+        "이종소형: 마바마바",
+        "팬리니: 이제 누구랑놀지'",
+        "달브®: ㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:52:58.223591",
+      "fun_score": 79.06383506327342,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 25.638350632734223,
+        "viewer_trend_score": 10,
+        "final_score": 79.06383506327342,
+        "baseline_chat_count": 7.277380286763993,
+        "baseline_viewer_count": 328.4827471302022,
+        "baseline_threshold": 16.90228456212114,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 69.43674077747427,
+        "test_score_difference": 98.53035938337618,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": true
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 26,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "excitement": 1.6,
+          "reaction": 3.1,
+          "greeting": 2.0,
+          "laugh": 7.7
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "reaction": 2.0,
+          "greeting": 2.0,
+          "laugh": 7.0
+        }
+      },
+      "after_openDate": "09:59:54",
+      "comment_after_openDate": "09:59:19",
+      "chat_context": [
+        "시작합니다_: 마뱅알",
+        "ottomodel: 잘가요",
+        "박가방: ??????????????????????????????????????",
+        "ottomodel: 잘자",
+        "팬리니: 빠빠띠",
+        "시작합니다_: 마랑띠",
+        "박가방: 아니 왜 마뱅알이에요",
+        "boraJoa●: 내일은 무슨 겜을 하게 될까",
+        "박가방: 왜왜왜",
+        "순금백돈: 빠잇",
+        "박가방: 아니 주말이자나ㅠㅠㅠㅠㅠㅠㅠㅠ",
+        "ottomodel: 마바",
+        "이베리아나: 마바",
+        "시작합니다_: ㅋㅋㅋ",
+        "달브®: 주말 잘 쉬시고예~",
+        "이종소형: ㅋㅋㅋㅋ",
+        "이종소형: 마바마바",
+        "팬리니: 이제 누구랑놀지'",
+        "달브®: ㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: 마바마바",
+        "타키온0801: ㅋㅋㅋㅋㅋ",
+        "ujuro001: ㅋㅋㅋㅋㅋ",
+        "시작합니다_: ㅇㅇㄱ",
+        "boraJoa●: 찐찐막?",
+        "한국놈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:53:03.232580",
+      "fun_score": 79.16942381754787,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 26.6942381754786,
+        "viewer_trend_score": 10,
+        "final_score": 79.16942381754787,
+        "baseline_chat_count": 7.635356775681065,
+        "baseline_viewer_count": 327.9763970050727,
+        "baseline_threshold": 18.09081340770317,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 69.54232953174872,
+        "test_score_difference": 98.53035938337618,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 27,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "reaction": 15.1,
+          "greeting": 2.0,
+          "laugh": 7.7,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 4.0,
+          "greeting": 2.0,
+          "laugh": 7.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "09:59:59",
+      "comment_after_openDate": "09:59:19",
+      "chat_context": [
+        "ottomodel: 잘자",
+        "팬리니: 빠빠띠",
+        "시작합니다_: 마랑띠",
+        "박가방: 아니 왜 마뱅알이에요",
+        "boraJoa●: 내일은 무슨 겜을 하게 될까",
+        "박가방: 왜왜왜",
+        "순금백돈: 빠잇",
+        "박가방: 아니 주말이자나ㅠㅠㅠㅠㅠㅠㅠㅠ",
+        "ottomodel: 마바",
+        "이베리아나: 마바",
+        "시작합니다_: ㅋㅋㅋ",
+        "달브®: 주말 잘 쉬시고예~",
+        "이종소형: ㅋㅋㅋㅋ",
+        "이종소형: 마바마바",
+        "팬리니: 이제 누구랑놀지'",
+        "달브®: ㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: 마바마바",
+        "타키온0801: ㅋㅋㅋㅋㅋ",
+        "ujuro001: ㅋㅋㅋㅋㅋ",
+        "시작합니다_: ㅇㅇㄱ",
+        "boraJoa●: 찐찐막?",
+        "한국놈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋ",
+        "박가방: 안가믄 안댈까요....",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "않인대요: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "이베리아나: 마바~!"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:53:08.238541",
+      "fun_score": 73.70765394288692,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 87.36644110980836,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 28.927554434731487,
+        "viewer_trend_score": 10,
+        "final_score": 73.70765394288692,
+        "baseline_chat_count": 8.005608754130042,
+        "baseline_viewer_count": 327.47972829433576,
+        "baseline_threshold": 19.258636438739398,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 61.90334815947655,
+        "test_score_difference": 98.53035938337618,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 25,
+        "viewer_count": 302,
+        "fun_keywords": {
+          "reaction": 24.1,
+          "greeting": 2.0,
+          "laugh": 7.7,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 5.0,
+          "greeting": 2.0,
+          "laugh": 7.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "10:00:04",
+      "comment_after_openDate": "10:00:04",
+      "chat_context": [
+        "박가방: 왜왜왜",
+        "순금백돈: 빠잇",
+        "박가방: 아니 주말이자나ㅠㅠㅠㅠㅠㅠㅠㅠ",
+        "ottomodel: 마바",
+        "이베리아나: 마바",
+        "시작합니다_: ㅋㅋㅋ",
+        "달브®: 주말 잘 쉬시고예~",
+        "이종소형: ㅋㅋㅋㅋ",
+        "이종소형: 마바마바",
+        "팬리니: 이제 누구랑놀지'",
+        "달브®: ㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: 마바마바",
+        "타키온0801: ㅋㅋㅋㅋㅋ",
+        "ujuro001: ㅋㅋㅋㅋㅋ",
+        "시작합니다_: ㅇㅇㄱ",
+        "boraJoa●: 찐찐막?",
+        "한국놈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋ",
+        "박가방: 안가믄 안댈까요....",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "않인대요: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "이베리아나: 마바~!",
+        "ujuro001: 딱 10시간",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉/",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:53:13.244413",
+      "fun_score": 55.277877997898145,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 46.35230116025924,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 29.19342475781487,
+        "viewer_trend_score": 10,
+        "final_score": 55.277877997898145,
+        "baseline_chat_count": 8.330541514751076,
+        "baseline_viewer_count": 326.99255588934807,
+        "baseline_threshold": 20.299701653418698,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 39.1749602382144,
+        "test_score_difference": 97.65360499752293,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 298,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "laugh": 7.7,
+          "reaction": 22.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "laugh": 7.0,
+          "reaction": 4.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "10:00:09",
+      "comment_after_openDate": "10:00:09",
+      "chat_context": [
+        "ottomodel: 마바",
+        "이베리아나: 마바",
+        "시작합니다_: ㅋㅋㅋ",
+        "달브®: 주말 잘 쉬시고예~",
+        "이종소형: ㅋㅋㅋㅋ",
+        "이종소형: 마바마바",
+        "팬리니: 이제 누구랑놀지'",
+        "달브®: ㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: 마바마바",
+        "타키온0801: ㅋㅋㅋㅋㅋ",
+        "ujuro001: ㅋㅋㅋㅋㅋ",
+        "시작합니다_: ㅇㅇㄱ",
+        "boraJoa●: 찐찐막?",
+        "한국놈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋ",
+        "박가방: 안가믄 안댈까요....",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "않인대요: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "이베리아나: 마바~!",
+        "ujuro001: 딱 10시간",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉/",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "ottomodel: 마바"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:53:18.250484",
+      "fun_score": 69.95905793906746,
+      "test_fun_score": 100,
+      "score_components": {
+        "chat_spike_score": 79.02840204846852,
+        "reaction_score": 100,
+        "test_reaction_score": 100,
+        "diversity_score": 28.962770172566323,
+        "viewer_trend_score": 10,
+        "final_score": 69.95905793906746,
+        "baseline_chat_count": 8.611021560989034,
+        "baseline_viewer_count": 326.43821822074375,
+        "baseline_threshold": 20.968484385125144,
+        "highlights": true,
+        "test_highlights": true,
+        "big_highlights": false,
+        "test_big_highlights": true,
+        "score_difference": 48.76613558465897,
+        "test_score_difference": 97.65360499752293,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 25,
+        "viewer_count": 298,
+        "fun_keywords": {
+          "laugh": 6.7,
+          "reaction": 30.0,
+          "excitement": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 6.0,
+          "reaction": 6.0,
+          "excitement": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "10:00:14",
+      "comment_after_openDate": "10:00:14",
+      "chat_context": [
+        "달브®: 주말 잘 쉬시고예~",
+        "이종소형: ㅋㅋㅋㅋ",
+        "이종소형: 마바마바",
+        "팬리니: 이제 누구랑놀지'",
+        "달브®: ㅋㅋㅋㅋㅋㅋㅋ",
+        "안뇨세요: 마바마바",
+        "타키온0801: ㅋㅋㅋㅋㅋ",
+        "ujuro001: ㅋㅋㅋㅋㅋ",
+        "시작합니다_: ㅇㅇㄱ",
+        "boraJoa●: 찐찐막?",
+        "한국놈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋ",
+        "박가방: 안가믄 안댈까요....",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "않인대요: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "이베리아나: 마바~!",
+        "ujuro001: 딱 10시간",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉/",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "ottomodel: 마바",
+        "솜사탕봉봉: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "시작합니다_: 마랑띠~",
+        "이종소형: /마왕응원봉//마왕응원봉//마왕응원봉/",
+        "박가방: 내일은 평소랑 같은 뱅온?",
+        "달브®: 10시간 많이 하긴 했다~"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:53:23.256122",
+      "fun_score": 57.633458093199,
+      "test_fun_score": 22.584886522091306,
+      "score_components": {
+        "chat_spike_score": 51.09260370911706,
+        "reaction_score": 100,
+        "test_reaction_score": 22.584886522091306,
+        "diversity_score": 31.41786424096331,
+        "viewer_trend_score": 10,
+        "final_score": 57.633458093199,
+        "baseline_chat_count": 8.924378828742924,
+        "baseline_viewer_count": 325.8944794883631,
+        "baseline_threshold": 21.90518415147652,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 29.455742743108306,
+        "test_score_difference": 20.238491519614236,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 23,
+        "viewer_count": 298,
+        "fun_keywords": {
+          "laugh": 4.5,
+          "reaction": 30.0,
+          "excitement": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 4.0,
+          "reaction": 6.0,
+          "excitement": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "10:00:19",
+      "comment_after_openDate": "10:00:19",
+      "chat_context": [
+        "안뇨세요: 마바마바",
+        "타키온0801: ㅋㅋㅋㅋㅋ",
+        "ujuro001: ㅋㅋㅋㅋㅋ",
+        "시작합니다_: ㅇㅇㄱ",
+        "boraJoa●: 찐찐막?",
+        "한국놈: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "이종소형: ㅋㅋㅋㅋㅋ",
+        "박가방: 안가믄 안댈까요....",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "않인대요: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "이베리아나: 마바~!",
+        "ujuro001: 딱 10시간",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉/",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "ottomodel: 마바",
+        "솜사탕봉봉: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "시작합니다_: 마랑띠~",
+        "이종소형: /마왕응원봉//마왕응원봉//마왕응원봉/",
+        "박가방: 내일은 평소랑 같은 뱅온?",
+        "달브®: 10시간 많이 하긴 했다~",
+        "팬리니: 그치 내일봐야지",
+        "시작합니다_: 마뱅알",
+        "시작합니다_: 빠잇"
+      ]
+    },
+    {
+      "timestamp": "2026-06-06T19:53:28.276612",
+      "fun_score": 41.45803819730007,
+      "test_fun_score": 0.6565545955551194,
+      "score_components": {
+        "chat_spike_score": 32.24606711866198,
+        "reaction_score": 75.75734326736693,
+        "test_reaction_score": 0.6565545955551194,
+        "diversity_score": 27.201050136920998,
+        "viewer_trend_score": 10,
+        "final_score": 41.45803819730007,
+        "baseline_chat_count": 9.193504705537359,
+        "baseline_viewer_count": 325.3611370405456,
+        "baseline_threshold": 22.588308749242252,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 13.280322847209373,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 21,
+        "viewer_count": 293,
+        "fun_keywords": {
+          "reaction": 30.0,
+          "excitement": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "reaction": 6.0,
+          "excitement": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "10:00:24",
+      "comment_after_openDate": "10:00:24",
+      "chat_context": [
+        "박가방: 안가믄 안댈까요....",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "않인대요: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "이베리아나: 마바~!",
+        "ujuro001: 딱 10시간",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉/",
+        "시작합니다_: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "ottomodel: 마바",
+        "솜사탕봉봉: /마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉//마왕응원봉/",
+        "시작합니다_: 마랑띠~",
+        "이종소형: /마왕응원봉//마왕응원봉//마왕응원봉/",
+        "박가방: 내일은 평소랑 같은 뱅온?",
+        "달브®: 10시간 많이 하긴 했다~",
+        "팬리니: 그치 내일봐야지",
+        "시작합니다_: 마뱅알",
+        "시작합니다_: 빠잇",
+        "이베리아나: 빠잇",
+        "시작합니다_: 느엥",
+        "이베리아나: 네",
+        "타키온0801: 빠잇",
+        "박가방: 아하 감사합니당"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

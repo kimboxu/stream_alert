@@ -1,0 +1,53 @@
+{
+  "channel_id": "mawang0216",
+  "channel_name": "마왕0216",
+  "save_timestamp": "2026-06-02T17:40:54.346047",
+  "total_logs": 1,
+  "logs": [
+    {
+      "timestamp": "2026-06-02T17:40:16.834138",
+      "fun_score": 9.613497481384893,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 13.87172974525413,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 33.510980881925455,
+        "viewer_trend_score": 0,
+        "final_score": 9.613497481384893,
+        "baseline_chat_count": 5.288802592157386,
+        "baseline_viewer_count": 322.8212230292556,
+        "baseline_threshold": 19.630745788385326,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.2065072137084503,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 290,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "07:43:58",
+      "comment_after_openDate": "07:43:58",
+      "chat_context": [
+        "카누____: 가니? 가는구나...",
+        "라이시느: 빠잇",
+        "시작합니다_: 마뱅알 ",
+        "sunjine33: 넹",
+        "시작합니다_: 마랑띠 ",
+        "시작합니다_: 빠잇",
+        "애정이꼬순내: 마랑띠 빠잇",
+        "으어엉: 빠잇",
+        "sunjine33: 빠잇"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
