@@ -122,7 +122,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                 continue
 
             # 방송 정보 가져오기
-            self.data.BNO = self.title_data.loc[self.data.channel_id, "chatChannelId"]
+            self.data.BNO = int(self.title_data.loc[self.data.channel_id, "chatChannelId"])
             self.data.BID = self.init.IDList["afreeca"]["uid"][self.data.channel_id]
 
             # 방송 정보가 없으면 대기
@@ -224,7 +224,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         # 연결 패킷 전송
         await self.data.sock.send(CONNECT_PACKET)
 
-        chatChannelId = self.title_data.loc[self.data.channel_id, "chatChannelId"]
+        chatChannelId = int(self.title_data.loc[self.data.channel_id, "chatChannelId"])
 
         # 연결 완료 로그 기록
         if self.start_program:
@@ -400,7 +400,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         if BNO is None:
             BNO = self.data.BNO
 
-        if BNO != self.title_data.loc[self.data.channel_id, "chatChannelId"]:
+        if BNO != int(self.title_data.loc[self.data.channel_id, "chatChannelId"]):
             return True
         return False
 
@@ -409,7 +409,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         if BNO is None:
             BNO = self.data.BNO
 
-        if BNO != self.title_data.loc[self.data.channel_id, "chatChannelId"]:
+        if BNO != int(self.title_data.loc[self.data.channel_id, "chatChannelId"]):
             self.title_data.loc[self.data.channel_id, "oldChatChannelId"] = (
                 self.title_data.loc[self.data.channel_id, "chatChannelId"]
             )
@@ -429,7 +429,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
         if not if_after_time(
             self.state_update_time["openDate"], sec=60
         ) and if_after_time(connect_time, sec=60):
-            BNO = self.title_data.loc[self.data.channel_id, "chatChannelId"]
+            BNO = int(self.title_data.loc[self.data.channel_id, "chatChannelId"])
             if BNO != self.data.BNO:
                 print(
                     f"{datetime.now()} check {self.data.channel_id},{self.data.BNO},BNO check_live_state_close"
