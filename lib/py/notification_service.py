@@ -378,7 +378,7 @@ class FileNotificationManager:
         notifications = self.load_notifications(webhook_url)
         return len(notifications)
     
-    async def cleanup_old_notifications(self, webhook_url: str, max_age_days: int = 30) -> bool:
+    async def cleanup_old_notifications(self, webhook_url: str, max_age_days: int = 10) -> bool:
         """오래된 알림 정리"""
         try:
             notifications = self.load_notifications(webhook_url)
@@ -1103,7 +1103,7 @@ def setup_scheduled_tasks():
         # second=0
     )
     
-    # 매일 새벽 2시에 30일 이상 된 알림 정리
+    # 매일 새벽 2시에 10일 이상 된 알림 정리
     scheduler.add_job(
         func=lambda: asyncio.run(cleanup_old_notifications_for_all_users()),
         trigger="cron",
@@ -1187,7 +1187,7 @@ async def cleanup_old_notifications_for_all_users():
                     webhook_url = data.get('webhook_url')
                     
                 if webhook_url:
-                    if await file_notification_manager.cleanup_old_notifications(webhook_url, max_age_days=30):
+                    if await file_notification_manager.cleanup_old_notifications(webhook_url, max_age_days=10):
                         cleaned_count += 1
                     await asyncio.sleep(0.01)
                             
