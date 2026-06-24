@@ -206,8 +206,7 @@ class StateManager:
             chat_instances = self.get_chat_instances(platform)
 
             for channel_id, chat_instance in chat_instances.items():
-                analyzer = getattr(chat_instance, "chat_analyzer", None)
-                highlights_dict = getattr(analyzer, "highlights_dict", None)
+                highlights_dict = self.init_var.titleData[platform].loc[channel_id, "highlights_dict_cache"]
 
                 if not highlights_dict:
                     continue
