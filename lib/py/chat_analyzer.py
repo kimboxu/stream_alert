@@ -257,7 +257,6 @@ class ChatAnalyzer:
         self.is_save_log = False
         self.stream_start_id = None
         self.title_data = init.titleData[platform]
-        self.title_data.loc[self.channel_id, "baseline_metrics"]
 
         # 분석 설정
         self.window_size = 30  # 30초 윈도우
@@ -598,6 +597,9 @@ class ChatAnalyzer:
             "baseline_threshold": self.title_data.loc[
                 self.channel_id, "baseline_metrics"
             ]["avg_threshold_score"],
+            "sequence_count": self.title_data.loc[
+                self.channel_id, "baseline_metrics"
+            ]["sequence_count"],
             "highlights": self._is_highlight(final_score, self.small_fun_difference),
             "test_highlights": self._test_is_highlight(
                 test_reaction_score, self.small_fun_difference
@@ -629,10 +631,24 @@ class ChatAnalyzer:
         chat_counts = list(self.analysis_history)[-1][0].message_count
         viewers = list(self.analysis_history)[-1][0].viewer_count
         final_score = list(self.analysis_history)[-1][1]
+        sequence_count = self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"]
+        avg_threshold_score = self.title_data.loc[self.channel_id, "baseline_metrics"]["avg_threshold_score"]
+
+        if final_score > avg_threshold_score and sequence_count > 0:
+            self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"] += 1
+        elif final_score < avg_threshold_score and sequence_count < 0:
+            self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"] -= 1
+        else:
+            self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"] = 0
+
+            
 
         # 지수 이동 평균으로 부드럽게 업데이트
         # 최근 10분(120회)의 데이터가 90% 반영되도록 [α = 1 - 0.1^(1/120)]
+        # 만약 임계값 이상으로 증가/감소 된다면 alpha 증가(1분 언속 마다 배수 증가)
         alpha = 0.01912  # 1 - 0.1^(1/120) ≈ 0.01912
+        
+        alpha *= (abs(self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"])//12+1)
 
         self.title_data.loc[self.channel_id, "baseline_metrics"]["avg_chat_count"] = (
             alpha * chat_counts
