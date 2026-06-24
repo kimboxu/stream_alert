@@ -184,6 +184,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
                         self.title_data,
                         "afreeca",
                         self.data.channel_id,
+                        updated_keys={"chatChannelId", "oldChatChannelId", "state_update_time"},
                     )
                 )
 
@@ -419,7 +420,7 @@ class afreeca_chat_message(ChatMessageWithAnalyzer):
             )
             asyncio.create_task(
                 save_airing_data(
-                    self.init.supabase, self.title_data, "afreeca", self.data.channel_id
+                    self.init.supabase, self.title_data, "afreeca", self.data.channel_id, updated_keys={"chatChannelId", "oldChatChannelId", "state_update_time"},
                 )
             )
             return True

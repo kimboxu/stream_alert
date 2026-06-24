@@ -195,7 +195,7 @@ class base_live_message:
             ]
             asyncio.create_task(
                 save_airing_data(
-                    self.init.supabase, self.title_data, self.platform, self.channel_id
+                    self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"title2"}
                 )
             )
 
@@ -228,7 +228,7 @@ class base_live_message:
             )
             asyncio.create_task(
                 save_airing_data(
-                    self.init.supabase, self.title_data, self.platform, self.channel_id
+                    self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"live_state", "chatChannelId", "oldChatChannelId", "category", "title1", "title2", "state_update_time"}
                 )
             )
 
@@ -630,7 +630,7 @@ class chzzk_live_message(base_live_message):
             self.title_data.loc[self.channel_id, "category"] = category
             asyncio.create_task(
                 save_airing_data(
-                    self.init.supabase, self.title_data, self.platform, self.channel_id
+                    self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"category"}
                 )
             )
 

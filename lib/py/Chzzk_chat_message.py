@@ -111,7 +111,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             
             if self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
                 self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
-                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, 'chzzk', self.data.channel_id))
+                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, 'chzzk', self.data.channel_id, updated_keys={"state_update_time"}))
 
             message_queue = asyncio.Queue()  # 메시지 큐 생성
             if self.check_live_state_close():
@@ -719,7 +719,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             self.title_data.loc[self.data.channel_id, 'oldChatChannelId'] = self.title_data.loc[self.data.channel_id, 'chatChannelId']
             self.title_data.loc[self.data.channel_id, 'chatChannelId'] = cid
             self.state_update_time["changeChatChannelIdDate"] = datetime.now().isoformat()
-            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, 'chzzk', self.data.channel_id))
+            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, 'chzzk', self.data.channel_id, updated_keys={"chatChannelId", "oldChatChannelId", "state_update_time"}))
             return True
         return False
 

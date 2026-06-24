@@ -286,7 +286,8 @@ class ChatAnalyzer:
         self.is_wait = {}
 
         # self.highlights: List[StreamHighlight] = []
-        self.highlights_dict: Dict[List[StreamHighlight]] = {}
+        
+        # self.highlights_dict= self.title_data.loc[self.channel_id, "highlights_dict_cache"]: Dict[List[StreamHighlight]]
         self.last_highlight = None
         self.test_last_highlight = None
         self.last_analysis_time = datetime.now()
@@ -309,8 +310,8 @@ class ChatAnalyzer:
         if self.stream_start_id not in self.is_wait:
             self.is_wait[self.stream_start_id] = False
 
-        if self.stream_start_id not in self.highlights_dict:
-            self.highlights_dict[self.stream_start_id] = []
+        if self.stream_start_id not in self.title_data.loc[self.channel_id, "highlights_dict_cache"]:
+            self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id] = []
         if self.stream_start_id not in self.detailed_logs_dict:
             self.detailed_logs_dict[self.stream_start_id] = []
 
@@ -1014,16 +1015,18 @@ class ChatAnalyzer:
         await self.change_score_to_peak(highlight)
         if highlight.score_details["should_create_new_highlight"]:
             self._setup_init_dict()
-            self.highlights_dict[self.stream_start_id].append(highlight)
+            self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id].append(highlight)
+            if self.init.is_vod_chat_json[self.channel_id]:
+                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"highlights_dict_cache"}))
             self.last_highlight = highlight
 
         # if not self.init.DO_TEST:
         #     await self._save_highlight_to_db(highlight)
 
-        if len(self.highlights_dict[self.stream_start_id]) > self.highlight_batch_size:
-            highlights_to_process = self.highlights_dict[self.stream_start_id].copy()
-            self.highlights_dict[self.stream_start_id] = [
-                self.highlights_dict[self.stream_start_id][-1]
+        if len(self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id]) > self.highlight_batch_size:
+            highlights_to_process = self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id].copy()
+            self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id] = [
+                self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id][-1]
             ]
             asyncio.create_task(
                 self._process_highlights_background(highlights_to_process[:-1])
@@ -1045,12 +1048,8 @@ class ChatAnalyzer:
         try:
             check_interval = 1
             max_wait_time = 300
-            stream_start_ids = list(self.highlights_dict.keys())
-            asyncio.create_task(
-                save_airing_data(
-                    self.init.supabase, self.title_data, self.platform, self.channel_id
-                )
-            )
+            stream_start_ids = list(self.title_data.loc[self.channel_id, "highlights_dict_cache"].keys())
+            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"baseline_metrics"}))
 
             for stream_start_id in stream_start_ids:
                 if self.is_wait[stream_start_id]:
@@ -1073,7 +1072,7 @@ class ChatAnalyzer:
                 finally:
                     self.is_wait[stream_start_id] = False
 
-                if stream_start_id not in self.highlights_dict:
+                if stream_start_id not in self.title_data.loc[self.channel_id, "highlights_dict_cache"]:
                     continue
 
                 if stream_start_id not in self.detailed_logs_dict:
@@ -1088,17 +1087,20 @@ class ChatAnalyzer:
                 )
 
                 # 하이라이트 생성
-                highlights_to_process = self.highlights_dict[stream_start_id].copy()
+                highlights_to_process = self.title_data.loc[self.channel_id, "highlights_dict_cache"][stream_start_id].copy()
 
                 if self.is_save_log:
                     # 방송 종료 - 완전히 삭제
-                    del self.highlights_dict[stream_start_id]
+                    highlights_cache = self.title_data.loc[self.channel_id, "highlights_dict_cache"]
+                    del highlights_cache[stream_start_id]
                     if stream_start_id in self.detailed_logs_dict:
                         del self.detailed_logs_dict[stream_start_id]
                     del self.is_wait[stream_start_id]
                 else:
-                    self.highlights_dict[stream_start_id] = []
+                    self.title_data.loc[self.channel_id, "highlights_dict_cache"][stream_start_id] = []
                     self.detailed_logs_dict[stream_start_id] = []
+
+                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"highlights_dict_cache"}))
 
                 timeline_comments = await self._make_highlight_chat(
                     highlights_to_process, is_emergency
@@ -1188,14 +1190,14 @@ class ChatAnalyzer:
         return " + ".join(reasons) if reasons else "재미있는 순간 감지"
 
     async def change_score_to_peak(self, highlight: StreamHighlight):
-        if not self.highlights_dict[self.stream_start_id]:
+        if not self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id]:
             # print(f"{datetime.now()} highlights가 비어있어서 change_score_to_peak 건너뜀")
             return
 
         is_higher_score = False
         if (
             highlight.fun_score
-            > self.highlights_dict[self.stream_start_id][-1].fun_score
+            > self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id][-1].fun_score
         ):
             is_higher_score = True
 
@@ -1241,9 +1243,7 @@ class ChatAnalyzer:
                 self.detailed_logs_dict[self.stream_start_id][-(idx + 1)][
                     "score_components"
                 ]["should_create_new_highlight"] = False
-                self.highlights_dict[self.stream_start_id] = self.highlights_dict[
-                    self.stream_start_id
-                ][:-1]
+                self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id] = self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id][:-1]
                 return
 
     async def test_change_score_to_peak(self, highlight: StreamHighlight):
