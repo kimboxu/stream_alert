@@ -343,8 +343,10 @@ class BaseHotClipDetector(ABC):
 
                 # 알림 보낸 클립으로 기록
                 max_len = 500
-                self.hot_clip_data[self.platform].loc[self.channel_id, "sent_clip_uids"].append(clip.clipUID)
-                self.hot_clip_data[self.platform].loc[self.channel_id, "sent_clip_uids"] = self.hot_clip_data[self.platform].loc[self.channel_id, "sent_clip_uids"][-max_len:]
+
+                current = self.hot_clip_data[self.platform].loc[self.channel_id, "sent_clip_uids"]
+                current.append(clip.clipUID)
+                self.hot_clip_data[self.platform].loc[self.channel_id, "sent_clip_uids"] = current[-max_len:]
                 # 연속 알림 간 간격
                 await asyncio.sleep(1)
 
