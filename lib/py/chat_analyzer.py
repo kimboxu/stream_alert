@@ -55,12 +55,49 @@ class StreamHighlight:
     test_fun_score: float
     reason: str
     chat_context: List[str]
-    duration: int  # seconds
+    duration: int
     after_openDate: datetime
     comment_after_openDate: datetime
     score_details: dict
     analysis_data: dict
     image: PILImage.Image = None
+
+    def to_dict(self) -> dict:
+        """Supabase 저장용 직렬화 - PILImage는 None으로"""
+        return {
+            "timestamp": self.timestamp,
+            "channel_id": self.channel_id,
+            "channel_name": self.channel_name,
+            "fun_score": self.fun_score,
+            "test_fun_score": self.test_fun_score,
+            "reason": self.reason,
+            "chat_context": self.chat_context,
+            "duration": self.duration,
+            "after_openDate": self.after_openDate,
+            "comment_after_openDate": self.comment_after_openDate,
+            "score_details": self.score_details,
+            "analysis_data": self.analysis_data,
+            "image": None,  # PILImage는 직렬화 불가 → None
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "StreamHighlight":
+        """DB에서 불러온 dict → StreamHighlight 객체로 복원"""
+        return cls(
+            timestamp=data["timestamp"],
+            channel_id=data["channel_id"],
+            channel_name=data["channel_name"],
+            fun_score=data["fun_score"],
+            test_fun_score=data["test_fun_score"],
+            reason=data["reason"],
+            chat_context=data["chat_context"],
+            duration=data["duration"],
+            after_openDate=data["after_openDate"],
+            comment_after_openDate=data["comment_after_openDate"],
+            score_details=data["score_details"],
+            analysis_data=data["analysis_data"],
+            image=None,  # PILImage는 DB에 저장 불가 → None으로 복원
+        )
 
 
 class ChatMessageWithAnalyzer:

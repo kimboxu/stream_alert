@@ -213,6 +213,8 @@ def _prepare_async_tasks(init: initVar, update_data: Dict[str, Any]) -> list:
             tasks.append(DataBaseVars(init))
         if state_control.get("is_print_log"):
             tasks.append(print_log(init))
+        if state_control.get("save_highlights_dict_cache"):
+            tasks.append(save_highlights_dict_cache_allChannelID(init))
 
     highlight_data = update_data.get("is_save_highlight_data", {})
     if isinstance(highlight_data, dict):
@@ -263,7 +265,25 @@ async def update_flag(supabase, field, value):
             match={"idx": 0},
             data={field: value},
         )
+def restore_highlights_dict_cache(title_data: pd.DataFrame) -> pd.DataFrame:
+    from chat_analyzer import StreamHighlight
+    """DB에서 불러온 highlights_dict_cache의 dict들을 StreamHighlight 객체로 복원"""
+    if "highlights_dict_cache" not in title_data.columns:
+        return title_data
 
+    def restore_cell(cell):
+        if not isinstance(cell, dict):
+            return cell
+        return {
+            stream_id: [
+                StreamHighlight.from_dict(h) if isinstance(h, dict) else h
+                for h in highlights
+            ]
+            for stream_id, highlights in cell.items()
+        }
+
+    title_data["highlights_dict_cache"] = title_data["highlights_dict_cache"].apply(restore_cell)
+    return title_data
 
 ## db 초기화 함수
 async def DataBaseVars(init: initVar, is_start=False):
@@ -310,6 +330,12 @@ async def DataBaseVars(init: initVar, is_start=False):
                 if not data.empty:  # 데이터가 있을 때만 인덱스 설정
                     data.index = list(data[index_col])
             build_chat_user_index(init)
+
+            for attr in ["titleData"]:
+                df = getattr(init, attr)
+                if df is not None and not df.empty:
+                    df = restore_highlights_dict_cache(df)
+                    setattr(init, attr, df)
 
             def preprocess_by_platform(df, index_col):
                 if df is None or df.empty:
@@ -718,20 +744,6 @@ def afreeca_getChannelOffStateData(stateData, afreeca_id, profile_image=""):
     except Exception as e:
         asyncio.create_task(log_error(f"error getChannelOffStateData afreeca {str(e)}"))
 
-# async def safe_upsert(supabase, table_name, data, retry=3):
-#     for i in range(retry):
-#         try:
-#             await asyncio.to_thread(
-#                 lambda: supabase.table(table_name).upsert(data).execute()
-#             )
-#             return True
-#         except Exception as e:
-#             if i == retry - 1:
-#                 asyncio.create_task(log_error(f"Supabase upsert fail: {e}"))
-#             else:
-#                 await asyncio.sleep(0.5 * (i + 1))
-#     return False
-
 async def safe_update(supabase, table_name: str, match: dict, data: dict, retry: int = 3) -> bool:
     if not data:
         return True  # 변경사항 없으면 네트워크 요청 자체를 하지 않음
@@ -756,17 +768,37 @@ async def safe_update(supabase, table_name: str, match: dict, data: dict, retry:
     return False
 
 def sanitize_for_json(value):
+    from chat_analyzer import StreamHighlight
     if isinstance(value, float) and (math.isnan(value) or math.isinf(value)):
         return None
+    if isinstance(value, StreamHighlight):
+        return sanitize_for_json(value.to_dict())
     if isinstance(value, dict):
         return {k: sanitize_for_json(v) for k, v in value.items()}
     if isinstance(value, (list, tuple)):
         return [sanitize_for_json(v) for v in value]
     if isinstance(value, set):
         return [sanitize_for_json(v) for v in value]
-    if hasattr(value, "__dict__"):
-        return sanitize_for_json(vars(value))
     return value
+
+async def save_highlights_dict_cache_allChannelID(
+    init: initVar,
+):
+    table_name = "titleData"
+    lock = get_table_lock(table_name)
+    async with lock:
+        for platform in list(init.titleData):
+            for channelID in list(init.titleData[platform].index):
+                data = {"highlights_dict_cache": sanitize_for_json(init.titleData[platform].loc[channelID, "highlights_dict_cache"])}
+                await safe_update(
+                    init.supabase,
+                    table_name,
+                    match={"channelID": channelID, "platform": platform},
+                    data=data,
+                )
+    init.is_state_control["save_highlights_dict_cache"] = False
+    await asyncio.sleep(0.3)
+    await update_flag(init.supabase, "is_state_control", init.is_state_control)
 
 # 방송 정보 데이터 저장 함수
 async def save_airing_data(
