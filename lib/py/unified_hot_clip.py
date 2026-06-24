@@ -345,8 +345,11 @@ class BaseHotClipDetector(ABC):
                 max_len = 500
 
                 current = self.hot_clip_data[self.platform].loc[self.channel_id, "sent_clip_uids"]
+
                 current.append(clip.clipUID)
-                self.hot_clip_data[self.platform].loc[self.channel_id, "sent_clip_uids"] = current[-max_len:]
+
+                if len(current) > max_len:
+                    del current[:-max_len]
                 # 연속 알림 간 간격
                 await asyncio.sleep(1)
 
