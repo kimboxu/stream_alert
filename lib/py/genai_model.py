@@ -1,14 +1,16 @@
 from os import environ
-import google.generativeai as genai
+from google.genai import types
+import google.genai as genai
 from typing import Dict, Optional
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 class GenAIModelManager:
     """AI 모델들을 관리하는 매니저 클래스 - 메모리 절약을 위해 한 번만 만들어서 재사용"""
 
     _instance: Optional["GenAIModelManager"] = None
-    _models: Dict[str, genai.GenerativeModel] = {}
+    # _models: Dict[str, genai.GenerativeModel]
+    _clients: Dict[str, genai.Client] = {}
     _current_api_key: Optional[str] = None
 
     def __new__(cls):
@@ -23,60 +25,69 @@ class GenAIModelManager:
             self._initialized = True
             self.GOOGLE_API_KEY_LIST = environ["GOOGLE_API_KEY"].split(",")
             # 시스템 프롬프트 - VOD 댓글 생성용
-            self._system_instruction = """
-                방송 하이라이트 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
+            self._generate_config = types.GenerateContentConfig(
+                system_instruction="""
+                    방송 하이라이트 상세 분석 데이터를 바탕으로 VOD 타임라인 댓글을 생성해주세요.
 
-                응답 형식:
-                [
-                {"comment_after_openDate": "VOD_타임라인_시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "image_text": "댓글 내용"}
-                ]
+                    응답 형식:
+                    [
+                    {"comment_after_openDate": "VOD_타임라인_시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "image_text": "댓글 내용"}
+                    ]
 
-                분석 우선순위:
-                1. 비슷한 의미·표현의 채팅은 하나의 그룹으로 묶어 대표적으로 해석	
-                - 예: "ㅋㅋㅋ", "ㅋㅋㅋㅋ", "ㅋㅋㅋㅋㅋ" → 동일 반응 그룹
-                - 예: "와 대박", "헐 대박", "대박ㅋㅋ" → 동일 반응 그룹
-                - 반복·의미 유사 채팅은 합산하여 상황의 강도를 반영
-                2. "최근 채팅" 내용으로 구체적 상황 파악 (게임, 행동, 사건)
-                3. "하이라이트 이유"로 반응 유형 확인
-                4. 점수 데이터로 상황의 특성 분석:
-                - 채팅 급증 점수 높음 → 갑작스러운 사건
-                - 리액션 점수 높음 → 강한 감정 반응
-                - 시청자 급증 점수 높음 → 화제성 있는 순간
-                - 다양성 점수 높음 → 다양한 시청자 참여
+                    분석 우선순위:
+                    1. 비슷한 의미·표현의 채팅은 하나의 그룹으로 묶어 대표적으로 해석	
+                    - 예: "ㅋㅋㅋ", "ㅋㅋㅋㅋ", "ㅋㅋㅋㅋㅋ" → 동일 반응 그룹
+                    - 예: "와 대박", "헐 대박", "대박ㅋㅋ" → 동일 반응 그룹
+                    - 반복·의미 유사 채팅은 합산하여 상황의 강도를 반영
+                    2. "최근 채팅" 내용으로 구체적 상황 파악 (게임, 행동, 사건)
+                    3. "하이라이트 이유"로 반응 유형 확인
+                    4. 점수 데이터로 상황의 특성 분석:
+                    - 채팅 급증 점수 높음 → 갑작스러운 사건
+                    - 리액션 점수 높음 → 강한 감정 반응
+                    - 시청자 급증 점수 높음 → 화제성 있는 순간
+                    - 다양성 점수 높음 → 다양한 시청자 참여
 
-                댓글 작성 방식:
-                1. 채팅 그룹에서 명확한 상황(게임명, 행동)이 보이면 구체적으로 표현
-                2. 점수 패턴으로 상황의 성격 파악:
-                - 리액션 점수 > 채팅 급증 점수 → 감정적 반응 중심
-                - 채팅 급증 점수 > 리액션 점수 → 사건/상황 중심
-                - 시청자 급증 있음 → 주목받는 순간
-                3. "큰 하이라이트 여부"가 true면 더 임팩트 있게 표현
-                4. 필드별 작성 규칙:
-                - text: 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
-                - image_text: 방송 썸네일이 있다면 이미지까지 분석하여 더 구체적이고 정확한 시청자 반응 댓긇. 썸네일이 없다면 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
-                - "썸네일_존재"가 false인 하이라이트는 제공된 이미지가 있더라도 무시하고 분석하지 마세요.
-                - text나 image_text에는 "자살"이나 "강간", 각종 욕설 등과 같은 여러 부적절한 키워드는 가능한 포함 시키지 않으면 좋겠어, 만약 포함 시켜야 한다면 해당 단어를 초성으로 부분치환시키는 것으로 검열해서 작성해. 예를 들어 "자살"은 "자ㅅ", "강간"은 "강ㄱ"으로 표현하는 식으로
-                5. 모든 댓글은 실제 시청자 톤으로 20자 이내, 자연스럽게 작성
+                    댓글 작성 방식:
+                    1. 채팅 그룹에서 명확한 상황(게임명, 행동)이 보이면 구체적으로 표현
+                    2. 점수 패턴으로 상황의 성격 파악:
+                    - 리액션 점수 > 채팅 급증 점수 → 감정적 반응 중심
+                    - 채팅 급증 점수 > 리액션 점수 → 사건/상황 중심
+                    - 시청자 급증 있음 → 주목받는 순간
+                    3. "큰 하이라이트 여부"가 true면 더 임팩트 있게 표현
+                    4. 필드별 작성 규칙:
+                    - text: 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
+                    - image_text: 방송 썸네일이 있다면 이미지까지 분석하여 더 구체적이고 정확한 시청자 반응 댓글. 썸네일이 없다면 채팅 그룹과 점수 데이터만으로 분석한 기본 댓글
+                    - "썸네일_존재"가 false인 하이라이트는 제공된 이미지가 있더라도 무시하고 분석하지 마세요.
+                    - text나 image_text에는 "자살"이나 "강간", 각종 욕설 등과 같은 여러 부적절한 키워드는 가능한 포함 시키지 않으면 좋겠어, 만약 포함 시켜야 한다면 해당 단어를 초성으로 부분치환시키는 것으로 검열해서 작성해. 예를 들어 "자살"은 "자ㅅ", "강간"은 "강ㄱ"으로 표현하는 식으로
+                    5. 모든 댓글은 실제 시청자 톤으로 20자 이내, 자연스럽게 작성
 
-                **중요: text와 image_text 모두 실제 시청자가 쓴 댓글처럼 자연스럽고 짧게 작성해야 합니다.**
-                
-                예시:
-                - 리액션 중심: "ㅋㅋㅋ 개웃김", "미친 반응 ㄷㄷ"
-                - 상황 중심: "레전드 플레이", "데드락 일퀘 시작"
-                - 화제성: "시청자들 몰려옴", "클립감 ㄷㄷ"
-                - 썸네일 분석 예시:
-                text: "섬광탄으로 어그로 끄는 중"
-                image_text: "아서스 또 있네 ㅋㅋㅋ" (썸네일에서 특정 캐릭터 확인시)
-            """
+                    **중요: text와 image_text 모두 실제 시청자가 쓴 댓글처럼 자연스럽고 짧게 작성해야 합니다.**
 
-    def get_models(self, num: int, is_emergency: bool = False) -> genai.GenerativeModel:
+                    예시:
+                    - 리액션 중심: "ㅋㅋㅋ 개웃김", "미친 반응 ㄷㄷ"
+                    - 상황 중심: "레전드 플레이", "데드락 일퀘 시작"
+                    - 화제성: "시청자들 몰려옴", "클립감 ㄷㄷ"
+                    - 썸네일 분석 예시:
+                    text: "섬광탄으로 어그로 끄는 중"
+                    image_text: "아서스 또 있네 ㅋㅋㅋ" (썸네일에서 특정 캐릭터 확인시)
+                """,
+                response_mime_type="application/json",
+            )
+
+            self.MODEL_NAMES = {
+                "3":   "gemini-2.5-flash-preview-05-20",
+                "3.1": "gemini-2.5-flash-lite-preview-06-17",
+                "2.5": "gemini-2.5-flash",
+            }
+
+    def get_models(self, num: int, is_emergency: bool = False) -> Dict[str, "genai.Client"]:
         """
-        API 키 순서에 맞는 모델을 가져옴 - 이미 만든 건 재사용
-        매번 새로 만들면 메모리 낭비가 심해서 캐싱해서 쓰는 방식
+        API 키 순서에 맞는 Client dict를 가져옴 - 이미 만든 건 재사용
+        반환값: {"3": client, "3.1": client, "2.5": client}
+        호출부에서 client.models.generate_content(model=모델명, contents=..., config=...) 으로 사용
         """
         try:
             if not is_emergency:
-                # 환경변수에서 API 키들 가져와서 순서대로 돌려가며 사용
                 api_key_index = (num // 10) % len(self.GOOGLE_API_KEY_LIST)
                 target_api_key = self.GOOGLE_API_KEY_LIST[api_key_index]
             else:
@@ -84,61 +95,54 @@ class GenAIModelManager:
                 api_key_index = len(self.GOOGLE_API_KEY_LIST)
 
             # 각 API 키별로 모델을 구분해서 저장
-            cache_key = f"model_{api_key_index}"
+            cache_key = f"client_{api_key_index}"
 
             # 이미 만든 모델이 있나 확인
-            if cache_key in self._models:
+            if cache_key in self._clients:
                 # API 키가 바뀌었으면 기존 캐시는 무효화
                 if self._current_api_key != target_api_key:
-                    self._models.clear()
+                    self._clients.clear()
                 else:
                     # 기존 모델 그대로 반환
-                    return self._models[cache_key]
+                    return self._clients[cache_key]
 
             # 새 모델 만들어야 하는 경우
-            genai.configure(api_key=target_api_key)
+            client = genai.Client(api_key=target_api_key)
             self._current_api_key = target_api_key
 
-            models = {
-                "3": genai.GenerativeModel(
-                    "gemini-3-flash-preview",
-                    system_instruction=self._system_instruction,
-                    generation_config={"response_mime_type": "application/json"},
-                ),
-                "3.1": genai.GenerativeModel(
-                    "gemini-3.1-flash-lite-preview",
-                    system_instruction=self._system_instruction,
-                    generation_config={"response_mime_type": "application/json"},
-                ),
-                "2.5": genai.GenerativeModel(
-                    "gemini-2.5-flash",
-                    system_instruction=self._system_instruction,
-                    generation_config={"response_mime_type": "application/json"},
-                ),
+            client_dict = {
+                "3":   client,
+                "3.1": client,
+                "2.5": client,
             }
 
-            # 캐시에 저장해두고 다음에 재사용
-            self._models[cache_key] = models
-
-
-            print(f"{datetime.now()} 새 AI 모델 생성됨 (API 키 #{api_key_index})")
-            return models
+            self._clients[cache_key] = client_dict
+            print(f"{datetime.now()} 새 AI Client 생성됨 (API 키 #{api_key_index})")
+            return client_dict
 
         except Exception as e:
-            print(f"{datetime.now()} AI 모델 생성 실패: {str(e)}")
+            print(f"{datetime.now()} AI Client 생성 실패: {str(e)}")
             raise
 
+    def get_generate_config(self) -> types.GenerateContentConfig:
+        """system_instruction이 포함된 GenerateContentConfig 반환"""
+        return self._generate_config
+
+    def get_model_name(self, model_key: str) -> str:
+        """모델 키("3", "3.1", "2.5")에 해당하는 실제 모델명 반환"""
+        return self.MODEL_NAMES.get(model_key, "gemini-2.5-flash")
+
     def clear_cache(self):
-        """저장된 모델들 모두 삭제 - 메모리 정리할 때 사용"""
-        self._models.clear()
+        """저장된 Client들 모두 삭제 - 메모리 정리할 때 사용"""
+        self._clients.clear()
         self._current_api_key = None
-        print(f"{datetime.now()} AI 모델 캐시 정리 완료")
+        print(f"{datetime.now()} AI Client 캐시 정리 완료")
 
     def get_cache_info(self) -> Dict[str, int]:
-        """현재 캐시된 모델 개수와 상태 확인용"""
+        """현재 캐시된 Client 개수와 상태 확인용"""
         return {
-            "cached_models_count": len(self._models),
-            "cache_keys": list(self._models.keys()),
+            "cached_clients_count": len(self._clients),
+            "cache_keys": list(self._clients.keys()),
         }
 
 
@@ -146,47 +150,49 @@ class GenAIModelManager:
 _model_manager = GenAIModelManager()
 
 
-def get_genai_models(num: int, is_emergency: bool = False) -> genai.GenerativeModel:
-    """
-    내부적으로는 캐싱된 모델을 반환해서 성능 향상
-    """
+def get_genai_models(num: int, is_emergency: bool = False) -> Dict[str, "genai.Client"]:
+    """캐싱된 Client dict 반환 - 기존 호출부 시그니처 유지"""
     return _model_manager.get_models(num, is_emergency)
 
 
+def get_genai_generate_config() -> types.GenerateContentConfig:
+    """system_instruction이 포함된 GenerateContentConfig 반환"""
+    return _model_manager.get_generate_config()
+
+
+def get_genai_model_name(model_key: str) -> str:
+    """모델 키에 해당하는 실제 모델명 반환"""
+    return _model_manager.get_model_name(model_key)
+
+
 def clear_genai_cache():
-    """AI 모델 캐시 비우기 - 메모리 부족할 때 호출"""
+    """AI Client 캐시 비우기 - 메모리 부족할 때 호출"""
     _model_manager.clear_cache()
 
 
 def get_genai_cache_info() -> Dict[str, int]:
-    """현재 몇 개의 모델이 캐시되어 있는지 확인"""
+    """현재 캐시 상태 확인"""
     return _model_manager.get_cache_info()
 
 
 # 테스트용 코드 - 실제 운영에서는 실행 안됨
 if __name__ == "__main__":
-    print("=== AI 모델 매니저 테스트 ===")
+    print("=== AI Client 매니저 테스트 ===")
 
     try:
-        # 첫 번째로 모델 요청해보기
-        model1 = get_genai_models(0)
-        print(f"첫 번째 모델: {type(model1)}")
+        models1 = get_genai_models(0)
+        print(f"첫 번째 Client dict: {type(models1)}")
 
-        # 같은 번호로 다시 요청 - 캐시에서 가져와야 함
-        model2 = get_genai_models(0)
-        print(f"두 번째 모델: {type(model2)}")
-        print(f"같은 객체인가? {model1 is model2}")  # True여야 함
+        models2 = get_genai_models(0)
+        print(f"두 번째 Client dict: {type(models2)}")
+        print(f"같은 객체인가? {models1 is models2}")  # True여야 함
 
-        # 다른 번호로 요청해보기
-        model3 = get_genai_models(10)
-        print(f"다른 API 키 모델: {type(model3)}")
-        print(f"다른 객체인가? {model1 is model3}")  # True여야 함
+        models3 = get_genai_models(10)
+        print(f"다른 API 키 Client dict: {type(models3)}")
 
-        # 현재 캐시 상태 보기
         cache_info = get_genai_cache_info()
         print(f"캐시 상태: {cache_info}")
 
-        # 캐시 비우기 테스트
         clear_genai_cache()
         print("캐시 비움")
 
