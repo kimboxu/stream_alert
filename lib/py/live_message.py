@@ -201,6 +201,14 @@ class base_live_message:
 
     def _get_channel_name(self):
         return self.IDList[self.platform].loc[self.channel_id, "channelName"]
+    
+    def _get_updated_values(self):
+        if self.platform == "chzzk":
+            updated_values = {"live_state", "chatChannelId", "oldChatChannelId", "category", "title1", "title2", "state_update_time"}
+        else:
+            updated_values = {"live_state", "chatChannelId", "oldChatChannelId", "title1", "title2", "state_update_time"}
+            
+        return updated_values
 
     # 메시지 전송
     async def postLive_message(self):
@@ -226,9 +234,10 @@ class base_live_message:
             asyncio.create_task(
                 self.DiscordWebhookSender_class.send_messages(list_of_urls, json_data)
             )
+
             asyncio.create_task(
                 save_airing_data(
-                    self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"live_state", "chatChannelId", "oldChatChannelId", "category", "title1", "title2", "state_update_time"}
+                    self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys=self._get_updated_values()
                 )
             )
 
