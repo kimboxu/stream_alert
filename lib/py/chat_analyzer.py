@@ -1664,7 +1664,7 @@ class ChatAnalyzer:
 
             
             async def call_model_with_fallback(client_dict: dict, msg_list: list):
-                MODEL_PRIORITY = ["3.5", "3.1", "3", "2.5"]
+                MODEL_PRIORITY = ["3", "2.5"]
                 last_exception = None
 
                 for model_key in MODEL_PRIORITY:
