@@ -1,0 +1,181 @@
+{
+  "channel_id": "dkwl025",
+  "channel_name": "양아지",
+  "save_timestamp": "2026-06-26T23:49:01.021352",
+  "total_logs": 3,
+  "logs": [
+    {
+      "timestamp": "2026-06-26T23:48:47.365108",
+      "fun_score": 5.369999124731983,
+      "test_fun_score": 0.09638021672205899,
+      "score_components": {
+        "chat_spike_score": 0.5997511951285123,
+        "reaction_score": 0.09638021672205899,
+        "test_reaction_score": 0.09638021672205899,
+        "diversity_score": 50.71197021907535,
+        "viewer_trend_score": 0,
+        "final_score": 5.369999124731983,
+        "baseline_chat_count": 41.35531496029674,
+        "baseline_viewer_count": 636.6790089951252,
+        "baseline_threshold": 17.891756403145504,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 982,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 1.0,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 1.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "05:23:25",
+      "comment_after_openDate": "05:23:25",
+      "chat_context": [
+        "MECHAL1S: {:dkwlTony:}{:dkwlTony:}",
+        "부드러운 힐러 3260: 뭣?",
+        "정신없는 멍뭉이 107812: ㅋㅋㅋ",
+        "노란 양동이: 시위 떄문에 막히기도 하고",
+        "은토끼: ㅇㅎ"
+      ]
+    },
+    {
+      "timestamp": "2026-06-26T23:48:52.367562",
+      "fun_score": 5.088794726335601,
+      "test_fun_score": 0.147281590179836,
+      "score_components": {
+        "chat_spike_score": 0.8480106591039794,
+        "reaction_score": 0.147281590179836,
+        "test_reaction_score": 0.147281590179836,
+        "diversity_score": 46.630054526848596,
+        "viewer_trend_score": 0,
+        "final_score": 5.088794726335601,
+        "baseline_chat_count": 40.66020133825586,
+        "baseline_viewer_count": 643.2815463431384,
+        "baseline_threshold": 17.652340403982237,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 982,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 2.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 2.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:23:30",
+      "comment_after_openDate": "05:23:30",
+      "chat_context": [
+        "MECHAL1S: {:dkwlTony:}{:dkwlTony:}",
+        "부드러운 힐러 3260: 뭣?",
+        "정신없는 멍뭉이 107812: ㅋㅋㅋ",
+        "노란 양동이: 시위 떄문에 막히기도 하고",
+        "은토끼: ㅇㅎ",
+        "목탁치는목사님: 음",
+        "무툴루스: 엥?",
+        "Shibarski: ??",
+        "으엨엨: 엥?",
+        "김치쮜개: ㅇㅎ",
+        "파크123: ㅋㅋㅋㅋ",
+        "맥시몬: 구걸이었나보네",
+        "정신없는 멍뭉이 107812: 1옥"
+      ]
+    },
+    {
+      "timestamp": "2026-06-26T23:48:57.369560",
+      "fun_score": 5.033859986692889,
+      "test_fun_score": 0.1816154327038799,
+      "score_components": {
+        "chat_spike_score": 1.0944064252402816,
+        "reaction_score": 0.1816154327038799,
+        "test_reaction_score": 0.1816154327038799,
+        "diversity_score": 44.868924655235986,
+        "viewer_trend_score": 0,
+        "final_score": 5.033859986692889,
+        "baseline_chat_count": 40.1313382886684,
+        "baseline_viewer_count": 649.7578431770576,
+        "baseline_threshold": 17.412125410625634,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 982,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 3.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 3.0,
+          "greeting": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "05:23:35",
+      "comment_after_openDate": "05:23:35",
+      "chat_context": [
+        "MECHAL1S: {:dkwlTony:}{:dkwlTony:}",
+        "부드러운 힐러 3260: 뭣?",
+        "정신없는 멍뭉이 107812: ㅋㅋㅋ",
+        "노란 양동이: 시위 떄문에 막히기도 하고",
+        "은토끼: ㅇㅎ",
+        "목탁치는목사님: 음",
+        "무툴루스: 엥?",
+        "Shibarski: ??",
+        "으엨엨: 엥?",
+        "김치쮜개: ㅇㅎ",
+        "파크123: ㅋㅋㅋㅋ",
+        "맥시몬: 구걸이었나보네",
+        "정신없는 멍뭉이 107812: 1옥",
+        "리톱스: 간혹 보이드만",
+        "양Bin: 어우",
+        "Shibarski: ㅋㅋㅋㅋ",
+        "하태해태: 구걸하는 사람도 있지",
+        "복슬복슬꼬리: 100원만 100원만"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

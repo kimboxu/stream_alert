@@ -1,0 +1,83 @@
+{
+  "channel_id": "ma_mwa",
+  "channel_name": "마뫄",
+  "save_timestamp": "2026-06-26T23:49:01.026972",
+  "total_logs": 2,
+  "logs": [
+    {
+      "timestamp": "2026-06-26T23:48:52.368379",
+      "fun_score": 5.2803663645120045,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.5783230148533686,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2803663645120045,
+        "baseline_chat_count": 12.742447348831815,
+        "baseline_viewer_count": 584.6661671125479,
+        "baseline_threshold": 27.788269054177558,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 828,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "04:24:50",
+      "comment_after_openDate": "04:24:50",
+      "chat_context": [
+        "팩토리얼: 한조 레츠고"
+      ]
+    },
+    {
+      "timestamp": "2026-06-26T23:48:57.370535",
+      "fun_score": 5.2810978813485345,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.579948607823435,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.2810978813485345,
+        "baseline_chat_count": 12.51793175552215,
+        "baseline_viewer_count": 589.318709997356,
+        "baseline_threshold": 27.35791795475115,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 828,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "04:24:55",
+      "comment_after_openDate": "04:24:55",
+      "chat_context": [
+        "팩토리얼: 한조 레츠고"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
