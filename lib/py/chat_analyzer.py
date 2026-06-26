@@ -21,6 +21,7 @@ from base import (
     initVar,
     get_stream_start_id,
     format_time_for_comment,
+    save_airing_data,
 )
 from improved_get_message import get_message
 from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
@@ -28,7 +29,6 @@ from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
 from highlight_chat_saver import HighlightChatSaver
 from genai_model import get_genai_models, get_genai_generate_config, get_genai_model_name
-from base import save_airing_data
 
 
 @dataclass
