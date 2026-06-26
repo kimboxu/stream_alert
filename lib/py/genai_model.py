@@ -75,9 +75,9 @@ class GenAIModelManager:
             )
 
             self.MODEL_NAMES = {
-                "3.5": "gemini-3.5-flash",
-                "3.1": "gemini-3.1-flash-lite-preview",
+                # "3.5": "gemini-3.5-flash",
                 "3":   "gemini-3-flash-preview",
+                "3.1": "gemini-3.1-flash-lite-preview",
                 "2.5": "gemini-2.5-flash",
             }
 
@@ -112,9 +112,9 @@ class GenAIModelManager:
             self._current_api_key = target_api_key
 
             client_dict = {
-                "3.5":  client,
-                "3.1":  client,
+                # "3.5":  client,
                 "3":    client,
+                "3.1":  client,
                 "2.5":  client,
             }
 
