@@ -112,9 +112,10 @@ class GenAIModelManager:
             self._current_api_key = target_api_key
 
             client_dict = {
-                "3":   client,
-                "3.1": client,
-                "2.5": client,
+                "3.5":  client,
+                "3.1":  client,
+                "3":    client,
+                "2.5":  client,
             }
 
             self._clients[cache_key] = client_dict
