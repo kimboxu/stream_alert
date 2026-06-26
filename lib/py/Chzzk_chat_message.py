@@ -1004,7 +1004,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if self.data.channel_id not in ["bighead033", "kimboxu"]:
             return
         
-        special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!게임이름", "!삭제", "!추가", "!수정"]
+        special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제", "!추가", "!수정"]
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
@@ -1051,7 +1051,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     self.command_task = asyncio.create_task(self.command_list(chat_command, special_command_list, command, time))
                     return
 
-                if command in ["!카테고리", "!게임", "!게임이름"]:
+                if command in ["!카테고리", "!게임"]:
                     await self.category_command(command, time)
                     return
                 
