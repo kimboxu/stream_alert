@@ -529,7 +529,7 @@ class base_vod(ABC):
             if score_difference != 0:
                 text = f"재미도: {fun_score} - {text}"
 
-            comment_line = f"[{formatted_time}]- {text}"
+            comment_line = f"[ {formatted_time}] - {text}"
             comment_lines.append(comment_line)
             processed_count += 1
 
