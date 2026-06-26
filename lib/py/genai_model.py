@@ -75,8 +75,9 @@ class GenAIModelManager:
             )
 
             self.MODEL_NAMES = {
-                "3":   "gemini-3-flash-preview",
+                "3.5": "gemini-3.5-flash",
                 "3.1": "gemini-3.1-flash-lite-preview",
+                "3":   "gemini-3-flash-preview",
                 "2.5": "gemini-2.5-flash",
             }
 
