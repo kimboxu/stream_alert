@@ -27,7 +27,7 @@ from discord_webhook_sender import DiscordWebhookSender, get_list_of_urls
 from notification_service import send_push_notification
 from make_log_api_performance import PerformanceManager
 from highlight_chat_saver import HighlightChatSaver
-from genai_model import get_genai_models
+from genai_model import get_genai_models, get_genai_generate_config, get_genai_model_name
 from base import save_airing_data
 
 
@@ -1663,18 +1663,25 @@ class ChatAnalyzer:
             )
 
             
-            async def call_model_with_fallback(models: dict, msg_list: list):
+            async def call_model_with_fallback(client_dict: dict, msg_list: list):
                 MODEL_PRIORITY = ["3", "3.1", "2.5"]
                 last_exception = None
 
                 for model_key in MODEL_PRIORITY:
-                    model = models.get(model_key)
+                    client = client_dict.get(model_key)
 
-                    if model is None:
+                    if client is None:
                         continue
 
+                    model_name = get_genai_model_name(model_key)
+
                     try:
-                        return await asyncio.to_thread(model.generate_content, msg_list)
+                        return await asyncio.to_thread(
+                            client.models.generate_content,
+                            model=model_name,
+                            contents=msg_list,
+                            config=get_genai_generate_config(),
+                        )
 
                     except Exception as e:
                         last_exception = e
@@ -1691,8 +1698,8 @@ class ChatAnalyzer:
                 if emergency is None:
                     emergency = is_emergency
                 self.add_genai_cnt()
-                models = get_genai_models(self.init.genai_cnt, emergency)
-                return await call_model_with_fallback(models, msg_list)
+                client_dict = get_genai_models(self.init.genai_cnt, emergency)
+                return await call_model_with_fallback(client_dict, msg_list)
 
             def response_validator(response):
                 """응답 검증: 리스트 형태인지 확인"""
