@@ -56,9 +56,25 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         run: |
           ls -la web/
-          flutter build web --release \
-            --dart-define=BUILD_TIME=$(date +%s) \
-            --dart-define=COMMIT_SHA=${{ github.sha }}
+          flutter build web --release
+
+      # ✅ 핵심: 빌드 후 index.html에 고유값 주입
+      - name: Inject build fingerprint into index.html
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          BUILD_TIME=$(date +%s)
+          COMMIT_SHA="${{ github.sha }}"
+          FINGERPRINT="${BUILD_TIME}-${COMMIT_SHA}"
+
+          echo "🔖 빌드 핑거프린트: $FINGERPRINT"
+
+          # index.html의 </head> 직전에 주석으로 고유값 삽입
+          # sed가 파일 내용을 변경 → 파일 해시 변경 → Firebase가 새 버전으로 인식
+          sed -i "s|</head>|<!-- build-fingerprint: ${FINGERPRINT} -->\n</head>|" \
+            build/web/index.html
+
+          echo "✅ index.html 수정 완료"
+          grep "build-fingerprint" build/web/index.html
 
       - name: Deploy to Firebase Hosting
         if: steps.changes.outputs.changed == 'true'
