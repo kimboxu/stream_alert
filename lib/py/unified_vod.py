@@ -527,9 +527,9 @@ class base_vod(ABC):
                 fun_score += 1
 
             if score_difference != 0:
-                text = f"재미 점수:{fun_score} - {text}"
+                text = f"재미도: {fun_score} - {text}"
 
-            comment_line = f"{formatted_time}- {text}"
+            comment_line = f"[{formatted_time}]- {text}"
             comment_lines.append(comment_line)
             processed_count += 1
 
@@ -582,10 +582,10 @@ class base_vod(ABC):
         for line in comment_lines:
             current_chunk.append(line)
             if len(current_chunk) >= split_len:
-                chunks.append("\n\n".join(current_chunk))
+                chunks.append("\n".join(current_chunk))
                 current_chunk = []
         if current_chunk:
-            chunks.append("\n\n".join(current_chunk))
+            chunks.append("\n".join(current_chunk))
 
         return chunks
 
