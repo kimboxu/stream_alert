@@ -789,13 +789,7 @@ async def save_highlights_dict_cache_allChannelID(
     async with lock:
         for platform in list(init.titleData):
             for channelID in list(init.titleData[platform].index):
-                data = {"highlights_dict_cache": sanitize_for_json(init.titleData[platform].loc[channelID, "highlights_dict_cache"])}
-                await safe_update(
-                    init.supabase,
-                    table_name,
-                    match={"channelID": channelID, "platform": platform},
-                    data=data,
-                )
+                asyncio.create_task(save_airing_data(init.supabase, init.title_data, platform, channelID, updated_keys={"baseline_metrics", "highlights_dict_cache"}))
     init.is_state_control["save_highlights_dict_cache"] = False
     await asyncio.sleep(0.3)
     await update_flag(init.supabase, "is_state_control", init.is_state_control)
