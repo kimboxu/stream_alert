@@ -648,7 +648,7 @@ class ChatAnalyzer:
         # 만약 임계값 이상으로 증가/감소 된다면 alpha 증가(1분 언속 마다 배수 증가)
         alpha = 0.01912  # 1 - 0.1^(1/120) ≈ 0.01912
         
-        alpha *= (abs(self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"])//12+1)
+        alpha *= (abs(self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"])//24+1)
 
         self.title_data.loc[self.channel_id, "baseline_metrics"]["avg_chat_count"] = (
             alpha * chat_counts
