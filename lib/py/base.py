@@ -781,17 +781,32 @@ def sanitize_for_json(value):
         return [sanitize_for_json(v) for v in value]
     return value
 
-async def save_highlights_dict_cache_allChannelID(
-    init: initVar,
-):
-    table_name = "titleData"
-    lock = get_table_lock(table_name)
-    async with lock:
-        for platform in list(init.titleData):
-            for channelID in list(init.titleData[platform].index):
-                asyncio.create_task(save_airing_data(init.supabase, init.title_data, platform, channelID, updated_keys={"baseline_metrics", "highlights_dict_cache"}))
+async def save_highlights_dict_cache_allChannelID(init: initVar):
+    tasks = []
+    for platform in list(init.titleData):
+        for channelID in list(init.titleData[platform].index):
+            tasks.append(
+                save_airing_data(
+                    init.supabase,
+                    init.titleData[platform],
+                    platform,
+                    channelID,
+                    updated_keys={"baseline_metrics", "highlights_dict_cache"},
+                )
+            )
+
+    # 모든 저장 작업을 동시에 실행하고 완료까지 대기
+    if tasks:
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        # 실패한 태스크 로깅
+        for i, result in enumerate(results):
+            if isinstance(result, Exception):
+                await log_error(
+                    f"save_highlights_dict_cache: 태스크 {i} 실패: {result}"
+                )
+
+    # 모든 저장이 완료된 후에 플래그 업데이트
     init.is_state_control["save_highlights_dict_cache"] = False
-    await asyncio.sleep(0.3)
     await update_flag(init.supabase, "is_state_control", init.is_state_control)
 
 # 방송 정보 데이터 저장 함수
@@ -800,15 +815,26 @@ async def save_airing_data(
     titleData,
     platform: str,
     id_,
-    updated_keys: set[str] = {"live_state", "title1", "title2", "chatChannelId", "oldChatChannelId", "state_update_time", "category", "baseline_metrics", "highlights_dict_cache"},
+    updated_keys: set[str] = {
+        "live_state", "title1", "title2", "chatChannelId",
+        "oldChatChannelId", "state_update_time", "category",
+        "baseline_metrics", "highlights_dict_cache"
+    },
 ):
     table_name = "titleData"
     lock = get_table_lock(table_name)
     async with lock:
-        data = {
-            key: sanitize_for_json(titleData.loc[id_, key])
-            for key in updated_keys
-        }
+        try:
+            data = {
+                key: sanitize_for_json(titleData.loc[id_, key])
+                for key in updated_keys
+            }
+        except KeyError as e:
+            await log_error(
+                f"save_airing_data KeyError: platform={platform}, id={id_}, key={e}"
+            )
+            return
+
         await safe_update(
             supabase,
             table_name,
