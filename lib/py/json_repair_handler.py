@@ -306,10 +306,15 @@ class JSONRepairHandler:
             except Exception as e:
 
                 # 429 Rate Limit 에러 감지
-                if "429" in str(e) and "quota" in str(e).lower():
-                    print(
-                        f"{datetime.now()} 🚫 API 할당량 초과 (429 Error, 시도 {attempt + 1}/{max_retries},)"
-                    )
+                if "429" in str(e) and "quota" in str(e).lower() or "503" in str(e):
+                    if "429" in str(e):
+                        print(
+                            f"{datetime.now()} 🚫 API 할당량 초과 (429 Error, 시도 {attempt + 1}/{max_retries},)"
+                        )
+                    if "503" in str(e):
+                        print(
+                            f"{datetime.now()} 🚫 제미나이 서버 포화 (503 Error, 시도 {attempt + 1}/{max_retries},)"
+                        )
 
                     # retry_delay 추출 시도
                     error_message = str(e)
