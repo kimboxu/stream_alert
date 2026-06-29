@@ -338,7 +338,7 @@ class JSONRepairHandler:
                                 f"{datetime.now()} ⏳ API retry_delay: {retry_seconds}초"
                             )
                         else:
-                            retry_seconds = 60  # 기본값
+                            retry_seconds = 30  # 기본값
                             print(
                                 f"{datetime.now()} ⏳ 기본 대기 시간 사용: {retry_seconds}초"
                             )
