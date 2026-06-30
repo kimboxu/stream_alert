@@ -338,7 +338,7 @@ class JSONRepairHandler:
                                 f"{datetime.now()} ⏳ API retry_delay: {retry_seconds}초"
                             )
                         else:
-                            retry_seconds = 30  # 기본값
+                            retry_seconds = 11  # 기본값
                             print(
                                 f"{datetime.now()} ⏳ 기본 대기 시간 사용: {retry_seconds}초"
                             )
@@ -383,7 +383,7 @@ class JSONRepairHandler:
         on_timeout_callback: Optional[Callable[[int, int], None]] = None,
         on_error_callback: Optional[Callable[[int, int, str], None]] = None,
         response_validator: Optional[Callable[[Any], bool]] = None,
-        max_parse_retries: int = 3,
+        max_parse_retries: int = 10,
     ) -> Optional[Any]:
         """
         API를 호출하고 JSON을 파싱하며 재시도 로직을 처리합니다.

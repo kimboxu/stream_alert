@@ -1686,7 +1686,7 @@ class ChatAnalyzer:
                     except Exception as e:
                         last_exception = e
                         error_msg = str(e)
-                        is_quota_error = "429" in error_msg or "quota" in error_msg.lower() or "Resource exhausted" in error_msg
+                        is_quota_error = "429" in error_msg or "quota" in error_msg.lower() or "Resource exhausted" in error_msg or "503" in error_msg
 
                         if not is_quota_error:
                             raise
