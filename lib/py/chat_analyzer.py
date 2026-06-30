@@ -634,9 +634,9 @@ class ChatAnalyzer:
         sequence_count = self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"]
         avg_threshold_score = self.title_data.loc[self.channel_id, "baseline_metrics"]["avg_threshold_score"]
 
-        if final_score > avg_threshold_score and sequence_count > 0:
+        if final_score > avg_threshold_score and sequence_count >= 0:
             self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"] += 1
-        elif final_score < avg_threshold_score and sequence_count < 0:
+        elif final_score < avg_threshold_score and sequence_count <= 0:
             self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"] -= 1
         else:
             self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"] = 0
