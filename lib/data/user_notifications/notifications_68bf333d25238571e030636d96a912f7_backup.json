@@ -2,407 +2,6 @@
   "webhook_url": "https://discord.com/api/webhooks/1260564688379449414/8rbjK6P64umpFHgypNPLcfRg1YcxhthQV3nAWTFajqmq5CrFcssw1r7DGupA0wRsrtTQ",
   "notifications": [
     {
-      "id": "6d4d4f17-4a6d-4c79-867a-99d79b538859",
-      "username": "빅헤드",
-      "content": "",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2026-06-20T18:13:39.057880+09:00",
-      "read": false,
-      "embeds": [
-        {
-          "color": 14522692,
-          "author": {
-            "name": "빅헤드",
-            "url": "https://chzzk.naver.com/ca1850b2eceb7f86146695fd9bb9cefc",
-            "icon_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif"
-          },
-          "fields": [
-            {
-              "name": "방제",
-              "value": "잠깨기 후 니어오토마타",
-              "inline": true
-            }
-          ],
-          "title": "빅헤드 뱅온!\n",
-          "url": "https://chzzk.naver.com/live/ca1850b2eceb7f86146695fd9bb9cefc",
-          "footer": {
-            "text": "뱅온 시간",
-            "inline": true,
-            "icon_url": "https://play-lh.googleusercontent.com/wvo3IB5dTJHyjpIHvkdzpgbFnG3LoVsqKdQ7W3IoRm-EVzISMz9tTaIYoRdZm1phL_8=w240-h480-rw"
-          },
-          "timestamp": "2026-06-20T09:13:28.000000Z"
-        }
-      ]
-    },
-    {
-      "id": "5df9619b-d086-4ff0-a869-a845686f901c",
-      "username": "ai코딩 >> 빅헤드",
-      "content": "ㅂㅎ",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
-      "timestamp": "2026-06-20T18:13:54.350972+09:00",
-      "read": false
-    },
-    {
-      "id": "7e115a72-51c0-4da4-a6f2-f16236f38a43",
-      "username": "빅헤드 >> 빅헤드",
-      "content": "아",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2026-06-20T18:14:22.197784+09:00",
-      "read": false
-    },
-    {
-      "id": "b97a1cdf-6bb8-4478-855b-a8d35a0272b5",
-      "username": "빅헤드 >> 빅헤드",
-      "content": "나는 예습 안헀는데",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2026-06-20T18:14:24.221911+09:00",
-      "read": false
-    },
-    {
-      "id": "909db894-28b4-4f5e-bd72-31291e04b4b6",
-      "username": "빅헤드 >> 빅헤드",
-      "content": "네 아예 처음",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2026-06-20T18:14:39.502040+09:00",
-      "read": false
-    },
-    {
-      "id": "b2f4600c-6b62-4161-8935-88f59b9ba746",
-      "username": "빅헤드 >> 빅헤드",
-      "content": "스토리모르는뇌",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2026-06-20T18:14:42.561440+09:00",
-      "read": false
-    },
-    {
-      "id": "688890cf-20f2-4497-869c-f759017da369",
-      "username": "빅헤드 >> 빅헤드",
-      "content": "무슨게임인지도모름",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
-      "timestamp": "2026-06-20T18:14:44.262614+09:00",
-      "read": false
-    },
-    {
-      "id": "d904423d-3b97-4cab-8a6c-24d136511db6",
-      "username": "실프 >> 빅헤드",
-      "content": "저주+포커스렌즈 가서 쉬브한테 다쓰자",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNDEwMThfNzgg/MDAxNzI5MjM1Mjc1NTYy.Qblw8-SDtgX1cgiv-HKFasWbX7Ynr5j-HGPmDyhi9vwg.g5XvfcEXVrIRHCIFt-gU1JjrkXusKOyhE9fb7r7qkJ0g.JPEG/%EB%A8%80%EB%8B%98_%ED%8C%AC%EC%95%84%ED%8A%B8.jpg",
-      "timestamp": "2026-06-20T18:45:32.542975+09:00",
-      "read": false
-    },
-    {
-      "id": "91eaf9dc-f969-4b9d-9891-9a69a3990eaf",
-      "username": "실프 >> 빅헤드",
-      "content": "나 어제 칼리코로 당하고 꼬접마려웠음ㅇㅇ",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNDEwMThfNzgg/MDAxNzI5MjM1Mjc1NTYy.Qblw8-SDtgX1cgiv-HKFasWbX7Ynr5j-HGPmDyhi9vwg.g5XvfcEXVrIRHCIFt-gU1JjrkXusKOyhE9fb7r7qkJ0g.JPEG/%EB%A8%80%EB%8B%98_%ED%8C%AC%EC%95%84%ED%8A%B8.jpg",
-      "timestamp": "2026-06-20T18:45:54.261910+09:00",
-      "read": false
-    },
-    {
-      "id": "f6faea0e-9e67-4deb-8b67-42b6bc0aa0c2",
-      "username": "실프 >> 빅헤드",
-      "content": "심지어 렘이였어",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNDEwMThfNzgg/MDAxNzI5MjM1Mjc1NTYy.Qblw8-SDtgX1cgiv-HKFasWbX7Ynr5j-HGPmDyhi9vwg.g5XvfcEXVrIRHCIFt-gU1JjrkXusKOyhE9fb7r7qkJ0g.JPEG/%EB%A8%80%EB%8B%98_%ED%8C%AC%EC%95%84%ED%8A%B8.jpg",
-      "timestamp": "2026-06-20T18:46:05.571560+09:00",
-      "read": false
-    },
-    {
-      "id": "22875f43-0153-49a4-bd0f-9f68936f0335",
-      "username": "셀리55 >> 빅헤드",
-      "content": "흐흐흐흐흐",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T18:46:08.944576+09:00",
-      "read": false
-    },
-    {
-      "id": "dc852ab3-12f4-46f5-8728-4348d7787705",
-      "username": "셀리55 >> 빅헤드",
-      "content": "올딜템 레츠고",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T18:48:51.062047+09:00",
-      "read": false
-    },
-    {
-      "id": "58cedb52-985a-4f75-9bd4-d60fbe068db7",
-      "username": "셀리55 >> 빅헤드",
-      "content": "부패정도?",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T18:49:07.381501+09:00",
-      "read": false
-    },
-    {
-      "id": "1f12c119-0b5e-4159-8349-eac815c498e8",
-      "username": "셀리55 >> 빅헤드",
-      "content": "부패가면서폿이지..",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T18:49:09.425908+09:00",
-      "read": false
-    },
-    {
-      "id": "b0afccac-42e9-495d-9202-ec2d3027b275",
-      "username": "셀리55 >> 빅헤드",
-      "content": "데드락 오픈하면 데드락 영상도 더 많이 쪄주나요?",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T18:51:48.663079+09:00",
-      "read": false
-    },
-    {
-      "id": "d4d72fd9-5450-4e2f-87bb-bfc6a1f53960",
-      "username": "캡틴키리 >> 빅헤드",
-      "content": "정출한다고?",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
-      "timestamp": "2026-06-20T18:53:08.577352+09:00",
-      "read": false
-    },
-    {
-      "id": "d2da7207-2bc8-45cd-b744-aed04710691c",
-      "username": "셀리55 >> 빅헤드",
-      "content": "자세한 사항은 DM으로 문의 부탁드립니다 🙏",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T18:53:09.543155+09:00",
-      "read": false
-    },
-    {
-      "id": "d70f57b4-7121-4ee6-87cf-1da661b23d05",
-      "username": "캡틴키리 >> 빅헤드",
-      "content": "유저 늘어나?",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
-      "timestamp": "2026-06-20T18:53:12.861300+09:00",
-      "read": false
-    },
-    {
-      "id": "c06635be-5dc4-4016-bc41-8e1e3edb282e",
-      "username": "캡틴키리 >> 빅헤드",
-      "content": "우리 방금 핵쟁이 만남",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
-      "timestamp": "2026-06-20T18:53:34.281330+09:00",
-      "read": false
-    },
-    {
-      "id": "e4edb5df-4b20-4b54-91bc-04bc212e5f7d",
-      "username": "캡틴키리 >> 빅헤드",
-      "content": "ㄱㄱㄱ",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
-      "timestamp": "2026-06-20T18:53:59.441281+09:00",
-      "read": false
-    },
-    {
-      "id": "7ffefb9c-e01b-4ef5-9e0f-02007acfcc4b",
-      "username": "셀리55 >> 빅헤드",
-      "content": "오세스는 신임",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:04:29.122031+09:00",
-      "read": false
-    },
-    {
-      "id": "cc2eac36-a0f5-46cb-b141-b5f7d60f72e4",
-      "username": "셀리55 >> 빅헤드",
-      "content": "저친구는프로잖아요..",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:04:48.161570+09:00",
-      "read": false
-    },
-    {
-      "id": "1b51d5c4-5cb3-484b-87ee-ed029067f0f9",
-      "username": "셀리55 >> 빅헤드",
-      "content": "벨브게임=반도체주식",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:14:43.552946+09:00",
-      "read": false
-    },
-    {
-      "id": "ea4d71b3-3834-4bdb-8287-22f725638792",
-      "username": "셀리55 >> 빅헤드",
-      "content": "발사!!!~~",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:15:21.242072+09:00",
-      "read": false
-    },
-    {
-      "id": "76654116-8026-464c-8b64-eea60389dd5a",
-      "username": "셀리55 >> 빅헤드",
-      "content": "헤이즈는 돈이 이미 양전했네..",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:16:42.229853+09:00",
-      "read": false
-    },
-    {
-      "id": "f7cba637-4206-4424-ba7c-e1afbfbccdb4",
-      "username": "파크상 >> 빅헤드",
-      "content": "그저 궁쓴청년",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
-      "timestamp": "2026-06-20T19:25:10.537967+09:00",
-      "read": false
-    },
-    {
-      "id": "945168bb-4599-49fa-98f4-47d138d44295",
-      "username": "셀리55 >> 빅헤드",
-      "content": "돈으로맞네..",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:32:44.707243+09:00",
-      "read": false
-    },
-    {
-      "id": "8f46c13f-34a3-4d2d-8f5b-ae093576ca00",
-      "username": "셀리55 >> 빅헤드",
-      "content": "ㅋㅋㅋㅋㅋ",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:39:32.700997+09:00",
-      "read": false
-    },
-    {
-      "id": "43533d5e-0109-4dda-9895-b75c26debca3",
-      "username": "셀리55 >> 빅헤드",
-      "content": "어디서 철권을해 미쳣지요",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:39:36.779987+09:00",
-      "read": false
-    },
-    {
-      "id": "8b551e4c-9576-429f-a74b-05578a9927e5",
-      "username": "셀리55 >> 빅헤드",
-      "content": "와우",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:39:40.180801+09:00",
-      "read": false
-    },
-    {
-      "id": "6c47c181-c234-4fc7-a569-9ea61efb5794",
-      "username": "파크상 >> 빅헤드",
-      "content": "홀리데이도 좀 많이 양아치구나",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
-      "timestamp": "2026-06-20T19:41:12.320676+09:00",
-      "read": false
-    },
-    {
-      "id": "b62c5e48-3a6f-4116-bcad-4fca9406d52c",
-      "username": "셀리55 >> 빅헤드",
-      "content": "빈딕타 수난시대",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:41:28.979666+09:00",
-      "read": false
-    },
-    {
-      "id": "3c3837ea-ecfe-454c-89b8-31deb58479aa",
-      "username": "셀리55 >> 빅헤드",
-      "content": "이상한카드겜이 망하지않았나",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:44:50.260404+09:00",
-      "read": false
-    },
-    {
-      "id": "41050e94-b845-4921-bbf0-76ef1f9c0e5f",
-      "username": "셀리55 >> 빅헤드",
-      "content": "처음나오는 비싼스킨 100개사놓죠",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:46:40.760537+09:00",
-      "read": false
-    },
-    {
-      "id": "de2d41d5-0db4-4d18-ad14-50bede2ce79e",
-      "username": "셀리55 >> 빅헤드",
-      "content": "스킨코인",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T19:46:54.747488+09:00",
-      "read": false
-    },
-    {
-      "id": "2b85e420-452e-4698-a0b7-70fe34c5bba1",
-      "username": "셀리55 >> 빅헤드",
-      "content": "전판홀리친구힘내",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T20:21:30.252483+09:00",
-      "read": false
-    },
-    {
-      "id": "92fff9f5-e137-40c8-91e8-164880298778",
-      "username": "셀리55 >> 빅헤드",
-      "content": "슬프다",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T20:24:03.061787+09:00",
-      "read": false
-    },
-    {
-      "id": "3ec12200-8754-45d7-ac10-2adf6983a28f",
-      "username": "셀리55 >> 빅헤드",
-      "content": "억지패배 뭐지요",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T20:25:12.094600+09:00",
-      "read": false
-    },
-    {
-      "id": "fb5192e3-6587-44de-b734-d00794037c19",
-      "username": "셀리55 >> 빅헤드",
-      "content": "88k는 진짜 잘했는데",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T20:25:27.041905+09:00",
-      "read": false
-    },
-    {
-      "id": "0f793290-45c8-4166-8f61-8c21f0b83325",
-      "username": "셀리55 >> 빅헤드",
-      "content": "도탄기모으기인가 설마",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T20:46:20.961678+09:00",
-      "read": false
-    },
-    {
-      "id": "f9075290-526a-416f-809e-3b8e65f4aada",
-      "username": "셀리55 >> 빅헤드",
-      "content": "고멘나사이",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T21:05:40.486270+09:00",
-      "read": false
-    },
-    {
-      "id": "ab00e4ab-ffc5-4eaa-9d11-b79aecedc694",
-      "username": "셀리55 >> 빅헤드",
-      "content": "졸업성공",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T21:09:31.910857+09:00",
-      "read": false
-    },
-    {
-      "id": "4b8e7ff6-5422-44db-9e55-21b042164261",
-      "username": "셀리55 >> 빅헤드",
-      "content": "알아도 방송채팅창에 뿌리면 저도 담궈지지않을까요",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA4MjlfMzAg/MDAxNzU2NDc2MTk4MTYz.oU-RD6B9Q1dqs2D86jABjT79PAk_wJTp6ErJrGAg5TMg.KNxtJM5Z3MaBnRxBhu9KcalnNEtWH5wZpewOJggZ3j0g.JPEG/mang8.jpg",
-      "timestamp": "2026-06-20T21:10:06.581651+09:00",
-      "read": false
-    },
-    {
-      "id": "76084f0f-f8b1-4d9c-90c4-b730d24fcf39",
-      "username": "캡틴키리 >> 빅헤드",
-      "content": "정출이라고 알고 있을게요",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
-      "timestamp": "2026-06-20T21:10:39.040959+09:00",
-      "read": false
-    },
-    {
-      "id": "cb3a7681-d6c4-40b4-9643-fb0a0e87e459",
-      "username": "캡틴키리 >> 빅헤드",
-      "content": "감사합니다.",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
-      "timestamp": "2026-06-20T21:10:39.904478+09:00",
-      "read": false
-    },
-    {
-      "id": "2303d91d-90e9-48aa-b53b-183baebef652",
-      "username": "캡틴키리 >> 빅헤드",
-      "content": "유출",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
-      "timestamp": "2026-06-20T21:10:44.661277+09:00",
-      "read": false
-    },
-    {
-      "id": "57042aa2-f936-4f30-bcc6-d9644bf89063",
-      "username": "캡틴키리 >> 빅헤드",
-      "content": "타잔?",
-      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
-      "timestamp": "2026-06-21T00:17:18.643809+09:00",
-      "read": false
-    },
-    {
       "id": "ecf499b1-5ed9-496d-a986-48498c8bbcfd",
       "username": "빅헤드",
       "content": "",
@@ -4747,8 +4346,633 @@
       "avatar_url": "https://nng-phinf.pstatic.net/MjAyNjAxMjNfMTk5/MDAxNzY5MTY3NzMzODI3.Br4d0id8ySKDkuOW5mVVD64mOR0UvC8JLUs6n6Vf9ccg.ASVZgp5MqdsHc-MKCvM7AvUXUYbacbSdlfIEOdK1I1Ig.JPEG/image.jpg",
       "timestamp": "2026-06-30T22:57:22.995331+09:00",
       "read": false
+    },
+    {
+      "id": "a5a5c1f8-2f78-4d3e-976f-11e1f7c2e533",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:08:44.227312+09:00",
+      "read": false
+    },
+    {
+      "id": "7f4b3c91-8884-4861-bd8b-210eeb6ea03a",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:09:22.921681+09:00",
+      "read": false
+    },
+    {
+      "id": "ac0a392c-8bf5-483a-9539-0dc7c5648660",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "헉",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:37:04.833517+09:00",
+      "read": false
+    },
+    {
+      "id": "9d820b06-0746-4b6d-9492-328797c58b9a",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "진짜 맞는거 같은데",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:37:32.698502+09:00",
+      "read": false
+    },
+    {
+      "id": "87bb0067-5135-4b7d-b138-7446abd0b2f4",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㄹㅇ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:41:34.525226+09:00",
+      "read": false
+    },
+    {
+      "id": "05b1db69-ce47-44a1-bc9b-1036e1ab7aa3",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:49:23.654047+09:00",
+      "read": false
+    },
+    {
+      "id": "10bfa0dd-ef3c-4ed6-a434-7ec75ef15305",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:49:37.619392+09:00",
+      "read": false
+    },
+    {
+      "id": "419852fb-70f2-466b-8fe5-132b32462515",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "건물이 검인건 맞는듯",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:52:53.433761+09:00",
+      "read": false
+    },
+    {
+      "id": "02a5980a-0193-41de-9441-4358e8709a9e",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "그게 칼이여야 힌트가 말이됨",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:53:14.511864+09:00",
+      "read": false
+    },
+    {
+      "id": "63acc4ff-957b-42f1-be1b-ae9553fcaf73",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:56:00.773343+09:00",
+      "read": false
+    },
+    {
+      "id": "d7b2d348-749b-4885-a2bc-dbe437d7c62b",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "올",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:56:11.653550+09:00",
+      "read": false
+    },
+    {
+      "id": "a9366c2e-95c8-442b-a533-1338d70470e2",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "그럴듯해",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-06-30T23:56:16.752056+09:00",
+      "read": false
+    },
+    {
+      "id": "ef714a63-e798-407d-b0fa-bd5064203443",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:15:57.347718+09:00",
+      "read": false
+    },
+    {
+      "id": "3894a937-45a3-4626-bdcd-78a54fa1af73",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "오?",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:26:13.992445+09:00",
+      "read": false
+    },
+    {
+      "id": "ec2c333b-d29c-4228-92d6-3b0bc27c6b37",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "모든 무덤에 검을 올려놔?",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:27:15.872634+09:00",
+      "read": false
+    },
+    {
+      "id": "d0031a81-0706-4cda-9b99-fbdfaa20ba7e",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "직관적인거면 1차원 적으로 할 수 있는건가?",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:33:24.091228+09:00",
+      "read": false
+    },
+    {
+      "id": "2eb68339-5e7d-41f3-b89c-9a5381483951",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "검이 녹슬러면 산화가 되야 하는데",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:35:01.315569+09:00",
+      "read": false
+    },
+    {
+      "id": "6a5949d3-7a17-4279-99c5-24736b1a42d3",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:35:48.252880+09:00",
+      "read": false
+    },
+    {
+      "id": "0757d863-e81f-40d2-9638-fa9c4b01fbf2",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "검이네",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:36:08.652079+09:00",
+      "read": false
+    },
+    {
+      "id": "2240ccd8-f355-438c-94f1-6257ba7df861",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "산화구리는 그렇듯한데",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:36:34.831649+09:00",
+      "read": false
+    },
+    {
+      "id": "1a55b3ab-8bf6-4dcf-8133-10193524e9e4",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "아직 안 녹슬었잖아",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:37:23.110973+09:00",
+      "read": false
+    },
+    {
+      "id": "7b6a6f17-f89d-44b1-8294-107039ae88e1",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "일반 구리라도 산화시켜 두자",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:38:59.671427+09:00",
+      "read": false
+    },
+    {
+      "id": "48893d83-07ee-45fc-9713-63d9bf3eb013",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "그치",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:41:08.530791+09:00",
+      "read": false
+    },
+    {
+      "id": "ff502cf4-64db-4957-848f-d63cc5c792d4",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "실존 하지 않으니까 전설인듯",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:45:03.471152+09:00",
+      "read": false
+    },
+    {
+      "id": "da04ff69-fcf6-4bf5-a8d1-0f425847344d",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㄴㄴ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:46:04.070059+09:00",
+      "read": false
+    },
+    {
+      "id": "67490817-33bc-40cc-b998-05d435e1bdc4",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "녹이 오히려 없어지지",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:46:23.710254+09:00",
+      "read": false
+    },
+    {
+      "id": "a48537f6-6038-4e9d-a106-6cb26f7159a2",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "1일차는 모드같은거 몰라",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:46:53.970576+09:00",
+      "read": false
+    },
+    {
+      "id": "8669ebeb-a82e-4dab-b01b-c078e125262b",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "바치는 것도 녹슨검이 있어야",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:48:19.990251+09:00",
+      "read": false
+    },
+    {
+      "id": "c57dd5e1-b026-4459-9372-3fc08633e0df",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "근데 철검 내구도 많이쓰면 녹슨검이라고 할 수 있나",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:49:17.113141+09:00",
+      "read": false
+    },
+    {
+      "id": "7023d67f-2839-4a70-9707-f1f65a2cdf90",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "깍을 방법이 없나",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:50:38.710810+09:00",
+      "read": false
+    },
+    {
+      "id": "a19e5e2b-7241-4bde-befe-33aa91fdd40e",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "그치",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:51:43.310343+09:00",
+      "read": false
+    },
+    {
+      "id": "8332ca59-a8a0-4c37-a3e0-8963b55df0d0",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "1일차면 다이아 찾는게 끝이야",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:51:53.512379+09:00",
+      "read": false
+    },
+    {
+      "id": "8ec0de83-373f-40a2-a747-21b58f73a2dc",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "그럼 산화 구리로 검 모양을 만들어",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:52:46.551420+09:00",
+      "read": false
+    },
+    {
+      "id": "7bff0f47-505a-4044-828b-02860490b50f",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T00:59:32.515570+09:00",
+      "read": false
+    },
+    {
+      "id": "a4d7c6d6-ec09-432e-a8c1-a89cdd940063",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "?",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:00:43.573531+09:00",
+      "read": false
+    },
+    {
+      "id": "1b390471-ed15-4254-a03f-3b4ed15d0c64",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:00:51.731945+09:00",
+      "read": false
+    },
+    {
+      "id": "96580894-db5a-4c33-91e8-e47d0d3430b0",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:05:26.110635+09:00",
+      "read": false
+    },
+    {
+      "id": "d4ddd00d-3e1e-4eca-956f-133204ad6a26",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "?",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:07:13.553312+09:00",
+      "read": false
+    },
+    {
+      "id": "9952066e-f42d-4aec-8b9d-e86ecba5ee87",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "기믹 뭘까",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:07:37.703042+09:00",
+      "read": false
+    },
+    {
+      "id": "62a640a1-d523-42f6-b55d-7313925a016f",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "녹슨검이 가장 궁금해",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:09:05.751784+09:00",
+      "read": false
+    },
+    {
+      "id": "2089e623-6b3e-47f2-a934-3aaafcdaeafd",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "아",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:09:39.069845+09:00",
+      "read": false
+    },
+    {
+      "id": "b1311f70-f294-4110-9635-b89f85344595",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "포 알못이라 몰랐네",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:09:49.622413+09:00",
+      "read": false
+    },
+    {
+      "id": "20f579c1-6aed-4d1c-9647-0cc45c9725cd",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "ㅊㅊㅊㅊㅊㅊㅊ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:10:44.352623+09:00",
+      "read": false
+    },
+    {
+      "id": "eef45677-6a06-4f12-b1ae-d8399ad2c6c9",
+      "username": "ai코딩 >> 빅헤드",
+      "content": "드디어 잘 수 있다",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMDZfMjE5/MDAxNzAxODU3MDI5MjIw.Cr73EE3rkf6uy4ylrHYj2WG248emXfjCmK_GjYW8hBMg.RAVGhApUOnsLcxQ2g0EqW8uaQeaKrj5siQmK4HYB0-kg.JPEG/%ED%94%84%EB%A1%9C%ED%95%84_%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg",
+      "timestamp": "2026-07-01T01:10:54.210291+09:00",
+      "read": false
+    },
+    {
+      "id": "ade7eb6d-11bd-4b8b-8bc6-c48faf47dad8",
+      "username": "파크상 >> 빅헤드",
+      "content": "할게많네",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
+      "timestamp": "2026-07-01T03:02:18.033713+09:00",
+      "read": false
+    },
+    {
+      "id": "b766f9af-1511-4c69-8276-28e659ca88ab",
+      "username": "파크상 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
+      "timestamp": "2026-07-01T03:02:56.691426+09:00",
+      "read": false
+    },
+    {
+      "id": "c62430a1-9809-454b-a578-1eda4b393e2d",
+      "username": "파크상 >> 빅헤드",
+      "content": "ㅋㅋㅋㅋㅋㅋ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
+      "timestamp": "2026-07-01T03:08:36.020912+09:00",
+      "read": false
+    },
+    {
+      "id": "5802f312-62f0-4ff1-b4df-4b95fb4b1807",
+      "username": "파크상 >> 빅헤드",
+      "content": "칰빅을 뽑는 세계선",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
+      "timestamp": "2026-07-01T03:19:26.091204+09:00",
+      "read": false
+    },
+    {
+      "id": "7f0d968f-d766-4265-86f8-6c6d37e2a9b4",
+      "username": "파크상 >> 빅헤드",
+      "content": "봉누도 봉월드 봉스트 할꺼많네",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
+      "timestamp": "2026-07-01T03:30:21.952413+09:00",
+      "read": false
+    },
+    {
+      "id": "844045a6-46d6-4aa8-b40d-e0d92e7e51a2",
+      "username": "파크상 >> 빅헤드",
+      "content": "헬기도주고",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
+      "timestamp": "2026-07-01T03:31:38.131730+09:00",
+      "read": false
+    },
+    {
+      "id": "e225bc94-8a94-4afe-b79d-6f0f838ff6ed",
+      "username": "파크상 >> 빅헤드",
+      "content": "인기게임이라 초대받은자만 가능",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
+      "timestamp": "2026-07-01T04:11:45.373952+09:00",
+      "read": false
+    },
+    {
+      "id": "213e7be5-01c4-4717-9d76-80940a142950",
+      "username": "파크상 >> 빅헤드",
+      "content": "저거 재밌어보이던데 안열렸던데",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyNTA0MTBfNDAg/MDAxNzQ0MjQxMzY2NDA3.d-jxOnc5AmFT8dq5jGS0A_WjK6vOs1OziApMsdvbZq8g.Ne_GO7mb-jijgtErp_occWWJqzFjAl8IOm86N4z-oYgg.PNG/10%EB%8C%80%ED%94%84%EC%82%AC.png",
+      "timestamp": "2026-07-01T04:13:00.454912+09:00",
+      "read": false
+    },
+    {
+      "id": "ac55b754-ddde-4d0b-850b-623be313eb54",
+      "username": "빅헤드",
+      "content": "",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T04:58:07.499041+09:00",
+      "read": false,
+      "embeds": [
+        {
+          "color": 14522692,
+          "author": {
+            "name": "빅헤드",
+            "url": "https://chzzk.naver.com/ca1850b2eceb7f86146695fd9bb9cefc",
+            "icon_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif"
+          },
+          "title": "빅헤드 방송 종료\n",
+          "footer": {
+            "text": "방종 시간",
+            "inline": true,
+            "icon_url": "https://play-lh.googleusercontent.com/wvo3IB5dTJHyjpIHvkdzpgbFnG3LoVsqKdQ7W3IoRm-EVzISMz9tTaIYoRdZm1phL_8=w240-h480-rw"
+          },
+          "timestamp": "2026-06-30T19:58:05.000000Z"
+        }
+      ]
+    },
+    {
+      "id": "5b74513d-8c92-40f4-83ee-fd6d56d52e58",
+      "username": "빅헤드 >> 남봉",
+      "content": "1픽 빅헤드 추천",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T06:57:28.737131+09:00",
+      "read": false
+    },
+    {
+      "id": "a10a334c-eb5d-47b7-8c7a-4dc17f847851",
+      "username": "빅헤드 >> 남봉",
+      "content": "2픽 고수달 3픽 유봄냥 4픽 줴줴이야 ㄱ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T06:57:45.034037+09:00",
+      "read": false
+    },
+    {
+      "id": "08ee03e8-aaf5-481d-8fbe-68765b8fa034",
+      "username": "빅헤드 >> 남봉",
+      "content": "캐리가능",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T06:58:09.544779+09:00",
+      "read": false
+    },
+    {
+      "id": "a5131189-6bc2-426f-bc06-c7427d717783",
+      "username": "빅헤드 >> 남봉",
+      "content": "내가 누구? 브리치 원챔",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T06:58:39.094879+09:00",
+      "read": false
+    },
+    {
+      "id": "449c128a-a3c1-42e5-a271-ffedbee62906",
+      "username": "빅헤드 >> 남봉",
+      "content": "남봉이 무조건 2순위 갈것같은데",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T06:58:45.213850+09:00",
+      "read": false
+    },
+    {
+      "id": "1b6107b9-1146-4bd8-ac8a-d8f3784fe601",
+      "username": "빅헤드 >> 남봉",
+      "content": "인기많아서",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T06:58:48.616187+09:00",
+      "read": false
+    },
+    {
+      "id": "9c4b8e1e-d40c-425c-9d7a-9b7ba1ae84c1",
+      "username": "빅헤드 >> 남봉",
+      "content": "1순위니가 뽑는게 2순위지",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T06:59:05.954576+09:00",
+      "read": false
+    },
+    {
+      "id": "7c7a8ff2-a500-4202-8e2f-6b69278887bc",
+      "username": "빅헤드 >> 남봉",
+      "content": "두번쨰로 뽑는사람이 불리해",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T06:59:17.516984+09:00",
+      "read": false
+    },
+    {
+      "id": "3e11ff39-cd24-4d87-9167-731870307761",
+      "username": "빅헤드 >> 남봉",
+      "content": "이런거 안해도 된다",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:00:11.914215+09:00",
+      "read": false
+    },
+    {
+      "id": "e5efd4af-31cd-4acc-b468-30e516e0271f",
+      "username": "빅헤드 >> 남봉",
+      "content": "내가 루키티어 위치 다 외워서 루키만 죽이러 갈게",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:00:19.394748+09:00",
+      "read": false
+    },
+    {
+      "id": "4d5e2a2d-91d7-433d-a5c9-696da213283b",
+      "username": "빅헤드 >> 남봉",
+      "content": "미드 그지같네",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:00:43.874142+09:00",
+      "read": false
+    },
+    {
+      "id": "871de5b0-bb09-47ae-858b-7fa65bcc9ad3",
+      "username": "빅헤드 >> 남봉",
+      "content": "사실 맞아",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:01:05.636491+09:00",
+      "read": false
+    },
+    {
+      "id": "40d9ac1f-f97a-4e34-847b-3a16e9ce7090",
+      "username": "빅헤드 >> 남봉",
+      "content": "이번에도 숨어서 베이팅할거야",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:01:08.353932+09:00",
+      "read": false
+    },
+    {
+      "id": "da3ca649-ae1d-48c0-be30-71561787f976",
+      "username": "빅헤드 >> 남봉",
+      "content": "내가 무슨 소리를 하던",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:01:14.134569+09:00",
+      "read": false
+    },
+    {
+      "id": "d309eda5-3b96-4eeb-8cc1-87511fbc7d91",
+      "username": "빅헤드 >> 남봉",
+      "content": "메인티어 유찰급은 나야",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:01:17.873881+09:00",
+      "read": false
+    },
+    {
+      "id": "ecb74cff-1afc-434b-92d0-183b2df11c9e",
+      "username": "빅헤드 >> 남봉",
+      "content": "니은치 -> 초월자",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:01:49.834531+09:00",
+      "read": false
+    },
+    {
+      "id": "6012f6cf-e373-4630-aca5-9ae43ee42fed",
+      "username": "빅헤드 >> 남봉",
+      "content": "빅헤드 -> 플딱이",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:01:52.214079+09:00",
+      "read": false
+    },
+    {
+      "id": "3b89bbdf-2abd-453c-8da2-263c2411dc24",
+      "username": "빅헤드 >> 남봉",
+      "content": "치킨쿤 -> 그래도 얘는 내가 이김",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:02:01.394185+09:00",
+      "read": false
+    },
+    {
+      "id": "7d6b5b74-0c97-4b28-b74e-04a56d33e91f",
+      "username": "빅헤드 >> 남봉",
+      "content": "아",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:02:46.613659+09:00",
+      "read": false
+    },
+    {
+      "id": "5d5d364c-020e-42e4-b5f3-d08017280d69",
+      "username": "빅헤드 >> 남봉",
+      "content": "빅헤드 보해 아야",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:02:51.034480+09:00",
+      "read": false
+    },
+    {
+      "id": "eba8f09f-5356-418d-b089-08a074cdcf66",
+      "username": "빅헤드 >> 남봉",
+      "content": "실프까지 4엔트리 ㄱㄱ",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:02:55.794109+09:00",
+      "read": false
+    },
+    {
+      "id": "f8c9d039-20f3-4324-9eaa-526ab2894ce8",
+      "username": "빅헤드 >> 남봉",
+      "content": "내가 레이즈 보해가 네온 실프가 제트",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:03:04.294141+09:00",
+      "read": false
+    },
+    {
+      "id": "028ef5d6-6adf-4ba3-bccb-7bc8023a6317",
+      "username": "빅헤드 >> 남봉",
+      "content": "데드락?",
+      "avatar_url": "https://nng-phinf.pstatic.net/MjAyMzEyMTlfMzYg/MDAxNzAyOTcwODY1OTUy.1hHkqzH-zyEhyW2EJNfj1q6r7XTDeQNNqL_owQQ6AFwg.mCjDaHbdF0jjfhB2PvFuFJLxL9jQ-PV0oSLLDRXoGLUg.GIF/popHEAD.gif",
+      "timestamp": "2026-07-01T07:12:29.715087+09:00",
+      "read": false
     }
   ],
-  "last_save_time": "2026-06-30T23:00:03.369920",
-  "notification_count": 543
+  "last_save_time": "2026-07-01T09:00:00.189886",
+  "notification_count": 572
 }
