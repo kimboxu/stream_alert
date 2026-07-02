@@ -158,7 +158,7 @@ class base_live_message:
 
             # 스트림 데이터 얻기
             stream_data = self._get_stream_data(state_data)
-            change_state = self._update_stream_info(stream_data, state_data)
+            self._update_stream_info(stream_data, state_data)
             await self.save_profile_image()
 
             # 온라인 상태일 때 상태 정보 업데이트
@@ -171,9 +171,9 @@ class base_live_message:
                 # self.get_init_last_title()
 
             # 온라인/오프라인 상태 처리
-            if self._should_process_online_status(change_state):
+            if self._should_process_online_status():
                 await self._handle_online_status(state_data)
-            elif self._should_process_offline_status(change_state):
+            elif self._should_process_offline_status():
                 await self._handle_offline_status(state_data)
 
         except Exception as e:
@@ -354,10 +354,10 @@ class base_live_message:
     def _update_stream_info(self, stream_data, state_data):
         raise NotImplementedError
 
-    def _should_process_online_status(self, change_state):
+    def _should_process_online_status(self):
         raise NotImplementedError
 
-    def _should_process_offline_status(self, change_state):
+    def _should_process_offline_status(self):
         raise NotImplementedError
 
     # 온라인 상태 처리 (뱅온 또는 방제 변경)
@@ -583,19 +583,20 @@ class chzzk_live_message(base_live_message):
             self.getStarted_at("closeDate")
             self.data.live, self.data.title, self.data.profile_image = stream_data
             if openDate: self.data.state_update_time["is_firstConnect"] = True
-            return "openDate" if openDate else "closeDate"
+
+        self.if_change_state = "openDate" if openDate else "closeDate" if closeDate else None
 
     # 치지직 온라인 상태 처리 여부 확인(온라인 상태인지 확인)
-    def _should_process_online_status(self, change_state):
+    def _should_process_online_status(self):
         return (
             self.checkStateTransition("OPEN") or (self.ifChangeTitle())
-        ) and if_after_time(self.data.state_update_time["myCheckcloseDate"], sec=15) or change_state == "openDate"
+        ) and if_after_time(self.data.state_update_time["myCheckcloseDate"], sec=15) or self.if_change_state == "openDate"
 
     # 치지직 오프라인 상태 처리 여부 확인(오프라인인지 확인)
-    def _should_process_offline_status(self, change_state):
+    def _should_process_offline_status(self):
         return self.checkStateTransition("CLOSE") and if_after_time(
             self.data.state_update_time["myCheckopenDate"], sec=15
-        ) or change_state == "closeDate"
+        ) or self.if_change_state == "closeDate"
 
     # 치지직 오프라인 상태 처리
     async def _handle_offline_status(self, state_data):
@@ -645,7 +646,7 @@ class chzzk_live_message(base_live_message):
 
     # 상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self) -> str:
-        return "뱅온!" if (self.checkStateTransition("OPEN")) else "방제 변경"
+        return "뱅온!" if (self.checkStateTransition("OPEN")) or self.if_change_state == "openDate" else "방제 변경"
 
     # get author json
     def get_author(self):
@@ -913,17 +914,16 @@ class afreeca_live_message(base_live_message):
                 return datetime.fromisoformat(
                     state_data["station"]["broad_start"]
                 ) > datetime.fromisoformat(self.data.state_update_time[status])
-        change_state = None 
+        self.if_change_state = None 
         self.update_broad_no(state_data)
         if is_recent_stream("openDate"):
             self.data.temp_start_at["openDate"] = state_data["station"]["broad_start"]
             self.getStarted_at("openDate")
-            change_state = "openDate"
+            self.if_change_state = "openDate"
         self.data.live, self.data.title, self.data.profile_image = stream_data
         self.IDList[self.platform].loc[
             self.channel_id, "profile_image"
         ] = self.data.profile_image
-        return change_state
 
     # 방송 번호 업데이트(주소 링크에 사용될 번호)
     def update_broad_no(self, state_data):
@@ -940,16 +940,16 @@ class afreeca_live_message(base_live_message):
             ])
 
     # 아프리카 온라인 상태 처리 여부 확인
-    def _should_process_online_status(self, change_state):
+    def _should_process_online_status(self):
         return (
             self.turnOnline() or (self.data.title and self.ifChangeTitle())
-        ) and if_after_time(self.data.state_update_time["myCheckcloseDate"], sec=15) or change_state == "openDate"
+        ) and if_after_time(self.data.state_update_time["myCheckcloseDate"], sec=15) or self.if_change_state == "openDate"
 
     # 아프리카 오프라인 상태 처리 여부 확인
-    def _should_process_offline_status(self, change_state):
+    def _should_process_offline_status(self):
         return self.turnOffline() and if_after_time(
             self.data.state_update_time["myCheckopenDate"], sec=15
-        ) or change_state == "closeDate"
+        ) or self.if_change_state == "closeDate"
 
     # 아프리카 오프라인 상태 처리
     async def _handle_offline_status(self, state_data):
@@ -990,7 +990,7 @@ class afreeca_live_message(base_live_message):
 
     # 상태 변경 메시지 결정 (뱅온 또는 방제 변경)
     def getMessage(self):
-        return "뱅온!" if (self.turnOnline()) else "방제 변경"
+        return "뱅온!" if (self.turnOnline()) or self.if_change_state == "openDate" else "방제 변경"
 
     # get author json
     def get_author(self):
