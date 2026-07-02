@@ -1060,7 +1060,7 @@ class afreeca_live_message(base_live_message):
 
     # 아프리카 이미지 URL 가져오기
     def getImageURL(self, state_data="") -> str:
-        link = f"https://liveimg.afreecatv.com/m/{self.title_data.loc[self.channel_id, 'chatChannelId']}"
+        link = f"http://liveimg.afreecatv.com/m/{self.title_data.loc[self.channel_id, 'chatChannelId']}"
         self.data.thumbnail_url = link
         return self.data.thumbnail_url
 

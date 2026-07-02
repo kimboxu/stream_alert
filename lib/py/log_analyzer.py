@@ -2074,7 +2074,7 @@ class SessionBasedFunScoreAnalyzer:
                     else:
                         final_text = text
 
-                    highlight_lines.append(f"[{after_open}]- {final_text}")
+                    highlight_lines.append(f"[ {after_open}] - {final_text}")
 
                 except Exception as comment_error:
                     print(f"{datetime.now()} 댓글 처리 중 오류: {comment_error}")
@@ -3054,7 +3054,7 @@ async def main():
             use_ai = args.use_ai
 
         except:
-            channel_name, date, use_ai = "빅헤드", "2026-06-28", True
+            channel_name, date, use_ai = "빅헤드", "2026-06-30", True
 
         # AI 사용 가능 여부 확인
         if use_ai and not AI_AVAILABLE:
