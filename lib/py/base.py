@@ -265,6 +265,7 @@ async def update_flag(supabase, field, value):
             match={"idx": 0},
             data={field: value},
         )
+
 def restore_highlights_dict_cache(title_data: pd.DataFrame) -> pd.DataFrame:
     from chat_analyzer import StreamHighlight
     """DB에서 불러온 highlights_dict_cache의 dict들을 StreamHighlight 객체로 복원"""

@@ -42,8 +42,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     def __init__(self, init_var: initVar, performance_manager: PerformanceManager, channel_id):
         self.init = init_var
         self.performance_manager = performance_manager
-        channel_name = init_var.IDList["chzzk"].loc[channel_id, 'channelName']
-        self.title_data = init_var.titleData["chzzk"]
+        self.platform = "chzzk"
+        channel_name = init_var.IDList[self.platform].loc[channel_id, 'channelName']
+        self.title_data = init_var.titleData[self.platform]
         self.state_update_time = self.title_data.loc[channel_id, 'state_update_time']
         self.data = ChzzkChatData(channel_id=channel_id, channel_name = channel_name)
         self.DiscordWebhookSender_class = DiscordWebhookSender()
@@ -111,7 +112,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             
             if self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect']:
                 self.title_data.loc[self.data.channel_id, 'state_update_time']['is_firstConnect'] = False
-                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, 'chzzk', self.data.channel_id, updated_keys={"state_update_time"}))
+                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.data.channel_id, updated_keys={"state_update_time"}))
 
             message_queue = asyncio.Queue()  # 메시지 큐 생성
             if self.check_live_state_close():
@@ -261,8 +262,8 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     except Exception: pass
                 self.start_program = True
                 try:
-                    if if_after_time(self.init.platform_chat_server_last_close_time["chzzk"], sec = 600):
-                        self.init.platform_chat_server_last_close_time["chzzk"] = datetime.now().isoformat()
+                    if if_after_time(self.init.platform_chat_server_last_close_time[self.platform], sec = 600):
+                        self.init.platform_chat_server_last_close_time[self.platform] = datetime.now().isoformat()
                         asyncio.create_task(log_error(f"chhzk server error {self.data.channel_id}.{str(e)}"))
                 except Exception as e:
                     asyncio.create_task(log_error(f"test chhzk server error {self.data.channel_id}.{str(e)}"))
@@ -435,7 +436,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 #     print(f"{datetime.now()} {message[0]}")
 
                 # chzzk_chatFilter에 없는 사람 채팅은 제거
-                chzzk_filter = self.init.chatFilter["chzzk"]
+                chzzk_filter = self.init.chatFilter[self.platform]
                 if not self.init.DO_TEST and nickname not in chzzk_filter["channelName"].values:
                     continue
 
@@ -444,10 +445,10 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
                 user_id = self.get_uid(chat_data)
 
-                if user_id not in self.init.chatFilter["chzzk"].index:
+                if user_id not in self.init.chatFilter[self.platform].index:
                     continue
 
-                await change_nickname(self.init, user_id, nickname, "chzzk")
+                await change_nickname(self.init, user_id, nickname, self.platform)
 
                 # self.data.chzzk_chat_msg_List.append([chat_data, chat_type])
                 # 채팅 전송 태스크 생성
@@ -678,7 +679,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         def chzzk_getLink(uid):
             return f'https://api.chzzk.naver.com/service/v1/channels/{uid}'
         
-        data = await get_message(self.performance_manager, "chzzk", chzzk_getLink(uid))
+        data = await get_message(self.performance_manager, self.platform, chzzk_getLink(uid))
         profile_image = data["content"]["channelImageUrl"]
 
         # 유효한 프로필 이미지 확인
@@ -694,7 +695,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
     async def get_check_channel_id(self) -> int:
         try:
             # 채널 코드로부터 채팅 채널 ID 가져오기
-            self.data.cid = chzzk_api.fetch_chatChannelId(self.init.IDList["chzzk"].loc[self.data.channel_id, "uid"], getChzzkCookie())
+            self.data.cid = chzzk_api.fetch_chatChannelId(self.init.IDList[self.platform].loc[self.data.channel_id, "uid"], getChzzkCookie())
             return True
             
         except Exception as e: 
@@ -1001,7 +1002,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if (nickname == "ai코딩" and chat[0] == "[" and chat[-1] == "]"):
             return True
         
-        if self.data.channel_id not in ["bighead033", "kimboxu"]:
+        if self.data.channel_id not in list(self.init.chat_commands[self.platform]["channelID"]):
             return
         
         special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제", "!추가", "!수정"]
@@ -1022,15 +1023,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 return
             
             await self._send(f"{save_text}(으)로 변경")
-            self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"][command] = save_text
-            await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, "chzzk")
+            self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"][command] = save_text
+            await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform)
             return
         
         if len(sp_chat) >= 2 and command in ["!수정"] and sp_chat[1] == "!멤버":
             await self.fix_command(chat_command, sp_chat)
             return
         
-        chat_command = self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"]
+        chat_command = self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]
         # 메시지 보네기
         if len(sp_chat) == 1 and command in list(chat_command.keys()) + special_command_list:
             if not self.is_sendMSG_time(command, time):
@@ -1147,36 +1148,36 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         await self._send("카테고리 : " + category, command, time)
 
     async def add_command(self, sp_chat):
-        if sp_chat[1] not in self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"]:
+        if sp_chat[1] not in self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]:
             if len(sp_chat) == 2:
                 save_text = " "
             else:
                 save_text = " ".join(sp_chat[2:])
 
-            self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
-            await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, "chzzk")
+            self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
+            await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform)
             await self._send(f"명령어 {sp_chat[1]}(이)가 추가 되었습니다.")
         else:
             await self._send(f"{sp_chat[1]} 명령어는 이미 있습니다.")
 
     async def fix_command(self, sp_chat):
-        if sp_chat[1] in self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"]:
+        if sp_chat[1] in self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]:
             if len(sp_chat) == 2:
                 save_text = " "
             else:
                 save_text = " ".join(sp_chat[2:])
         
-            self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
+            self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
             await self._send(f"{save_text}(으)로 변경")
-            await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, "chzzk")
+            await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform)
         else:
             await self._send(f"{sp_chat[1]} 명령어는 없습니다.")
 
     async def del_command(self, chat_command):
-        if chat_command in self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"]:
-            del self.init.chat_commands["chzzk"].loc[self.data.channel_id, "chat_command"][chat_command]
+        if chat_command in self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]:
+            del self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"][chat_command]
             await self._send(f"{chat_command}(이)가 삭제되었습니다.")
-            await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, "chzzk")
+            await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform)
         else:
             await self._send(f"{chat_command} 명령어는 없습니다.")
 
@@ -1234,7 +1235,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         
     async def check_change_chatChannel(self, connect_time):
         if not if_after_time(self.state_update_time["openDate"], sec = 60) and if_after_time(connect_time, sec = 60):
-            cid = chzzk_api.fetch_chatChannelId(self.init.IDList["chzzk"].loc[self.data.channel_id, "uid"], getChzzkCookie())
+            cid = chzzk_api.fetch_chatChannelId(self.init.IDList[self.platform].loc[self.data.channel_id, "uid"], getChzzkCookie())
             if await self.is_different_chatChannelId(cid):
                 print(f"{datetime.now()} check {self.data.channel_id},{self.data.cid},cid check_live_state_close")
                 # asyncio.create_task(change_field_state("chat_json", self.init.chat_json, self.data.channel_id))
