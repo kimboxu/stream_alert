@@ -161,7 +161,6 @@ class base_live_message:
             stream_data = self._get_stream_data(state_data)
             self._update_stream_info(stream_data, state_data)
             await self.save_profile_image()
-
             # 온라인 상태일 때 상태 정보 업데이트
             if self.data.live in ["OPEN", 1]:
                 # self.get_channel_url()
@@ -183,7 +182,7 @@ class base_live_message:
             )
             asyncio.create_task(log_error(error_msg))
             self.init.is_state_control["all_date"] = True
-            await update_flag(self.init.supabase, "user_date", self.init.is_state_control)
+            await update_flag(self.init.supabase, "is_state_control", self.init.is_state_control)
 
     # 방송 제목이 변경되었는지 확인하고 필요시 업데이트
     def _update_title_if_needed(self):
@@ -984,7 +983,7 @@ class afreeca_live_message(base_live_message):
 
     # 아프리카 시청자 수 가져오기
     def getViewer_count(self, state_data):
-        view_count = state_data["broad"]["current_sum_viewer"]
+        view_count = (state_data.get("broad") or {}).get("current_sum_viewer", 0)
         self.data.view_count = view_count
 
     # 아프리카 카테고리 가져오기
