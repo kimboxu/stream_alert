@@ -324,7 +324,7 @@ class base_live_message:
     # 방송 시작 시간 업데이트
     def onLineTime(self, message):
         if message == "뱅온!":
-            if self.channel_id in list(self.init.chat_commands[self.platform]["channelID"]) and if_after_time(self.data.state_update_time["openDate"], sec=60*60*6): # 6시간 이상 지난 경우
+            if self.platform in list(self.init.chat_commands) and self.channel_id in list(self.init.chat_commands[self.platform]["channelID"]) and if_after_time(self.data.state_update_time["openDate"], sec=60*60*6): # 6시간 이상 지난 경우
                 self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]["!멤버"] = "없음"
                 asyncio.create_task(save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform))
                 
