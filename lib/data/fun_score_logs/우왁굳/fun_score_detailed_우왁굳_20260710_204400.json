@@ -1,0 +1,286 @@
+{
+  "channel_id": "woowakgood",
+  "channel_name": "우왁굳",
+  "save_timestamp": "2026-07-10T20:44:00.129287",
+  "total_logs": 5,
+  "logs": [
+    {
+      "timestamp": "2026-07-10T20:43:35.980019",
+      "fun_score": 5.274450468041478,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.5023226421467277,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.28284271247462,
+        "viewer_trend_score": 0,
+        "final_score": 5.274450468041478,
+        "baseline_chat_count": 255.024724218622,
+        "baseline_viewer_count": 7488.204266606434,
+        "baseline_threshold": 14.638989370532594,
+        "sequence_count": 1,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4663306881402738,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 1,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "00:00:11",
+      "comment_after_openDate": "00:00:11",
+      "chat_context": [
+        "심딱구: 쟈맛갣서",
+        "FLINT_: /왁하//왁하//왁하/"
+      ]
+    },
+    {
+      "timestamp": "2026-07-10T20:43:41.048446",
+      "fun_score": 4.590787269890294,
+      "test_fun_score": 0.07008363381165106,
+      "score_components": {
+        "chat_spike_score": 0.5146392925265795,
+        "reaction_score": 0.07008363381165106,
+        "test_reaction_score": 0.07008363381165106,
+        "diversity_score": 43.38174498109837,
+        "viewer_trend_score": 0,
+        "final_score": 4.590787269890294,
+        "baseline_chat_count": 250.18689149156194,
+        "baseline_viewer_count": 7345.048921028919,
+        "baseline_threshold": 14.459939386716963,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.7826674899890893,
+        "test_score_difference": 0.003013607718355432,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 1,
+        "fun_keywords": {
+          "greeting": 2.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 2.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "00:00:17",
+      "comment_after_openDate": "00:00:17",
+      "chat_context": [
+        "심딱구: 쟈맛갣서",
+        "FLINT_: /왁하//왁하//왁하/",
+        "댖: 왁하",
+        "곰_치: /왁하//왁하//왁하//왁하//왁하//왁하/",
+        "일단가자: 와카",
+        "누따왁: ㅎㅇ",
+        "심딱구: 재밌겄어~"
+      ]
+    },
+    {
+      "timestamp": "2026-07-10T20:43:46.055607",
+      "fun_score": 4.327556676241432,
+      "test_fun_score": 0.07275974486312203,
+      "score_components": {
+        "chat_spike_score": 0.5234647731456874,
+        "reaction_score": 0.07275974486312203,
+        "test_reaction_score": 0.07275974486312203,
+        "diversity_score": 40.701696048669355,
+        "viewer_trend_score": 0,
+        "final_score": 4.327556676241432,
+        "baseline_chat_count": 245.53715812624327,
+        "baseline_viewer_count": 7204.630705658846,
+        "baseline_threshold": 14.271241198243237,
+        "sequence_count": -1,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.5194368963402276,
+        "test_score_difference": 0.005689718769826407,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 107,
+        "fun_keywords": {
+          "greeting": 3.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "greeting": 3.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "00:00:22",
+      "comment_after_openDate": "00:00:22",
+      "chat_context": [
+        "심딱구: 쟈맛갣서",
+        "FLINT_: /왁하//왁하//왁하/",
+        "댖: 왁하",
+        "곰_치: /왁하//왁하//왁하//왁하//왁하//왁하/",
+        "일단가자: 와카",
+        "누따왁: ㅎㅇ",
+        "심딱구: 재밌겄어~",
+        "누따왁: 와카와카~",
+        "브리도: 형 안녕",
+        "만두두유: /왁하//왁하//왁하/"
+      ]
+    },
+    {
+      "timestamp": "2026-07-10T20:43:51.062312",
+      "fun_score": 4.090348615461704,
+      "test_fun_score": 0.08150452417002862,
+      "score_components": {
+        "chat_spike_score": 0.5506966448478195,
+        "reaction_score": 0.08218335024651978,
+        "test_reaction_score": 0.08150452417002862,
+        "diversity_score": 38.178801202062296,
+        "viewer_trend_score": 0,
+        "final_score": 4.090348615461704,
+        "baseline_chat_count": 241.0336876628695,
+        "baseline_viewer_count": 7068.924006566648,
+        "baseline_threshold": 14.081117950182563,
+        "sequence_count": -2,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.2822288355604998,
+        "test_score_difference": 0.014434498076732999,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 107,
+        "fun_keywords": {
+          "greeting": 7.0,
+          "excitement": 5.0
+        },
+        "test_keyword_counter": {
+          "greeting": 6.0,
+          "excitement": 5.0
+        }
+      },
+      "after_openDate": "00:00:27",
+      "comment_after_openDate": "00:00:27",
+      "chat_context": [
+        "심딱구: 쟈맛갣서",
+        "FLINT_: /왁하//왁하//왁하/",
+        "댖: 왁하",
+        "곰_치: /왁하//왁하//왁하//왁하//왁하//왁하/",
+        "일단가자: 와카",
+        "누따왁: ㅎㅇ",
+        "심딱구: 재밌겄어~",
+        "누따왁: 와카와카~",
+        "브리도: 형 안녕",
+        "만두두유: /왁하//왁하//왁하/",
+        "ω왁복복ω: 와카",
+        "랴데: /왁하//왁하//왁하//왁하//왁하//왁하//왁하//왁하/",
+        "SnowGom: ㅎㅇㅎㅇ",
+        "와구띠: 왁하",
+        "누따왁: 신스멀게동쓰",
+        "ω왁복복ω: 와카와카",
+        "토큰큰: 와카",
+        "랄랄라릴: 왜 19세?",
+        "랴데: /왁하//왁하//왁하//왁하//왁하/",
+        "GOOD두두: 왁하"
+      ]
+    },
+    {
+      "timestamp": "2026-07-10T20:43:56.068931",
+      "fun_score": 3.9646134354328595,
+      "test_fun_score": 0.11367675642705011,
+      "score_components": {
+        "chat_spike_score": 0.6260413995115994,
+        "reaction_score": 0.12182343592205445,
+        "test_reaction_score": 0.11367675642705011,
+        "diversity_score": 36.46347774876023,
+        "viewer_trend_score": 0,
+        "final_score": 3.9646134354328595,
+        "baseline_chat_count": 236.80752355475542,
+        "baseline_viewer_count": 6935.812019561094,
+        "baseline_threshold": 13.8900944405027,
+        "sequence_count": -3,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.13578131591344,
+        "test_score_difference": 0.04660673033375448,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 35,
+        "viewer_count": 107,
+        "fun_keywords": {
+          "greeting": 7.0,
+          "excitement": 13.6,
+          "laugh": 3.4000000000000004,
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 6.0,
+          "excitement": 12.0,
+          "laugh": 3.0,
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "00:00:32",
+      "comment_after_openDate": "00:00:32",
+      "chat_context": [
+        "누따왁: ㅎㅇ",
+        "심딱구: 재밌겄어~",
+        "누따왁: 와카와카~",
+        "브리도: 형 안녕",
+        "만두두유: /왁하//왁하//왁하/",
+        "ω왁복복ω: 와카",
+        "랴데: /왁하//왁하//왁하//왁하//왁하//왁하//왁하//왁하/",
+        "SnowGom: ㅎㅇㅎㅇ",
+        "와구띠: 왁하",
+        "누따왁: 신스멀게동쓰",
+        "ω왁복복ω: 와카와카",
+        "토큰큰: 와카",
+        "랄랄라릴: 왜 19세?",
+        "랴데: /왁하//왁하//왁하//왁하//왁하/",
+        "GOOD두두: 왁하",
+        "댖: 갑자기",
+        "아쭐쨘: 왁자기~",
+        "말라차떼: 와카",
+        "누따왁: 우효",
+        "호냥2: 와카아아아",
+        "돌돌잔디: 19세 ㄷㄷ",
+        "럭키가이님: 와카",
+        "디카페인블록: 19 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "안전모도둑: 와카와카ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+        "pingjangg: 19금은 뭐여",
+        "누따왁: ㅋㅋㅋㅋㅋ",
+        "랴데: 와카와카",
+        "형딱굳: 와카",
+        "돌돌잔디: 애들은 가라",
+        "벌새.: 19금 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}

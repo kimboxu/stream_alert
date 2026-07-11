@@ -1,0 +1,3232 @@
+{
+  "channel_id": "madaomm",
+  "channel_name": "마다옴_",
+  "save_timestamp": "2026-07-08T22:51:20.722321",
+  "total_logs": 66,
+  "logs": [
+    {
+      "timestamp": "2026-07-08T22:37:07.723279",
+      "fun_score": 43.42707734097758,
+      "test_fun_score": 1.0962462153111963,
+      "score_components": {
+        "chat_spike_score": 80.17317983492686,
+        "reaction_score": 1.0962462153111963,
+        "test_reaction_score": 1.0962462153111963,
+        "diversity_score": 40.20272550667138,
+        "viewer_trend_score": 20,
+        "final_score": 43.42707734097758,
+        "baseline_chat_count": 1.786307113901352,
+        "baseline_viewer_count": 239.70147097323394,
+        "baseline_threshold": 13.896571932213488,
+        "sequence_count": 5,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 36.232121535096404,
+        "test_score_difference": 1.0291761892179005,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 217,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "02:58:05",
+      "comment_after_openDate": "02:58:05",
+      "chat_context": [
+        "귤딩이다옴: 표정무야",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "옹동궁: 재미가 있었다",
+        "잼파카: ㅈㅁㄱ ㅇㅇㄸ",
+        "롯데이겨다옴: ㄱㅇㅇ"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:12.729518",
+      "fun_score": 50.835366970059226,
+      "test_fun_score": 0.9992980955065132,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.9992980955065132,
+        "test_reaction_score": 0.9992980955065132,
+        "diversity_score": 25.355775414072696,
+        "viewer_trend_score": 20,
+        "final_score": 50.835366970059226,
+        "baseline_chat_count": 1.847752921883558,
+        "baseline_viewer_count": 239.2674188482257,
+        "baseline_threshold": 14.461195195629058,
+        "sequence_count": 6,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 43.64041116417805,
+        "test_score_difference": 0.9322280694132176,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 217,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "02:58:10",
+      "comment_after_openDate": "02:58:05",
+      "chat_context": [
+        "귤딩이다옴: 표정무야",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "옹동궁: 재미가 있었다",
+        "잼파카: ㅈㅁㄱ ㅇㅇㄸ",
+        "롯데이겨다옴: ㄱㅇㅇ",
+        "귤딩이다옴: 아",
+        "귤딩이다옴: 약 먹었구나",
+        "롯데이겨다옴: 재미가 있어따"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:17.736918",
+      "fun_score": 50.79073234870784,
+      "test_fun_score": 0.85051602433524,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.85051602433524,
+        "test_reaction_score": 0.85051602433524,
+        "diversity_score": 25.355775414072696,
+        "viewer_trend_score": 20,
+        "final_score": 50.79073234870784,
+        "baseline_chat_count": 1.9653838860171442,
+        "baseline_viewer_count": 238.84166579984765,
+        "baseline_threshold": 15.156669359956163,
+        "sequence_count": 7,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.15992037184399,
+        "test_score_difference": 0.7834459982419444,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 217,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "02:58:15",
+      "comment_after_openDate": "02:58:15",
+      "chat_context": [
+        "귤딩이다옴: 표정무야",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "옹동궁: 재미가 있었다",
+        "잼파카: ㅈㅁㄱ ㅇㅇㄸ",
+        "롯데이겨다옴: ㄱㅇㅇ",
+        "귤딩이다옴: 아",
+        "귤딩이다옴: 약 먹었구나",
+        "롯데이겨다옴: 재미가 있어따"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:22.743610",
+      "fun_score": 49.257285137975046,
+      "test_fun_score": 0.7390253218925767,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.7390253218925767,
+        "test_reaction_score": 0.7390253218925767,
+        "diversity_score": 25.355775414072696,
+        "viewer_trend_score": 10,
+        "final_score": 49.257285137975046,
+        "baseline_chat_count": 2.0807657461164966,
+        "baseline_viewer_count": 238.42405314975457,
+        "baseline_threshold": 15.837992644301094,
+        "sequence_count": 8,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 40.6205925621194,
+        "test_score_difference": 0.6719552957992811,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 217,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "02:58:20",
+      "comment_after_openDate": "02:58:20",
+      "chat_context": [
+        "귤딩이다옴: 표정무야",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "옹동궁: 재미가 있었다",
+        "잼파카: ㅈㅁㄱ ㅇㅇㄸ",
+        "롯데이겨다옴: ㄱㅇㅇ",
+        "귤딩이다옴: 아",
+        "귤딩이다옴: 약 먹었구나",
+        "롯데이겨다옴: 재미가 있어따"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:27.751358",
+      "fun_score": 50.796147438438034,
+      "test_fun_score": 0.6531487443819617,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.6531487443819617,
+        "test_reaction_score": 0.6531487443819617,
+        "diversity_score": 26.002028151234423,
+        "viewer_trend_score": 20,
+        "final_score": 50.796147438438034,
+        "baseline_chat_count": 2.1939415050507494,
+        "baseline_viewer_count": 238.01442525353127,
+        "baseline_threshold": 16.47696951678014,
+        "sequence_count": 9,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.153520734829144,
+        "test_score_difference": 0.5860787182886661,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 216,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "02:58:25",
+      "comment_after_openDate": "02:58:25",
+      "chat_context": [
+        "귤딩이다옴: 표정무야",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "옹동궁: 재미가 있었다",
+        "잼파카: ㅈㅁㄱ ㅇㅇㄸ",
+        "롯데이겨다옴: ㄱㅇㅇ",
+        "귤딩이다옴: 아",
+        "귤딩이다옴: 약 먹었구나",
+        "롯데이겨다옴: 재미가 있어따",
+        "귤딩이다옴: 재밌었따~",
+        "부뚜막타타: 있었다~"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:32.758653",
+      "fun_score": 51.128920765688385,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 31.08799757860395,
+        "viewer_trend_score": 20,
+        "final_score": 51.128920765688385,
+        "baseline_chat_count": 2.3431933434741787,
+        "baseline_viewer_count": 237.59350944268374,
+        "baseline_threshold": 17.13315219864224,
+        "sequence_count": 10,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 42.480307071867955,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 216,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:58:30",
+      "comment_after_openDate": "02:58:05",
+      "chat_context": [
+        "귤딩이다옴: ㄱㅇㅇ",
+        "옹동궁: 재미가 있었다",
+        "잼파카: ㅈㅁㄱ ㅇㅇㄸ",
+        "롯데이겨다옴: ㄱㅇㅇ",
+        "귤딩이다옴: 아",
+        "귤딩이다옴: 약 먹었구나",
+        "롯데이겨다옴: 재미가 있어따",
+        "귤딩이다옴: 재밌었따~",
+        "부뚜막타타: 있었다~",
+        "바람이다옴: 재미가 있어버리고 말아버렷다"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:37.766632",
+      "fun_score": 27.648900474564297,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 47.01288087578799,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 34.72983072631708,
+        "viewer_trend_score": 20,
+        "final_score": 27.648900474564297,
+        "baseline_chat_count": 2.4895914867469524,
+        "baseline_viewer_count": 237.18064154213963,
+        "baseline_threshold": 17.783151293644163,
+        "sequence_count": 11,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.151608673859503,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 216,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:58:35",
+      "comment_after_openDate": "02:58:35",
+      "chat_context": [
+        "귤딩이다옴: 아",
+        "귤딩이다옴: 약 먹었구나",
+        "롯데이겨다옴: 재미가 있어따",
+        "귤딩이다옴: 재밌었따~",
+        "부뚜막타타: 있었다~",
+        "바람이다옴: 재미가 있어버리고 말아버렷다"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:42.773640",
+      "fun_score": 8.885138509267936,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 5.050592585272309,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.92250838067409,
+        "viewer_trend_score": 10,
+        "final_score": 8.885138509267936,
+        "baseline_chat_count": 2.556710497520351,
+        "baseline_viewer_count": 236.7756676758539,
+        "baseline_threshold": 17.971784417983358,
+        "sequence_count": 12,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 216,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:58:40",
+      "comment_after_openDate": "02:58:40",
+      "chat_context": [
+        "귤딩이다옴: 재밌었따~",
+        "부뚜막타타: 있었다~",
+        "바람이다옴: 재미가 있어버리고 말아버렷다"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:47.780955",
+      "fun_score": 8.868023585951986,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 5.012559422347976,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.92250838067409,
+        "viewer_trend_score": 10,
+        "final_score": 8.868023585951986,
+        "baseline_chat_count": 2.565186192807762,
+        "baseline_viewer_count": 236.37843690989155,
+        "baseline_threshold": 17.79804774820872,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 214,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:58:45",
+      "comment_after_openDate": "02:58:45",
+      "chat_context": [
+        "귤딩이다옴: 재밌었따~",
+        "부뚜막타타: 있었다~",
+        "바람이다옴: 재미가 있어버리고 말아버렷다"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:52.822525",
+      "fun_score": 8.851466256076126,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 4.975765355957173,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.92250838067409,
+        "viewer_trend_score": 10,
+        "final_score": 8.851466256076126,
+        "baseline_chat_count": 2.5734998328012777,
+        "baseline_viewer_count": 235.95056119617442,
+        "baseline_threshold": 17.62730568622637,
+        "sequence_count": -1,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 3,
+        "viewer_count": 214,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:58:50",
+      "comment_after_openDate": "02:58:50",
+      "chat_context": [
+        "귤딩이다옴: 재밌었따~",
+        "부뚜막타타: 있었다~",
+        "바람이다옴: 재미가 있어버리고 말아버렷다"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:37:57.829190",
+      "fun_score": 7.597327453343574,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.3073679390007213,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.3889087296526,
+        "viewer_trend_score": 10,
+        "final_score": 7.597327453343574,
+        "baseline_chat_count": 2.5816545159981175,
+        "baseline_viewer_count": 235.53086646610356,
+        "baseline_threshold": 17.4595116363219,
+        "sequence_count": -2,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 214,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:58:55",
+      "comment_after_openDate": "02:58:55",
+      "chat_context": [
+        "바람이다옴: 재미가 있어버리고 말아버렷다",
+        "귤딩이다옴: 왜그러지"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:02.836338",
+      "fun_score": 7.003224713179865,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0735637896708365,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.003224713179865,
+        "baseline_chat_count": 2.5705332816522333,
+        "baseline_viewer_count": 235.11919629927166,
+        "baseline_threshold": 17.270946674743353,
+        "sequence_count": -3,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 214,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:00",
+      "comment_after_openDate": "02:59:00",
+      "chat_context": [
+        "귤딩이다옴: 왜그러지"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:07.843910",
+      "fun_score": 7.007663881939831,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 1.0834286091374274,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 10,
+        "final_score": 7.007663881939831,
+        "baseline_chat_count": 2.5405046853070425,
+        "baseline_viewer_count": 234.71539726602958,
+        "baseline_threshold": 17.07462783083826,
+        "sequence_count": -4,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0044391687599665275,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 212,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:05",
+      "comment_after_openDate": "02:59:05",
+      "chat_context": [
+        "귤딩이다옴: 왜그러지"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:12.850791",
+      "fun_score": 5.111184763216199,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.4088726390585435,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.070710678118655,
+        "viewer_trend_score": 10,
+        "final_score": 5.111184763216199,
+        "baseline_chat_count": 2.511050235723972,
+        "baseline_viewer_count": 234.28107887030308,
+        "baseline_threshold": 16.88214748013532,
+        "sequence_count": -5,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 2,
+        "viewer_count": 212,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:10",
+      "comment_after_openDate": "02:59:10",
+      "chat_context": [
+        "귤딩이다옴: 왜그러지",
+        "귤딩이다옴: 네네"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:17.857173",
+      "fun_score": 14.366662499220581,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 23.797669544647476,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 21.37590196301227,
+        "viewer_trend_score": 10,
+        "final_score": 14.366662499220581,
+        "baseline_chat_count": 2.5012789552169297,
+        "baseline_viewer_count": 233.85506464230286,
+        "baseline_threshold": 16.657086672987823,
+        "sequence_count": -6,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 9.255477736004382,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 5,
+        "viewer_count": 212,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:15",
+      "comment_after_openDate": "02:59:15",
+      "chat_context": [
+        "귤딩이다옴: 왜그러지",
+        "귤딩이다옴: 네네",
+        "귤딩이다옴: 아아",
+        "귤딩이다옴: 네네",
+        "옹동궁: 예"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:22.863154",
+      "fun_score": 48.85628215420922,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 23.361611463812327,
+        "viewer_trend_score": 10,
+        "final_score": 48.85628215420922,
+        "baseline_chat_count": 2.549054501593182,
+        "baseline_viewer_count": 233.43719580634203,
+        "baseline_threshold": 16.613293762785393,
+        "sequence_count": -7,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 43.74509739099302,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 211,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:20",
+      "comment_after_openDate": "02:59:20",
+      "chat_context": [
+        "귤딩이다옴: 왜그러지",
+        "귤딩이다옴: 네네",
+        "귤딩이다옴: 아아",
+        "귤딩이다옴: 네네",
+        "옹동궁: 예",
+        "옹동궁: 푹 쉬어",
+        "갔다옴: ㅔㅔ",
+        "귤딩이다옴: 알겠어요",
+        "벤하_: 빨리 침대에 누워삐"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:28.347274",
+      "fun_score": 49.362048916253464,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 28.419279084254764,
+        "viewer_trend_score": 10,
+        "final_score": 49.362048916253464,
+        "baseline_chat_count": 2.6723965795227205,
+        "baseline_viewer_count": 233.00819662252476,
+        "baseline_threshold": 17.229779700829415,
+        "sequence_count": 0,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 44.25086415303726,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 211,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:26",
+      "comment_after_openDate": "02:59:20",
+      "chat_context": [
+        "귤딩이다옴: 네네",
+        "귤딩이다옴: 아아",
+        "귤딩이다옴: 네네",
+        "옹동궁: 예",
+        "옹동궁: 푹 쉬어",
+        "갔다옴: ㅔㅔ",
+        "귤딩이다옴: 알겠어요",
+        "벤하_: 빨리 침대에 누워삐",
+        "부뚜막타타: ㅔㅔ"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:33.353433",
+      "fun_score": 49.079411385685766,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.59290377857777,
+        "viewer_trend_score": 10,
+        "final_score": 49.079411385685766,
+        "baseline_chat_count": 2.7933803569222464,
+        "baseline_viewer_count": 232.5873999031021,
+        "baseline_threshold": 17.844148688228323,
+        "sequence_count": 1,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 43.968226622469565,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 211,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:31",
+      "comment_after_openDate": "02:59:31",
+      "chat_context": [
+        "귤딩이다옴: 네네",
+        "귤딩이다옴: 아아",
+        "귤딩이다옴: 네네",
+        "옹동궁: 예",
+        "옹동궁: 푹 쉬어",
+        "갔다옴: ㅔㅔ",
+        "귤딩이다옴: 알겠어요",
+        "벤하_: 빨리 침대에 누워삐",
+        "부뚜막타타: ㅔㅔ",
+        "호누탄: 수고하셨어요",
+        "귤딩이다옴: 쉬어요",
+        "부뚜막타타: 약먹구 쉬자구",
+        "롯데이겨다옴: 몸챙겨",
+        "귤딩이다옴: 네네"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:38.361111",
+      "fun_score": 49.07866070742993,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 25.585396996019465,
+        "viewer_trend_score": 10,
+        "final_score": 49.07866070742993,
+        "baseline_chat_count": 3.007650924497893,
+        "baseline_viewer_count": 232.17464881695477,
+        "baseline_threshold": 18.441366911003712,
+        "sequence_count": 2,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 43.96747594421373,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 206,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:36",
+      "comment_after_openDate": "02:59:36",
+      "chat_context": [
+        "귤딩이다옴: 네네",
+        "귤딩이다옴: 아아",
+        "귤딩이다옴: 네네",
+        "옹동궁: 예",
+        "옹동궁: 푹 쉬어",
+        "갔다옴: ㅔㅔ",
+        "귤딩이다옴: 알겠어요",
+        "벤하_: 빨리 침대에 누워삐",
+        "부뚜막타타: ㅔㅔ",
+        "호누탄: 수고하셨어요",
+        "귤딩이다옴: 쉬어요",
+        "부뚜막타타: 약먹구 쉬자구",
+        "롯데이겨다옴: 몸챙겨",
+        "귤딩이다옴: 네네",
+        "kdory: 고생했서이",
+        "귤딩이다옴: 침대 속에 들어가쟈"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:43.368266",
+      "fun_score": 49.23399320872821,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 27.138722009002155,
+        "viewer_trend_score": 10,
+        "final_score": 49.23399320872821,
+        "baseline_chat_count": 3.256064638821493,
+        "baseline_viewer_count": 231.67418953157457,
+        "baseline_threshold": 19.02715196839138,
+        "sequence_count": 3,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 44.12280844551201,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 206,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "02:59:41",
+      "comment_after_openDate": "02:59:41",
+      "chat_context": [
+        "귤딩이다옴: 아아",
+        "귤딩이다옴: 네네",
+        "옹동궁: 예",
+        "옹동궁: 푹 쉬어",
+        "갔다옴: ㅔㅔ",
+        "귤딩이다옴: 알겠어요",
+        "벤하_: 빨리 침대에 누워삐",
+        "부뚜막타타: ㅔㅔ",
+        "호누탄: 수고하셨어요",
+        "귤딩이다옴: 쉬어요",
+        "부뚜막타타: 약먹구 쉬자구",
+        "롯데이겨다옴: 몸챙겨",
+        "귤딩이다옴: 네네",
+        "kdory: 고생했서이",
+        "귤딩이다옴: 침대 속에 들어가쟈"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:48.375842",
+      "fun_score": 49.49955482247927,
+      "test_fun_score": 0.28179870548265484,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.28179870548265484,
+        "test_reaction_score": 0.28179870548265484,
+        "diversity_score": 29.15015210834478,
+        "viewer_trend_score": 10,
+        "final_score": 49.49955482247927,
+        "baseline_chat_count": 3.4806086829272256,
+        "baseline_viewer_count": 231.18329902773084,
+        "baseline_threshold": 19.60470677290662,
+        "sequence_count": 4,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 44.38837005926307,
+        "test_score_difference": 0.21472867938935922,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 206,
+        "fun_keywords": {
+          "surprise": 1.0
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0
+        }
+      },
+      "after_openDate": "02:59:46",
+      "comment_after_openDate": "02:59:20",
+      "chat_context": [
+        "옹동궁: 푹 쉬어",
+        "갔다옴: ㅔㅔ",
+        "귤딩이다옴: 알겠어요",
+        "벤하_: 빨리 침대에 누워삐",
+        "부뚜막타타: ㅔㅔ",
+        "호누탄: 수고하셨어요",
+        "귤딩이다옴: 쉬어요",
+        "부뚜막타타: 약먹구 쉬자구",
+        "롯데이겨다옴: 몸챙겨",
+        "귤딩이다옴: 네네",
+        "kdory: 고생했서이",
+        "귤딩이다옴: 침대 속에 들어가쟈",
+        "귤딩이다옴: 음?",
+        "벤하_: ?"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:53.384365",
+      "fun_score": 57.13844974267568,
+      "test_fun_score": 18.288059667447254,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 26.903400563947265,
+        "test_reaction_score": 18.288059667447254,
+        "diversity_score": 25.674295734915038,
+        "viewer_trend_score": 10,
+        "final_score": 57.13844974267568,
+        "baseline_chat_count": 3.681739444909657,
+        "baseline_viewer_count": 230.7017943503206,
+        "baseline_threshold": 20.17629626761445,
+        "sequence_count": 5,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 52.02726497945948,
+        "test_score_difference": 18.22098964135396,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 206,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "02:59:51",
+      "comment_after_openDate": "02:59:20",
+      "chat_context": [
+        "부뚜막타타: ㅔㅔ",
+        "호누탄: 수고하셨어요",
+        "귤딩이다옴: 쉬어요",
+        "부뚜막타타: 약먹구 쉬자구",
+        "롯데이겨다옴: 몸챙겨",
+        "귤딩이다옴: 네네",
+        "kdory: 고생했서이",
+        "귤딩이다옴: 침대 속에 들어가쟈",
+        "귤딩이다옴: 음?",
+        "벤하_: ?",
+        "부뚜막타타: 마또 오늘은 조용하네? ㅋㅋㅋ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:38:58.391962",
+      "fun_score": 57.59376874866801,
+      "test_fun_score": 14.72400881009836,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 21.51439720594981,
+        "test_reaction_score": 14.72400881009836,
+        "diversity_score": 31.394495868830692,
+        "viewer_trend_score": 20,
+        "final_score": 57.59376874866801,
+        "baseline_chat_count": 3.840784586722984,
+        "baseline_viewer_count": 230.22949604234245,
+        "baseline_threshold": 20.88301264205762,
+        "sequence_count": 6,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 52.48258398545181,
+        "test_score_difference": 14.656938784005064,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 205,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "02:59:56",
+      "comment_after_openDate": "02:59:20",
+      "chat_context": [
+        "호누탄: 수고하셨어요",
+        "귤딩이다옴: 쉬어요",
+        "부뚜막타타: 약먹구 쉬자구",
+        "롯데이겨다옴: 몸챙겨",
+        "귤딩이다옴: 네네",
+        "kdory: 고생했서이",
+        "귤딩이다옴: 침대 속에 들어가쟈",
+        "귤딩이다옴: 음?",
+        "벤하_: ?",
+        "부뚜막타타: 마또 오늘은 조용하네? ㅋㅋㅋ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "후회는없어: 몸 조리 잘하셔요",
+        "아새끼: 뽀끄원"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:03.400357",
+      "fun_score": 22.51710533565838,
+      "test_fun_score": 11.784554446070162,
+      "score_components": {
+        "chat_spike_score": 23.509846296198603,
+        "reaction_score": 17.06061713122829,
+        "test_reaction_score": 11.784554446070162,
+        "diversity_score": 38.19489363000521,
+        "viewer_trend_score": 20,
+        "final_score": 22.51710533565838,
+        "baseline_chat_count": 4.01590878542484,
+        "baseline_viewer_count": 229.74710807801284,
+        "baseline_threshold": 21.58492229881601,
+        "sequence_count": 7,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 17.405920572442177,
+        "test_score_difference": 11.717484419976866,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 8,
+        "viewer_count": 205,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:00:01",
+      "comment_after_openDate": "03:00:01",
+      "chat_context": [
+        "kdory: 고생했서이",
+        "귤딩이다옴: 침대 속에 들어가쟈",
+        "귤딩이다옴: 음?",
+        "벤하_: ?",
+        "부뚜막타타: 마또 오늘은 조용하네? ㅋㅋㅋ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "후회는없어: 몸 조리 잘하셔요",
+        "아새끼: 뽀끄원"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:08.407084",
+      "fun_score": 15.877694069059707,
+      "test_fun_score": 10.750222129525145,
+      "score_components": {
+        "chat_spike_score": 8.89350744918319,
+        "reaction_score": 15.495237707524492,
+        "test_reaction_score": 10.750222129525145,
+        "diversity_score": 42.27044404669926,
+        "viewer_trend_score": 20,
+        "final_score": 15.877694069059707,
+        "baseline_chat_count": 4.092084609447517,
+        "baseline_viewer_count": 229.27394337156124,
+        "baseline_threshold": 21.602745638480435,
+        "sequence_count": 8,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.766509305843508,
+        "test_score_difference": 10.68315210343185,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "😂 폭소 반응",
+      "analysis_data": {
+        "message_count": 6,
+        "viewer_count": 205,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:00:06",
+      "comment_after_openDate": "03:00:06",
+      "chat_context": [
+        "귤딩이다옴: 음?",
+        "벤하_: ?",
+        "부뚜막타타: 마또 오늘은 조용하네? ㅋㅋㅋ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "후회는없어: 몸 조리 잘하셔요",
+        "아새끼: 뽀끄원"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:13.413912",
+      "fun_score": 26.052706183089075,
+      "test_fun_score": 10.29818676334138,
+      "score_components": {
+        "chat_spike_score": 32.48946089928648,
+        "reaction_score": 14.811893279498145,
+        "test_reaction_score": 10.29818676334138,
+        "diversity_score": 39.88880794560717,
+        "viewer_trend_score": 20,
+        "final_score": 26.052706183089075,
+        "baseline_chat_count": 4.128563951714881,
+        "baseline_viewer_count": 228.80982557429698,
+        "baseline_threshold": 21.49328265247311,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 20.941521419872878,
+        "test_score_difference": 10.231116737248085,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 204,
+        "fun_keywords": {
+          "surprise": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "surprise": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:00:11",
+      "comment_after_openDate": "03:00:11",
+      "chat_context": [
+        "귤딩이다옴: 음?",
+        "벤하_: ?",
+        "부뚜막타타: 마또 오늘은 조용하네? ㅋㅋㅋ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "후회는없어: 몸 조리 잘하셔요",
+        "아새끼: 뽀끄원",
+        "갔다옴: 야꾸 먹구",
+        "행복이다옴: 드디어 일찍 쉬는군요 좋은꿈 꿔요~",
+        "갔다옴: 건강형성해여"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:18.421114",
+      "fun_score": 36.56311520335566,
+      "test_fun_score": 4.657295221246335,
+      "score_components": {
+        "chat_spike_score": 62.48371794606597,
+        "reaction_score": 6.731210624006866,
+        "test_reaction_score": 4.657295221246335,
+        "diversity_score": 34.26078940423913,
+        "viewer_trend_score": 20,
+        "final_score": 36.56311520335566,
+        "baseline_chat_count": 4.2217058089580926,
+        "baseline_viewer_count": 228.3354617093164,
+        "baseline_threshold": 21.580458830378486,
+        "sequence_count": 1,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 22.196452704135076,
+        "test_score_difference": 4.59022519515304,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 204,
+        "fun_keywords": {
+          "laugh": 2.2,
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0,
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "03:00:16",
+      "comment_after_openDate": "03:00:16",
+      "chat_context": [
+        "부뚜막타타: 마또 오늘은 조용하네? ㅋㅋㅋ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "후회는없어: 몸 조리 잘하셔요",
+        "아새끼: 뽀끄원",
+        "갔다옴: 야꾸 먹구",
+        "행복이다옴: 드디어 일찍 쉬는군요 좋은꿈 꿔요~",
+        "갔다옴: 건강형성해여",
+        "옹동궁: 예예",
+        "벤하_: 다오무때문에 좋은하루보냈다",
+        "갔다옴: 안뇽~",
+        "벤하_: 안농",
+        "귤딩이다옴: 안녕~ 사랑해~"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:23.428419",
+      "fun_score": 31.6802734422282,
+      "test_fun_score": 0.10597082935785306,
+      "score_components": {
+        "chat_spike_score": 55.129044474374524,
+        "reaction_score": 0.10597082935785306,
+        "test_reaction_score": 0.10597082935785306,
+        "diversity_score": 38.40412179952305,
+        "viewer_trend_score": 20,
+        "final_score": 31.6802734422282,
+        "baseline_chat_count": 4.370426793890814,
+        "baseline_viewer_count": 227.87016768143425,
+        "baseline_threshold": 21.866927220229808,
+        "sequence_count": 2,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 15.802579373168491,
+        "test_score_difference": 0.03890080326455743,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 204,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "03:00:21",
+      "comment_after_openDate": "03:00:21",
+      "chat_context": [
+        "후회는없어: 몸 조리 잘하셔요",
+        "아새끼: 뽀끄원",
+        "갔다옴: 야꾸 먹구",
+        "행복이다옴: 드디어 일찍 쉬는군요 좋은꿈 꿔요~",
+        "갔다옴: 건강형성해여",
+        "옹동궁: 예예",
+        "벤하_: 다오무때문에 좋은하루보냈다",
+        "갔다옴: 안뇽~",
+        "벤하_: 안농",
+        "귤딩이다옴: 안녕~ 사랑해~",
+        "롯데이겨다옴: 마바링",
+        "kdory: 마바마바"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:28.435823",
+      "fun_score": 27.985988196505446,
+      "test_fun_score": 0.10441677977673933,
+      "score_components": {
+        "chat_spike_score": 48.87798721592647,
+        "reaction_score": 0.10441677977673933,
+        "test_reaction_score": 0.10441677977673933,
+        "diversity_score": 29.59568915405513,
+        "viewer_trend_score": 20,
+        "final_score": 27.985988196505446,
+        "baseline_chat_count": 4.5163042335916215,
+        "baseline_viewer_count": 227.41377007536522,
+        "baseline_threshold": 22.054558399994416,
+        "sequence_count": 3,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 12.108294127445738,
+        "test_score_difference": 0.0373467536834437,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 195,
+        "fun_keywords": {
+          "greeting": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0
+        }
+      },
+      "after_openDate": "03:00:26",
+      "comment_after_openDate": "03:00:26",
+      "chat_context": [
+        "갔다옴: 야꾸 먹구",
+        "행복이다옴: 드디어 일찍 쉬는군요 좋은꿈 꿔요~",
+        "갔다옴: 건강형성해여",
+        "옹동궁: 예예",
+        "벤하_: 다오무때문에 좋은하루보냈다",
+        "갔다옴: 안뇽~",
+        "벤하_: 안농",
+        "귤딩이다옴: 안녕~ 사랑해~",
+        "롯데이겨다옴: 마바링",
+        "kdory: 마바마바",
+        "갔다옴: 고생해써~",
+        "롯데이겨다옴: 마뱅알"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:33.443690",
+      "fun_score": 51.18826922827753,
+      "test_fun_score": 0.4618973921198307,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.4618973921198307,
+        "test_reaction_score": 0.4618973921198307,
+        "diversity_score": 30.49700010641581,
+        "viewer_trend_score": 20,
+        "final_score": 51.18826922827753,
+        "baseline_chat_count": 4.65939249664535,
+        "baseline_viewer_count": 226.79401879152422,
+        "baseline_threshold": 22.167967337703708,
+        "sequence_count": 4,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 35.31057515921782,
+        "test_score_difference": 0.3948273660265351,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 195,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:00:31",
+      "comment_after_openDate": "03:00:31",
+      "chat_context": [
+        "갔다옴: 야꾸 먹구",
+        "행복이다옴: 드디어 일찍 쉬는군요 좋은꿈 꿔요~",
+        "갔다옴: 건강형성해여",
+        "옹동궁: 예예",
+        "벤하_: 다오무때문에 좋은하루보냈다",
+        "갔다옴: 안뇽~",
+        "벤하_: 안농",
+        "귤딩이다옴: 안녕~ 사랑해~",
+        "롯데이겨다옴: 마바링",
+        "kdory: 마바마바",
+        "갔다옴: 고생해써~",
+        "롯데이겨다옴: 마뱅알",
+        "벤하_: 오늘도 고마웠어",
+        "어디있다옴: 마바링",
+        "♡좀비♡: 마바링 "
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:38.452970",
+      "fun_score": 51.1168888496022,
+      "test_fun_score": 0.4270455947752383,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 0.4270455947752383,
+        "test_reaction_score": 0.4270455947752383,
+        "diversity_score": 29.887751711696275,
+        "viewer_trend_score": 20,
+        "final_score": 51.1168888496022,
+        "baseline_chat_count": 4.857104912109492,
+        "baseline_viewer_count": 226.18611715223028,
+        "baseline_threshold": 22.722835509851482,
+        "sequence_count": 5,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 35.23919478054249,
+        "test_score_difference": 0.3599755686819427,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 195,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:00:36",
+      "comment_after_openDate": "03:00:36",
+      "chat_context": [
+        "갔다옴: 야꾸 먹구",
+        "행복이다옴: 드디어 일찍 쉬는군요 좋은꿈 꿔요~",
+        "갔다옴: 건강형성해여",
+        "옹동궁: 예예",
+        "벤하_: 다오무때문에 좋은하루보냈다",
+        "갔다옴: 안뇽~",
+        "벤하_: 안농",
+        "귤딩이다옴: 안녕~ 사랑해~",
+        "롯데이겨다옴: 마바링",
+        "kdory: 마바마바",
+        "갔다옴: 고생해써~",
+        "롯데이겨다옴: 마뱅알",
+        "벤하_: 오늘도 고마웠어",
+        "어디있다옴: 마바링",
+        "♡좀비♡: 마바링 ",
+        "디덕_: 마바링",
+        "옹동궁: 마바링~"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:43.459688",
+      "fun_score": 32.55326321050302,
+      "test_fun_score": 0.3924983303542169,
+      "score_components": {
+        "chat_spike_score": 58.17165049433783,
+        "reaction_score": 0.3924983303542169,
+        "test_reaction_score": 0.3924983303542169,
+        "diversity_score": 32.58270988944728,
+        "viewer_trend_score": 20,
+        "final_score": 32.55326321050302,
+        "baseline_chat_count": 5.0892770661899585,
+        "baseline_viewer_count": 225.58983859227962,
+        "baseline_threshold": 23.265729809707516,
+        "sequence_count": 6,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 16.67556914144331,
+        "test_score_difference": 0.3254283042609213,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 193,
+        "fun_keywords": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "greeting": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:00:41",
+      "comment_after_openDate": "03:00:41",
+      "chat_context": [
+        "옹동궁: 예예",
+        "벤하_: 다오무때문에 좋은하루보냈다",
+        "갔다옴: 안뇽~",
+        "벤하_: 안농",
+        "귤딩이다옴: 안녕~ 사랑해~",
+        "롯데이겨다옴: 마바링",
+        "kdory: 마바마바",
+        "갔다옴: 고생해써~",
+        "롯데이겨다옴: 마뱅알",
+        "벤하_: 오늘도 고마웠어",
+        "어디있다옴: 마바링",
+        "♡좀비♡: 마바링 ",
+        "디덕_: 마바링",
+        "옹동궁: 마바링~"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:48.467221",
+      "fun_score": 37.410015979892194,
+      "test_fun_score": 0.25358293774813817,
+      "score_components": {
+        "chat_spike_score": 67.41073024281788,
+        "reaction_score": 0.25358293774813817,
+        "test_reaction_score": 0.25358293774813817,
+        "diversity_score": 39.99112489299711,
+        "viewer_trend_score": 20,
+        "final_score": 37.410015979892194,
+        "baseline_chat_count": 5.259650088684407,
+        "baseline_viewer_count": 224.96672087839522,
+        "baseline_threshold": 23.443307448330728,
+        "sequence_count": 7,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 21.532321910832486,
+        "test_score_difference": 0.14916615797139884,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 193,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:00:46",
+      "comment_after_openDate": "03:00:46",
+      "chat_context": [
+        "롯데이겨다옴: 마바링",
+        "kdory: 마바마바",
+        "갔다옴: 고생해써~",
+        "롯데이겨다옴: 마뱅알",
+        "벤하_: 오늘도 고마웠어",
+        "어디있다옴: 마바링",
+        "♡좀비♡: 마바링 ",
+        "디덕_: 마바링",
+        "옹동궁: 마바링~",
+        "부뚜막타타: 아까 미션 성공한거 머코가",
+        "옹동궁: 먹어야지",
+        "귤딩이다옴: 했으니까",
+        "김부라리: 받어 받어",
+        "귤딩이다옴: 성공"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:53.475276",
+      "fun_score": 52.66035803813722,
+      "test_fun_score": 4.543021341977297,
+      "score_components": {
+        "chat_spike_score": 100,
+        "reaction_score": 6.053691602115864,
+        "test_reaction_score": 4.543021341977297,
+        "diversity_score": 28.44250557502465,
+        "viewer_trend_score": 20,
+        "final_score": 52.66035803813722,
+        "baseline_chat_count": 5.426765578988761,
+        "baseline_viewer_count": 224.3555171752003,
+        "baseline_threshold": 23.710350915454182,
+        "sequence_count": 8,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 36.78266396907751,
+        "test_score_difference": 4.438604562200557,
+        "should_create_new_highlight": true,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 193,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:00:51",
+      "comment_after_openDate": "03:00:31",
+      "chat_context": [
+        "갔다옴: 고생해써~",
+        "롯데이겨다옴: 마뱅알",
+        "벤하_: 오늘도 고마웠어",
+        "어디있다옴: 마바링",
+        "♡좀비♡: 마바링 ",
+        "디덕_: 마바링",
+        "옹동궁: 마바링~",
+        "부뚜막타타: 아까 미션 성공한거 머코가",
+        "옹동궁: 먹어야지",
+        "귤딩이다옴: 했으니까",
+        "김부라리: 받어 받어",
+        "귤딩이다옴: 성공",
+        "김부라리: 다 받어 ㅋㅋ",
+        "귤딩이다옴: 아닌가",
+        "부뚜막타타: ㅅㅅ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귤딩이다옴: '",
+        "갔다옴: ㄴㅇㅊ"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:39:58.482134",
+      "fun_score": 44.51521660422559,
+      "test_fun_score": 3.809702600033231,
+      "score_components": {
+        "chat_spike_score": 82.50976567099141,
+        "reaction_score": 5.02127828753062,
+        "test_reaction_score": 3.809702600033231,
+        "diversity_score": 28.79438566020268,
+        "viewer_trend_score": 20,
+        "final_score": 44.51521660422559,
+        "baseline_chat_count": 5.6671658211184965,
+        "baseline_viewer_count": 223.75599968681047,
+        "baseline_threshold": 24.26387505163988,
+        "sequence_count": 9,
+        "highlights": true,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 28.637522535165886,
+        "test_score_difference": 3.7052858202564916,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 193,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:00:56",
+      "comment_after_openDate": "03:00:56",
+      "chat_context": [
+        "벤하_: 오늘도 고마웠어",
+        "어디있다옴: 마바링",
+        "♡좀비♡: 마바링 ",
+        "디덕_: 마바링",
+        "옹동궁: 마바링~",
+        "부뚜막타타: 아까 미션 성공한거 머코가",
+        "옹동궁: 먹어야지",
+        "귤딩이다옴: 했으니까",
+        "김부라리: 받어 받어",
+        "귤딩이다옴: 성공",
+        "김부라리: 다 받어 ㅋㅋ",
+        "귤딩이다옴: 아닌가",
+        "부뚜막타타: ㅅㅅ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귤딩이다옴: '",
+        "갔다옴: ㄴㅇㅊ"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:03.489862",
+      "fun_score": 21.325748898904838,
+      "test_fun_score": 1.021599762176844,
+      "score_components": {
+        "chat_spike_score": 34.536952987018154,
+        "reaction_score": 1.3398882972901647,
+        "test_reaction_score": 1.021599762176844,
+        "diversity_score": 23.821535655596165,
+        "viewer_trend_score": 20,
+        "final_score": 21.325748898904838,
+        "baseline_chat_count": 5.864729610618711,
+        "baseline_viewer_count": 223.16794497279864,
+        "baseline_threshold": 24.651080702125316,
+        "sequence_count": 10,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.44805482984513,
+        "test_score_difference": 0.9171829824001047,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 191,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:01:01",
+      "comment_after_openDate": "03:01:01",
+      "chat_context": [
+        "디덕_: 마바링",
+        "옹동궁: 마바링~",
+        "부뚜막타타: 아까 미션 성공한거 머코가",
+        "옹동궁: 먹어야지",
+        "귤딩이다옴: 했으니까",
+        "김부라리: 받어 받어",
+        "귤딩이다옴: 성공",
+        "김부라리: 다 받어 ㅋㅋ",
+        "귤딩이다옴: 아닌가",
+        "부뚜막타타: ㅅㅅ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귤딩이다옴: '",
+        "갔다옴: ㄴㅇㅊ"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:08.497480",
+      "fun_score": 29.63622330193477,
+      "test_fun_score": 0.9604594624403668,
+      "score_components": {
+        "chat_spike_score": 53.75042007426143,
+        "reaction_score": 1.252079273191,
+        "test_reaction_score": 0.9604594624403668,
+        "diversity_score": 20.729104865598227,
+        "viewer_trend_score": 20,
+        "final_score": 29.63622330193477,
+        "baseline_chat_count": 6.001155980463682,
+        "baseline_viewer_count": 222.5528938649187,
+        "baseline_threshold": 24.58750035804774,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 13.758529232875063,
+        "test_score_difference": 0.8560426826636275,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 15,
+        "viewer_count": 191,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:01:06",
+      "comment_after_openDate": "03:01:06",
+      "chat_context": [
+        "부뚜막타타: 아까 미션 성공한거 머코가",
+        "옹동궁: 먹어야지",
+        "귤딩이다옴: 했으니까",
+        "김부라리: 받어 받어",
+        "귤딩이다옴: 성공",
+        "김부라리: 다 받어 ㅋㅋ",
+        "귤딩이다옴: 아닌가",
+        "부뚜막타타: ㅅㅅ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귤딩이다옴: '",
+        "갔다옴: ㄴㅇㅊ",
+        "어디있다옴: 우마이",
+        "갔다옴: 잘자~",
+        "귤딩이다옴: 푹 쉬어요",
+        "김부라리: 수고했어"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:13.505152",
+      "fun_score": 39.90978019925665,
+      "test_fun_score": 0.8919816596407337,
+      "score_components": {
+        "chat_spike_score": 75.86877682019045,
+        "reaction_score": 1.1543713136850786,
+        "test_reaction_score": 0.8919816596407337,
+        "diversity_score": 24.22519236065422,
+        "viewer_trend_score": 20,
+        "final_score": 39.90978019925665,
+        "baseline_chat_count": 6.173213878117216,
+        "baseline_viewer_count": 221.94960253422144,
+        "baseline_threshold": 24.684031940734858,
+        "sequence_count": 1,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 18.584031300351814,
+        "test_score_difference": 0.7875648798639944,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 17,
+        "viewer_count": 191,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:01:11",
+      "comment_after_openDate": "03:01:11",
+      "chat_context": [
+        "부뚜막타타: 아까 미션 성공한거 머코가",
+        "옹동궁: 먹어야지",
+        "귤딩이다옴: 했으니까",
+        "김부라리: 받어 받어",
+        "귤딩이다옴: 성공",
+        "김부라리: 다 받어 ㅋㅋ",
+        "귤딩이다옴: 아닌가",
+        "부뚜막타타: ㅅㅅ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귤딩이다옴: '",
+        "갔다옴: ㄴㅇㅊ",
+        "어디있다옴: 우마이",
+        "갔다옴: 잘자~",
+        "귤딩이다옴: 푹 쉬어요",
+        "김부라리: 수고했어",
+        "타이쿠누ww: 나이챠~",
+        "롯데이겨다옴: 나이챠"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:18.512452",
+      "fun_score": 30.057237902001884,
+      "test_fun_score": 0.8203345598202537,
+      "score_components": {
+        "chat_spike_score": 54.39993742552141,
+        "reaction_score": 1.0529161182075404,
+        "test_reaction_score": 0.8203345598202537,
+        "diversity_score": 22.61391225054987,
+        "viewer_trend_score": 20,
+        "final_score": 30.057237902001884,
+        "baseline_chat_count": 6.380222028767615,
+        "baseline_viewer_count": 221.3578461337671,
+        "baseline_threshold": 24.975148247437794,
+        "sequence_count": 2,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 8.731489003097046,
+        "test_score_difference": 0.7159177800435144,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "laugh": 2.2
+        },
+        "test_keyword_counter": {
+          "laugh": 2.0
+        }
+      },
+      "after_openDate": "03:01:16",
+      "comment_after_openDate": "03:01:16",
+      "chat_context": [
+        "김부라리: 다 받어 ㅋㅋ",
+        "귤딩이다옴: 아닌가",
+        "부뚜막타타: ㅅㅅ",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "귤딩이다옴: '",
+        "갔다옴: ㄴㅇㅊ",
+        "어디있다옴: 우마이",
+        "갔다옴: 잘자~",
+        "귤딩이다옴: 푹 쉬어요",
+        "김부라리: 수고했어",
+        "타이쿠누ww: 나이챠~",
+        "롯데이겨다옴: 나이챠",
+        "부뚜막타타: 이제 배그랑 명검미션 남았네",
+        "귤딩이다옴: 그래영",
+        "어디있다옴: 약 오 먹",
+        "귤딩이다옴: 네 뭐 없던데"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:23.519710",
+      "fun_score": 13.861777361415538,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 17.5123262713885,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 29.61109531462723,
+        "viewer_trend_score": 20,
+        "final_score": 13.861777361415538,
+        "baseline_chat_count": 6.564152183577578,
+        "baseline_viewer_count": 220.7582841156895,
+        "baseline_threshold": 25.07231780163306,
+        "sequence_count": 3,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 190,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "03:01:21",
+      "comment_after_openDate": "03:01:21",
+      "chat_context": [
+        "어디있다옴: 우마이",
+        "갔다옴: 잘자~",
+        "귤딩이다옴: 푹 쉬어요",
+        "김부라리: 수고했어",
+        "타이쿠누ww: 나이챠~",
+        "롯데이겨다옴: 나이챠",
+        "부뚜막타타: 이제 배그랑 명검미션 남았네",
+        "귤딩이다옴: 그래영",
+        "어디있다옴: 약 오 먹",
+        "귤딩이다옴: 네 뭐 없던데",
+        "귤딩이다옴: 비어있는걸루",
+        "귤딩이다옴: 아는데"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:28.528251",
+      "fun_score": 15.568500411565749,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 21.803237177228098,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 27.369226739851165,
+        "viewer_trend_score": 20,
+        "final_score": 15.568500411565749,
+        "baseline_chat_count": 6.668085593827575,
+        "baseline_viewer_count": 220.1701857233975,
+        "baseline_threshold": 24.8579722684161,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.7067230501502113,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 190,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "03:01:26",
+      "comment_after_openDate": "03:01:26",
+      "chat_context": [
+        "어디있다옴: 우마이",
+        "갔다옴: 잘자~",
+        "귤딩이다옴: 푹 쉬어요",
+        "김부라리: 수고했어",
+        "타이쿠누ww: 나이챠~",
+        "롯데이겨다옴: 나이챠",
+        "부뚜막타타: 이제 배그랑 명검미션 남았네",
+        "귤딩이다옴: 그래영",
+        "어디있다옴: 약 오 먹",
+        "귤딩이다옴: 네 뭐 없던데",
+        "귤딩이다옴: 비어있는걸루",
+        "귤딩이다옴: 아는데",
+        "타이쿠누ww: 고생했어~푹 쉬자~"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:33.534680",
+      "fun_score": 14.976988227719014,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 20.488765657568685,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 27.369226739851165,
+        "viewer_trend_score": 20,
+        "final_score": 14.976988227719014,
+        "baseline_chat_count": 6.789151797273592,
+        "baseline_viewer_count": 219.59333177236616,
+        "baseline_threshold": 24.68035756651312,
+        "sequence_count": -1,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.1152108663034763,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 13,
+        "viewer_count": 190,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "03:01:31",
+      "comment_after_openDate": "03:01:31",
+      "chat_context": [
+        "어디있다옴: 우마이",
+        "갔다옴: 잘자~",
+        "귤딩이다옴: 푹 쉬어요",
+        "김부라리: 수고했어",
+        "타이쿠누ww: 나이챠~",
+        "롯데이겨다옴: 나이챠",
+        "부뚜막타타: 이제 배그랑 명검미션 남았네",
+        "귤딩이다옴: 그래영",
+        "어디있다옴: 약 오 먹",
+        "귤딩이다옴: 네 뭐 없던데",
+        "귤딩이다옴: 비어있는걸루",
+        "귤딩이다옴: 아는데",
+        "타이쿠누ww: 고생했어~푹 쉬자~"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:38.542229",
+      "fun_score": 16.994433607183172,
+      "test_fun_score": 0.586727567712164,
+      "score_components": {
+        "chat_spike_score": 24.98334711287381,
+        "reaction_score": 0.586727567712164,
+        "test_reaction_score": 0.586727567712164,
+        "diversity_score": 25.75909136076309,
+        "viewer_trend_score": 20,
+        "final_score": 16.994433607183172,
+        "baseline_chat_count": 6.907903214909721,
+        "baseline_viewer_count": 219.0275072688785,
+        "baseline_threshold": 24.49482914475538,
+        "sequence_count": -2,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 3.1326562457676346,
+        "test_score_difference": 0.5196575416188685,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:01:36",
+      "comment_after_openDate": "03:01:36",
+      "chat_context": [
+        "타이쿠누ww: 나이챠~",
+        "롯데이겨다옴: 나이챠",
+        "부뚜막타타: 이제 배그랑 명검미션 남았네",
+        "귤딩이다옴: 그래영",
+        "어디있다옴: 약 오 먹",
+        "귤딩이다옴: 네 뭐 없던데",
+        "귤딩이다옴: 비어있는걸루",
+        "귤딩이다옴: 아는데",
+        "타이쿠누ww: 고생했어~푹 쉬자~",
+        "옹동궁: ㅔㅔ",
+        "귤딩이다옴: ㅋㅋㅋㅋ",
+        "옹동궁: 좋다",
+        "벤하_: 무조건 깬다잉",
+        "롯데이겨다옴: 네넹 몸 챙기고와요"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:43.548745",
+      "fun_score": 16.597728004640416,
+      "test_fun_score": 0.5627731570890406,
+      "score_components": {
+        "chat_spike_score": 23.32665245282664,
+        "reaction_score": 0.5627731570890406,
+        "test_reaction_score": 0.5627731570890406,
+        "diversity_score": 29.319024537417132,
+        "viewer_trend_score": 20,
+        "final_score": 16.597728004640416,
+        "baseline_chat_count": 7.043504105440648,
+        "baseline_viewer_count": 218.47250132989754,
+        "baseline_threshold": 24.351421582077,
+        "sequence_count": -3,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.7359506432248786,
+        "test_score_difference": 0.49570313099574503,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 14,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:01:41",
+      "comment_after_openDate": "03:01:41",
+      "chat_context": [
+        "부뚜막타타: 이제 배그랑 명검미션 남았네",
+        "귤딩이다옴: 그래영",
+        "어디있다옴: 약 오 먹",
+        "귤딩이다옴: 네 뭐 없던데",
+        "귤딩이다옴: 비어있는걸루",
+        "귤딩이다옴: 아는데",
+        "타이쿠누ww: 고생했어~푹 쉬자~",
+        "옹동궁: ㅔㅔ",
+        "귤딩이다옴: ㅋㅋㅋㅋ",
+        "옹동궁: 좋다",
+        "벤하_: 무조건 깬다잉",
+        "롯데이겨다옴: 네넹 몸 챙기고와요",
+        "귤딩이다옴: 좋다에요~",
+        "갔다옴: /ZOA/"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:48.563935",
+      "fun_score": 10.966565439084272,
+      "test_fun_score": 0.5410520598939346,
+      "score_components": {
+        "chat_spike_score": 10.095380021781306,
+        "reaction_score": 0.5410520598939346,
+        "test_reaction_score": 0.5410520598939346,
+        "diversity_score": 32.613288113145046,
+        "viewer_trend_score": 20,
+        "final_score": 10.966565439084272,
+        "baseline_chat_count": 7.176512306944622,
+        "baseline_viewer_count": 217.9281071044699,
+        "baseline_threshold": 24.20317096087641,
+        "sequence_count": -4,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.47398203380063897,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 11,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:01:46",
+      "comment_after_openDate": "03:01:46",
+      "chat_context": [
+        "귤딩이다옴: 비어있는걸루",
+        "귤딩이다옴: 아는데",
+        "타이쿠누ww: 고생했어~푹 쉬자~",
+        "옹동궁: ㅔㅔ",
+        "귤딩이다옴: ㅋㅋㅋㅋ",
+        "옹동궁: 좋다",
+        "벤하_: 무조건 깬다잉",
+        "롯데이겨다옴: 네넹 몸 챙기고와요",
+        "귤딩이다옴: 좋다에요~",
+        "갔다옴: /ZOA/",
+        "부뚜막타타: 마크 빚도 다 해결했나?"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:40:53.570263",
+      "fun_score": 10.88977612434607,
+      "test_fun_score": 1.3854278801871436,
+      "score_components": {
+        "chat_spike_score": 7.528634409735675,
+        "reaction_score": 1.3854278801871436,
+        "test_reaction_score": 1.3854278801871436,
+        "diversity_score": 40.86262275908874,
+        "viewer_trend_score": 20,
+        "final_score": 10.88977612434607,
+        "baseline_chat_count": 7.249617391635842,
+        "baseline_viewer_count": 217.39412169663242,
+        "baseline_threshold": 23.950087063299744,
+        "sequence_count": -5,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 1.3183578540938479,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 10,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "03:01:51",
+      "comment_after_openDate": "03:01:51",
+      "chat_context": [
+        "타이쿠누ww: 고생했어~푹 쉬자~",
+        "옹동궁: ㅔㅔ",
+        "귤딩이다옴: ㅋㅋㅋㅋ",
+        "옹동궁: 좋다",
+        "벤하_: 무조건 깬다잉",
+        "롯데이겨다옴: 네넹 몸 챙기고와요",
+        "귤딩이다옴: 좋다에요~",
+        "갔다옴: /ZOA/",
+        "부뚜막타타: 마크 빚도 다 해결했나?",
+        "꿀당고다옴: 오늘도 수고했다옴"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:00.644290",
+      "fun_score": 12.395650159500171,
+      "test_fun_score": 1.3556819377615612,
+      "score_components": {
+        "chat_spike_score": 12.438370497655033,
+        "reaction_score": 1.3556819377615612,
+        "test_reaction_score": 1.3556819377615612,
+        "diversity_score": 33.91678854226938,
+        "viewer_trend_score": 20,
+        "final_score": 12.395650159500171,
+        "baseline_chat_count": 7.302204707107765,
+        "baseline_viewer_count": 216.8703460897928,
+        "baseline_threshold": 23.700373918146948,
+        "sequence_count": -6,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.5058740351541005,
+        "test_score_difference": 1.2886119116682655,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "laugh": 1.0,
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0,
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "03:01:58",
+      "comment_after_openDate": "03:01:58",
+      "chat_context": [
+        "옹동궁: ㅔㅔ",
+        "귤딩이다옴: ㅋㅋㅋㅋ",
+        "옹동궁: 좋다",
+        "벤하_: 무조건 깬다잉",
+        "롯데이겨다옴: 네넹 몸 챙기고와요",
+        "귤딩이다옴: 좋다에요~",
+        "갔다옴: /ZOA/",
+        "부뚜막타타: 마크 빚도 다 해결했나?",
+        "꿀당고다옴: 오늘도 수고했다옴",
+        "귤딩이다옴: 아 서버 언제까지지",
+        "갔다옴: 음",
+        "마또밥먹다옴: 15일?"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:05.650927",
+      "fun_score": 12.330891892385052,
+      "test_fun_score": 0.444868359420895,
+      "score_components": {
+        "chat_spike_score": 11.980578128416324,
+        "reaction_score": 0.444868359420895,
+        "test_reaction_score": 0.444868359420895,
+        "diversity_score": 38.061712267714384,
+        "viewer_trend_score": 20,
+        "final_score": 12.330891892385052,
+        "baseline_chat_count": 7.392026553107865,
+        "baseline_viewer_count": 216.35658507255596,
+        "baseline_threshold": 23.48422759988162,
+        "sequence_count": -7,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 1.4411157680389817,
+        "test_score_difference": 0.3777983333275994,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "excitement": 2.0
+        },
+        "test_keyword_counter": {
+          "excitement": 2.0
+        }
+      },
+      "after_openDate": "03:02:03",
+      "comment_after_openDate": "03:02:03",
+      "chat_context": [
+        "옹동궁: 좋다",
+        "벤하_: 무조건 깬다잉",
+        "롯데이겨다옴: 네넹 몸 챙기고와요",
+        "귤딩이다옴: 좋다에요~",
+        "갔다옴: /ZOA/",
+        "부뚜막타타: 마크 빚도 다 해결했나?",
+        "꿀당고다옴: 오늘도 수고했다옴",
+        "귤딩이다옴: 아 서버 언제까지지",
+        "갔다옴: 음",
+        "마또밥먹다옴: 15일?",
+        "어디있다옴: 15였나",
+        "귤딩이다옴: 일주일 정도 남았네"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:10.656705",
+      "fun_score": 8.85227667054878,
+      "test_fun_score": 0.17089174889170008,
+      "score_components": {
+        "chat_spike_score": 5.352507583389051,
+        "reaction_score": 0.17089174889170008,
+        "test_reaction_score": 0.17089174889170008,
+        "diversity_score": 33.92380733356198,
+        "viewer_trend_score": 20,
+        "final_score": 8.85227667054878,
+        "baseline_chat_count": 7.480131005412442,
+        "baseline_viewer_count": 215.85264716596868,
+        "baseline_threshold": 23.270975821154284,
+        "sequence_count": -8,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.10382172279840446,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 9,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:02:08",
+      "comment_after_openDate": "03:02:08",
+      "chat_context": [
+        "갔다옴: /ZOA/",
+        "부뚜막타타: 마크 빚도 다 해결했나?",
+        "꿀당고다옴: 오늘도 수고했다옴",
+        "귤딩이다옴: 아 서버 언제까지지",
+        "갔다옴: 음",
+        "마또밥먹다옴: 15일?",
+        "어디있다옴: 15였나",
+        "귤딩이다옴: 일주일 정도 남았네",
+        "부뚜막타타: 음음"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:15.718380",
+      "fun_score": 11.167934144743588,
+      "test_fun_score": 0.17027450789919563,
+      "score_components": {
+        "chat_spike_score": 11.42257880829665,
+        "reaction_score": 0.17027450789919563,
+        "test_reaction_score": 0.17027450789919563,
+        "diversity_score": 29.766913286403366,
+        "viewer_trend_score": 20,
+        "final_score": 11.167934144743588,
+        "baseline_chat_count": 7.5091909005889566,
+        "baseline_viewer_count": 215.35834455215536,
+        "baseline_threshold": 22.995290293394707,
+        "sequence_count": -9,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 2.3156574741948077,
+        "test_score_difference": 0.1032044818059,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:02:13",
+      "comment_after_openDate": "03:02:13",
+      "chat_context": [
+        "부뚜막타타: 마크 빚도 다 해결했나?",
+        "꿀당고다옴: 오늘도 수고했다옴",
+        "귤딩이다옴: 아 서버 언제까지지",
+        "갔다옴: 음",
+        "마또밥먹다옴: 15일?",
+        "어디있다옴: 15였나",
+        "귤딩이다옴: 일주일 정도 남았네",
+        "부뚜막타타: 음음",
+        "귤딩이다옴: 잘쟈~",
+        "벤하_: 잘자",
+        "갔다옴: 잘자",
+        "부뚜막타타: 마바링~"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:20.723267",
+      "fun_score": 19.26575785153375,
+      "test_fun_score": 0.48232939913333456,
+      "score_components": {
+        "chat_spike_score": 28.694762060588815,
+        "reaction_score": 0.595097524416977,
+        "test_reaction_score": 0.48232939913333456,
+        "diversity_score": 31.74585666943688,
+        "viewer_trend_score": 20,
+        "final_score": 19.26575785153375,
+        "baseline_chat_count": 7.595055170569696,
+        "baseline_viewer_count": 214.87349300431814,
+        "baseline_threshold": 22.769151243832496,
+        "sequence_count": -10,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 10.413481180984968,
+        "test_score_difference": 0.4152593730400389,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "excitement": 1.0,
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0,
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:02:18",
+      "comment_after_openDate": "03:02:18",
+      "chat_context": [
+        "꿀당고다옴: 오늘도 수고했다옴",
+        "귤딩이다옴: 아 서버 언제까지지",
+        "갔다옴: 음",
+        "마또밥먹다옴: 15일?",
+        "어디있다옴: 15였나",
+        "귤딩이다옴: 일주일 정도 남았네",
+        "부뚜막타타: 음음",
+        "귤딩이다옴: 잘쟈~",
+        "벤하_: 잘자",
+        "갔다옴: 잘자",
+        "부뚜막타타: 마바링~",
+        "큰아빠햄부기: 마바링",
+        "kdory: 마바링",
+        "어디있다옴: 마바링",
+        "롯데이겨다옴: 마바링",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:25.727612",
+      "fun_score": 31.7008090273489,
+      "test_fun_score": 0.18803418278858153,
+      "score_components": {
+        "chat_spike_score": 60.199964813770194,
+        "reaction_score": 0.23106677279581966,
+        "test_reaction_score": 0.18803418278858153,
+        "diversity_score": 30.415048293135676,
+        "viewer_trend_score": 10,
+        "final_score": 31.7008090273489,
+        "baseline_chat_count": 7.755757715708404,
+        "baseline_viewer_count": 214.39791181807556,
+        "baseline_threshold": 22.70216636217174,
+        "sequence_count": -11,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 22.84853235680012,
+        "test_score_difference": 0.1209641566952859,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "💬 채팅량 폭증",
+      "analysis_data": {
+        "message_count": 20,
+        "viewer_count": 190,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:02:23",
+      "comment_after_openDate": "03:02:23",
+      "chat_context": [
+        "갔다옴: 음",
+        "마또밥먹다옴: 15일?",
+        "어디있다옴: 15였나",
+        "귤딩이다옴: 일주일 정도 남았네",
+        "부뚜막타타: 음음",
+        "귤딩이다옴: 잘쟈~",
+        "벤하_: 잘자",
+        "갔다옴: 잘자",
+        "부뚜막타타: 마바링~",
+        "큰아빠햄부기: 마바링",
+        "kdory: 마바링",
+        "어디있다옴: 마바링",
+        "롯데이겨다옴: 마바링",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "옹동궁: 마바링~",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "잼파카: 마바링",
+        "타이쿠누ww: 마바링~~",
+        "큰아빠햄부기: ㄱㅇㅇ",
+        "어디있다옴: 마뱅알"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:30.732533",
+      "fun_score": 21.159472570837277,
+      "test_fun_score": 0.18244124493831135,
+      "score_components": {
+        "chat_spike_score": 36.65563978051537,
+        "reaction_score": 0.2228456944977174,
+        "test_reaction_score": 0.18244124493831135,
+        "diversity_score": 30.975809612560457,
+        "viewer_trend_score": 10,
+        "final_score": 21.159472570837277,
+        "baseline_chat_count": 7.989867628184059,
+        "baseline_viewer_count": 213.93142374411394,
+        "baseline_threshold": 22.87422040992993,
+        "sequence_count": 0,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 12.307195900288496,
+        "test_score_difference": 0.11537121884501572,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 18,
+        "viewer_count": 171,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:02:28",
+      "comment_after_openDate": "03:02:28",
+      "chat_context": [
+        "어디있다옴: 15였나",
+        "귤딩이다옴: 일주일 정도 남았네",
+        "부뚜막타타: 음음",
+        "귤딩이다옴: 잘쟈~",
+        "벤하_: 잘자",
+        "갔다옴: 잘자",
+        "부뚜막타타: 마바링~",
+        "큰아빠햄부기: 마바링",
+        "kdory: 마바링",
+        "어디있다옴: 마바링",
+        "롯데이겨다옴: 마바링",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "옹동궁: 마바링~",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "잼파카: 마바링",
+        "타이쿠누ww: 마바링~~",
+        "큰아빠햄부기: ㄱㅇㅇ",
+        "어디있다옴: 마뱅알"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:35.737190",
+      "fun_score": 14.945935886918033,
+      "test_fun_score": 0.17822119873595,
+      "score_components": {
+        "chat_spike_score": 22.0415125757655,
+        "reaction_score": 0.2166757228035961,
+        "test_reaction_score": 0.17822119873595,
+        "diversity_score": 34.62252510982478,
+        "viewer_trend_score": 10,
+        "final_score": 14.945935886918033,
+        "baseline_chat_count": 8.18126135913318,
+        "baseline_viewer_count": 213.1105749221265,
+        "baseline_threshold": 22.841434431246476,
+        "sequence_count": -1,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 6.093659216369252,
+        "test_score_difference": 0.11115117264265437,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 171,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:02:33",
+      "comment_after_openDate": "03:02:33",
+      "chat_context": [
+        "부뚜막타타: 음음",
+        "귤딩이다옴: 잘쟈~",
+        "벤하_: 잘자",
+        "갔다옴: 잘자",
+        "부뚜막타타: 마바링~",
+        "큰아빠햄부기: 마바링",
+        "kdory: 마바링",
+        "어디있다옴: 마바링",
+        "롯데이겨다옴: 마바링",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "옹동궁: 마바링~",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "잼파카: 마바링",
+        "타이쿠누ww: 마바링~~",
+        "큰아빠햄부기: ㄱㅇㅇ",
+        "어디있다옴: 마뱅알"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:40.742747",
+      "fun_score": 14.379211302245215,
+      "test_fun_score": 0.17512389317114221,
+      "score_components": {
+        "chat_spike_score": 20.702131395640897,
+        "reaction_score": 0.21216572778891699,
+        "test_reaction_score": 0.17512389317114221,
+        "diversity_score": 34.99602455870136,
+        "viewer_trend_score": 10,
+        "final_score": 14.379211302245215,
+        "baseline_chat_count": 8.330755641946553,
+        "baseline_viewer_count": 212.30542072961543,
+        "baseline_threshold": 22.69047249907892,
+        "sequence_count": -2,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 5.5269346316964345,
+        "test_score_difference": 0.004849385271946588,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 16,
+        "viewer_count": 171,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:02:38",
+      "comment_after_openDate": "03:02:38",
+      "chat_context": [
+        "귤딩이다옴: 잘쟈~",
+        "벤하_: 잘자",
+        "갔다옴: 잘자",
+        "부뚜막타타: 마바링~",
+        "큰아빠햄부기: 마바링",
+        "kdory: 마바링",
+        "어디있다옴: 마바링",
+        "롯데이겨다옴: 마바링",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "옹동궁: 마바링~",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "잼파카: 마바링",
+        "타이쿠누ww: 마바링~~",
+        "큰아빠햄부기: ㄱㅇㅇ",
+        "어디있다옴: 마뱅알",
+        "귤딩이다옴: 깨꼬닥"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:45.747482",
+      "fun_score": 7.099269890034725,
+      "test_fun_score": 0.1722415008401107,
+      "score_components": {
+        "chat_spike_score": 8.070284525704082,
+        "reaction_score": 0.2079829259295092,
+        "test_reaction_score": 0.1722415008401107,
+        "diversity_score": 34.052469756890346,
+        "viewer_trend_score": 0,
+        "final_score": 7.099269890034725,
+        "baseline_chat_count": 8.477391594072534,
+        "baseline_viewer_count": 211.51566108526518,
+        "baseline_threshold": 22.531561184995457,
+        "sequence_count": -3,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.001966992940915069,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 12,
+        "viewer_count": 152,
+        "fun_keywords": {
+          "laugh": 1.2
+        },
+        "test_keyword_counter": {
+          "laugh": 1.0
+        }
+      },
+      "after_openDate": "03:02:43",
+      "comment_after_openDate": "03:02:43",
+      "chat_context": [
+        "큰아빠햄부기: 마바링",
+        "kdory: 마바링",
+        "어디있다옴: 마바링",
+        "롯데이겨다옴: 마바링",
+        "귤딩이다옴: ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "옹동궁: 마바링~",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "잼파카: 마바링",
+        "타이쿠누ww: 마바링~~",
+        "큰아빠햄부기: ㄱㅇㅇ",
+        "어디있다옴: 마뱅알",
+        "귤딩이다옴: 깨꼬닥"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:50.752413",
+      "fun_score": 5.522770136904771,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 2.51953360510591,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 43.688590067791225,
+        "viewer_trend_score": 0,
+        "final_score": 5.522770136904771,
+        "baseline_chat_count": 8.544743866793867,
+        "baseline_viewer_count": 210.3777216453149,
+        "baseline_threshold": 22.23649577543581,
+        "sequence_count": -4,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 7,
+        "viewer_count": 152,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "03:02:48",
+      "comment_after_openDate": "03:02:48",
+      "chat_context": [
+        "옹동궁: 마바링~",
+        "귤딩이다옴: ㄱㅇㅇ",
+        "잼파카: 마바링",
+        "타이쿠누ww: 마바링~~",
+        "큰아빠햄부기: ㄱㅇㅇ",
+        "어디있다옴: 마뱅알",
+        "귤딩이다옴: 깨꼬닥"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:41:55.764209",
+      "fun_score": 5.301389226806022,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6250404866178518,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.301389226806022,
+        "baseline_chat_count": 8.515208364060769,
+        "baseline_viewer_count": 209.26153960745646,
+        "baseline_threshold": 21.916929341227096,
+        "sequence_count": -5,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 152,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "03:02:53",
+      "comment_after_openDate": "03:02:53",
+      "chat_context": [
+        "귤딩이다옴: 깨꼬닥"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:42:00.769373",
+      "fun_score": 5.30252186432171,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6275574588749359,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.30252186432171,
+        "baseline_chat_count": 8.371517580139926,
+        "baseline_viewer_count": 208.1666989701619,
+        "baseline_threshold": 21.599240214239366,
+        "sequence_count": -6,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0011326375156874846,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 152,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "03:02:58",
+      "comment_after_openDate": "03:02:58",
+      "chat_context": [
+        "귤딩이다옴: 깨꼬닥"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:42:05.774386",
+      "fun_score": 5.3036759145060035,
+      "test_fun_score": 0.06707002609329563,
+      "score_components": {
+        "chat_spike_score": 0.6301220148400322,
+        "reaction_score": 0.06707002609329563,
+        "test_reaction_score": 0.06707002609329563,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3036759145060035,
+        "baseline_chat_count": 8.230574164007649,
+        "baseline_viewer_count": 207.09279168585238,
+        "baseline_threshold": 21.287646959388937,
+        "sequence_count": -7,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.0022866876999811936,
+        "test_score_difference": 0.0,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "재미있는 순간 감지",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 148,
+        "fun_keywords": {},
+        "test_keyword_counter": {}
+      },
+      "after_openDate": "03:03:03",
+      "comment_after_openDate": "03:03:03",
+      "chat_context": [
+        "귤딩이다옴: 깨꼬닥"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:42:15.789894",
+      "fun_score": 5.332497058453058,
+      "test_fun_score": 0.15922102352931852,
+      "score_components": {
+        "chat_spike_score": 0.6327350030983624,
+        "reaction_score": 0.15922102352931852,
+        "test_reaction_score": 0.15922102352931852,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.332497058453058,
+        "baseline_chat_count": 8.092325585991821,
+        "baseline_viewer_count": 205.96293750881887,
+        "baseline_threshold": 20.982033433010773,
+        "sequence_count": -8,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.03110783164703612,
+        "test_score_difference": 0.0921509974360229,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 148,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:03:13",
+      "comment_after_openDate": "03:03:13",
+      "chat_context": [
+        "타이쿠누ww: 어루무!"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:42:20.796997",
+      "fun_score": 5.334403916657754,
+      "test_fun_score": 0.161583795135528,
+      "score_components": {
+        "chat_spike_score": 0.6353972847046575,
+        "reaction_score": 0.161583795135528,
+        "test_reaction_score": 0.161583795135528,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.334403916657754,
+        "baseline_chat_count": 7.956720320787658,
+        "baseline_viewer_count": 204.85468614365024,
+        "baseline_threshold": 20.68281429752923,
+        "sequence_count": -9,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.03301468985173184,
+        "test_score_difference": 0.09451376904223238,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:03:18",
+      "comment_after_openDate": "03:03:18",
+      "chat_context": [
+        "타이쿠누ww: 어루무!"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:42:25.812784",
+      "fun_score": 5.3363544101916975,
+      "test_fun_score": 0.16401676746430194,
+      "score_components": {
+        "chat_spike_score": 0.6381097332275709,
+        "reaction_score": 0.16401676746430194,
+        "test_reaction_score": 0.16401676746430194,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.3363544101916975,
+        "baseline_chat_count": 7.823707828254197,
+        "baseline_viewer_count": 203.69114454458364,
+        "baseline_threshold": 20.38935269104697,
+        "sequence_count": -10,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.034965183385675225,
+        "test_score_difference": 0.09694674137100631,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:03:23",
+      "comment_after_openDate": "03:03:23",
+      "chat_context": [
+        "타이쿠누ww: 어루무!"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:42:30.825499",
+      "fun_score": 5.338349662999947,
+      "test_fun_score": 0.16652235782062982,
+      "score_components": {
+        "chat_spike_score": 0.640873234786129,
+        "reaction_score": 0.16652235782062982,
+        "test_reaction_score": 0.16652235782062982,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.338349662999947,
+        "baseline_chat_count": 7.693238534577977,
+        "baseline_viewer_count": 202.5498498608912,
+        "baseline_threshold": 20.101539363917016,
+        "sequence_count": -11,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.036960436193925084,
+        "test_score_difference": 0.0994523317273342,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:03:28",
+      "comment_after_openDate": "03:03:28",
+      "chat_context": [
+        "타이쿠누ww: 어루무!"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:42:35.829866",
+      "fun_score": 5.340390832680883,
+      "test_fun_score": 0.16910307681968462,
+      "score_components": {
+        "chat_spike_score": 0.6436886880777273,
+        "reaction_score": 0.16910307681968462,
+        "test_reaction_score": 0.16910307681968462,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.340390832680883,
+        "baseline_chat_count": 7.565263813796846,
+        "baseline_viewer_count": 201.43037673155092,
+        "baseline_threshold": 19.81926717683548,
+        "sequence_count": -12,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.039001605874860346,
+        "test_score_difference": 0.10203305072638899,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:03:33",
+      "comment_after_openDate": "03:03:33",
+      "chat_context": [
+        "타이쿠누ww: 어루무!"
+      ]
+    },
+    {
+      "timestamp": "2026-07-08T22:42:40.845964",
+      "fun_score": 5.342479111649071,
+      "test_fun_score": 0.17176153223446322,
+      "score_components": {
+        "chat_spike_score": 0.6465570043971826,
+        "reaction_score": 0.17176153223446322,
+        "test_reaction_score": 0.17176153223446322,
+        "diversity_score": 50.0,
+        "viewer_trend_score": 0,
+        "final_score": 5.342479111649071,
+        "baseline_chat_count": 7.4397359696770495,
+        "baseline_viewer_count": 200.33230792844364,
+        "baseline_threshold": 19.542431061135247,
+        "sequence_count": -13,
+        "highlights": false,
+        "test_highlights": false,
+        "big_highlights": false,
+        "test_big_highlights": false,
+        "score_difference": 0.041089884843048985,
+        "test_score_difference": 0.1046915061411676,
+        "should_create_new_highlight": false,
+        "test_should_create_new_highlight": false
+      },
+      "reason": "🔥 뜨거운 반응",
+      "analysis_data": {
+        "message_count": 1,
+        "viewer_count": 144,
+        "fun_keywords": {
+          "excitement": 1.0
+        },
+        "test_keyword_counter": {
+          "excitement": 1.0
+        }
+      },
+      "after_openDate": "03:03:38",
+      "comment_after_openDate": "03:03:38",
+      "chat_context": [
+        "타이쿠누ww: 어루무!"
+      ]
+    }
+  ],
+  "save_type": "full_cache"
+}
