@@ -988,33 +988,35 @@ async def change_nickname(init, user_id, nickname, platform: str):
         old_name = init.chatFilter[platform].loc[user_id, "channelName"]
         if nickname == old_name:
             return
+         
+        asyncio.create_task(log_error(f"닉네임 변경됨 {platform}:{old_name} -> {nickname}"))
+        channel_id_list = list(init.IDList[platform])
+        for channel_id in channel_id_list:
+            key = (channel_id, old_name)
+            targets = init.chat_user_index.get(key, [])
 
-        channel_id = init.chatFilter[platform].loc[user_id, "channelID"]
-        key = (channel_id, old_name)
-        targets = init.chat_user_index.get(key, [])
+            for discordURL in targets:
+                chat_json = init.userStateData.loc[discordURL, "chat_user_json"]
+                if not isinstance(chat_json, dict):
+                    continue
 
-        for discordURL in targets:
-            chat_json = init.userStateData.loc[discordURL, "chat_user_json"]
-            if not isinstance(chat_json, dict):
-                continue
+                user_list = chat_json.get(channel_id)
+                if not user_list:
+                    continue
 
-            user_list = chat_json.get(channel_id)
-            if not user_list:
-                continue
+                while old_name in user_list:
+                    idx = user_list.index(old_name)
+                    user_list[idx] = nickname
 
-            while old_name in user_list:
-                idx = user_list.index(old_name)
-                user_list[idx] = nickname
+                asyncio.create_task(
+                    save_user_chat_user_json(init.supabase, discordURL, chat_json)
+                )
 
-            asyncio.create_task(
-                save_user_chat_user_json(init.supabase, discordURL, chat_json)
-            )
-
-        if targets:
-            new_key = (channel_id, nickname)
-            init.chat_user_index[new_key].extend(targets)
-            if key in init.chat_user_index:
-                del init.chat_user_index[key]
+            if targets:
+                new_key = (channel_id, nickname)
+                init.chat_user_index[new_key].extend(targets)
+                if key in init.chat_user_index:
+                    del init.chat_user_index[key]
 
         asyncio.create_task(
             log_error(f"닉네임 변경됨 {platform}:{old_name} -> {nickname}")
@@ -1024,4 +1026,4 @@ async def change_nickname(init, user_id, nickname, platform: str):
         )
 
     except Exception as e:
-        asyncio.create_task(log_error(f"change_nickname error: {e}"))
+        asyncio.create_task(log_error(f"change_nickname, {nickname} error: {e}"))
