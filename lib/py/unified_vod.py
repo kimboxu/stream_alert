@@ -740,7 +740,7 @@ class chzzk_vod(base_vod):
             await log_error(f"치지직 댓글 전송 오류: {str(e)}")
             return None
 
-    async def _first_send_comment(self, message):
+    async def _first_send_comment(self, message: str):
         """치지직 댓글 전송"""
         try:
 

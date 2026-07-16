@@ -31,7 +31,7 @@ class GenAIModelManager:
 
                     응답 형식:
                     [
-                    {"comment_after_openDate": "VOD_타임라인_시간", "score_difference": "재미도 점수 차이","text": "댓글 내용", "image_text": "댓글 내용"}
+                    {"comment_after_openDate": "VOD_타임라인_시간", "score_difference": 재미도_점수_차이_입력값 ,"text": "댓글 내용", "image_text": "댓글 내용"}
                     ]
 
                     분석 우선순위:

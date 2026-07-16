@@ -1626,6 +1626,44 @@ class ChatAnalyzer:
                 print(f"{datetime.now()} ⚠ 주기적 로그 저장 오류: {str(e)}")
                 await asyncio.sleep(300)  # 오류 시 5분 후 재시도
 
+    def _restore_numeric_fields_from_source(
+        self,
+        ai_comments: List[dict],
+        highlights: List[StreamHighlight],
+    ) -> List[dict]:
+        """
+        AI가 재작성하면서 값이 바뀔 위험이 있는 필드(score_difference,
+        comment_after_openDate)를 원본 highlight 데이터 값으로 되돌린다.
+
+        - AI 응답 순서(timeline_comments)가 highlights 순서와 반드시 일치한다는
+        보장이 없으므로, comment_after_openDate 텍스트를 키로 매칭한다.
+        - 매칭에 실패한 항목은 원본 그대로 두되 로그를 남겨 추적 가능하게 한다.
+        """
+        # 원본 값 조회용 매핑 테이블 (comment_after_openDate -> highlight)
+        source_by_time = {
+            highlight.comment_after_openDate: highlight for highlight in highlights
+        }
+
+        restored_comments = []
+        for comment in ai_comments:
+            original_time = comment.get("comment_after_openDate")
+            matched_highlight = source_by_time.get(original_time)
+
+            if matched_highlight is None:
+                # 매칭 실패 시 원본 유지 (단, 경고 로그 남김)
+                restored_comments.append(comment)
+                continue
+
+            restored_comments.append(
+                {
+                    **comment,
+                    "comment_after_openDate": matched_highlight.comment_after_openDate,
+                    "score_difference": matched_highlight.score_details["score_difference"],
+                }
+            )
+
+        return restored_comments
+
     async def _make_highlight_chat(
         self,
         highlights: List,
@@ -1740,10 +1778,11 @@ class ChatAnalyzer:
                 await log_error(f"타임라인 댓글 생성 최종 실패: {self.channel_name}")
                 return emergency_timeline_comments
 
+            # AI가 재작성하며 훼손했을 수 있는 수치 필드를 원본 값으로 복원
+            timeline_comments = self._restore_numeric_fields_from_source(timeline_comments, highlights)
+
             # 부적절한 키워드 검열
-            timeline_comments = ContentCensorHandler.censor_timeline_comments(
-                timeline_comments
-            )
+            timeline_comments = ContentCensorHandler.censor_timeline_comments(timeline_comments)
 
             # 타임라인 기준으로 정렬
             if isinstance(timeline_comments, list):
