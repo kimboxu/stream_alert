@@ -989,7 +989,7 @@ async def change_nickname(init, user_id, nickname, platform: str):
         if nickname == old_name:
             return
          
-        asyncio.create_task(log_error(f"{datetime.now()} 닉네임 변경됨 {platform}:{old_name} -> {nickname}"))
+        print(f"닉네임 변경 시도 {platform}:{old_name} -> {nickname}")
         channel_id_list = list(init.IDList[platform]["channelID"])
         for channel_id in channel_id_list:
             key = (channel_id, old_name)
@@ -1026,4 +1026,4 @@ async def change_nickname(init, user_id, nickname, platform: str):
         )
 
     except Exception as e:
-        asyncio.create_task(log_error(f"change_nickname, {nickname} error: {e}"))
+        asyncio.create_task(log_error(f"change_nickname, {platform}, {nickname} error: {e}"))
