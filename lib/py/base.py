@@ -796,13 +796,26 @@ async def save_highlights_dict_cache_allChannelID(init: initVar):
                 )
             )
 
-            stream_start_ids = list(init.highlight_chat[channelID].keys())
-            channelName = init.IDList[platform].loc[channelID, "channelName"]
-            for stream_start_id in stream_start_ids:
-                # 하이라이트 채팅 업데이트 직후 파일로 저장
-                tasks.append(
-                    save_completed_highlight_chat_after_update(init, channelID, channelName, stream_start_id)
-                )
+            try:
+                if channelID not in init.highlight_chat:
+                    continue
+
+                if channelID not in init.IDList[platform].index:
+                    continue
+
+                stream_start_ids = list(init.highlight_chat[channelID].keys())
+                channelName = init.IDList[platform].loc[channelID, "channelName"]
+
+                for stream_start_id in stream_start_ids:
+                    # 하이라이트 채팅 업데이트 직후 파일로 저장
+                    tasks.append(
+                        save_completed_highlight_chat_after_update(
+                            init, channelID, channelName, stream_start_id
+                        )
+                    )
+            except Exception as e:
+                await log_error(f"save_highlights_dict_cache: channelID={channelID} 처리 중 오류: {e}")
+                continue
 
     # 모든 저장 작업을 동시에 실행하고 완료까지 대기
     if tasks:
@@ -817,7 +830,6 @@ async def save_highlights_dict_cache_allChannelID(init: initVar):
     # 모든 저장이 완료된 후에 플래그 업데이트
     init.is_state_control["save_highlights_dict_cache"] = False
     await update_flag(init.supabase, "is_state_control", init.is_state_control)
-    await log_error("하이라이트 챗 캐시 데이터 저장 완료", is_Do_test=True)
 
 # 방송 정보 데이터 저장 함수
 async def save_airing_data(
