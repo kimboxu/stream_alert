@@ -340,24 +340,27 @@ class ChatAnalyzer:
         self._setup_log_directories()
 
     def _setup_init_dict(self):
-        if self.stream_start_id is None:
-            return
+        stream_start_ids = set(self.title_data.loc[self.channel_id, "highlights_dict_cache"].keys())
+        stream_start_ids.add(self.stream_start_id)
+        for stream_start_id in stream_start_ids:
+            if stream_start_id is None:
+                return
 
-        if self.stream_start_id not in self.is_wait:
-            self.is_wait[self.stream_start_id] = False
+            if stream_start_id not in self.is_wait:
+                self.is_wait[stream_start_id] = False
 
-        if self.stream_start_id not in self.title_data.loc[self.channel_id, "highlights_dict_cache"]:
-            self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id] = []
-        if self.stream_start_id not in self.detailed_logs_dict:
-            self.detailed_logs_dict[self.stream_start_id] = []
+            if stream_start_id not in self.title_data.loc[self.channel_id, "highlights_dict_cache"]:
+                self.title_data.loc[self.channel_id, "highlights_dict_cache"][stream_start_id] = []
+            if stream_start_id not in self.detailed_logs_dict:
+                self.detailed_logs_dict[stream_start_id] = []
 
-        if self.stream_start_id not in self.init.highlight_chat[self.channel_id]:
-            self.init.highlight_chat[self.channel_id][
-                self.stream_start_id
-            ] = highlight_chat_Data()
-            self.init.highlight_chat[self.channel_id][
-                self.stream_start_id
-            ].last_title = self.title_data.loc[self.channel_id, "title1"]
+            if stream_start_id not in self.init.highlight_chat[self.channel_id]:
+                self.init.highlight_chat[self.channel_id][
+                    stream_start_id
+                ] = highlight_chat_Data()
+                self.init.highlight_chat[self.channel_id][
+                    stream_start_id
+                ].last_title = self.title_data.loc[self.channel_id, "title1"]
 
     def _setup_log_directories(self):
         """프로젝트 구조에 맞는 로그 디렉토리 설정"""
