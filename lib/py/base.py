@@ -809,6 +809,7 @@ async def save_highlights_dict_cache_allChannelID(init: initVar):
     # 모든 저장이 완료된 후에 플래그 업데이트
     init.is_state_control["save_highlights_dict_cache"] = False
     await update_flag(init.supabase, "is_state_control", init.is_state_control)
+    await log_error("하이라이트 챗 캐시 데이터 저장 완료", is_Do_test=True)
 
 # 방송 정보 데이터 저장 함수
 async def save_airing_data(
