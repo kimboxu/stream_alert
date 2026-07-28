@@ -796,6 +796,14 @@ async def save_highlights_dict_cache_allChannelID(init: initVar):
                 )
             )
 
+            stream_start_ids = list(init.highlight_chat[channelID].keys())
+            channelName = init.IDList[platform].loc[channelID, "channelName"]
+            for stream_start_id in stream_start_ids:
+                # 하이라이트 채팅 업데이트 직후 파일로 저장
+                tasks.append(
+                    save_completed_highlight_chat_after_update(init, channelID, channelName, stream_start_id)
+                )
+
     # 모든 저장 작업을 동시에 실행하고 완료까지 대기
     if tasks:
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -843,6 +851,36 @@ async def save_airing_data(
             match={"channelID": id_, "platform": platform},
             data=data,
         )
+
+async def save_completed_highlight_chat_after_update(init: initVar, channel_id, channel_name, stream_start_id: str):
+    """하이라이트 채팅 저장"""
+    try:
+
+        # 해당 채널의 하이라이트 데이터 확인
+        if (channel_id not in init.highlight_chat or stream_start_id not in init.highlight_chat[channel_id]):
+            print(f"{datetime.now()} 저장할 하이라이트 데이터 없음1: {channel_name} - {stream_start_id}")
+            return
+
+        # 현재 스트림의 하이라이트 데이터 가져오기
+        highlight_data = init.highlight_chat[channel_id][stream_start_id]
+
+        # timeline_comments가 업데이트되었는지 확인
+        from highlight_chat_saver import HighlightChatSaver
+        if (hasattr(highlight_data, "timeline_comments")and highlight_data.timeline_comments):
+            # 파일로 저장
+            file_path = await HighlightChatSaver(channel_name).save_completed_stream_highlight(channel_id, channel_name, stream_start_id, highlight_data)
+
+            if file_path:
+                # 저장 성공 후 메모리에서 제거
+                del init.highlight_chat[channel_id][stream_start_id]
+            else:
+                print(f"{datetime.now()} 하이라이트 채팅 저장 실패1: {channel_name}")
+        else:
+            print(f"{datetime.now()} timeline_comments가 비어있음1: {channel_name}")
+
+    except Exception as e:
+        await log_error(f"하이라이트 채팅 저장 오류1 ({channel_name}): {str(e)}")
+        print(f"{datetime.now()} 하이라이트 채팅 저장 오류1: {str(e)}")
 
 # 프로필 이미지 url 저장 함수
 async def save_profile_data(supabase, IDList, platform: str, id_):
