@@ -320,6 +320,7 @@ class ChatAnalyzer:
 
         # 하이라이트 저장
         self.is_wait = {}
+        self._highlight_processing_lock = asyncio.Lock()
 
         # self.highlights: List[StreamHighlight] = []
         
@@ -344,7 +345,7 @@ class ChatAnalyzer:
         stream_start_ids.add(self.stream_start_id)
         for stream_start_id in stream_start_ids:
             if stream_start_id is None:
-                return
+                continue
 
             if stream_start_id not in self.is_wait:
                 self.is_wait[stream_start_id] = False
@@ -1101,80 +1102,80 @@ class ChatAnalyzer:
 
     async def highlight_processing(self, is_emergency=False):
         """하이라이트 처리"""
-        try:
-            check_interval = 1
-            max_wait_time = 300
-            stream_start_ids = list(self.title_data.loc[self.channel_id, "highlights_dict_cache"].keys())
-            asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"baseline_metrics"}))
+        async with self._highlight_processing_lock:
+            try:
+                check_interval = 1
+                max_wait_time = 300
+                stream_start_ids = list(self.title_data.loc[self.channel_id, "highlights_dict_cache"].keys())
+                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"baseline_metrics"}))
 
-            for stream_start_id in stream_start_ids:
-                if self.is_wait[stream_start_id]:
-                    continue
+                for stream_start_id in stream_start_ids:
+                    if self.is_wait.get(stream_start_id, False):
+                        continue
 
-                try:
-                    for wait_count in range(max_wait_time):
-                        self.is_wait[stream_start_id] = True
-                        if wait_count % 30 == 0:
-                            remaining_time = max_wait_time - (
-                                wait_count * check_interval
-                            )
-                            print(
-                                f"{datetime.now()} {stream_start_id} 하이라이트 대기 중: {self.channel_name} (남은 시간: {remaining_time}초)"
-                            )
-                        if self.init.wait_make_highlight_chat[self.channel_id]:
-                            await asyncio.sleep(check_interval)
-                        else:
-                            break
-                finally:
-                    self.is_wait[stream_start_id] = False
+                    try:
+                        for wait_count in range(max_wait_time):
+                            self.is_wait[stream_start_id] = True
+                            if wait_count % 30 == 0:
+                                remaining_time = max_wait_time - (
+                                    wait_count * check_interval
+                                )
+                                print(
+                                    f"{datetime.now()} {stream_start_id} 하이라이트 대기 중: {self.channel_name} (남은 시간: {remaining_time}초)"
+                                )
+                            if self.init.wait_make_highlight_chat[self.channel_id]:
+                                await asyncio.sleep(check_interval)
+                            else:
+                                break
+                    finally:
+                        self.is_wait[stream_start_id] = False
 
-                if stream_start_id not in self.title_data.loc[self.channel_id, "highlights_dict_cache"]:
-                    continue
+                    if stream_start_id not in self.title_data.loc[self.channel_id, "highlights_dict_cache"]:
+                        continue
 
-                if stream_start_id not in self.detailed_logs_dict:
-                    self.detailed_logs_dict[stream_start_id] = []
+                    if stream_start_id not in self.detailed_logs_dict:
+                        self.detailed_logs_dict[stream_start_id] = []
 
-                print(
-                    f"{datetime.now()} 하이라이트 {stream_start_id} 처리 시작: {self.channel_name}"
-                )
+                    print(
+                        f"{datetime.now()} 하이라이트 {stream_start_id} 처리 시작: {self.channel_name}"
+                    )
 
-                await self.save_detailed_logs_to_file(
-                    save_cache=True, force_save=True, stream_start_id=stream_start_id
-                )
+                    await self.save_detailed_logs_to_file(
+                        save_cache=True, force_save=True, stream_start_id=stream_start_id
+                    )
 
-                # 하이라이트 생성
-                highlights_to_process = self.title_data.loc[self.channel_id, "highlights_dict_cache"][stream_start_id].copy()
+                    # 하이라이트 생성
+                    highlights_to_process = self.title_data.loc[self.channel_id, "highlights_dict_cache"][stream_start_id].copy()
 
-                if self.is_save_log:
-                    # 방송 종료 - 완전히 삭제
-                    highlights_cache = self.title_data.loc[self.channel_id, "highlights_dict_cache"]
-                    del highlights_cache[stream_start_id]
-                    if stream_start_id in self.detailed_logs_dict:
-                        del self.detailed_logs_dict[stream_start_id]
-                    del self.is_wait[stream_start_id]
-                else:
-                    self.title_data.loc[self.channel_id, "highlights_dict_cache"][stream_start_id] = []
-                    self.detailed_logs_dict[stream_start_id] = []
+                    if self.is_save_log:
+                        # 방송 종료 - 완전히 삭제
+                        highlights_cache = self.title_data.loc[self.channel_id, "highlights_dict_cache"]
+                        highlights_cache.pop(stream_start_id, None)
+                        self.detailed_logs_dict.pop(stream_start_id, None)
+                        self.is_wait.pop(stream_start_id, None)
+                    else:
+                        self.title_data.loc[self.channel_id, "highlights_dict_cache"][stream_start_id] = []
+                        self.detailed_logs_dict[stream_start_id] = []
 
-                asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"highlights_dict_cache"}))
+                    asyncio.create_task(save_airing_data(self.init.supabase, self.title_data, self.platform, self.channel_id, updated_keys={"highlights_dict_cache"}))
 
-                timeline_comments = await self._make_highlight_chat(
-                    highlights_to_process, is_emergency
-                )
-                self.update_highlight_chat(timeline_comments, stream_start_id)
+                    timeline_comments = await self._make_highlight_chat(
+                        highlights_to_process, is_emergency
+                    )
+                    self.update_highlight_chat(timeline_comments, stream_start_id)
 
-            stream_start_ids = list(self.init.highlight_chat[self.channel_id].keys())
-            for stream_start_id in stream_start_ids:
-                # 하이라이트 채팅 업데이트 직후 파일로 저장
-                await self._save_completed_highlight_chat_after_update(stream_start_id)
+                stream_start_ids = list(self.init.highlight_chat[self.channel_id].keys())
+                for stream_start_id in stream_start_ids:
+                    # 하이라이트 채팅 업데이트 직후 파일로 저장
+                    await self._save_completed_highlight_chat_after_update(stream_start_id)
 
-            return True
+                return True
 
-        except Exception as e:
-            await log_error(f"하이라이트 처리 오류: {str(e)}")
-            return False
-        finally:
-            print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
+            except Exception as e:
+                await log_error(f"하이라이트 처리 오류: {str(e)}")
+                return False
+            finally:
+                print(f"{datetime.now()} 하이라이트 처리 완료: {self.channel_name}")
 
     async def _save_completed_highlight_chat_after_update(self, stream_start_id):
         """하이라이트 채팅 저장"""
