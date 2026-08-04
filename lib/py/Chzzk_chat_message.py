@@ -1156,9 +1156,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
             self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
             await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform)
-            await self._send(f"명령어 {sp_chat[1]}(이)가 추가 되었습니다.")
+            await self._send(f"'{sp_chat[1]}'명령어가 추가 되었습니다.")
         else:
-            await self._send(f"{sp_chat[1]} 명령어는 이미 있습니다.")
+            await self._send(f"'{sp_chat[1]}' 명령어는 이미 있습니다.")
 
     async def fix_command(self, sp_chat):
         if sp_chat[1] in self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]:
@@ -1168,18 +1168,18 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 save_text = " ".join(sp_chat[2:])
         
             self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"][sp_chat[1]] = save_text
-            await self._send(f"{save_text}(으)로 변경")
+            await self._send(f"'{save_text}'로 변경")
             await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform)
         else:
-            await self._send(f"{sp_chat[1]} 명령어는 없습니다.")
+            await self._send(f"'{sp_chat[1]}' 명령어는 없습니다.")
 
     async def del_command(self, chat_command):
         if chat_command in self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]:
             del self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"][chat_command]
-            await self._send(f"{chat_command}(이)가 삭제되었습니다.")
+            await self._send(f"'{chat_command}' 명령어가 삭제되었습니다.")
             await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform)
         else:
-            await self._send(f"{chat_command} 명령어는 없습니다.")
+            await self._send(f"'{chat_command}' 명령어는 없습니다.")
 
     def is_sendMSG_time(self, command, time):
         if command not in self.command_delay:
