@@ -1005,7 +1005,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if self.data.channel_id not in list(self.init.chat_commands[self.platform]["channelID"]):
             return
         
-        special_command_list = ["!방제", "!명령어", "!카테고리", "!게임"] # "!업타임", "!제거", "!추가", "!수정",
+        special_command_list = ["!명령어", "!게임"] # "!업타임", "!방제", "!카테고리", "!제거", "!추가", "!수정",
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
@@ -1042,9 +1042,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 #     await self.uptime_command(command, time)
                 #     return
 
-                if command == "!방제":
-                    await self.title_command(command, time)
-                    return
+                # if command == "!방제":
+                #     await self.title_command(command, time)
+                #     return
                 
                 if command == "!명령어":
                     if self.command_task and not self.command_task.done():
