@@ -1005,7 +1005,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         if self.data.channel_id not in list(self.init.chat_commands[self.platform]["channelID"]):
             return
         
-        special_command_list = ["!업타임", "!방제", "!명령어", "!카테고리", "!게임", "!삭제", "!추가", "!수정"]
+        special_command_list = ["!방제", "!명령어", "!카테고리", "!게임"] # "!업타임", "!제거", "!추가", "!수정",
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
@@ -1038,9 +1038,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                 return
             
             if command in special_command_list:
-                if command == "!업타임":
-                    await self.uptime_command(command, time)
-                    return
+                # if command == "!업타임":
+                #     await self.uptime_command(command, time)
+                #     return
 
                 if command == "!방제":
                     await self.title_command(command, time)
@@ -1059,23 +1059,23 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             send_command = chat_command[command]
             await self._send(send_command, command, time)
 
-        elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and command in ["!삭제"]:
-            if not self.is_sendMSG_time(command, time):
-                return
+        # elif self.is_authority(userRoleCode, nickname) and len(sp_chat) == 2 and command in ["!제거"]:
+        #     if not self.is_sendMSG_time(command, time):
+        #         return
             
-            await self.del_command(chat_command)
-            return
+        #     await self.del_command(chat_command)
+        #     return
 
-        elif self.is_authority(userRoleCode, nickname) and len(sp_chat) >= 2 and command in ["!추가", "!수정"]:
-            if not self.is_sendMSG_time(command, time):
-                return
+        # elif self.is_authority(userRoleCode, nickname) and len(sp_chat) >= 2 and command in ["!추가", "!수정"]:
+        #     if not self.is_sendMSG_time(command, time):
+        #         return
             
-            if command == "!추가":
-                await self.add_command(sp_chat)
-                return
-            if command == "!수정":
-                await self.fix_command(chat_command, sp_chat)
-                return
+        #     if command == "!추가":
+        #         await self.add_command(sp_chat)
+        #         return
+        #     if command == "!수정":
+        #         await self.fix_command(chat_command, sp_chat)
+        #         return
         return
 
     def is_authority(self, userRoleCode, nickname):
