@@ -1009,7 +1009,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
 
         # 명령어 수정 기능
         sp_chat = chat.split(" ")
-        command = sp_chat[0]
+        command = sp_chat[0].replace("맴버", "멤버")
         if command == "!멤버수정" or (len(sp_chat) >= 2 and sp_chat[1] == "수정") and (command == "!멤버" or self.is_authority(userRoleCode, nickname)):
             if (len(sp_chat) == 2 and command == "!멤버") or (len(sp_chat) == 1 and command == "!멤버수정"):
                 save_text = " "
