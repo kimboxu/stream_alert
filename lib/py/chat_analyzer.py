@@ -41,7 +41,6 @@ class ChatAnalysisData:
     viewer_count: int = 0
     threshold: int = 0
     fun_keywords: Dict[str, int] = field(default_factory=dict)
-    test_fun_keywords: Dict[str, int] = field(default_factory=dict)
 
 
 @dataclass
@@ -52,7 +51,6 @@ class StreamHighlight:
     channel_id: str
     channel_name: str
     fun_score: float
-    test_fun_score: float
     reason: str
     chat_context: List[str]
     duration: int
@@ -69,7 +67,6 @@ class StreamHighlight:
             "channel_id": self.channel_id,
             "channel_name": self.channel_name,
             "fun_score": self.fun_score,
-            "test_fun_score": self.test_fun_score,
             "reason": self.reason,
             "chat_context": self.chat_context,
             "duration": self.duration,
@@ -88,7 +85,6 @@ class StreamHighlight:
             channel_id=data["channel_id"],
             channel_name=data["channel_name"],
             fun_score=data["fun_score"],
-            test_fun_score=data["test_fun_score"],
             reason=data["reason"],
             chat_context=data["chat_context"],
             duration=data["duration"],
@@ -124,6 +120,7 @@ class ChatMessageWithAnalyzer:
                 )
                 self.chat_analyzer._setup_init_dict()
                 self.analysis_task = asyncio.create_task(self._run_analyzer())
+                await self.chat_analyzer.start_highlight_worker()
                 print(
                     f"{datetime.now()} 채팅 분석기 시작: {self.chat_analyzer.channel_name}, {self.chat_analyzer.stream_start_id}, {list(self.init.highlight_chat[self.chat_analyzer.channel_id].keys())}"
                 )
@@ -142,6 +139,13 @@ class ChatMessageWithAnalyzer:
     async def stop_analyzer(self):
         """분석기 중지"""
         try:
+            # 하이라이트 워커 태스크 중지
+            if (
+                self.chat_analyzer.highlight_worker_task
+                and not self.chat_analyzer.highlight_worker_task.done()
+            ):
+                self.chat_analyzer.highlight_worker_running = False
+            
             # 분석 태스크 중지
             if self.analysis_task and not self.analysis_task.done():
                 self.analysis_task.cancel()
@@ -167,12 +171,22 @@ class ChatMessageWithAnalyzer:
                 except Exception as e:
                     await log_error(f"log_save_task 정리 중 에러: {str(e)}")
 
+            if self.chat_analyzer.highlight_worker_task is not None:
+                try:
+                    await self.chat_analyzer.highlight_worker_task
+                except asyncio.CancelledError:
+                    pass
+                except Exception as e:
+                    await log_error(f"highlight_worker_task 정리 중 에러: {str(e)}")
+
         except Exception as e:
             await log_error(f"stop_analyzer 에러: {str(e)}")
         finally:
             # 태스크 참조 정리
             self.analysis_task = None
             self.log_save_task = None
+            self.chat_analyzer.highlight_worker_task = None
+            self.chat_analyzer.highlight_worker_running = False
 
     async def should_offLine(self):
         # 로그 저장
@@ -269,6 +283,11 @@ class ChatAnalyzer:
         self.chat_buffer = deque(maxlen=7200)  # 60분 분량(2/초 채팅 기준)
         self.analysis_history = deque(maxlen=self.history_1min * 30)  # 30분간 분석 결과
 
+        # 하이라이트 처리 관련
+        self.highlight_queue = asyncio.Queue(maxsize=300)
+        self.highlight_worker_task = None
+        self.highlight_worker_running = False
+
         # 재미 키워드 패턴 (한국어 최적화)
         self.fun_patterns = {
             "laugh": re.compile(r"ㅋ{2,}|z{2,}|ㅎ{2,}|하하|푸하|풉|웃겨|개웃|존웃|엌"),
@@ -326,7 +345,6 @@ class ChatAnalyzer:
         
         # self.highlights_dict= self.title_data.loc[self.channel_id, "highlights_dict_cache"]: Dict[List[StreamHighlight]]
         self.last_highlight = None
-        self.test_last_highlight = None
         self.last_analysis_time = datetime.now()
         self.check_after_openDate = 0
 
@@ -396,7 +414,6 @@ class ChatAnalyzer:
 
         # 키워드 추출
         keywords = self._extract_keywords(message)
-        test_keywords = self._test_extract_keywords(message)
 
         # 채팅 데이터 저장
         chat_data = {
@@ -404,7 +421,6 @@ class ChatAnalyzer:
             "nickname": nickname,
             "message": message,
             "keywords": keywords,
-            "test_keywords": test_keywords,
             "keyword_count": sum(keywords.values()),
         }
 
@@ -438,19 +454,6 @@ class ChatAnalyzer:
 
         return keyword_scores
 
-    def _test_extract_keywords(self, message: str) -> Dict[str, float]:
-        """단순 키워드 추출"""
-        keyword_scores = {}
-
-        for pattern_name, pattern in self.fun_patterns.items():
-            matches = pattern.findall(message.lower())
-
-            if matches:
-                score = 1.0
-                keyword_scores[pattern_name] = score
-
-        return keyword_scores
-
     async def analyze(self) -> Optional[Tuple[float, ChatAnalysisData]]:
         """현재 시점 분석 수행"""
         current_time = datetime.now()
@@ -481,17 +484,11 @@ class ChatAnalyzer:
 
         # 키워드 집계
         keyword_counter = Counter()
-        test_keyword_counter = Counter()
         for chat in window_chats:
             for key, count in chat["keywords"].items():
                 keyword_counter[key] += count
 
-        for chat in window_chats:
-            for key, count in chat["test_keywords"].items():
-                test_keyword_counter[key] += count
-
         analysis.fun_keywords = dict(keyword_counter)
-        analysis.test_fun_keywords = dict(test_keyword_counter)
 
         # 상세 점수 계산
         score_details = self._calculate_fun_score(current_time, analysis, window_chats)
@@ -507,14 +504,12 @@ class ChatAnalyzer:
         detailed_log = {
             "timestamp": current_time.isoformat(),
             "fun_score": score_details["final_score"],
-            "test_fun_score": score_details["test_reaction_score"],
             "score_components": score_details,
             "reason": self._determine_highlight_reason(analysis, score_details),
             "analysis_data": {
                 "message_count": analysis.message_count,
                 "viewer_count": analysis.viewer_count,
                 "fun_keywords": analysis.fun_keywords,
-                "test_keyword_counter": analysis.test_fun_keywords,
             },
             "after_openDate": after_openDate,
             "comment_after_openDate": after_openDate,
@@ -528,13 +523,8 @@ class ChatAnalyzer:
 
         # 하이라이트 체크
         if score_details["highlights"] or self.init.DO_TEST:
-            await self._create_highlight(detailed_log)
+            self.enqueue_highlight_analysis(detailed_log)
 
-        # 테스트 하이라이트 체크
-        if score_details["test_highlights"] or self.init.DO_TEST:
-            highlight = await self.make_StreamHighlight(detailed_log, is_image=False)
-            await self.test_change_score_to_peak(highlight)
-            self.test_last_highlight = highlight
 
         # 치지직 방송 시간이 17시간이 지날 때마다 해당 시점까지의 하이라이트 생성
         if self.is_check_after_openDate(detailed_log):
@@ -546,7 +536,6 @@ class ChatAnalyzer:
             (
                 analysis,
                 score_details["final_score"],
-                score_details["test_reaction_score"],
             )
         )
 
@@ -568,7 +557,7 @@ class ChatAnalyzer:
         chat_spike_score = self._calculate_chat_spike_score(analysis)
 
         # 2. 반응 강도 점수 (30% 가중치) - 최대 100점
-        reaction_score, test_reaction_score = self._calculate_reaction_score(analysis)
+        reaction_score = self._calculate_reaction_score(analysis)
 
         # 3. 다양성 점수 (10% 가중치) - 최대 100점
         diversity_score = self._calculate_diversity_score(window_chats)
@@ -588,7 +577,6 @@ class ChatAnalyzer:
         score_details = {
             "chat_spike_score": chat_spike_score,
             "reaction_score": reaction_score,
-            "test_reaction_score": test_reaction_score,
             "diversity_score": diversity_score,
             "viewer_trend_score": viewer_trend_score,
             "final_score": final_score,
@@ -605,22 +593,10 @@ class ChatAnalyzer:
                 self.channel_id, "baseline_metrics"
             ]["sequence_count"],
             "highlights": self._is_highlight(final_score, self.small_fun_difference),
-            "test_highlights": self._test_is_highlight(
-                test_reaction_score, self.small_fun_difference
-            ),
             "big_highlights": self._is_highlight(final_score, self.big_fun_difference),
-            "test_big_highlights": self._test_is_highlight(
-                test_reaction_score, self.big_fun_difference
-            ),
             "score_difference": self.get_score_difference(final_score),
-            "test_score_difference": self.test_get_score_difference(
-                test_reaction_score
-            ),
             "should_create_new_highlight": self._should_create_new_highlight(
                 final_score, current_time
-            ),
-            "test_should_create_new_highlight": self.test_should_create_new_highlight(
-                test_reaction_score, current_time
             ),
         }
 
@@ -695,7 +671,6 @@ class ChatAnalyzer:
     # 반응 강도 점수 계산
     def _calculate_reaction_score(self, analysis: ChatAnalysisData) -> float:
         keywords = analysis.fun_keywords
-        test_fun_keywords = analysis.test_fun_keywords
 
         # 키워드별 가중치 (감정 강도 반영)
         keyword_weights = {
@@ -721,22 +696,14 @@ class ChatAnalyzer:
         reaction_score = min(self._sigmoid_transform(keyword_density, 4.0) * 100, 100)
 
         total_weighted_keywords = 0
-        for keyword, count in test_fun_keywords.items():
-
-            weight = keyword_weights.get(keyword, 1.0)
-            total_weighted_keywords += count * weight
 
         # 채팅 수 대비 키워드 밀도로 정규화
         keyword_density = (
             total_weighted_keywords
             / self.title_data.loc[self.channel_id, "baseline_metrics"]["avg_chat_count"]
         )
-        # 밀도 3.0 (채팅 대비 1키워드 * keyword_weights 비율*3.0배)를 기준으로 점수화
-        test_reaction_score = min(
-            self._sigmoid_transform(keyword_density, 4.0) * 100, 100
-        )
 
-        return reaction_score, test_reaction_score
+        return reaction_score
 
     # 사용자 참여의 다양성 점수 계산
     def _calculate_diversity_score(self, window_chats: List[Dict]) -> float:
@@ -946,19 +913,6 @@ class ChatAnalyzer:
 
         return True
 
-    def _test_is_highlight(self, fun_score, fun_difference):
-        if self.init.DO_TEST:
-            return True
-
-        if len(self.analysis_history) < int(self.history_1min * 2):
-            return False
-
-        # 이전 1분 중 가장 작은 점수가 fun_difference점 이상 높아진 경우
-        if self.test_get_score_difference(fun_score) < fun_difference:
-            return False
-
-        return True
-
     # 새 하이라이트를 생성해야 하는지 판단
     def _should_create_new_highlight(self, fun_score, current_time: datetime):
         if not self._is_highlight(fun_score, self.small_fun_difference):
@@ -972,18 +926,6 @@ class ChatAnalyzer:
 
         return True
 
-    # 테스트 새 하이라이트를 생성해야 하는지 판단
-    def test_should_create_new_highlight(self, fun_score, current_time: datetime):
-        if not self._test_is_highlight(fun_score, self.small_fun_difference):
-            return False
-
-        if self.test_last_highlight is None:
-            return True
-
-        if not self.check_cooldown(current_time, self.test_last_highlight.timestamp):
-            return False
-
-        return True
 
     def check_cooldown(self, current_time: datetime, last_timestamp: datetime):
         time_diff = (
@@ -1003,14 +945,6 @@ class ChatAnalyzer:
         # 이전 1분 중 가장 작은 점수와의 차이
         return max(fun_score - min(a[1] for a in bef_recent_scores), 0)
 
-    def test_get_score_difference(self, fun_score):
-        if len(self.analysis_history) < int(self.history_1min):
-            return 0
-
-        bef_recent_scores = list(self.analysis_history)[-int(self.history_1min) :]
-
-        # 이전 1분 중 가장 작은 점수와의 차이
-        return max(fun_score - min(a[2] for a in bef_recent_scores), 0)
 
     async def make_StreamHighlight(self, detailed_log: dict, is_image=True):
         image = None
@@ -1041,7 +975,6 @@ class ChatAnalyzer:
             channel_id=self.channel_id,
             channel_name=self.channel_name,
             fun_score=detailed_log["fun_score"],
-            test_fun_score=detailed_log["test_fun_score"],
             reason=detailed_log["reason"],
             chat_context=detailed_log["chat_context"],
             duration=self.window_size,
@@ -1056,6 +989,69 @@ class ChatAnalyzer:
             },
         )
         return highlight
+
+    async def start_highlight_worker(self):
+        """AI 하이라이트 분석 전용 Worker 시작"""
+        if self.highlight_worker_task and not self.highlight_worker_task.done():
+            return
+
+        self.highlight_worker_running = True
+        self.highlight_worker_task = asyncio.create_task(
+            self._highlight_worker()
+        )
+
+    async def _highlight_worker(self):
+        """AI 분석은 채팅 처리 경로와 분리해서 순차 처리"""
+
+        try:
+            while self.highlight_worker_running:
+                detailed_log = await self.highlight_queue.get()
+
+                try:
+                    await self._create_highlight(detailed_log)
+
+                except asyncio.CancelledError:
+                    raise
+
+                except Exception as e:
+                    asyncio.create_task(
+                        log_error(
+                            f"highlight worker error: "
+                            f"{self.channel_name}.{str(e)}"
+                        )
+                    )
+
+                finally:
+                    self.highlight_queue.task_done()
+
+        except asyncio.CancelledError:
+            pass
+
+        finally:
+            print(
+                f"{datetime.now()} "
+                f"하이라이트 AI Worker 종료: {self.channel_name}"
+            )
+
+    def enqueue_highlight_analysis(
+        self,
+        detailed_log,
+    ):
+        """채팅/분석 루프를 절대 기다리게 하지 않는 Queue 삽입"""
+
+        try:
+            self.highlight_queue.put_nowait(
+                (detailed_log)
+            )
+
+        except asyncio.QueueFull:
+            # AI 분석이 밀려 있을 경우 채팅 처리 경로를 절대 기다리게 하지 않음
+            asyncio.create_task(
+                log_error(
+                    f"하이라이트 AI Queue 가득 참: "
+                    f"{self.channel_name}"
+                )
+            )
 
     # 하이라이트 생성
     async def _create_highlight(self, detailed_log: dict) -> None:
@@ -1303,58 +1299,6 @@ class ChatAnalyzer:
                 self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id] = self.title_data.loc[self.channel_id, "highlights_dict_cache"][self.stream_start_id][:-1]
                 return
 
-    async def test_change_score_to_peak(self, highlight: StreamHighlight):
-        if not self.test_last_highlight:
-            # print(f"{datetime.now()} test highlights가 비어있어서 change_score_to_peak 건너뜀")
-            return
-
-        is_higher_score = False
-        if highlight.test_fun_score > self.test_last_highlight.test_fun_score:
-            is_higher_score = True
-
-        if (
-            highlight.score_details["test_highlights"]
-            and not highlight.score_details["test_should_create_new_highlight"]
-        ):
-            idx = None
-            is_new_highlight_check_cnt = 0
-            for i, detailed_log in enumerate(
-                reversed(self.detailed_logs_dict[self.stream_start_id])
-            ):
-                # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있는지
-                if not detailed_log["score_components"]["test_highlights"]:
-                    is_new_highlight_check_cnt += 1
-
-                if detailed_log["score_components"]["test_should_create_new_highlight"]:
-                    idx = i
-                    break
-
-            # 직전 하이라이트의 test_should_create_new_highlight False로 변경 후 현재것을 True로 변경
-            if idx:
-                # 현 사점과 직전의 하이라이트 사이에 하이라이트가 아닌 구간이 있다면, 직전의 하이라이트 제거하지 않고, 새로운 하이라이트 추가
-                if not is_higher_score and is_new_highlight_check_cnt < 3:
-                    return
-
-                highlight.score_details["test_should_create_new_highlight"] = True
-                self.detailed_logs_dict[self.stream_start_id][-1]["score_components"][
-                    "test_should_create_new_highlight"
-                ] = True
-
-                if is_new_highlight_check_cnt >= 3:
-                    return
-
-                highlight.comment_after_openDate = self.detailed_logs_dict[
-                    self.stream_start_id
-                ][-(idx + 1)]["comment_after_openDate"]
-                self.detailed_logs_dict[self.stream_start_id][-1][
-                    "comment_after_openDate"
-                ] = self.detailed_logs_dict[self.stream_start_id][-(idx + 1)][
-                    "comment_after_openDate"
-                ]
-                self.detailed_logs_dict[self.stream_start_id][-(idx + 1)][
-                    "score_components"
-                ]["test_should_create_new_highlight"] = False
-                return
 
     # 하이라이트 DB 저장
     async def _save_highlight_to_db(self, highlight: StreamHighlight):
