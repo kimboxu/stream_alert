@@ -139,12 +139,7 @@ class ChatMessageWithAnalyzer:
     async def stop_analyzer(self):
         """분석기 중지"""
         try:
-            # 하이라이트 워커 태스크 중지
-            if (
-                self.chat_analyzer.highlight_worker_task
-                and not self.chat_analyzer.highlight_worker_task.done()
-            ):
-                self.chat_analyzer.highlight_worker_running = False
+
             
             # 분석 태스크 중지
             if self.analysis_task and not self.analysis_task.done():
@@ -153,6 +148,16 @@ class ChatMessageWithAnalyzer:
             # 로그 저장 태스크 중지
             if self.log_save_task and not self.log_save_task.done():
                 self.log_save_task.cancel()
+
+            # Queue에 들어간 하이라이트 전부 처리될 때까지 대기
+            await self.chat_analyzer.highlight_queue.join()
+
+            # 하이라이트 워커 태스크 중지
+            if (
+                self.chat_analyzer.highlight_worker_task
+                and not self.chat_analyzer.highlight_worker_task.done()
+            ):
+                self.chat_analyzer.highlight_worker_running = False
 
             # 태스크 완료 대기 (None 체크)
             if self.analysis_task is not None:
@@ -627,8 +632,7 @@ class ChatAnalyzer:
         # 최근 10분(120회)의 데이터가 90% 반영되도록 [α = 1 - 0.1^(1/120)]
         # 만약 임계값 이상으로 증가/감소 된다면 alpha 증가(1분 언속 마다 배수 증가)
         alpha = 0.01912  # 1 - 0.1^(1/120) ≈ 0.01912
-        
-        alpha *= (abs(self.title_data.loc[self.channel_id, "baseline_metrics"]["sequence_count"])//24+1)
+        alpha = min(0.01912 * (abs(sequence_count) // 24 + 1),0.2,)
 
         self.title_data.loc[self.channel_id, "baseline_metrics"]["avg_chat_count"] = (
             alpha * chat_counts
