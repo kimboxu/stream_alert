@@ -1026,12 +1026,13 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"][command] = save_text
             await save_chat_command_data(self.init.supabase, self.init.chat_commands, self.data.channel_id, self.platform)
             return
-        
+
+        chat_command = self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]
         if len(sp_chat) >= 2 and command in ["!수정"] and sp_chat[1] == "!멤버":
             await self.fix_command(chat_command, sp_chat)
             return
         
-        chat_command = self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]
+        
         # 메시지 보네기
         if len(sp_chat) == 1 and command in list(chat_command.keys()) + special_command_list:
             if not self.is_sendMSG_time(command, time):
