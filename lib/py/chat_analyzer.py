@@ -140,7 +140,6 @@ class ChatMessageWithAnalyzer:
         """분석기 중지"""
         try:
 
-            
             # 분석 태스크 중지
             if self.analysis_task and not self.analysis_task.done():
                 self.analysis_task.cancel()
@@ -158,6 +157,7 @@ class ChatMessageWithAnalyzer:
                 and not self.chat_analyzer.highlight_worker_task.done()
             ):
                 self.chat_analyzer.highlight_worker_running = False
+                self.chat_analyzer.highlight_worker_task.cancel()
 
             # 태스크 완료 대기 (None 체크)
             if self.analysis_task is not None:
