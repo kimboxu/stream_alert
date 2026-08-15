@@ -3054,7 +3054,7 @@ async def main():
             use_ai = args.use_ai
 
         except:
-            channel_name, date, use_ai = "빅헤드", "2026-07-28", True
+            channel_name, date, use_ai = "빅헤드", "2026-08-14", True
 
         # AI 사용 가능 여부 확인
         if use_ai and not AI_AVAILABLE:
