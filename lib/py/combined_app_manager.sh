@@ -1,76 +1,267 @@
 #!/bin/bash
 
+# ==========================================
+
 # Configuration
+
+# ==========================================
+
 APP_SCRIPT="combined_app.py"
 LOG_FILE="combined_app.log"
+WATCHDOG_LOG="combined_app_watchdog.log"
+PID_FILE="combined_app_watchdog.pid"
 
-# Function to check if app is running
+RESTART_DELAY=5
+
+# ==========================================
+
+# Watchdog 실행
+
+# ==========================================
+
+watchdog_loop() {
+
+```
+while true; do
+
+    echo "$(date '+%Y-%m-%d %H:%M:%S') Combined app starting..." >> "$WATCHDOG_LOG"
+
+    # Python 프로그램 실행
+    python3 -u "$APP_SCRIPT" >> "$LOG_FILE" 2>&1
+
+    EXIT_CODE=$?
+
+    echo "$(date '+%Y-%m-%d %H:%M:%S') Combined app stopped. Exit code: $EXIT_CODE" >> "$WATCHDOG_LOG"
+
+    echo "$(date '+%Y-%m-%d %H:%M:%S') Restarting in $RESTART_DELAY seconds..." >> "$WATCHDOG_LOG"
+
+    sleep "$RESTART_DELAY"
+
+done
+```
+
+}
+
+# ==========================================
+
+# 앱 실행 여부 확인
+
+# ==========================================
+
 check_app() {
-    pgrep -f "python3 -u $APP_SCRIPT" > /dev/null
-    return $?
-}
 
-# Function to start the app
-start_app() {
-    echo "Starting combined app..."
-    nohup python3 -u $APP_SCRIPT >> $LOG_FILE 2>&1 &
-    echo "Combined app started with PID: $!"
-}
+```
+if [ -f "$PID_FILE" ]; then
 
-# Function to kill the app
-kill_app() {
-    pid=$(pgrep -f "python3 -u $APP_SCRIPT")
-    if [ -n "$pid" ]; then
-        echo "Stopping combined app (PID: $pid)..."
-        kill $pid  # 우선 정상 종료 시도(SIGTERM)
-        sleep 3
-        if ps -p $pid > /dev/null; then
-            echo "프로세스가 아직 종료되지 않았으므로 강제 종료합니다. (kill -9)"
-            kill -9 $pid
-        fi
-        echo "Combined app stopped"
+    WATCHDOG_PID=$(cat "$PID_FILE")
+
+    if ps -p "$WATCHDOG_PID" > /dev/null 2>&1; then
         return 0
-    else
-        echo "Combined app is not running"
-        return 1
     fi
+
+fi
+
+return 1
+```
+
 }
 
-# Main script logic
+# ==========================================
+
+# 프로그램 시작
+
+# ==========================================
+
+start_app() {
+
+```
+if check_app; then
+
+    echo "Combined app is already running."
+    echo "Watchdog PID: $(cat "$PID_FILE")"
+
+    return 0
+
+fi
+
+
+echo "Starting combined app watchdog..."
+
+nohup bash -c "
+    echo \$\$ > '$PID_FILE'
+    watchdog_loop() {
+        while true; do
+
+            echo \"\$(date '+%Y-%m-%d %H:%M:%S') Combined app starting...\" >> '$WATCHDOG_LOG'
+
+            python3 -u '$APP_SCRIPT' >> '$LOG_FILE' 2>&1
+
+            EXIT_CODE=\$?
+
+            echo \"\$(date '+%Y-%m-%d %H:%M:%S') Combined app stopped. Exit code: \$EXIT_CODE\" >> '$WATCHDOG_LOG'
+
+            echo \"\$(date '+%Y-%m-%d %H:%M:%S') Restarting in $RESTART_DELAY seconds...\" >> '$WATCHDOG_LOG'
+
+            sleep '$RESTART_DELAY'
+
+        done
+    }
+
+    watchdog_loop
+" > /dev/null 2>&1 &
+
+
+sleep 1
+
+
+echo $! > "$PID_FILE"
+
+
+echo "Combined app watchdog started."
+echo "Watchdog PID: $(cat "$PID_FILE")"
+```
+
+}
+
+# ==========================================
+
+# 프로그램 종료
+
+# ==========================================
+
+stop_app() {
+
+```
+if ! check_app; then
+
+    echo "Combined app is not running."
+
+    rm -f "$PID_FILE"
+
+    return 1
+
+fi
+
+
+WATCHDOG_PID=$(cat "$PID_FILE")
+
+
+echo "Stopping watchdog (PID: $WATCHDOG_PID)..."
+
+# watchdog 종료
+kill "$WATCHDOG_PID" 2>/dev/null
+
+
+# Python 프로그램도 종료
+sleep 2
+
+APP_PID=$(pgrep -f "python3 -u $APP_SCRIPT")
+
+if [ -n "$APP_PID" ]; then
+
+    echo "Stopping combined app (PID: $APP_PID)..."
+
+    kill $APP_PID 2>/dev/null
+
+    sleep 3
+
+
+    if ps -p "$APP_PID" > /dev/null 2>&1; then
+
+        echo "Force stopping combined app..."
+
+        kill -9 "$APP_PID"
+
+    fi
+
+fi
+
+
+rm -f "$PID_FILE"
+
+
+echo "Combined app stopped."
+```
+
+}
+
+# ==========================================
+
+# 메인 명령 처리
+
+# ==========================================
+
 case "$1" in
-    start)
-        if check_app; then
-            echo "Combined app is already running"
-        else
-            start_app
-        fi
-        ;;
-    stop)
-        kill_app
-        ;;
-    restart)
-        if kill_app; then
-            # Small delay to ensure process is fully terminated
-            sleep 1
-        fi
-        start_app
-        ;;
-    status)
-        if check_app; then
-            pid=$(pgrep -f "python3 -u $APP_SCRIPT")
-            echo "Combined app is running with PID: $pid"
-        else
-            echo "Combined app is not running"
-        fi
-        ;;
-    logs)
-        echo "Showing last 50 lines of log file and following..."
-        tail -n 50 -f $LOG_FILE
-        ;;
-    *)
-        echo "Usage: $0 {start|stop|restart|status|logs}"
-        exit 1
-        ;;
+
+```
+start)
+
+    start_app
+
+    ;;
+
+
+stop)
+
+    stop_app
+
+    ;;
+
+
+restart)
+
+    stop_app
+
+    sleep 2
+
+    start_app
+
+    ;;
+
+
+status)
+
+    if check_app; then
+
+        echo "Combined app is running."
+        echo "Watchdog PID: $(cat "$PID_FILE")"
+
+    else
+
+        echo "Combined app is not running."
+
+    fi
+
+    ;;
+
+
+logs)
+
+    echo "Showing application log..."
+
+    tail -n 50 -f "$LOG_FILE"
+
+    ;;
+
+
+watchdog-logs)
+
+    echo "Showing watchdog log..."
+
+    tail -n 50 -f "$WATCHDOG_LOG"
+
+    ;;
+
+
+*)
+
+    echo "Usage: $0 {start|stop|restart|status|logs|watchdog-logs}"
+
+    exit 1
+
+    ;;
+```
+
 esac
 
 exit 0
