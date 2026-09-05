@@ -336,7 +336,7 @@ class base_live_message:
 
     # 제목이 변경되었는지 확인
     def ifChangeTitle(self):
-        return self.data.title not in [
+        return self.data.title is not None and self.data.title not in [
             str(self._get_title()),
             str(self._get_old_title()),
         ]
@@ -559,18 +559,20 @@ class chzzk_live_message(base_live_message):
 
     # 치지직 스트림 데이터 추출
     def _get_stream_data(self, state_data):
+        content = state_data.get("content") or {}
         return chzzk_getChannelOffStateData(
-            state_data["content"],
+            content,
             self.IDList[self.platform].loc[self.channel_id, "uid"],
             self.IDList[self.platform].loc[self.channel_id, "profile_image"],
         )
 
     # 치지직 스트림 정보 업데이트
     def _update_stream_info(self, stream_data, state_data):
+        content = state_data.get("content") or {}
         def is_recent_stream(status):
-            if state_data["content"][status]:
+            if content.get(status):
                 return datetime.fromisoformat(
-                    state_data["content"][status]
+                    content[status]
                 ) > datetime.fromisoformat(self.data.state_update_time[status])
 
         if not self.data.live:
@@ -579,8 +581,8 @@ class chzzk_live_message(base_live_message):
         _, self.data.title, self.data.profile_image = stream_data
 
         if (openDate:= is_recent_stream("openDate")) or (closeDate:= is_recent_stream("closeDate")):
-            self.data.temp_start_at["openDate"] = state_data["content"]["openDate"]
-            self.data.temp_start_at["closeDate"] = state_data["content"]["closeDate"]
+            self.data.temp_start_at["openDate"] = content.get("openDate")
+            self.data.temp_start_at["closeDate"] = content.get("closeDate")
             self.getStarted_at("openDate")
             self.getStarted_at("closeDate")
             self.data.live, self.data.title, self.data.profile_image = stream_data
@@ -631,12 +633,14 @@ class chzzk_live_message(base_live_message):
 
     # 치지직 시청자 수 가져오기
     def getViewer_count(self, state_data):
-        view_count = state_data["content"]["concurrentUserCount"]
+        content = state_data.get("content") or {}
+        view_count = content.get("concurrentUserCount")
         self.data.view_count = view_count
 
     # 치지직 카테고리 가져오기
     def getCategory(self, state_data):
-        category = state_data["content"]["liveCategoryValue"]
+        content = state_data.get("content") or {}
+        category = content.get("liveCategoryValue")
         if self.data.category != category:
             self.data.category = category
             self.title_data.loc[self.channel_id, "category"] = category
@@ -706,7 +710,8 @@ class chzzk_live_message(base_live_message):
     # 치지직 썸네일 이미지 처리
     async def get_thumbnail_image(self, state_data):
         try:
-            if state_data["content"]["liveImageUrl"] is None:
+            content = state_data.get("content") or {}
+            if content.get("liveImageUrl") is None:
                 return None
 
             # 이미지 URL 가져오기
@@ -735,7 +740,8 @@ class chzzk_live_message(base_live_message):
 
     # 치지직 이미지 URL 가져오기
     def getImageURL(self, state_data) -> str:
-        link = state_data["content"]["liveImageUrl"]
+        content = state_data.get("content") or {}
+        link = content.get("liveImageUrl")
         if link is None:
             return
         link = link.replace("{type", "")
@@ -862,7 +868,8 @@ class chzzk_live_message(base_live_message):
             "timestamp": changeUTCtime(self.data.state_update_time["closeDate"]),
         }
         # thumbnail_url = await self.get_live_thumbnail_image(state_data, "방종")
-        defaultThumbnailImageUrl = state_data["content"]["defaultThumbnailImageUrl"]
+        content = state_data.get("content") or {}
+        defaultThumbnailImageUrl = content.get("defaultThumbnailImageUrl")
 
         if not defaultThumbnailImageUrl is None:
             embeds["image"] = {"url": defaultThumbnailImageUrl}

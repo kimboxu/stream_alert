@@ -880,10 +880,10 @@ async def main() -> None:
         # 때와 VS Code 디버거로 F5 실행할 때 cwd가 서로 다를 수 있어서
         # (VS Code는 보통 워크스페이스 루트를 cwd로 씀), 상대경로만 쓰면
         # 실행 방식에 따라 파일을 못 찾는 문제가 생길 수 있기 때문입니다.
-        csv_path = str(Path(__file__).parent / "[2026-08-15]_빅헤드_14701906.csv")
+        csv_path = str(Path(__file__).parent / "[2026-09-03]_빅헤드_15007596.csv")
         channel_id = "bighead033"
         channel_name = "빅헤드"
-        open_date_str = "2026-08-14 18:42:53"
+        open_date_str = "2026-09-02 18:26:06"
         last_title = ""
         window_size = 30.0
         analysis_interval = 5.0

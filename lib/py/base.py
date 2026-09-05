@@ -719,7 +719,7 @@ def twitch_getChannelOffStateData(offStateList, twitchID):
 # 치지직 채널 상태 데이터 추출 함수
 def chzzk_getChannelOffStateData(stateData, chzzkID, profile_image=""):
     try:
-        if stateData["channel"]["channelId"] == chzzkID:
+        if stateData.get("channel") and stateData["channel"]["channelId"] == chzzkID:
             return (
                 stateData["status"],
                 stateData["liveTitle"],

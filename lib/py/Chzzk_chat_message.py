@@ -67,6 +67,15 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         while True:
             if self.init.chat_json[self.data.channel_id]: 
                 asyncio.create_task(change_field_state(self.init.supabase, "chat_json", self.init.chat_json, self.data.channel_id, False))
+
+            # cid가 존제하지 않을 경우
+            if not self.data.cid:
+                self.data.cid = self.title_data.loc[self.data.channel_id, 'chatChannelId']
+                if not self.data.cid:
+                    print(f"{datetime.now()} {self.data.channel_id} 채널 ID 없음")
+                    await asyncio.sleep(60^60*24)  # 24시간 대기
+                    return False
+                await asyncio.sleep(60)
             
             # 방송이 종료되었다면 대기(5초 마다 확인)
             # if self.check_live_state_close() and not self.start_program:
@@ -546,6 +555,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         """연결 수립 함수"""
         sock_response = None
         try:
+
             # 액세스 토큰과 추가 토큰 가져오기
             self.data.accessToken, self.data.extraToken = chzzk_api.fetch_accessToken(self.data.cid, getChzzkCookie())
             
