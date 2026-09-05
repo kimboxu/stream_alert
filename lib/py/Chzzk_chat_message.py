@@ -75,7 +75,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
                     print(f"{datetime.now()} {self.data.channel_id} 채널 ID 없음")
                     await asyncio.sleep(60^60*24)  # 24시간 대기
                     return False
-                await asyncio.sleep(60)
+                await asyncio.sleep(5)
             
             # 방송이 종료되었다면 대기(5초 마다 확인)
             # if self.check_live_state_close() and not self.start_program:
