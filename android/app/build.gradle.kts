@@ -23,7 +23,7 @@ plugins {
 android {
     ndkVersion = "27.0.12077973"
     namespace = "org.duckdns.discordbotsetting.streamalert"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -54,7 +54,7 @@ android {
     defaultConfig {
         applicationId = "org.duckdns.discordbotsetting.streamalert"
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
