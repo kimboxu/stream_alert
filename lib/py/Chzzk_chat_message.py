@@ -1128,7 +1128,7 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
         await self._send("방제 : " + title, command, time)
 
     async def command_list(self, chat_command, special_command_list, command, time):
-        commands = list(chat_command.keys()) + special_command_list
+        commands = list(chat_command.keys())# + special_command_list
 
         async with self.command_semaphore:
             for msg in self.split_message(commands):
