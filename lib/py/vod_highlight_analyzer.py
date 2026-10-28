@@ -34,17 +34,21 @@ vod_highlight_analyzer.py
     - (이미지 없는) 텍스트 전용 Gemini 프롬프트로 하이라이트 댓글(text/image_text) 생성
     - HighlightChatSaver가 요구하는 형식으로 변환 후 저장
 
-사용 예시:
+사용 방법 (exe 또는 python 으로 실행):
+    1) 이 프로그램(exe)이 있는 폴더에 "[2026-10-14]_망징이_15669692.csv" 같은
+       다시보기 채팅 CSV 파일들을 넣습니다.
+       파일명 형식: [방송날짜]_채널이름_VOD번호.csv
+         - [YYYY-MM-DD] -> 방송 날짜(open_date)
+         - 채널이름      -> channel_name (결과 파일 이름에 사용됩니다)
+    2) 프로그램을 실행하면 폴더 안의 모든 CSV 를 차례로 분석합니다.
+    3) 결과(JSON + TXT)는 "<exe 폴더>/파일모음/" 폴더에 저장됩니다.
+
     export GOOGLE_API_KEY="key1,key2"   # 미리 설정 (콤마로 여러 키 가능)
-    python vod_highlight_analyzer.py \\
-        --csv "chat_2026-08-14.csv" \\
-        --channel-id bighead033 \\
-        --channel-name 빅헤드 \\
-        --open-date "2026-08-14 18:42:53" \\
-        --last-title "좋 은 아 침"
+    python vod_highlight_analyzer.py
+    python vod_highlight_analyzer.py --channel-id bighead033
 
     # AI 호출 없이 규칙 기반 문구만으로 빠르게 저장하고 싶다면:
-    python vod_highlight_analyzer.py ... --skip-ai
+    python vod_highlight_analyzer.py --skip-ai
 """
 
 import argparse
@@ -52,7 +56,9 @@ import asyncio
 import csv
 import json
 import re
+import shutil
 import statistics
+import sys
 from collections import Counter, deque
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -65,6 +71,15 @@ from typing import Dict, List, Optional
 from base import format_time_for_comment, get_stream_start_id
 from live_message import highlight_chat_Data
 from highlight_chat_saver import HighlightChatSaver
+
+# JSON -> VOD 댓글용 TXT 변환 로직 (json_to_txt.py 를 그대로 재사용)
+from json_to_txt import (
+    DEFAULT_TIME_OFFSET_SECONDS,
+    convert_to_lines,
+    get_default_output_path,
+    load_json,
+    save_lines,
+)
 
 # 주의: genai_model.py는 "모듈을 import하는 시점"에 바로
 # environ["GOOGLE_API_KEY"]를 읽어서 없으면 그 자리에서 예외를 던집니다.
@@ -754,6 +769,61 @@ def build_highlight_chat_data(
     )
 
 
+def save_highlight_txt(
+    json_file_path: str,
+    time_offset_seconds: int = DEFAULT_TIME_OFFSET_SECONDS,
+) -> Optional[Path]:
+    """
+    저장된 하이라이트 JSON 파일을 읽어서 VOD 댓글용 TXT 파일을 같은 폴더에 만듭니다.
+
+    json_to_txt.py 의 함수들을 그대로 사용하므로, 따로 `python json_to_txt.py`를
+    실행했을 때와 완전히 같은 결과(파일명: <JSON 파일명>_highlights.txt)가 나옵니다.
+
+    JSON은 이미 저장된 상태이므로, 여기서 실패하더라도 예외를 던지지 않고
+    로그만 남깁니다. (TXT 변환 실패 때문에 JSON 저장 성공 결과까지 잃지 않기 위함)
+
+    반환값: 저장된 TXT 파일 경로 (변환할 댓글이 없거나 실패하면 None)
+    """
+    try:
+        json_path = Path(json_file_path)
+        lines = convert_to_lines(load_json(json_path), time_offset_seconds)
+
+        if not lines:
+            print("[save_highlight_txt] 변환할 타임라인 댓글이 없어 TXT를 만들지 않습니다.")
+            return None
+
+        txt_path = get_default_output_path(json_path)
+        save_lines(lines, txt_path)
+
+        print(f"[save_highlight_txt] TXT 저장 완료 ({len(lines)}줄): {txt_path}")
+        return txt_path
+    except Exception as e:
+        print(f"[save_highlight_txt] TXT 변환 중 오류 (JSON은 정상 저장됨): {e}")
+        return None
+
+
+def _move_highlight_file(file_path: str, output_dir: Path) -> str:
+    """
+    HighlightChatSaver 가 저장한 JSON 파일을 output_dir 로 옮기고 새 경로를 반환합니다.
+
+    HighlightChatSaver 는 자기만의 저장 위치 규칙을 갖고 있어서 그 코드를 건드리지 않고,
+    저장이 끝난 뒤에 원하는 폴더로 옮기는 방식을 썼습니다.
+    옮기기에 실패하면 JSON 은 이미 저장된 상태이므로 원래 경로를 그대로 돌려줍니다.
+    """
+    try:
+        source = Path(file_path)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        destination = output_dir / source.name
+
+        if source.resolve() != destination.resolve():
+            shutil.move(str(source), str(destination))
+
+        return str(destination)
+    except OSError as e:
+        print(f"[_move_highlight_file] 파일 이동 실패, 원래 위치를 유지합니다: {e}")
+        return file_path
+
+
 async def analyze_vod_chat_and_save(
     csv_path: str,
     channel_id: str,
@@ -764,6 +834,7 @@ async def analyze_vod_chat_and_save(
     analysis_interval: float = 5.0,
     use_ai: bool = True,
     is_emergency: bool = False,
+    output_dir: Optional[Path] = None,
 ) -> Optional[str]:
     """
     전체 파이프라인을 실행하는 엔트리 포인트.
@@ -772,9 +843,11 @@ async def analyze_vod_chat_and_save(
     2) 하이라이트 구간/피크 추출
     3) (use_ai=True면) Gemini로 하이라이트 댓글 생성, 실패 시 규칙 기반으로 자동 대체
     4) highlight_chat_Data로 변환
-    5) 기존 HighlightChatSaver로 저장
+    5) 기존 HighlightChatSaver로 JSON 저장
+    6) output_dir 이 주어졌다면 저장된 JSON을 그 폴더로 이동
+    7) 저장된 JSON을 json_to_txt 로직으로 변환해서 TXT도 JSON과 같은 폴더에 저장
 
-    반환값: 저장된 파일 경로 (실패 시 None)
+    반환값: 저장된 JSON 파일 경로 (output_dir 이 있으면 이동된 최종 경로, 실패 시 None)
     """
     messages = load_chat_csv(csv_path)
     if not messages:
@@ -814,6 +887,9 @@ async def analyze_vod_chat_and_save(
 
     if file_path:
         print(f"[analyze_vod_chat_and_save] 저장 완료: {file_path}")
+        if output_dir is not None:
+            file_path = _move_highlight_file(file_path, output_dir)
+        save_highlight_txt(file_path)
     else:
         print("[analyze_vod_chat_and_save] 저장 실패")
 
@@ -821,20 +897,82 @@ async def analyze_vod_chat_and_save(
 
 
 # =============================================================================
-# 4. CLI 진입점
+# 4. 실행 설정 + CLI 진입점 (exe 폴더의 CSV 일괄 처리)
 # =============================================================================
 
+# ── 기본 설정 ────────────────────────────────────────────────────────────
+# 채널 ID (실행할 때 --channel-id 옵션으로 덮어쓸 수도 있습니다)
+DEFAULT_CHANNEL_ID = "test"
+
+# 결과(JSON + TXT)를 모아 저장할 폴더 이름. <exe 폴더>/파일모음/ 에 만들어집니다.
+OUTPUT_FOLDER_NAME = "파일모음"
+
+# CSV 파일명 형식: "[2026-10-14]_망징이_15669692.csv"
+#   그룹1: 방송 날짜 (2026-10-14)
+#   그룹2: 채널 이름 (망징이)  - 이름 안에 "_"가 있어도 마지막 "_숫자"만 번호로 보고 나머지는 이름으로 봅니다
+#   그룹3: VOD 번호 (15669692) - 없어도 됩니다
+CSV_NAME_PATTERN = re.compile(r"^\[(\d{4}-\d{2}-\d{2})\]_(.+?)(?:_(\d+))?$")
+
+
+@dataclass
+class CsvFileInfo:
+    """CSV 파일명에서 읽어낸 정보"""
+
+    open_date: datetime   # 방송 날짜 (시각은 00:00:00)
+    channel_name: str     # 채널 이름 (결과 파일 이름에 사용)
+
+
+def get_base_dir() -> Path:
+    """
+    CSV 를 찾고 결과를 저장할 기준 폴더를 반환합니다.
+
+    - exe(PyInstaller)로 실행 중: exe 파일이 있는 폴더
+    - python 으로 실행 중: 이 스크립트 파일이 있는 폴더
+
+    exe 에서는 __file__ 을 쓰면 안 됩니다. --onefile 로 빌드한 exe 는 실행할 때
+    임시 폴더에 압축을 풀어서 돌아가기 때문에 __file__ 이 그 임시 폴더를 가리킵니다.
+    그래서 exe 일 때는 sys.executable(= exe 자신의 경로)을 기준으로 삼습니다.
+    """
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parent
+
+
+def parse_csv_file_info(csv_path: Path) -> Optional[CsvFileInfo]:
+    """
+    CSV 파일명에서 방송 날짜와 채널 이름을 읽어냅니다.
+
+        "[2026-10-14]_망징이_15669692.csv" -> (2026-10-14 00:00:00, "망징이")
+        "[2026-09-03]_빅헤드_15007596.csv" -> (2026-09-03 00:00:00, "빅헤드")
+
+    형식이 맞지 않거나 존재하지 않는 날짜(예: 2026-13-45)이면 None 을 반환합니다.
+    날짜의 시각은 항상 00:00:00 이며, 기존에 직접 넣던 "2026-10-14 00:00:00" 과 같은 값입니다.
+    """
+    match = CSV_NAME_PATTERN.match(csv_path.stem)
+    if match is None:
+        return None
+
+    date_text, channel_name = match.group(1), match.group(2).strip()
+    if not channel_name:
+        return None
+
+    try:
+        open_date = datetime.strptime(date_text, "%Y-%m-%d")
+    except ValueError:
+        return None
+
+    return CsvFileInfo(open_date=open_date, channel_name=channel_name)
+
+
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="치지직 VOD 채팅 CSV로 하이라이트 추출 및 저장")
-    parser.add_argument("--csv", required=True, help="다시보기 채팅 CSV 파일 경로")
-    parser.add_argument("--channel-id", required=True, help="채널 ID (예: bighead033)")
-    parser.add_argument("--channel-name", required=True, help="채널 이름 (예: 빅헤드)")
-    parser.add_argument(
-        "--open-date",
-        required=True,
-        help="방송 시작 일시 (예: '2026-08-14 18:42:53')",
+    parser = argparse.ArgumentParser(
+        description="폴더 안의 치지직 VOD 채팅 CSV들로 하이라이트(JSON + TXT)를 만듭니다."
     )
-    parser.add_argument("--last-title", default="", help="당시 방제 (선택)")
+    parser.add_argument(
+        "--channel-id",
+        default=DEFAULT_CHANNEL_ID,
+        help=f"채널 ID (기본값: {DEFAULT_CHANNEL_ID})",
+    )
     parser.add_argument("--window-size", type=float, default=30.0, help="분석 윈도우 크기(초)")
     parser.add_argument("--interval", type=float, default=5.0, help="분석 간격(초)")
     parser.add_argument(
@@ -851,59 +989,72 @@ def _parse_args() -> argparse.Namespace:
 
 
 async def main() -> None:
-    # ── VSCode 디버깅용 토글 ──────────────────────────────────────────
-    # try 블록 맨 위의 `raise`가 살아있는 동안은 무조건 except로 빠져서
-    # 아래 하드코딩된 값을 쓰기 때문에, CLI 인자 없이 F5만 눌러도 바로
-    # 실행되고 원하는 줄에 breakpoint를 걸 수 있습니다.
-    #
-    # 실제 배포/정식 실행 때는 이 `raise` 한 줄만 지우거나 주석 처리하면
-    # 다시 정상적으로 --csv 등 커맨드라인 인자를 파싱해서 씁니다.
-    try:
-        raise RuntimeError("디버그 모드: 하드코딩된 값 사용")  # noqa: 의도적인 강제 분기
-        args = _parse_args()
+    # 모든 옵션에 기본값이 있어서, 인자 없이 실행(exe 더블클릭, VS Code F5)해도 바로 동작합니다.
+    # 그래서 예전의 "디버그 모드 raise 토글"은 더 이상 필요하지 않아 제거했습니다.
+    args = _parse_args()
 
-        csv_path = args.csv
-        channel_id = args.channel_id
-        channel_name = args.channel_name
-        open_date_str = args.open_date
-        last_title = args.last_title
-        window_size = args.window_size
-        analysis_interval = args.interval
-        use_ai = not args.skip_ai
-        is_emergency = args.emergency
+    base_dir = get_base_dir()
+    output_dir = base_dir / OUTPUT_FOLDER_NAME   # 결과 저장 위치: <exe 폴더>/파일모음/
+    csv_files = sorted(base_dir.glob("*.csv"))
 
-    except Exception:
-        # 여기 값들을 원하는 테스트 데이터로 자유롭게 바꿔서 디버깅하세요.
-        #
-        # csv_path는 "실행할 때의 작업 디렉토리(cwd)"가 아니라 "이 스크립트
-        # 파일이 있는 위치"를 기준으로 절대경로를 만듭니다. 터미널에서 실행할
-        # 때와 VS Code 디버거로 F5 실행할 때 cwd가 서로 다를 수 있어서
-        # (VS Code는 보통 워크스페이스 루트를 cwd로 씀), 상대경로만 쓰면
-        # 실행 방식에 따라 파일을 못 찾는 문제가 생길 수 있기 때문입니다.
-        csv_path = str(Path(__file__).parent / "[2026-09-03]_빅헤드_15007596.csv")
-        channel_id = "bighead033"
-        channel_name = "빅헤드"
-        open_date_str = "2026-09-02 18:26:06"
-        last_title = ""
-        window_size = 30.0
-        analysis_interval = 5.0
-        use_ai = True
-        is_emergency = False
+    print(f"[main] 기준 폴더: {base_dir}")
+    print(f"[main] 결과 저장 폴더: {output_dir}")
 
-    open_date = datetime.fromisoformat(open_date_str)
+    if not csv_files:
+        print("[main] 처리할 CSV 파일이 없습니다. exe 와 같은 폴더에 CSV 파일을 넣어주세요.")
+        return
 
-    await analyze_vod_chat_and_save(
-        csv_path=csv_path,
-        channel_id=channel_id,
-        channel_name=channel_name,
-        open_date=open_date,
-        last_title=last_title,
-        window_size=window_size,
-        analysis_interval=analysis_interval,
-        use_ai=use_ai,
-        is_emergency=is_emergency,
-    )
+    print(f"[main] CSV {len(csv_files)}개를 처리합니다.")
+
+    succeeded: List[str] = []
+    not_processed: List[str] = []   # 날짜 없음 / 하이라이트 없음 / 저장 실패 / 오류
+
+    for csv_file in csv_files:
+        file_info = parse_csv_file_info(csv_file)
+        if file_info is None:
+            print(
+                f"\n[main] 파일명이 '[YYYY-MM-DD]_채널이름_번호.csv' 형식이 아니라 건너뜁니다: "
+                f"{csv_file.name}"
+            )
+            not_processed.append(csv_file.name)
+            continue
+
+        print(
+            f"\n===== {csv_file.name} "
+            f"(방송 날짜: {file_info.open_date:%Y-%m-%d}, 채널 이름: {file_info.channel_name}) ====="
+        )
+
+        # 파일 하나가 실패해도 나머지 CSV 는 계속 처리합니다.
+        try:
+            saved_path = await analyze_vod_chat_and_save(
+                csv_path=str(csv_file),
+                channel_id=args.channel_id,
+                channel_name=file_info.channel_name,
+                open_date=file_info.open_date,
+                window_size=args.window_size,
+                analysis_interval=args.interval,
+                use_ai=not args.skip_ai,
+                is_emergency=args.emergency,
+                output_dir=output_dir,
+            )
+        except Exception as e:
+            print(f"[main] 처리 중 오류가 발생했습니다 ({csv_file.name}): {e}")
+            not_processed.append(csv_file.name)
+            continue
+
+        (succeeded if saved_path else not_processed).append(csv_file.name)
+
+    print("\n" + "=" * 60)
+    print(f"[main] 완료: 성공 {len(succeeded)}개 / 처리 안 됨 {len(not_processed)}개")
+    for name in not_processed:
+        print(f"  - 처리 안 됨: {name}")
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    finally:
+        # exe 를 더블클릭해서 실행하면 작업이 끝나자마자 콘솔 창이 닫혀서 결과를 못 보므로,
+        # exe 로 실행 중일 때만 Enter 를 누를 때까지 창을 열어둡니다.
+        if getattr(sys, "frozen", False):
+            input("\n종료하려면 Enter 키를 누르세요...")

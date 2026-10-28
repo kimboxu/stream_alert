@@ -1038,9 +1038,9 @@ class chzzk_chat_message(ChatMessageWithAnalyzer):
             return
 
         chat_command = self.init.chat_commands[self.platform].loc[self.data.channel_id, "chat_command"]
-        if len(sp_chat) >= 2 and command in ["!수정"] and sp_chat[1] == "!멤버":
-            await self.fix_command(chat_command, sp_chat)
-            return
+        # if len(sp_chat) >= 2 and command in ["!수정"] and sp_chat[1] == "!멤버":
+        #     await self.fix_command(chat_command, sp_chat)
+        #     return
         
         
         # 메시지 보네기

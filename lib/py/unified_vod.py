@@ -575,15 +575,24 @@ class base_vod(ABC):
         except:
             return "0:00"
 
-    def _split_comments_with_notice(self, comment_lines, split_len=90):
-        """댓글 분할"""
+    def _split_comments_with_notice(self, comment_lines, split_len=5000):
+        """댓글 분할: 5000자를 넘기기 전까지 라인들을 하나로 합침"""
         chunks = []
         current_chunk = []
+        current_length = 0
+
         for line in comment_lines:
-            current_chunk.append(line)
-            if len(current_chunk) >= split_len:
+            line_length = len(line) + (1 if current_chunk else 0)
+
+            if current_chunk and current_length + line_length >= split_len:
                 chunks.append("\n".join(current_chunk))
                 current_chunk = []
+                current_length = 0
+                line_length = len(line)
+
+            current_chunk.append(line)
+            current_length += line_length
+
         if current_chunk:
             chunks.append("\n".join(current_chunk))
 
